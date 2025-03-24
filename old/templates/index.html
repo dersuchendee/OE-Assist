@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OntoEval</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <!-- Highlight.js for code blocks in LLM output -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <!-- CodeMirror for ontology editor -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/theme/material-darker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/sparql/sparql.min.js"></script>
+  <style>
+    /* Custom header style (Protege style) */
+    .navbar.protege-header {
+      background-color: #FFCC00;
+      padding: 0.5rem 1rem;
+    }
+    /* Adjust container spacing */
+    .container {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    body {
+  background-color: #cdcbcb; /* Dark gray background */
+  color: #000000; /* Light text for contrast */
+    }
+    .row {
+      margin-bottom: 1rem;
+    }
+    /* LLM Output styling with smaller font */
+    #llmOutput {
+      min-height: 300px;
+      border: 1px solid #907ef3;
+      padding: 10px;
+      background-color: #959393;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    /* Visualization area (wider) */
+    #visualizationBox {
+      min-height: 300px;
+      border: 1px dashed #aaa;
+      padding: 10px;
+      background-color: #939292;
+      border-radius: 5px;
+    }
+    /* Styling for code blocks in LLM output */
+    pre, code {
+      background-color: #1e1e1e;
+      color: #dcdcdc;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap; /* Wrap long lines */
+    }
+    /* Ensure CodeMirror editors use full width and reduce font */
+    .CodeMirror {
+      height: auto;
+      font-size: 0.8rem !important;
+      white-space: pre-wrap;
+    }
+    /* For the inline editor: always 10 lines */
+#ontologyInput + .CodeMirror {
+  height: calc(1.2em * 10); /* Adjust 1.2em to match your line-height */
+  max-height: calc(1.2em * 10);
+  overflow-y: auto;
+}
+
+/* For the fullscreen modal: let it expand */
+#ontologyModal .CodeMirror {
+  height: auto;
+  max-height: none;
+}
+    /* Reduce font size of buttons */
+    .btn {
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navbar -->
+  <nav class="navbar navbar-expand-lg protege-header">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">OntoEval</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://github.com/dersuchendee/OntoEval/issues" target="_blank">Submit Feedback</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <!-- Left Panel: Inputs -->
+      <div class="col-md-3">
+        <h4>Inputs</h4>
+        <div class="mb-3">
+          <label for="ontologyInput" class="form-label">Ontology</label>
+          <textarea id="ontologyInput" placeholder="Paste your ontology here"></textarea>
+          <!-- Button to trigger fullscreen view -->
+          <button class="btn btn-secondary mt-2" onclick="viewOntologyFullscreen()">View Fullscreen</button>
+        </div>
+        <div class="mb-3">
+          <label for="cqInput" class="form-label">Competency Question</label>
+          <textarea id="cqInput" class="form-control" rows="2" placeholder="Paste your competency question here"></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="sendToLLM()">Submit to LLM</button>
+      </div>
+
+      <!-- Center Panel: LLM Output and Feedback -->
+      <div class="col-md-4">
+        <h4>LLM Output</h4>
+        <div id="llmOutput">Your LLM output will appear here...</div>
+
+        <!-- Feedback Section -->
+        <div class="mt-4">
+          <h5>Feedback on LLM Output</h5>
+          <div class="mb-3">
+            <label for="feedbackComments" class="form-label">Comments</label>
+            <textarea id="feedbackComments" class="form-control" rows="3" placeholder="Enter your comments on the output"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Feedback Status</label>
+            <div class="btn-group" role="group" aria-label="Feedback Status">
+              <input type="radio" class="btn-check" name="feedbackStatus" id="notModelled" value="Not Modelled" autocomplete="off">
+              <label class="btn btn-outline-danger" for="notModelled">✖ Not Modelled</label>
+              
+              <input type="radio" class="btn-check" name="feedbackStatus" id="partial" value="Partial or Minor Issue" autocomplete="off">
+              <label class="btn btn-outline-warning" for="partial">⚠ Partial / Minor Issue</label>
+              
+              <input type="radio" class="btn-check" name="feedbackStatus" id="modelled" value="Modelled" autocomplete="off">
+              <label class="btn btn-outline-success" for="modelled">✔ Modelled</label>
+              
+              <input type="radio" class="btn-check" name="feedbackStatus" id="noOpinion" value="No Opinion on this CQ" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="noOpinion">No Opinion on this CQ</label>
+            </div>
+          </div>
+          <button class="btn btn-success" onclick="saveFeedback()">Save Feedback</button>
+          <div id="feedbackResponse" class="mt-3"></div>
+        </div>
+      </div>
+
+      <!-- Right Panel: Visualization -->
+      <div class="col-md-5">
+        <h4>Visualization</h4>
+        <div id="visualizationBox">
+          <!-- Visualization content goes here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Modal for Ontology (using CodeMirror) -->
+  <div class="modal fade" id="ontologyModal" tabindex="-1" aria-labelledby="ontologyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ontologyModalLabel">Ontology Fullscreen View</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="destroyModalEditor()"></button>
+        </div>
+        <div class="modal-body">
+          <textarea id="ontologyModalTextarea"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Initialize Highlight.js for LLM output code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+
+    // Initialize CodeMirror for the ontology input with line wrapping enabled
+    var ontologyEditor = CodeMirror.fromTextArea(document.getElementById("ontologyInput"), {
+      mode: "sparql",
+      theme: "material-darker",
+      lineNumbers: true,
+      lineWrapping: true
+    });
+
+    var modalOntologyEditor = null;
+    // Function to open the ontology in fullscreen modal using CodeMirror
+    function viewOntologyFullscreen() {
+      const ontologyContent = ontologyEditor.getValue();
+      if (!modalOntologyEditor) {
+        modalOntologyEditor = CodeMirror.fromTextArea(document.getElementById("ontologyModalTextarea"), {
+          mode: "sparql",
+          theme: "material-darker",
+          lineNumbers: true,
+          lineWrapping: true,
+          readOnly: true
+        });
+      }
+      modalOntologyEditor.setValue(ontologyContent);
+      // Show the modal and refresh the CodeMirror instance once shown
+      const ontologyModal = new bootstrap.Modal(document.getElementById('ontologyModal'));
+      ontologyModal.show();
+      document.getElementById('ontologyModal').addEventListener('shown.bs.modal', function () {
+        modalOntologyEditor.refresh();
+      }, { once: true });
+    }
+
+    // (Optional) Function to destroy the modal CodeMirror instance on close
+    function destroyModalEditor() {
+      // Optionally destroy or refresh as needed
+    }
+
+    // Function to send ontology and competency question to the LLM endpoint
+    function sendToLLM() {
+      const ontology = ontologyEditor.getValue();
+      const cq = document.getElementById('cqInput').value;
+      const llmOutputElement = document.getElementById('llmOutput');
+      llmOutputElement.innerHTML = 'Processing...';
+
+      fetch('/process-llm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ontology: ontology, competency_question: cq })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          llmOutputElement.innerHTML = 'Error: ' + data.error;
+        } else {
+          let output = data.llm_output;
+          // Replace triple backticks with styled code blocks
+          output = output.replace(/```(.*?)```/gs, (match, codeContent) => {
+            return '<pre><code>' + codeContent.trim() + '</code></pre>';
+          });
+          llmOutputElement.innerHTML = output;
+          document.querySelectorAll('#llmOutput pre code').forEach(block => {
+            hljs.highlightElement(block);
+          });
+        }
+      })
+      .catch(error => {
+        llmOutputElement.innerHTML = 'Error: ' + error.message;
+      });
+    }
+
+    // Function to save feedback via the /save-feedback endpoint
+    function saveFeedback() {
+      const llmOutput = document.getElementById('llmOutput').innerText;
+      const comments = document.getElementById('feedbackComments').value;
+      const statusElements = document.getElementsByName('feedbackStatus');
+      let feedbackStatus = "";
+      for (let elem of statusElements) {
+        if (elem.checked) {
+          feedbackStatus = elem.value;
+          break;
+        }
+      }
+      fetch('/save-feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ llm_output: llmOutput, comments: comments, feedback_status: feedbackStatus })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const feedbackResponseElement = document.getElementById('feedbackResponse');
+        feedbackResponseElement.innerHTML = data.error ? 'Error: ' + data.error : data.message;
+      })
+      .catch(error => {
+        document.getElementById('feedbackResponse').innerHTML = 'Error: ' + error.message;
+      });
+    }
+  </script>
+</body>
+</html>

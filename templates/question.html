@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Question {{ q_index + 1 }}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Optional: Include a code highlighter for SPARQL queries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <style>
+    body {
+      padding-top: 40px;
+      min-height: 80vh;
+    }
+    /* Visual highlight for the selected answer */
+    .selected {
+      border: 2px solid #007bff;
+    }
+  </style>
+  <script>
+    function selectAnswer(answer, buttonId) {
+      // Set the hidden field's value
+      document.getElementById("selected_answer").value = answer;
+      // Remove the 'selected' class from all answer buttons
+      var buttons = document.getElementsByClassName("answer-btn");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("selected");
+      }
+      // Add the 'selected' class to the clicked button
+      document.getElementById(buttonId).classList.add("selected");
+    }
+  </script>
+</head>
+<body class="container">
+  <h2 class="mb-4">CQ: {{ current_row['cq'] }}</h2>
+  {% if show_llm %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <pre><code>{{ current_row['llm_ontology_suggestion'] }}</code></pre>
+    </div>
+  </div>
+  {% endif %}
+  <form method="post">
+    <div class="form-group">
+      <label>Is the CQ modelled?</label>
+      <div>
+        <!-- Answer buttons of type "button" call the JS function -->
+        <button type="button" id="btn_yes" class="btn btn-success answer-btn" onclick="selectAnswer('Yes', 'btn_yes')">Yes</button>
+        <button type="button" id="btn_no" class="btn btn-danger answer-btn" onclick="selectAnswer('No', 'btn_no')">No</button>
+        <button type="button" id="btn_idk" class="btn btn-secondary answer-btn" onclick="selectAnswer('I don&#39;t know', 'btn_idk')">I don't know</button>
+      </div>
+    </div>
+    <!-- Hidden input that stores the selected answer -->
+    <input type="hidden" id="selected_answer" name="is_modeled" value="">
+    <div class="form-group">
+      <label>How hard was the CQ? (0 to 5)</label>
+      <select name="difficulty" class="form-control" required>
+        <option value="">Select difficulty</option>
+        {% for i in range(6) %}
+        <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <!-- Single submit button -->
+    <button type="submit" class="btn btn-primary">Next</button>
+  </form>
+</body>
+</html>

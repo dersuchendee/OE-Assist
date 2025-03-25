@@ -33,13 +33,25 @@
 </head>
 <body class="container">
   <h2 class="mb-4">CQ: {{ current_row['cq'] }}</h2>
-  {% if show_llm %}
-  <div class="card mb-3">
-    <div class="card-body">
-      <pre><code>{{ current_row['llm_ontology_suggestion'] }}</code></pre>
-    </div>
+{% if current_row.get('scenario') %}
+  <p><strong>Scenario:</strong> {{ current_row['scenario'] }}</p>
+{% endif %}
+
+{% if show_llm and llm_parts %}
+<div class="card mb-3">
+  <div class="card-body" style="font-size: 1.2em; white-space: pre-wrap;">
+    {% for part in llm_parts %}
+      {% if part.type == 'text' %}
+        <p>{{ part.content }}</p>
+      {% elif part.type == 'code' %}
+        <pre><code>{{ part.content }}</code></pre>
+      {% endif %}
+    {% endfor %}
   </div>
-  {% endif %}
+</div>
+{% endif %}
+
+
   <form method="post">
     <div class="form-group">
       <label>Is the CQ modelled?</label>
@@ -53,14 +65,15 @@
     <!-- Hidden input that stores the selected answer -->
     <input type="hidden" id="selected_answer" name="is_modeled" value="">
     <div class="form-group">
-      <label>How hard was the CQ? (0 to 5)</label>
-      <select name="difficulty" class="form-control" required>
-        <option value="">Select difficulty</option>
-        {% for i in range(6) %}
-        <option value="{{ i }}">{{ i }}</option>
-        {% endfor %}
-      </select>
-    </div>
+  <label>How hard was the CQ? (0 to 5)</label><br>
+  {% for i in range(6) %}
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="difficulty" id="difficulty{{ i }}" value="{{ i }}" required>
+    <label class="form-check-label" for="difficulty{{ i }}">{{ i }}</label>
+  </div>
+  {% endfor %}
+</div>
+
     <!-- Single submit button -->
     <button type="submit" class="btn btn-primary">Next</button>
   </form>

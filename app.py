@@ -7,6 +7,27 @@ import logging
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Replace with a secure key
 
+import re
+
+def parse_llm_suggestion(suggestion):
+    """
+    Extracts parts from the suggestion string.
+    - Text enclosed in ** ** is returned as type 'text'.
+    - Text enclosed in triple backticks is returned as type 'code'.
+    Other content is ignored.
+    """
+    pattern = r'```(.*?)```|\*\*(.*?)\*\*'
+    parts = []
+    for match in re.finditer(pattern, suggestion, re.DOTALL):
+        code, text = match.groups()
+        if code:
+            parts.append({'type': 'code', 'content': code.strip()})
+        elif text:
+            parts.append({'type': 'text', 'content': text.strip()})
+    return parts
+
+
+
 # Configure logging
 logging.basicConfig(
     filename='app.log',
@@ -88,12 +109,16 @@ def question(q_index):
     current_row = sorted_data[q_index]
     # For display, show the LLM suggestion only if the question's setting is B.
     show_llm = (current_row['setting'] == 'B')
+    llm_parts = []
+    if show_llm:
+        suggestion = current_row.get('llm_ontology_suggestion', '')
+        llm_parts = parse_llm_suggestion(suggestion)
 
     if request.method == 'POST':
         # Retrieve the clicked response. It will be "Yes", "No", or "I don't know"
         user_response = {
             'cqid': current_row['cqid'],
-            'is_modeled': request.form.get('is_modeled'),
+            'is_modeled': request.form.get('is_modeled') or "Not answered",
             'difficulty': request.form.get('difficulty')
         }
         # Store response in session if needed
@@ -111,10 +136,13 @@ def question(q_index):
         # Continue to next question or to questionnaire page.
         # (For example, here you could also implement a checkpoint every N questions if needed.)
         next_index = q_index + 1
-        # If you want to add checkpoints (e.g., every 5 responses), adjust the condition accordingly.
-        return redirect(url_for('question', q_index=next_index))
+        # After every 10 questions (except at the end), redirect to the intermediate page.
+        if next_index % 10 == 0 and next_index < len(sorted_data):
+            return redirect(url_for('questionnaire', step=next_index))
+        else:
+            return redirect(url_for('question', q_index=next_index))
 
-    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm)
+    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm, llm_parts=llm_parts)
 
 
 @app.route('/questionnaire/<int:step>', methods=['GET', 'POST'])

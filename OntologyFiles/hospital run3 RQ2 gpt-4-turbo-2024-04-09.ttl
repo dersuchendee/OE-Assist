@@ -1,0 +1,1255 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+### Object Property for Book and CD Composition
+:containsArticle rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range :Cl_Article .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+### Object Property for Book and CD Composition
+:containsArticle rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range :Cl_Article .
+### Data Property for Book Page Count
+:hasPageCount rdf:type rdf:Property ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+### Object Property for Book and CD Composition
+:containsArticle rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range :Cl_Article .
+### Data Property for Book Page Count
+:hasPageCount rdf:type rdf:Property ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+### Data Property for Publication Date
+:publicationDate rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+### Object Property for Book and CD Composition
+:containsArticle rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range :Cl_Article .
+### Data Property for Book Page Count
+:hasPageCount rdf:type rdf:Property ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+### Data Property for Publication Date
+:publicationDate rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range xsd:date .
+### Data Property for Seminar Date
+:seminarDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+### Object Property for Book and CD Composition
+:containsArticle rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range :Cl_Article .
+### Data Property for Book Page Count
+:hasPageCount rdf:type rdf:Property ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+### Data Property for Publication Date
+:publicationDate rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range xsd:date .
+### Data Property for Seminar Date
+:seminarDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+### Reification Class for Seminar Articles
+:Cl_SeminarArticlePresentation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Seminar, :Cl_Article .
+### Object Properties for Seminar Articles Presentation
+:presentedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Seminar .
+:containsPresentationOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_SeminarArticlePresentation .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+### Object Property for Book and CD Composition
+:containsArticle rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range :Cl_Article .
+### Data Property for Book Page Count
+:hasPageCount rdf:type rdf:Property ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+### Data Property for Publication Date
+:publicationDate rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range xsd:date .
+### Data Property for Seminar Date
+:seminarDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+### Reification Class for Seminar Articles
+:Cl_SeminarArticlePresentation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Seminar, :Cl_Article .
+### Object Properties for Seminar Articles Presentation
+:presentedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Seminar .
+:containsPresentationOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_SeminarArticlePresentation .
+### Object Property for Seminar Location
+:seminarHeldAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_Hospital .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+### Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_EvaluationStatement rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+### Object Properties
+:hasMedicalDegree rdf:type rdf:Property ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+### Reification Class for Study Period
+:Cl_PersonDegreeStudy rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+### Object Properties for Reification
+:hasStudyPeriod rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range :Cl_StudyPeriod .
+### Data Properties for Study Period
+:studyStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+### Reification Class for Employment
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Hospital .
+### Object Properties for Employment Reification
+:employedAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range :Cl_Hospital .
+### Data Properties for Employment Date
+:employmentStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:date .
+### Object Property for Hospital Location
+:locatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+### Object Property for City Location
+:isLocatedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+### Reification Class for Union Membership
+:Cl_PersonUnionMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Union .
+### Object Properties for Union Membership Reification
+:memberOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range :Cl_Union .
+### Data Properties for Membership Period
+:membershipStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionMembership ;
+    rdfs:range xsd:date .
+### Reification Class for Union Role
+:Cl_PersonUnionRole rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_PersonUnionMembership, :Cl_UnionRole .
+### Object Properties for Union Role Reification
+:hasRole rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range :Cl_UnionRole .
+### Data Properties for Role Period
+:roleStartDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+:roleEndDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_PersonUnionRole ;
+    rdfs:range xsd:date .
+### Reification Class for Evaluation
+:Cl_DoctorEmployeeEvaluation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Doctor, :Cl_Employee .
+### Object Properties for Evaluation Reification
+:evaluatedBy rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_Employee .
+### Data Property for Evaluation Statement
+:evaluationStatement rdf:type rdf:Property ;
+    rdfs:domain :Cl_DoctorEmployeeEvaluation ;
+    rdfs:range :Cl_EvaluationStatement .
+### Object Property for Book and CD Composition
+:containsArticle rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range :Cl_Article .
+### Data Property for Book Page Count
+:hasPageCount rdf:type rdf:Property ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+### Data Property for Publication Date
+:publicationDate rdf:type rdf:Property ;
+    rdfs:domain [:Cl_Book, :Cl_CD] ;
+    rdfs:range xsd:date .
+### Data Property for Seminar Date
+:seminarDate rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+### Reification Class for Seminar Articles
+:Cl_SeminarArticlePresentation rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Seminar, :Cl_Article .
+### Object Properties for Seminar Articles Presentation
+:presentedIn rdf:type rdf:Property ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Seminar .
+:containsPresentationOf rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_SeminarArticlePresentation .
+### Object Property for Seminar Location
+:seminarHeldAt rdf:type rdf:Property ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_Hospital .
+### Restriction to ensure at least one article is presented at each seminar
+[] rdf:type owl:Restriction ;
+    owl:onProperty :containsPresentationOf ;
+    owl:someValuesFrom :Cl_Article ;
+    rdfs:subClassOf :Cl_Seminar .
+#############################

@@ -1,0 +1,1411 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+:Cl_Critic rdf:type owl:Class .
+:Cl_Record rdf:type owl:Class .
+:Cl_Critique rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+:criticOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Critique ;
+          rdfs:range :Cl_Critic .
+:critiqueOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Critique ;
+            rdfs:range :Cl_Record .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+:critiqueContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Cl_Critique ;
+                 rdfs:range xsd:string .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+### Reification for critique
+:Cl_Critique rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :criticOf ;
+                              owl:someValuesFrom :Cl_Critic ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueOf ;
+                              owl:someValuesFrom :Cl_Record ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueContent ;
+                              owl:someValuesFrom xsd:string ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+:Cl_Critic rdf:type owl:Class .
+:Cl_Record rdf:type owl:Class .
+:Cl_Critique rdf:type owl:Class .
+:Cl_Performance rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+:criticOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Critique ;
+          rdfs:range :Cl_Critic .
+:critiqueOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Critique ;
+            rdfs:range :Cl_Record .
+:performedDuring rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Performance ;
+                 rdfs:range xsd:dateTime .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+:critiqueContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Cl_Critique ;
+                 rdfs:range xsd:string .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+### Reification for critique
+:Cl_Critique rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :criticOf ;
+                              owl:someValuesFrom :Cl_Critic ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueOf ;
+                              owl:someValuesFrom :Cl_Record ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueContent ;
+                              owl:someValuesFrom xsd:string ] .
+### Reification for performance
+:Cl_Performance rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performedDuring ;
+                                 owl:someValuesFrom xsd:dateTime ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+:Cl_Critic rdf:type owl:Class .
+:Cl_Record rdf:type owl:Class .
+:Cl_Critique rdf:type owl:Class .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformedSong rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+:criticOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Critique ;
+          rdfs:range :Cl_Critic .
+:critiqueOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Critique ;
+            rdfs:range :Cl_Record .
+:performedDuring rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Performance ;
+                 rdfs:range xsd:dateTime .
+:includesSong rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Performance ;
+              rdfs:range :Cl_PerformedSong .
+:songPerformed rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_PerformedSong ;
+               rdfs:range :Cl_Song .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+:critiqueContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Cl_Critique ;
+                 rdfs:range xsd:string .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+### Reification for critique
+:Cl_Critique rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :criticOf ;
+                              owl:someValuesFrom :Cl_Critic ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueOf ;
+                              owl:someValuesFrom :Cl_Record ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueContent ;
+                              owl:someValuesFrom xsd:string ] .
+### Reification for performance
+:Cl_Performance rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performedDuring ;
+                                 owl:someValuesFrom xsd:dateTime ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :includesSong ;
+                                 owl:someValuesFrom :Cl_PerformedSong ] .
+:Cl_PerformedSong rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :songPerformed ;
+                                   owl:someValuesFrom :Cl_Song ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+:Cl_Critic rdf:type owl:Class .
+:Cl_Record rdf:type owl:Class .
+:Cl_Critique rdf:type owl:Class .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformedSong rdf:type owl:Class .
+:Cl_Location rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+:criticOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Critique ;
+          rdfs:range :Cl_Critic .
+:critiqueOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Critique ;
+            rdfs:range :Cl_Record .
+:performedDuring rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Performance ;
+                 rdfs:range xsd:dateTime .
+:includesSong rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Performance ;
+              rdfs:range :Cl_PerformedSong .
+:songPerformed rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_PerformedSong ;
+               rdfs:range :Cl_Song .
+:performanceLocation rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Cl_Performance ;
+                     rdfs:range :Cl_Location .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+:critiqueContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Cl_Critique ;
+                 rdfs:range xsd:string .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+### Reification for critique
+:Cl_Critique rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :criticOf ;
+                              owl:someValuesFrom :Cl_Critic ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueOf ;
+                              owl:someValuesFrom :Cl_Record ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueContent ;
+                              owl:someValuesFrom xsd:string ] .
+### Reification for performance
+:Cl_Performance rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performedDuring ;
+                                 owl:someValuesFrom xsd:dateTime ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :includesSong ;
+                                 owl:someValuesFrom :Cl_PerformedSong ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performanceLocation ;
+                                 owl:someValuesFrom :Cl_Location ] .
+:Cl_PerformedSong rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :songPerformed ;
+                                   owl:someValuesFrom :Cl_Song ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+:Cl_Critic rdf:type owl:Class .
+:Cl_Record rdf:type owl:Class .
+:Cl_Critique rdf:type owl:Class .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformedSong rdf:type owl:Class .
+:Cl_Location rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Region rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+:criticOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Critique ;
+          rdfs:range :Cl_Critic .
+:critiqueOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Critique ;
+            rdfs:range :Cl_Record .
+:performedDuring rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Performance ;
+                 rdfs:range xsd:dateTime .
+:includesSong rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Performance ;
+              rdfs:range :Cl_PerformedSong .
+:songPerformed rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_PerformedSong ;
+               rdfs:range :Cl_Song .
+:performanceLocation rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Cl_Performance ;
+                     rdfs:range :Cl_Location .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_City ;
+           rdfs:range :Cl_Region .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+:critiqueContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Cl_Critique ;
+                 rdfs:range xsd:string .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+### Reification for critique
+:Cl_Critique rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :criticOf ;
+                              owl:someValuesFrom :Cl_Critic ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueOf ;
+                              owl:someValuesFrom :Cl_Record ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueContent ;
+                              owl:someValuesFrom xsd:string ] .
+### Reification for performance
+:Cl_Performance rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performedDuring ;
+                                 owl:someValuesFrom xsd:dateTime ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :includesSong ;
+                                 owl:someValuesFrom :Cl_PerformedSong ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performanceLocation ;
+                                 owl:someValuesFrom :Cl_Location ] .
+:Cl_PerformedSong rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :songPerformed ;
+                                   owl:someValuesFrom :Cl_Song ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+:Cl_Critic rdf:type owl:Class .
+:Cl_Record rdf:type owl:Class .
+:Cl_Critique rdf:type owl:Class .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformedSong rdf:type owl:Class .
+:Cl_Location rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Region rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+:criticOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Critique ;
+          rdfs:range :Cl_Critic .
+:critiqueOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Critique ;
+            rdfs:range :Cl_Record .
+:performedDuring rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Performance ;
+                 rdfs:range xsd:dateTime .
+:includesSong rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Performance ;
+              rdfs:range :Cl_PerformedSong .
+:songPerformed rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_PerformedSong ;
+               rdfs:range :Cl_Song .
+:performanceLocation rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Cl_Performance ;
+                     rdfs:range :Cl_Location .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_City ;
+           rdfs:range :Cl_Region .
+:regionInCountry rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Region ;
+                 rdfs:range :Cl_Country .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+:critiqueContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Cl_Critique ;
+                 rdfs:range xsd:string .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+### Reification for critique
+:Cl_Critique rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :criticOf ;
+                              owl:someValuesFrom :Cl_Critic ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueOf ;
+                              owl:someValuesFrom :Cl_Record ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueContent ;
+                              owl:someValuesFrom xsd:string ] .
+### Reification for performance
+:Cl_Performance rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performedDuring ;
+                                 owl:someValuesFrom xsd:dateTime ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :includesSong ;
+                                 owl:someValuesFrom :Cl_PerformedSong ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performanceLocation ;
+                                 owl:someValuesFrom :Cl_Location ] .
+:Cl_PerformedSong rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :songPerformed ;
+                                   owl:someValuesFrom :Cl_Song ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Instrument rdf:type owl:Class .
+:Cl_Band rdf:type owl:Class .
+:Cl_Membership rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+:Cl_Song rdf:type owl:Class .
+:Cl_Critic rdf:type owl:Class .
+:Cl_Record rdf:type owl:Class .
+:Cl_Critique rdf:type owl:Class .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformedSong rdf:type owl:Class .
+:Cl_Location rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Region rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+### Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Person ;
+                 rdfs:range :Cl_Instrument .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Person ;
+          rdfs:range :Cl_Band .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Band ;
+           rdfs:range :Cl_Person .
+:hasMembership rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Person ;
+               rdfs:range :Cl_Membership .
+:membershipIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Membership ;
+              rdfs:range :Cl_Band .
+:membershipStart rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Membership ;
+                 rdfs:range xsd:date .
+:membershipEnd rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Membership ;
+               rdfs:range xsd:date .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Membership ;
+         rdfs:range :Cl_Role .
+:recordedDuring rdf:type owl:ObjectProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range :Cl_RecordingSession .
+:containsTrack rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Album ;
+               rdfs:range :Cl_Track .
+:trackOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Track ;
+          rdfs:range :Cl_Song .
+:criticOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Critique ;
+          rdfs:range :Cl_Critic .
+:critiqueOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Critique ;
+            rdfs:range :Cl_Record .
+:performedDuring rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Performance ;
+                 rdfs:range xsd:dateTime .
+:includesSong rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_Performance ;
+              rdfs:range :Cl_PerformedSong .
+:songPerformed rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_PerformedSong ;
+               rdfs:range :Cl_Song .
+:performanceLocation rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Cl_Performance ;
+                     rdfs:range :Cl_Location .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_City ;
+           rdfs:range :Cl_Region .
+:regionInCountry rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Cl_Region ;
+                 rdfs:range :Cl_Country .
+### Data Properties
+:numberOfTracks rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_Album ;
+                rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Album ;
+             rdfs:range xsd:date .
+:composedOn rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Song ;
+             rdfs:range xsd:date .
+:critiqueContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Cl_Critique ;
+                 rdfs:range xsd:string .
+### Reification for tracking membership over time
+:Cl_Membership rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :memberOf ;
+                                owl:someValuesFrom :Cl_Band ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipStart ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :membershipEnd ;
+                                owl:someValuesFrom xsd:date ],
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasRole ;
+                                owl:someValuesFrom :Cl_Role ] .
+### Reification for recording session
+:Cl_RecordingSession rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :recordedDuring ;
+                                      owl:someValuesFrom :Cl_Album ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipStart ;
+                                      owl:someValuesFrom xsd:date ],
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :membershipEnd ;
+                                      owl:someValuesFrom xsd:date ] .
+### Reification for critique
+:Cl_Critique rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :criticOf ;
+                              owl:someValuesFrom :Cl_Critic ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueOf ;
+                              owl:someValuesFrom :Cl_Record ],
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :critiqueContent ;
+                              owl:someValuesFrom xsd:string ] .
+### Reification for performance
+:Cl_Performance rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performedDuring ;
+                                 owl:someValuesFrom xsd:dateTime ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :includesSong ;
+                                 owl:someValuesFrom :Cl_PerformedSong ],
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :performanceLocation ;
+                                 owl:someValuesFrom :Cl_Location ] .
+:Cl_PerformedSong rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :songPerformed ;
+                                   owl:someValuesFrom :Cl_Song ] .
+#############################

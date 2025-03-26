@@ -1,0 +1,1849 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+# New additions
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+# New addition for release date
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+# New additions for the competency question "What song is a specific track a recording of?"
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+# New additions for the competency question "When was a certain song composed?"
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+# New additions for the competency question "What does a certain critic say about a certain record?"
+:Cl_Critic rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Review rdf:type owl:Class .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Review .
+:writtenBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range :Cl_Critic .
+:reviewContent rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:Cl_Critic rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Review rdf:type owl:Class .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Review .
+:writtenBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range :Cl_Critic .
+:reviewContent rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range xsd:string .
+# New additions for the competency question "When did a certain performance take place?"
+:Cl_Artist rdf:type owl:Class .
+:Cl_Musician rdfs:subClassOf :Cl_Artist .
+:Cl_Band rdfs:subClassOf :Cl_Artist .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformanceParticipation rdf:type owl:Class .
+:performedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Artist .
+:performance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Performance .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:Cl_Critic rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Review rdf:type owl:Class .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Review .
+:writtenBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range :Cl_Critic .
+:reviewContent rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range xsd:string .
+:Cl_Artist rdf:type owl:Class .
+:Cl_Musician rdfs:subClassOf :Cl_Artist .
+:Cl_Band rdfs:subClassOf :Cl_Artist .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformanceParticipation rdf:type owl:Class .
+:performedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Artist .
+:performance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Performance .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range xsd:dateTime .
+# New additions for the competency question "What songs were played in a certain performance?"
+:Cl_SongPerformance rdf:type owl:Class .
+:inPerformance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Performance .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Song .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:Cl_Critic rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Review rdf:type owl:Class .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Review .
+:writtenBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range :Cl_Critic .
+:reviewContent rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range xsd:string .
+:Cl_Artist rdf:type owl:Class .
+:Cl_Musician rdfs:subClassOf :Cl_Artist .
+:Cl_Band rdfs:subClassOf :Cl_Artist .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformanceParticipation rdf:type owl:Class .
+:performedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Artist .
+:performance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Performance .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range xsd:dateTime .
+:Cl_SongPerformance rdf:type owl:Class .
+:inPerformance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Performance .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Song .
+# New additions for the competency question "Where did a certain performance take place?"
+:Cl_Location rdf:type owl:Class .
+:performanceLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Location .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:Cl_Critic rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Review rdf:type owl:Class .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Review .
+:writtenBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range :Cl_Critic .
+:reviewContent rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range xsd:string .
+:Cl_Artist rdf:type owl:Class .
+:Cl_Musician rdfs:subClassOf :Cl_Artist .
+:Cl_Band rdfs:subClassOf :Cl_Artist .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformanceParticipation rdf:type owl:Class .
+:performedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Artist .
+:performance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Performance .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range xsd:dateTime .
+:Cl_SongPerformance rdf:type owl:Class .
+:inPerformance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Performance .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Song .
+:Cl_Location rdf:type owl:Class .
+:performanceLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Location .
+# New additions for the competency question "In what region is a certain city located?"
+:Cl_GeographicalEntity rdf:type owl:Class .
+:Cl_Location rdfs:subClassOf :Cl_GeographicalEntity .
+:Cl_City rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Location .
+:Cl_Region rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Location .
+:isInRegion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Region .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Existing definitions
+:Cl_Person rdf:type owl:Class .
+:Cl_Instruments rdf:type owl:Class .
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_Instruments .
+:Cl_Musician rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Cl_Person
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :playsInstrument ;
+              owl:someValuesFrom :Cl_Instruments
+            ]
+        )
+    ] .
+:Cl_StringInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_PercussionInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_WindInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_KeyboardInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Cl_VocalInstrument rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Instruments .
+:Guitar rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Bass rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_StringInstrument .
+:Drums rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_PercussionInstrument .
+:Trumpet rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_WindInstrument .
+:Keyboards rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_KeyboardInstrument .
+:Vocals rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_VocalInstrument .
+:Cl_Band rdf:type owl:Class .
+:Cl_BandMembership rdf:type owl:Class .
+:hasBandMembership rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandMembership .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOfBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:isMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Person .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:Cl_Role rdf:type owl:Class .
+:Cl_BandRoleAssignment rdf:type owl:Class .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_BandRoleAssignment .
+:isRoleAssignmentOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Person .
+:roleInBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Band .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range :Cl_Role .
+:roleStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:roleEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BandRoleAssignment ;
+    rdfs:range xsd:dateTime .
+:Cl_Vocalist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Guitarist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Bassist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Drummer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Keyboardist rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_TrumpetPlayer rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Role .
+:Cl_Album rdf:type owl:Class .
+:Cl_RecordingSession rdf:type owl:Class .
+:hasRecordingSession rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_RecordingSession .
+:recordingStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:recordingEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_RecordingSession ;
+    rdfs:range xsd:dateTime .
+:Cl_Track rdf:type owl:Class .
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# A record always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+:trackNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range xsd:positiveInteger .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:Cl_Song rdf:type owl:Class .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Track ;
+    rdfs:range :Cl_Song .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:Cl_Critic rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Review rdf:type owl:Class .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Review .
+:writtenBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range :Cl_Critic .
+:reviewContent rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Review ;
+    rdfs:range xsd:string .
+:Cl_Artist rdf:type owl:Class .
+:Cl_Musician rdfs:subClassOf :Cl_Artist .
+:Cl_Band rdfs:subClassOf :Cl_Artist .
+:Cl_Performance rdf:type owl:Class .
+:Cl_PerformanceParticipation rdf:type owl:Class .
+:performedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Artist .
+:performance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Performance .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range xsd:dateTime .
+:Cl_SongPerformance rdf:type owl:Class .
+:inPerformance rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Performance .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SongPerformance ;
+    rdfs:range :Cl_Song .
+:Cl_Location rdf:type owl:Class .
+:performanceLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceParticipation ;
+    rdfs:range :Cl_Location .
+:Cl_GeographicalEntity rdf:type owl:Class .
+:Cl_Location rdfs:subClassOf :Cl_GeographicalEntity .
+:Cl_City rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Location .
+:Cl_Region rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Location .
+:isInRegion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Region .
+# New additions for the competency question "In what country is a certain region located?"
+:Cl_Country rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_GeographicalEntity .
+:isInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Region ;
+    rdfs:range :Cl_Country .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Define Classes
+:Cl_Album rdf:type owl:Class .
+:Cl_Track rdf:type owl:Class .
+# Define Object Property
+:hasTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_Track .
+# Restriction: An album always contains at least one track
+:Cl_Album rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasTrack ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+#############################

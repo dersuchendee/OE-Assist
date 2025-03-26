@@ -1,0 +1,1199 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+### Pivot Class
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+### Data Properties
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+### Pivot Class
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+### Object Properties
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+### Data Properties
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+### Pivot Class
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+### Object Properties
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+### Data Properties
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+### Previous Classes and Properties
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Theatre rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+### Pivot Class
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+### Object Properties
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+### Data Properties
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+### Previous Classes and Properties
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+### Pivot Class
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+### Object Properties
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+### Data Properties
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Production rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+### Pivot Class
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+### Object Properties
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+### Data Properties
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+### Pivot Class
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+### Object Properties
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+### Data Properties
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Production rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Author rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+### Pivot Class
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+### Object Properties
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+### Data Properties
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Authorship ;
+    rdfs:range xsd:string .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Production rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Play rdf:type owl:Class .
+:Cl_TimePeriod rdf:type owl:Class .
+### Pivot Class
+:Cl_PlayCreation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play, :Cl_TimePeriod .
+### Object Properties
+:wasWrittenDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Play ;
+    rdfs:range :Cl_PlayCreation .
+### Data Properties
+:creationPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayCreation ;
+    rdfs:range xsd:string .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Production rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+:Cl_Author rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Authorship ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Play rdf:type owl:Class .
+### Pivot Class
+:Cl_PlayStructure rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play .
+### Data Properties
+:numberOfActs rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayStructure ;
+    rdfs:range xsd:integer .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Production rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+:Cl_Author rdf:type owl:Class .
+:Cl_TimePeriod rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+:Cl_PlayCreation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play, :Cl_TimePeriod .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Authorship ;
+    rdfs:range xsd:string .
+:wasWrittenDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Play ;
+    rdfs:range :Cl_PlayCreation .
+:creationPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayCreation ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Production rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+### Pivot Class
+:Cl_ProductionPremier rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Date .
+### Object Properties
+:hasPremier rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionPremier .
+### Data Properties
+:premierDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionPremier ;
+    rdfs:range xsd:date .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+:Cl_Author rdf:type owl:Class .
+:Cl_TimePeriod rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+:Cl_PlayCreation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play, :Cl_TimePeriod .
+:Cl_PlayStructure rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Authorship ;
+    rdfs:range xsd:string .
+:wasWrittenDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Play ;
+    rdfs:range :Cl_PlayCreation .
+:creationPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayCreation ;
+    rdfs:range xsd:string .
+:numberOfActs rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayStructure ;
+    rdfs:range xsd:integer .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Newspaper rdf:type owl:Class .
+:Cl_Production rdf:type owl:Class .
+### Pivot Class
+:Cl_NewspaperReview rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Newspaper, :Cl_Production .
+### Object Properties
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Newspaper ;
+    rdfs:range :Cl_NewspaperReview .
+### Data Properties
+:starRating rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_NewspaperReview ;
+    rdfs:range xsd:integer .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+:Cl_Author rdf:type owl:Class .
+:Cl_TimePeriod rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+:Cl_PlayCreation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play, :Cl_TimePeriod .
+:Cl_PlayStructure rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play .
+:Cl_ProductionPremier rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Date .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Authorship ;
+    rdfs:range xsd:string .
+:wasWrittenDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Play ;
+    rdfs:range :Cl_PlayCreation .
+:creationPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayCreation ;
+    rdfs:range xsd:string .
+:numberOfActs rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayStructure ;
+    rdfs:range xsd:integer .
+:hasPremier rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionPremier .
+:premierDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionPremier ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Actor rdf:type owl:Class .
+:Cl_Theatre rdf:type owl:Class .
+### Pivot Class
+:Cl_Employment rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Actor, :Cl_Theatre .
+### Object Properties
+:isEmployedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Actor ;
+    rdfs:range :Cl_Employment .
+### Data Properties
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+:Cl_Author rdf:type owl:Class .
+:Cl_TimePeriod rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+:Cl_PlayCreation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play, :Cl_TimePeriod .
+:Cl_PlayStructure rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play .
+:Cl_ProductionPremier rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Date .
+:Cl_NewspaperReview rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Newspaper, :Cl_Production .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Authorship ;
+    rdfs:range xsd:string .
+:wasWrittenDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Play ;
+    rdfs:range :Cl_PlayCreation .
+:creationPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayCreation ;
+    rdfs:range xsd:string .
+:numberOfActs rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayStructure ;
+    rdfs:range xsd:integer .
+:hasPremier rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionPremier .
+:premierDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionPremier ;
+    rdfs:range xsd:date .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Newspaper ;
+    rdfs:range :Cl_NewspaperReview .
+:starRating rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_NewspaperReview ;
+    rdfs:range xsd:integer .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Person rdf:type owl:Class .
+:Cl_Production rdf:type owl:Class .
+:Cl_Role rdf:type owl:Class .
+### Pivot Class
+:Cl_ProductionRole rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Production, :Cl_Role .
+### Object Properties
+:hasRoleInProduction rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_ProductionRole .
+### Data Properties
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionRole ;
+    rdfs:range xsd:string .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionRole ;
+    rdfs:range xsd:date .
+### Previous Classes and Properties
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Author rdf:type owl:Class .
+:Cl_TimePeriod rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+:Cl_PlayCreation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play, :Cl_TimePeriod .
+:Cl_PlayStructure rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play .
+:Cl_ProductionPremier rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Date .
+:Cl_NewspaperReview rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Newspaper, :Cl_Production .
+:Cl_Employment rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Actor, :Cl_Theatre .
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Authorship ;
+    rdfs:range xsd:string .
+:wasWrittenDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Play ;
+    rdfs:range :Cl_PlayCreation .
+:creationPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayCreation ;
+    rdfs:range xsd:string .
+:numberOfActs rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayStructure ;
+    rdfs:range xsd:integer .
+:hasPremier rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionPremier .
+:premierDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionPremier ;
+    rdfs:range xsd:date .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Newspaper ;
+    rdfs:range :Cl_NewspaperReview .
+:starRating rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_NewspaperReview ;
+    rdfs:range xsd:integer .
+:isEmployedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Actor ;
+    rdfs:range :Cl_Employment .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Theatre rdf:type owl:Class .
+:Cl_TheatreFestival rdf:type owl:Class .
+:Cl_Play rdf:type owl:Class .
+:Cl_Date rdf:type owl:Class .
+:Cl_City rdf:type owl:Class .
+:Cl_Country rdf:type owl:Class .
+:Cl_Ensemble rdf:type owl:Class .
+:Cl_Person rdf:type owl:Class .
+:Cl_Author rdf:type owl:Class .
+:Cl_TimePeriod rdf:type owl:Class .
+:Cl_FestivalOccurrence rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Date .
+:Cl_FestivalLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_City .
+:Cl_FestivalPlays rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_TheatreFestival, :Cl_Play .
+:Cl_TheatreLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Theatre, :Cl_City .
+:Cl_CityLocation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_City, :Cl_Country .
+:Cl_ProductionBase rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Play .
+:Cl_EnsembleMembership rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Ensemble, :Cl_Person .
+:Cl_Authorship rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Author, :Cl_Play .
+:Cl_PlayCreation rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play, :Cl_TimePeriod .
+:Cl_PlayStructure rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Play .
+:Cl_ProductionPremier rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Production, :Cl_Date .
+:Cl_NewspaperReview rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Newspaper, :Cl_Production .
+:Cl_Employment rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Actor, :Cl_Theatre .
+:Cl_ProductionRole rdf:type owl:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Production, :Cl_Role .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalOccurrence .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalLocation .
+:hasPlay rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TheatreFestival ;
+    rdfs:range :Cl_FestivalPlays .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Theatre ;
+    rdfs:range :Cl_TheatreLocation .
+:isLocatedInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_CityLocation .
+:isBasedOn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionBase .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Ensemble ;
+    rdfs:range :Cl_EnsembleMembership .
+:hasWritten rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Author ;
+    rdfs:range :Cl_Authorship .
+:wasWrittenDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Play ;
+    rdfs:range :Cl_PlayCreation .
+:hasPremier rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_ProductionPremier .
+:hasReview rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Newspaper ;
+    rdfs:range :Cl_NewspaperReview .
+:isEmployedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Actor ;
+    rdfs:range :Cl_Employment .
+:hasRoleInProduction rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_ProductionRole .
+### Data Properties
+:occurrenceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalOccurrence ;
+    rdfs:range xsd:date .
+:locationCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalLocation ;
+    rdfs:range xsd:string .
+:playName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_FestivalPlays ;
+    rdfs:range xsd:string .
+:cityName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_TheatreLocation ;
+    rdfs:range xsd:string .
+:countryName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CityLocation ;
+    rdfs:range xsd:string .
+:playTitle rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionBase ;
+    rdfs:range xsd:string .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_EnsembleMembership ;
+    rdfs:range xsd:date .
+:creationPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayCreation ;
+    rdfs:range xsd:string .
+:numberOfActs rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PlayStructure ;
+    rdfs:range xsd:integer .
+:premierDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionPremier ;
+    rdfs:range xsd:date .
+:starRating rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_NewspaperReview ;
+    rdfs:range xsd:integer .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionRole ;
+    rdfs:range xsd:string .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_ProductionRole ;
+    rdfs:range xsd:date .
+#############################

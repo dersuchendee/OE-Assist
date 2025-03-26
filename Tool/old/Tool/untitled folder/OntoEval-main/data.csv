@@ -1,0 +1,11 @@
+cqid,cq,generated_ontology,llm_ontology_suggestion,setting
+1,"What is the capital of France?","{'country': 'France', 'capital': 'Paris'}","modelled SELECT ?capital WHERE { ?country <hasCapital> ?capital . FILTER(?country = 'France') }",B
+2,"Who wrote '1984'?","{'author': 'George Orwell'}","not modelled SELECT ?author WHERE { ?book <writtenBy> ?author . FILTER(?book = '1984') }",B
+3,"What is the speed of light?","{'constant': 'c', 'value': '299792458 m/s'}","modelled SELECT ?value WHERE { ?constant <hasValue> ?value . FILTER(?constant = 'c') }",B
+4,"Name the largest planet in our solar system.","{'planet': 'Jupiter'}","SELECT ?planet WHERE { ?planet <isLargest> true }",B
+5,"What element does 'O' represent?","{'element': 'Oxygen'}","SELECT ?element WHERE { ?element <symbol> 'O' }",B
+6,"Who painted the Mona Lisa?","{'artist': 'Leonardo da Vinci'}","SELECT ?artist WHERE { ?painting <createdBy> ?artist . FILTER(?painting = 'Mona Lisa') }",A
+7,"What is the boiling point of water?","{'property': 'boiling point', 'value': '100°C'}","SELECT ?value WHERE { ?substance <boilsAt> ?value . FILTER(?substance = 'water') }",A
+8,"Which planet is known as the Red Planet?","{'planet': 'Mars'}","SELECT ?planet WHERE { ?planet <nickname> 'Red Planet' }",A
+9,"Who discovered penicillin?","{'discoverer': 'Alexander Fleming'}","SELECT ?discoverer WHERE { ?discovery <discoveredBy> ?discoverer . FILTER(?discovery = 'penicillin') }",A
+10,"What is the chemical formula for water?","{'formula': 'H2O'}","SELECT ?formula WHERE { ?compound <hasFormula> ?formula . FILTER(?compound = 'water') }",A

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OntoEval</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <!-- Highlight.js for code blocks in LLM output -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <style>
+    .navbar.protege-header {
+      background-color: #fbd022;
+      padding: 0.5rem 1rem;
+    }
+    .difficulty-box {
+      display: block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    input[type="radio"]:checked + .difficulty-box {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.5);
+      transform: scale(1.1);
+    }
+    .container {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      max-width: 800px;
+    }
+    body {
+      background-color: #cdcbcb;
+      color: #000;
+    }
+    /* LLM Output styling with smaller font */
+    #llmOutput {
+      min-height: 300px;
+      border: 1px solid #907ef3;
+      padding: 10px;
+      background-color: #959393;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    pre, code {
+      background-color: #444;
+      color: #ececec;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .btn {
+      font-size: 0.8rem;
+    }
+    /* Styles for mood rating */
+    .mood-rating {
+      display: inline-flex;
+      font-size: 2rem;
+    }
+    .mood-rating input[type="radio"] {
+      display: none;
+    }
+    .mood-rating label {
+      cursor: pointer;
+      padding: 0 5px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .mood-rating input[type="radio"]:checked + label,
+    .mood-rating label:hover,
+    .mood-rating label:hover ~ label {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Suggestions Box -->
+    <div class="mb-4">
+      <h5>Suggestions</h5>
+      <div id="llmOutput">Your LLM output will appear here...</div>
+    </div>
+
+    <!-- Competency Question -->
+    <div class="mb-4">
+      <h5>Competency Question</h5>
+      <input id="cqInput" type="text" class="form-control" placeholder="Competency question">
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="mb-4">
+      <!-- <h5>Feedback on the Output</h5>
+      <div class="mb-3">
+        <label for="feedbackComments" class="form-label">Comments</label>
+        <textarea id="feedbackComments" class="form-control" rows="3" placeholder="Enter your comments on the output"></textarea>
+      </div> -->
+      <div class="mb-3">
+        <label class="form-label">Modeled in Ontology?</label>
+        <div class="btn-group" role="group" aria-label="Feedback Status" style="background-color: rgb(179, 179, 179); color: white; padding: 10px; border-radius: 5px;">
+          <input type="radio" class="btn-check" name="feedbackStatus" id="notModelled" value="Not Modelled" autocomplete="off">
+          <label class="btn btn-outline-danger" for="notModelled">✖ Not Modelled</label>
+          
+          <input type="radio" class="btn-check" name="feedbackStatus" id="noOpinion" value="No Opinion on this CQ" autocomplete="off">
+          <label class="btn btn-outline-dark" for="noOpinion">No Opinion on this CQ</label>
+          
+          <input type="radio" class="btn-check" name="feedbackStatus" id="modelled" value="Modelled" autocomplete="off">
+          <label class="btn btn-outline-success" for="modelled">✔ Modelled</label>
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <label class="form-label">How hard this CQ was to label?</label>
+        <div class="difficulty-rating d-flex justify-content-between">
+          <div class="text-center">
+            <input type="radio" id="diff1" name="difficulty" value="1" class="d-none">
+            <label for="diff1" class="difficulty-box" style="background-color: #28a745;">1</label>
+          </div>
+          <div class="text-center">
+            <input type="radio" id="diff2" name="difficulty" value="2" class="d-none">
+            <label for="diff2" class="difficulty-box" style="background-color: #8bc34a;">2</label>
+          </div>
+          <div class="text-center">
+            <input type="radio" id="diff3" name="difficulty" value="3" class="d-none">
+            <label for="diff3" class="difficulty-box" style="background-color: #ffc107;">3</label>
+          </div>
+          <div class="text-center">
+            <input type="radio" id="diff4" name="difficulty" value="4" class="d-none">
+            <label for="diff4" class="difficulty-box" style="background-color: #fd7e14;">4</label>
+          </div>
+          <div class="text-center">
+            <input type="radio" id="diff5" name="difficulty" value="5" class="d-none">
+            <label for="diff5" class="difficulty-box" style="background-color: #dc3545;">5</label>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+          <span class="text-center" style="width: 40px;">Very Easy</span>
+          <span class="text-center" style="width: 40px;">Easy</span>
+          <span class="text-center" style="width: 40px;">Medium</span>
+          <span class="text-center" style="width: 40px;">Hard</span>
+          <span class="text-center" style="width: 40px;">Very Hard</span>
+        </div>
+      </div>
+      
+      
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="mb-4 d-flex justify-content-between">
+      <button class="btn btn-secondary" onclick="goToPrevious()">Previous</button>
+      <button class="btn btn-primary" onclick="sendToLLM()">Next</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+
+    function sendToLLM() {
+      const cq = document.getElementById('cqInput').value;
+      const llmOutputElement = document.getElementById('llmOutput');
+      llmOutputElement.innerHTML = 'Processing...';
+
+      fetch('/process-llm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ competency_question: cq })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          llmOutputElement.innerHTML = 'Error: ' + data.error;
+        } else {
+          let output = data.llm_output;
+          output = output.replace(/```(.*?)```/gs, (match, codeContent) => {
+            return '<pre><code>' + codeContent.trim() + '</code></pre>';
+          });
+          llmOutputElement.innerHTML = output;
+          document.querySelectorAll('#llmOutput pre code').forEach(block => {
+            hljs.highlightElement(block);
+          });
+        }
+      })
+      .catch(error => {
+        llmOutputElement.innerHTML = 'Error: ' + error.message;
+      });
+    }
+
+    function goToPrevious() {
+      alert("Going to the previous page...");
+    }
+
+    function saveFeedback() {
+      const llmOutput = document.getElementById('llmOutput').innerText;
+      const comments = document.getElementById('feedbackComments').value;
+      const statusElements = document.getElementsByName('feedbackStatus');
+      let feedbackStatus = "";
+      for (let elem of statusElements) {
+        if (elem.checked) {
+          feedbackStatus = elem.value;
+          break;
+        }
+      }
+      const difficultyElements = document.getElementsByName('difficulty');
+      let difficulty = "";
+      for (let elem of difficultyElements) {
+        if (elem.checked) {
+          difficulty = elem.value;
+          break;
+        }
+      }
+      
+      fetch('/save-feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          llm_output: llmOutput, 
+          comments: comments, 
+          feedback_status: feedbackStatus,
+          difficulty: difficulty
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const feedbackResponseElement = document.getElementById('feedbackResponse');
+        feedbackResponseElement.innerHTML = data.error ? 'Error: ' + data.error : data.message;
+      })
+      .catch(error => {
+        document.getElementById('feedbackResponse').innerHTML = 'Error: ' + error.message;
+      });
+    }
+  </script>
+</body>
+</html>

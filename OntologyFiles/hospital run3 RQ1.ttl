@@ -1,0 +1,1002 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+:Cl_Person a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasMedicalDegree ;
+        owl:someValuesFrom :Cl_MedicalDegree
+    ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonDegreeStudy rdf:type rdfs:Class .
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_MedicalDegree .
+:Cl_Person a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasMedicalDegree ;
+        owl:someValuesFrom :Cl_MedicalDegree
+    ] .
+:studiedFor rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonDegreeStudy .
+:Cl_PersonDegreeStudy a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :studiedFor ;
+        owl:someValuesFrom :Cl_MedicalDegree
+    ] .
+:studyPeriod rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonDegreeStudy ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_BookOrCD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Composition rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:composedOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Composition .
+:Cl_Composition a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :composedOf ;
+        owl:someValuesFrom :Cl_Article
+    ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_BookOrCD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Composition rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:composedOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Composition .
+:Cl_Composition a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :composedOf ;
+        owl:someValuesFrom :Cl_Article
+    ] .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range xsd:integer .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_BookOrCD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Composition rdf:type rdfs:Class .
+:Cl_Publication rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:composedOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Composition .
+:Cl_Composition a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :composedOf ;
+        owl:someValuesFrom :Cl_Article
+    ] .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range xsd:integer .
+:published rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Publication .
+:Cl_Publication a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :published ;
+        owl:someValuesFrom xsd:dateTime
+    ] .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Publication ;
+    rdfs:range xsd:dateTime .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_BookOrCD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Composition rdf:type rdfs:Class .
+:Cl_Publication rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:composedOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Composition .
+:Cl_Composition a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :composedOf ;
+        owl:someValuesFrom :Cl_Article
+    ] .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range xsd:integer .
+:published rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Publication .
+:Cl_Publication a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :published ;
+        owl:someValuesFrom xsd:dateTime
+    ] .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Publication ;
+    rdfs:range xsd:dateTime .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_BookOrCD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Composition rdf:type rdfs:Class .
+:Cl_Publication rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+:Cl_Presentation rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:composedOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Composition .
+:Cl_Composition a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :composedOf ;
+        owl:someValuesFrom :Cl_Article
+    ] .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range xsd:integer .
+:published rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Publication .
+:Cl_Publication a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :published ;
+        owl:someValuesFrom xsd:dateTime
+    ] .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Publication ;
+    rdfs:range xsd:dateTime .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:dateTime .
+:presentedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Article ;
+    rdfs:range :Cl_Presentation .
+:Cl_Presentation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :presentedIn ;
+        owl:someValuesFrom :Cl_Seminar
+    ] .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_BookOrCD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Composition rdf:type rdfs:Class .
+:Cl_Publication rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+:Cl_Presentation rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:composedOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Composition .
+:Cl_Composition a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :composedOf ;
+        owl:someValuesFrom :Cl_Article
+    ] .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range xsd:integer .
+:published rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Publication .
+:Cl_Publication a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :published ;
+        owl:someValuesFrom xsd:dateTime
+    ] .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Publication ;
+    rdfs:range xsd:dateTime .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:dateTime .
+:presentedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Article ;
+    rdfs:range :Cl_Presentation .
+:Cl_Presentation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :presentedIn ;
+        owl:someValuesFrom :Cl_Seminar
+    ] .
+:takesPlaceAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_Hospital .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_PersonHospitalEmployment rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class .
+:Cl_Employee rdf:type rdfs:Class .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_BookOrCD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_Composition rdf:type rdfs:Class .
+:Cl_Publication rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+:Cl_Presentation rdf:type rdfs:Class .
+:Cl_SeminarPresentation rdf:type rdfs:Class .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonHospitalEmployment .
+:Cl_PersonHospitalEmployment a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :employedAt ;
+        owl:someValuesFrom :Cl_Hospital
+    ] .
+:employmentDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_PersonHospitalEmployment ;
+    rdfs:range xsd:dateTime .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionMembership .
+:Cl_UnionMembership a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:membershipDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_UnionRole .
+:Cl_UnionRole a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasRole ;
+        owl:someValuesFrom :Cl_Union
+    ] .
+:roleDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:dateTime .
+:givesEvaluation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Doctor ;
+    rdfs:range :Cl_Evaluation .
+:Cl_Evaluation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :givesEvaluation ;
+        owl:someValuesFrom :Cl_Employee
+    ] .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:composedOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Composition .
+:Cl_Composition a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :composedOf ;
+        owl:someValuesFrom :Cl_Article
+    ] .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range xsd:integer .
+:published rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BookOrCD ;
+    rdfs:range :Cl_Publication .
+:Cl_Publication a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :published ;
+        owl:someValuesFrom xsd:dateTime
+    ] .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Publication ;
+    rdfs:range xsd:dateTime .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:dateTime .
+:presentedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Article ;
+    rdfs:range :Cl_Presentation .
+:Cl_Presentation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :presentedIn ;
+        owl:someValuesFrom :Cl_Seminar
+    ] .
+:takesPlaceAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_Hospital .
+:presentedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Article ;
+    rdfs:range :Cl_SeminarPresentation .
+:Cl_SeminarPresentation a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :presentedAt ;
+        owl:someValuesFrom :Cl_Seminar
+    ] .
+#############################

@@ -1,0 +1,1634 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+:writtenDuring rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Cl_Play ;
+               rdfs:range xsd:string .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" ;
+                     :writtenDuring "1596-1598" .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+:writtenDuring rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Cl_Play ;
+               rdfs:range xsd:string .
+:containsActs rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Cl_Play ;
+              rdfs:range xsd:integer .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" ;
+                     :writtenDuring "1596-1598" ;
+                     :containsActs 5 .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+:writtenDuring rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Cl_Play ;
+               rdfs:range xsd:string .
+:containsActs rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Cl_Play ;
+              rdfs:range xsd:integer .
+:premierDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Production ;
+             rdfs:range xsd:date .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" ;
+                     :writtenDuring "1596-1598" ;
+                     :containsActs 5 .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice ;
+                               :premierDate "2009-09-07"^^xsd:date .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+:Cl_Newspaper rdf:type rdfs:Class .
+:Cl_Review rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+:hasReview rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Review .
+:reviewedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range :Cl_Newspaper .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+:writtenDuring rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Cl_Play ;
+               rdfs:range xsd:string .
+:containsActs rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Cl_Play ;
+              rdfs:range xsd:integer .
+:premierDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Production ;
+             rdfs:range xsd:date .
+:starRating rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range xsd:integer .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" ;
+                     :writtenDuring "1596-1598" ;
+                     :containsActs 5 .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice ;
+                               :premierDate "2009-09-07"^^xsd:date .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+:IlGazzettino rdf:type :Cl_Newspaper ;
+               :hasName "Il Gazzettino" .
+:TheMerchantOfVeniceReview rdf:type :Cl_Review ;
+                           :starRating 5 ;
+                           :reviewedBy :IlGazzettino .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+### Linking Review to the Production
+:TheMerchantOfVeniceProduction :hasReview :TheMerchantOfVeniceReview .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+:Cl_Newspaper rdf:type rdfs:Class .
+:Cl_Review rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+:hasReview rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Review .
+:reviewedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range :Cl_Newspaper .
+:employs rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Theatre ;
+         rdfs:range :Cl_Individual .
+:employedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Individual ;
+            rdfs:range :Cl_Theatre .
+:hasEmployment rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Individual ;
+               rdfs:range :Cl_Employment .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+:writtenDuring rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Cl_Play ;
+               rdfs:range xsd:string .
+:containsActs rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Cl_Play ;
+              rdfs:range xsd:integer .
+:premierDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Production ;
+             rdfs:range xsd:date .
+:starRating rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range xsd:integer .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Cl_Employment ;
+                     rdfs:range xsd:date .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" ;
+                     :writtenDuring "1596-1598" ;
+                     :containsActs 5 .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice ;
+                               :premierDate "2009-09-07"^^xsd:date .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+:IlGazzettino rdf:type :Cl_Newspaper ;
+               :hasName "Il Gazzettino" .
+:TheMerchantOfVeniceReview rdf:type :Cl_Review ;
+                           :starRating 5 ;
+                           :reviewedBy :IlGazzettino .
+:FabioBianchiEmployment rdf:type :Cl_Employment ;
+                        :employmentStartDate "2004-05-01"^^xsd:date .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+### Linking Review to the Production
+:TheMerchantOfVeniceProduction :hasReview :TheMerchantOfVeniceReview .
+### Linking Employment to the Individual and Theatre
+:FabioBianchi :employedBy :TheGrandTheatre .
+:TheGrandTheatre :employs :FabioBianchi .
+:FabioBianchi :hasEmployment :FabioBianchiEmployment .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+:Cl_Newspaper rdf:type rdfs:Class .
+:Cl_Review rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_RoleAssignment rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+:hasReview rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Review .
+:reviewedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range :Cl_Newspaper .
+:employs rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Theatre ;
+         rdfs:range :Cl_Individual .
+:employedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Individual ;
+            rdfs:range :Cl_Theatre .
+:hasEmployment rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Individual ;
+               rdfs:range :Cl_Employment .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range :Cl_Role .
+:roleOf rdf:type owl:ObjectProperty ;
+        rdfs:domain :Cl_Role ;
+        rdfs:range :Cl_Individual .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_Individual ;
+                   rdfs:range :Cl_RoleAssignment .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+:writtenDuring rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Cl_Play ;
+               rdfs:range xsd:string .
+:containsActs rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Cl_Play ;
+              rdfs:range xsd:integer .
+:premierDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Production ;
+             rdfs:range xsd:date .
+:starRating rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range xsd:integer .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Cl_Employment ;
+                     rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Role ;
+          rdfs:range xsd:string .
+:assignmentDate rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_RoleAssignment ;
+                rdfs:range xsd:dateTime .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" ;
+                     :writtenDuring "1596-1598" ;
+                     :containsActs 5 .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice ;
+                               :premierDate "2009-09-07"^^xsd:date .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+:IlGazzettino rdf:type :Cl_Newspaper ;
+               :hasName "Il Gazzettino" .
+:TheMerchantOfVeniceReview rdf:type :Cl_Review ;
+                           :starRating 5 ;
+                           :reviewedBy :IlGazzettino .
+:FabioBianchiEmployment rdf:type :Cl_Employment ;
+                        :employmentStartDate "2004-05-01"^^xsd:date .
+:DukeOfVeniceRole rdf:type :Cl_Role ;
+                  :roleName "Duke of Venice" .
+:ServantRole rdf:type :Cl_Role ;
+             :roleName "Servant" .
+:FabioBianchiDukeRoleAssignment rdf:type :Cl_RoleAssignment ;
+                                 :assignmentDate "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:FabioBianchiServantRoleAssignment rdf:type :Cl_RoleAssignment ;
+                                   :assignmentDate "2009-09-01T00:00:00Z"^^xsd:dateTime .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+### Linking Review to the Production
+:TheMerchantOfVeniceProduction :hasReview :TheMerchantOfVeniceReview .
+### Linking Employment to the Individual and Theatre
+:FabioBianchi :employedBy :TheGrandTheatre .
+:TheGrandTheatre :employs :FabioBianchi .
+:FabioBianchi :hasEmployment :FabioBianchiEmployment .
+### Linking Roles to the Individual
+:FabioBianchi :hasRole :DukeOfVeniceRole .
+:FabioBianchi :hasRole :ServantRole .
+:DukeOfVeniceRole :roleOf :FabioBianchi .
+:ServantRole :roleOf :FabioBianchi .
+### Linking Role Assignments to the Individual and Roles
+:FabioBianchi :hasRoleAssignment :FabioBianchiDukeRoleAssignment .
+:FabioBianchi :hasRoleAssignment :FabioBianchiServantRoleAssignment .
+:FabioBianchiDukeRoleAssignment :roleOf :DukeOfVeniceRole .
+:FabioBianchiServantRoleAssignment :roleOf :ServantRole .
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+### Classes
+:Cl_Festival rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_FestivalOccurrence rdf:type rdfs:Class .
+:Cl_Play rdf:type rdfs:Class .
+:Cl_PlayAppearance rdf:type rdfs:Class .
+:Cl_Theatre rdf:type rdfs:Class .
+:Cl_Production rdf:type rdfs:Class .
+:Cl_Ensemble rdf:type rdfs:Class .
+:Cl_Individual rdf:type rdfs:Class .
+:Cl_EnsembleMembership rdf:type rdfs:Class .
+:Cl_Author rdf:type rdfs:Class .
+:Cl_Newspaper rdf:type rdfs:Class .
+:Cl_Review rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_RoleAssignment rdf:type rdfs:Class .
+### Object Properties
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Festival ;
+               rdfs:range :Cl_FestivalOccurrence .
+:takesPlaceIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :Cl_FestivalOccurrence ;
+              rdfs:range :Cl_City .
+:hasPlayAppearance rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_FestivalOccurrence ;
+                   rdfs:range :Cl_PlayAppearance .
+:isPlayOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_PlayAppearance ;
+          rdfs:range :Cl_Play .
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Theatre ;
+           rdfs:range :Cl_City .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+             rdfs:domain :Cl_City ;
+             rdfs:range :Cl_Country .
+:isBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Play .
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Ensemble ;
+           rdfs:range :Cl_Individual .
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cl_Individual ;
+          rdfs:range :Cl_Ensemble .
+:hasEnsembleMembership rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Cl_Ensemble ;
+                       rdfs:range :Cl_EnsembleMembership .
+:wrotePlay rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Author ;
+           rdfs:range :Cl_Play .
+:hasReview rdf:type owl:ObjectProperty ;
+           rdfs:domain :Cl_Production ;
+           rdfs:range :Cl_Review .
+:reviewedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range :Cl_Newspaper .
+:employs rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Theatre ;
+         rdfs:range :Cl_Individual .
+:employedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Cl_Individual ;
+            rdfs:range :Cl_Theatre .
+:hasEmployment rdf:type owl:ObjectProperty ;
+               rdfs:domain :Cl_Individual ;
+               rdfs:range :Cl_Employment .
+:hasRole rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range :Cl_Role .
+:roleOf rdf:type owl:ObjectProperty ;
+        rdfs:domain :Cl_Role ;
+        rdfs:range :Cl_Individual .
+:hasRoleAssignment rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Cl_Individual ;
+                   rdfs:range :Cl_RoleAssignment .
+### Data Properties
+:hasDate rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_FestivalOccurrence ;
+         rdfs:range xsd:date .
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Play ;
+          rdfs:range xsd:string .
+:atTime rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Cl_EnsembleMembership ;
+        rdfs:range xsd:dateTime .
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Cl_Individual ;
+         rdfs:range xsd:string .
+:writtenDuring rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Cl_Play ;
+               rdfs:range xsd:string .
+:containsActs rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Cl_Play ;
+              rdfs:range xsd:integer .
+:premierDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Cl_Production ;
+             rdfs:range xsd:date .
+:starRating rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Cl_Review ;
+            rdfs:range xsd:integer .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Cl_Employment ;
+                     rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Cl_Role ;
+          rdfs:range xsd:string .
+:assignmentDate rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Cl_RoleAssignment ;
+                rdfs:range xsd:dateTime .
+### Restrictions
+:Cl_Production rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty :premierDate ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+### Individuals
+:RomaLovesShakespeare rdf:type :Cl_Festival .
+:Rome rdf:type :Cl_City .
+:Italy rdf:type :Cl_Country .
+:RomaLovesShakespeare2007 rdf:type :Cl_FestivalOccurrence ;
+                           :hasDate "2007-01-01"^^xsd:date ;
+                           :takesPlaceIn :Rome .
+:TheMerchantOfVenice rdf:type :Cl_Play ;
+                     :hasTitle "The Merchant of Venice" ;
+                     :writtenDuring "1596-1598" ;
+                     :containsActs 5 .
+:Othello rdf:type :Cl_Play ;
+         :hasTitle "Othello" .
+:AMidsummerNightsDream rdf:type :Cl_Play ;
+                       :hasTitle "A Midsummer Night's Dream" .
+:TheGrandTheatre rdf:type :Cl_Theatre ;
+                 :locatedIn :Rome .
+:TheMerchantOfVeniceProduction rdf:type :Cl_Production ;
+                               :isBasedOn :TheMerchantOfVenice ;
+                               :premierDate "2009-09-07"^^xsd:date .
+:MerchantOfVeniceEnsemble rdf:type :Cl_Ensemble .
+:FabioBianchi rdf:type :Cl_Individual ;
+                :hasName "Fabio Bianchi" .
+:ArnoldSchwarzenegger rdf:type :Cl_Individual ;
+                       :hasName "Arnold Schwarzenegger" .
+:WilliamShakespeare rdf:type :Cl_Author ;
+                     :hasName "William Shakespeare" .
+:IlGazzettino rdf:type :Cl_Newspaper ;
+               :hasName "Il Gazzettino" .
+:TheMerchantOfVeniceReview rdf:type :Cl_Review ;
+                           :starRating 5 ;
+                           :reviewedBy :IlGazzettino .
+:FabioBianchiEmployment rdf:type :Cl_Employment ;
+                        :employmentStartDate "2004-05-01"^^xsd:date .
+:DukeOfVeniceRole rdf:type :Cl_Role ;
+                  :roleName "Duke of Venice" .
+:ServantRole rdf:type :Cl_Role ;
+             :roleName "Servant" .
+:FabioBianchiDukeRoleAssignment rdf:type :Cl_RoleAssignment ;
+                                 :assignmentDate "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:FabioBianchiServantRoleAssignment rdf:type :Cl_RoleAssignment ;
+                                   :assignmentDate "2009-09-01T00:00:00Z"^^xsd:dateTime .
+### Relations
+:RomaLovesShakespeare :hasOccurrence :RomaLovesShakespeare2007 .
+:Rome :isLocatedIn :Italy .
+### Play Appearances at the Festival
+:TheMerchantOfVeniceAppearance rdf:type :Cl_PlayAppearance ;
+                                :isPlayOf :TheMerchantOfVenice .
+:OthelloAppearance rdf:type :Cl_PlayAppearance ;
+                    :isPlayOf :Othello .
+:AMidsummerNightsDreamAppearance rdf:type :Cl_PlayAppearance ;
+                                  :isPlayOf :AMidsummerNightsDream .
+### Linking Plays to the Festival Occurrence
+:RomaLovesShakespeare2007 :hasPlayAppearance :TheMerchantOfVeniceAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :OthelloAppearance .
+:RomaLovesShakespeare2007 :hasPlayAppearance :AMidsummerNightsDreamAppearance .
+### Ensemble Memberships
+:FabioBianchiMembership rdf:type :Cl_EnsembleMembership ;
+                         :memberOf :MerchantOfVeniceEnsemble ;
+                         :atTime "2009-09-01T00:00:00Z"^^xsd:dateTime .
+:ArnoldSchwarzeneggerMembership rdf:type :Cl_EnsembleMembership ;
+                                 :memberOf :MerchantOfVeniceEnsemble ;
+                                 :atTime "2009-09-14T00:00:00Z"^^xsd:dateTime .
+### Linking Members to the Ensemble
+:MerchantOfVeniceEnsemble :hasMember :FabioBianchi ;
+                          :hasMember :ArnoldSchwarzenegger .
+:FabioBianchi :hasEnsembleMembership :FabioBianchiMembership .
+:ArnoldSchwarzenegger :hasEnsembleMembership :ArnoldSchwarzeneggerMembership .
+### Linking Plays to the Author
+:WilliamShakespeare :wrotePlay :TheMerchantOfVenice .
+:WilliamShakespeare :wrotePlay :Othello .
+:WilliamShakespeare :wrotePlay :AMidsummerNightsDream .
+### Linking Review to the Production
+:TheMerchantOfVeniceProduction :hasReview :TheMerchantOfVeniceReview .
+### Linking Employment to the Individual and Theatre
+:FabioBianchi :employedBy :TheGrandTheatre .
+:TheGrandTheatre :employs :FabioBianchi .
+:FabioBianchi :hasEmployment :FabioBianchiEmployment .
+### Linking Roles to the Individual
+:FabioBianchi :hasRole :DukeOfVeniceRole .
+:FabioBianchi :hasRole :ServantRole .
+:DukeOfVeniceRole :roleOf :FabioBianchi .
+:ServantRole :roleOf :FabioBianchi .
+### Linking Role Assignments to the Individual and Roles
+:FabioBianchi :hasRoleAssignment :FabioBianchiDukeRoleAssignment .
+:FabioBianchi :hasRoleAssignment :FabioBianchiServantRoleAssignment .
+:FabioBianchiDukeRoleAssignment :roleOf :DukeOfVeniceRole .
+:FabioBianchiServantRoleAssignment :roleOf :ServantRole .

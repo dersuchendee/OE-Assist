@@ -1,0 +1,2072 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+:Cl_Critic rdf:type rdfs:Class .
+:Cl_CriticReview rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Critic, :Cl_Album .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+:reviewedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Critic .
+:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Album .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:reviewText rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range xsd:string .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+:CrianHiatt rdf:type :Cl_Critic .
+:StadiumArcadiumReview rdf:type :Cl_CriticReview ;
+    :reviewedBy :CrianHiatt ;
+    :reviews :StadiumArcadium ;
+    :reviewText "the most ambitious work in his twenty-three-year career" .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+:Cl_Critic rdf:type rdfs:Class .
+:Cl_CriticReview rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Critic, :Cl_Album .
+:Cl_Performance rdf:type rdfs:Class .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+:reviewedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Critic .
+:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Album .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:reviewText rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range xsd:string .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+:CrianHiatt rdf:type :Cl_Critic .
+:StadiumArcadiumReview rdf:type :Cl_CriticReview ;
+    :reviewedBy :CrianHiatt ;
+    :reviews :StadiumArcadium ;
+    :reviewText "the most ambitious work in his twenty-three-year career" .
+:PortlandPerformance rdf:type :Cl_Performance ;
+    :performanceDate "2006-08-11"^^xsd:date .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+:Cl_Critic rdf:type rdfs:Class .
+:Cl_CriticReview rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Critic, :Cl_Album .
+:Cl_Performance rdf:type rdfs:Class .
+:Cl_PerformanceSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Performance, :Cl_Song .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+:reviewedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Critic .
+:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Album .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Song .
+:performedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Performance .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:reviewText rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range xsd:string .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+:CrianHiatt rdf:type :Cl_Critic .
+:StadiumArcadiumReview rdf:type :Cl_CriticReview ;
+    :reviewedBy :CrianHiatt ;
+    :reviews :StadiumArcadium ;
+    :reviewText "the most ambitious work in his twenty-three-year career" .
+:PortlandPerformance rdf:type :Cl_Performance ;
+    :performanceDate "2006-08-11"^^xsd:date .
+:PortlandPerformanceHumpDeBump rdf:type :Cl_PerformanceSong ;
+    :performedSong :HumpDeBump ;
+    :performedAt :PortlandPerformance .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+:Cl_Critic rdf:type rdfs:Class .
+:Cl_CriticReview rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Critic, :Cl_Album .
+:Cl_Performance rdf:type rdfs:Class .
+:Cl_PerformanceSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Performance, :Cl_Song .
+:Cl_Location rdf:type rdfs:Class .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+:reviewedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Critic .
+:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Album .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Song .
+:performedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Performance .
+:hasLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range :Cl_Location .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:reviewText rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range xsd:string .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+:CrianHiatt rdf:type :Cl_Critic .
+:StadiumArcadiumReview rdf:type :Cl_CriticReview ;
+    :reviewedBy :CrianHiatt ;
+    :reviews :StadiumArcadium ;
+    :reviewText "the most ambitious work in his twenty-three-year career" .
+:PortlandPerformance rdf:type :Cl_Performance ;
+    :performanceDate "2006-08-11"^^xsd:date ;
+    :hasLocation :Portland .
+:Portland rdf:type :Cl_Location .
+:PortlandPerformanceHumpDeBump rdf:type :Cl_PerformanceSong ;
+    :performedSong :HumpDeBump ;
+    :performedAt :PortlandPerformance .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+:Cl_Critic rdf:type rdfs:Class .
+:Cl_CriticReview rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Critic, :Cl_Album .
+:Cl_Performance rdf:type rdfs:Class .
+:Cl_PerformanceSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Performance, :Cl_Song .
+:Cl_Location rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+:Cl_Region rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+:reviewedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Critic .
+:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Album .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Song .
+:performedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Performance .
+:hasLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range :Cl_Location .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Region .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:reviewText rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range xsd:string .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+:CrianHiatt rdf:type :Cl_Critic .
+:StadiumArcadiumReview rdf:type :Cl_CriticReview ;
+    :reviewedBy :CrianHiatt ;
+    :reviews :StadiumArcadium ;
+    :reviewText "the most ambitious work in his twenty-three-year career" .
+:PortlandPerformance rdf:type :Cl_Performance ;
+    :performanceDate "2006-08-11"^^xsd:date ;
+    :hasLocation :Portland .
+:Portland rdf:type :Cl_City ;
+    :isLocatedIn :Oregon .
+:Oregon rdf:type :Cl_Region .
+:PortlandPerformanceHumpDeBump rdf:type :Cl_PerformanceSong ;
+    :performedSong :HumpDeBump ;
+    :performedAt :PortlandPerformance .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+:Cl_Critic rdf:type rdfs:Class .
+:Cl_CriticReview rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Critic, :Cl_Album .
+:Cl_Performance rdf:type rdfs:Class .
+:Cl_PerformanceSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Performance, :Cl_Song .
+:Cl_Location rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+:Cl_Region rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+:Cl_Country rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+:reviewedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Critic .
+:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Album .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Song .
+:performedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Performance .
+:hasLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range :Cl_Location .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Region .
+:isPartOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Region ;
+    rdfs:range :Cl_Country .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:reviewText rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range xsd:string .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+:CrianHiatt rdf:type :Cl_Critic .
+:StadiumArcadiumReview rdf:type :Cl_CriticReview ;
+    :reviewedBy :CrianHiatt ;
+    :reviews :StadiumArcadium ;
+    :reviewText "the most ambitious work in his twenty-three-year career" .
+:PortlandPerformance rdf:type :Cl_Performance ;
+    :performanceDate "2006-08-11"^^xsd:date ;
+    :hasLocation :Portland .
+:Portland rdf:type :Cl_City ;
+    :isLocatedIn :Oregon .
+:Oregon rdf:type :Cl_Region ;
+    :isPartOf :USA .
+:USA rdf:type :Cl_Country .
+:PortlandPerformanceHumpDeBump rdf:type :Cl_PerformanceSong ;
+    :performedSong :HumpDeBump ;
+    :performedAt :PortlandPerformance .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_Instrument rdf:type rdfs:Class .
+:Cl_PersonInstrument rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Instrument .
+:Cl_Band rdf:type rdfs:Class .
+:Cl_BandMembership rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Band .
+:Cl_Role rdf:type rdfs:Class .
+:Cl_PersonRoleBandTime rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_Role, :Cl_Band .
+:Cl_Album rdf:type rdfs:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Restriction ;
+        owl:onProperty :containsTrack ;
+        owl:minCardinality 1
+    ] .
+:Cl_AlbumRecording rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album .
+:Cl_Track rdf:type rdfs:Class .
+:Cl_AlbumTrack rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Album, :Cl_Track .
+:Cl_Song rdf:type rdfs:Class .
+:Cl_TrackSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Track, :Cl_Song .
+:Cl_Critic rdf:type rdfs:Class .
+:Cl_CriticReview rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Critic, :Cl_Album .
+:Cl_Performance rdf:type rdfs:Class .
+:Cl_PerformanceSong rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Performance, :Cl_Song .
+:Cl_Location rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+:Cl_Region rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+:Cl_Country rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Location .
+# Object Properties
+:playsInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonInstrument .
+:hasInstrument rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonInstrument ;
+    rdfs:range :Cl_Instrument .
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Band ;
+    rdfs:range :Cl_BandMembership .
+:memberOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range :Cl_Band .
+:hasTimePeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_BandMembership ;
+    rdfs:range xsd:dateTime .
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Role .
+:hasBand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Band .
+:hasPerson rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range :Cl_Person .
+:hasTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonRoleBandTime ;
+    rdfs:range xsd:dateTime .
+:recordedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_AlbumRecording ;
+    rdfs:range xsd:dateTime .
+:hasRecording rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumRecording .
+:containsTrack rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range :Cl_AlbumTrack .
+:isRecordingOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_TrackSong ;
+    rdfs:range :Cl_Song .
+:reviewedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Critic .
+:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range :Cl_Album .
+:performedSong rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Song .
+:performedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PerformanceSong ;
+    rdfs:range :Cl_Performance .
+:hasLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range :Cl_Location .
+:isLocatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Region .
+:isPartOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Region ;
+    rdfs:range :Cl_Country .
+# Data Properties
+:trackCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:integer .
+:releaseDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Album ;
+    rdfs:range xsd:date .
+:compositionDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Song ;
+    rdfs:range xsd:date .
+:reviewText rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_CriticReview ;
+    rdfs:range xsd:string .
+:performanceDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Performance ;
+    rdfs:range xsd:date .
+# Individuals
+:AnthonyKiedis rdf:type :Cl_Person .
+:Flea rdf:type :Cl_Person .
+:JohnFrusciante rdf:type :Cl_Person .
+:ChadSmith rdf:type :Cl_Person .
+:Vocals rdf:type :Cl_Instrument .
+:Bass rdf:type :Cl_Instrument .
+:Trumpet rdf:type :Cl_Instrument .
+:Keyboards rdf:type :Cl_Instrument .
+:Guitar rdf:type :Cl_Instrument .
+:Drums rdf:type :Cl_Instrument .
+:RedHotChiliPeppers rdf:type :Cl_Band .
+:VocalsRole rdf:type :Cl_Role .
+:BassRole rdf:type :Cl_Role .
+:TrumpetRole rdf:type :Cl_Role .
+:KeyboardsRole rdf:type :Cl_Role .
+:GuitarRole rdf:type :Cl_Role .
+:DrumsRole rdf:type :Cl_Role .
+:StadiumArcadium rdf:type :Cl_Album ;
+    :trackCount 28 ;
+    :releaseDate "2006-05-05"^^xsd:date .
+:HumpDeBump rdf:type :Cl_Song ;
+    :compositionDate "2004-01-26"^^xsd:date .
+:HumpDeBumpTrack rdf:type :Cl_TrackSong ;
+    :isRecordingOf :HumpDeBump .
+:CrianHiatt rdf:type :Cl_Critic .
+:StadiumArcadiumReview rdf:type :Cl_CriticReview ;
+    :reviewedBy :CrianHiatt ;
+    :reviews :StadiumArcadium ;
+    :reviewText "the most ambitious work in his twenty-three-year career" .
+:PortlandPerformance rdf:type :Cl_Performance ;
+    :performanceDate "2006-08-11"^^xsd:date ;
+    :hasLocation :Portland .
+:Portland rdf:type :Cl_City ;
+    :isLocatedIn :Oregon .
+:Oregon rdf:type :Cl_Region ;
+    :isPartOf :USA .
+:USA rdf:type :Cl_Country .
+:PortlandPerformanceHumpDeBump rdf:type :Cl_PerformanceSong ;
+    :performedSong :HumpDeBump ;
+    :performedAt :PortlandPerformance .
+# Relationships
+:AnthonyKiedis :playsInstrument :Vocals .
+:Flea :playsInstrument :Bass, :Trumpet, :Keyboards, :Vocals .
+:JohnFrusciante :playsInstrument :Guitar .
+:ChadSmith :playsInstrument :Drums .
+:RedHotChiliPeppers :hasMember :AnthonyKiedis, :Flea, :JohnFrusciante, :ChadSmith .
+:AnthonyKiedis :memberOf :RedHotChiliPeppers .
+:Flea :memberOf :RedHotChiliPeppers .
+:JohnFrusciante :memberOf :RedHotChiliPeppers .
+:ChadSmith :memberOf :RedHotChiliPeppers .
+:AnthonyKiedis :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:Flea :hasTimePeriod "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFrusciante :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmith :hasTimePeriod "1988-01-01T00:00:00"^^xsd:dateTime .
+# Reified Relationships
+:AnthonyKiedisRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :AnthonyKiedis ;
+    :hasRole :VocalsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:FleaRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :Flea ;
+    :hasRole :BassRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1983-01-01T00:00:00"^^xsd:dateTime .
+:JohnFruscianteRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :JohnFrusciante ;
+    :hasRole :GuitarRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+:ChadSmithRole rdf:type :Cl_PersonRoleBandTime ;
+    :hasPerson :ChadSmith ;
+    :hasRole :DrumsRole ;
+    :hasBand :RedHotChiliPeppers ;
+    :hasTime "1988-01-01T00:00:00"^^xsd:dateTime .
+# Album Recording Relationships
+:StadiumArcadiumRecording rdf:type :Cl_AlbumRecording ;
+    :recordedDuring "2004-09-01T00:00:00"^^xsd:dateTime .
+:StadiumArcadium :hasRecording :StadiumArcadiumRecording .
+#############################

@@ -10,8 +10,28 @@ WHERE {
   ?product :hasProductComponent ?component .
   OPTIONAL { ?component :hasProductName ?componentName. }
 }",B
-2,a,"Who wrote '1984'?","{'author': 'George Orwell'}","**yes**not modelled ","SELECT ?author WHERE { ?book <writtenBy> ?author . FILTER(?book = '1984') }",B
-3,a,"What is the speed of light?","{'constant': 'c', 'value': '299792458 m/s'}","**yes**modelled ","SELECT ?value WHERE { ?constant <hasValue> ?value . FILTER(?constant = 'c') }",B
+2,a,"Who wrote '1984'?","{'author': 'George Orwell'}","**yes**not modelled ","PREFIX : <http://w3id.org/CEON/ontology/product/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?product ?productName ?component ?componentName
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product :hasProductName ?productName. }
+  
+  ?product :hasProductComponent ?component .
+  OPTIONAL { ?component :hasProductName ?componentName. }
+}",B
+3,a,"What is the speed of light?","{'constant': 'c', 'value': '299792458 m/s'}","**yes**modelled ","PREFIX : <http://w3id.org/CEON/ontology/product/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?product ?productName ?component ?componentName
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product :hasProductName ?productName. }
+  
+  ?product :hasProductComponent ?component .
+  OPTIONAL { ?component :hasProductName ?componentName. }
+}",B
 4,a,"Name the largest planet in our solar system.","{'planet': 'Jupiter'}","**yes**","SELECT ?planet WHERE { ?planet <isLargest> true }",B
 5,a,"What element does 'O' represent?","{'element': 'Oxygen'}","**yes**","SELECT ?element WHERE { ?element <symbol> 'O' }",B
 6,a,"Who painted the Mona Lisa?","{'artist': 'Leonardo da Vinci'}","**yes**","SELECT ?artist WHERE { ?painting <createdBy> ?artist . FILTER(?painting = 'Mona Lisa') }",A

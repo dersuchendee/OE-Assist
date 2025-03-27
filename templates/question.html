@@ -16,6 +16,29 @@
     .selected {
       border: 2px solid #007bff;
     }
+    .btn-check {
+    display: none;
+  }
+  .btn-check {
+    position: absolute;
+    clip: rect(0,0,0,0);
+    pointer-events: none;
+  }
+  /* Center button groups */
+  .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Optional: Customize active state appearance */
+  .btn.active {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.5);
+  }
+  /* Show error messages in red */
+  .invalid-feedback {
+    color: red;
+    text-align: center;
+  }
   </style>
   <script>
     function selectAnswer(answer, buttonId) {
@@ -32,7 +55,7 @@
   </script>
 </head>
 <body class="container">
-  <h2 class="mb-4">CQ: {{ current_row['cq'] }}</h2>
+  <h4 class="mb-4">CQ: {{ current_row['cq'] }}</h4>
 {% if current_row.get('scenario') %}
   <p><strong>Scenario:</strong> {{ current_row['scenario'] }}</p>
 {% endif %}
@@ -52,30 +75,83 @@
 {% endif %}
 
 
-  <form method="post">
-    <div class="form-group">
-      <label>Is the CQ modelled?</label>
-      <div>
-        <!-- Answer buttons of type "button" call the JS function -->
-        <button type="button" id="btn_yes" class="btn btn-success answer-btn" onclick="selectAnswer('Yes', 'btn_yes')">Yes</button>
-        <button type="button" id="btn_no" class="btn btn-danger answer-btn" onclick="selectAnswer('No', 'btn_no')">No</button>
-        <button type="button" id="btn_idk" class="btn btn-secondary answer-btn" onclick="selectAnswer('I don&#39;t know', 'btn_idk')">I don't know</button>
-      </div>
-    </div>
-    <!-- Hidden input that stores the selected answer -->
-    <input type="hidden" id="selected_answer" name="is_modeled" value="">
-    <div class="form-group">
-  <label>How hard was the CQ? (0 to 5)</label><br>
-  {% for i in range(6) %}
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="difficulty" id="difficulty{{ i }}" value="{{ i }}" required>
-    <label class="form-check-label" for="difficulty{{ i }}">{{ i }}</label>
-  </div>
-  {% endfor %}
-</div>
+<form method="post" onsubmit="return validateForm()">
+  <!-- Is the CQ modelled? -->
+  <div class="form-group mb-3">
+    <label class="d-block text-center mb-2"><h5>Is the CQ modelled?</h5></label>
+    <div class="btn-group centered" role="group" aria-label="CQ modelled?">
+      <input type="radio" class="btn-check" name="is_modeled" id="modelled_yes" value="Yes" autocomplete="off" required>
+      <label class="btn btn-success" for="modelled_yes">Yes</label>
 
-    <!-- Single submit button -->
+      <input type="radio" class="btn-check" name="is_modeled" id="modelled_no" value="No" autocomplete="off">
+      <label class="btn btn-danger" for="modelled_no">No</label>
+
+      <input type="radio" class="btn-check" name="is_modeled" id="modelled_idk" value="I don't know" autocomplete="off">
+      <label class="btn btn-secondary" for="modelled_idk">I don't know</label>
+    </div>
+    <div id="modeledError" class="invalid-feedback" style="display:none;">Please select an option.</div>
+  </div>
+
+  <!-- How hard was the CQ? -->
+  <div class="form-group mb-3">
+    <label class="d-block text-center mb-2"><h5>How hard was the CQ?</h5> (1: Very easy to 5: Very hard)</label>
+    <div class="btn-group centered" role="group" aria-label="Difficulty rating">
+      {% for i in range(1,6) %}
+        <input type="radio" class="btn-check" name="difficulty" id="difficulty{{ i }}" value="{{ i }}" autocomplete="off" required>
+        <label class="btn btn-outline-primary btn-lg" for="difficulty{{ i }}">{{ i }}</label>
+      {% endfor %}
+    </div>
+    <div id="difficultyError" class="invalid-feedback" style="display:none;">Please select a difficulty.</div>
+  </div>
+
+  <!-- Submit button -->
+  <div class="text-center">
     <button type="submit" class="btn btn-primary">Next</button>
-  </form>
+  </div>
+</form>
+
+<script>
+  // Add active class to the selected button for the 'is_modeled' group
+  document.querySelectorAll('input[name="is_modeled"]').forEach(function(el) {
+    el.addEventListener('change', function(){
+      document.querySelectorAll('label[for^="modelled_"]').forEach(function(lbl){
+        lbl.classList.remove('active');
+      });
+      document.querySelector('label[for="'+this.id+'"]').classList.add('active');
+    });
+  });
+  
+  // Add active class to the selected button for the 'difficulty' group
+  document.querySelectorAll('input[name="difficulty"]').forEach(function(el) {
+    el.addEventListener('change', function(){
+      document.querySelectorAll('label[for^="difficulty"]').forEach(function(lbl){
+        lbl.classList.remove('active');
+      });
+      document.querySelector('label[for="'+this.id+'"]').classList.add('active');
+    });
+  });
+
+  // Custom form validation
+  function validateForm() {
+    var isModeled = document.querySelector('input[name="is_modeled"]:checked');
+    var difficulty = document.querySelector('input[name="difficulty"]:checked');
+    var valid = true;
+
+    if (!isModeled) {
+      document.getElementById("modeledError").style.display = "block";
+      valid = false;
+    } else {
+      document.getElementById("modeledError").style.display = "none";
+    }
+
+    if (!difficulty) {
+      document.getElementById("difficultyError").style.display = "block";
+      valid = false;
+    } else {
+      document.getElementById("difficultyError").style.display = "none";
+    }
+    return valid;
+  }
+</script>
 </body>
 </html>

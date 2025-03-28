@@ -113,7 +113,9 @@ def question(q_index):
     if show_llm:
         suggestion = current_row.get('llm_ontology_suggestion', '')
         llm_parts = parse_llm_suggestion(suggestion)
-
+        SPARQL = current_row.get('SPARQL', '')
+        # print(SPARQL)
+        #llm_parts += ' '.join(SPARQL)
     if request.method == 'POST':
         # Retrieve the clicked response. It will be "Yes", "No", or "I don't know"
         user_response = {
@@ -141,8 +143,8 @@ def question(q_index):
             return redirect(url_for('questionnaire', step=next_index))
         else:
             return redirect(url_for('question', q_index=next_index))
-
-    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm, llm_parts=llm_parts)
+    # print(llm_parts)
+    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm, llm_parts=llm_parts,SPARQL=SPARQL)
 
 
 @app.route('/questionnaire/<int:step>', methods=['GET', 'POST'])

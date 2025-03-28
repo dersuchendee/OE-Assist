@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+
   <title>Question {{ q_index + 1 }}</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Optional: Include a code highlighter for SPARQL queries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+
   <style>
     body {
       padding-top: 40px;
@@ -53,14 +54,27 @@
       document.getElementById(buttonId).classList.add("selected");
     }
   </script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    hljs.highlightAll();
+  });
+</script>
+
 </head>
+
 <body class="container">
+
   <h4 class="mb-4">CQ: {{ current_row['cq'] }}</h4>
 {% if current_row.get('scenario') %}
   <p><strong>Scenario:</strong> {{ current_row['scenario'] }}</p>
 {% endif %}
 
-{% if show_llm and llm_parts %}
+<!-- {% if show_llm and llm_parts %}
 <div class="card mb-3">
   <div class="card-body" style="font-size: 1.2em; white-space: pre-wrap;">
     {% for part in llm_parts %}
@@ -72,8 +86,27 @@
     {% endfor %}
   </div>
 </div>
+{% endif %} -->
+{% if show_llm and llm_parts %}
+<pre><code>{{ llm_parts[0]['content'] }}</code></pre>
 {% endif %}
 
+
+{% if show_llm and llm_parts %}
+<pre><code>{{SPARQL}}</code></pre>
+{% endif %}
+
+
+
+
+
+<!-- {% if show_llm and llm_parts %}
+<div class="card mb-3">
+  <div class="card-body" style="font-size: 1.2em; white-space: pre-wrap;">
+    <pre><code>{{ SPARQL }}</code></pre>
+  </div>
+</div>
+{% endif %} -->
 
 <form method="post" onsubmit="return validateForm()">
   <!-- Is the CQ modelled? -->

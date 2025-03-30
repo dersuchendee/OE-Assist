@@ -91,8 +91,6 @@ def question(q_index):
     - Presents the answer selection and difficulty rating.
     - The questions are shown in the order determined by the user's selection.
     """
-    SPARQL = ""
-
     user_id = session.get('user_id', 'anonymous')
     ordering = session.get('ordering', 'A_first')
 
@@ -112,10 +110,12 @@ def question(q_index):
     # For display, show the LLM suggestion only if the question's setting is B.
     show_llm = (current_row['setting'] == 'B')
     llm_parts = []
+    SPARQL=""
     if show_llm:
         suggestion = current_row.get('llm_ontology_suggestion', '')
         llm_parts = parse_llm_suggestion(suggestion)
         SPARQL = current_row.get('SPARQL', '')
+        SPARQL = open('SPARQLs/'+SPARQL).read()
         # print(SPARQL)
         #llm_parts += ' '.join(SPARQL)
     if request.method == 'POST':

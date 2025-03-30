@@ -91,6 +91,8 @@ def question(q_index):
     - Presents the answer selection and difficulty rating.
     - The questions are shown in the order determined by the user's selection.
     """
+    SPARQL = ""
+
     user_id = session.get('user_id', 'anonymous')
     ordering = session.get('ordering', 'A_first')
 

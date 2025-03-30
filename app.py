@@ -107,6 +107,8 @@ def question(q_index):
         return redirect(url_for('finished'))
 
     current_row = sorted_data[q_index]
+    ontology = current_row['generated_ontology']
+
     # For display, show the LLM suggestion only if the question's setting is B.
     show_llm = (current_row['setting'] == 'B')
     llm_parts = []
@@ -146,7 +148,7 @@ def question(q_index):
         else:
             return redirect(url_for('question', q_index=next_index))
     # print(llm_parts)
-    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm, llm_parts=llm_parts,SPARQL=SPARQL)
+    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm, llm_parts=llm_parts,SPARQL=SPARQL,ontology=ontology)
 
 
 @app.route('/questionnaire/<int:step>', methods=['GET', 'POST'])

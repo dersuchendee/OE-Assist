@@ -1,0 +1,15 @@
+SELECT ?habitat1 ?habitat1Label ?habitat2 ?habitat2Label
+WHERE {
+  ?habitat1 a :Habitat .
+  ?habitat2 a :Habitat .
+  FILTER(?habitat1 != ?habitat2) .
+  
+  ?habitat1 :hasMicrobialCommunityComposition ?microComp .
+  ?habitat2 :hasMicrobialCommunityComposition ?microComp .
+  
+  ?habitat1 :hasFungalCommunityComposition ?fungalComp .
+  ?habitat2 :hasFungalCommunityComposition ?fungalComp .
+  
+  OPTIONAL { ?habitat1 rdfs:label ?habitat1Label . }
+  OPTIONAL { ?habitat2 rdfs:label ?habitat2Label . }
+}

@@ -1,0 +1,18 @@
+SELECT ?event ?time ?place ?placeLabel ?reason
+WHERE {
+
+    ?musicianX a :Musician .
+    FILTER (?musicianX = :X) 
+
+    ?performerY a :Performer .
+    FILTER (?performerY = :Y)  
+
+    ?event a :MeetingEvent .
+    ?event :hasParticipant ?musicianX .
+    ?event :hasParticipant ?performerY .
+
+    ?event :atTime ?time .
+    ?event :atPlace ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+    OPTIONAL { ?event :hasReason ?reason . }
+}

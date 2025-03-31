@@ -1,0 +1,13 @@
+SELECT ?meetup ?meetupLabel ?participant ?participantLabel ?role ?roleLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup rdfs:label ?meetupLabel . }
+  
+  ?meetup mtps:hasParticipant ?participant .
+  OPTIONAL { ?participant rdfs:label ?participantLabel . }
+  
+  OPTIONAL {
+    ?participant mtps:hasRole ?role .
+    OPTIONAL { ?role rdfs:label ?roleLabel . }
+  }
+}

@@ -1,0 +1,17 @@
+SELECT ?bell ?bellLabel ?setOfBells ?setLabel ?bellTower ?towerLabel
+WHERE {
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel . }
+
+  OPTIONAL {
+    ?setOfBells arco:hasComponent ?bell .
+    ?setOfBells a bells:SetOfBells .
+    OPTIONAL { ?setOfBells rdfs:label ?setLabel . }
+  }
+
+  OPTIONAL {
+    ?bellTower a bells:BellTower .
+    ?bellTower arco:hasComponent ?setOfBells .
+    OPTIONAL { ?bellTower rdfs:label ?towerLabel . }
+  }
+}

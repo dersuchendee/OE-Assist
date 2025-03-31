@@ -1,0 +1,20 @@
+SELECT ?musician ?musicianName
+WHERE {
+  ?membership a :Cl_Membership ;
+              :member ?musician ;
+              :memberOf ?band ;
+              :startDate ?startDate .
+  OPTIONAL { ?membership :endDate ?endDate . }
+  ?band :bandName ?bandName .
+  ?musician :name ?musicianName .
+  
+  # Filter for the specific band and date
+  FILTER (?bandName = ""Red Hot Chili Peppers"")
+  FILTER (
+    ?startDate <= ""2020-01-01""^^xsd:date &&
+    (
+      !BOUND(?endDate) ||
+      ?endDate >= ""2020-01-01""^^xsd:date
+    )
+  )
+}

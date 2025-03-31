@@ -153,7 +153,7 @@ def question(q_index):
         else:
             return redirect(url_for('question', q_index=next_index))
     # print(llm_parts)
-    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm, llm_parts=llm_parts,SPARQL=SPARQL,ontology=ontology)
+    return render_template('question.html', q_index=q_index, current_row=current_row, show_llm=show_llm, llm_parts=llm_parts,SPARQL=SPARQL,ontology=ontology,label_suggestion=suggestion)
 
 
 @app.route('/questionnaire/<int:step>', methods=['GET', 'POST'])

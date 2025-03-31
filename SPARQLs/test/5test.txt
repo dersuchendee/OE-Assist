@@ -1,0 +1,20 @@
+SELECT ?event ?time ?place ?placeLabel ?reason
+WHERE {
+    # Given musician X and performer Y
+    ?musicianX a :Musician .
+    FILTER (?musicianX = :X)  # Replace :X with the URI of musician X
+
+    ?performerY a :Performer .
+    FILTER (?performerY = :Y)  # Replace :Y with the URI of performer Y
+
+    # Find events where both participated
+    ?event a :MeetingEvent .
+    ?event :hasParticipant ?musicianX .
+    ?event :hasParticipant ?performerY .
+
+    # Get event details
+    ?event :atTime ?time .
+    ?event :atPlace ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+    OPTIONAL { ?event :hasReason ?reason . }
+}

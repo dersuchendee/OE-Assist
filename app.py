@@ -50,11 +50,11 @@ if not os.path.exists('responses.csv'):
 
 # Load CSV data into a global list
 data = []
-with open('data.csv', newline='', encoding='utf-8') as csvfile:
+with open('data-test.csv', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         data.append(row)
-logging.info(f"Loaded {len(data)} rows from data.csv")
+logging.info(f"Loaded {len(data)} rows from data-test.csv")
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -157,7 +157,7 @@ def question(q_index):
 
 
 @app.route('/questionnaire/<int:step>', methods=['GET', 'POST'])
-def questionnaire(step):
+def questionnaire(step):sp
     """
     Intermediate page(s) after a certain number of questions.
     Displays a link to a questionnaire and some example text.

@@ -697,3 +697,79 @@
 2025-03-31 10:55:06,761 - WARNING -  * Debugger is active!
 2025-03-31 10:55:06,766 - INFO -  * Debugger PIN: 118-289-549
 2025-03-31 10:55:09,764 - INFO - 127.0.0.1 - - [31/Mar/2025 10:55:09] "GET /question/0 HTTP/1.1" 200 -
+2025-03-31 16:22:47,606 - INFO - Application startup
+2025-03-31 16:22:47,607 - INFO - Loaded 15 rows from data-test.csv
+2025-03-31 16:22:47,677 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+2025-03-31 16:22:47,677 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 16:23:00,228 - INFO - 127.0.0.1 - - [31/Mar/2025 16:23:00] "[32mGET /ontoeval HTTP/1.1[0m" 308 -
+2025-03-31 16:23:00,405 - INFO - 127.0.0.1 - - [31/Mar/2025 16:23:00] "GET /ontoeval/ HTTP/1.1" 200 -
+2025-03-31 16:23:00,806 - INFO - 127.0.0.1 - - [31/Mar/2025 16:23:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-31 16:23:51,346 - INFO - User 'aa' logged in at 2025-03-31T16:23:51.345701 with ordering 'B_first'
+2025-03-31 16:23:51,352 - INFO - 127.0.0.1 - - [31/Mar/2025 16:23:51] "[32mPOST /ontoeval/ HTTP/1.1[0m" 302 -
+2025-03-31 16:23:51,408 - INFO - 127.0.0.1 - - [31/Mar/2025 16:23:51] "GET /ontoeval/intro HTTP/1.1" 200 -
+2025-03-31 16:23:54,829 - INFO - User 'aa' moved from intro to questions
+2025-03-31 16:23:54,830 - INFO - 127.0.0.1 - - [31/Mar/2025 16:23:54] "[32mPOST /ontoeval/intro HTTP/1.1[0m" 302 -
+2025-03-31 16:23:54,856 - ERROR - Exception on /question/0 [GET]
+Traceback (most recent call last):
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\OneDrive\Documenti\GitHub\OntoEval\app.py", line 115, in question
+    ontology = current_row['generated_ontology']
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'generated_ontology'
+2025-03-31 16:23:54,964 - INFO - 127.0.0.1 - - [31/Mar/2025 16:23:54] "[35m[1mGET /ontoeval/question/0 HTTP/1.1[0m" 500 -
+2025-03-31 16:25:10,884 - INFO - Application startup
+2025-03-31 16:25:10,885 - INFO - Loaded 15 rows from data-test.csv
+2025-03-31 16:25:10,949 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+2025-03-31 16:25:10,950 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 16:25:15,322 - ERROR - Exception on /question/0 [GET]
+Traceback (most recent call last):
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\OneDrive\Documenti\GitHub\OntoEval\app.py", line 125, in question
+    SPARQL = open('SPARQLs/'+SPARQL).read()
+             ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'SPARQLs/SELECT ?album ?albumLabel ?recordingStartDate ?recordingEndDate\nWHERE {\n  ?album rdf:type :Cl_Album .\n  OPTIONAL { ?album rdfs:label ?albumLabel . }\n  ?album :hasRecordingSession ?recordingSession .\n  ?recordingSession :recordingStartDate ?recordingStartDate ;\n                    :recordingEndDate ?recordingEndDate .\n}'
+2025-03-31 16:25:15,327 - INFO - 127.0.0.1 - - [31/Mar/2025 16:25:15] "[35m[1mGET /ontoeval/question/0 HTTP/1.1[0m" 500 -
+2025-03-31 16:25:17,390 - ERROR - Exception on /question/0 [GET]
+Traceback (most recent call last):
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\annas\OneDrive\Documenti\GitHub\OntoEval\app.py", line 125, in question
+    SPARQL = open('SPARQLs/'+SPARQL).read()
+             ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'SPARQLs/SELECT ?album ?albumLabel ?recordingStartDate ?recordingEndDate\nWHERE {\n  ?album rdf:type :Cl_Album .\n  OPTIONAL { ?album rdfs:label ?albumLabel . }\n  ?album :hasRecordingSession ?recordingSession .\n  ?recordingSession :recordingStartDate ?recordingStartDate ;\n                    :recordingEndDate ?recordingEndDate .\n}'
+2025-03-31 16:25:17,393 - INFO - 127.0.0.1 - - [31/Mar/2025 16:25:17] "[35m[1mGET /ontoeval/question/0 HTTP/1.1[0m" 500 -
+2025-03-31 16:25:17,830 - INFO - 127.0.0.1 - - [31/Mar/2025 16:25:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

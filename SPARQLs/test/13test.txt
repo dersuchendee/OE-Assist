@@ -1,0 +1,17 @@
+SELECT ?meetup (GROUP_CONCAT(CONCAT(STR(?participant), "" ("", STR(?participantRole), "")""); separator="", "") AS ?participants) ?place ?purpose ?startTime ?endTime
+WHERE {
+  ?meetup a mtps:Meetup .
+
+  OPTIONAL {
+    ?meetup mtps:hasParticipant ?participant .
+    OPTIONAL { ?participant mtps:hasRole ?participantRole . }
+  }
+  OPTIONAL { ?meetup mtps:hasPlace ?place . }
+  OPTIONAL { ?meetup mtps:hasAPurpose ?purpose . }
+  OPTIONAL {
+    ?meetup mtps:happensAt ?timeExpression .
+    OPTIONAL { ?timeExpression time:hasBeginning ?startTime . }
+    OPTIONAL { ?timeExpression time:hasEnd ?endTime . }
+  }
+}
+GROUP BY ?meetup ?place ?purpose ?startTime ?endTime

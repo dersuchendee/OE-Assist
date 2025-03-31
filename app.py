@@ -157,7 +157,7 @@ def question(q_index):
 
 
 @app.route('/questionnaire/<int:step>', methods=['GET', 'POST'])
-def questionnaire(step):sp
+def questionnaire(step):
     """
     Intermediate page(s) after a certain number of questions.
     Displays a link to a questionnaire and some example text.

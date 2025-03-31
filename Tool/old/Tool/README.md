@@ -1,2 +1,0 @@
-# OntoEval
-ontology evaluation prototpye

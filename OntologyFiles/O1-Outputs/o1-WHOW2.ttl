@@ -13,12 +13,6 @@
 :HospitalisationRateObservation a owl:Class ;
     rdfs:label "Hospitalisation Rate Observation" ;
     rdfs:subClassOf :Observation ;
-    # rdfs:subClassOf [
-    #     a owl:Restriction ;
-    #     owl:onProperty :isObservationOf ;
-    #     owl:onClass :HospitalisationRate ;
-    #     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-    # ] ;
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:onProperty :isRelatedToDisease ;
@@ -37,11 +31,6 @@
 
 :Disease a owl:Class ;
     rdfs:label "Disease" .
-
-# :isObservationOf a owl:ObjectProperty ;
-#     rdfs:label "isObservationOf" ;
-#     rdfs:domain :HospitalisationRateObservation ;
-#     rdfs:range :HospitalisationRate .
 
 :isRelatedToDisease a owl:ObjectProperty ;
     rdfs:label "isRelatedToDisease" ;

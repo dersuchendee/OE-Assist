@@ -37,7 +37,32 @@
   .invalid-feedback {
     color: red;
     text-align: center;
+
   }
+/* Stronger visual feedback when a button is selected */
+.btn-check:checked + .btn-success,
+.btn-check:checked + .btn-danger,
+.btn-check:checked + .btn-secondary {
+  background-color: #ffc107; /* Bright yellow */
+  color: #000;
+  border: 2px solid #000;
+  font-weight: bold;
+  box-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
+}
+
+.btn-check:checked + .btn-outline-primary {
+  background-color: #20c997; /* Teal */
+  color: white;
+  border: 2px solid #000;
+  font-weight: bold;
+  box-shadow: 0 0 12px rgba(32, 201, 151, 0.6);
+}
+
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+}
   </style>
   <script>
     function selectAnswer(answer, buttonId) {
@@ -76,7 +101,7 @@
 
   <h4 class="mb-4">CQ: {{ current_row['cq'] }}</h4>
 {% if current_row.get('scenario') %}
-  <p><strong>Scenario:</strong> {{ current_row['scenario'] }}</p>
+  <h4><strong>Scenario:</strong> {{ current_row['scenario'] }}</h4>
 {% endif %}
 
 <!-- {% if show_llm and llm_parts %}
@@ -94,7 +119,7 @@
 {% endif %} -->
 
 {% if show_llm and llm_parts %}
-<p style="font-size: 1.2em;"><strong>LLM suggested label:</strong> {{ llm_parts[0]['content'] }}</p>
+<h4><strong>LLM suggested answer:</strong> {{ llm_parts[0]['content'] }}</h4>
 {% endif %}
 
 {% if SPARQL %}
@@ -138,7 +163,7 @@
 
   <!-- How hard was the CQ? -->
   <div class="form-group mb-3">
-    <label class="d-block text-center mb-2"><h5>How hard was the CQ?</h5> (1: Very easy to 5: Very hard)</label>
+    <label class="d-block text-center mb-2"><h5>How difficult was the CQ for you to solve?</h5> (1: Very easy to 5: Very hard)</label>
     <div class="btn-group centered" role="group" aria-label="Difficulty rating">
       {% for i in range(1,6) %}
         <input type="radio" class="btn-check" name="difficulty" id="difficulty{{ i }}" value="{{ i }}" autocomplete="off" required>

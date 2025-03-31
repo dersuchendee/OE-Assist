@@ -4,8 +4,13 @@ import datetime
 import os
 import logging
 
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from werkzeug.serving import run_simple
+
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Replace with a secure key
+
+app.config['APPLICATION_ROOT'] = '/ontoeval'
 
 import re
 
@@ -176,6 +181,12 @@ def finished():
     logging.info(f"User '{user_id}' has finished the questionnaire")
     return render_template('finished.html')
 
+# Wrap with DispatcherMiddleware for prefixing
+application = DispatcherMiddleware(Flask('dummy_root'), {
+    '/ontoeval': app
+})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    print("Starting app on http://localhost:5000/ontoeval")
+    # run_simple('localhost', 5000, application, use_reloader=True, use_debugger=True)
+    run_simple('localhost', 5000, application, use_reloader=False, use_debugger=True)

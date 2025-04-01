@@ -3,6 +3,8 @@ import csv
 import datetime
 import os
 import logging
+import re
+import subprocess
 
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from werkzeug.serving import run_simple
@@ -12,7 +14,20 @@ app.secret_key = "your_secret_key"  # Replace with a secure key
 
 app.config['APPLICATION_ROOT'] = '/ontoeval'
 
-import re
+
+def get_latest_commit_hash():
+    result = subprocess.run(
+        ['git', 'log', '-1', '--format=%H|%ct'],
+        cwd='.',
+        capture_output=True,
+        text=True,
+        check=True
+    )
+    commit_hash, commit_timestamp = result.stdout.strip().split('|')
+    dt = datetime.datetime.fromtimestamp(int(commit_timestamp))
+    timestamp = dt.strftime("%Y-%m-%d %H:%M:%S")
+    return commit_hash, timestamp
+
 
 def parse_llm_suggestion(suggestion):
     """
@@ -72,7 +87,8 @@ def index():
         session['responses'] = []  # initialize list to store question responses
         logging.info(f"User '{user_id}' logged in at {session['start_time']} with ordering '{ordering}'")
         return redirect(url_for('intro'))
-    return render_template('index.html')
+    commit_hash, commit_time = get_latest_commit_hash()
+    return render_template('index.html', hash=commit_hash, time=commit_time)
 
 
 @app.route('/intro', methods=['GET', 'POST'])

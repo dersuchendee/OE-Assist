@@ -1,5 +1,4 @@
-SELECT ?organ ?organLabel ?fromLocation ?fromLocationLabel ?toLocation ?toLocationLabel ?time
-WHERE {
+SELECT ?organ ?organLabel ?fromLocation ?fromLocationLabel ?toLocation ?toLocationLabel ?time WHERE {
   ?organ a :Organ .
   OPTIONAL { ?organ rdfs:label ?organLabel . }
   ?organ :hasMovementEvent ?movementEvent .
@@ -8,6 +7,5 @@ WHERE {
   OPTIONAL { ?fromLocation rdfs:label ?fromLocationLabel . }
   ?movementEvent :toLocation ?toLocation .
   OPTIONAL { ?toLocation rdfs:label ?toLocationLabel . }
-  ?movementEvent :atTime ?time .
-}
+  ?movementEvent :atTime ?time .}
 ORDER BY ?organ ?time

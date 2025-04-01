@@ -50,11 +50,11 @@ if not os.path.exists('responses.csv'):
 
 # Load CSV data into a global list
 data = []
-with open('data-test.csv', newline='', encoding='utf-8') as csvfile:
+with open('data.csv', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         data.append(row)
-logging.info(f"Loaded {len(data)} rows from data-test.csv")
+logging.info(f"Loaded {len(data)} rows from data.csv")
 
 
 @app.route('/', methods=['GET', 'POST'])

@@ -1,16 +1,11 @@
-SELECT ?implementationAction ?iaLabel ?effect ?effectLabel ?externalFactor ?factorLabel ?factorTypeLabel
-WHERE {
+SELECT ?implementationAction ?iaLabel ?effect ?effectLabel ?externalFactor ?factorLabel ?factorTypeLabel WHERE {
   ?implementationAction a :ImplementationAction .
   OPTIONAL { ?implementationAction rdfs:label ?iaLabel . }
-  
   ?implementationAction :hasEffect ?effect .
   OPTIONAL { ?effect rdfs:label ?effectLabel . }
-  
   ?effect :affectsFactor ?externalFactor .
   OPTIONAL { ?externalFactor rdfs:label ?factorLabel . }
-  
   ?externalFactor a ?factorType .
   OPTIONAL { ?factorType rdfs:label ?factorTypeLabel . }
-  
   FILTER (?factorType IN (:SocialFactor, :EnvironmentalFactor))
 }

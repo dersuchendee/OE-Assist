@@ -117,6 +117,7 @@ def question(q_index):
     # For display, show the LLM suggestion only if the question's setting is B.
     show_llm = (current_row['setting'] == 'B')
     llm_parts = []
+    suggestion = ""
     SPARQL=""
     if show_llm:
         suggestion = current_row.get('llm_ontology_suggestion', '')

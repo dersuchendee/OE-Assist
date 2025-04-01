@@ -190,4 +190,4 @@ application = DispatcherMiddleware(Flask('dummy_root'), {
 if __name__ == '__main__':
     print("Starting app on http://localhost:5000/ontoeval")
     # run_simple('localhost', 5000, application, use_reloader=True, use_debugger=True)
-    run_simple('localhost', 5000, application, use_reloader=False, use_debugger=True)
+    run_simple('localhost', 5000, application, use_reloader=True, use_debugger=True)

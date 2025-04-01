@@ -19,8 +19,8 @@ def get_latest_commit_hash():
     result = subprocess.run(
         ['git', 'log', '-1', '--format=%H|%ct'],
         cwd='.',
-        capture_output=True,
-        text=True,
+        stdout=subprocess.PIPE,
+        universal_newlines=True,
         check=True
     )
     commit_hash, commit_timestamp = result.stdout.strip().split('|')

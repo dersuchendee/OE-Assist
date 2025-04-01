@@ -1,14 +1,10 @@
-SELECT ?device ?deviceLabel ?functionality ?functionalityLabel
-WHERE {
+SELECT ?device ?deviceLabel ?functionality ?functionalityLabel WHERE {
   ?device a :SmartBathroomDevice .
-  OPTIONAL { ?device rdfs:label ?deviceLabel . }
-  {
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }{
     ?device :displaysWeather ?functionality .
     OPTIONAL { ?functionality rdfs:label ?functionalityLabel . }
   }
-  UNION
-  {
+  UNION{
     ?device :announcesWeather ?functionality .
     OPTIONAL { ?functionality rdfs:label ?functionalityLabel . }
-  }
-}
+}}

@@ -1,5 +1,4 @@
-SELECT ?organ ?organLabel ?project ?agentRole ?agent ?agentLabel ?role ?roleLabel
-WHERE {
+SELECT ?organ ?organLabel ?project ?agentRole ?agent ?agentLabel ?role ?roleLabel WHERE {
     ?organ a organs:Organ .
     OPTIONAL { ?organ rdfs:label ?organLabel . }
     OPTIONAL { 
@@ -8,6 +7,4 @@ WHERE {
       ?agentRole arco:hasAgent ?agent .
       ?agentRole arco:hasRole ?role .
       OPTIONAL { ?agent rdfs:label ?agentLabel . }
-      OPTIONAL { ?role rdfs:label ?roleLabel . }
-    }
-}
+      OPTIONAL { ?role rdfs:label ?roleLabel . }}}

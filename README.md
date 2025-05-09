@@ -2,8 +2,7 @@
   <img src="./logo-color.png" alt="OE-Assist" width="500"/>
 </p>
 
-<h1 align="center">OE-Assist</h1>
-<h3 align="center"><i>Large Language Models Assisting Ontology Evaluation</i></h3>
+
 
 
 # OE-Assist

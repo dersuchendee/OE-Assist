@@ -1,0 +1,7 @@
+SELECT ?member ?memberLabel
+WHERE {
+  ?member a :StaffMember .
+  ?member :memberOf ?union .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  FILTER(?union = :SpecificUnion)
+}

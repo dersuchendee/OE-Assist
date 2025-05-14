@@ -1,0 +1,1926 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_ArticleCollection rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+:containsArticle rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_ArticleCollection ;
+    rdfs:range :Cl_Article .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+:Book_Nurse_Practices rdf:type :Cl_Book ;
+    rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" .
+:Article_Improving_Cancer_Care rdf:type :Cl_Article ;
+    rdfs:label "A 5 year-program for improving cancer care – experiences and future directions" .
+:Book_Nurse_Practices_Collection rdf:type :Cl_ArticleCollection ;
+    :containsArticle :Article_Improving_Cancer_Care .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_ArticleCollection rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+:containsArticle rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_ArticleCollection ;
+    rdfs:range :Cl_Article .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+:Book_Nurse_Practices rdf:type :Cl_Book ;
+    rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" ;
+    :numberOfPages 346 .
+:Article_Improving_Cancer_Care rdf:type :Cl_Article ;
+    rdfs:label "A 5 year-program for improving cancer care – experiences and future directions" .
+:Book_Nurse_Practices_Collection rdf:type :Cl_ArticleCollection ;
+    :containsArticle :Article_Improving_Cancer_Care .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_ArticleCollection rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+:containsArticle rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_ArticleCollection ;
+    rdfs:range :Cl_Article .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( :Cl_Book :Cl_CD ) ] ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+:Book_Nurse_Practices rdf:type :Cl_Book ;
+    rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" ;
+    :numberOfPages 346 ;
+    :publicationDate "2008-01-01"^^xsd:date .
+:Article_Improving_Cancer_Care rdf:type :Cl_Article ;
+    rdfs:label "A 5 year-program for improving cancer care – experiences and future directions" .
+:Book_Nurse_Practices_Collection rdf:type :Cl_ArticleCollection ;
+    :containsArticle :Article_Improving_Cancer_Care .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_ArticleCollection rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+:containsArticle rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_ArticleCollection ;
+    rdfs:range :Cl_Article .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( :Cl_Book :Cl_CD ) ] ;
+    rdfs:range xsd:date .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+:Book_Nurse_Practices rdf:type :Cl_Book ;
+    rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" ;
+    :numberOfPages 346 ;
+    :publicationDate "2008-01-01"^^xsd:date .
+:Article_Improving_Cancer_Care rdf:type :Cl_Article ;
+    rdfs:label "A 5 year-program for improving cancer care – experiences and future directions" .
+:Book_Nurse_Practices_Collection rdf:type :Cl_ArticleCollection ;
+    :containsArticle :Article_Improving_Cancer_Care .
+:Seminar_December_2008 rdf:type :Cl_Seminar ;
+    :seminarDate "2008-12-01"^^xsd:date .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_ArticleCollection rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+:Cl_SeminarArticlePresentation rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+:containsArticle rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_ArticleCollection ;
+    rdfs:range :Cl_Article .
+:presentedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Seminar .
+:articlePresented rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Article .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( :Cl_Book :Cl_CD ) ] ;
+    rdfs:range xsd:date .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+:Book_Nurse_Practices rdf:type :Cl_Book ;
+    rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" ;
+    :numberOfPages 346 ;
+    :publicationDate "2008-01-01"^^xsd:date .
+:Article_Improving_Cancer_Care rdf:type :Cl_Article ;
+    rdfs:label "A 5 year-program for improving cancer care – experiences and future directions" .
+:Book_Nurse_Practices_Collection rdf:type :Cl_ArticleCollection ;
+    :containsArticle :Article_Improving_Cancer_Care .
+:Seminar_December_2008 rdf:type :Cl_Seminar ;
+    :seminarDate "2008-12-01"^^xsd:date .
+:SeminarArticlePresentation_1 rdf:type :Cl_SeminarArticlePresentation ;
+    :presentedIn :Seminar_December_2008 ;
+    :articlePresented :Article_Improving_Cancer_Care .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_ArticleCollection rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+:Cl_SeminarArticlePresentation rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+:containsArticle rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_ArticleCollection ;
+    rdfs:range :Cl_Article .
+:presentedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Seminar .
+:articlePresented rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Article .
+:seminarLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_Hospital .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( :Cl_Book :Cl_CD ) ] ;
+    rdfs:range xsd:date .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+:Book_Nurse_Practices rdf:type :Cl_Book ;
+    rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" ;
+    :numberOfPages 346 ;
+    :publicationDate "2008-01-01"^^xsd:date .
+:Article_Improving_Cancer_Care rdf:type :Cl_Article ;
+    rdfs:label "A 5 year-program for improving cancer care – experiences and future directions" .
+:Book_Nurse_Practices_Collection rdf:type :Cl_ArticleCollection ;
+    :containsArticle :Article_Improving_Cancer_Care .
+:Seminar_December_2008 rdf:type :Cl_Seminar ;
+    :seminarDate "2008-12-01"^^xsd:date ;
+    :seminarLocation :Ospedale_Riunito_delle_Tre_Valli .
+:SeminarArticlePresentation_1 rdf:type :Cl_SeminarArticlePresentation ;
+    :presentedIn :Seminar_December_2008 ;
+    :articlePresented :Article_Improving_Cancer_Care .
+#############################
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Classes
+:Cl_Person rdf:type rdfs:Class .
+:Cl_MedicalDegree rdf:type rdfs:Class .
+:Cl_PersonMedicalDegree rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person, :Cl_MedicalDegree .
+:Cl_StudyPeriod rdf:type rdfs:Class .
+:Cl_Hospital rdf:type rdfs:Class .
+:Cl_Employment rdf:type rdfs:Class .
+:Cl_City rdf:type rdfs:Class .
+:Cl_Country rdf:type rdfs:Class .
+:Cl_Union rdf:type rdfs:Class .
+:Cl_UnionMembership rdf:type rdfs:Class .
+:Cl_UnionRole rdf:type rdfs:Class .
+:Cl_Doctor rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Employee rdf:type rdfs:Class ;
+    rdfs:subClassOf :Cl_Person .
+:Cl_Evaluation rdf:type rdfs:Class .
+:Cl_Book rdf:type rdfs:Class .
+:Cl_CD rdf:type rdfs:Class .
+:Cl_Article rdf:type rdfs:Class .
+:Cl_ArticleCollection rdf:type rdfs:Class .
+:Cl_Seminar rdf:type rdfs:Class .
+:Cl_SeminarArticlePresentation rdf:type rdfs:Class .
+# Object Properties
+:hasMedicalDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Person ;
+    rdfs:range :Cl_PersonMedicalDegree .
+:degreeOf rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_MedicalDegree .
+:personWithDegree rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_Person .
+:hasStudyPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_PersonMedicalDegree ;
+    rdfs:range :Cl_StudyPeriod .
+:employedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Hospital .
+:employee rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range :Cl_Person .
+:locatedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Hospital ;
+    rdfs:range :Cl_City .
+:cityInCountry rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_City ;
+    rdfs:range :Cl_Country .
+:memberOfUnion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Union .
+:unionMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_Person .
+:hasUnionRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range :Cl_UnionRole .
+:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Doctor .
+:evaluates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range :Cl_Employee .
+:containsArticle rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_ArticleCollection ;
+    rdfs:range :Cl_Article .
+:presentedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Seminar .
+:articlePresented rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_SeminarArticlePresentation ;
+    rdfs:range :Cl_Article .
+:seminarLocation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range :Cl_Hospital .
+# Data Properties
+:degreeName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:string .
+:degreeDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_MedicalDegree ;
+    rdfs:range xsd:date .
+:studyStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:studyEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_StudyPeriod ;
+    rdfs:range xsd:date .
+:employmentStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Employment ;
+    rdfs:range xsd:date .
+:membershipStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:membershipEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionMembership ;
+    rdfs:range xsd:date .
+:roleName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_UnionRole ;
+    rdfs:range xsd:string .
+:evaluationStatement rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Evaluation ;
+    rdfs:range xsd:string .
+:numberOfPages rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Book ;
+    rdfs:range xsd:integer .
+:publicationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain [ rdf:type owl:Class ; owl:unionOf ( :Cl_Book :Cl_CD ) ] ;
+    rdfs:range xsd:date .
+:seminarDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cl_Seminar ;
+    rdfs:range xsd:date .
+# Restrictions
+:Cl_Seminar rdf:type owl:Class ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty :presentedIn ;
+        owl:minCardinality 1
+    ] .
+# Example Individuals
+:Pasquale_Di_Gennaro rdf:type :Cl_Person .
+:NursingAssistantDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Nursing Assistant" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:CertifiedNurseDegree rdf:type :Cl_MedicalDegree ;
+    :degreeName "Certified Nurse" ;
+    :degreeDate "2001-05-01"^^xsd:date .
+:Pasquale_Di_Gennaro_NursingAssistant rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :NursingAssistantDegree ;
+    :hasStudyPeriod :StudyPeriod_NursingAssistant .
+:Pasquale_Di_Gennaro_CertifiedNurse rdf:type :Cl_PersonMedicalDegree ;
+    :personWithDegree :Pasquale_Di_Gennaro ;
+    :degreeOf :CertifiedNurseDegree ;
+    :hasStudyPeriod :StudyPeriod_CertifiedNurse .
+:StudyPeriod_NursingAssistant rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1995-09-01"^^xsd:date ;
+    :studyEndDate "1997-06-30"^^xsd:date .
+:StudyPeriod_CertifiedNurse rdf:type :Cl_StudyPeriod ;
+    :studyStartDate "1998-09-01"^^xsd:date ;
+    :studyEndDate "2001-05-01"^^xsd:date .
+:Ospedale_Riunito_delle_Tre_Valli rdf:type :Cl_Hospital ;
+    rdfs:label "Ospedale Riunito delle Tre Valli" .
+:Employment_Pasquale_Di_Gennaro rdf:type :Cl_Employment ;
+    :employee :Pasquale_Di_Gennaro ;
+    :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+    :employmentStartDate "2001-09-21"^^xsd:date .
+:Nocera_Inferiore rdf:type :Cl_City ;
+    rdfs:label "Nocera Inferiore" .
+:Ospedale_Riunito_delle_Tre_Valli_Location rdf:type :Cl_Hospital ;
+    :locatedIn :Nocera_Inferiore .
+:Italy rdf:type :Cl_Country ;
+    rdfs:label "Italy" .
+:Nocera_Inferiore_Location rdf:type :Cl_City ;
+    :cityInCountry :Italy .
+:Union_Male_Nurses rdf:type :Cl_Union ;
+    rdfs:label "Union for Male Nurses" .
+:UnionMembership_Pasquale_Di_Gennaro rdf:type :Cl_UnionMembership ;
+    :unionMember :Pasquale_Di_Gennaro ;
+    :memberOfUnion :Union_Male_Nurses ;
+    :membershipStartDate "2002-01-01"^^xsd:date ;
+    :hasUnionRole :UnionRole_Representative .
+:UnionRole_Representative rdf:type :Cl_UnionRole ;
+    :roleName "Union Representative" .
+:Dr_Smith rdf:type :Cl_Doctor ;
+    rdfs:label "Dr. Smith" .
+:Evaluation_Pasquale_Di_Gennaro rdf:type :Cl_Evaluation ;
+    :evaluatedBy :Dr_Smith ;
+    :evaluates :Pasquale_Di_Gennaro ;
+    :evaluationStatement "Excellent performance in patient care." .
+:Book_Nurse_Practices rdf:type :Cl_Book ;
+    rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" ;
+    :numberOfPages 346 ;
+    :publicationDate "2008-01-01"^^xsd:date .
+:Article_Improving_Cancer_Care rdf:type :Cl_Article ;
+    rdfs:label "A 5 year-program for improving cancer care – experiences and future directions" .
+:Book_Nurse_Practices_Collection rdf:type :Cl_ArticleCollection ;
+    :containsArticle :Article_Improving_Cancer_Care .
+:Seminar_December_2008 rdf:type :Cl_Seminar ;
+    :seminarDate "2008-12-01"^^xsd:date ;
+    :seminarLocation :Ospedale_Riunito_delle_Tre_Valli .
+:SeminarArticlePresentation_1 rdf:type :Cl_SeminarArticlePresentation ;
+    :presentedIn :Seminar_December_2008 ;
+    :articlePresented :Article_Improving_Cancer_Care .
+#############################

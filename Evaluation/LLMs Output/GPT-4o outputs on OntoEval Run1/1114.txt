@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine what the user is doing now. The ontology includes classes and properties related to a person being in a bathroom, facing a mirror, and holding an electric toothbrush, but it does not explicitly connect these actions to the activity of brushing teeth. The ontology lacks a mechanism to infer the current activity based on these conditions.
+
+Partial answer:
+```sparql
+SELECT ?person ?activity
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_isIn ?bathroom .
+  ?person :op_isFacing ?mirror .
+  ?person :op_hasInHand ?toothbrush .
+  ?person :op_isDoing ?activity .
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" can be answered using the given ontology. The ontology provides information about band memberships, including the start and end dates of memberships, which allows us to determine the members of a band at a specific point in time.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?role
+WHERE {
+  ?person a :Cl_Person ;
+          :memberOf ?membership .
+  ?membership :hasMembership :RedHotChiliPeppers ;
+              :hasRole ?role ;
+              :membershipStart ?start .
+  OPTIONAL { ?membership :membershipEnd ?end . }
+  
+  FILTER (?start <= "2006-08-11"^^xsd:date && (!BOUND(?end) || "2006-08-11"^^xsd:date <= ?end))
+}
+```
+
+This query retrieves the members of the "Red Hot Chili Peppers" band on August 11, 2006, along with their roles, by checking the membership start and end dates.

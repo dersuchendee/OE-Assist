@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly link actors to competencies without going through the Cl_ActorCompetency class. Therefore, a direct query to find actors with competencies is not possible. However, we can extract a partial answer by identifying actors and their associated Cl_ActorCompetency instances.
+
+```sparql
+SELECT ?actor ?competency
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :actorHasCompetency ?actorCompetency .
+  ?actorCompetency :competencyOfActor ?competency .
+}
+```

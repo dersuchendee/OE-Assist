@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology models the relationship between "Dissolved Carbon in Water" and "Carbon Cycling in Karst Systems" via the object property `:participatesIn`, which connects instances of `:DissolvedCarbonInWater` to instances of `:CarbonCyclingInKarstSystems`. This means that dissolved carbon in water participates in carbon cycling in karst systems, directly answering the competency question.
+
+Here is a SPARQL query to extract this relationship:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?subjectLabel ?predicateLabel ?objectLabel
+WHERE {
+  ?property a owl:ObjectProperty ;
+            rdfs:domain :DissolvedCarbonInWater ;
+            rdfs:range :CarbonCyclingInKarstSystems ;
+            rdfs:label ?predicateLabel .
+            
+  :DissolvedCarbonInWater rdfs:label ?subjectLabel .
+  :CarbonCyclingInKarstSystems rdfs:label ?objectLabel .
+}
+```
+
+This query retrieves the labels of the subject (`:DissolvedCarbonInWater`), the predicate (`:participatesIn`), and the object (`:CarbonCyclingInKarstSystems`), effectively showing the relationship defined in the ontology.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the user’s previous actions with their reified details:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?actionType ?location ?day ?time ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :op_performedAction ?userAction .
+  ?userAction :op_actionType ?actionType .
+  OPTIONAL { ?userAction :op_inLocation ?location . }
+  OPTIONAL { ?userAction :op_duringTime ?time .
+             OPTIONAL { ?time :dp_hasStartTime ?startTime . }
+             OPTIONAL { ?time :dp_hasEndTime ?endTime . } }
+  OPTIONAL { ?userAction :op_onDay ?day . }
+}
+---------------------------------
+
+This query collects all actions associated with a user by inspecting the reified class :Cl_UserAction and extracting related properties such as the action type, location, time (with its start/end times), and day—thus answering “What did the user do previously?” based on the available ontology.

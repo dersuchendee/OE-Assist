@@ -1,0 +1,16 @@
+**Yes**
+
+We can query the number of acts recorded for a play using the property that links a play to its act count (e.g. the datatype property :actCount defined on :Cl_Play). For example, if you want to get the act count for a particular play (say, the “Merchant of Venice”), you can use a query like this:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :actCount ?actCount .
+  FILTER(?play = :MerchantOfVenice)
+}
+
+This query retrieves the play individual (here assumed to be :MerchantOfVenice), any label attached to it, and its associated act count. Under the closed world assumption the queried data is taken as complete, so the retrieved number is the definitive count of acts for that play.

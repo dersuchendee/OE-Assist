@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the album instances have associated release dates via the property release_date, we can extract the album’s release date with a query similar to the following. (Under the closed world assumption, if an album lacks a release_date triple then it is considered to have no release date.)
+
+ 
+SPARQL Query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :release_date ?releaseDate .
+}
+ORDER BY ?album
+
+This query retrieves all albums along with the date they were released, thus fully addressing the competency question "When was a certain album released?"

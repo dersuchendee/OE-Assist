@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves plays along with the writing period (start and end years) from the ontology. This query demonstrates that the competency question “During what time period was a certain play written?” can be answered using the ontology.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  ?play :op_hasWritingPeriod ?writingPeriod .
+  ?writingPeriod :dp_startYear ?startYear .
+  ?writingPeriod :dp_endYear ?endYear .
+}
+ORDER BY ?play
+--------------------------------------------------
+
+In a closed-world perspective, if no writing period is available for a given play, then the play would not appear in the results.

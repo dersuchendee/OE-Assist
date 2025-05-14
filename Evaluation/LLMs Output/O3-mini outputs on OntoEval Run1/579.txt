@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the song associated with a given track (assumed to be provided as input):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track .
+  ?track :isRecordingOf ?song .
+  # To target a specific track, you can use a FILTER or bind the URI directly:
+  # FILTER(?track = <http://www.example.org/test#YourSpecificTrack>)
+}
+  
+This query shows that the CQ ("What song is a specific track a recording of?") is fully supported by the ontology because the ontology provides a connection from a track to a song via the property :isRecordingOf.

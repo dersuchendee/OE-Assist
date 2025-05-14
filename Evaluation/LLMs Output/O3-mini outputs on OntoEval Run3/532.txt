@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer “How many tracks does a particular album contain?” by counting all instances related via the :hasTrack property from an album (of type :Cl_Album) to its tracks (of type :Cl_Track). Under the closed world assumption the absence of any additional track information means that every track a given album actually has is explicitly recorded using :hasTrack. Here is one SPARQL query that retrieves each album along with the count of its tracks:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasTrack ?track .
+}
+GROUP BY ?album
+ORDER BY ?album
+----------------------------------
+
+This query answers the CQ as the ontology provides the necessary class definitions, object property (:hasTrack), and a cardinality restriction ensuring that the album always has at least one track.

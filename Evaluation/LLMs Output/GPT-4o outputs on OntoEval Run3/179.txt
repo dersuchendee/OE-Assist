@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide information about the country in which a city is located. However, it does provide information about cities and their labels. Therefore, a partial answer can be extracted by listing the cities available in the ontology.
+
+```sparql
+SELECT ?city ?cityLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city rdfs:label ?cityLabel .
+}
+```

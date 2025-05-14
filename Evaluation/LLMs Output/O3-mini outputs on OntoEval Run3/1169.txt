@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?affectedEntity ?entityLabel ?externalFactor ?factorLabel
+WHERE {
+  ?affectedEntity a ?entityType .
+  FILTER(?entityType IN (:Process, :Actor, :ValueNetwork)) .
+  ?affectedEntity :isAffectedBy ?externalFactor .
+  OPTIONAL { ?affectedEntity rdfs:label ?entityLabel . }
+  OPTIONAL { ?externalFactor rdfs:label ?factorLabel . }
+}
+ORDER BY ?affectedEntity ?externalFactor
+```

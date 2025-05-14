@@ -1,0 +1,14 @@
+**Yes**
+
+We can answer the CQ by querying for seminars (instances of Cl_Seminar) and retrieving their seminar dates. For instance:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+
+This query returns the seminar (for example, :SeminarOnNursePractices) along with its recorded date, which answers “When did a certain seminar take place?” under the closed‐world assumption.

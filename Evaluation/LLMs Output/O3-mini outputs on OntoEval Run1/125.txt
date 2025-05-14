@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each theatre festival, the plays that are (directly or indirectly) featured using the property chain (featuresProduction ∘ productionOf), which makes the answer to “What plays could be seen during a certain theatre festival?” retrievable:
+
+-------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :TheatreFestival .
+  OPTIONAL { ?festival :hasName ?festivalName . }
+  
+  ?festival :featuresPlay ?play .
+  OPTIONAL { ?play :hasName ?playName . }
+}
+ORDER BY ?festival ?playName
+-------------------------------------------------
+
+This query returns the list of theatre festivals with their names (if provided) and the associated plays (with names) that can be seen during the festival. Under the closed world assumption, only explicitly stated instances are returned, ensuring our answer is in line with the ontology.

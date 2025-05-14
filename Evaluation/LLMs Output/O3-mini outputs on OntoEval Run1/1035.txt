@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the seminar date from the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+--------------------------------------------------
+
+This query directly extracts the date that a seminar (of type Cl_Seminar) took place using the data property :seminarDate.

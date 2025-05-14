@@ -1,0 +1,24 @@
+**No**
+
+The ontology does not provide a reified membership class (or an explicit temporal relation on ensemble membership) that fully connects ensemble, person, and the time point at which that membership is active. We can still extract a partial answer by retrieving the persons that are members of an ensemble and (optionally) their roles’ time information. For example, if you want to check for a specific date (e.g., 2009-09-10), you might use a query like:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?role ?time
+WHERE {
+  ?ensemble a :Cl_Ensemble ;
+            :hasMember ?member .
+  OPTIONAL {
+    ?member :hasRole ?role .
+    ?role :roleAtTime ?dateObj .
+    ?dateObj :dateValue ?time .
+    FILTER(?time = "2009-09-10"^^xsd:date)
+  }
+}
+---------------------------------------------------
+
+This query extracts ensemble members and, where available, the role time information that matches the given date. However, because ensemble membership is not explicitly reified with a time dimension in the ontology, the answer remains partial.

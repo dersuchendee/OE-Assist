@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "Which is the type of a source?" can be answered using the ontology provided. The ontology includes classes for different types of sources (e.g., `Cl_PrimarySource`, `Cl_SecondarySource`) and an object property `hasSourceType` that relates a source to its type. Therefore, we can write a SPARQL query to extract the type of each source.
+
+```sparql
+SELECT ?source ?sourceType
+WHERE {
+  ?source a :Cl_Source .
+  ?source :hasSourceType ?sourceType .
+}
+```

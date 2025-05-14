@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to query the composition of a material. The ontology is structured around products, components, and material compositions, but it does not directly link to the specific composition of a material itself. Here's a SPARQL query to extract a partial answer related to material compositions:
+
+```sparql
+SELECT ?material ?materialName ?property ?propertyName ?provenance ?provenanceName
+WHERE {
+  ?materialComposition a :Cl_MaterialComposition .
+  ?materialComposition :hasMaterial ?material .
+  OPTIONAL { ?material :hasName ?materialName . }
+
+  ?materialComposition :hasProperty ?property .
+  OPTIONAL { ?property :hasName ?propertyName . }
+
+  ?materialComposition :hasProvenance ?provenance .
+  OPTIONAL { ?provenance :hasName ?provenanceName . }
+}
+```

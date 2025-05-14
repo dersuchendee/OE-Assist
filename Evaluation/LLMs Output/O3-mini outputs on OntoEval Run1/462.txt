@@ -1,0 +1,30 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, returns the members of a given band for a particular date. In this query, you would supply the band identifier (?band) and the date of interest (?givenTime). The query finds persons who have a membership record (via :hasMembership) that links them to the band (using the :membershipIn property) and whose membership start and (if present) end dates bracket the given date.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?member ?memberName ?membershipStart ?membershipEnd
+WHERE {
+  ?member a :Cl_Person .
+  OPTIONAL { ?member rdfs:label ?memberName . }
+  
+  ?member :hasMembership ?membership .
+  ?membership :membershipIn ?band .
+  
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # The given time must be on or after the membership start,
+  # and either the membership does not have an end date or it ends on or after the given time.
+  FILTER (
+       xsd:date(?membershipStart) <= xsd:date(?givenTime)
+    && ( !bound(?membershipEnd) || xsd:date(?membershipEnd) >= xsd:date(?givenTime) )
+  )
+}
+--------------------------------------------------
+
+Replace ?band and ?givenTime (e.g., "2004-09-01"^^xsd:date) with your specific band and point in time.

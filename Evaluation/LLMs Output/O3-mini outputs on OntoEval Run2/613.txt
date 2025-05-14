@@ -1,0 +1,26 @@
+**Yes**
+Below is an example SPARQL query that retrieves the review text written by a given critic on a given record (album). In this query we assume that the critic and the record are identified by label values (adjust the FILTER values as needed):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?critic ?record ?reviewText
+WHERE {
+  ?critic a :Cl_Critic ;
+          rdfs:label ?criticLabel ;
+          :reviews ?review .
+  
+  ?review :reviewText ?reviewText ;
+          :reviewedAlbum ?record .
+  
+  ?record a :Cl_Album ;
+          rdfs:label ?recordLabel .
+  
+  # Filter to a specific critic and record (adjust literal values as required)
+  FILTER(STR(?criticLabel) = "Crian Hiatt")
+  FILTER(STR(?recordLabel) = "Stadium Arcadium")
+}
+--------------------------------------------------
+
+This query shows that the ontology supports the competency question "What does a certain critic say about a certain record?" by linking a critic instance, a review instance and a record (album) instance.

@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming the imported ArCo module links physical sites (such as bell towers) with their components, we can determine whether each bell tower houses either a single bell or a “set of bells” (i.e. a poliorganic instrument) by counting the bells attached. For example, if a bell tower is linked (via the core:hasComponent property) to a set of bells (an instance of SetOfBells) and that set in turn contains one or more Bells (which, by definition, have an isComponentOf restriction to SetOfBells), then we can infer which towers have a “single bell” (count = 1) or a poliorganic instrument (count > 1).
+
+A SPARQL query to extract this answer (under the closed world assumption) is:
+
+--------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?bellTower (COUNT(?bell) AS ?numBells)
+       (IF(COUNT(?bell)=1, "Single Bell", "Poliorganic Instrument") AS ?instrumentType)
+WHERE {
+  ?bellTower a bells:BellTower .
+  ?bellTower arco:hasComponent ?bellSet .
+  ?bellSet a bells:SetOfBells .
+  ?bellSet arco:hasComponent ?bell .
+}
+GROUP BY ?bellTower
+ORDER BY ?bellTower
+--------------------------------------------------
+
+This query, by counting the bells in each bell tower’s associated set, shows whether the tower features a single bell or multiple bells, thereby fully modelling the competency question.

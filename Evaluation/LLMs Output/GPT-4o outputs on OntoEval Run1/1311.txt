@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes subclasses of the major classes "Aquatic Microbe" and "Aquatic Fungi". Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?majorClass ?subclass ?subclassLabel
+WHERE {
+  VALUES ?majorClass { :AquaticMicrobe :AquaticFungi }
+  ?subclass rdfs:subClassOf ?majorClass .
+  OPTIONAL { ?subclass rdfs:label ?subclassLabel . }
+}
+```

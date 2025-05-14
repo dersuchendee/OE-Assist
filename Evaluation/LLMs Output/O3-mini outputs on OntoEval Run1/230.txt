@@ -1,0 +1,21 @@
+**Yes**
+Below is one example SPARQL query that, given a specific ensemble (?ensemble) and a target date (?targetDate), returns the ensemble’s members (using the reified membership via :Cl_EnsembleMembership) whose membership record is valid at that time:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ensemble ?member ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?member .
+  ?member :membershipDate ?membershipDate .
+  
+  # Filter to the given point in time (e.g., "2007-01-01")
+  FILTER(?membershipDate = "2007-01-01"^^xsd:date)
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+}
+ORDER BY ?ensemble ?membershipDate
+
+In a closed‐world assumption, if no membership record with that date exists then the query returns no results, which is consistent with the idea that only explicitly stated membership data is considered.

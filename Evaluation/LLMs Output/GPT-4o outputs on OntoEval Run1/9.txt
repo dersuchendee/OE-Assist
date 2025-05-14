@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to extract the context of usage of a source. The ontology defines a class `ContextOfUsage` and a property `hasContextOfUsage`, but it does not provide specific details about the context itself, such as where, when, who created the source, the goal, or related events. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract some information related to the context of usage:
+
+```sparql
+SELECT ?source ?context ?agent
+WHERE {
+  ?source a :Source .
+  ?source :hasContextOfUsage ?context .
+  OPTIONAL { ?context :hasAgent ?agent . }
+}
+```

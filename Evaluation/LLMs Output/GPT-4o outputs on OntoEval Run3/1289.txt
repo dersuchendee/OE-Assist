@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide any information about travel or movement related to events or participations. Therefore, it is not possible to directly answer the competency question "Did they travel to reach the place?" with the given ontology. However, we can extract partial information about participations in events, which might indirectly suggest travel if additional context is provided.
+
+```sparql
+SELECT ?person ?event
+WHERE {
+  ?participation a :Participation .
+  ?participation :involvesPerson ?person .
+  ?participation :involvesEvent ?event .
+}
+```

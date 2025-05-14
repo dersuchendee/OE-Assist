@@ -1,0 +1,21 @@
+**No**  
+The ontology does not directly model a connection between a Source and its context of production. However, if we assume (under a closed world assumption) that a Source might be indirectly related to a Context of Production via an Organ (for which the context is defined), you could at best retrieve a partial answer. For example, if a Source provides unreliable information about an Organ Component that is part of an Organ with a defined production context, you can query that relation as follows:
+
+----------------------------------
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?source ?context ?organBuilder ?productionTime ?productionLocation
+WHERE {
+  ?source a :Source .
+  ?source :hasUnreliableInformation ?component .
+  ?component :isComponentOf ?organ .
+  ?organ :hasContextOfProduction ?context .
+  OPTIONAL { ?context :producedBy ?organBuilder . }
+  OPTIONAL { ?context :hasProductionTime ?productionTime . }
+  OPTIONAL { ?context :hasProductionLocation ?productionLocation . }
+}
+----------------------------------
+
+This query returns a partial answer by linking a Source (through its unreliable information on an Organ Component) to an Organ and then to that Organ’s Context of Production. Notice that because there is no direct property linking a Source to a ContextOfProduction, the answer remains partial.

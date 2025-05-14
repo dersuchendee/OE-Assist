@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "Which is the context of production of a source?" can be answered using the ontology provided. The ontology includes the necessary classes and properties to describe the context of a source, such as the creation date, place, creator, and related events. Here is a SPARQL query to extract the context of production for each source:
+
+```sparql
+SELECT ?source ?context ?creationDate ?creationPlace ?creator ?goal ?event
+WHERE {
+  ?source a :Cl_Source .
+  ?source :hasContext ?context .
+  
+  OPTIONAL { ?context :hasCreationDate ?creationDate . }
+  OPTIONAL { ?context :hasCreationPlace ?creationPlace . }
+  OPTIONAL { ?context :createdBy ?creator . }
+  OPTIONAL { ?context :hasGoal ?goal . }
+  OPTIONAL { ?context :relatesToEvent ?event . }
+}
+```

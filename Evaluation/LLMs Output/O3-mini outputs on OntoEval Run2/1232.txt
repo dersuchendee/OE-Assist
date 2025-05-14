@@ -1,0 +1,18 @@
+**Yes**
+Assuming there are individuals in the ontology defined as forms of carbon fixation, we can extract those that are explicitly declared as a FormOfCarbonFixation (and by the TBox, such processes occur in forest soils). Under a closed‐world assumption (i.e. we only consider what is explicitly asserted), an appropriate SPARQL query would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?form ?formLabel ?soil ?soilLabel
+WHERE {
+  ?form a :FormOfCarbonFixation .
+  OPTIONAL { ?form rdfs:label ?formLabel . }
+
+  ?form :occursIn ?soil .
+  ?soil a :ForestSoil .
+  OPTIONAL { ?soil rdfs:label ?soilLabel . }
+}
+ORDER BY ?form
+
+This query retrieves those individuals that are explicitly typed as a FormOfCarbonFixation and that occur in an instance of ForestSoil, thereby answering the competency question.

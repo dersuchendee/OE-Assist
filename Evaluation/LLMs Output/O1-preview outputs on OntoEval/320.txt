@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?production ?playName ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?prodPlay .
+  ?prodPlay :playName ?playName .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+```

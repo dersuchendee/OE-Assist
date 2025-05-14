@@ -1,0 +1,21 @@
+**Yes**
+Below is a SPARQL query that retrieves, for a given seminar, the articles that were presented. In this ontology the presentation event is modelled as an instance of Cl_ArticlePresentation, which links a seminar (via :hasSeminar) and an article (via :hasArticle).
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article ?title
+WHERE {
+  ?presentation a :Cl_ArticlePresentation ;
+                :hasSeminar ?seminar ;
+                :hasArticle ?article .
+  OPTIONAL { ?article :hasTitle ?title . }
+  # Replace <SEMINAR_URI> with the URI of the specific seminar of interest.
+  FILTER (?seminar = <SEMINAR_URI>)
+}
+------------------------------------------------
+
+This query is answerable using the given ontology under the closed world assumption.

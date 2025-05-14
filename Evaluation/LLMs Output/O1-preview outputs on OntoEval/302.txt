@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "How many acts does a particular play contain?" can be answered using the given ontology. The ontology includes the class `:Cl_PlayStructure`, which is a subclass of `:Cl_Play`, and the data property `:numberOfActs`, which has the domain `:Cl_PlayStructure` and range `xsd:integer`. This allows us to retrieve the number of acts associated with a play.
+
+Here is the SPARQL query to extract the required information:
+
+```sparql
+SELECT ?play ?numActs
+WHERE {
+  ?play a :Cl_PlayStructure ;
+        :numberOfActs ?numActs .
+}
+```
+
+This query selects instances of `:Cl_PlayStructure` and retrieves the `:numberOfActs` for each play, effectively answering the competency question.

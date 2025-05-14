@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine if at least one article is always presented at each seminar. However, we can extract information about which articles are presented in seminars.
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article a :Cl_Article .
+  ?article :presentedInSeminar ?seminar .
+}
+```

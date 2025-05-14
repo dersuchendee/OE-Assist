@@ -1,0 +1,16 @@
+**Yes**
+
+We can extract the number of pages for books using the :hasNumberOfPages property defined for :Cl_Book. For instance, if you want to retrieve the book (using its title) and its number of pages, you could use the following SPARQL query (under the closed world assumption):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?title ?pages 
+WHERE {
+  ?book a :Cl_Book ;
+        :hasNumberOfPages ?pages ;
+        :title ?title .
+  FILTER(CONTAINS(LCASE(?title), "nurse practices in cancer patient care"))
+}
+
+This query returns the particular book’s identifier, title, and its number of pages, thus fully supporting the competency question.

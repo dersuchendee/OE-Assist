@@ -1,0 +1,20 @@
+**Yes**
+Below is a SPARQL query that retrieves regions together with the country in which they are located. Under the closed world assumption, only regions that have an explicitly asserted property linking them to a country are returned.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  
+  ?region :locatedInCountry ?regionCountry .
+  ?regionCountry a :Cl_Country .
+  OPTIONAL { ?regionCountry rdfs:label ?countryLabel . }
+}
+ORDER BY ?region
+--------------------------------------------------
+
+This query addresses the competency question “In what country is a certain region located?” by extracting for each region (of type Cl_Region) its associated country (of type Cl_Country) as defined by the :locatedInCountry relation.

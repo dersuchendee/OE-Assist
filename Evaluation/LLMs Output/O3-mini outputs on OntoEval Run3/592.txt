@@ -1,0 +1,15 @@
+**Yes**
+
+We can answer the query “When was a certain song composed?” using this ontology since songs are modelled with the class Cl_Song and the data property composedOn. For example, to get the composition date(s) for a given song (e.g., “Hump_de_Bump”), you could use the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?composedOn
+WHERE {
+  ?song a :Cl_Song ;
+        :composedOn ?composedOn .
+  FILTER(?song = :Hump_de_Bump)
+}
+
+This query returns the composition date for the song in question by filtering the song individual “Hump_de_Bump”.

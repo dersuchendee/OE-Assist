@@ -1,0 +1,18 @@
+**Yes**  
+Below is a SPARQL query that, given a person, retrieves the medical degrees that person has:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degree ?degreeLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  # To focus on a specific person, uncomment and set the IRI below:
+  # FILTER(?person = :PasqualeDiGennaro)
+}
+--------------------------------------------------------
+
+By using a closed world assumption on the ontology, we assume that if a person does not have a triple using :hasMedicalDegree, then that person is not associated with any medical degree. This query extracts all the medical degrees linked to each person through the reified property, which shows that the CQ is answerable in this ontology.

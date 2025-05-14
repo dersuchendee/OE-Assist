@@ -1,0 +1,18 @@
+**No**  
+The ontology does not capture quantitative or ranking details about abundance (i.e. “most common”) for aquifer microbes. However, you can partially retrieve the microbes present in a specific aquifer environment along with their associated abundance levels as modelled. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbe ?microbeLabel ?abundance ?abundanceLabel
+WHERE {
+  ?microbe a :Microbe ;
+           :hasPresence ?presence .
+  ?presence :observedIn ?environment ;
+            :hasAbundanceLevel ?abundance .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel. }
+  OPTIONAL { ?abundance rdfs:label ?abundanceLabel. }
+  FILTER(?environment = <http://www.example.org/test#YourAquiferEnvironmentIRI>)
+}  
+
+This query partially addresses the CQ by listing the aquifer microbes and their abundance levels in a given aquifer environment, but it does not rank or filter them by “most common” because that information is not explicitly modelled in the ontology.

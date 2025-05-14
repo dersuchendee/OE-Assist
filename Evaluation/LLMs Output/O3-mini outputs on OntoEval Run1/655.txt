@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ with the ontology since it uses the reified class Cl_SongPerformance (with properties performedAt and performedSong) to link a performance to its played songs. Under the closed-world assumption, we assume that every played song is recorded using a Cl_SongPerformance instance.
+
+Below is a SPARQL query that extracts the songs played in a given performance (replace <PERFORMANCE_URI> with the URI of the performance of interest):
+
+--------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  ?sp a :Cl_SongPerformance ;
+      :performedAt <PERFORMANCE_URI> ;
+      :performedSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+}
+--------------------------------------------

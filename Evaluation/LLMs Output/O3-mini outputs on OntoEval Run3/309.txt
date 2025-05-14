@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the ontology uses the property :hasPremiereDate (with range xsd:date) to record the premiere date for a theatre production, the following SPARQL query answers the competency question under the closed‐world assumption:
+
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :TheatreProduction .
+  ?production :hasPremiereDate ?premiereDate .
+}
+ORDER BY ?production
+
+This query retrieves each theatre production along with its premiere date, thereby answering the CQ “When was the premier of a certain production?”

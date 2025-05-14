@@ -1,0 +1,41 @@
+**Yes**
+
+Assuming that we know the URI of the person of interest, the URI of the union group, and the point‐in‐time (as an xsd:date), the following SPARQL query returns the union role held by the person in that union at that time. In this ontology the person is related to a union membership via the property :memberOf and to a union role via the reified class :Cl_UnionPosition (accessed via :hasUnionRole and connected to the union role concept using :roleInUnion). The role’s validity period is represented by the data properties :roleStartDate and :roleEndDate. 
+
+Below is an example query using these assumptions:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?roleStartDate ?roleEndDate
+WHERE {
+  # Person of interest (parameterized)
+  BIND(<http://www.example.org/test#PasqualeDiGennaro> AS ?person) .
+  # Union group of interest (parameterized)
+  BIND(<http://www.example.org/test#SomeUnionGroup> AS ?unionGroupURI) .
+  # Specified point in time (parameterized)
+  BIND(xsd:date("2005-06-15") AS ?pointInTime) .
+
+  # Connect person to their union membership; their membership indicates the union group.
+  ?person :memberOf ?membership .
+  ?membership :membershipUnion ?union .
+
+  # Restrict to the given union group
+  FILTER(?union = ?unionGroupURI)
+
+  # Get the union role information via reification
+  ?person :hasUnionRole ?unionPosition .
+  ?unionPosition :roleInUnion ?role .
+  ?unionPosition :roleStartDate ?roleStartDate .
+  ?unionPosition :roleEndDate ?roleEndDate .
+
+  # Check that the given point in time is within the role period.
+  FILTER(?roleStartDate <= ?pointInTime && ?roleEndDate >= ?pointInTime)
+}
+ORDER BY ?person
+
+─────────────────────────────
+
+This query demonstrates that the CQ is supported by the ontology under a closed world assumption (i.e. we assume that only available declared roles within the valid time intervals are the ones that hold).

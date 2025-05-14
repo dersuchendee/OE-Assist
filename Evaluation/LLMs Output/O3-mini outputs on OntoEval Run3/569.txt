@@ -1,0 +1,13 @@
+**Yes**
+
+We can answer the CQ "What song is a specific track a recording of?" using the ontology’s reified connection between a track (instance of Cl_Track) and its song (an instance of Cl_Song) via the property :isRecordingOf. Under a closed world assumption, we assume the ontology contains all relevant facts. For example, to get the song that the track :Track_Hump_de_Bump is a recording of, you can run the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?song
+WHERE {
+  :Track_Hump_de_Bump :isRecordingOf ?song .
+}
+
+This query returns the song associated with the specified track, showing that the CQ is fully answerable by the ontology.

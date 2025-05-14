@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the start date of an actor's employment with a specific theatre. The ontology includes classes and properties related to theatre productions, festivals, plays, and actors, but it lacks a direct connection between an actor and their employment start date at a specific theatre. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?employment a :Cl_Employment .
+  ?employment :hasActor ?actor .
+  ?employment :hasTheatre ?theatre .
+  ?employment :startDate ?startDate .
+}
+```

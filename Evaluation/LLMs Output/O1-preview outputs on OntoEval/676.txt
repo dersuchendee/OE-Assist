@@ -1,0 +1,20 @@
+**Answer: Yes**
+
+The competency question "Where did a certain performance take place?" can be answered using the ontology provided. The ontology includes information about performances and their locations via the property `ns1:performedAt`, which connects a `ns1:Performance` to a `ns1:Location`.
+
+Here is a SPARQL query that retrieves performances and their locations:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performanceLabel ?locationLabel
+WHERE {
+   ?performance a ns1:Performance .
+   OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+   ?performance ns1:performedAt ?location .
+   OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```
+
+This query selects all performances and retrieves their associated locations. If labels are available for the performances and locations, it includes them in the results for better readability.

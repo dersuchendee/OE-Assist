@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain any information about the specific location (e.g., city or venue) where a festival took place. The closest related information is the `takesPlaceIn` property, which connects a `Cl_TheatreFestival` to a `Cl_City`, but there is no instance data or specific location information provided in the ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :takesPlaceIn ?city .
+}
+```

@@ -1,0 +1,18 @@
+**No**
+
+The ontology does include a reified Parthood class—with a property (hasTimeInterval) to capture time‐related information—and the CQ asks “What were the parts of the organ at a specific point in time?” However, the ontology does not tie the temporal information to the actual parthood relation in a way that lets us fully answer the CQ. In other words, while one could list the parts of an organ using the includesPart property, there is no complete mechanism to filter these by a specific time (e.g. via specific time interval boundaries or assertions on the reified Parthood instance). Under the closed world assumption, a SPARQL query can extract a partial answer that lists the parts of the organ without filtering on time.
+
+Below is a SPARQL query that returns a partial answer by listing the parts of each organ without the time filtering:
+
+---------------------------------------------------------------
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?part
+WHERE {
+  ?organ a organs:Organ ;
+         arco:includesPart ?part .
+}
+---------------------------------------------------------------
+
+This query retrieves the organ and each of its parts as recorded through the includesPart relation but does not check for a time interval.

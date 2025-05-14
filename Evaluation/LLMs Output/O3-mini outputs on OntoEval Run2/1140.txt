@@ -1,0 +1,20 @@
+**No**
+
+The ontology does define user preferences via the reification class :Cl_UserPreference and the property chain linking a :Cl_User to a preferred movie category. However, the CQ asks for “the preferred movie categories of the current user” while the ontology does not specify (or assert) any individual corresponding to the “current user” (for example, no instance such as :CurrentUser that we could use in a filter). Under a closed‐world assumption, unless there is an individual representing the current user, a full answer cannot be extracted.
+
+Below is a SPARQL query that will extract a partial answer by listing movie category preferences for all users (from which the current user’s preferences might later be singled out):
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?category ?catName
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasPreference ?preference .
+  ?preference :prefersMovieCategory ?category .
+  ?category :hasCategoryName ?catName .
+}
+-------------------------------------------------------
+
+This query retrieves, for each user in the ontology, the movie categories they prefer (along with the category name). It is a partial answer because it does not single out the “current user” (due to the lack of an asserted individual for that role).

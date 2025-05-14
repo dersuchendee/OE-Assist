@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given performance, its associated time interval (with its start and end dates), thereby answering the competency question “When did a certain performance take place?” under the closed world assumption:
+
+————————————————————————————
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?startDate ?endDate
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :hasTimeInterval ?interval .
+  ?interval :startDate ?startDate .
+  ?interval :endDate ?endDate .
+}
+ORDER BY ?performance
+————————————————————————————
+
+This query extracts the performance(s) along with their associated start and end dates from the ontology, demonstrating that the CQ is indeed modelled by the ontology.

@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming a closed‐world view (i.e. if a premier date is not explicitly provided then none exists), the ontology uses a functional property for premier dates on productions. Therefore each production that has a premier will have one and only one premier date. We can retrieve the premier of each production with the following SPARQL query:
+
+----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :dp_premierDate ?premierDate .
+}
+ORDER BY ?production
+----------------
+
+This query returns each production along with its premier date, thereby verifying that each production has exactly one premier as modelled by the ontology.

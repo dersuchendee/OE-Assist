@@ -1,0 +1,18 @@
+**No**
+
+The ontology supports retrieving where a user lives (by following the :hasLocation and :locatedIn properties), but it does not capture any property that indicates where the system (i.e. the weather display or the system's “run” environment) is located. Therefore, only a partial answer is available.
+
+Below is a SPARQL query that extracts the location where users live:
+
+-------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?location
+WHERE {
+  ?user a :Cl_User ;
+        :hasLocation ?loc .
+  ?loc :locatedIn ?location .
+}
+-------------------------------------------

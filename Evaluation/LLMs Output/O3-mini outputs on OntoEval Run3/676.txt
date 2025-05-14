@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a ns1:Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?performance ns1:performedAt ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```
+
+In this query we retrieve each performance and its associated location, showing that the ontology supports answering the competency question "Where did a certain performance take place?" via the property ns1:performedAt.

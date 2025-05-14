@@ -1,0 +1,15 @@
+**Yes**
+
+The following SPARQL query retrieves cities (of type ns1:City) along with their associated regions via the ns1:isLocatedIn property:
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a ns1:City.
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  
+  ?city ns1:isLocatedIn ?region.
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+}

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?evaluationStatement ?evaluationText
+WHERE {
+  ?evaluationStatement a :Cl_EvaluationStatement ;
+                       :evaluationText ?evaluationText ;
+                       :givenBy ?doctor ;
+                       :givenTo ?employee .
+  FILTER(?doctor = :specificDoctor && ?employee = :specificEmployee)
+}
+```

@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide sufficient information to answer the competency question about the chemical composition of a material. The ontology defines a class for chemical composition and properties related to it, but it does not define a class or properties for materials themselves, nor does it provide a way to link specific materials to their chemical compositions.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?chemicalComposition ?element ?atomicPercentage
+WHERE {
+  ?chemicalComposition a :Cl_ChemicalComposition .
+  OPTIONAL { ?chemicalComposition :hasElement ?element . }
+  OPTIONAL { ?chemicalComposition :hasAtomicPercentage ?atomicPercentage . }
+}
+```

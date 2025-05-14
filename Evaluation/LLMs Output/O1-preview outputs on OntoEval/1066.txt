@@ -1,0 +1,21 @@
+**Yes**
+
+The competency question can be answered by the ontology. The CQ is "Where did a certain seminar take place?" 
+
+Given that in the ontology, there are classes and properties that link seminars to hospitals and hospitals to cities, we can write a SPARQL query to extract the seminar along with its location.
+
+Here is the SPARQL query:
+
+```sparql
+SELECT ?seminar ?hospital ?cityName
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?hospital a :Cl_Hospital .
+  ?hospital :holdsSeminar ?seminar .
+  ?hospital :op_isLocatedIn ?city .
+  ?city a :Cl_City .
+  ?city :dp_cityName ?cityName .
+}
+```
+
+This query selects seminars and the hospitals where they are held, along with the name of the city where the hospital is located. This directly answers the competency question using the given ontology under the closed world assumption.

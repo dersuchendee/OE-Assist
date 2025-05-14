@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific evaluation statement with a specific doctor and employee. The ontology includes classes and properties related to evaluations, doctors, and employees, but it lacks a direct connection between a specific doctor, a specific employee, and the evaluation statement given by the doctor for that employee.
+
+Here's a SPARQL query to extract a partial answer, which lists evaluation assignments along with the doctors and employees involved, but without the specific evaluation statement:
+
+```sparql
+SELECT ?doctor ?employee
+WHERE {
+  ?evaluationAssignment a :Cl_EvaluationAssignment .
+  ?evaluationAssignment :evaluatedBy ?doctor .
+  ?evaluationAssignment :evaluates ?employee .
+}
+```

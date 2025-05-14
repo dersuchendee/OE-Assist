@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  ?person :participatesIn ?studyEvent .
+  
+  ?studyEvent a :StudyEvent .
+  ?studyEvent :hasParticipant ?person .
+  ?studyEvent :hasDegree ?degree .
+  ?studyEvent :hasTimeInterval ?timeInterval .
+  
+  ?timeInterval a :TimeInterval .
+  ?timeInterval :startDate ?startDate .
+  ?timeInterval :endDate ?endDate .
+}
+```
+
+This SPARQL query retrieves the time intervals during which persons participated in study events for specific degrees. It leverages the ontology's modeling of `StudyEvent`, which connects a `Person`, a `Degree`, and a `TimeInterval`. The query selects all instances where a person studied for a degree and extracts the start and end dates of that study period.

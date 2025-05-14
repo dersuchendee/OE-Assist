@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the names of ensemble members for a given ensemble at a specified date. (Under the closed‐world assumption, we assume that all membership information is complete.) You can replace the placeholder date (e.g., "2007-01-01"^^xsd:date) with the “certain point in time” you wish to query.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?memberName ?membershipDate
+WHERE {
+  ?ensemble rdf:type :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership rdf:type :Cl_EnsembleMembership .
+  ?membership :memberName ?memberName .
+  ?membership :membershipDate ?membershipDate .
+  
+  # Filter for memberships that are active at the specified date.
+  # For example, if membershipDate marks the date when the person became a member,
+  # you might assume membership is active from that date on.
+  # Here we retrieve all memberships with a membershipDate on or before the given date.
+  FILTER(?membershipDate <= "2007-01-01"^^xsd:date)
+}
+ORDER BY ?ensemble ?memberName
+------------------------------------------------
+
+This query shows that the ontology models ensembles and their membership (via reified type :Cl_EnsembleMembership) and stores the membership date – thus making it possible to answer “Who are the members of a certain ensemble at a certain point in time?”

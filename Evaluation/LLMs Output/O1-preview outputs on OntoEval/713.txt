@@ -1,0 +1,13 @@
+Answer: **No**.
+
+The ontology includes the classes `Cl_City` and `Cl_Region` and the property `:cityInRegion`, which relates cities to regions. However, there is no connection between the cities mentioned in the story (e.g., Portland) and the ontology's `Cl_City`. Additionally, the `Cl_Location` class, which is used for performance locations, is not connected to `Cl_City`. Therefore, we cannot fully answer the competency question using the given ontology.
+
+Here is a SPARQL query that would extract a partial answer, listing cities and the regions they are in, if such data were available:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityInRegion ?region .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degreeName ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedFor ?studyPeriod .
+  ?studyPeriod :degree ?degree .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+  ?degree :degreeName ?degreeName .
+  # Optionally, one can filter by a specific person or degree:
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  # FILTER(?degreeName = "Certified Nurse")
+}
+ORDER BY ?person ?studyStartDate
+```

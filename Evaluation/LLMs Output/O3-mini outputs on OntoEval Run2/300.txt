@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the number of acts recorded for a given play (e.g., “The Merchant of Venice”) using the property that associates a play (an instance of Cl_Play) with its number of acts (via :numActs). Under the closed world assumption, if the particular play is known to be in the ontology, then the CQ is fully answerable. For example:
+
+-------------------------------
+PREFIX : <http://www.example.org/test#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?numActs
+WHERE {
+  ?play a :Cl_Play ;
+        :numActs ?numActs .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  FILTER(?playLabel = "The Merchant of Venice")
+}
+-------------------------------
+
+This query answers the CQ “How many acts does a particular play contain?” by retrieving the play, its label, and its associated number of acts.

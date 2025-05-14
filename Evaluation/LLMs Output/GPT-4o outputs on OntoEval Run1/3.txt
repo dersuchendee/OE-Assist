@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query the credibility of a source as a single value or attribute. The ontology models credibility assessments as separate entities linked to sources, and these assessments have credibility scores and explanations. However, there is no direct property or attribute on the `Source` class itself that represents its overall credibility. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?source ?credibilityScore ?credibilityExplanation
+WHERE {
+  ?source a :Source .
+  ?source :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityScore ?credibilityScore .
+  ?assessment :hasCredibilityExplanation ?credibilityExplanation .
+}
+```

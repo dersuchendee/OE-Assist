@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming we know which performance we're interested in (or want to list all performances with their locations), you can use a query like the following:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?location .
+}
+--------------------------------------------------
+
+This query extracts the performance instance along with the location where it took place, which addresses the competency question under the closed world assumption.

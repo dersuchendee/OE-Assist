@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology models seminars via the class Cl_Seminar and relates them to a hospital using the object property heldIn. For example, the individual :SeminarOnNursePractices is an instance of Cl_Seminar and is linked through :heldIn to the hospital :OspedaleRiunitoDelleTreValli. Using a closed world assumption we can write the following SPARQL query to extract the location where a seminar took place:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalLabel ?city ?country
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  
+  ?seminar :heldIn ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  OPTIONAL { 
+    ?hospital :locatedIn ?city .
+    OPTIONAL { ?city :cityInCountry ?country . }
+  }
+}

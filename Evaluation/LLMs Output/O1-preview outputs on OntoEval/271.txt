@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?startDate ?endDate
+WHERE {
+  ?play rdf:type :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :hasWritingPeriod ?writingPeriod .
+  ?writingPeriod :writingStartDate ?startDate .
+  ?writingPeriod :writingEndDate ?endDate .
+}
+```
+
+This query retrieves plays along with their writing periods by connecting the `:Cl_Play` instances to their associated `:Cl_PlayWritingPeriod` via the `:hasWritingPeriod` property, and then extracting the `:writingStartDate` and `:writingEndDate` from the writing period.

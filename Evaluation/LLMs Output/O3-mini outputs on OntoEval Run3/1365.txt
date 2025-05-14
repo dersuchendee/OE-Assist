@@ -1,0 +1,14 @@
+**No**
+
+The current ontology does not include any explicit properties or classes that capture whether the sound in a place is performed manually or electrically. However, we can extract partial information about bell towers (assuming that where bells are housed, one might eventually add such details in a future modelling effort).
+
+Below is a SPARQL query that retrieves all bell towers from the ontology:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?label
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label. }
+}

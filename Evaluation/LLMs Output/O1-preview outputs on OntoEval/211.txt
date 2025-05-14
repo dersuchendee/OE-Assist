@@ -1,0 +1,31 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleName ?member ?memberName
+WHERE {
+  ?ensembleMembership rdf:type :Cl_EnsembleMembership .
+  ?ensembleMembership :membershipOf ?ensemble .
+  OPTIONAL { ?ensemble :hasName ?ensembleName . }
+
+  ?ensembleMembership :member ?member .
+  OPTIONAL { ?member :hasName ?memberName . }
+
+  ?ensembleMembership :membershipStartDate ?startDate .
+  OPTIONAL { ?ensembleMembership :membershipEndDate ?endDate . }
+
+  # Replace "YYYY-MM-DD" with the specific date you are querying for
+  BIND(xsd:date("YYYY-MM-DD") AS ?specifiedDate)
+
+  FILTER ( 
+    ?startDate <= ?specifiedDate && 
+    ( !BOUND(?endDate) || ?specifiedDate <= ?endDate )
+  )
+}
+```
+
+This query retrieves the members of ensembles who were part of the ensemble at the specified point in time. The `Cl_EnsembleMembership` class reifies the membership relationship between actors and ensembles with start and end dates, allowing us to filter members based on the time period of their membership.
+
+Replace `:SpecificEnsemble` with the URI of the ensemble you are interested in, and `"YYYY-MM-DD"` with the specific date you want to query.

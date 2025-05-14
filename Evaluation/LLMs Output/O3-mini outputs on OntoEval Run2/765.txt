@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro a :Cl_Person ;
+                      :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+```

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/onto/movie_preferences#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?category ?categoryLabel
+WHERE {
+  :CurrentUser :hasPreference ?category .
+  OPTIONAL { ?category rdfs:label ?categoryLabel . }
+}
+```

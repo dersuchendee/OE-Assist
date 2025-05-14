@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the production along with the play that forms its basis:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?prodPlay a :Cl_ProductionPlay ;
+            :hasProduction ?production ;
+            :hasPlay ?play .
+  ?production :productionName ?productionName .
+  ?play :playName ?playName .
+}
+—————————————————————————————
+
+This query makes use of the reified relation between a production and its play (as modelled by the class Cl_ProductionPlay and the object properties :hasProduction and :hasPlay) and therefore shows that the CQ is fully supported by the ontology.

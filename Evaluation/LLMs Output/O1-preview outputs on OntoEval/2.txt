@@ -1,0 +1,12 @@
+**Answer: Yes**
+
+The ontology provides the necessary classes and properties to determine the credibility of a source. Each `:Cl_Source` instance can have a `:hasCredibilityAssessment` property linking it to a `:Cl_SourceCredibilityAssessment`, which in turn has a `:hasCredibilityLevel` property providing the credibility information.
+
+```sparql
+SELECT ?source ?credibilityLevel
+WHERE {
+  ?source a :Cl_Source .
+  ?source :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityLevel ?credibilityLevel .
+}
+```

@@ -1,0 +1,19 @@
+**No**
+
+The intended CQ is “During what time period was a certain album recorded?” Although the ontology defines a class for a recording period (with properties such as recordingStart and recordingEnd) the current data does not include an individual that relates the album to its recording period. For a partial answer we can at least extract the album’s release date.
+
+A SPARQL query for a partial answer would be:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+  FILTER(?album = :StadiumArcadium)
+}
+------------------------------------------------
+
+This query retrieves the release date of the album “StadiumArcadium,” a piece of information that is available even though the recording period (start and end dates) is not given.

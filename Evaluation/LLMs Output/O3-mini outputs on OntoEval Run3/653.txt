@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a ns1:Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance ns1:hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```

@@ -1,0 +1,22 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?actor ?actorLabel WHERE {
+  # Specify the ensemble
+  VALUES ?ensemble { :Ensemble_GrandTheatre_MerchantOfVenice }  # Replace with the desired ensemble
+  
+  # Specify the date
+  BIND("2009-09-10"^^xsd:date AS ?date)  # Replace with the desired date
+
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasEnsembleMembership ?membership .
+  
+  ?membership :memberActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  FILTER ( ?startDate <= ?date && ( !BOUND(?endDate) || ?date <= ?endDate ) )
+}
+```

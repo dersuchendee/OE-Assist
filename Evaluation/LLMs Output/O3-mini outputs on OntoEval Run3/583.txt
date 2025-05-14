@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world interpretation, retrieves the composition date for a given song. (Here we assume that songs are modeled as instances of the class :Cl_Song and that their composition is reified using a composition event linked by :op_composedDuring to which the date is attached via the data property :dp_compositionDate.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song ;
+        :op_composedDuring ?compEvent .
+  ?compEvent :dp_compositionDate ?compositionDate .
+}
+ORDER BY ?song
+--------------------------------------------------
+
+This query answers the competency question “When was a certain song composed?” by extracting the composition date (stored in composition events) for each song in the ontology.

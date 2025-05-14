@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the role a specific person has in a specific band at a given point in time. (In this example the person, band, and time are provided as parameters using VALUES and BIND. You can replace the example URIs and date with the ones you need.) 
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?roleName ?membershipStart ?membershipEnd
+WHERE {
+  # Replace with the specific person and band as needed
+  VALUES ?person { <http://www.example.org/test#SomePerson> }
+  VALUES ?band { <http://www.example.org/test#SomeBand> }
+  
+  # Bind the point in time under inquiry (e.g., "2004-09-01")
+  BIND(xsd:date("2004-09-01") AS ?queryTime)
+  
+  ?person :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :hasRole ?role .
+  ?role :roleName ?roleName .
+  ?membership :membershipStart ?membershipStart .
+  ?membership :membershipEnd ?membershipEnd .
+  
+  # Check that the membership is effective at the query time
+  FILTER((?queryTime >= ?membershipStart) && (?queryTime <= ?membershipEnd))
+}
+ORDER BY ?membershipStart
+---------------------------------------------------
+
+In this query, we assume that the ontology models band membership using a reified class (Cl_Membership) with datatype properties for the membership start and end dates and an object property linking to a role (whose name is given by roleName). Under the closed world assumption, all necessary membership data is explicitly available, allowing the query to fully satisfy the competency question.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed world assumption (i.e. assuming that all relationships are explicitly asserted), retrieves the articles that are members of a specific Book or CD from the ontology:
+
+--------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?collection ?article ?articleTitle
+WHERE {
+  # Select only instances that are either a Book or a CD
+  ?collection rdf:type ?collectionType .
+  FILTER(?collectionType = :Book || ?collectionType = :CD) .
+
+  # Retrieve the articles that are members of the collection via the hasMember property
+  ?collection :hasMember ?article .
+
+  # Optionally, get a title for the article if provided
+  OPTIONAL { ?article :title ?articleTitle }
+}
+--------------------------------------------------------------
+
+This query answers the competency question "What articles is a specific book or CD composed of?" by retrieving the collection (Book or CD) along with each article that is a member of that collection and its title if available.

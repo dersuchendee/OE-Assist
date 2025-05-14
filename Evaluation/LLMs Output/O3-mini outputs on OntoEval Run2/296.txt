@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves each play along with its number of acts. Note that this query assumes that for a given play there is a corresponding instance of Cl_PlayActs (reifying the play’s acts information) which relates the play to its number of acts via the property :hasNumberOfActs.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?numActs
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName .
+  ?playAct a :Cl_PlayActs ;
+           :hasPlay ?play ;
+           :hasNumberOfActs ?numActs .
+}
+--------------------------------------------------
+
+This query returns each play (instance of Cl_Play), its name, and the number of acts (from the associated Cl_PlayActs instance), thus answering the competency question: “How many acts does a particular play contain?”

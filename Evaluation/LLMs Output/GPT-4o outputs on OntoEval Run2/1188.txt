@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "In what context the meeting happened?" can be answered using the ontology provided. The ontology includes the `Meeting` class with a property `hasContext` that links to the `Context` class. This allows us to query for the context of each meeting.
+
+```sparql
+SELECT ?meeting ?context
+WHERE {
+  ?meeting a :Meeting .
+  ?meeting :hasContext ?context .
+}
+```

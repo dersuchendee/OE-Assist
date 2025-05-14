@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that each play (modeled as an instance of the class :Cl_Play or its reification subclass :Cl_FestivalPlays) is linked to its acts via the object property :containsActs (whose range is :Cl_PlayActs) and that each act instance has the data property :numberOfActs, the following SPARQL query shows how to retrieve, for a given play, the number of acts it contains. (Replace the FILTER value with the URI or condition identifying the particular play of interest.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  ?play :containsActs ?act .
+  ?act :numberOfActs ?numberOfActs .
+  
+  # For a particular play, you can restrict by its URI or name, for example:
+  # FILTER (?play = <http://www.example.org/test#TheMerchantOfVenice>)
+}
+------------------------------------------------
+
+With this query you can extract the answer to the competency question "How many acts does a particular play contain?" under a closed world assumption.

@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the city in which a given hospital (here, “Ospedale Riunito delle Tre Valli”) is located. This query relies on the ontology’s modeled property “:locatedIn” that connects a hospital (instance of :Cl_Hospital) to a city (instance of :Cl_City), satisfying the competency question under the closed world assumption.
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital ;
+            rdfs:label "Ospedale Riunito delle Tre Valli" ;
+            :locatedIn ?city .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+────────────────────────────
+
+This SPARQL query shows that the ontology supports the competency question “In what city is a certain hospital located?” since it can extract the city (e.g., “Nocera Inferiore”) for the specified hospital.

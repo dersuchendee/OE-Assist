@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example query that uses the ensemble‐membership reification (with its membership start and end dates) to return, for a given ensemble and time point, all the actors who were members at that time. In this query the ensemble identifier is provided as a parameter (here shown as :TARGET_Ensemble) and the time point is defined via the variable ?timePoint (for example “2009-09-07”^^xsd:date):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?member ?memberName
+WHERE {
+  ?membership a :Cl_EnsembleMembership ;
+              :membershipOf :TARGET_Ensemble ;    # the given ensemble
+              :member ?member ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  ?member :hasName ?memberName .
+  
+  # Replace "2009-09-07" with the desired point in time
+  BIND(xsd:date("2009-09-07") AS ?timePoint)
+  
+  FILTER (?timePoint >= ?start && ( !BOUND(?end) || ?timePoint <= ?end ))
+}
+------------------------------------------------
+
+This query returns the members (?member and its name) who are associated via an ensemble membership with :TARGET_Ensemble at the specified point in time.

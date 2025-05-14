@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the ontology uses the reification class Cl_Authorship (which connects Cl_Author and Cl_Play) and the object property wrotePlay (with domain Cl_Author and range Cl_Play), we can answer the CQ “What plays did a certain author write?” by retrieving, for a given author, all the plays linked via wrotePlay. Under the closed world assumption, only explicitly asserted relationships are returned. For example, if you want to get all plays written by an author whose name is given (e.g., “William Shakespeare”), you can use the following SPARQL query:
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorName ?play ?playName
+WHERE {
+  ?author a :Cl_Author ;
+          :authorName ?authorName ;
+          :wrotePlay ?play .
+  OPTIONAL { ?play :playName ?playName . }
+  FILTER(?authorName = "William Shakespeare")
+}
+────────────────────────────
+
+This query returns the specified author along with the plays that they wrote.

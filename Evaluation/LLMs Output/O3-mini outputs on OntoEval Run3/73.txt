@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?festivalOccurrence ?festivalName ?date
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence ;
+                      :hasDate ?date .
+  OPTIONAL { ?festivalOccurrence :hasName ?festivalName . }
+}
+ORDER BY ?date
+```

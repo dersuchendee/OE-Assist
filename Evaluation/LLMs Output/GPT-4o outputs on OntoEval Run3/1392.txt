@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not include any properties or classes that directly relate tunes to composers or tune families. Therefore, it is not possible to write a SPARQL query to fully answer the competency question. However, we can extract partial information about tunes and tune families.
+
+```sparql
+SELECT ?tune ?tuneFamily
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL {
+    ?tuneFamily a :TuneFamily .
+    ?tune core:isInvolvedIn ?tuneFamily .
+  }
+}
+```

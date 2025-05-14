@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  ?person :studiesFor ?degree .
+  ?degree a :Degree .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod a :StudyPeriod .
+  ?studyPeriod :hasStartDate ?startDate .
+  ?studyPeriod :hasEndDate ?endDate .
+  
+  # Optionally, specify the person and degree of interest
+  FILTER(?person = :SpecificPerson && ?degree = :SpecificDegree)
+}
+```

@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What role does forest soil composition play in the CO2 fixation process?" can be answered using the given ontology. The ontology defines a relationship between `ForestSoilComposition` and `CO2FixationProcess` through the property `playsRoleIn`, which is a subproperty of `associatedWithRole`. This allows us to query the roles associated with the forest soil composition in the CO2 fixation process.
+
+```sparql
+SELECT ?role
+WHERE {
+  ?forestSoilComposition a :ForestSoilComposition .
+  ?forestSoilComposition :playsRoleIn ?co2FixationProcess .
+  ?co2FixationProcess :associatedWithRole ?role .
+}
+```

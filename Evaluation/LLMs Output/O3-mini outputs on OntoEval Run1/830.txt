@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that a “certain person” and “a certain hospital” are identified by their IRIs (e.g. via parameters), the ontology supports this CQ because it reifies employment with the class :Cl_PersonHospitalEmployment, the property :employedAt (linking the employment record to the hospital) and the data property :employmentStartDate (indicating when the employment began). In other words, one can ask “when was person X first employed at hospital Y?” by querying for employment records of type :Cl_PersonHospitalEmployment (which—via its multiple superclass assertions—is also treated as a person) and then taking the minimum value of :employmentStartDate.
+
+For example, here is a SPARQL query that, given a person (as ?person) and hospital (as ?hospital), returns the earliest employment start date:
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?date) AS ?firstEmployment)
+WHERE {
+  ?person a :Cl_Person, :Cl_PersonHospitalEmployment ;
+          :employedAt ?hospital ;
+          :employmentStartDate ?date .
+  # (Optional: restrict to a given person and hospital by providing their IRIs)
+  # FILTER (?person = <http://www.example.org/test#PasqualeDiGennaro> &&
+  #         ?hospital = <http://www.example.org/test#OspedaleRiunitoDelleTreValli>)
+}
+GROUP BY ?person ?hospital
+ORDER BY ?firstEmployment
+----------------------------------------------------------
+
+This query finds, for each person employed at a hospital, the earliest (i.e. first) employment start date. Hence, the ontology fully supports answering the CQ.
+

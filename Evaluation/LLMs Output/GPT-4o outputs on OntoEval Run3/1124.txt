@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to connect a user to a specific system action in a particular context. The ontology defines classes and properties related to user preferences, system actions, and contexts, but it lacks the necessary connections to answer the competency question directly. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?user ?preferredAction ?systemAction ?context
+WHERE {
+  ?user a :Cl_User .
+  ?user :op_prefers ?preferredAction .
+  ?preferredAction :op_hasPreferredAction ?systemAction .
+  ?preferredAction :op_inContext ?context .
+}
+```

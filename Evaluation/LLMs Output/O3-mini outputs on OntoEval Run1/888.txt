@@ -1,0 +1,29 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves persons (members) who belong to a given union (specified by its URI) at a given point in time (provided as a date literal). In this query we assume that every union membership has both a start and an end date and that only memberships with an explicit end date covering the point in time are valid.
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?membership ?start ?end
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :inUnion ?union .
+  ?membership :membershipStartDate ?start .
+  ?membership :membershipEndDate ?end .
+  
+  # Replace the following URI and date with the desired union and time point.
+  FILTER(?union = <http://www.example.org/test#YourUnionURI> &&
+         ?start <= "YYYY-MM-DD"^^xsd:date &&
+         ?end >= "YYYY-MM-DD"^^xsd:date)
+
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+
+--------------------------------------------------
+
+In this query, you would substitute <http://www.example.org/test#YourUnionURI> with the specific union’s URI and "YYYY-MM-DD" with the point in time you are interested in. This query returns only those persons that have an active membership (i.e. where the membership start date is on or before the given date and the membership end date is on or after that date), thus fully addressing the competency question under the closed‐world assumption.

@@ -1,0 +1,18 @@
+**Yes**
+
+The following SPARQL query retrieves all productions that have exactly one premier date (using the :premierDate property of production instances of class :Cl_Production). In a closed‐world setting, we assume that if a production has no recorded premier date then the data is complete (i.e. the absence of :premierDate indicates there is no premier) and if the property is present it is unique (as declared by the ontology’s functional property).
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+}
+GROUP BY ?production ?premierDate
+HAVING (COUNT(?premierDate) = 1)
+------------------------------------------------
+
+This query answers the competency question "A production has exactly one premier" by extracting, for each production, its (unique) premier date.

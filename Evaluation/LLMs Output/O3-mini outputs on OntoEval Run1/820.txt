@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the first employment date for a specific person at a specific hospital (using the closed world assumption on the ontology):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :employmentStartDate ?employmentDate .
+  ?employment :hospital ?hospital .
+  
+  # Filters for a particular person and hospital.
+  FILTER(?person = :PasqualeDiGennaro &&
+         ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+--------------------------------------------------
+
+This query determines when the specified person (Pasquale Di Gennaro) was first employed at the specified hospital (Ospedale Riunito delle Tre Valli) by grouping employment dates and selecting the minimum value.

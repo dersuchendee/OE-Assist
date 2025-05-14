@@ -1,0 +1,22 @@
+Answer: **Yes**
+
+We can answer the competency question "How can we characterize the relation among the participants?" using the ontology provided. The ontology defines that `Persons` participate in `Events` and `Events` have `Participants`. By identifying `Persons` who have participated in the same `Event`, we can characterize relationships among them based on co-participation.
+
+Here's a SPARQL query that retrieves pairs of `Persons` who have participated in the same `Event`, effectively characterizing their relationships:
+
+```sparql
+SELECT DISTINCT ?person1 ?person1Name ?person2 ?person2Name ?event ?eventName
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventName . }
+  
+  ?event :hasParticipant ?person1 .
+  OPTIONAL { ?person1 rdfs:label ?person1Name . }
+  
+  ?event :hasParticipant ?person2 .
+  OPTIONAL { ?person2 rdfs:label ?person2Name . }
+  
+  FILTER(?person1 != ?person2)
+}
+```
+This query selects all unique pairs of participants (`?person1`, `?person2`) who were involved in the same event (`?event`). By doing so, we can infer the relationships among participants based on the events they have in common.

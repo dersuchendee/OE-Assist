@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology models the employment relationship between theatres and actors via the Cl_Employment class along with the property employmentStartDate. Thus, this CQ is answerable with a SPARQL query that retrieves, for a given actor and theatre, the starting date of the actor’s employment.
+
+Below is an example SPARQL query that extracts the start date for employment relationships (using the closed world assumption):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?theatre ?theatreLabel ?actor ?actorLabel ?startDate
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  
+  ?theatre :employs ?employment .
+  ?employment :employedActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+  
+  ?employment :employmentStartDate ?startDate .
+}
+ORDER BY ?theatre ?actor
+
+This query demonstrates that the CQ "At what time did a certain actor start working for a specific theatre?" is fully supported by the ontology.

@@ -1,0 +1,22 @@
+**Yes**
+Below is a SPARQL query that retrieves the organ along with its disposition (and even its associated base stops) recorded exactly at a specific date. (Replace "YYYY-MM-DD" with the desired date.)
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?organ ?disposition ?date (GROUP_CONCAT(DISTINCT ?baseStop; separator=", ") AS ?baseStops)
+WHERE {
+  ?organ a :Organ ;
+         :hasDisposition ?disposition .
+  ?disposition :hasDate ?date .
+  FILTER(?date = "YYYY-MM-DD"^^xsd:date)
+  OPTIONAL { ?disposition :hasBaseStop ?baseStop . }
+}
+GROUP BY ?organ ?disposition ?date
+ORDER BY ?organ
+-----------------------------------------------
+
+This query extracts the disposition of each organ at the specified date, thus answering the competency question under a closed world assumption.

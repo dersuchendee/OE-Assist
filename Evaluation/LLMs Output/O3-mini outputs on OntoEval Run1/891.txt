@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that, given a particular union (here “UnionOfMaleNurses”) and a target date, retrieves all persons whose union membership started on or before that date (and—in a closed‐world view with no explicit end date—they are taken as current members):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?membershipStartDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  
+  ?person :hasUnionMembership ?membership .
+  ?membership :memberOf :UnionOfMaleNurses .
+  ?membership :membershipStartDate ?membershipStartDate .
+  
+  FILTER ( xsd:date(?membershipStartDate) <= xsd:date("2005-01-01") )
+}
+--------------------------------------------------
+
+In this query you can replace :UnionOfMaleNurses with any other union of interest and "2005-01-01" with the specific point in time you wish to check.

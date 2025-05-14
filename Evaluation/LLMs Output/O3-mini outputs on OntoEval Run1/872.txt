@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology defines a class for cities (:Cl_City) and one for countries (:Cl_Country), along with the object property :cityInCountry (with domain :Cl_City and range :Cl_Country). This provides a clear link between a city and the country in which it is located. Therefore, given a particular city we can query for the country that it is located in.
+
+For example, the following SPARQL query returns the country for each city:
+
+------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityInCountry ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+------------------------------
+
+This query retrieves each city and its associated country as modelled in the ontology.

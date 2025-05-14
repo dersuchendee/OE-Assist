@@ -1,0 +1,17 @@
+Answer: **No**
+
+The ontology lacks a property to uniquely identify a specific album (e.g., by name or identifier). Therefore, we cannot specify a certain album in the query. The following SPARQL query retrieves the release dates of all albums in the ontology:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releasedAlbum ?release .
+  ?release :releaseDate ?releaseDate .
+}
+```
+
+In this query, `?album` represents each album in the ontology, and `?releaseDate` is its corresponding release date.

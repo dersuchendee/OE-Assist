@@ -1,0 +1,36 @@
+**Yes**
+Below is one example of a SPARQL query that uses the reification model for roles. In this query we assume that a person’s role assignment is represented as an instance of the reified class Cl_PersonRole and that, by the modelling decision, that same individual is (by multiple classification) also an instance of the production in which the role is undertaken. We also assume that the query is executed under the closed‐world assumption (i.e. only the explicitly stated triples are considered):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleDate
+WHERE {
+  # Bind the specific person, production, and time point (adjust IRIs and date literal as needed)
+  VALUES ?person { <http://www.example.org/test#FabioBianchi> }
+  VALUES ?prod { <http://www.example.org/test#MerchantOfVeniceProduction> }
+  VALUES ?pointInTime { "2009-09-07"^^xsd:date }
+  
+  # Get the reified role assignment for the person
+  ?person :hasRole ?personRole .
+  ?personRole rdf:type :Cl_PersonRole .
+  ?personRole :roleName ?roleName .
+  ?personRole :roleDate ?roleDate .
+  
+  # Under the modelling, the same individual is also classified as the production.
+  ?personRole rdf:type ?prod .
+  
+  # Filter for the time point of interest.
+  FILTER(?roleDate = ?pointInTime)
+}
+ORDER BY ?roleName
+
+In this query:
+– The VALUES clauses fix the person in question, the production, and the specific date (point in time) to be investigated.
+– The triple pattern “?person :hasRole ?personRole” retrieves the reified role assignment (an instance of Cl_PersonRole).
+– Since Cl_PersonRole is a reification connecting the person, the role, the production and the time dimension, we filter on the roleDate.
+– The pattern “?personRole rdf:type ?prod” relies on the interpretation that the same individual is also classified as a production (as modelled by the reification).
+– The closed‐world assumption is applied here so that only roles explicitly asserted are returned. 
+
+This SPARQL query fully “answers” the competency question given the modeling decisions in the ontology.

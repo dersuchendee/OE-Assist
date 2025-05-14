@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves theatre festivals along with the date of one of their festival occurrences (using the reification class Cl_FestivalOccurrence and its occurrenceDate data property):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?date .
+}
+--------------------------------------------------
+
+This query returns the date(s) corresponding to the occurrence(s) of a given theatre festival, thus answering the CQ "When did a certain theatre festival take place?" under the closed world assumption.

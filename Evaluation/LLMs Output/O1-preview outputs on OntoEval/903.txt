@@ -1,0 +1,33 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# Assuming the specific person, union group, and point in time are known and bound to variables ?person, ?unionGroup, and ?time.
+# For example, replace the placeholders with actual URIs and date:
+# BIND(:Pasquale_Di_Gennaro AS ?person)
+# BIND(:Ospedale_Riunito_delle_Tre_Valli_Union AS ?unionGroup)
+# BIND("2003-01-01"^^xsd:date AS ?time)
+
+SELECT ?role
+WHERE {
+  BIND(?specifiedPerson AS ?person) .
+  BIND(?specifiedUnionGroup AS ?unionGroup) .
+  BIND(?specifiedTime AS ?time) .
+  
+  ?person a :Cl_Person .
+  ?person :hasRoleMembership ?roleMembership .
+  
+  ?roleMembership a :Cl_UnionRoleMembership .
+  ?roleMembership :roleMembershipIn ?unionGroup .
+  ?roleMembership :roleOfMembership ?role .
+  ?roleMembership :roleStartDate ?startDate .
+  OPTIONAL { ?roleMembership :roleEndDate ?endDate . }
+  
+  FILTER ( xsd:date(?time) >= xsd:date(?startDate) && 
+           ( !BOUND(?endDate) || xsd:date(?time) <= xsd:date(?endDate) ) )
+}
+```
+
+This SPARQL query retrieves the role (`?role`) that a specific person (`?person`) has within a specific union group (`?unionGroup`) at a specific point in time (`?time`). It checks the `roleStartDate` and `roleEndDate` to ensure that the role membership is valid at the given time. The query assumes that the variables `?specifiedPerson`, `?specifiedUnionGroup`, and `?specifiedTime` are provided with the specific values for the person, union group, and time you are inquiring about.

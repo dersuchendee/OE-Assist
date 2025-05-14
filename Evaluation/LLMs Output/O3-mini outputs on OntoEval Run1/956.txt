@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming a closed world where only explicitly stated triples exist, the following SPARQL query retrieves, for a given book or CD (as indicated by its class membership in Cl_Book or Cl_CD), the articles it is composed of via the “contains” relation. (Here, :publicationTitle and :hasTitle are used to extract human‐readable titles for the publication and the article respectively.) 
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubTitle ?article ?artTitle
+WHERE {
+  ?publication rdf:type ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD) .
+  
+  ?publication :contains ?article .
+  ?publication :publicationTitle ?pubTitle .
+  ?article :hasTitle ?artTitle .
+}
+ORDER BY ?publication
+-------------------------------------------------
+
+This query answers the competency question by directly extracting the articles that compose a specific book or CD, as modelled in the ontology.

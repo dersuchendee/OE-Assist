@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each performance, its location – and (using optional matches) further details about the city, region and country in which it was performed. Note that under the closed‐world assumption only what is explicitly in the ontology is returned.
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?location ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?location .
+  
+  # Optionally get city label if available (assuming the location is typed as a city)
+  OPTIONAL {
+    ?location a :Cl_City .
+    OPTIONAL { ?location rdfs:label ?city . }
+  }
+  
+  OPTIONAL { ?location :locatedInRegion ?region . }
+  OPTIONAL { ?region :locatedInCountry ?country . }
+}
+-------------------------------------------------
+
+This query shows that the competency question "Where did a certain performance take place?" is modelled in the ontology and can be answered by extracting the location information from the performance individual.

@@ -1,0 +1,19 @@
+**Yes**
+
+We can retrieve, for each Place, its Sound (which – by the ontology’s modelling – is currently performed since every Sound instance must have isCurrentlyPerformed set to true) and then check which MeansOfPerformance (ManualPerformance or ElectricPerformance) is associated. Here is a possible SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?place ?placeLabel ?sound ?performance ?performanceLabel
+WHERE {
+  ?place a :Place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+  
+  ?place :hasSound ?sound .
+  ?sound :isCurrentlyPerformed true .
+  
+  ?sound :hasMeans ?performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+}

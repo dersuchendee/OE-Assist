@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to ensure that at least one article is always presented at each seminar. However, we can extract information about seminars and their presentations, but it won't guarantee that every seminar has at least one article presented.
+
+```sparql
+SELECT ?seminar ?presentation
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?seminar :hasPresentation ?presentation .
+  }
+}
+```

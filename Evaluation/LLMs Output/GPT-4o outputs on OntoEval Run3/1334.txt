@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that relate beech forests to carbon and nitrogen cycling in groundwater systems. The ontology defines the necessary relationships to answer the question.
+
+```sparql
+SELECT ?beechForest ?cyclingProcess ?groundwaterSystem
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :affectsCycling ?cyclingProcess .
+  ?cyclingProcess a ?cyclingType .
+  FILTER(?cyclingType IN (:CarbonCycling, :NitrogenCycling))
+  ?cyclingProcess :occursIn ?groundwaterSystem .
+}
+```

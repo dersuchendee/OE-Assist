@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not contain any information about specific plays that can be seen during a theatre festival. It only contains information about festivals, cities, and plays in general, but not about specific plays being part of a festival. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying the plays associated with a festival occurrence.
+
+```sparql
+SELECT ?festival ?play ?title
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :hasPlayAppearance ?appearance .
+  ?appearance :isPlayOf ?play .
+  ?play :hasTitle ?title .
+}
+```

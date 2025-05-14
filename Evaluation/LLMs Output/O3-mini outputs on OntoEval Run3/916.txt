@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the union role held by a given person in a specified union at a given point in time. (Here we use PasqualeDiGennaro, the UnionOfMaleNurses, and the date “2002-06-01” as example parameters; these can be replaced with variables or other values as needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleTitle ?roleStartDate
+WHERE {
+  ?person a :Cl_Person ;
+          :isMemberOf ?membership .
+  ?membership :memberOf ?union ;
+              :hasUnionRole ?role .
+  ?role :roleTitle ?roleTitle ;
+        :roleStartDate ?roleStartDate .
+  
+  FILTER(
+    ?person = :PasqualeDiGennaro &&
+    ?union = :UnionOfMaleNurses &&
+    xsd:date("2002-06-01") >= ?roleStartDate
+  )
+}
+--------------------------------------------------
+
+In this query:
+– We start from a person (of class Cl_Person) who is linked via :isMemberOf to a union membership.
+– That membership connects via :memberOf to a union group and via :hasUnionRole to a union role.
+– We then retrieve the role title (and its start date) and filter by a specified person, union, and a point in time (here “2002-06-01”, meaning that the role must have been in effect ‒ i.e. started on or before that date).
+
+This query ensures that the competency question “What role does a certain person have within a certain union group at a certain point in time?” is fully answerable from the ontology.

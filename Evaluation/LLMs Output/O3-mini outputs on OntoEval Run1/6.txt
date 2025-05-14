@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?sourceLabel ?context ?creationDate ?creationPlace ?goal
+WHERE {
+  ?source a :Cl_Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  ?source :hasContext ?context .
+  OPTIONAL { ?context :hasCreationDate ?creationDate . }
+  OPTIONAL { ?context :hasCreationPlace ?creationPlace . }
+  OPTIONAL { ?context :hasGoal ?goal . }
+}
+```

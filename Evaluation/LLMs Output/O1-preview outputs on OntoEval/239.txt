@@ -1,0 +1,33 @@
+**Yes**
+
+The competency question "What plays did a certain author write?" is answerable using the provided ontology. The ontology includes classes and properties that connect authors to the plays they have written via a writing event. Here is a SPARQL query that retrieves the plays written by a specific author:
+
+```sparql
+SELECT ?play ?playLabel ?author ?authorLabel
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+
+  ?play :hasWritingEvent ?writingEvent .
+  ?writingEvent :hasAuthor ?author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+
+  # If you want to specify a certain author, uncomment and modify the following line:
+  # FILTER(?author = :Specific_Author_URI)
+}
+```
+
+This query selects plays (`?play`) and their associated authors (`?author`) by traversing the relationships defined in the ontology:
+
+- It finds instances of `:Cl_Play`.
+- It retrieves the `:hasWritingEvent` associated with each play.
+- It then gets the `:hasAuthor` of each writing event.
+- Labels are retrieved where available for better readability.
+
+If you have a specific author in mind (e.g., William Shakespeare), you can filter the results by their URI:
+
+```sparql
+FILTER(?author = :William_Shakespeare)
+```
+
+This query effectively answers the competency question by utilizing the ontology's structure that models the relationship between authors and plays through writing events.

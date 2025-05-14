@@ -1,0 +1,15 @@
+Answer: **No**
+
+The ontology lacks sufficient information about the time periods to determine band members at a specific point in time. Specifically, the `Cl_TimePeriod` class does not have properties defining start and end dates, so we cannot compare a given date to the membership periods.
+
+Here is a SPARQL query to extract a partial answer (listing band members and their associated membership periods without the ability to filter by a specific date):
+
+```sparql
+SELECT ?person ?band ?membershipPeriod
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOfBand ?membership .
+  ?membership :bandMember ?band .
+  ?membership :membershipPeriod ?membershipPeriod .
+}
+```

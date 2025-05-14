@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming we have an instance representing the current user (for example, :currentUser), the ontology uses a reification pattern (via :Cl_UserPreference) to record the user's movie category preferences. Under the closed world assumption, we can extract the preferred movie categories (with their names) using the pivot class. For example, the following SPARQL query answers the competency question:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?movieCategory ?categoryName
+WHERE {
+  :currentUser :hasPreference ?preference .
+  ?preference :prefersMovieCategory ?movieCategory .
+  ?movieCategory :hasCategoryName ?categoryName .
+}
+
+This query retrieves the movie categories that the current user prefers.

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that a “certain seminar” is identified by an individual (e.g. via its IRI or a filter), the answer can be extracted using the relationships between seminars, their seminar presentations, and the articles presented. For example, the following SPARQL query retrieves the articles (and optionally their titles) that were presented in a particular seminar:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article ?title
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentation ?presentation .
+  ?presentation :presentationOfArticle ?article .
+  OPTIONAL { ?article :articleTitle ?title . }
+  # Uncomment and modify the next line to restrict to a specific seminar:
+  # FILTER(?seminar = <http://www.example.org/test#SpecificSeminar>)
+}
+
+This query makes use of the ontology’s reified structure (linking a seminar to its presentations through :hasPresentation and linking each presentation to an article via :presentationOfArticle) and is answerable under the closed world assumption.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query the chemical composition of a material as it lacks a direct connection between the `Material` class and the `ChemicalElement` or `Compound` classes through the `ChemicalComposition` class. The `hasChemicalComposition` property links `Material` to `ChemicalComposition`, but there is no direct way to extract the chemical elements or compounds from a material's chemical composition.
+
+Partial answer:
+```sparql
+SELECT ?material ?composition
+WHERE {
+  ?material a :Material .
+  ?material :hasChemicalComposition ?composition .
+}
+```

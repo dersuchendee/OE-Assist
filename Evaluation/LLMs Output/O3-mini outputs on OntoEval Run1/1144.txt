@@ -1,0 +1,33 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the bookings from a user’s calendar that occur within a specified time period. (In this query, the time interval is provided as two dateTime parameters – adjust these values as needed.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?calendar ?booking ?startTime ?endTime
+WHERE {
+  # Find the user’s calendar
+  ?user a :Cl_User .
+  ?user :hasCalendar ?calendar .
+  
+  # Retrieve the reified booking information
+  ?calendar :hasBooking ?calendarBooking .
+  ?calendarBooking :refersToBooking ?booking .
+  ?calendarBooking :bookingDuring ?timePeriod .
+  
+  # Get booking start/end times
+  ?booking :startTime ?startTime .
+  ?booking :endTime ?endTime .
+  
+  # Apply filter for the desired time period (adjust the interval as needed)
+  FILTER (
+    ?startTime >= "2023-10-10T00:00:00"^^xsd:dateTime &&
+    ?endTime   <= "2023-10-10T12:00:00"^^xsd:dateTime
+  )
+}
+ORDER BY ?startTime
+------------------------------------------------
+
+This query is able to answer the competency question “What bookings does the user’s calendar contain during a certain time period?” by exploiting the reification (pivot) class :Cl_CalendarBooking that connects the calendar with its bookings and their associated time period.

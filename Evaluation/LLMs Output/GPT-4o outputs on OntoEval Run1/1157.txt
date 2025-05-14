@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What are the attribute values for this event?" can be answered using the given ontology. The ontology provides information about events, including their time, place, and product (film). Here's a SPARQL query to extract the attribute values for the event:
+
+```sparql
+SELECT ?event ?filmTitle ?cinemaName ?startTime
+WHERE {
+  ?event rdf:type :event:Event .
+  ?event :event:product ?film .
+  ?film :hasTitle ?filmTitle .
+  ?event :event:place ?cinema .
+  ?cinema :hasLocationName ?cinemaName .
+  ?event :event:time ?time .
+  ?time :hasStartTime ?startTime .
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?person ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasDegree ?personDegree .
+
+  ?personDegree :degreeType ?degree .
+  ?degree a :Cl_MedicalDegree .
+
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+  OPTIONAL { ?personDegree :studyStartDate ?studyStartDate . }
+  OPTIONAL { ?personDegree :studyEndDate ?studyEndDate . }
+}
+```

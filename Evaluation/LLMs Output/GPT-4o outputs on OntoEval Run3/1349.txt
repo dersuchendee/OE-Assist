@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question can be answered using the ontology provided. The ontology includes classes and properties that allow us to query for monitoring sites, the water quality parameters they registered, and the dates of these measurements.
+
+```sparql
+SELECT ?monitoringSite ?parameter ?measurementDate
+WHERE {
+  ?observation a :WaterQualityObservation .
+  ?observation :hasParameter ?parameter .
+  ?observation :registeredAtSite ?monitoringSite .
+  ?observation :measurementDate ?measurementDate .
+}
+```

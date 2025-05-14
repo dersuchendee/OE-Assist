@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "Who are the members of a certain union at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties related to union membership and time periods, which allows us to query for union members during specific time periods.
+
+```sparql
+SELECT ?person ?union ?startTime ?endTime
+WHERE {
+  ?membership a :Cl_UnionMembership .
+  ?membership :hasUnionRole ?role .
+  ?membership :partOfUnionGroup ?union .
+  ?membership :unionMembershipDuring ?timePeriod .
+  ?timePeriod :startTime ?startTime .
+  ?timePeriod :endTime ?endTime .
+  ?person :hasUnionMembership ?membership .
+}
+```

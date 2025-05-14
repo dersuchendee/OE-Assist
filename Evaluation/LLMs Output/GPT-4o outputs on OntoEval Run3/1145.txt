@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "What bookings does the user’s calendar contain during a certain time period?" can be answered using the given ontology. The ontology provides the necessary classes and properties to represent calendars, events, and time periods. We can write a SPARQL query to extract the events contained in a user's calendar during a specified time period.
+
+```sparql
+SELECT ?event ?startTime ?endTime
+WHERE {
+  :myCalendar :containsEvent ?event .
+  ?event :hasTimePeriod ?timePeriod .
+  ?timePeriod :startTime ?startTime .
+  ?timePeriod :endTime ?endTime .
+  
+  FILTER (?startTime >= "2023-04-01T00:00:00Z"^^xsd:dateTime && ?endTime <= "2023-04-01T23:59:59Z"^^xsd:dateTime)
+}
+```
+
+This query retrieves events from the user's calendar that occur within the specified time period on April 1, 2023. Adjust the date and time in the FILTER clause to match the desired time period.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption and using the available reification for critiques, retrieves the critique content made by a specific critic about a specific record:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique ;
+            :criticOf ?critic ;
+            :critiqueOf ?record ;
+            :critiqueContent ?critiqueContent .
+  # Replace the URIs below with the specific critic and record identifiers.
+  FILTER(?critic = <http://www.example.org/test#CrianHiatt> && 
+         ?record = <http://www.example.org/test#SomeRecordID>)
+}
+---------------------------------
+
+In this query the assumption is that individuals are modeled (e.g. a critic individual and a record individual) and their related critique instance (of type :Cl_Critique) contains the property :critiqueContent describing what the critic said.

@@ -1,0 +1,13 @@
+**No**
+
+The competency question "In what region is a certain city located?" is not fully supported by the ontology provided. The ontology includes classes and properties related to music, bands, albums, and performances, but it does not include any information about cities or regions. Therefore, a SPARQL query can only provide a partial answer, as there is no data about cities or their locations in regions.
+
+Here is a SPARQL query to extract a partial answer, which would return no results given the current ontology:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :op_isLocatedIn ?region .
+}
+```

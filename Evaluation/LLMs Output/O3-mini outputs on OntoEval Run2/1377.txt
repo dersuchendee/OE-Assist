@@ -1,0 +1,21 @@
+**Yes**
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+
+SELECT DISTINCT ?meetup ?place ?time ?purpose
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasPlace ?place ;
+          mtps:happensAt ?time ;
+          mtps:hasAPurpose ?purpose ;
+          mtps:hasParticipant ?participant1, ?participant2 .
+          
+  FILTER (
+    (?participant1 = <http://w3id.org/polifonia/ontology/meetups-ontology#MusicianX> &&
+     ?participant2 = <http://w3id.org/polifonia/ontology/meetups-ontology#PerformerY>) ||
+    (?participant1 = <http://w3id.org/polifonia/ontology/meetups-ontology#PerformerY> &&
+     ?participant2 = <http://w3id.org/polifonia/ontology/meetups-ontology#MusicianX>)
+  )
+}
+```

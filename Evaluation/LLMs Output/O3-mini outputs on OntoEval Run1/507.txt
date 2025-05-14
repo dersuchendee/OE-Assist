@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?startDate ?endDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :recordedDuring ?session .
+  ?session :membershipStart ?startDate .
+  ?session :membershipEnd ?endDate .
+}
+```

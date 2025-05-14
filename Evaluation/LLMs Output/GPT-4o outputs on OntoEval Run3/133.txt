@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to query for plays that can be seen during a specific theatre festival. The ontology includes information about theatre festivals, festival occurrences, and play participations, but it lacks a direct connection between a festival and the plays that are part of it. Here's a SPARQL query to extract a partial answer, which lists the plays that have participated in any festival occurrence:
+
+```sparql
+SELECT ?festival ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalOccurrence ?occurrence .
+  ?occurrence :hasPlayParticipation ?participation .
+  ?participation :participatedPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```
+
+This query retrieves the plays that have participated in any festival occurrence, but it does not filter by a specific festival or provide a direct answer to the competency question.

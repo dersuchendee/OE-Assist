@@ -1,0 +1,25 @@
+**Yes**
+
+We can query for the review text by linking a given critic to their review and by linking that review to the given record. For example, assuming we have the URIs (or other identifying information) for the critic and the record, a SPARQL query using the closed‐world assumption could be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?reviewText
+WHERE {
+  # Identify the specific critic and record (replace <criticURI> and <recordURI> with actual URIs)
+  VALUES (?critic ?record) { (<http://www.example.org/test#Critic1> <http://www.example.org/test#Record1>) }
+  
+  ?critic a :Cl_Critic ;
+          :madeReview ?review .
+  ?record a :Cl_Record ;
+          :hasReview ?review .
+  ?review :reviewText ?reviewText .
+}
+--------------------------------------------------
+
+This query successfully retrieves what the specified critic said about the specified record, showing that the CQ is indeed modelled by the ontology.

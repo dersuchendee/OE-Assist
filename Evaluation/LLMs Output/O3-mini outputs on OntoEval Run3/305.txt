@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierDate ?premierEvent .
+  ?premierEvent :premierDate ?premiereDate .
+}
+```

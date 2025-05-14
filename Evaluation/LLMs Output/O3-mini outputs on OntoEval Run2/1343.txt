@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed-world interpretation (only explicitly stated triples hold), the following SPARQL query can answer the CQ:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?diagnosisCode ?avgAdmissions
+WHERE {
+  ?hospital a :Hospital .
+  ?hospital :hasAdmissionSummary ?summary .
+  ?summary :appliesToDiagnosisCode ?diagnosisCode .
+  ?summary :averageAdmissions ?avgAdmissions .
+}
+
+This query retrieves each hospital, the corresponding diagnosis code from its admission summary, and the average number of admissions for that diagnosis code, directly modeling the competency question.

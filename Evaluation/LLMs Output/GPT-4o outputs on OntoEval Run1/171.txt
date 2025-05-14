@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to relate a city to a country, which is necessary to answer the competency question. However, we can extract partial information about cities and their locations.
+
+```sparql
+SELECT ?city ?location
+WHERE {
+  ?city a :City .
+  ?city :isLocatedIn ?location .
+}
+```

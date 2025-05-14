@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves for each actor employment the employed actor, the theatre at which they work, and the start date of their employment:
+
+–––––––––––––––––––––––––––––––––––––––––––––––––
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :hasActor ?actor ;
+              :hasTheatre ?theatre ;
+              :hasStartDate ?startDate .
+  ?actor :actorName ?actorName .
+  ?theatre :theatreName ?theatreName .
+}
+ORDER BY ?actorName ?startDate
+–––––––––––––––––––––––––––––––––––––––––––––––––
+
+This query demonstrates that the ontology models the competency question “Which actor is employed at which theatre and since when?” because it uses the provided classes (Cl_ActorEmployment, Cl_Actor, Cl_Theatre) and properties (:hasActor, :hasTheatre, :hasStartDate, and the respective data properties) to retrieve the complete answer.

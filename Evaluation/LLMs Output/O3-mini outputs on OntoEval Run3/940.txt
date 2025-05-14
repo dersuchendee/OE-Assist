@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the evaluation statement provided by a given doctor for a specific employee:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_Evaluation ;
+              :evaluatedBy :Dr_Smith ;
+              :evaluates :Pasquale_Di_Gennaro ;
+              :evaluationStatement ?evaluationStatement .
+}
+-------------------------------------------------
+
+In this query the competency question is fully answerable because the ontology models evaluations with a reified Evaluation class and properties such as :evaluatedBy, :evaluates, and :evaluationStatement.

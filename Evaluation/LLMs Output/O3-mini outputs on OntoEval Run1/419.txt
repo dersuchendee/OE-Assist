@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one possible SPARQL query that, assuming individuals are asserted as instances of :Cl_Person and the relationship is modeled via the property :playsInstrument (or via the reification class :Cl_InstrumentPlaying), retrieves for a given person the instruments they play:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :hasName ?personName . }
+  
+  # Either the person plays an instrument directly...
+  {
+    ?person :playsInstrument ?instrument .
+  }
+  # ...or the relation is reified as an instance of :Cl_InstrumentPlaying
+  UNION {
+    ?action a :Cl_InstrumentPlaying .
+    ?action ?p ?instrument .
+    FILTER(?p = :playsInstrument)
+    FILTER(?action = ?person)
+  }
+  OPTIONAL { ?instrument rdfs:label ?instrumentName . }
+} 
+
+This query extracts the instruments played by each person (using a known reification strategy, if available) under the closed world assumption.

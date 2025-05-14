@@ -1,0 +1,12 @@
+**No**
+
+The ontology lacks a property to identify a specific album (such as an album name or label), so we cannot answer the CQ fully. However, we can provide a partial answer by retrieving the recording start and end dates for all albums.
+
+```sparql
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :recordingStart ?recordingStart . }
+  OPTIONAL { ?album :recordingEnd ?recordingEnd . }
+}
+```

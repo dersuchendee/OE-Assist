@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that returns, for a given performance, the songs that were played:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :playedSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+}
+ORDER BY ?performance ?song
+
+This query works under the closed‐world assumption using the ontology’s definitions of a performance (:Cl_Performance) and how songs are played (via the :playedSong property connecting a performance with a :Cl_Song or its subclass :Cl_PerformanceSong).

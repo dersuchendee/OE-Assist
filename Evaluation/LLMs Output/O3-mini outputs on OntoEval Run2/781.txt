@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+SELECT ?person ?degree ?degreeName ?degreeDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasMedicalDegree ?personMedicalDegree .
+  ?personMedicalDegree :degreeOf ?degree .
+  ?degree :degreeName ?degreeName ;
+          :degreeDate ?degreeDate .
+  
+  # Replace :Pasquale_Di_Gennaro with any specific person of interest
+  FILTER(?person = :Pasquale_Di_Gennaro)
+}
+ORDER BY ?degreeDate
+```

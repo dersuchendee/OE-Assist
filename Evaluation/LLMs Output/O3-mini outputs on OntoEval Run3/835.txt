@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel. }
+  ?hospital :isLocatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+```

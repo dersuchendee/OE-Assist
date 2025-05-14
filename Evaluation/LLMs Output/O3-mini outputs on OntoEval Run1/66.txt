@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given product (in this case using the example product :Product123), its components (along with their labels):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?component ?componentLabel
+WHERE {
+  :Product123 :hasComponent ?component .
+  OPTIONAL { ?component rdfs:label ?componentLabel . }
+}
+------------------------------------------------------------
+
+This query extracts the components linked to the product via the :hasComponent property, making the CQ answerable under the closed world assumption of the ontology.

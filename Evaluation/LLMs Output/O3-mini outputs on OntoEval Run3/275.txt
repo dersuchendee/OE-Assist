@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the time period during which a given play was written, using the reified connection (via the :writtenDuring property) from a play to its associated play-written period (whose time period is given by the :timePeriod data property):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  ?play :writtenDuring ?period .
+  ?period :timePeriod ?timePeriod .
+}
+
+This query answers the competency question "During what time period was a certain play written?" by selecting plays (optionally filtering by a specific play name when needed) and retrieving the associated time period information.

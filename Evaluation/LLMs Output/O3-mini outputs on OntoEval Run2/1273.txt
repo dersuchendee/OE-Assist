@@ -1,0 +1,20 @@
+**Yes**
+
+Because the ontology explicitly models mounting systems and the execution techniques they allow via the property :allowsExecutionTechnique, we can write a SPARQL query to extract, for a given mounting system (or all mounting systems), the associated execution techniques.
+
+Below is an example query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?mountingSystem ?msLabel ?executionTechnique ?etLabel
+WHERE {
+  ?mountingSystem a :MountingSystem .
+  OPTIONAL { ?mountingSystem rdfs:label ?msLabel . }
+  
+  ?mountingSystem :allowsExecutionTechnique ?executionTechnique .
+  OPTIONAL { ?executionTechnique rdfs:label ?etLabel . }
+}
+ORDER BY ?mountingSystem
+
+This query retrieves each mounting system and its corresponding execution techniques, thus answering the CQ under the closed world assumption.

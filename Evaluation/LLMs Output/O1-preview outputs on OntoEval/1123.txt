@@ -1,0 +1,23 @@
+**No**
+
+The competency question asks: "Where does this user live/where does the system run?"
+
+**Reasoning:**
+
+From the ontology, we can determine where the user lives through the `:hasLocation` property linking the `:User` to a `:Location`. However, there is no explicit property in the ontology that associates the `:System` with a `:Location`. Under the closed world assumption, we cannot infer information that is not explicitly stated in the ontology. Therefore, we cannot fully answer the competency question as we lack information about where the system runs.
+
+**Partial Answer:**
+
+We can provide a partial answer by retrieving the user's location.
+
+```sparql
+SELECT ?user ?userLabel ?location ?locationLabel
+WHERE {
+  ?user a :User .
+  OPTIONAL { ?user rdfs:label ?userLabel . }
+  ?user :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```
+
+This query retrieves the user and their associated location, along with any available labels for clarity.

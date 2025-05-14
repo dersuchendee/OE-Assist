@@ -1,0 +1,11 @@
+Answer: **Yes**.
+
+Because the ontology includes the classes `:Cl_Person` and `:Cl_Instrument`, and the object property `:playsInstrument`, we can write a SPARQL query to retrieve the instruments played by each person.
+
+```sparql
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+```

@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?organ ?organLabel ?originalPart ?location ?locationLabel
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel. }
+  
+  ?organ :hasOriginalPart ?originalPart .
+  
+  ?originalPart :isLocatedIn ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+```

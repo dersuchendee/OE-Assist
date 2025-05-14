@@ -1,0 +1,21 @@
+**Yes**
+
+We can retrieve the articles presented in a specific seminar using the property :hasPresentedArticle. Assuming we have a way to identify the seminar (for example by its URI or by filtering on its seminar date), a SPARQL query under closed‐world assumptions is as follows:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  # To filter a specific seminar, uncomment and update the following line:
+  # FILTER(?seminar = <http://www.example.org/test#YourSeminarURI>)
+}
+--------------------------------------------------
+
+This query extracts each seminar instance with its seminar date and the articles presented via the :hasPresentedArticle object property, thus fully answering the CQ.

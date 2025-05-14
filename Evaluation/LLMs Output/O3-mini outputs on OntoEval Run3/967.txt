@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the articles contained in a specific publication (either a book or a CD) by using the property “containsArticle” defined with a domain that is the union of Cl_Book and Cl_CD.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?pubLabel ?article ?articleLabel
+WHERE {
+  # Select a publication that is either a book or a CD
+  ?publication a ?pubType .
+  FILTER(?pubType IN (:Cl_Book, :Cl_CD)) .
+  OPTIONAL { ?publication rdfs:label ?pubLabel . }
+  
+  # Retrieve the articles composed in the publication
+  ?publication :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  
+  # In a closed-world scenario, we assume the information is complete.
+}
+------------------------------------------------
+
+This query will answer the competency question “What articles is a specific book or CD composed of?” by extracting the article components linked to that publication.

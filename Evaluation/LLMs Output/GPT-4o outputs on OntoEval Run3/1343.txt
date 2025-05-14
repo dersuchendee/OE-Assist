@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to connect hospitals with the average number of admissions for a given diagnosis code. The ontology includes classes and properties related to hospitals, admissions, and diagnosis codes, but it lacks a direct property or data structure to calculate or store the average number of admissions for a specific diagnosis code.
+
+However, a partial answer can be extracted by identifying hospitals and their associated diagnosis codes:
+
+```sparql
+SELECT ?hospital ?diagnosisCode
+WHERE {
+  ?hospital a :Hospital .
+  ?hospital :hasAdmissionSummary ?admissionSummary .
+  ?admissionSummary :appliesToDiagnosisCode ?diagnosisCode .
+}
+```

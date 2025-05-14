@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, returns the articles presented in a given seminar. (Replace <specific_seminar_URI> with the URI of the seminar of interest.)
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?presentation ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentation ?presentation .
+  ?presentation :presentationOfArticle ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+  FILTER (?seminar = <specific_seminar_URI>)
+}
+--------------------------------
+
+This query uses the property chain defined in the ontology—via presentations (Cl_SeminarPresentation) that are associated with a seminar (Cl_Seminar) and link to an article (Cl_Article) through the :presentationOfArticle property—to extract the articles presented in a particular seminar.

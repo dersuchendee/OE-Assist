@@ -1,0 +1,10 @@
+**No**
+
+```sparql
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD a ?type .
+  FILTER (?type IN (:Book, :CD))
+  ?bookOrCD :hasPublicationDate ?publicationDate .
+}
+```

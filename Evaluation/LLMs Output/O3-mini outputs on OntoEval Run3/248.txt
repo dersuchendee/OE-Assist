@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that uses the ontology’s classes and properties (such as :Cl_Author, :hasAuthorPlay and :writtenPlay) to retrieve the plays written by a specified author (here using a filter on the author’s label, e.g. "William Shakespeare"):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author ;
+          rdfs:label ?authorLabel ;
+          :hasAuthorPlay ?authorPlay .
+  FILTER(?authorLabel = "William Shakespeare")
+  
+  ?authorPlay :writtenPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+—————————————————————————————
+
+This query retrieves the author and the plays they wrote, which answers the competency question "What plays did a certain author write?" under the closed‐world assumption.

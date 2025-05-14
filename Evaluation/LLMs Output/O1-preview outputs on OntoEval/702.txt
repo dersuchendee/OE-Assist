@@ -1,0 +1,17 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://example.org/geo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityName ?region ?regionName
+WHERE {
+  ?city a :City .
+  ?city :placeName ?cityName .
+  ?city :isPartOf ?region .
+  ?region a :Region .
+  ?region :placeName ?regionName .
+}
+```
+
+This SPARQL query retrieves cities and their corresponding regions from the ontology. It selects individuals that are instances of `:City`, gets their names, finds the regions they are part of through the `:isPartOf` property, and retrieves the names of those regions.

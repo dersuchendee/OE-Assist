@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between a production and the play it is based on. The ontology includes a `basedOnPlay` property, but it does not specify the play that serves as the basis for a production. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract productions and their associated plays:
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?play .
+}
+```

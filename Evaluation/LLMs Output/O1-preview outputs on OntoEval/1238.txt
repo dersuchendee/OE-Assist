@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+Here the CQ is answerable since the ontology specifies that Forest Soil Composition plays a role in the CO2 Fixation Process via the `playsRoleIn` property.
+
+```sparql
+SELECT ?composition ?compositionLabel ?process ?processLabel
+WHERE {
+  ?composition a :ForestSoilComposition .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+
+  ?composition :playsRoleIn ?process .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+```

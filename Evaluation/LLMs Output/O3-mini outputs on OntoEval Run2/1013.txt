@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for entities typed as either a Cl_Book or a Cl_CD, the associated publication date:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  { ?item a :Cl_Book } UNION { ?item a :Cl_CD } .
+  ?item :publicationDate ?publicationDate .
+}
+------------------------------------------------
+
+This query answers the CQ “When was a certain book or CD published?” by extracting the publication dates from instances of either class, which is enabled by the ontology’s modelling (using a union of domains for :publicationDate).

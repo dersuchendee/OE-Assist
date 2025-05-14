@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ by retrieving for every seminar at least one article that is presented there. Under the closed‐world assumption (i.e. if nothing is reported then it is assumed not to hold), the following query returns seminars together with one or more articles that have been presented via a reified presentation (using the Cl_SeminarPresentation class as in the ontology). If every seminar in the ontology appears in the results, then the CQ “At least one article is always presented at each seminar” is met.
+
+For example, you can write:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article a :Cl_Article .
+  ?article :presentedAt ?presentation .
+  ?presentation :presentedAt ?seminar .
+}
+ORDER BY ?seminar
+---------------------------------
+
+In this query, we assume that the ontology reifies the presentation of an article (through :presentedAt and the class Cl_SeminarPresentation with the restriction that its :presentedAt value is a :Cl_Seminar) so that for each seminar we can check for the existence of at least one article.

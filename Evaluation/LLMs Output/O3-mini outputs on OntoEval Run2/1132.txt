@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that there are individuals of Cl_IndoorLocation in the data and using the closed‐world assumption, we can answer the CQ by querying for the devices linked via the hasDevice property. For example, one SPARQL query could be:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?indoorLocation ?device ?deviceType ?displaysWeather ?readsOutWeather
+WHERE {
+  ?indoorLocation a :Cl_IndoorLocation .
+  ?indoorLocation :hasDevice ?device .
+  ?device a ?deviceType .
+  
+  OPTIONAL { ?device :displaysWeather ?displaysWeather . }
+  OPTIONAL { ?device :readsOutWeather ?readsOutWeather . }
+}
+-------------------------------------------------
+
+This query retrieves each indoor location along with its available devices (and, if available, whether a mirror displays weather or a loudspeaker reads out weather), thus fully supporting the CQ "What devices are available in this indoor location?" under the given ontology.

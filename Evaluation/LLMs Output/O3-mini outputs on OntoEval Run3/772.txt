@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that retrieves—for a given person—their recorded medical degrees (with names and dates), leveraging the reification pattern (using the property :hasMedicalDegree and related data properties):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?degreeName ?degreeDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeName ?degreeName .
+  ?degree :degreeDate ?degreeDate .
+}
+-------------------------------------------------
+
+Under the closed world assumption, any medical degrees for which no information appears are assumed not to exist; hence the above query fully answers the competency question.

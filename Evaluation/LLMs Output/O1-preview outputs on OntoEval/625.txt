@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?critiqueText
+WHERE {
+  ?critic a :Cl_Critic ;
+          rdfs:label "CriticName" .
+  ?record a :Cl_Record ;
+          rdfs:label "RecordName" .
+  ?critique a :Cl_Critique ;
+            :madeBy ?critic ;
+            :aboutRecord ?record ;
+            :critiqueText ?critiqueText .
+}
+```
+
+This SPARQL query retrieves what a certain critic says about a certain record by finding the `critiqueText` of a `Cl_Critique` instance that is made by the specified critic (`?critic`) and is about the specified record (`?record`). Replace `"CriticName"` and `"RecordName"` with the actual names of the critic and record you are interested in.

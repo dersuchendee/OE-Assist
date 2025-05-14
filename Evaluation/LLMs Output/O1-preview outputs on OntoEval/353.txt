@@ -1,0 +1,23 @@
+**Yes**
+
+The ontology contains information about actors, their employment at theatres, and the start dates of their employment. Therefore, the competency question "At what time did a certain actor start working for a specific theatre?" can be answered using the ontology.
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#> 
+
+SELECT ?actorName ?theatreName ?startDate
+WHERE {
+  ?actor rdf:type theatre:Actor .
+  ?actor rdfs:label ?actorName .
+  ?actor theatre:hasEmployment ?employment .
+  ?employment theatre:hasTheatre ?theatre .
+  ?theatre rdfs:label ?theatreName .
+  ?employment theatre:hasStartDate ?startDate .
+}
+```
+
+This query retrieves the actor's name, the theatre's name, and the start date of the actor's employment at the theatre.

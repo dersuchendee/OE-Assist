@@ -1,0 +1,14 @@
+**No**
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?presentation :presentationOf ?seminar .
+    ?article :presentedIn ?presentation .
+  }
+}
+```
+
+This query retrieves seminars and associated articles that have been presented. However, under the closed world assumption, we cannot confirm that every seminar always has at least one article presented, as the ontology does not enforce this constraint. Therefore, the competency question is not fully supported by the ontology.

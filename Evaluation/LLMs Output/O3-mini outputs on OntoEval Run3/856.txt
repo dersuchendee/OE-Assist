@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that returns hospitals along with the cities they are located in:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+------------------------------------------------------------
+
+This query works under a closed world assumption, retrieving the city for each hospital as modeled in the ontology.

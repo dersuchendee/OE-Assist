@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the study period (start and end dates) for a given person and degree, using the reified study period class and its properties:
+
+------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?studyPeriod ?studyStartDate ?studyEndDate 
+WHERE {
+  ?studyPeriod a :Cl_StudyPeriod .
+  ?studyPeriod :studiedBy ?person .
+  ?studyPeriod :studiedFor ?degree .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+  # Replace the individual URIs below with the specific person and degree as needed:
+  FILTER(?person = :Pasquale_Di_Gennaro && ?degree = :CertifiedNurseDegree)
+}
+------------------------------------------------------------------
+
+This query extracts the start and end dates for the study period when the person (e.g., Pasquale Di Gennaro) studied for a specific degree (e.g., the Certified Nurse Degree).

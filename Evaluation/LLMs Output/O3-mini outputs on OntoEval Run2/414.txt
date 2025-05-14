@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the closed‐world interpretation of the ontology, a production (an instance of :Cl_Production) is linked via the object property :hasPremier to a premier (an instance of :Cl_ProductionPremier) that provides the premier date (using the data property :premierDate). Under the assumption that every production is intended to have exactly one premier, we can write a SPARQL query that returns each production and its premier date only if there is exactly one associated premier. For example:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+GROUP BY ?production ?premierDate
+HAVING (COUNT(?premier) = 1)
+------------------------------------------------
+
+This query extracts the premier date for each production that has exactly one premier, thereby modeling the competency question.

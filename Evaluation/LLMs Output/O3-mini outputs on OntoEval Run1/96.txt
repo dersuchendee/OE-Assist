@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves each reified festival occurrence (an instance of Cl_FestivalOccurrence) together with the city in which it took place.
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festivalOccurrence ?city
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence .
+  ?festivalOccurrence :tookPlaceIn ?city .
+}
+--------------------------------------------------------
+
+This query answers the competency question “Where did a certain festival take place?” by extracting the city linked via the property :tookPlaceIn from instances of :Cl_FestivalOccurrence under the closed world assumption.

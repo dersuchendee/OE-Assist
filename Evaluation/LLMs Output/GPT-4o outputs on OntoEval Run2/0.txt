@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the subject of a source. The ontology includes classes and properties related to sources and subjects, but it lacks a direct connection or property that would allow us to extract the subject of a source directly. The ontology uses reification to relate sources and subjects, but the competency question requires a direct relationship.
+
+Partial answer:
+```sparql
+SELECT ?source ?subject
+WHERE {
+  ?source a :Cl_Source .
+  ?source :op_hasSourceSubject ?sourceSubject .
+  ?sourceSubject :op_subjectOf ?subject .
+}
+```

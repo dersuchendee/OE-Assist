@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer this CQ by querying for participations that link an actor (via actorODP:participatingActor) to the process in which they participate (via actorODP:participationIn). For example, the following SPARQL query will retrieve, for each process in the network, the actors involved:
+
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX process: <http://w3id.org/CEON/ontology/process/>
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?process ?processLabel ?actor ?actorLabel
+WHERE {
+  { ?participation a actor:ProcessParticipation }
+  UNION
+  { ?participation a actor:CVNParticipation }
+  .
+  ?participation actorODP:participationIn ?process .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?process rdfs:label ?processLabel. }
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+}
+ORDER BY ?process ?actor
+
+Under the closed-world assumption the query will return only those process–actor participation instances explicitly represented in the ontology.

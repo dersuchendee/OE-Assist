@@ -1,0 +1,18 @@
+**No**
+
+Although the ontology defines the classes (e.g. :Cl_Album, :Cl_Track) and the property linking them (:albumContainsTrack), it does not enforce (through restrictions or axioms) that every instance of a record (album) must have at least one track. Under a closed‐world assumption the CQ “A record always contains at least one track” is only partially answerable. We can write a query to check which albums lack a track assignment, thus identifying possible counter‐examples.
+
+For example, the following SPARQL query retrieves all albums that do not have any associated track via the :albumContainsTrack property:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album
+WHERE {
+  ?album a :Cl_Album .
+  FILTER NOT EXISTS { ?album :albumContainsTrack ?track . }
+}
+------------------------------------------------------
+
+If this query returns any results then there are records (albums) that do not have a track, and thus the CQ is not fully supported by the ontology.

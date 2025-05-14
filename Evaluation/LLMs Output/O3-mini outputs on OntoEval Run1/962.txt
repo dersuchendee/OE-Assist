@@ -1,0 +1,24 @@
+**Yes**
+
+We can extract the answer by leveraging the property that connects a publication with its constituent articles. In the ontology the classes :Cl_Book and :Cl_CD (which are sub‐classes of :Cl_Publication) use the object property :composedOf to link to :Cl_Article. Under the closed‐world assumption, if a specific publication (book or CD) is known (e.g., by its :publicationTitle), we can query for the articles that compose it.
+
+For example, the following SPARQL query returns a book’s (or a CD’s) title along with the articles (and their titles) that are included in that publication:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubTitle ?article ?articleTitle
+WHERE {
+  ?publication a ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD) .
+  
+  ?publication :publicationTitle ?pubTitle .
+  ?publication :composedOf ?article .
+  ?article :articleTitle ?articleTitle .
+}
+------------------------------------------------------------
+
+This query retrieves, for any publication that is either a book or a CD, the publication title and all articles (with their titles) that make up the publication.

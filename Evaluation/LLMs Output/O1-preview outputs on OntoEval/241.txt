@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?author ?play ?playName
+WHERE {
+  ?author rdf:type :Cl_Author .
+  ?author :authorOf ?play .
+  ?play rdf:type :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

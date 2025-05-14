@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world view (i.e. only looking at explicitly asserted triples), will return each hospital and the city in which it is located:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital rdf:type :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel. }
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+
+This query answers the competency question “In what city is a certain hospital located?” by directly retrieving the hospital instance and its associated city from the ontology.

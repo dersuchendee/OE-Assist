@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the songs played in any performance by making use of the performedSongs property connecting a Cl_Performance instance to a Cl_Song instance:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceDate ?song ?songLabel ?composedDate
+WHERE {
+  # Select performances (optionally, a specific one could be filtered)
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance :performedOn ?performanceDate . }
+  
+  # Get the songs performed in the performance
+  ?performance :performedSongs ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  OPTIONAL { ?song :composedDate ?composedDate . }
+}
+ORDER BY ?performance ?song
+
+This query answers the competency question “What songs were played in a certain performance?” by extracting for each performance the songs that were performed (using the performedSongs property) along with any available labels, dates, or other song metadata.

@@ -1,0 +1,16 @@
+**Yes**
+
+We can fully answer this CQ using the provided ontology. For example, the following SPARQL query retrieves the city (via the :locatedIn property) in which each hospital is located:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?city
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+}
+
+This query directly extracts the answer by finding all instances of :Cl_Hospital and their associated city through the :locatedIn property.

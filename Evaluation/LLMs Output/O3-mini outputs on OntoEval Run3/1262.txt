@@ -1,0 +1,23 @@
+**No**
+
+The CQ asks for the rebound effects and added energy requirements “of a material flow”. In the ontology, while material flows (class Flow) are defined, the properties for energy requirements (hasEnergyRequirement) and rebound effects (hasReboundEffect) are attached to processes rather than directly to flows. Therefore, with the current ontology there is no direct connection between a material flow and these effects. Still, a partial answer can be obtained by linking flows to the processes that use them (via hasInput and hasOutput) and retrieving any associated energy requirements or rebound effects.
+
+Here’s a SPARQL query to extract that partial answer:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?flow ?flowLabel ?energyRequirement ?reboundEffect
+WHERE {
+  { ?process :hasInput ?flow }
+  UNION
+  { ?process :hasOutput ?flow }
+  
+  OPTIONAL { ?flow rdfs:label ?flowLabel . }
+  OPTIONAL { ?process :hasEnergyRequirement ?energyRequirement . }
+  OPTIONAL { ?process :hasReboundEffect ?reboundEffect . }
+}
+-------------------------------------------------
+
+This query retrieves flows involved in processes along with any associated energy requirements or rebound effects, which constitutes a partial answer under the closed world assumption given the current ontology design.

@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves for each city its associated country by traversing the city location:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName .
+  ?cityLocation a :Cl_CityLocation ;
+                :cityLocationOf ?city ;
+                :cityLocatedIn ?country .
+  OPTIONAL { ?country :countryName ?countryName . }
+}
+---------------------------------
+
+This query shows that the ontology supports the competency question "In what country is a certain city located?" since, given a city (identified by its name), one can follow the relation via its city location (using :cityLocationOf and :cityLocatedIn) to obtain the corresponding country and its name.

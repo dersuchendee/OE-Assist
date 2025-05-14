@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the competency question “At least one article is always presented at each seminar” using the ontology. Under the closed‐world assumption, a seminar without any associated presentation will not be returned. For example, the following SPARQL query retrieves every seminar along with its presented article(s) (via a SeminarArticlePresentation instance), which shows that for every seminar there is at least one article presentation:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?presentation a :Cl_SeminarArticlePresentation .
+  ?presentation :presentedIn ?seminar .
+  ?presentation :presentationOfArticle ?article .
+}
+---------------------------------------
+
+This query shows that each seminar (e.g., “SeminarInDecember2008”) has at least one article (e.g., “ImprovingCancerCareArticle”) presented, thereby answering the CQ.

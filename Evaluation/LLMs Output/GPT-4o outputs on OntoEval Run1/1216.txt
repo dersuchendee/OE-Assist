@@ -1,0 +1,11 @@
+**Yes**
+
+The ontology provides subclasses for both aquatic microbes and fungi, which can be queried using SPARQL.
+
+```sparql
+SELECT ?majorClass ?subClass
+WHERE {
+  VALUES ?majorClass { :AquaticMicrobe :AquaticFungus }
+  ?subClass rdfs:subClassOf ?majorClass .
+}
+```

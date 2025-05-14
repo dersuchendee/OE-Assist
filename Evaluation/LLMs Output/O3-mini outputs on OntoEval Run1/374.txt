@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person, production, and time, extracts the roles that the person has in that production via the reified pivot class :Cl_PersonRoleInProduction:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?role ?roleName ?time
+WHERE {
+  ?person a :Cl_Person ;
+          :hasPersonRoleInProduction ?ppr .
+  ?ppr :withRole ?role ;
+       :inProduction ?production ;
+       :atTime ?time .
+  
+  # (Optionally, include labels if available)
+  OPTIONAL { ?person :hasName ?personName . }
+  OPTIONAL { ?role :hasRoleName ?roleName . }
+  
+  # Provide the specific person, production, and time criteria here:
+  FILTER (?person = <http://www.example.org/test#YourPersonURI> &&
+          ?production = <http://www.example.org/test#YourProductionURI> &&
+          ?time = "2009-09-07T00:00:00"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+Replace <http://www.example.org/test#YourPersonURI> and <http://www.example.org/test#YourProductionURI> with the actual URIs of the person and production of interest, and adjust the time value as needed.

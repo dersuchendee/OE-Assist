@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel ?compositionDate
+WHERE {
+  ?composition a :Cl_Composition .
+  ?composition :composition_song ?song .
+  ?composition :composition_date ?compositionDate .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```
+
+This SPARQL query retrieves the songs and their corresponding composition dates from the ontology. It starts by finding all instances of `:Cl_Composition` and retrieves the associated `:composition_date`. It then links each composition to its song via the `:composition_song` property. Optionally, it includes the song's label if available.

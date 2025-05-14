@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific production with its premier date. The class `Cl_ProductionPremier` and the property `hasPremierDate` exist, but there is no direct connection between a specific production and its premier date in the ontology. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_ProductionPremier .
+  OPTIONAL { ?production :hasPremierDate ?premierDate . }
+}
+```

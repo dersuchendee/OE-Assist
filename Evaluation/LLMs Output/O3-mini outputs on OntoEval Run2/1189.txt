@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?event ?eventLabel ?nature ?natureLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  ?event :hasNature ?nature .
+  OPTIONAL { ?nature rdfs:label ?natureLabel . }
+}
+ORDER BY ?event
+```

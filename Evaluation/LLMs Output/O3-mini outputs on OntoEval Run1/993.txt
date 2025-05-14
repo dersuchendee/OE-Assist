@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the page count for any book (an instance of :Cl_Book) using the data property :hasPageCount:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?bookLabel ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book rdfs:label ?bookLabel . }
+  ?book :hasPageCount ?pageCount .
+}
+-------------------------------------------------
+
+This query returns each book’s page count. In a real use‐case you could filter on a particular book (e.g. by matching its label) to answer “How many pages does a particular book contain?”

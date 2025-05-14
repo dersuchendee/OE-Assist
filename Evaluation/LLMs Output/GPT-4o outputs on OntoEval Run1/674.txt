@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "Where did a certain performance take place?" can be answered using the ontology provided. The ontology includes the `:Performance` class and the `:performedAt` object property, which relates a performance to a venue. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?performance ?venue
+WHERE {
+  ?performance a :Performance .
+  ?performance :performedAt ?venue .
+}
+```

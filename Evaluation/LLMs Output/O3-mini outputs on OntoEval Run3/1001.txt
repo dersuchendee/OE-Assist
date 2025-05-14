@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the publication date for any resource that is an instance of either Book or CD:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationDate
+WHERE {
+  {
+    ?publication a :Book .
+    ?publication :publicationDate ?publicationDate .
+  }
+  UNION
+  {
+    ?publication a :CD .
+    ?publication :publicationDate ?publicationDate .
+  }
+}
+--------------------------------------------------
+
+This query will extract the publication date for a “certain book or CD” from the ontology, thus demonstrating that the competency question is answerable.

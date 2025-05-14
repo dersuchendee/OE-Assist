@@ -1,0 +1,21 @@
+**Yes**
+Below is a SPARQL query that retrieves the user’s preferences, including the activity they prefer when it is raining (i.e. going to the movies) and the movie genre (i.e. action movies):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?user ?activity ?weather ?genre
+WHERE {
+  ?user a :Cl_User ;
+        :prefers ?pref .
+  ?pref :hasActivity ?activity ;
+        :hasWeatherCondition ?weather ;
+        :hasPreferredGenre ?genre .
+
+  ?weather :isRaining true .
+  ?genre :isActionMovie true .
+}
+-------------------------------------------------
+
+This query is answerable under the closed world assumption, since the ontology explicitly connects a user with their reified preferences (weather condition, activity, and genre).

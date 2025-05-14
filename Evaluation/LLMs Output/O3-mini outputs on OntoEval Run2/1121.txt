@@ -1,0 +1,14 @@
+**No**  
+The ontology defines a user’s abstract time definition (e.g. morning with specific start and end times), but it doesn’t capture the current system time or any mechanism to determine “now.” Therefore, although you can query for the user’s defined abstract time (morning with its start and end times), you cannot infer if the current time falls within that interval. This SPARQL query provides a partial answer by extracting the user’s abstract time definition:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?abstractTime ?startTime ?endTime
+WHERE {
+  ?user a :User ;
+        :hasAbstractTimeDefinition ?abstractTime .
+  ?abstractTime :hasStartTime ?startTime ;
+                :hasEndTime ?endTime .
+}

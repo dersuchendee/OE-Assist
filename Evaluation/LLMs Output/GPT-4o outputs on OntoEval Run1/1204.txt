@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What are the original parts of the organ?" can be answered using the given ontology. The ontology provides the necessary classes and properties to identify the original parts of an organ. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?organ ?organPart
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasPart ?organPart .
+  ?organPart :isOriginal true .
+}
+```

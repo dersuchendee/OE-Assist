@@ -1,0 +1,23 @@
+**Yes**
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the activity (and genre) that a given user (here, user123) prefers to do when the weather is rainy:
+
+--------------------------------------------------
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?activity ?activityLabel ?genre ?genreLabel ?weather ?weatherLabel
+WHERE {
+  :user123 :hasPreference ?pref .
+  ?pref :prefersWeather ?weather .
+  ?pref :prefersActivity ?activity .
+  ?pref :prefersGenre ?genre .
+  OPTIONAL { ?weather rdfs:label ?weatherLabel . }
+  OPTIONAL { ?activity rdfs:label ?activityLabel . }
+  OPTIONAL { ?genre rdfs:label ?genreLabel . }
+  
+  # We consider the “certain situation” to be rainy weather
+  FILTER(?weather = :user123PrefersRainyWeather)
+}
+--------------------------------------------------
+
+This query shows that the ontology fully models the competency question by retrieving the user's preference (both the activity—to go to the movies—and the movie genre—to see action movies) conditioned on rainy weather.

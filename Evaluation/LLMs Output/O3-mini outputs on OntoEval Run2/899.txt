@@ -1,0 +1,32 @@
+**Yes**
+
+We can answer this CQ using the union membership reification in the ontology. For instance, assuming you have a specific union (say, identified by :SomeUnion) and a point in time (e.g. "2002-09-21"^^xsd:date), you can extract the persons whose membership period covers that point in time. Under the closed‐world assumption the absence of an end date is taken to mean that the membership is still valid.
+
+A possible SPARQL query is:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member
+WHERE {
+  ?membership a :Cl_PersonUnionMembership ;
+              :memberOf :SomeUnion ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+
+  # Filter to include only memberships valid at the chosen point in time
+  FILTER (
+     "2002-09-21"^^xsd:date >= ?start &&
+     ( !bound(?end) || "2002-09-21"^^xsd:date <= ?end )
+  )
+
+  # Since the reification class is defined as a sub‐class of Cl_Person, we can retrieve it as the member
+  BIND(?membership AS ?member)
+}
+ORDER BY ?member
+
+─────────────────────────────
+
+This query returns the individuals (members) of the union :SomeUnion that have been members at the specified date.

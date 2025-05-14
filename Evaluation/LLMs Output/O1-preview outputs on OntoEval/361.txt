@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?theatre a :Cl_Theatre .
+  ?employment a :Cl_Employment ;
+              :op_employedAt ?theatre ;
+              :dp_startDate ?startDate .
+  ?actor :op_employmentOf ?employment .
+}
+```

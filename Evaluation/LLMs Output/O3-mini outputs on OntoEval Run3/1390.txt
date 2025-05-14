@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not explicitly model any property or connection that links a measure (or musical “measure” as an evaluative attribute) with the compositions (tunes) or with a TuneFamily. In addition, there is no representation of “similarities/differences” for the compositions according to any specific measure (Y). Under the closed‐world assumption, we can only partially answer the question by retrieving the tunes that belong to a given TuneFamily (identified here as "X")—assuming that the relationship between a TuneFamily and its tunes is recorded (for example, via a membership triple). For instance, if some property (say, ?membership) were used to indicate the membership of a Tune in a TuneFamily, a partial query could be:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel
+WHERE {
+  ?family a :TuneFamily ;
+          rdfs:label "X" .
+  ?family ?membership ?tune .
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+}
+
+This query retrieves the compositions (tunes) that are associated with a TuneFamily labeled "X", which is a partial answer but does not address the similarities/differences by any measure Y.

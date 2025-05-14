@@ -1,0 +1,14 @@
+**Yes**
+  
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festival ?festivalName ?play ?playTitle
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :featuresPlay ?play .
+  OPTIONAL { ?festival :hasName ?festivalName . }
+  OPTIONAL { ?play :hasName ?playTitle . }
+}
+```

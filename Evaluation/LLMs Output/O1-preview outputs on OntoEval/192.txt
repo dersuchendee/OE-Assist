@@ -1,0 +1,27 @@
+Answer: **Yes**.
+
+The CQ "What play is the basis of this production?" is answerable because the ontology includes the object property `theatre:hasPlay` that links a `theatre:TheatreProduction` to the `theatre:Play` it is based on. This allows us to query the play associated with a given production.
+
+Here is a SPARQL query that retrieves the play for a specific production (replace `theatre:MerchantOfVeniceProduction` with the URI of the production in question):
+
+```sparql
+SELECT ?playLabel
+WHERE {
+  theatre:MerchantOfVeniceProduction theatre:hasPlay ?play .
+  ?play rdfs:label ?playLabel .
+}
+```
+
+If you want to retrieve the plays for all productions, you can use the following SPARQL query:
+
+```sparql
+SELECT ?productionLabel ?playLabel
+WHERE {
+  ?production a theatre:TheatreProduction .
+  ?production theatre:hasPlay ?play .
+  ?production rdfs:label ?productionLabel .
+  ?play rdfs:label ?playLabel .
+}
+```
+
+This query selects all productions and their associated plays by utilizing the `theatre:hasPlay` property defined in the ontology.

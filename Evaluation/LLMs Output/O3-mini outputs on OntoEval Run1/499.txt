@@ -1,0 +1,22 @@
+**Yes**
+Below is one SPARQL query that retrieves the time period during which an album (e.g., “Stadium Arcadium”) was recorded, by following the reified relationship between an album, its album recording event, and the associated time period:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?timePeriod
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :recordedDuring ?albumRecording .
+  ?timePeriod a :Cl_TimePeriod ;
+              :hasRecording ?albumRecording .
+  
+  # Optionally, if you want to restrict to a specific album by label, uncomment:
+  # FILTER(?albumLabel = "Stadium Arcadium")
+}
+-----------------------------------------------------
+
+In this query, we first select albums and then use the property :recordedDuring to get the associated album recording. We then look for the time period that “hasRecording” the corresponding album recording. This demonstrates that the ontology supports answering the competency question under a closed‐world assumption.

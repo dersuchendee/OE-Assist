@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for events of a specific category during a certain time period. The ontology includes classes for events, movies, and time periods, but it lacks a direct connection between events and their availability during specific time periods. The reification class `Cl_Availability` is defined, but it is not used in the ontology to connect events with time periods.
+
+Partial answer:
+```sparql
+SELECT ?event ?startTime ?endTime
+WHERE {
+  ?event a :Cl_Event .
+  ?event :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime .
+  ?timePeriod :hasEndTime ?endTime .
+}
+```

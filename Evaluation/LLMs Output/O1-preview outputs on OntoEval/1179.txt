@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?setOfBells
+       (GROUP_CONCAT(DISTINCT ?playMethodTypeLabel; separator=", ") AS ?playMethods)
+WHERE {
+  ?setOfBells a :SetOfBells .
+  ?setOfBells :hasPlayMethod ?playMethod .
+  ?playMethod a ?playMethodType .
+  VALUES ?playMethodType { :ManualPlayMethod :ElectricPlayMethod }
+  ?playMethodType rdfs:label ?playMethodTypeLabel .
+}
+GROUP BY ?setOfBells
+```
+
+This query retrieves each `SetOfBells` and combines their associated play methods (`Manual Play Method`, `Electric Play Method`) into a comma-separated list. By examining the `playMethods` result for each set of bells, we can determine whether it can be played manually, electrically, or both, directly answering the competency question.

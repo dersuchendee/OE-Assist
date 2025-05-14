@@ -1,0 +1,33 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption (and with appropriate instantiation of the given person, union, and time), will return the union role held by a person in a specified union during the time interval in which a given point in time falls:
+
+────────────────────────────
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel ?interval ?start ?end
+WHERE {
+  ?assignment a :UnionRoleAssignment ;
+              :hasAgent <http://example.org/ontology#Person_X> ;
+              :inUnion <http://example.org/ontology#Union_Y> ;
+              :atTime ?interval .
+  ?interval :startDate ?start ;
+            :endDate ?end .
+  FILTER(
+      xsd:dateTime("2005-01-01T00:00:00") >= ?start &&
+      xsd:dateTime("2005-01-01T00:00:00") <= ?end
+  )
+  ?assignment :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+────────────────────────────
+
+In this query, replace:
+ • <http://example.org/ontology#Person_X> with the URI of the person in question,
+ • <http://example.org/ontology#Union_Y> with the URI of the union group,
+ • and the literal "2005-01-01T00:00:00" with the desired point in time.
+
+This query extracts the role (and its label) that the person holds in the given union at the provided time.

@@ -1,0 +1,43 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for a given person and union, the union role they held at a specified date using the reified union role information:
+
+-------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?roleStartDate ?roleEndDate
+WHERE {
+  # The individual person must be of type Cl_Person.
+  ?person a :Cl_Person .
+
+  # Retrieve the reified union membership that also provides role details.
+  ?membership a :Cl_PersonUnionRole ;
+              :memberOf ?union ;     # the union group the person belongs to
+              :hasRole ?role ;       # the role held
+              :roleStartDate ?roleStartDate ;
+              :roleEndDate ?roleEndDate .
+
+  # Link the membership back to the person.
+  # (Assuming the reified union role individual is connected with the person by being a member of both Cl_Person and Cl_Union.)
+  # (If an explicit property connects the membership to the person, include it here. In our ontology the reification class Cl_PersonUnionRole is a subclass of Cl_Person,
+  # so ?membership can be regarded as representing the person’s union membership and role.)
+  FILTER (?membership = ?person)
+
+  # Closed-world assumption: only consider the roles whose effective period covers the query date.
+  BIND(xsd:date("2002-06-15") AS ?queryDate) .
+  FILTER(?queryDate >= ?roleStartDate && ?queryDate <= ?roleEndDate)
+
+  # (Optionally, to focus on a certain union group, you can further filter by union IRIs)
+  # FILTER(?union = :MaleNursesUnion)
+}
+ORDER BY ?person ?union ?roleStartDate
+-------------------------------------
+
+In this query we assume that:
+• The person (e.g. Pasquale Di Gennaro) is represented as an individual of type :Cl_Person.
+• Their union membership with reified role is modelled as an instance of :Cl_PersonUnionRole that is also connected to a union (via :memberOf) and holds a role (via :hasRole) with associated effective dates (:roleStartDate and :roleEndDate).
+• A given query date (here “2002-06-15”) is used to check the temporal validity of the role assignment.
+• The closed-world assumption is applied by only retrieving those roles that are effective at the given point in time.
+
+This query answers the competency question “What role does a certain person have within a certain union group at a certain point in time?” by returning the role details that meet the provided date condition.

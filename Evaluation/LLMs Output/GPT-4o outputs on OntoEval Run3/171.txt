@@ -1,0 +1,11 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to determine the country in which a city is located. The `City` class is related to the `Country` class through the `isLocatedIn` object property. Therefore, the competency question can be answered using the following SPARQL query:
+
+```sparql
+SELECT ?city ?country
+WHERE {
+  ?city a :City .
+  ?city :isLocatedIn ?country .
+}
+```

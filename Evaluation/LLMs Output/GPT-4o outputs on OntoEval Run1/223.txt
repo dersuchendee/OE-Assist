@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of an ensemble at a specific point in time. The ontology includes classes and properties related to ensembles, actors, and their memberships, but it lacks a direct connection between a specific ensemble and a point in time that would allow for querying ensemble members at a specific time.
+
+However, we can extract partial information about ensemble memberships and their time spans:
+
+```sparql
+SELECT ?ensemble ?actor ?startDate ?endDate
+WHERE {
+  ?actor :op_hasMembership ?membership .
+  ?membership :op_membershipIn ?ensemble .
+  ?membership :dp_startDate ?startDate .
+  OPTIONAL { ?membership :dp_endDate ?endDate . }
+}
+```
+
+This query retrieves actors and their membership periods in ensembles, but it does not directly answer the competency question about ensemble members at a specific point in time.

@@ -1,0 +1,17 @@
+**Yes**
+Below is one possible SPARQL query that—in a closed‐world assumption—retrieves each production along with its (unique) premier by ensuring that no production is linked to a different premier:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+
+SELECT ?production ?premiere
+WHERE {
+  ?production a ns1:Production .
+  ?production ns1:hasPremiere ?premiere .
+  # Ensure that there is no second, different premier for the same production
+  FILTER NOT EXISTS {
+    ?production ns1:hasPremiere ?otherPremiere .
+    FILTER(?otherPremiere != ?premiere)
+  }
+}
+
+This query shows that for all productions the ontology provides exactly one premier, thereby modeling the competency question.

@@ -1,0 +1,15 @@
+**No**
+
+The competency question "How many distinct disease categories are there?" cannot be fully answered by the given ontology because there are no instances (individuals) of `:DiseaseCategory` defined in the ontology. Under the closed-world assumption, since no disease categories are specified, the answer would be zero, which may not be meaningful for the practitioner's investigation.
+
+**Partial Answer SPARQL Query:**
+
+```sparql
+SELECT (COUNT(DISTINCT ?diseaseCategory) AS ?numberOfDiseaseCategories)
+WHERE {
+  ?diseaseCategory a :DiseaseCategory .
+}
+```
+
+*Explanation:*
+This SPARQL query attempts to count the number of distinct instances of `:DiseaseCategory`. However, since the ontology does not contain any instances of `:DiseaseCategory`, the query will return zero.

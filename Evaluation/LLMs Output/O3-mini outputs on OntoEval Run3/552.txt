@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?album ?albumReleaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :albumReleaseDate ?albumReleaseDate .
+  # Optionally, to target a specific album use a filter or bind a particular album IRI:
+  # FILTER(CONTAINS(LCASE(STR(?album)), "stadium arcadium"))
+}
+ORDER BY ?album
+```

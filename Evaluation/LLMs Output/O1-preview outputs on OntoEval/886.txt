@@ -1,0 +1,57 @@
+**Answer: Yes**
+
+The Competency Question (CQ) "Who are the members of a certain union at a certain point in time?" is supported by the ontology. The ontology includes classes and properties that model unions, persons, union memberships, and time intervals, allowing us to represent the membership of individuals in unions during specific time periods.
+
+Here's a SPARQL query that retrieves the members of a specified union at a specified point in time:
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel
+WHERE {
+  # Bind the specific union and time point
+  BIND (<http://example.org/ontology#SpecifiedUnion> AS ?union)  # Replace with the actual union URI
+  BIND ("2002-01-01T00:00:00Z"^^xsd:dateTime AS ?specifiedTime)  # Replace with the desired date and time
+
+  # Find union memberships associated with the specified union
+  ?membership a :UnionMembership ;
+              :hasUnion ?union ;
+              :hasMember ?member ;
+              :hasTimeInterval ?interval .
+
+  # Get the time interval of the membership
+  ?interval :startDate ?startDate .
+  OPTIONAL { ?interval :endDate ?endDate . }
+
+  # Check if the specified time falls within the membership interval
+  FILTER ( ?startDate <= ?specifiedTime &&
+           ( !bound(?endDate) || ?specifiedTime <= ?endDate ) )
+
+  # Optional: Get labels for the members
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+```
+
+**Explanation:**
+
+- **Variables:**
+  - `?member`: The individual who is a member of the union.
+  - `?memberLabel`: An optional label for the member.
+  - `?union`: The specified union.
+  - `?specifiedTime`: The point in time we're interested in.
+
+- **Query Structure:**
+  - We bind the specific union URI and the desired point in time to `?union` and `?specifiedTime`.
+  - We look for `:UnionMembership` instances (`?membership`) that are related to the specified union, have a member (`?member`), and are associated with a `:TimeInterval` (`?interval`).
+  - We retrieve the `:startDate` and optionally the `:endDate` of the membership's time interval.
+  - We use a `FILTER` to ensure that the specified time falls within the time interval of the membership. If `?endDate` is not bound (the membership is ongoing), we handle it accordingly.
+  - Optionally, we retrieve labels for the members for better readability.
+
+**Note:**
+- Replace `<http://example.org/ontology#SpecifiedUnion>` with the actual URI of the union you're querying about.
+- Replace the value of `?specifiedTime` with the `xsd:dateTime` representation of the point in time you're interested in.
+
+**Conclusion:**
+
+Since we can effectively write a SPARQL query to retrieve the members of a certain union at a specific point in time using the classes and properties defined in the ontology, the competency question is supported.

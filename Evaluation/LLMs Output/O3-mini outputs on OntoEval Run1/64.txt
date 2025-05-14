@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific resource (for example, :GlassBottle), retrieves its explicit type(s) as declared by the ontology. Under a closed world assumption only the asserted (and inferable) types are returned.
+
+--------------------------------------------
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?resource ?type
+WHERE {
+  VALUES ?resource { :GlassBottle }  # Replace with the specific resource of interest
+  ?resource rdf:type ?type .
+}
+--------------------------------------------
+
+This query directly extracts the type(s) (i.e. the rdf:type assertions) of the resource from the ontology, fulfilling the competency question.

@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine which articles a specific book or CD is composed of. The ontology defines classes for `Article`, `Book`, `CD`, and `ArticleCollection`, and it includes the `hasMember` property to relate a collection to its members. However, there is no explicit connection between a specific book or CD and the articles it contains.
+
+Here's a SPARQL query to extract a partial answer, which lists the articles that are members of any `ArticleCollection`:
+
+```sparql
+SELECT ?collection ?article
+WHERE {
+  ?collection a :ArticleCollection .
+  ?collection :hasMember ?article .
+}
+```
+
+This query retrieves all articles that are part of any article collection, but it does not specify whether the collection is a book or a CD.

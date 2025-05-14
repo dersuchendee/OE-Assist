@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each production, the play on which it is based:
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a theatre:TheatreProduction ;
+              theatre:hasPlay ?play .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?production
+
+This query returns every production along with the play used in that production, which answers the competency question.

@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/theatre-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?festival ?festivalLabel
+WHERE {
+  ?play a :Play ;
+        :performedAt ?festival .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  # Replace :SomeFestival with the specific festival of interest
+  FILTER(?festival = :RomaLovesShakespeare)
+}
+```

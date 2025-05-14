@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for union members at a specific point in time. The ontology includes classes and properties related to union membership and roles, but it lacks temporal information about when a person was a member of a union. The `membershipStartDate` and `membershipEndDate` properties are present, but they are not directly linked to a specific union membership instance in a way that allows querying for members at a specific time.
+
+Partial answer:
+```sparql
+SELECT ?person ?union
+WHERE {
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :unionMember ?person .
+  ?membership :memberOf ?union .
+}
+```

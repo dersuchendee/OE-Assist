@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?numberOfActs
+WHERE {
+  ?play a theatre:Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play theatre:hasNumberOfActs ?numberOfActs .
+}
+```

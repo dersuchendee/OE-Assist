@@ -1,0 +1,19 @@
+**Yes**
+Assuming that individuals for musician X and performer Y are represented (for example as :MusicianX and :PerformerY), the following SPARQL query will extract meetings (with their location, time, and reason) where both participated:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?meeting ?location ?time ?reason
+WHERE {
+  ?meeting a :Meeting ;
+           :hasParticipant :MusicianX ;
+           :hasParticipant :PerformerY ;
+           :hasLocation ?location ;
+           :hasTime ?time ;
+           :hasReason ?reason .
+}
+--------------------------------------------------
+
+Under the closed-world assumption, if the meeting exists with both participants, its details will be returned, fully answering the competency question.

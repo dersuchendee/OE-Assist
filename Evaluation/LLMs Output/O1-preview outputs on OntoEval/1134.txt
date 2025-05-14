@@ -1,0 +1,24 @@
+Answer: **No**
+
+```sparql
+SELECT ?device ?functionality
+WHERE {
+  {
+    ?device a :Cl_Mirror .
+    ?device :providesWeatherGraphics ?weatherDisplay .
+    ?weatherDisplay :hasDisplayMethod ?displayMethod .
+    ?displayMethod :isGraphicDisplay ?isGraphicDisplay .
+    FILTER(?isGraphicDisplay = true)
+    BIND("Graphic Display" AS ?functionality)
+  }
+  UNION
+  {
+    ?device a :Cl_Loudspeaker .
+    ?device :providesWeatherAudio ?weatherDisplay .
+    ?weatherDisplay :hasDisplayMethod ?displayMethod .
+    ?displayMethod :isAudioDisplay ?isAudioDisplay .
+    FILTER(?isAudioDisplay = true)
+    BIND("Audio Display" AS ?functionality)
+  }
+}
+```

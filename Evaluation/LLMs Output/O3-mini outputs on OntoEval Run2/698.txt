@@ -1,0 +1,18 @@
+**No**
+
+The provided ontology models various aspects of music production (bands, albums, performances, etc.) but does not connect or reify geographical entities such as cities and regions. Although there is a small fragment later that defines classes for Cl_City and Cl_Region with the property op_isLocatedIn, the overall ontology and story in the music production context do not incorporate or link a specific city to its region. Thus, the original CQ – “In what region is a certain city located?” – is not fully answerable from the music production ontology, under the closed‐world assumption. 
+
+A partial answer (if one were to query the fragment that defines cities and regions) could be extracted with the following SPARQL query:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  OPTIONAL { ?city :op_isLocatedIn ?region . }
+}
+---------------------------------
+
+This query attempts to retrieve cities and their corresponding regions from the fragment, but note that it may return no results if no individuals of type Cl_City (or corresponding location assertions) have been explicitly added.

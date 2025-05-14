@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What songs were played in a certain performance?" can be answered using the ontology provided. The ontology includes information about performances and the songs associated with them. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?performance ?performanceDate ?song ?songLabel
+WHERE {
+  ?performance a ns1:Performance .
+  ?performance ns1:hasPerformanceDate ?performanceDate .
+  ?performance ns1:hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performanceDate
+```
+
+This query retrieves the performances, their dates, and the songs played during each performance, along with optional labels for the songs.

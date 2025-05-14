@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the articles (with their titles) contained in a specific book or CD (here represented by an instance of Cl_ArticleCollection, e.g. :Book_1):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?article ?articleTitle
+WHERE {
+  ?book rdf:type :Cl_ArticleCollection .
+  ?book :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+  FILTER (?book = :Book_1)  # Change :Book_1 to the specific book or CD of interest
+}
+------------------------------------------------------------
+
+This query answers the competency question “What articles is a specific book or CD composed of?” by retrieving the articles (and their titles) that are linked to the given article collection.

@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "During what time period was a certain play written?" can be answered using the ontology provided. The ontology includes information about plays and their writing periods, which are represented by the `Cl_PlayWritingPeriod` class and associated properties `writingStartDate` and `writingEndDate`.
+
+Here is a SPARQL query to extract the writing period for a specific play:
+
+```sparql
+SELECT ?play ?playLabel ?startDate ?endDate
+WHERE {
+  ?play a :Cl_Play ;
+        rdfs:label ?playLabel ;
+        :hasWritingPeriod ?writingPeriod .
+  ?writingPeriod :writingStartDate ?startDate ;
+                 :writingEndDate ?endDate .
+}
+```
+
+This query retrieves the play's label and its writing start and end dates, allowing us to determine the time period during which the play was written.

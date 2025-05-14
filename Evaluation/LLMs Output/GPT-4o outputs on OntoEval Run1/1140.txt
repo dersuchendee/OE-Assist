@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a user with their preferred movie categories. The ontology includes a class `Cl_UserPreference` that connects users to movie categories and weather conditions, but there is no direct link from `Cl_User` to `Cl_MovieCategory` through `Cl_UserPreference` in the provided ontology. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?user ?categoryName
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasPreference ?preference .
+  ?preference :prefersMovieCategory ?category .
+  ?category :hasCategoryName ?categoryName .
+}
+```

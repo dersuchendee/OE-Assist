@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about the publication date of books or CDs. However, we can extract partial information about the articles and books available in the ontology.
+
+```sparql
+SELECT ?book ?bookTitle ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :bookTitle ?bookTitle .
+  ?book :numberOfPages ?numberOfPages .
+}
+```

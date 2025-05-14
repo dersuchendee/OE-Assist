@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT ?event ?eventType
+WHERE {
+  ?event a :Event .
+  {
+    ?event a :Celebration .
+    BIND("Celebration" AS ?eventType)
+  } UNION {
+    ?event a :Festival .
+    BIND("Festival" AS ?eventType)
+  } UNION {
+    ?event a :PrivateEvent .
+    BIND("Private Event" AS ?eventType)
+  }
+}
+```

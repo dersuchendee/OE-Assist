@@ -1,0 +1,16 @@
+Answer: **No**
+
+The given ontology does not provide sufficient information to answer the competency question fully because it lacks properties to represent specific time points or periods for `:Cl_TimePeriod`. Without start and end dates or timestamps, we cannot determine band membership at a certain point in time.
+
+However, we can retrieve the members of a certain band, disregarding the time aspect:
+
+```sparql
+SELECT ?person
+WHERE {
+  ?band :hasMember ?bandMembership .
+  ?person :isMemberOfBand ?bandMembership .
+  FILTER (?band = :GivenBand)
+}
+```
+
+This query lists all members associated with `:GivenBand`, but it does not filter them based on time since that information is not available in the ontology.

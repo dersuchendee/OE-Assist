@@ -1,0 +1,40 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collaborationProcess ?infoProperty ?infoType
+WHERE {
+  ?collaborationProcess a :CollaborationProcess .
+  {
+    ?collaborationProcess :requiresInfrastructureInfo ?infoType .
+    BIND("InfrastructureInfo" AS ?infoProperty)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresProcessInfo ?infoType .
+    BIND("ProcessInfo" AS ?infoProperty)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresEnergyRecoveryInfo ?infoType .
+    BIND("EnergyRecoveryInfo" AS ?infoProperty)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresStakeholderInfo ?infoType .
+    BIND("StakeholderInfo" AS ?infoProperty)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresEnergyDemandSurplusInfo ?infoType .
+    BIND("EnergyDemandSurplusInfo" AS ?infoProperty)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresValueInfo ?infoType .
+    BIND("ValueInfo" AS ?infoProperty)
+  }
+}
+ORDER BY ?collaborationProcess ?infoProperty
+```

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not directly provide a way to associate a production with the play it is based on. The `hasPlay` property is used to associate a theatre production with a play, but the ontology does not explicitly define a property to query the basis of a production. However, we can extract partial information about the plays associated with theatre productions.
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a ns1:TheatreProduction .
+  ?production ns1:hasPlay ?play .
+}
+```

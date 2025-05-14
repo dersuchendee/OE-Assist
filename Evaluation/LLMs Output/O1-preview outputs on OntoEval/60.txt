@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question "What is the chemical composition of this material?" is answerable by the ontology. The ontology models materials, their chemical compositions, and the elements or compounds they consist of, along with their percentages. This allows us to write a SPARQL query to retrieve the chemical composition of a specific material.
+
+Here is the SPARQL query to find the chemical composition of `:Material_Aluminum`:
+
+```sparql
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?elementOrCompound ?elementOrCompoundLabel ?percentage
+WHERE {
+  :Material_Aluminum :hasChemicalComposition ?composition .
+  
+  {
+    ?composition :consistsOfElement ?elementOrCompound .
+  } UNION {
+    ?composition :consistsOfCompound ?elementOrCompound .
+  }
+  
+  OPTIONAL { ?elementOrCompound rdfs:label ?elementOrCompoundLabel . }
+  OPTIONAL { ?elementOrCompound :hasPercentage ?percentage . }
+}
+```
+
+This query retrieves all chemical elements or compounds that are part of the composition of `:Material_Aluminum`, along with their labels and percentages. It uses the properties `:hasChemicalComposition`, `:consistsOfElement`, and `:consistsOfCompound` as defined in the ontology.

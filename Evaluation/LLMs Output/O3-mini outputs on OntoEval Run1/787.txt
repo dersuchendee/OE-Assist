@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, retrieves the medical degree details for a given person (here assumed to be uniquely identified by its IRI, e.g. <http://www.example.org/test#Pasquale_Di_Gennaro>):
+
+ 
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degreeTitle ?degreeObtainedDate ?studyStartDate ?studyEndDate
+WHERE {
+  # Select the person of interest
+  <http://www.example.org/test#Pasquale_Di_Gennaro> a :Cl_Person ;
+    :hasDegree ?personDegree .
+    
+  # The reification class instance which connects the person and the medical degree
+  ?personDegree a :Cl_PersonDegree ;
+    :degreeType ?medicalDegree ;
+    OPTIONAL { ?personDegree :studyStartDate ?studyStartDate . }
+    OPTIONAL { ?personDegree :studyEndDate ?studyEndDate . } .
+    
+  # Retrieve degree data from the medical degree instance
+  OPTIONAL { ?medicalDegree :degreeTitle ?degreeTitle . }
+  OPTIONAL { ?medicalDegree :degreeObtainedDate ?degreeObtainedDate . }
+}
+ 
+This query demonstrates that the ontology supports the competency question “What medical degrees does a certain person have?” via the reification pattern connecting a person to his/her degree details.

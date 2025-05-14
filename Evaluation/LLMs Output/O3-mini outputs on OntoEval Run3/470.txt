@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that the intended reification has been modelled via a “Line-up” (which ties a musician to a band during a given time period) and by using a property (such as :hasRole) to indicate the role played by that musician, we can answer the CQ “What role does a certain person have in a certain band at a certain point in time?” In a closed‑world view we can “join” the musician’s membership (via the reified :LineUp class) with their role. For instance, a SPARQL query to obtain (optionally filtered by a specific person, band, and time period) could be written as follows:
+
+----------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?time ?timeLabel ?role ?roleLabel
+WHERE {
+  ?lineup a :LineUp .
+  ?lineup :hasMember ?person .
+  ?lineup :partOfBand ?band .
+  ?lineup :activeDuring ?time .
+  ?person :hasRole ?role .
+
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+  OPTIONAL { ?time rdfs:label ?timeLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+ORDER BY ?person ?band ?time
+----------------------------------------------
+
+This query “extracts” the musician (person), the band to which the lineup belongs, the time period during which that lineup is active, and the role that the musician (person) has as recorded by the :hasRole property. Hence, the CQ is fully answerable by the ontology.

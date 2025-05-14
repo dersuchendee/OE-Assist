@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that “she” refers to the designated subject individual (mtps:Subject) in the ontology, we can retrieve the places where she performed by finding meetups in which she participated and then retrieving the location (via the mtps:hasPlace property) associated with those meetups. Under a closed‐world assumption, if a meetup does not explicitly include mtps:Subject as a participant or a place via mtps:hasPlace, it is not considered in our answer.
+
+Below is an example SPARQL query:
+
+--------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?meetup ?place ?placeLabel
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasParticipant mtps:Subject ;
+          mtps:hasPlace ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+ORDER BY ?meetup
+--------------------------------
+
+This query extracts all meetups (mtps:Meetup) where the individual mtps:Subject (representing “she”) is a participant, retrieves the associated place via mtps:hasPlace, and optionally returns a human‐readable label for the location.

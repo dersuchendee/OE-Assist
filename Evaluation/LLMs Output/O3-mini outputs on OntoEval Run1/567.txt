@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one possible SPARQL query that, using the properties in the ontology, retrieves for a given track the song associated to its recording:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_Track .
+  ?track :recordingOf ?trackRecording .
+  ?song :songRecorded ?trackRecording .
+}
+
+In this query the closed world assumption is applied so that only explicit assertions in the ontology are considered. The query extracts the song that a specific track is a recording of, showing that the CQ is answerable using the modelled ontology.

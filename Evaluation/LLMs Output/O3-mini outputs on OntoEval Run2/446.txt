@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the musicians (i.e. the members) of a specific band (in this example, “Red Hot Chili Peppers”) during a specific time period (e.g. “2004”) by querying the reified Line‐up information:
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?lineUp ?member ?memberLabel
+WHERE {
+  ?lineUp a :LineUp ;
+          :partOfBand :RedHotChiliPeppers ;
+          :activeDuring ?timePeriod ;
+          :hasMember ?member .
+  ?timePeriod rdfs:label "2004" .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+} 
+
+ORDER BY ?member

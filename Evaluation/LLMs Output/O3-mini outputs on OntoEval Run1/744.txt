@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not explicitly model the concepts “Record” and “Track” and their relationship (for example, by a property such as :hasTrack), so it is not possible to fully extract the answer “a record always contains at least one track” for all records. However, we can write a partial SPARQL query that retrieves those individuals declared as a record and that have at least one track (using a closed‐world assumption, if a record does not have a track assertion then it is assumed not to have any):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?record a :Record .
+  OPTIONAL { ?record :hasTrack ?track . }
+  FILTER(BOUND(?track))
+}
+GROUP BY ?record
+HAVING(?numTracks >= 1)
+----------------------------------------------------------------
+
+This query returns only those records that have at least one track asserted, but it cannot verify that every record in the ontology always has one track because the ontology lacks the corresponding modelling constructs.

@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology includes the class `:Cl_Song` and the datatype property `:composedDate` with domain `:Cl_Song` and range `xsd:date`. This means we can query for songs and their composition dates.
+
+Here's a SPARQL query to find out when a certain song was composed:
+
+```sparql
+SELECT ?song ?composedDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedDate ?composedDate .
+}
+```
+
+If you want to find the composed date of a specific song (e.g., "Hump de Bump"), assuming that song instances have labels, you can use:
+
+```sparql
+SELECT ?composedDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedDate ?composedDate .
+  ?song rdfs:label "Hump de Bump" .
+}
+```

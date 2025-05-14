@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example of a SPARQL query that returns the union role held by a given person in a given union, and checks that the role is effective at a supplied point in time. In a closed‐world approach the query assumes that every role must have a start date and—in case it has ended—a defined end date. (Here the example uses Pasquale Di Gennaro, the union “Union for Male Nurses”, and a test date of “2003-01-01” to check the role.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleStartDate ?roleEndDate
+WHERE {
+  ?unionRole a :Cl_UnionRole ;
+             :roleHolder :Pasquale_Di_Gennaro ;
+             :hasUnionRole :Union_Male_Nurses ;
+             :roleName ?roleName ;
+             :roleStartDate ?roleStartDate .
+  OPTIONAL { ?unionRole :roleEndDate ?roleEndDate }
+
+  # Check that the provided time (for example, 2003-01-01) falls between roleStartDate and roleEndDate (if defined)
+  FILTER (
+      "2003-01-01"^^xsd:date >= ?roleStartDate &&
+      ( !bound(?roleEndDate) || "2003-01-01"^^xsd:date <= ?roleEndDate )
+  )
+}
+ORDER BY ?roleStartDate
+--------------------------------------------------
+
+This query shows that the ontology supports the competency question: “What role does a certain person have within a certain union group at a certain point in time?”

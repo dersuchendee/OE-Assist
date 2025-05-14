@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate an album with the specific time period during which it was recorded. The ontology includes a `RecordingSession` class and a `TimeInterval` class, but there is no direct connection between an album and a specific time period for its recording. The `hasRecordingSession` property connects an album to a recording session, and the `hasTimeInterval` property connects a recording session to a time interval, but the ontology does not provide specific instances or data for these properties that would allow us to extract the recording period for a specific album.
+
+Partial answer:
+```sparql
+SELECT ?album ?startDate ?endDate
+WHERE {
+  ?album a ns1:Album .
+  ?album ns1:hasRecordingSession ?recordingSession .
+  ?recordingSession ns1:hasTimeInterval ?timeInterval .
+  ?timeInterval ns1:hasStartDate ?startDate .
+  ?timeInterval ns1:hasEndDate ?endDate .
+}
+```

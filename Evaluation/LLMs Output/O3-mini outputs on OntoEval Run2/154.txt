@@ -1,0 +1,16 @@
+**Yes**
+
+We can extract the city (location) of a theatre from the ontology using the dp_location property on individuals of type Cl_Theatre. Under the closed‐world assumption, we assume that dp_location provides all the necessary location information. For example:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?theatre ?location
+WHERE {
+  ?theatre a :Cl_Theatre ;
+           :dp_location ?location .
+}
+------------------------------------------------
+
+This query returns each theatre with its associated city (as given by the dp_location value), thus fully answering the CQ.

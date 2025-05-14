@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer “During what time period was a certain play written?” by retrieving the play’s :writtenDuring value from the ontology. For example, if we want to know when “The Merchant of Venice” was written, a SPARQL query could be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title ?writtenDuring
+WHERE {
+  ?play a :Cl_Play ;
+        :hasTitle ?title ;
+        :writtenDuring ?writtenDuring .
+  FILTER(LCASE(?title) = "the merchant of venice")
+}
+--------------------------------------------------
+
+This query extracts the play, its title, and its “writtenDuring” time period from the ontology, thereby fully answering the competency question under the closed world assumption.

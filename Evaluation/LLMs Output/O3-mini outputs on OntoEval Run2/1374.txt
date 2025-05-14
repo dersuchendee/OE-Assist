@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not include any property or structure that represents information about the foundry or the entity by whom the bells were cast. Under the closed world assumption, we cannot infer or extract casting-related information from the current model. However, we can list the bells available in the ontology as a partial answer.
+
+```sparql
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bell ?bellLabel
+WHERE {
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel . }
+}
+```

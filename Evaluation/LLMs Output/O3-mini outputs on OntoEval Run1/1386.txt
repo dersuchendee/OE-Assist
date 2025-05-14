@@ -1,0 +1,27 @@
+**No**
+
+The current ontology defines the classes :Tune and :TuneFamily but does not specify any property or restriction linking a composition (an instance of :Tune) to a tune family (an instance of :TuneFamily). Under the closed‐world assumption we assume that if such a relation were present it would be explicitly asserted. Consequently, while we can identify compositions and tune families separately, we cannot fully answer “Which tune family does composition X belong to?” because the relevant membership relation is missing. Here is a SPARQL query that returns a partial answer by looking for any asserted relation (in either direction) between a specific composition X and any instance of :TuneFamily (using an OPTIONAL clause):
+
+----------------------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tuneFamily ?familyLabel
+WHERE {
+  # Specify composition X (replace the IRI as needed)
+  <http://example.org/compositionX> a :Tune .
+  
+  # Try to find a relation, in either direction, linking composition X to a TuneFamily.
+  OPTIONAL {
+    { <http://example.org/compositionX> ?p ?tuneFamily }
+    UNION
+    { ?tuneFamily ?p <http://example.org/compositionX> }
+    ?tuneFamily a :TuneFamily .
+    OPTIONAL { ?tuneFamily rdfs:label ?familyLabel . }
+  }
+}
+----------------------------------------------------------------
+
+Because the ontology does not currently model the link between compositions and tune families, this query only provides a partial answer.

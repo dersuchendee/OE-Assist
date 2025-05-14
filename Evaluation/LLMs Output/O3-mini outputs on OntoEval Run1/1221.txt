@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that extracts interactions occurring in nutrient-poor aquifers where microbial functional guilds (specifically Autotrophs and Heterotrophs) participate. This query shows, for each relevant interaction, the nutrient-poor aquifer in which it occurs and returns one example Autotroph and one example Heterotroph that are involved in the interaction.
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?interaction ?aquifer ?autotroph ?heterotroph
+WHERE {
+  ?interaction a :Interaction ;
+               :occursIn ?aquifer ;
+               :hasParticipant ?autotroph, ?heterotroph .
+  ?aquifer a :NutrientPoorAquifer .
+  
+  ?autotroph a :Autotroph .
+  ?heterotroph a :Heterotroph .
+}
+ORDER BY ?interaction
+
+--------------------------------------------------
+
+This query models the competency question by retrieving instances of Interaction that occur in NutrientPoorAquifers and ensuring that each selected interaction involves participants that are clearly distinguished as an Autotroph and a Heterotroph, thereby addressing the question “How do different microbial functional guilds (e.g., autotrophs, heterotrophs) interact in nutrient-poor aquifers?” under a closed world assumption.

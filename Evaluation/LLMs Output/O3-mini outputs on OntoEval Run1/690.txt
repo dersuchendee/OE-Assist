@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that in the ontology a performance is represented by an instance of Cl_Performance and its location is indicated via the property performanceLocation (with Cl_Location as its range), we can answer the CQ “Where did a certain performance take place?” by retrieving the associated location of each performance. Under the closed world assumption, we assume that only explicitly stated performance locations exist. Here is a SPARQL query that returns performances together with their locations:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?location .
+}
+
+This query extracts the performance and its associated location, thus showing that the competency question is fully supported by the ontology.

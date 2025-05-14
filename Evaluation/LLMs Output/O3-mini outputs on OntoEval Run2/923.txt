@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each union role assignment, the person, the union group, the role, and the time point at which the assignment is valid. (Under the closed‐world assumption, only assertions made in the ontology will be returned.) You can add FILTER conditions to select a particular person, union, or time if desired.
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?timePoint
+WHERE {
+  ?assignment a :Cl_UnionRoleAssignment ;
+              :hasPerson ?person ;
+              :hasUnion ?union ;
+              :hasRole ?role ;
+              :timePoint ?timePoint .
+  # Example filters:
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  # FILTER(?union = <http://www.example.org/test#MaleNursesUnion>)
+  # FILTER(?timePoint = "2002-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?person ?timePoint
+--------------------------------
+
+This query demonstrates that the competency question is fully supported by the ontology.

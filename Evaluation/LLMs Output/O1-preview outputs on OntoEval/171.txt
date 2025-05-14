@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city :hasName ?cityName . }
+  ?city :isLocatedIn ?country .
+  OPTIONAL { ?country :hasName ?countryName . }
+}
+```

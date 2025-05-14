@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that, given a particular author (e.g. William Shakespeare), retrieves the plays written by that author:
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  :Author_WilliamShakespeare :hasAuthorPlay ?authorPlay .
+  ?authorPlay :writtenPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+------------------------------------
+
+This query shows that the ontology fully supports the CQ “What plays did a certain author write?” under the closed world assumption.

@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each album, the associated recording period by following the recordedAlbum and recordingPeriod relationships:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?recordingPeriod 
+WHERE {
+  ?album a :Cl_Album .
+  ?album :recordedAlbum ?albumRecording .
+  ?albumRecording :recordingPeriod ?recordingPeriod .
+}
+--------------------------------------------------
+
+Under the closed-world assumption—in which we expect that all time period information for an album’s recording is explicitly asserted—this query fully answers the competency question "During what time period was a certain album recorded?"

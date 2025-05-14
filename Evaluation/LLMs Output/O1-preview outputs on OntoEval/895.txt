@@ -1,0 +1,39 @@
+**Answer: Yes**
+
+The ontology includes the necessary classes and properties to determine who are the members of a certain union at a specific point in time. The union memberships are represented as instances of `:Cl_UnionMembership`, which associate a `:unionMember` (person) with a `:memberOfUnion` (union), along with `:membershipStartDate` and optionally `:membershipEndDate`.
+
+Here is a SPARQL query that retrieves the members of a specified union at a given date:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  # Specify the union and date of interest
+  BIND (:Union_Male_Nurses AS ?union)  # Replace with the URI of the desired union
+  BIND ("2003-05-15"^^xsd:date AS ?queryDate)  # Replace with the desired date
+
+  # Find union memberships matching the union and active on the query date
+  ?membership rdf:type :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOfUnion ?union ;
+              :membershipStartDate ?startDate .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  # Filter memberships active at the query date
+  FILTER ( ?startDate <= ?queryDate && ( !bound(?endDate) || ?queryDate <= ?endDate ) )
+}
+```
+
+**Explanation:**
+
+- The query binds the specific union and date of interest using `BIND`. Replace `:Union_Male_Nurses` and `"2003-05-15"^^xsd:date` with the appropriate union URI and date.
+- It selects persons who are members of the specified union whose membership includes the query date.
+- The `FILTER` ensures that the `?queryDate` falls between the `?startDate` and `?endDate` of the membership. If `?endDate` is not bound (i.e., the membership is ongoing), it includes those memberships as well.
+- `OPTIONAL` is used to retrieve labels for the persons when available.
+
+**Note:** You can parameterize the `?union` and `?queryDate` variables to make the query reusable for different unions and dates.

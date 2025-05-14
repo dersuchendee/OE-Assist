@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+SELECT ?fungus ?fungusLabel ?heterotroph ?heterotrophLabel ?aquifer ?aquiferLabel ?affectsAbundance ?affectsActivity
+WHERE {
+  ?interaction a :Interaction .
+  
+  ?interaction :hasInfluencer ?fungus .
+  ?fungus a :AquaticFungi .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel . }
+  
+  ?interaction :hasInfluenced ?heterotroph .
+  ?heterotroph a :Heterotroph .
+  OPTIONAL { ?heterotroph rdfs:label ?heterotrophLabel . }
+  
+  ?interaction :occursIn ?aquifer .
+  ?aquifer a :Aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+  
+  ?interaction :affectsAbundance ?affectsAbundance .
+  ?interaction :affectsActivity ?affectsActivity .
+}
+```

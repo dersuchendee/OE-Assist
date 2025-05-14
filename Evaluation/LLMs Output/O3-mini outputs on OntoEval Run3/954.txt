@@ -1,0 +1,19 @@
+**Yes**
+Below is a SPARQL query that, given a specific publication that is either a book or a CD, extracts the articles composed in it:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?pubLabel ?article ?articleLabel
+WHERE {
+  VALUES ?pubType { :Cl_Book :Cl_CD }
+  ?publication a ?pubType .
+  OPTIONAL { ?publication rdfs:label ?pubLabel . }
+  ?publication :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?publication
+--------------------------------------------------
+
+This query leverages the ontology’s :containsArticle property whose domain is defined as :Cl_Publication (including :Cl_Book and :Cl_CD) and range as :Cl_Article. Hence the competency question is answerable by this query under the given closed world assumption.

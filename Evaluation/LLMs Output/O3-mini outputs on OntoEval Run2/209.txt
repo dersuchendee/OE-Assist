@@ -1,0 +1,12 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves each production’s basis play by using the data property “isBasedOnPlay” defined for instances of Cl_Production:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production ;
+              :isBasedOnPlay ?play .
+}

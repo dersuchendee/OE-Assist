@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the seminar and its held date from the ontology:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?heldOnDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :heldOnDate ?heldOnDate .
+}
+————————————————————————————
+
+This query uses the available class :Cl_Seminar and its data property :heldOnDate to extract the date on which each seminar took place, thus fully answering the competency question under the closed world assumption.

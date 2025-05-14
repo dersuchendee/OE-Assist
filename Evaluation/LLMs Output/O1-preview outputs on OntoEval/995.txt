@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD a ?type .
+  FILTER (?type = :Cl_Book || ?type = :Cl_CD) .
+  ?bookOrCD :hasPublicationEvent ?pubEvent .
+  ?pubEvent :publicationDate ?publicationDate .
+}
+```

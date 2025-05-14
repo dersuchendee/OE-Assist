@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one way to write a SPARQL query that retrieves for each competency which actors hold it. This query uses the two modeling patterns in the ontology—either an actor directly holds a competency via the property :hasCompetency or holds one indirectly via an intermediate :Cl_ActorCompetency instance (linked by :actorHasCompetency and then linked to the competency via :competencyOfActor):
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?competency ?competencyLabel
+WHERE {
+  {
+    ?actor a :Cl_Actor .
+    ?actor :hasCompetency ?competency .
+  }
+  UNION
+  {
+    ?actor a :Cl_Actor .
+    ?actor :actorHasCompetency ?actorCompetency .
+    ?actorCompetency :competencyOfActor ?competency .
+  }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?competency rdfs:label ?competencyLabel . }
+}
+ORDER BY ?actor ?competency
+----------------------------------------
+
+Under the closed world assumption, only actors explicitly connected to a competency (either directly or via an intermediate reification instance) are returned, thus fully supporting the competency question.

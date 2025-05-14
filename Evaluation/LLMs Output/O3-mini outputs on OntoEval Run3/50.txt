@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the actors involved in each circular value network:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/circular_value_network.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?valueNetwork ?actor ?actorLabel
+WHERE {
+  ?valueNetwork a :ValueNetwork ;
+                :hasActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+-------------------------------------------------- 
+
+This query is answerable by the ontology since the CQ targets the relationship between a circular value network (instance of ValueNetwork) and its actors (instances of Actor) via the property :hasActor, which is explicitly modeled by the ontology under the closed world assumption.

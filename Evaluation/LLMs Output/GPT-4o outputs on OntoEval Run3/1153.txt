@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What is the start and end time of this event?" is supported by the ontology. The ontology includes properties `:hasStartTime` and `:hasEndTime` for the class `:FilmEvent`, which can be used to extract the start and end times of the event.
+
+```sparql
+SELECT ?event ?eventLabel ?startTime ?endTime
+WHERE {
+  ?event a :FilmEvent .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  OPTIONAL { ?event :hasStartTime ?startTime . }
+  OPTIONAL { ?event :hasEndTime ?endTime . }
+}
+```

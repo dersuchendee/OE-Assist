@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a possible SPARQL query that retrieves each theatre festival and the city where it took place (using the property takesPlaceIn):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :takesPlaceIn ?city .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+--------------------------------------------------
+
+This query shows that the ontology is modeled so that a festival (instance of Cl_TheatreFestival) is connected to a city (instance of Cl_City) via the property takesPlaceIn, thereby fully supporting the competency question "Where did a certain festival take place?"

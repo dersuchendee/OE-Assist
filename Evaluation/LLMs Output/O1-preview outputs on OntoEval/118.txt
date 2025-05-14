@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+The competency question "Where did a certain festival take place?" can be answered by the ontology because it includes the necessary classes and properties to retrieve the location of a theatre festival. Specifically, the ontology contains the class `:Cl_TheatreFestival` to represent festivals, the object property `:locatedIn` to associate a festival with its location, and the data property `:locationCity` to capture the name of the city where the festival takes place.
+
+Here is a SPARQL query to extract the locations of festivals:
+
+```sparql
+SELECT ?festival ?locationCity
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  ?festival :locatedIn ?festivalLocation .
+  ?festivalLocation :locationCity ?locationCity .
+}
+```
+
+This query retrieves all instances of `:Cl_TheatreFestival`, finds their associated `:Cl_FestivalLocation` through the `:locatedIn` property, and then gets the name of the city using the `:locationCity` data property.

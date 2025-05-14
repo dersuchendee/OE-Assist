@@ -1,0 +1,18 @@
+**No**
+
+The ontology does define the property :containsTrack (with domain :Cl_Album) and the class :Cl_Record exists, but there is a mismatch in modeling: the competency question (“A record always contains at least one track”) uses “record” while the ontology only guarantees (by domain and range assertions, not by a cardinality restriction) that instances of :Cl_Album may have tracks via :containsTrack. There is no axiom (such as a qualified minimum cardinality restriction) asserting that every record (or album) must have at least one track. Under a closed‐world assumption, we can list records along with any associated tracks, but we cannot confirm that every record has a track.
+
+A partial query to retrieve records and any linked track is:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a :Cl_Record .
+  OPTIONAL { ?record :containsTrack ?track . }
+}
+———————————————————————————————
+
+This query lets you see which records (if any) have tracks and which do not, indicating that the “at least one track” constraint is not enforced by the ontology.

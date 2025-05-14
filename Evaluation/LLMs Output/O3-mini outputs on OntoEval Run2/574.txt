@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves tracks of type Cl_TrackSong along with the song each track is a recording of (via the :isRecordingOf property):
+
+———————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_TrackSong .
+  ?track :isRecordingOf ?song .
+}
+———————————————
+
+This query shows that the ontology explicitly connects a specific track (an instance of Cl_TrackSong) to the song it is a recording of via the :isRecordingOf property, and hence the competency question is fully supported by the ontology under a closed world assumption.

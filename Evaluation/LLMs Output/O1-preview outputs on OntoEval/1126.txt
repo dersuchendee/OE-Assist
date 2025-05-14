@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not contain any individuals or sufficient class definitions that would allow us to answer the competency question "What is the weather service providing this personalized weather information?" Specifically, there are no instances of `:Cl_WeatherService` or `:Cl_PersonalizedWeatherInformation`, and no data linking them via the `:providesService` property.
+
+However, we can write a SPARQL query to attempt to retrieve any weather services that provide personalized weather information, but it will not return any results due to the lack of data.
+
+```sparql
+SELECT ?weatherService
+WHERE {
+  ?weatherService a :Cl_WeatherService .
+  ?weatherService :providesService ?personalizedInfo .
+  ?personalizedInfo a :Cl_PersonalizedWeatherInformation .
+}
+```

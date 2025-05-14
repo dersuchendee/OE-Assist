@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ by extracting the “required information” via the restrictions defined for the CollaborationProcess class. For example, we can retrieve the properties (and their expected information classes) by querying the TBox as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?requiresInfo ?info
+WHERE {
+  :CollaborationProcess rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty ?requiresInfo ;
+               owl:someValuesFrom ?info .
+}
+------------------------------------------------
+
+This query returns the object properties (e.g., requiresInfrastructureInfo, requiresProcessInfo, etc.) along with the corresponding information type classes (e.g., InfrastructureInfo, ProcessInfo, and so on) that are required when collaborating and aligning processes.

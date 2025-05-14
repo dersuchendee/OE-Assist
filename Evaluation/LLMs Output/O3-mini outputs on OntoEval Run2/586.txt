@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the composition date for a given song by assuming that each composition is reified as an instance of :Cl_Composition (which carries the composition date via the :composition_date property and is linked to the song via the :composition_song property):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?composition_date
+WHERE {
+  ?comp a :Cl_Composition .
+  ?comp :composition_song ?song .
+  ?comp :composition_date ?composition_date .
+  # Uncomment the following FILTER line to restrict to a particular song label, e.g. "Hump de Bump"
+  # ?song rdfs:label "Hump de Bump" .
+}
+
+This query meets the requirements under the closed world assumption since it explicitly retrieves composition instances that link a song with a composition date, thus fully answering the competency question.

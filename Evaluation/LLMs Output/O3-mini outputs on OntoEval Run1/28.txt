@@ -1,0 +1,16 @@
+**Yes**
+Assuming you want to retrieve the roles for a given actor (e.g., with IRI <http://www.example.org/test#ActorXYZ>) within a specific network (e.g., with IRI <http://www.example.org/test#NetworkXYZ>), you can use the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  ?actorRole a :Cl_ActorRole .
+  ?actorRole :actorInNetwork <http://www.example.org/test#ActorXYZ> .
+  ?actorRole :materialFlowOfNetwork <http://www.example.org/test#NetworkXYZ> .
+  ?actorRole :roleInNetwork ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel. }
+}
+
+This query leverages the reification pattern in the ontology (using the class Cl_ActorRole with properties actorInNetwork, roleInNetwork, and materialFlowOfNetwork) to extract the roles of the specified actor in the given network under a closed-world assumption.

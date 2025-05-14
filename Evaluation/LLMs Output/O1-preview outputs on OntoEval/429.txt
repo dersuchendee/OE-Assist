@@ -1,0 +1,39 @@
+**Yes**
+
+The competency question "What instruments does a certain person play?" can be answered using the provided ontology. The ontology includes the necessary classes and properties to represent persons, instruments, and the relationship between them through the class `Cl_InstrumentPlaying`. Here's how:
+
+- `Cl_Person` represents persons.
+- `Cl_Instrument` represents instruments.
+- `Cl_InstrumentPlaying` acts as a reified association between `Cl_Person` and `Cl_Instrument`.
+- The property `playsInstrument` connects a person to an instance of `Cl_InstrumentPlaying`.
+- The property `playedBy` connects an instrument to the same instance of `Cl_InstrumentPlaying`.
+
+Using these classes and properties, we can write a SPARQL query to retrieve the instruments played by each person.
+
+```sparql
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?person :playsInstrument ?instrumentPlaying .
+  ?instrumentPlaying a :Cl_InstrumentPlaying .
+  
+  ?instrumentPlaying :playedBy ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentName . }
+}
+```
+
+This query performs the following steps:
+
+1. Selects all instances of `Cl_Person`.
+2. Connects each person to their `Cl_InstrumentPlaying` instance via `playsInstrument`.
+3. From the `Cl_InstrumentPlaying` instance, retrieves the associated instrument via `playedBy`.
+4. Optionally retrieves labels (`rdfs:label`) for persons and instruments for readability.
+
+**Explanation:**
+
+- The use of `Cl_InstrumentPlaying` as an intermediary class allows us to model the relationship between persons and instruments flexibly. It can accommodate additional details about the instrument playing event if needed (e.g., duration, proficiency level).
+- The properties `playsInstrument` and `playedBy` establish the necessary connections to navigate from a person to the instruments they play.
+
+**Note:** Ensure that your data includes instances of these classes and properties to retrieve meaningful results when running the query.

@@ -1,0 +1,16 @@
+**Yes**
+
+We can retrieve the play that is the basis of a given production via the property (here named “:isBasedOn”) that links a production (of type Cl_Production) to its play (of type Cl_Play). For example, assuming the production in question is the individual :TheMerchantOfVeniceProduction, the following SPARQL query returns the play and its title:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?play ?title
+WHERE {
+  ?production a :Cl_Production ;
+              :isBasedOn ?play .
+  ?play :hasTitle ?title .
+  FILTER(?production = :TheMerchantOfVeniceProduction)
+}
+
+This query answers the competency question “What play is the basis of this production?” under a closed world assumption.

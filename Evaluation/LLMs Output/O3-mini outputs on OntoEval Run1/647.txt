@@ -1,0 +1,16 @@
+**Yes**
+Assuming that “a certain performance” is identified (for example, by its URI or label), you can retrieve its date via the performance‐participation reification. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?pp a :Cl_PerformanceParticipation .
+  ?pp :performance ?performance .
+  ?pp :performanceDate ?performanceDate .
+  # (Optional) Filter to a specific performance:
+  # FILTER(?performance = <http://www.example.org/test#YourPerformanceURI>)
+}
+
+This query retrieves the performance and its associated date from the ontology using the reified triple in Cl_PerformanceParticipation, so the CQ is fully supported.

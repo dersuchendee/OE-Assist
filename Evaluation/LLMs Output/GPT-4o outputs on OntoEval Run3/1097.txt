@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not provide a direct way to determine if at least one article is always presented at each seminar. The ontology includes classes and properties related to seminars, articles, and presentations, but it does not specify constraints or rules that ensure at least one article is presented at every seminar.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?article a :Cl_Article .
+    ?article :presentedIn ?presentation .
+    ?presentation a :Cl_Presentation .
+    ?presentation :presentedIn ?seminar .
+  }
+}
+```
+
+This query retrieves seminars and any articles presented in them, but it does not guarantee that every seminar has at least one article presented.

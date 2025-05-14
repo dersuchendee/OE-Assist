@@ -1,0 +1,23 @@
+**Yes**
+
+Using the provided ontology details, we see that festivals (or festival occurrences) are modelled with a class (e.g., Cl_FestivalOccurrence or Cl_TheatreFestival) that links to a city via an object property (such as occursIn) or a data property (hasLocation). For example, in the last snippet an individual (RomaLovesShakespeare2007) of type Cl_FestivalOccurrence is linked to a city (CityOfRome), which has a name "Rome". Under the closed‐world assumption (i.e. we assume only explicitly asserted facts exist), we can extract the answer "Rome" for the festival "Roma Loves Shakespeare."
+
+A corresponding SPARQL query to extract where a festival took place could be written as follows:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?city ?cityName
+WHERE {
+  ?festival a :Cl_FestivalOccurrence .
+  ?festival :hasName ?festivalName .
+  ?festival :occursIn ?city .
+  ?city :hasName ?cityName .
+  FILTER(CONTAINS(LCASE(?festivalName), "roma loves shakespeare"))
+}
+----------------------------------------------------------------
+
+This query looks for instances of Cl_FestivalOccurrence that have a name containing "roma loves shakespeare" and retrieves the city (by its name) where the festival occurred.

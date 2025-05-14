@@ -1,0 +1,35 @@
+Answer: **Yes**
+
+The competency question is supported by the ontology because it includes the class `Cl_Membership`, which reifies the membership relationship between a person and a band with associated start and end dates. This allows us to query for members of a band at a specific point in time.
+
+Here is a SPARQL query to retrieve the members of a certain band at a certain point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberName ?roleName
+WHERE {
+  ?band a :Cl_Band ;
+        rdfs:label ?bandName .
+  ?membership a :Cl_Membership ;
+              :membershipBand ?band ;
+              :membershipPerson ?member ;
+              :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  OPTIONAL { ?membership :hasRole ?role . ?role :roleName ?roleName . }
+  OPTIONAL { ?member rdfs:label ?memberName . }
+
+  FILTER (
+    ?startDate <= ?date &&
+    ( !bound(?endDate) || ?endDate >= ?date )
+  )
+}
+```
+
+**Parameters to provide:**
+- `?bandName` — The name of the band (e.g., `"Red Hot Chili Peppers"`).
+- `?date` — The date of interest in `xsd:date` format (e.g., `"2006-08-11"^^xsd:date`).
+
+This query selects all members (`?member`) of the specified band at the given date, along with their names (`?memberName`) and roles (`?roleName`), ensuring that the date falls within their membership period.

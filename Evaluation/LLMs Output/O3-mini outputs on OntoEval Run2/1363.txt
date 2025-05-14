@@ -1,0 +1,24 @@
+**No**
+
+The current ontology does not model execution techniques or any properties related to mounting systems. However, we can partially answer the query by retrieving available structured information about bells and their structural composition (i.e. bell towers and sets of bells) which might eventually be linked to a mounting system by external knowledge. For example:
+
+-------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT DISTINCT ?bellTower ?towerLabel ?setOfBells ?bell ?bellLabel
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?towerLabel. }
+  
+  ?bellTower arco:hasComponent ?setOfBells .
+  ?setOfBells a bells:SetOfBells .
+  
+  ?setOfBells arco:hasComponent ?bell .
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel. }
+}
+-------------------------------------------------
+
+This query extracts the available component‐relations in the ontology (bell towers, sets of bells, and bells) but does not return mounting system details or execution techniques since those aspects are not represented.

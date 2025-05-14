@@ -1,0 +1,17 @@
+**No**
+
+The competency question cannot be fully answered using the given ontology because it refers to the "current user," but the ontology does not include individuals or a way to identify the current user specifically. Under the closed world assumption, we cannot assume the existence of the current user without explicit representation in the ontology.
+
+However, we can provide a partial SPARQL query that retrieves the preferred movie categories for all users:
+
+```sparql
+SELECT ?user ?categoryName
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasPreference ?preference .
+  ?preference :prefersMovieCategory ?category .
+  ?category :hasCategoryName ?categoryName .
+}
+```
+
+This query retrieves users and their preferred movie categories by navigating from users through their preferences to movie categories, utilizing the classes and properties defined in the ontology. But since we cannot identify the current user, it doesn't fully answer the competency question.

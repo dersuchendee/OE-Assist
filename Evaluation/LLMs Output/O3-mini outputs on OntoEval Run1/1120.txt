@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that the ontology is used under the closed‐world assumption and that the “current user” (for example, identified by :currentUser) is already known in the data, we can “compute” what abstract time applies to that user by comparing the current time (supplied as a literal or via NOW()) with the abstract time interval defined in the ontology. For example, given that “morning” is defined to have a start time of 06:00:00 and an end time of 10:00:00, you could write a SPARQL query like this:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?abstractTime ?abstractTimeLabel
+WHERE {
+  :currentUser :op_hasAbstractTime ?abstractTime .
+  ?abstractTime :dp_hasStartTime ?startTime ;
+                :dp_hasEndTime ?endTime .
+  # Here we bind the “current time” to a value. In practice, you might pass this in as a parameter or use a SPARQL NOW() function if available.
+  BIND(xsd:time("08:00:00") AS ?currentTime) .
+  
+  FILTER(?currentTime >= ?startTime && ?currentTime <= ?endTime)
+  
+  OPTIONAL { ?abstractTime rdfs:label ?abstractTimeLabel. }
+}
+---------------------------------------------------------------
+
+This query returns the abstract time (e.g. “morning”) associated with the particular user when the current time (here 08:00:00) falls between the recorded start and end times.

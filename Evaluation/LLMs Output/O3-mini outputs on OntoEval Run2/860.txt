@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the competency question since the ontology includes the class ns1:City and the property ns1:isLocatedIn that associates a city with the country it is located in. Under the closed world assumption, if a given city has an ns1:isLocatedIn property assertion, the answer is complete.
+
+Below is a suitable SPARQL query:
+
+-----------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a ns1:City .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  ?city ns1:isLocatedIn ?country.
+  OPTIONAL { ?country rdfs:label ?countryLabel. }
+}
+-----------------------

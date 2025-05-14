@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology provides data properties for plays that record the writing period (dp_writtenStartDate and dp_writtenEndDate). Therefore, the competency question “During what time period was a certain play written?” is answerable by the ontology. Under the closed world assumption, we assume that all such information is explicitly given.
+
+Below is a sample SPARQL query to extract the writing period for plays:
+
+------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?writtenStartDate ?writtenEndDate
+WHERE {
+  ?play a :Cl_Play .
+  ?play :dp_writtenStartDate ?writtenStartDate .
+  ?play :dp_writtenEndDate ?writtenEndDate .
+}
+------------------------------------------------------------------
+
+This query returns each play along with its recorded writing start and end dates, thus answering the CQ.

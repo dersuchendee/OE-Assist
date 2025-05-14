@@ -1,0 +1,16 @@
+**Yes**
+
+We can extract the answer by retrieving the individuals classified as KeyMicrobialCommunity. Under the closed world assumption, we assume that only the explicitly defined (or inferred) individuals appear in the dataset. The following SPARQL query will return all individuals that are of type KeyMicrobialCommunity (i.e. microbial communities involved in CO2 fixation in groundwater ecosystems):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?microbialCommunity ?label
+WHERE {
+  ?microbialCommunity a :KeyMicrobialCommunity .
+  OPTIONAL { ?microbialCommunity rdfs:label ?label. }
+}
+------------------------------------------------
+
+This query directly answers the competency question.

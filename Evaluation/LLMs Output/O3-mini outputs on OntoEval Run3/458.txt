@@ -1,0 +1,26 @@
+**Yes**
+
+One example of a SPARQL query that uses the ontology’s classes and properties to answer a competency question in this domain (for instance, “Which album has been reviewed – and what is the review text – according to its critics?”) is the following:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate ?review ?reviewText ?critic
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+         
+  ?review a :Cl_Review ;
+          :reviewedRecord ?album ;
+          :reviewText ?reviewText ;
+          :reviewedBy ?critic .
+  
+  # Optionally, we can filter for reviews that mention “ambitious work” 
+  FILTER(CONTAINS(LCASE(?reviewText), "ambitious work"))
+}
+---------------------------------
+
+This query retrieves the album (here, for example, “StadiumArcadium”), its release date, the review(s) and corresponding review text, and the critic who provided the review (e.g. critic CrianHiatt), thus showing that the CQ is fully supported by the ontology.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, retrieves the members of a given union (identified by its IRI or label) that were associated “at” a specified point in time. (Adjust the filter value for the specific time as needed.)
+
+PREFIX : <http://example.org/union#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?union ?unionLabel ?member ?memberLabel ?time
+WHERE {
+  ?union a :Union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  ?union :hasMemberAt ?member .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  ?union :atTime ?time .
+  FILTER( ?union = <http://example.org/union#YourUnionIRI> && ?time = "2002-01-01"^^xsd:date )
+}
+  
+ORDER BY ?union ?time
+
+In this query we assume that (1) unions are linked to their members via the property :hasMemberAt and (2) the time qualification is captured via the :atTime relationship (as required by the ontology’s restrictions on these properties). This enables answering the CQ “Who are the members of a certain union at a certain point in time?” over the given ontology.

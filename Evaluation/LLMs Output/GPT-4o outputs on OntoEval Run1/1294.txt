@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "Where were the musicians coming from?" can be answered using the ontology provided. The ontology includes the class `Musician` and the object property `comesFrom` which relates a `Musician` to a `Place`. Therefore, we can write a SPARQL query to extract the information about the places musicians come from.
+
+```sparql
+SELECT ?musician ?place
+WHERE {
+  ?musician a :Musician .
+  ?musician :comesFrom ?place .
+}
+```

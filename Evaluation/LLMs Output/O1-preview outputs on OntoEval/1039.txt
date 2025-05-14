@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question "When did a certain seminar take place?". Specifically, the ontology includes the class `:Cl_Seminar` and the data property `:seminarDate` with domain `:Cl_Seminar` and range `xsd:date`. This allows us to query for seminars and their associated dates.
+
+Here's the SPARQL query to retrieve the dates of seminars:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarDate ?date .
+}
+```
+
+This query selects all instances of `:Cl_Seminar` and retrieves their `:seminarDate` values.

@@ -1,0 +1,10 @@
+**No**  
+Because the ontology does not fully reify the relationship between persons and the instruments they play, we cannot retrieve answers via a reified relationship. However, under the closed‐world assumption a partial answer can be extracted by directly querying the non‐reified property.
+
+```sparql
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+```

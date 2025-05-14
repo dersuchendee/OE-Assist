@@ -1,0 +1,17 @@
+**No**
+
+The ontology provided does not contain sufficient information to directly answer the competency question regarding the roles a person has within a certain production at a certain point in time. The ontology includes classes and properties related to theatre festivals, plays, productions, ensembles, and roles, but it lacks a direct connection between a person, their roles, and the specific production and time.
+
+Here is a SPARQL query to extract a partial answer, focusing on the roles assigned to a person:
+
+```sparql
+SELECT ?person ?roleName ?roleDate
+WHERE {
+  ?roleAssignment a :Cl_RoleAssignment .
+  ?roleAssignment :roleOf ?person .
+  ?roleAssignment :roleName ?roleName .
+  OPTIONAL { ?roleAssignment :roleDate ?roleDate . }
+}
+```
+
+This query retrieves the roles assigned to a person and the dates associated with those roles, but it does not connect these roles to a specific production or point in time as required by the competency question.

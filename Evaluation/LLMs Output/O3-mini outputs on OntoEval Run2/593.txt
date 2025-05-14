@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer the CQ “When was a certain song composed?” using the ontology’s property that relates a song (class :Cl_Song) to its composition date via the data property :composedOn. Assuming we want to query for a specific song (for example, by using its URI or label), a SPARQL query using a parameter would be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songLabel ?composedOn
+WHERE {
+  ?song a :Cl_Song ;
+        :composedOn ?composedOn .
+  OPTIONAL { ?song rdfs:label ?songLabel }
+  # To filter for a specific song, uncomment and adjust the following line:
+  # FILTER(?song = :Hump_de_Bump)
+}
+--------------------------------------------------
+
+This query extracts the composition dates for songs (or a single song if filtered), which satisfies the competency question under the closed world assumption.

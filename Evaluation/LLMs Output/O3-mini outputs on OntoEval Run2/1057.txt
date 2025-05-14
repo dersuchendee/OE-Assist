@@ -1,0 +1,27 @@
+**Yes**  
+Below is an example SPARQL query that retrieves the articles (with their titles and related authors, if desired) that were presented in a specific seminar (here assumed to be identified as :Seminar_1):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article ?articleTitle ?articleAuthor
+WHERE {
+  ?seminar a :Cl_Seminar .
+  FILTER (?seminar = :Seminar_1)
+  
+  # The articles presented are modelled as seminar articles 
+  ?seminarArticle a :Cl_SeminarArticle ;
+                    :presentedIn ?seminar ;
+                    :articleTitle ?articleTitle ;
+                    :articleAuthor ?article .
+                    
+  # Optionally, if you need to ensure the article is of type Cl_Article you can add:
+  ?article a :Cl_Article .
+}
+ORDER BY ?articleTitle
+------------------------------------------------
+
+In this query, we assume that the seminar of interest is identified by :Seminar_1. It retrieves each seminar article associated with this seminar along with the title and its author.

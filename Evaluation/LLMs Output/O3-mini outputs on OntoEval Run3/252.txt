@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that authorship is modelled through the reification class for authorship (i.e. :Cl_Authorship, which “inherits” both from :Cl_Author and :Cl_Play) and using the object property :wrotePlay, we can extract all plays written by a certain author. For example, to get the plays written by a given author (say identified by its IRI or an author name), you could write a SPARQL query like this:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?author ?authorName ?play ?playName
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author :authorName ?authorName . }
+
+  ?author :wrotePlay ?play .
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+
+  # Optionally restrict to a particular author using a FILTER or BIND if required, for example:
+  # FILTER(?author = <http://www.example.org/test#SomeAuthorIRI>)
+}
+ORDER BY ?authorName ?playName
+
+Under the closed‐world assumption, this query will only return plays explicitly connected to an author via the :wrotePlay property (and thus also represented via the reification class :Cl_Authorship). Therefore, the competency question “What plays did a certain author write?” is fully answerable by the ontology.

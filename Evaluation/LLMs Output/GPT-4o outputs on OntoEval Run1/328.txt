@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for the "star rating" given by a certain newspaper for a certain production. The ontology includes classes and properties related to productions, reviews, and newspapers, but it lacks a direct connection between a specific newspaper and its review rating for a specific production. Here's a SPARQL query to extract a partial answer, focusing on the available review ratings for productions:
+
+```sparql
+SELECT ?production ?review ?starRating
+WHERE {
+  ?review a :Cl_ReviewRating .
+  ?review :concerns ?production .
+  ?review :hasStarRating ?starRating .
+}
+```

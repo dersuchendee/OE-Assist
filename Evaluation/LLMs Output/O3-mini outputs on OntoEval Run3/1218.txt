@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+SELECT ?fungus ?fungusLabel ?role ?roleLabel
+WHERE {
+  ?fungus a :Fungi .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel . }
+  
+  ?fungus :occupiesHabitat ?habitat .
+  ?habitat a :Aquifer .
+  
+  ?fungus :playsRoleIn ?role .
+  ?role a :BiogeochemicalCycleInAquifer .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+ORDER BY ?fungus ?role
+```

@@ -1,0 +1,30 @@
+**No**
+
+The ontology only models calendar events (busy time periods) via the classes Cl_CalendarEvent, Cl_TimePeriod, and their properties (startTime, endTime). It does not explicitly include a concept of "free time" that represents those periods in the user’s calendar when no events occur. Under the closed world assumption, we cannot assume extra free time periods beyond the events recorded in the ontology. However, we can retrieve the user’s events for today as a partial answer.
+
+For example, a SPARQL query to extract the busy (occupied) time periods today might be:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasEvent ?event .
+  ?event :eventTime ?timePeriod .
+  ?timePeriod :startTime ?startTime .
+  ?timePeriod :endTime ?endTime .
+
+  # Assuming that the time literals include today's date,
+  # a filter for today's events would look similar to this.
+  FILTER (
+    CONTAINS(STR(?startTime), "2023-10-06") &&
+    CONTAINS(STR(?endTime), "2023-10-06")
+  )
+}
+ORDER BY ?startTime
+-------------------------------------------------
+
+This query retrieves the occupied time periods for the given day. Since the ontology does not define or model free time periods, we cannot directly answer the CQ about free time periods beyond applying a complement computation (which falls outside the provided ontology).

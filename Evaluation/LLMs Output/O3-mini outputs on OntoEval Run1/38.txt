@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not explicitly capture a direct “holding” relation between actors and information. However, we can partially answer the CQ by retrieving actors that are linked via a resource‐relation (a participation in which an actor is connected to a resource) when that resource is of the class representing information.
+
+Below is a SPARQL query that extracts actors participating in a resource relation whose resource is of type resourceODP:Information:
+
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX resourceODP: <http://w3id.org/CEON/ontology/resourceODP/>
+
+SELECT DISTINCT ?actor
+WHERE {
+  ?relation a actorODP:ResourceRelation ;
+            actorODP:participatingActor ?actor ;
+            actorODP:participatingResource ?resource .
+  ?resource a resourceODP:Information .
+}
+
+This query returns a partial answer under the closed world assumption because the ontology does not provide a direct “holds” relation for information.

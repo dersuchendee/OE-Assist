@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any information about the city in which a hospital is located. Therefore, the competency question cannot be fully answered using the given ontology. However, we can extract partial information about hospitals.
+
+```sparql
+SELECT ?hospital ?hospitalLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+```

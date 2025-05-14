@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the subject of a source. The ontology includes classes and properties related to sources and subjects, but it lacks a direct connection or property that specifies the subject of a source. The closest available properties involve reification, which complicates direct querying for the subject of a source.
+
+Partial answer:
+```sparql
+SELECT ?source ?subject
+WHERE {
+  ?source a :Cl_Source .
+  ?source :op_hasSourceSubject ?sourceSubject .
+  ?sourceSubject :op_subjectOf ?subject .
+}
+```

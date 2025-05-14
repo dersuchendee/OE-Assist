@@ -1,0 +1,29 @@
+**Yes**
+
+Assuming that two habitats are considered equivalent when they have exactly the same microbial and fungal community composition (i.e. they refer to the same individuals for both compositions), the ontology supports the CQ under the closed world assumption. Here is a SPARQL query that returns pairs of distinct habitats sharing the same microbial and fungal community composition:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?habitat1 ?habLabel1 ?habitat2 ?habLabel2
+WHERE {
+  ?habitat1 a :Habitat .
+  ?habitat2 a :Habitat .
+  FILTER(?habitat1 != ?habitat2) .
+  
+  ?habitat1 :hasMicrobialCommunityComposition ?microComp .
+  ?habitat1 :hasFungalCommunityComposition ?fungComp .
+  
+  ?habitat2 :hasMicrobialCommunityComposition ?microComp .
+  ?habitat2 :hasFungalCommunityComposition ?fungComp .
+  
+  OPTIONAL { ?habitat1 rdfs:label ?habLabel1 . }
+  OPTIONAL { ?habitat2 rdfs:label ?habLabel2 . }
+  
+  # To avoid duplicate pairs, ensure an ordering:
+  FILTER(str(?habitat1) < str(?habitat2))
+}
+--------------------------------------------------
+
+This query identifies pairs of habitats that are equivalent in terms of their microbial and fungal community composition as required by the competency question.

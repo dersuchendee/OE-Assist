@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that, given a specified water quality parameter (replace :YourSpecifiedParameter with the appropriate URI), retrieves the monitoring sites that registered an observation of that parameter and the time when the measurement (observation) was recorded.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?monitoringSite ?siteLabel ?time
+WHERE {
+  ?obs a :WaterQualityObservation ;
+       :observesParameter ?parameter ;
+       :recordedAtTime ?time ;
+       :isObservationOf ?monitoringSite .
+       
+  FILTER (?parameter = :YourSpecifiedParameter)
+  
+  OPTIONAL { ?monitoringSite rdfs:label ?siteLabel . }
+}
+ORDER BY ?time
+------------------------------------------------------------
+
+In this query, the FILTER clause ensures that only observations for the specified water quality parameter are selected. 

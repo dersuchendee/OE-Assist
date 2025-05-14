@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one example of a SPARQL query that—under a closed‐world assumption—retrieves the role a given person has in a specified union at a given point in time. (In this query you would bind the parameters ?person, ?givenUnion, and ?time to the person’s URI, the union group URI, and the time of interest, respectively.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  # Bind the input parameters (replace with actual URIs and date literal)
+  BIND(<http://www.example.org/test#PasqualeDiGennaro> AS ?person)
+  BIND(<http://www.example.org/test#MaleNursesUnion> AS ?givenUnion)
+  BIND("2003-01-01"^^xsd:date AS ?time)
+
+  # Ensure the person was a member of the given union at the specified time.
+  ?person :memberOf ?membership .
+  ?membership :union ?givenUnion ;
+              :membershipStartDate ?mStart .
+  OPTIONAL { ?membership :membershipEndDate ?mEnd . }
+  FILTER( ?time >= ?mStart && ( !BOUND(?mEnd) || ?time <= ?mEnd ) )
+
+  # Retrieve the union role held by the person at that time.
+  ?person :hasRole ?roleAssignment .
+  ?roleAssignment :role ?role ;
+                  :roleStartDate ?rStart .
+  OPTIONAL { ?roleAssignment :roleEndDate ?rEnd . }
+  FILTER( ?time >= ?rStart && ( !BOUND(?rEnd) || ?time <= ?rEnd ) )
+
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+------------------------------------------------
+
+This query selects, for a given person, the role(s) (with an optional label) that are valid at the provided time point – and only if the person’s union membership in the specified union group is also valid for that time.

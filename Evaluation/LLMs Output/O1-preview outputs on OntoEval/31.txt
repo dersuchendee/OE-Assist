@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX resourceODP: <http://w3id.org/CEON/ontology/resourceODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?product ?productLabel
+WHERE {
+    ?viewingRelation a :ViewingResource .
+    ?viewingRelation actorODP:participatingActor ?actor .
+    ?viewingRelation actorODP:participatingResource ?product .
+
+    OPTIONAL { ?actor rdfs:label ?actorLabel . }
+    OPTIONAL { ?product rdfs:label ?productLabel . }
+}
+```
+
+This query retrieves all actors who have viewed a product. It searches for instances of `:ViewingResource`, which link actors with products through the role of viewer. The properties `actorODP:participatingActor` and `actorODP:participatingResource` are used to identify the actor and product involved in the viewing relation.

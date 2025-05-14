@@ -1,0 +1,16 @@
+Answer: **Yes**.
+
+The competency question asks for the places where "they played", which corresponds to the meetups with the purpose of "MusicMaking" in the ontology. The ontology includes the class `mtps:Meetup`, which has properties `mtps:hasAPurpose` (with possible value `mtps:MusicMaking`) and `mtps:hasPlace` (linking to `core:Location`). Therefore, we can write a SPARQL query to retrieve the places where the meetups for MusicMaking took place.
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?place ?placeLabel WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose mtps:MusicMaking .
+  ?meetup mtps:hasPlace ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

@@ -1,0 +1,28 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves for a given actor in a given production at a specified time all the roles that have been recorded. (In this query the “certain person”, “certain production” and “certain point in time” are provided as filter values; you may substitute the URIs and dates as needed.)
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?production ?roleName ?roleDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName ;
+         :hasRole ?actorRole .
+  ?actorRole a :Cl_ActorRole ; 
+             :roleName ?roleName ;
+             :roleDate ?roleDate .
+  # Since the reified actor role is also declared to be a subclass of Cl_Production,
+  # we use it to indicate the production context.
+  ?actorRole a :Cl_Production .
+  
+  # Filter for the “certain person”, “certain production” and “certain point in time”
+  FILTER(?actor = <http://www.example.org/test#FabioBianchi>)
+  FILTER(?actorRole = <http://www.example.org/test#MerchantOfVeniceProductionRoleID>)
+  FILTER(?roleDate = "2009-09-10T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?roleDate
+────────────────────────────
+
+In this design the actor’s role instance (of type Cl_ActorRole) plays a dual role (as an instance of Cl_Role and Cl_Production as well as Cl_Date), so the query “binds” the production context and extracts the role name along with its date.

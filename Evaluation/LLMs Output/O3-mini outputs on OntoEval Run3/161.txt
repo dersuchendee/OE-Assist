@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the city of a given theatre by following the association from a theatre to its location (of type Cl_TheatreLocation) and then extracting the city name.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?theatre ?theatreLabel ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  
+  ?theatre :isLocatedIn ?location .
+  ?location :cityName ?cityName .
+}
+ORDER BY ?theatre
+------------------------------------------------
+
+This query confirms that the ontology supports answering the competency question "In what city is a certain theatre located?"

@@ -1,0 +1,49 @@
+**Yes**
+
+The competency question can be answered using the ontology by querying for band memberships that are active at a specific point in time. Here is a SPARQL query that retrieves the members of a certain band at a given date:
+
+```sparql
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?member
+WHERE {
+  ?member :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :membershipStart ?startDate .
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+
+  FILTER (
+    ?startDate <= ?targetDate^^xsd:date &&
+    ( !bound(?endDate) || ?targetDate^^xsd:date <= ?endDate )
+  )
+}
+```
+
+To use this query:
+- Replace `?band` with the URI of the band you're interested in (e.g., `:RedHotChiliPeppers`).
+- Bind `?targetDate` to the date you want to check membership for (e.g., `"2006-08-11"`).
+
+If you have labels or names associated with persons, you can modify the query to include member names:
+
+```sparql
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberName
+WHERE {
+  ?member :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :membershipStart ?startDate .
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+  OPTIONAL { ?member rdfs:label ?memberName . }
+
+  FILTER (
+    ?startDate <= ?targetDate^^xsd:date &&
+    ( !bound(?endDate) || ?targetDate^^xsd:date <= ?endDate )
+  )
+}
+```
+
+This query will return the members along with their names who were part of the specified band at the given date. The ontology provides the necessary classes and properties (`:Cl_Membership`, `:membershipStart`, `:membershipEnd`, `:hasMembership`, and `:membershipInBand`) to model memberships over time, enabling the competency question to be answered.

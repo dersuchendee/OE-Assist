@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide sufficient information to directly answer the competency question regarding the context of production of a source. The ontology includes classes and properties related to sources and their contexts, but it lacks specific details about the context of production, such as the specific location, time, creator, and related events for each source.
+
+However, a partial answer can be extracted by querying the available information about the context of sources:
+
+```sparql
+SELECT ?source ?context ?creationDate ?creationPlace ?goal
+WHERE {
+  ?source a :Cl_Source .
+  ?source :hasContext ?context .
+  OPTIONAL { ?context :hasCreationDate ?creationDate . }
+  OPTIONAL { ?context :hasCreationPlace ?creationPlace . }
+  OPTIONAL { ?context :hasGoal ?goal . }
+}
+```

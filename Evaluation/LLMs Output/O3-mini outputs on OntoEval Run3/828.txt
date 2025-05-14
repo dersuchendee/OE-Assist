@@ -1,0 +1,14 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, will return the employment start date for the person (PasqualeDiGennaro) at the hospital (OspedaleRiunitoDelleTreValli):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employmentStartDate
+WHERE {
+  :EmploymentAtOspedaleRiunito :employmentOf :PasqualeDiGennaro ;
+                                 :employedAt :OspedaleRiunitoDelleTreValli ;
+                                 :employmentStartDate ?employmentStartDate .
+}
+

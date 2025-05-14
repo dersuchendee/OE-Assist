@@ -1,0 +1,20 @@
+**No**
+
+```sparql
+SELECT ?person ?personName ?union ?unionName ?membershipStartDate
+WHERE {
+  ?person rdf:type :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+
+  ?person :hasUnionMembership ?membership .
+  ?membership :memberOf ?union .
+  OPTIONAL { ?union :unionName ?unionName . }
+
+  ?membership :membershipStartDate ?membershipStartDate .
+  
+  # We can check if the membership started before or on the given time
+  FILTER (?membershipStartDate <= "SPECIFIED_DATE"^^xsd:date)
+}
+```
+
+Since the ontology does not include an end date for union memberships (e.g., `:membershipEndDate`), we cannot determine if a person's union membership is still active at a certain point in time. Therefore, we cannot fully answer the competency question "Who are the members of a certain union at a certain point in time?" using the given ontology. The provided SPARQL query retrieves individuals who started their union membership on or before the specified date, but without end dates, we cannot confirm if they remain members at that specific point in time.

@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "Was there a power relation?" can be answered using the ontology provided. The ontology includes the class `PowerRelation` and its associated properties `hasSuperior`, `hasSubordinate`, and `hasRelationType`, which are sufficient to determine if a power relation exists.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?powerRelation ?superior ?subordinate ?relationType
+WHERE {
+  ?powerRelation a :PowerRelation .
+  ?powerRelation :hasSuperior ?superior .
+  ?powerRelation :hasSubordinate ?subordinate .
+  ?powerRelation :hasRelationType ?relationType .
+}
+```

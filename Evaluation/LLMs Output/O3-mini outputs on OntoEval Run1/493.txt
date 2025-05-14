@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, extracts the recording time period for a specified album (e.g., "Stadium Arcadium"):
+
+----------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recording ?timePeriod ?timePeriodLabel
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :albumOf ?recording .
+  ?recording :recordedDuring ?timePeriod .
+  OPTIONAL { ?timePeriod rdfs:label ?timePeriodLabel . }
+  
+  # Filter to a specific album; adjust or remove this filter as needed
+  FILTER (regex(?albumLabel, "Stadium Arcadium", "i"))
+}
+----------------------------------------
+
+In this query we start at an album, navigate via the :albumOf property to its recording, and then use the :recordedDuring property to obtain the associated time period. This fully answers the competency question "During what time period was a certain album recorded?" within the ontology.

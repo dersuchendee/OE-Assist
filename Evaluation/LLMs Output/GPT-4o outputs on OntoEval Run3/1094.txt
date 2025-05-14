@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide a direct way to associate articles with seminars in a manner that ensures at least one article is always presented at each seminar. The ontology includes classes and properties related to seminars, articles, and presentations, but it lacks explicit constraints or mechanisms to enforce the requirement that at least one article is always presented at each seminar.
+
+Partial SPARQL query to extract information about seminars and associated articles:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?presentation a :Cl_ArticlePresentation .
+    ?presentation :hasSeminar ?seminar .
+    ?presentation :hasArticle ?article .
+  }
+}
+```
+
+This query retrieves seminars and any associated articles, but it does not enforce the constraint that each seminar must have at least one article presented.

@@ -1,0 +1,46 @@
+**Yes**
+
+```sparql
+SELECT ?song ?songTitle
+WHERE {
+  # Specify the specific track you're interested in
+  :SpecificTrack a :Track ;
+                 :isRecordingOf ?song .
+                 
+  ?song :songTitle ?songTitle .
+}
+```
+
+**Explanation:**
+
+The competency question is: *"What song is a specific track a recording of?"*
+
+In the provided ontology, we have:
+
+- **Classes:**
+  - `:Track`: Represents a recorded instance of a song.
+  - `:Song`: Represents an abstract musical composition.
+
+- **Object Properties:**
+  - `:isRecordingOf`: Relates a `:Track` to the `:Song` it is a recording of (with `rdfs:domain :Track` and `rdfs:range :Song`).
+
+- **Individuals:**
+  - For example, `:HumpDeBump_Track` is an instance of `:Track`, and it `:isRecordingOf` `:HumpDeBump_Song`.
+
+Given this structure, the ontology supports answering the competency question. The SPARQL query retrieves the song associated with a specific track using the `:isRecordingOf` property.
+
+**To query a specific track by name:**
+
+If you want to specify the track by its title, you can modify the query:
+
+```sparql
+SELECT ?song ?songTitle
+WHERE {
+  ?track a :Track ;
+         :trackTitle "Track Name" ;
+         :isRecordingOf ?song .
+  ?song :songTitle ?songTitle .
+}
+```
+
+Replace `"Track Name"` with the title of the track you're interested in (e.g., `"Hump de Bump"`).

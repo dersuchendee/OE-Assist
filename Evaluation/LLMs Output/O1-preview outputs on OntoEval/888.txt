@@ -1,0 +1,73 @@
+Answer: **Yes**.
+
+The competency question "Who are the members of a certain union at a certain point in time?" can be answered using the given ontology. The ontology includes classes and properties related to persons, unions, union memberships, and the membership periods, which allows us to retrieve members of a union at a specific time.
+
+Here is a SPARQL query that retrieves the persons who are members of a specified union at a specified point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName
+WHERE {
+  # Replace :TargetUnion with the URI of the union of interest
+  # Replace "YYYY-MM-DD"^^xsd:date with the date of interest
+
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :inUnion :TargetUnion .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  FILTER (
+    ?startDate <= "YYYY-MM-DD"^^xsd:date &&
+    ( !bound(?endDate) || ?endDate >= "YYYY-MM-DD"^^xsd:date )
+  )
+
+  OPTIONAL { ?person rdfs:label ?personName . }
+}
+```
+
+**Explanation:**
+
+- **Retrieve Persons**: We select individuals that are instances of `:Cl_Person`.
+- **Union Membership**: We navigate from the person to their `:memberOf` property, which links to a `:Cl_UnionMembership`.
+- **Specify Union**: We ensure that the membership is associated with the specific union by matching `?membership :inUnion :TargetUnion`.
+- **Membership Period**: We retrieve the `:membershipStartDate` and optionally the `:membershipEndDate` to determine the membership duration.
+- **Filter by Date**: We filter members whose membership includes the specified date `"YYYY-MM-DD"^^xsd:date`.
+    - A member is included if the start date is on or before the date of interest, and the end date is undefined (ongoing membership) or on or after the date of interest.
+- **Optional Labels**: We optionally retrieve the person's name through `rdfs:label` if available.
+
+**Note:**
+
+- Replace `:TargetUnion` with the URI of the union you're interested in.
+- Replace `"YYYY-MM-DD"` with the date of interest in the format `"YYYY-MM-DD"^^xsd:date`.
+
+**Example Usage:**
+
+If you want to find members of the union `:NursesUnion` on September 1, 2021, your query would look like:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :inUnion :NursesUnion .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  FILTER (
+    ?startDate <= "2021-09-01"^^xsd:date &&
+    ( !bound(?endDate) || ?endDate >= "2021-09-01"^^xsd:date )
+  )
+
+  OPTIONAL { ?person rdfs:label ?personName . }
+}
+```
+
+This query will provide you with all persons who were members of `:NursesUnion` on September 1, 2021.

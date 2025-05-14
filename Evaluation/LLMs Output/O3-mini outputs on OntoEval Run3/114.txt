@@ -1,0 +1,20 @@
+**Yes**
+Below is one example of an answer‐extracting SPARQL query. In this query we assume that a “festival” is an instance of Cl_TheatreFestival and that its location is available via the property locatedIn (with the location’s locationName). You could further restrict the query (for example by filtering on a specific festival name).
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :locatedIn ?city .
+  ?city a :Cl_City .
+  ?city :locationName ?locationName .
+  # Optionally, restrict to a particular festival:
+  # ?festival rdfs:label "Festival Name" .
+}
+----------------------------------------
+
+This query retrieves each festival’s location (by its location name) as modelled in the ontology.

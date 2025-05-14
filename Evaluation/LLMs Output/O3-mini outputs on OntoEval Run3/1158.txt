@@ -1,0 +1,31 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves for each event (or event category) the available ticket options and the customizable elements (show time and seat):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?eventLabel ?ticketOption ?ticketOptionLabel ?showTime ?showDateTime ?seat ?seatNumber
+WHERE {
+  ?event a :Cl_Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasTicketOption ?ticketOption .
+  OPTIONAL { ?ticketOption rdfs:label ?ticketOptionLabel . }
+  
+  OPTIONAL {
+    ?ticketOption :hasShowTime ?showTime .
+    ?showTime :showDateTime ?showDateTime .
+  }
+  
+  OPTIONAL {
+    ?ticketOption :hasSeat ?seat .
+    ?seat :seatNumber ?seatNumber .
+  }
+}
+ORDER BY ?event ?ticketOption
+------------------------------------------------
+
+This query answers the competency question by extracting, for each event, the ticket options available and the associated customizable properties—namely the show time details (via :hasShowTime and :showDateTime) and seat details (via :hasSeat and :seatNumber).

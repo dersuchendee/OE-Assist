@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What songs were played in a certain performance?" can be answered using the ontology provided. The ontology includes classes and properties related to performances and songs, specifically the `:performedSongs` property which links a `:Cl_Performance` to a `:Cl_Song`. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?performance ?song
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedSongs ?song .
+}
+```

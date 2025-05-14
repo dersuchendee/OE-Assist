@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?album ?restriction
+WHERE {
+  :Cl_Album rdfs:subClassOf ?restriction .
+  ?restriction rdf:type owl:Restriction ;
+               owl:onProperty :containsTrack ;
+               owl:someValuesFrom :Cl_Track .
+}
+```

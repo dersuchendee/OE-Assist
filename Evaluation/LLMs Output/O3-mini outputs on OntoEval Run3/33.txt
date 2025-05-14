@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX process: <http://w3id.org/CEON/ontology/process/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?process ?processLabel
+WHERE {
+  ?participation :participationIn ?process .
+  ?process a process:Process .
+  ?participation :participatingActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+ORDER BY ?process ?actor
+```

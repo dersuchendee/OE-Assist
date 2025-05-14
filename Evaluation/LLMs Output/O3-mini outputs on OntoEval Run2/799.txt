@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology includes a reified model for a person’s degree study period. For example, a medical degree (e.g., Certified Nurse) is linked via the object property :hasStudyPeriod to a study period individual that carries data properties for :studyStartDate and :studyEndDate. Thus, you can write a SPARQL query to extract the time period during which a person studied for a specific degree.
+
+Below is an example SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+}
+--------------------------------------------------
+
+This query retrieves, for each person and their associated medical degree, the start and end dates of the study period.

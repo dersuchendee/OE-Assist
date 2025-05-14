@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not include any information about the roles that a person has within a production at a specific point in time. The ontology includes classes and properties related to theatre festivals, plays, productions, actors, and roles, but it does not explicitly connect a person to a role within a production at a specific time.
+
+Here is a SPARQL query to extract a partial answer, which lists the roles assigned to actors in a production, but without the specific point in time:
+
+```sparql
+SELECT ?actor ?actorLabel ?role ?roleLabel
+WHERE {
+  ?production :hasRoleAssignment ?roleAssignment .
+  ?roleAssignment :roleActor ?actor .
+  ?roleAssignment :role ?role .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+```

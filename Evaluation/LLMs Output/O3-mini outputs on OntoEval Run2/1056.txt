@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, given a seminar, retrieves the articles presented in that seminar:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  # Identify the seminar (assuming its IRI is provided as ?seminar)
+  ?presentation a :Cl_SeminarArticlePresentation ;
+                :presentedIn ?seminar ;
+                :articlePresented ?article .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+--------------------------------------------------
+
+This query works under the closed world assumption since it only returns articles obtained via the explicit reified relationship (:presentedIn and :articlePresented) in the ontology.

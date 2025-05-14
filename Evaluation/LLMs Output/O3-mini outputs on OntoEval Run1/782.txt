@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the medical degrees of a given person (here shown for PasqualeDiGennaro):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro a :Cl_Person ;
+                       :hasMedicalDegree ?degree .
+  ?degree a :Cl_MedicalDegree ;
+          :degreeTitle ?degreeTitle ;
+          :degreeObtainedDate ?degreeObtainedDate .
+}
+
+This query extracts the medical degrees that PasqualeDiGennaro has—including their titles and obtained dates—which shows that the CQ “What medical degrees does a certain person have?” is fully supported by the ontology.

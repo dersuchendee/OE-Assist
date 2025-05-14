@@ -1,0 +1,28 @@
+**Yes**
+Below is one example SPARQL query that retrieves, for a given person and production at a given time, the roles that the person fulfils. (We assume that the ontology re‐ifies the relation between a person, a role, and the production with the pivot class Cl_PersonRoleInProductionAtTime and that there are properties linking the pivot instance to its person, role, and the time of the production.)
+
+For example, if you want to know which roles FabioBianchi has in the MerchantOfVenice production at a given date (here represented by ?time), then a query using the closed‐world assumption could be written as follows:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?time
+WHERE {
+  ?production a :Cl_Production ;
+              :hasPersonRoleInProductionAtTime ?pivot .
+  ?pivot a :Cl_PersonRoleInProductionAtTime ;
+         :hasPerson ?person ;
+         :hasRole ?role ;
+         :roleTime ?time .
+  FILTER(
+         ?person = <http://www.example.org/test#FabioBianchi> &&
+         ?production = <http://www.example.org/test#MerchantOfVenice> &&
+         ?time = "2009-09-10"^^xsd:date
+         )
+}
+ORDER BY ?role
+-----------------------------------------------------------
+
+This query shows that the CQ is fully answerable by the ontology.

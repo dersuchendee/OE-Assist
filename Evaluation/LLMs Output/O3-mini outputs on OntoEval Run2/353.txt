@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the employment start date of an actor at a specific theatre. In this example the query selects the start date for the actor FabioBianchi working at the Grand Theatre Rome. (You can replace the actor and theatre IRIs with other values if needed.)
+
+--------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?employment ?startDate
+WHERE {
+  ?actor a theatre:Actor .
+  ?actor theatre:hasEmployment ?employment .
+  ?employment theatre:hasTheatre theatre:GrandTheatreRome .
+  ?employment theatre:hasStartDate ?startDate .
+  FILTER(?actor = theatre:FabioBianchi)
+}
+--------------------------------------------------
+
+This query shows that the CQ "At what time did a certain actor start working for a specific theatre?" is answerable using the ontology under a closed world assumption.

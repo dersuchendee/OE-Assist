@@ -1,0 +1,29 @@
+**Yes**
+
+The competency question "A record always contains at least one track." is modeled by the ontology. This is represented in the ontology through the following OWL restriction:
+
+```rdf
+:Cl_Record owl:equivalentClass [
+  rdf:type owl:Restriction ;
+  owl:onProperty :containsTrack ;
+  owl:someValuesFrom :Cl_Track
+] .
+```
+
+This restriction states that every instance of `:Cl_Record` must have at least one `:containsTrack` relationship to an instance of `:Cl_Track`.
+
+Here is a SPARQL query that retrieves this information from the ontology:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?onProperty ?someValuesFrom
+WHERE {
+  :Cl_Record owl:equivalentClass ?restriction .
+  ?restriction owl:onProperty ?onProperty .
+  ?restriction owl:someValuesFrom ?someValuesFrom .
+}
+```
+
+This query selects the properties involved in the restriction on `:Cl_Record`, showing that every record must contain at least one track.

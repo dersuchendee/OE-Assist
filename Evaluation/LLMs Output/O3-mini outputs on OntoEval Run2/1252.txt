@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?area (COUNT(DISTINCT ?chemMeasurement) AS ?ChemicalCount)
+               (COUNT(DISTINCT ?physicalMeasurement) AS ?PhysicalCount)
+WHERE {
+  ?area a :Area .
+  OPTIONAL { ?area :hasChemicalMeasurement ?chemMeasurement . }
+  OPTIONAL { ?area :hasPhysicalMeasurement ?physicalMeasurement . }
+}
+GROUP BY ?area
+ORDER BY ?area
+```

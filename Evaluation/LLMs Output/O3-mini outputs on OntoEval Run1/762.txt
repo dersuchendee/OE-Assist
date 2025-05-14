@@ -1,0 +1,23 @@
+**Yes**
+
+This competency question is fully supported by the ontology. The ontology explicitly enforces that every instance of :Cl_Album (i.e. a “record”) must have at least one associated :Cl_Track via the :hasTrack property (see the owl:minCardinality restriction). Under the closed world assumption, we expect that no album is missing a track.
+
+One SPARQL query to verify (i.e. to search for any album that violates the constraint) is:
+
+-------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album
+WHERE {
+  ?album a :Cl_Album .
+  # Find albums with no associated track
+  FILTER NOT EXISTS {
+    ?album :hasTrack ?track .
+  }
+}
+-------------------------------------
+
+If the query returns no results then every record (album) indeed has at least one track as required by the competency question.

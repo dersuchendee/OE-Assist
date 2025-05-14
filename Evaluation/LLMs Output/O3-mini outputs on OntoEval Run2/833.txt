@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the employment start date for a given person at a specific hospital, using a closed world assumption on the ontology:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital ?employmentStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :employmentHospital ?hospital .
+  ?employment :employmentStartDate ?employmentStartDate .
+  
+  # Filter for the specific person and hospital. 
+  # (Assuming individuals are named with IRIs, e.g., :PasqualeDiGennaro and :OspedaleRiunitoDelleTreValli)
+  FILTER (?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+-------------------------------------------------
+
+This query demonstrates that the competency question "When was a certain person first employed at a certain hospital?" can be answerable using the ontology provided.

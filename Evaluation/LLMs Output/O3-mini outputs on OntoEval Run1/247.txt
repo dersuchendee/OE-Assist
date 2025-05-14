@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, retrieves the plays written by a given author (in this example, by WilliamShakespeare):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  :WilliamShakespeare a :Cl_Author .
+  :WilliamShakespeare :wrote ?play .
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+
+This query shows that the ontology models the competency question "What plays did a certain author write?" with the property :wrote connecting authors to plays.

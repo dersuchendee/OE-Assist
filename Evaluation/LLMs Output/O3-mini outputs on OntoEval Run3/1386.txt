@@ -1,0 +1,24 @@
+**No**
+
+The provided ontology does not include an explicit property that links a composition (represented as a :Tune) to a :TuneFamily. Therefore, while we know the classes exist, the ontology does not enable a complete answer to “Which tune family does composition X belong to?” under the closed world assumption. Below is a partial SPARQL query that retrieves a :Tune instance (filtered as “composition X”) and any family association if, by chance, such a linking property (e.g., an assumed :belongsToTuneFamily) were present.
+
+--------------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?tuneFamily ?tuneFamilyLabel
+WHERE {
+  # Retrieve the composition X (update the URI as needed)
+  BIND(<http://example.org/compositionX> AS ?composition)
+  ?composition a :Tune .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel. }
+
+  # Attempt to retrieve a (non-modeled) association to TuneFamily, if any.
+  OPTIONAL { ?composition :belongsToTuneFamily ?tuneFamily. }
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel. }
+}
+--------------------------------------------------------
+
+Since the property linking a composition to a tune family (here suggested as :belongsToTuneFamily) is not defined in the ontology, the query will return results only if such a property is asserted. Hence, the competency question is not fully supported by the ontology.

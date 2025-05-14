@@ -1,0 +1,18 @@
+**No**
+
+The ontology does specify cities, regions, and the property linking a city to its region (via the :isLocatedIn property), so you can directly retrieve the region of a city. However, note that according to our reification rule in this exercise, the CQ must be a Reification CQ (i.e. all the involved classes and data types must be connected through a reified class such as :Cl_Membership). Since the linkage between a :Cl_City and its :Cl_Region does not use a reified construct, the CQ is not fully answerable in the reification sense. 
+
+Here’s a SPARQL query that provides a partial answer:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  ?city :isLocatedIn ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+}
+---------------------------------------------------------------

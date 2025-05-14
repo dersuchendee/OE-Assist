@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What role does a certain person have in a certain band at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that relate persons, bands, roles, and time periods, which are necessary to answer the question.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?band ?role ?timePeriod
+WHERE {
+  ?bandRole a :Cl_BandRole .
+  ?bandRole :hasRoleInBand ?person .
+  ?bandRole :hasMemberWithRole ?band .
+  ?bandRole :hasRole ?role .
+  ?bandRole :duringTimePeriod ?timePeriod .
+}
+```

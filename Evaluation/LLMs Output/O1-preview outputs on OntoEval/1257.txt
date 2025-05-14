@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?system ?systemLabel ?energyComponent ?ecLabel
+WHERE {
+  ?system a :System .
+  OPTIONAL { ?system rdfs:label ?systemLabel . }
+  ?system :hasEnergyComponent ?energyComponent .
+  OPTIONAL { ?energyComponent rdfs:label ?ecLabel . }
+}
+```

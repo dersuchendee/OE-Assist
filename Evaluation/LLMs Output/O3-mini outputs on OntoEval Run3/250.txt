@@ -1,0 +1,21 @@
+**No**
+Below is a SPARQL query that extracts a partial answer – namely, it retrieves actor employments (for which we have instance data and theatre associations) even though the ontology does not include explicit role assignments (Cl_ActorRole) for productions:
+
+——————————————————————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment .
+  ?employment :hasActor ?actor .
+  ?actor :actorName ?actorName .
+  ?employment :hasTheatre ?theatre .
+  ?theatre :theatreName ?theatreName .
+  ?employment :hasStartDate ?startDate .
+}
+——————————————————————————————————————————————
+
+In the closed‐world view this query returns employment data (which may be seen as an indication of participation) while the full competency question regarding the detailed roles performed in productions (e.g. character assignments) is not completely answerable with the given ontology.

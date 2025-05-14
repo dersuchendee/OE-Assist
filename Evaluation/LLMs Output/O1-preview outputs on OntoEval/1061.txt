@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleTitle . }
+}
+```

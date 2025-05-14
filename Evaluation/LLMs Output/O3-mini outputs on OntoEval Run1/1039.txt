@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+```
+
+This query retrieves all seminars and their dates (assuming that seminar instances in the ontology have the data property :seminarDate), which answers the competency question "When did a certain seminar take place?" under the closed world assumption.

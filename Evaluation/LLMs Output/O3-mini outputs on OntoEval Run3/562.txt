@@ -1,0 +1,20 @@
+**Yes**
+
+We can extract the song associated with a given music track by querying for a MusicTrack, following its :isMusicTrackOf relation to a Recording and then following the :isRecordingOf relation to the Song. For example, the following SPARQL query returns, for each track, the song it is a recording of:
+
+-------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :MusicTrack .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+  
+  ?track :isMusicTrackOf ?recording .
+  ?recording :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+-------------------------------------------------
+
+Under a closed world assumption, we assume that the missing links indicate absence of the association, and this query returns the complete answer to the CQ.

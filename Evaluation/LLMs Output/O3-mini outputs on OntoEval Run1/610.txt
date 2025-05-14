@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the review content written by a specific critic (in this case "Crian Hiatt") about a specific record (here the album "Stadium Arcadium"):
+
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?criticName ?albumTitle ?reviewContent
+WHERE {
+  ?review a :Review ;
+          :reviewContent ?reviewContent ;
+          :writtenBy ?critic ;
+          :isReviewOf ?album .
+  ?critic :criticName ?criticName .
+  ?album :albumTitle ?albumTitle .
+  FILTER(?criticName = "Crian Hiatt" && ?albumTitle = "Stadium Arcadium")
+}
+
+This query extracts the critic’s name, the album’s title, and the review content, thus modeling the competency question under a closed world assumption.

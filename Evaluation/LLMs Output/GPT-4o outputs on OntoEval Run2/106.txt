@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a festival. The `hasLocation` property is defined for `Cl_TheatreFestival`, but there is no instance data provided in the ontology to answer the CQ. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival :hasLocation ?location . }
+}
+```

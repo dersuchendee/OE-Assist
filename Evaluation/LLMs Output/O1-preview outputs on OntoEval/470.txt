@@ -1,0 +1,19 @@
+**No**
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?musician ?musicianLabel ?band ?bandLabel ?timePeriod
+WHERE {
+  ?lineup a :LineUp ;
+          :hasMember ?musician ;
+          :partOfBand ?band ;
+          :activeDuring ?timePeriod .
+  
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+}
+```
+
+This query retrieves musicians who are members of a band during a specific time period. However, the ontology does not include information about the **role** (e.g., instruments played) of the musician within the band at that specific point in time. Under the closed world assumption, since this information is not present, the competency question cannot be fully answered.

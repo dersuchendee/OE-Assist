@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves processes along with the actors involved in them by following the participation relation defined in the ontology:
+
+--------------------------------------------------
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX process: <http://w3id.org/CEON/ontology/process/>
+PREFIX processODP: <http://w3id.org/CEON/ontology/processODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?process ?processLabel ?actor ?actorLabel
+WHERE {
+  ?process a process:Process .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  
+  ?participation a actorODP:Participation ;
+                 actorODP:participationIn ?process ;
+                 actorODP:participatingActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?process ?actor
+--------------------------------------------------
+
+Under the closed-world assumption, this query assumes that all information about the actors involved in processes is completely captured via the participation relations in the ontology.

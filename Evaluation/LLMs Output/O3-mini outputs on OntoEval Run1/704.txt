@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that a “certain city” is represented as an instance of Cl_City and that its region is linked via the properties “cityRegion” (from a city to a city-region) and “regionOfCity” (from a city-region to a region), one can extract the answer with the following SPARQL query (using the closed world assumption):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  
+  ?city :cityRegion ?cityRegion .
+  ?cityRegion :regionOfCity ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  
+  # Optionally filter for a specific city, for example by its label:
+  # FILTER (regex(?cityLabel, "SpecificCityName", "i"))
+}

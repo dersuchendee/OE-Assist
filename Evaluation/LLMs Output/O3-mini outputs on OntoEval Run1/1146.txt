@@ -1,0 +1,25 @@
+**No**
+The ontology does not directly model “free time periods” – it models only calendar events (busy periods) via Cl_CalendarEvent and their associated time periods. Under the closed world assumption, we can extract the scheduled (busy) time intervals for a given user but not “free periods” directly from the ontology. A partial answer is to list the calendar events (busy periods) for today so that the free time could be computed externally. For example:
+
+-----------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User ;
+        :hasCalendar ?calendar .
+  ?calendar :hasEvent ?event .
+  ?event :eventTime ?period .
+  ?period :startTime ?startTime ;
+          :endTime ?endTime .
+  # Assuming today’s events occur within a defined time range, e.g., filtering by startTime:
+  FILTER(
+    ?startTime >= "00:00:00"^^xsd:time &&
+    ?endTime <= "23:59:59"^^xsd:time
+  )
+}
+ORDER BY ?user ?startTime
+-----------------------
+
+This query retrieves the busy periods (calendar events) for each user today. Determining the “free time periods” would require additional processing (to compute the gaps between these busy intervals), which is not directly supported by the ontology.

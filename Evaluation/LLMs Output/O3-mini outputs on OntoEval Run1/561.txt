@@ -1,0 +1,15 @@
+**Yes**
+
+The ontology contains the necessary assertions to link a specific track to a song. In this ontology the individual ns1:HumpDeBump, for example, is declared both as a ns1:Track and as a ns1:Song. With the closed world assumption, we can assume no additional song is “hidden” for a given track. The following query retrieves the song (and its label) that a given track (provided as an input) is a recording of:
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?songLabel
+WHERE {
+  VALUES ?track { ns1:HumpDeBump }  # Replace with the specific track as needed
+  ?track a ns1:Song .
+  OPTIONAL { ?track rdfs:label ?songLabel . }
+}
+
+This query shows that the competency question is supported by the ontology.

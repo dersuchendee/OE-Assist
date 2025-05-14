@@ -1,0 +1,31 @@
+**Yes**
+
+In the ontology we have a reified structure for band role assignments. For example, a person’s band role is captured via a Cl_BandRoleAssignment instance that relates the person (via :isRoleAssignmentOf), the band (via :roleInBand) and includes a role (via :hasRole) along with the time period during which the role is active (via :roleStartDate and :roleEndDate). This makes the competency question “What role does a certain person have in a certain band at a certain point in time?” answerable. Under a closed world assumption we assume that every role assignment is explicitly asserted.
+
+An example SPARQL query might be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleStartDate ?roleEndDate
+WHERE {
+  # Given specific person and band (replace with the desired URIs)
+  VALUES ?person { <http://www.example.org/test#Person123> }
+  VALUES ?band { <http://www.example.org/test#Band456> }
+  
+  ?person :hasRoleAssignment ?assignment .
+  ?assignment :hasRole ?role .
+  ?assignment :roleInBand ?band .
+  ?assignment :roleStartDate ?roleStartDate .
+  ?assignment :roleEndDate ?roleEndDate .
+  
+  # Check that the given time is within the assignment period
+  FILTER (
+    xsd:dateTime("2021-06-15T00:00:00") >= ?roleStartDate &&
+    xsd:dateTime("2021-06-15T00:00:00") <= ?roleEndDate
+  )
+}
+--------------------------------------------------
+
+This query extracts the role (and the assignment period) for a specific person in a given band at a specified point in time.

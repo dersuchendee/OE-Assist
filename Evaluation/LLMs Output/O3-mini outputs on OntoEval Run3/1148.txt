@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?movie ?startTime ?endTime
+WHERE {
+  ?availability a :Cl_Availability ;
+                :hasEvent ?movie .
+  ?movie a :Cl_Movie ;
+         :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime ;
+              :hasEndTime ?endTime .
+  
+  # Replace the placeholders below with the desired time period boundaries.
+  FILTER(?startTime <= "2023-10-15T23:59:59"^^xsd:dateTime &&
+         ?endTime   >= "2023-10-15T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?startTime
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology enforces that every production must have exactly one premier (by the qualified cardinality restriction on the property :hasPremier with range :Cl_ProductionPremier). Under the closed‐world assumption, we can extract each production alongside its unique premier. For example, the following SPARQL query retrieves each production, its production name, the associated premier, and the premier date:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premier ?premierDateValue
+WHERE {
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :hasPremier ?premier .
+  ?premier :premierDateValue ?premierDateValue .
+}
+--------------------------------
+
+This query shows that the CQ “A production has exactly one premier” is fully supported by the ontology.

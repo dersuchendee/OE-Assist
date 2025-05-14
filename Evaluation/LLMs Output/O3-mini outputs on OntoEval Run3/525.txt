@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for a given album (here using :StadiumArcadium as an example), the number of tracks it contains:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?numTracks
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :numberOfTracks ?numTracks .
+  FILTER(?album = :StadiumArcadium)
+}
+----------------------------------------------------------------
+
+This query assumes the ontology includes the data property :numberOfTracks for albums, which makes the CQ answerable under the closed world assumption.

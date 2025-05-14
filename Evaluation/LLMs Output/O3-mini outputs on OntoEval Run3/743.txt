@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each album (i.e. record) along with its track(s). Under the closed world assumption, if an album did not have any track then it would not appear—which confirms the competency requirement that every record contains at least one track.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/ontology/musicproduction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?track ?trackLabel
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :hasTrack ?track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+}
+ORDER BY ?album ?track
+------------------------------------------------

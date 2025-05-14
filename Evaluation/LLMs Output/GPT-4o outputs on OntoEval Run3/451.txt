@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate a band with its members at a specific point in time. The ontology includes classes and properties related to band membership and time periods, but it lacks a direct connection between a band, its members, and a specific time period. Therefore, a partial answer can be extracted by identifying band members without considering the time aspect.
+
+```sparql
+SELECT ?band ?person
+WHERE {
+  ?bandMembership a :Cl_BandMembership .
+  ?bandMembership :bandMember ?band .
+  ?bandMembership :memberOfBand ?person .
+}
+```

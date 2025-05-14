@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that, under the closed-world assumption, retrieves instances of AquiferFungus and their associated ChemicalParameter:
+
+----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?fungus ?fungusLabel ?chemicalParameter ?chemicalLabel
+WHERE {
+  ?fungus a :AquiferFungus .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel. }
+  
+  ?fungus :hasAssociatedChemicalParameter ?chemicalParameter .
+  OPTIONAL { ?chemicalParameter rdfs:label ?chemicalLabel. }
+}
+----------------------------------------------
+
+This query answers the competency question by extracting the chemical parameters linked to aquifer fungi as specified in the ontology.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query to extract the members (actors) of a given ensemble at a specific time period:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName
+WHERE {
+  # Assuming the ensemble is identified (e.g., Ensemble_GrandTheatre_MerchantOfVenice)
+  :Ensemble_GrandTheatre_MerchantOfVenice :hasEnsembleMembership ?membership .
+  ?membership :hasMember ?actor ;
+              :hasTimePeriod ?time .
+  # Use FILTER to select the desired time period (e.g. "September 2009")
+  FILTER(?time = "September 2009")
+  
+  OPTIONAL { ?actor :actorName ?actorName . }
+}
+--------------------------------------------------
+
+In this query we assume that the ensemble is already known (here using the identifier :Ensemble_GrandTheatre_MerchantOfVenice) and that the time period is exactly "September 2009". This demonstrates that the ontology models the information needed to answer the CQ "Who are the members of a certain ensemble at a certain point in time?" under a closed world assumption.

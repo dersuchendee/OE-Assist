@@ -1,0 +1,22 @@
+**No**
+
+The ontology does not include an explicit notion of a “song” separate from a track (i.e. there is no property linking a track to an underlying song composition) and thus we cannot fully answer “What song is a specific track a recording of?” under a closed world assumption. However, we can partially answer by retrieving the track details along with its associated album and recording date, which might help infer the song, as shown in the following SPARQL query:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?track ?trackLabel ?album ?albumLabel ?recordedOn
+WHERE {
+  ?track a :Track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+  OPTIONAL { ?track :isTrackOf ?album .
+             OPTIONAL { ?album rdfs:label ?albumLabel . }
+           }
+  OPTIONAL { ?track :recordedOn ?recordedOn . }
+  FILTER(?track = :HumpDeBump)
+}
+------------------------------------------------------------
+
+This query returns available details for the specified track (here we filter for “HumpDeBump”) but does not directly answer what song the track is a recording of, hence the partial answer.

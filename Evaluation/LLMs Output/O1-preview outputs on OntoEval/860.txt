@@ -1,0 +1,20 @@
+**Answer: Yes**
+
+The competency question "In what country is a certain city located?" is answerable using the provided ontology. The ontology includes classes and properties that model cities and their corresponding countries. Specifically, the property `ns1:isLocatedIn` connects instances of `ns1:City` to instances of `ns1:Country`.
+
+Here is the SPARQL query to extract the city-country relationships:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a ns1:City .
+  ?city rdfs:label ?cityLabel .
+  ?city ns1:isLocatedIn ?country .
+  ?country rdfs:label ?countryLabel .
+}
+```
+
+This query retrieves all cities in the ontology along with the countries they are located in by leveraging the `ns1:isLocatedIn` property. It selects the city and country URIs along with their labels for readability.

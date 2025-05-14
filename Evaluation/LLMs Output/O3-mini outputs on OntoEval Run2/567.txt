@@ -1,0 +1,20 @@
+**Yes**
+
+One way to answer “What song is a specific track a recording of?” is to use the reification that links a track instance (of class Cl_Track) with a recording instance via the property recordingOf and then find the song that “recorded” that same recording via the property songRecorded. For example, if a specific track is available via its URI (here given as ?track), then you can use the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  # Assume the specific track URI is provided (replace <TRACK_URI> with the track URI)
+  VALUES ?track { <TRACK_URI> }
+  
+  ?track :recordingOf ?recording .
+  ?song :songRecorded ?recording .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+--------------------------------------------------
+
+This query retrieves the song (and its optional label) that the specific track is a recording of.

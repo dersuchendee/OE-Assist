@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that uses the relationships defined in the ontology. In this query we assume that the “certain person” is identified by a given label (or IRI) and that the “certain production” is specified. The query retrieves the actor’s roles (with their associated role dates) in the production and then filters roles occurring on a given date (or point in time):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?role ?roleLabel ?production ?productionLabel ?roleDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         rdfs:label ?actorLabel ;
+         :hasRole ?role .
+  ?role :hasRoleInProduction ?production ;
+        :hasRoleDate ?roleDate .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  # The following FILTERs assume that you are querying for a particular person,
+  # a particular production and at a specific date. Modify the values as needed.
+  FILTER(?actorLabel = "Fabio Bianchi")
+  FILTER(?production = <http://www.example.org/test#MerchantOfVeniceProduction>)
+  FILTER(?roleDate = "2009-09-15"^^xsd:date)
+}
+------------------------------------------------
+
+This query “extracts” the roles that a given actor (here “Fabio Bianchi”) has in a specified production (here identified by the IRI for the Merchant of Venice production) at the specified date. Under a closed world assumption, the absence of additional role information implies that only the retrieved roles are valid answers.

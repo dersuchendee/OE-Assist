@@ -1,0 +1,22 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed‐world assumption, selects persons who hold a union membership for a specified union (here represented by a placeholder :UnionXYZ) that began before or on a given point in time (here “2002-01-01T00:00:00” as an example):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personName ?membershipDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?person :memberOf ?membership .
+  ?membership a :Cl_UnionMembership .
+  ?membership :membershipDate ?membershipDate .
+  ?membership :memberOf ?union .
+  
+  FILTER(?union = :UnionXYZ && ?membershipDate <= "2002-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?person
+
+In this query the union of interest and the time‐point are provided (you can substitute :UnionXYZ and the date with the actual union URI and date). This demonstrates that the ontology directly supports obtaining “Who are the members of a certain union at a certain point in time?” as required.

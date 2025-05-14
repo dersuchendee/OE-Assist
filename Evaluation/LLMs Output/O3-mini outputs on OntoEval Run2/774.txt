@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the ontology includes individuals of class Cl_Person with their associated medical degrees via the property hasMedicalDegree (and each degree includes a degreeName), the following SPARQL query will return, for a given person, the medical degrees they have:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degree ?degreeName
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeName ?degreeName .
+  # Optionally, restrict to a specific person (e.g., Pasquale Di Gennaro)
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+}

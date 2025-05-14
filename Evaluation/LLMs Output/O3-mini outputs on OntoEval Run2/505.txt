@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the time period during which a given album (e.g., StadiumArcadium) was recorded:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordedDuring
+WHERE {
+  ?album a :Cl_Album ;
+         :hasRecording ?recording .
+  ?recording :recordedDuring ?recordedDuring .
+  FILTER(?album = :StadiumArcadium)
+}
+ORDER BY ?recordedDuring
+
+--------------------------------------------------
+
+This query works under a closed‐world assumption by directly extracting the recording time from the reified album recording information available in the ontology.

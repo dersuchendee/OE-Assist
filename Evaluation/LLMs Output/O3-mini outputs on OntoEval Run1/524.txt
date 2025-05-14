@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one possible SPARQL query that extracts the number of tracks for each album:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?numTracks
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :numberOfTracks ?numTracks .
+} 
+
+This query directly retrieves, under a closed world assumption, the explicitly stated number of tracks for any album in the ontology, thereby answering the competency question "How many tracks does a particular album contain?"

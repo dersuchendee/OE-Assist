@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?place ?placeLabel ?means ?meansLabel
+WHERE {
+  ?place a :Place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+  
+  ?place :hasSound ?sound .
+  ?sound :isCurrentlyPerformed "true"^^xsd:boolean .
+  ?sound :hasMeans ?means .
+  OPTIONAL { ?means rdfs:label ?meansLabel . }
+}
+```

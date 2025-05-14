@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain any classes or properties related to music, albums, tracks, or recordings. Therefore, it is not possible to write a SPARQL query to answer the competency question "A record always contains at least one track." However, a partial query can be written to extract any information related to publications, which might be the closest concept available in the ontology:
+
+```sparql
+SELECT ?publication ?title
+WHERE {
+  ?publication a :Cl_Publication .
+  OPTIONAL { ?publication :title ?title . }
+}
+```

@@ -1,0 +1,17 @@
+**No**
+
+```sparql
+SELECT ?person ?personLabel ?role ?roleLabel ?production ?productionLabel
+WHERE {
+  ?person a theatre:Actor .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  ?person theatre:hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  ?person theatre:participatesIn ?production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+}
+```
+
+The given ontology does not fully support the Competency Question "What roles does a certain person have within a certain production at a certain point in time?". Specifically, the ontology lacks a direct connection between the `theatre:Role` and the `theatre:Production`. While we know that an `Actor` has a `Role` and participates in a `Production`, there is no explicit linkage between the `Role` and the `Production`. Additionally, time-specific information (i.e., the point in time when the actor played the role in the production) is not modeled in the ontology. Therefore, we cannot write a SPARQL query to fully answer the CQ, but the provided query extracts partial information about actors, their roles, and the productions they participate in.

@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the composition date of a given song using the reified concept Cl_SongComposition with its properties. For example, the following SPARQL query returns each song (linked via composedOn) along with its composition date (from compositionDate):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?composition a :Cl_SongComposition ;
+               :composedOn ?song ;
+               :compositionDate ?compositionDate .
+}
+--------------------------------------------------
+
+This query answers the competency question "When was a certain song composed?" under the closed world assumption.

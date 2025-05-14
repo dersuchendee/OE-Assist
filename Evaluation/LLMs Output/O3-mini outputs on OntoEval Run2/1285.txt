@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves events along with their event type, where the event type is one of Celebration, Festival, or PrivateEvent:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?eventType
+WHERE {
+  ?event a :Event .
+  ?event :hasEventType ?eventType .
+  FILTER(?eventType = :Celebration || ?eventType = :Festival || ?eventType = :PrivateEvent)
+}
+------------------------------------------------
+
+This query answers the CQ “Was it a celebration, a festival, a private event?” by extracting each event along with its associated event type that is one of the three specified classes, following the closed world assumption (only explicitly asserted events and event types are considered).

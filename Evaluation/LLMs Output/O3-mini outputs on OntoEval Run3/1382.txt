@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+}
+```

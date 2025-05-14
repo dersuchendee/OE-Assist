@@ -1,0 +1,21 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that relate entities (actors, objects, processes) to legal conditions and legislation. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?entity ?entityLabel ?legalCondition ?legalConditionLabel ?legislation ?legislationLabel
+WHERE {
+  ?entity a :Entity .
+  OPTIONAL { ?entity rdfs:label ?entityLabel . }
+
+  OPTIONAL {
+    ?entity :isAffectedByLegalCondition ?legalCondition .
+    OPTIONAL { ?legalCondition rdfs:label ?legalConditionLabel . }
+  }
+
+  OPTIONAL {
+    ?entity :isAffectedByLegislation ?legislation .
+    OPTIONAL { ?legislation rdfs:label ?legislationLabel . }
+  }
+}
+```

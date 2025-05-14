@@ -1,0 +1,19 @@
+**No**  
+Because the ontology does not include a reified membership entity (e.g. a class like Cl_Membership to link an ensemble, its member, and a time instance), we can only extract a partial answer. Under a closed‐world assumption the following query retrieves ensembles that have a date and associated members, but it does not explicitly reify the membership at a point in time.
+
+---------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleDate ?member 
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :date ?ensembleDate .
+  ?ensemble :hasMember ?member .
+  FILTER(?ensembleDate = "2009-09-07"^^xsd:date)  # Replace with the specific date of interest
+}
+
+---------------------------------------------------
+
+This query returns the ensemble(s) with their date and associated members for the given date, which is a partial answer to the CQ.

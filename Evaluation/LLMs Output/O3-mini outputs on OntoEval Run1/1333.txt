@@ -1,0 +1,21 @@
+**No**
+
+The ontology does include a connection between ForestSoilComposition and CO2FixationProcess via the property playsRoleIn, but it does not fully capture the "role" played. In the ontology, playsRoleIn is declared as a subproperty of associatedWithRole (whose range is Role), so while we can retrieve which CO2FixationProcess instances a ForestSoilComposition is associated with, we cannot necessarily extract an explicit Role instance for that relationship.
+
+A partial SPARQL query (using the closed world assumption) to retrieve ForestSoilComposition instances associated with CO2FixationProcess and any linked Role (if available) is:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?forestSoil ?process ?role
+WHERE {
+  ?forestSoil a :ForestSoilComposition .
+  ?forestSoil :playsRoleIn ?process .
+  ?process a :CO2FixationProcess .
+  OPTIONAL { ?process :associatedWithRole ?role . }
+}
+--------------------------------------------------
+
+This query retrieves the available connections; however, because the "role" is not directly modelled or asserted for the process, the ontology only provides a partial answer to the competency question.

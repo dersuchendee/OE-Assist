@@ -1,0 +1,17 @@
+**Yes**
+
+We can write a SPARQL query that retrieves, for a given employee and doctor, the evaluation statement made by that doctor. For example, if we assume the doctor and employee are identified by specific IRIs (which can be replaced by the actual identifiers), the query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee .
+  ?employee :evaluatedBy ?evaluation .
+  ?evaluation :evaluator ?doctor .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  FILTER(?employee = <http://www.example.org/test#Employee1> && ?doctor = <http://www.example.org/test#Doctor1>)
+}
+
+This query extracts the evaluation statement that a certain doctor (here represented by <http://www.example.org/test#Doctor1>) gave for a certain employee (here represented by <http://www.example.org/test#Employee1>), and thus the CQ is fully supported by the ontology.

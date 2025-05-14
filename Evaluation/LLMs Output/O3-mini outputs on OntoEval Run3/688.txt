@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the performance date along with the location where the performance took place (using the classes and properties defined in the ontology):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?location ?locationName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :tookPlaceAt ?location .
+  ?location :locationName ?locationName .
+}
+ORDER BY ?performanceDate
+-------------------------------------------------
+
+Under the closed world assumption, the query will return only those performance instances for which the location is explicitly stated in the data.

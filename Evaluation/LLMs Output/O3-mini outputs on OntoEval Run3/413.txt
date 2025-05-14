@@ -1,0 +1,27 @@
+**Yes**
+Below is one SPARQL query that, under a closed‐world assumption, extracts all productions that have exactly one premier along with the premier’s date:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  # Ensure exactly one premier using grouping and count:
+  {
+    SELECT ?production (COUNT(?premier) AS ?premierCount)
+    WHERE {
+      ?production :hasPremier ?premier .
+    }
+    GROUP BY ?production
+    HAVING(?premierCount = 1)
+  }
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+---------------------------------------------------------------
+
+This query retrieves productions that have exactly one associated premier with its premier date, which models the competency question "A production has exactly one premier" using the provided ontology.

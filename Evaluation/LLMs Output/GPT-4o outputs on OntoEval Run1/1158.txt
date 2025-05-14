@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for customizable options for an event category or specific event. The ontology includes classes and properties related to events, ticket options, show times, seats, and payment methods, but it lacks a direct connection or property that specifies what can be customized by the user for a specific event category.
+
+Partial answer:
+```sparql
+SELECT ?event ?ticketOption ?showTime ?seat
+WHERE {
+  ?event a :Cl_Event .
+  ?event :hasTicketOption ?ticketOption .
+  OPTIONAL { ?ticketOption :hasShowTime ?showTime . }
+  OPTIONAL { ?ticketOption :hasSeat ?seat . }
+}
+```

@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?soilType ?soilTypeLabel (AVG(?rate) AS ?avgNitrogenLeachingRate)
+WHERE {
+  ?obs a :NitrogenLeachingObservation .
+  ?obs :hasSoilType ?soilType .
+  OPTIONAL { ?soilType rdfs:label ?soilTypeLabel . }
+  ?obs :hasNitrogenLeachingRate ?rate .
+  ?obs :occursIn ?ecosystem .
+  ?ecosystem a :ForestEcosystem .
+}
+GROUP BY ?soilType ?soilTypeLabel
+```

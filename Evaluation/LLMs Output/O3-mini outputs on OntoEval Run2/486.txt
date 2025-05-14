@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that the individual person and band are known (e.g. via their URIs), we can retrieve the role assignment valid at a given time by checking the role assignment’s start and end dates. For example, the following SPARQL query (using the closed world assumption) retrieves the role of a specific person in a specific band at a given point in time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasRoleAssignment ?assignment .
+  ?assignment :roleInBand ?band ;
+              :hasRole ?role ;
+              :roleStartDate ?roleStartDate ;
+              :roleEndDate ?roleEndDate .
+
+  # Replace the following URIs with the specific person and band identifiers
+  FILTER(?person = <http://www.example.org/test#SpecificPerson> && 
+         ?band = <http://www.example.org/test#SpecificBand> &&
+         xsd:dateTime("2004-09-01T00:00:00Z") >= ?roleStartDate &&
+         xsd:dateTime("2004-09-01T00:00:00Z") <= ?roleEndDate)
+}
+--------------------------------------------------
+
+This query shows that the ontology models the relationship between a person, their band role assignments (with temporal validity given by roleStartDate and roleEndDate), and the band—a direct answer to the competency question "What role does a certain person have in a certain band at a certain point in time?"

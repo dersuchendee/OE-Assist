@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming the ontology uses the reification pattern (via the pivot class :Cl_StudyingForDegree) to link a person to the degree they obtained, you can answer the CQ “What medical degrees does a certain person have?” with the following SPARQL query. (Here the query is parameterized so that you can filter by the person of interest.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?degreeName ?degreeDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedFor ?study .
+  ?study :hasDegree ?degree .
+  
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+  OPTIONAL { ?degree :degreeDate ?degreeDate . }
+  
+  # For a specific person, uncomment and adjust the filter below:
+  # FILTER(?person = :PasqualeDiGennaro)
+}
+------------------------------------------------
+
+Under the closed world assumption this query will extract all medical degree information for each person (or for the specific person if filtering is applied).

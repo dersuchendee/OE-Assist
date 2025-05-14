@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluationStatement a :EvaluationStatement .
+  ?evaluationStatement :authoredBy ?doctor .
+  ?evaluationStatement :aboutEmployee ?employee .
+  # If specific doctor and employee are known, add filters:
+  # FILTER (?doctor = :SpecificDoctor && ?employee = :SpecificEmployee)
+}
+```

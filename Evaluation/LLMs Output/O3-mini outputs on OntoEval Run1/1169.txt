@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+SELECT ?entity ?entityLabel ?externalFactor ?externalFactorLabel 
+WHERE {
+  { ?entity a :Process. }
+  UNION
+  { ?entity a :Actor. }
+  UNION
+  { ?entity a :ValueNetwork. }
+  
+  ?entity :isAffectedBy ?externalFactor .
+  OPTIONAL { ?entity rdfs:label ?entityLabel. }
+  OPTIONAL { ?externalFactor rdfs:label ?externalFactorLabel. }
+}
+ORDER BY ?entity
+```

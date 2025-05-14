@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves the region in which a given city is located by following the isPartOf property (including any transitive steps) and filtering the result to regions:
+
+PREFIX : <http://example.org/geo#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?region
+WHERE {
+  ?city a :City .
+  ?city (:isPartOf)+ ?region .
+  ?region a :Region .
+  # Optional filter: to target a specific city by name, for example, "Portland"
+  # FILTER(?cityName = "Portland")
+  OPTIONAL { ?city :placeName ?cityName . }
+  OPTIONAL { ?region :placeName ?regionName . }
+}
+ORDER BY ?city
+
+This query ensures that if a city is part of a region according to the ontology, the region will be returned.

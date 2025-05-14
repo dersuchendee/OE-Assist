@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the start date of an actor’s employment at a specified theatre. In this query you can substitute the values for the actor’s name and the theatre’s name to meet the competency question.
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?theatreName ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment .
+  ?employment :hasActor ?actor .
+  ?actor :actorName ?actorName .
+  ?employment :hasTheatre ?theatre .
+  ?theatre :theatreName ?theatreName .
+  ?employment :hasStartDate ?startDate .
+  
+  # Closed world: filter to a specific actor and theatre if needed.
+  FILTER(?actorName = "Fabio Bianchi" && ?theatreName = "The Grand Theatre")
+}
+--------------------------------------------------------------
+
+This query shows that the ontology is modeled to answer the competency question “At what time did a certain actor start working for a specific theatre?” by using the reified employment information.

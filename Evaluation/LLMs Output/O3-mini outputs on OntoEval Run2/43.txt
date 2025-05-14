@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that "this actor" refers to a specific instance of :Actor, the following SPARQL query retrieves its associated actor type:
+
+PREFIX : <http://www.example.org/circular_value_network.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?actorType ?actorTypeLabel
+WHERE {
+  ?actor a :Actor .
+  ?actor :hasActorType ?actorType .
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+  OPTIONAL { ?actorType rdfs:label ?actorTypeLabel. }
+  # Optionally, restrict to a particular actor if needed:
+  # FILTER(?actor = <http://www.example.org/circular_value_network.owl#SpecificActor>)
+}

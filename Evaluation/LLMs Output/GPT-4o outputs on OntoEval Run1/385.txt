@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate roles with specific points in time within a production. The ontology includes classes and properties for roles, role assignments, and productions, but it lacks a direct temporal component to specify when a role is held within a production. Therefore, a partial answer can be extracted, but it will not include the temporal aspect.
+
+```sparql
+SELECT ?person ?role ?production
+WHERE {
+  ?roleAssignment :op_roleOf ?person ;
+                   :op_hasRole ?role ;
+                   :op_roleInProduction ?production .
+}
+```

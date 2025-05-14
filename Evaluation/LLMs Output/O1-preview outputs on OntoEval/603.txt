@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When was a certain song composed?" is supported by the ontology, as it models songs, their compositions, and composition dates through the classes and properties `:Cl_Song`, `:Cl_SongComposition`, and `:compositionDate`.
+
+```sparql
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedOn ?composition .
+  ?composition a :Cl_SongComposition .
+  ?composition :compositionDate ?compositionDate .
+}
+```

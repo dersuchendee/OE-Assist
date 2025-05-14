@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Who built and/or renovated an organ?" can be answered using the ontology provided. The ontology includes the necessary classes and properties to identify both the builder and the renovator of an organ. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?organ ?builder ?renovator
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ :builtBy ?builder . }
+  OPTIONAL { ?organ :renovatedBy ?renovator . }
+}
+```

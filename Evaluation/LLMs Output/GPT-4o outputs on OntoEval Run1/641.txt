@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about performances or their dates. However, we can extract partial information about performances and their locations.
+
+```sparql
+SELECT ?performance ?performanceDate ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+  OPTIONAL { ?performance :performanceLocation ?location . }
+}
+```

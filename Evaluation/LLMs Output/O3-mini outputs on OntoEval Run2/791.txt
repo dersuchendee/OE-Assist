@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed world assumption, extracts, for a given person and a specific degree, the associated study period (start and end dates):
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?degree ?degreeLabel ?startDate ?endDate
+WHERE {
+  ?person a ns1:Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+
+  ?person ns1:hasStudyPeriod ?studyPeriod .
+  ?studyPeriod ns1:hasStartDate ?startDate .
+  ?studyPeriod ns1:hasEndDate ?endDate .
+  ?studyPeriod ns1:studiesFor ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  
+  # To focus on a certain person and a specific degree, you can constrain the query further.
+  # For example, if you are interested in Pasquale Di Gennaro and his Certified Nurse Degree, add:
+  # FILTER(?person = ns1:PasqualeDiGennaro && ?degree = ns1:CertifiedNurseDegree)
+}
+ORDER BY ?startDate
+
+This query retrieves the study period (start and end dates) linked via ns1:hasStudyPeriod to the person and connects the study period to the degree using ns1:studiesFor, which together answer the competency question.

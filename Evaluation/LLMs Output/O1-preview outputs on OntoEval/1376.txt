@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+SELECT ?place ?placeLabel
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasParticipant mtps:Subject ;
+          mtps:hasPlace ?place ;
+          mtps:hasAPurpose mtps:MusicMaking .
+  
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

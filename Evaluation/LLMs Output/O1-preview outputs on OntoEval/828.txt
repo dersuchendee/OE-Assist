@@ -1,0 +1,35 @@
+**Answer: Yes**
+
+The ontology supports the competency question because it contains information about persons, their employments at hospitals, and the employment start dates. The `:Cl_Employment` class connects a person to a hospital through the `:employmentOf` and `:employedAt` object properties, and records the start date using the `:employmentStartDate` data property.
+
+Here is a SPARQL query to retrieve the employment start date of a specific person at a specific hospital:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?startDate
+WHERE {
+    ?employment rdf:type :Cl_Employment .
+    ?employment :employmentOf :PasqualeDiGennaro .
+    ?employment :employedAt :OspedaleRiunitoDelleTreValli .
+    ?employment :employmentStartDate ?startDate .
+}
+```
+
+To retrieve the employment start dates for all persons at all hospitals, you can use the following query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?hospital ?startDate
+WHERE {
+    ?employment rdf:type :Cl_Employment .
+    ?employment :employmentOf ?person .
+    ?employment :employedAt ?hospital .
+    ?employment :employmentStartDate ?startDate .
+}
+```
+
+This query will return all employment records, connecting each person to the hospital they were employed at, along with the employment start date.

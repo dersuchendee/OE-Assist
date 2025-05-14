@@ -1,0 +1,31 @@
+**Yes**
+
+Under the closed‐world assumption we can “check” that every production has one and only one premier. For example, the following SPARQL query retrieves the premier (and its date) for each production. Under the assumption that all information is complete, a production should have exactly one premier. (If instead you wish to detect productions that do not have exactly one premier – that is, to check for violations – you could use a COUNT and HAVING filter.) 
+
+Below is one version that simply retrieves each production’s premier:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+ORDER BY ?production
+
+If you want to verify the “exactly one” constraint, you can use this query to list any production that does not have exactly one premier:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premier) AS ?premierCount)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremier ?premier . }
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) != 1)
+
+If the latter query returns no results then every production indeed has exactly one premier.

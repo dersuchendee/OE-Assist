@@ -1,0 +1,19 @@
+**Yes**
+
+The following SPARQL query returns, for each publication that is either a Book or a CD, its publication date. (We assume that details like labels or other identifying properties can be used to single out “a certain” publication.) Under the closed world assumption, only explicitly asserted publication dates are returned.
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationLabel ?pubDate
+WHERE {
+  ?publication a ?type .
+  FILTER(?type = :Book || ?type = :CD)
+  OPTIONAL { ?publication rdfs:label ?publicationLabel. }
+  ?publication :hasPublicationDate ?pubDate .
+}
+---------------------------------------------------------
+
+This query models the CQ “When was a certain book or CD published?” by extracting the publication date for each individual of type Book or CD.

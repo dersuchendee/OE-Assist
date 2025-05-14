@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question can be answered using the ontology, as it models the relationships between books or CDs and the articles they contain through the properties `:hasArticle` and `ce:hasMember`. Here is a SPARQL query that retrieves the articles composed within each specific book or CD:
+
+```sparql
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX ce: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookOrCD ?bookOrCDLabel ?article ?articleLabel
+WHERE {
+  ?bookOrCD a ?bookOrCDType .
+  FILTER (?bookOrCDType = :Book || ?bookOrCDType = :CD) .
+  
+  OPTIONAL { ?bookOrCD rdfs:label ?bookOrCDLabel . }
+  
+  ?bookOrCD ce:hasMember|:hasArticle ?article .
+  
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+This query selects all instances of `:Book` or `:CD`, retrieves their labels, and finds the articles they are composed of using the `ce:hasMember` or `:hasArticle` properties. It also retrieves the labels of the articles, if available.

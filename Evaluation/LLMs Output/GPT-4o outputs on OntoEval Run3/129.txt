@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate plays with specific theatre festivals. The `hasPlay` property is defined with a domain of `Cl_TheatreFestival` and a range of `Cl_Play`, but there is no instance data or specific connection between a festival and the plays that can be queried directly. Therefore, a partial answer can be extracted by querying for plays associated with theatre festivals, but it will not provide specific plays for a certain festival.
+
+```sparql
+SELECT ?festival ?play
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasPlay ?play .
+}
+```

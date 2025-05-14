@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When did a certain performance take place?" can be answered using the ontology provided. The ontology includes classes and properties related to performances and their dates, specifically the `Cl_Performance` and `Cl_PerformanceDate` classes, and the `performedOn` object property. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedOn ?performanceDateInstance .
+  ?performanceDateInstance a :Cl_PerformanceDate .
+  ?performanceDateInstance :performanceDate ?performanceDate .
+}
+```

@@ -1,0 +1,35 @@
+**Yes**
+
+Assuming the closed‐world view (i.e. that all relevant date information for a theatre festival is explicitly stated in the data), the following SPARQL query can be used to retrieve a festival’s name along with its start and end dates. In this ontology the class Cl_FestivalEvent (a subclass of Cl_TheatreFestival) is used to reify a festival event together with its properties – including the data properties startDate and endDate – allowing us to answer when a festival took place.
+
+For example, if we want the dates for a festival with a given name (e.g. “Roma Loves Shakespeare”), we can use:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?startDate ?endDate
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName "Roma Loves Shakespeare" ;
+            :startDate ?startDate ;
+            :endDate ?endDate .
+}
+-----------------------------------------------------------
+
+If you wish to retrieve all festivals with their available dates, you can use:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?startDate ?endDate
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName .
+  OPTIONAL { ?festival :startDate ?startDate } .
+  OPTIONAL { ?festival :endDate ?endDate } .
+}
+-----------------------------------------------------------
+
+Because the ontology provides explicit classes (and a reified festival event) with date properties, the competency question “When did a certain theatre festival take place?” is fully modelled in the ontology.

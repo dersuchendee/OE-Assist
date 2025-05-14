@@ -1,0 +1,21 @@
+**No**
+
+Because the ontology does not fully model the connection between a city and its country (i.e. there is no complete axiom that directly links an instance of Cl_City with an instance of Cl_Country via a reified or explicit property), we can only provide a partial extraction of city information, not the country information.
+
+A partial SPARQL query might be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName .
+  OPTIONAL {
+    ?city :isLocatedIn ?country .
+    ?country :countryName ?countryName .
+  }
+}
+
+This query will list all cities with their associated country names where such relationships are present, but under the closed world assumption the ontology lacks a full axiom linking cities to countries.

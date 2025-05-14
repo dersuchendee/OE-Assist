@@ -1,0 +1,18 @@
+**Yes**
+
+The CQ "In what country is a certain region located?" can be answered using the given ontology because it includes the classes `:Cl_Region` and `:Cl_Country`, and the object property `:regionInCountry` that relates a region to a country.
+
+Here's a SPARQL query to retrieve the country for each region:
+
+```sparql
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+
+  ?region :regionInCountry ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```
+
+This query selects all instances of `:Cl_Region`, retrieves their associated country via the `:regionInCountry` property, and optionally includes labels for better readability.

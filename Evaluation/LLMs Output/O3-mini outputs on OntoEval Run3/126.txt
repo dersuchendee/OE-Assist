@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves for each theatre festival the plays that could be seen by linking the festival to its festival productions and then to the plays that participated in that production:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival :festivalName ?festivalName . }
+  
+  ?festival :hasFestivalProduction ?prod .
+  
+  ?play a :Cl_Play .
+  ?play :participatedInFestival ?participation .
+  ?participation :partOfFestival ?festival .
+  ?participation :performedInFestivalProduction ?prod .
+  
+  OPTIONAL { ?play :playName ?playName . }
+}
+ORDER BY ?festival ?play
+--------------------------------------------------
+
+This query leverages the ontology’s reification approach—connecting a play (of type Cl_Play) to a festival production participation (via the property participatedInFestival) which in turn links (through partOfFestival and performedInFestivalProduction) the play with a given theatre festival (Cl_TheatreFestival).

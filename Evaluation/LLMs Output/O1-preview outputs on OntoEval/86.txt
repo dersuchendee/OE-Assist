@@ -1,0 +1,13 @@
+**No**
+
+The competency question "When did a certain theatre festival take place?" cannot be fully answered using the given ontology. This is because there is no direct property connecting instances of `:Cl_TheatreFestival` (the festivals) to instances of `:Cl_FestivalOccurrence` (the occurrences with dates). While `:Cl_FestivalOccurrence` has the `:hasDate` property, without a relationship linking it back to the specific festival, we cannot determine when a particular theatre festival took place.
+
+Here's a SPARQL query to extract a partial answer, listing festival occurrences and their dates:
+
+```sparql
+SELECT ?festivalOccurrence ?date
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence ;
+                      :hasDate ?date .
+}
+```

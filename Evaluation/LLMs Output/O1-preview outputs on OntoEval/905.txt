@@ -1,0 +1,37 @@
+Answer: **Yes**
+
+Here is a SPARQL query to retrieve the roles that a person has within a union group at a certain point in time:
+
+```sparql
+SELECT ?person ?personName ?role ?unionGroup ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :hasName ?personName . }
+
+  ?person :hasRoleMembership ?roleMembership .
+  ?roleMembership a :Cl_UnionRoleMembership .
+  ?roleMembership :roleOfMembership ?role .
+  ?roleMembership :roleMembershipIn ?unionGroup .
+
+  ?roleMembership :roleStartDate ?startDate .
+  OPTIONAL { ?roleMembership :roleEndDate ?endDate . }
+
+  # Replace "YYYY-MM-DD" with the desired date
+  FILTER( ?startDate <= xsd:date("YYYY-MM-DD") &&
+          ( !bound(?endDate) || xsd:date("YYYY-MM-DD") <= ?endDate ) )
+}
+```
+
+This query retrieves the person, their role within a union group, and the start and end dates of that role membership. By filtering with a specific date (replace `"YYYY-MM-DD"` with the desired date), you can find out what role a person had in a union group at that point in time.
+
+The ontology provides the necessary classes and properties to model this information:
+
+- **Classes**: `:Cl_Person`, `:Cl_UnionRole`, `:Cl_UnionGroup`, `:Cl_UnionRoleMembership`
+- **Object Properties**:
+  - `:hasRoleMembership` links a person to their role membership events.
+  - `:roleOfMembership` specifies the role involved in the membership.
+  - `:roleMembershipIn` links the role membership to a union group.
+- **Data Properties**:
+  - `:roleStartDate` and `:roleEndDate` capture the time period of the role membership.
+
+Therefore, the competency question is answerable using the provided ontology.

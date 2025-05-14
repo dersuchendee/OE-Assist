@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the reason for a meeting. The `mtps:hasAPurpose` property connects a `Meetup` to a `Purpose`, but the ontology does not provide specific instances or data properties that describe the reason in detail. Here's a SPARQL query to extract partial information related to the purpose of a meetup:
+
+```sparql
+SELECT ?meetup ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose ?purpose .
+}
+```

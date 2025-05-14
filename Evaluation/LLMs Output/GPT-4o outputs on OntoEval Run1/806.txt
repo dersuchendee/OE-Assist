@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "During what time period did a certain person study for a specific degree?" can be answered using the ontology provided. The ontology includes classes and properties that relate a person to a study period and a medical degree, which allows us to extract the required information.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?degree ?start ?end
+WHERE {
+  ?study rdf:type :Cl_PersonDegreeStudy .
+  ?study :personHasStudy ?person .
+  ?study :studyInvolvesDegree ?degree .
+  ?study :studyDuringPeriod ?period .
+  ?period :studyStart ?start .
+  ?period :studyEnd ?end .
+}
+```

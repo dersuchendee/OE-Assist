@@ -1,0 +1,39 @@
+**Yes**
+
+Below is an example SPARQL query that, given a band (as a parameter) and a point‐in‐time (as a date literal), retrieves all persons who were members of that band at that time. This query uses the reified membership information (with membershipStart and membershipEnd) to determine if the membership was active at the specified date under a closed world assumption.
+
+Assume that:
+– The band of interest is provided via the variable ?band (or can be fixed to a given URI), and
+– The date of interest is provided as ?pointInTime (in xsd:date format).
+
+The query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasMembership ?membership .
+  ?membership :membershipIn ?band .
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+
+  # Filter for memberships active at the specified point in time.
+  FILTER (
+    xsd:date(?pointInTime) >= xsd:date(?membershipStart)
+    &&
+    (
+      !BOUND(?membershipEnd)
+      ||
+      xsd:date(?pointInTime) <= xsd:date(?membershipEnd)
+    )
+  )
+}
+ORDER BY ?membershipStart
+------------------------------------------------
+
+Replace ?band and ?pointInTime with appropriate values (e.g., via query parameters) to obtain the desired answer.

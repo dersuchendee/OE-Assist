@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct connection between theatre festivals and the plays that can be seen during them. The ontology includes classes and properties for TheatreFestival, TheatreProduction, and Play, but it lacks a direct property or relationship that links a TheatreFestival to the specific Plays that are part of it. The ontology does have a property chain axiom (theatre:hasPlayInFestival) that connects TheatreFestival to Play through TheatreProduction, but there is no instance data that uses this property chain to link specific plays to specific festivals.
+
+Here's a SPARQL query to extract a partial answer, which lists the productions associated with a festival, but not the specific plays:
+
+```sparql
+SELECT ?festival ?production ?play
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  ?festival theatre:hasProduction ?production .
+  ?production theatre:hasPlay ?play .
+}
+```

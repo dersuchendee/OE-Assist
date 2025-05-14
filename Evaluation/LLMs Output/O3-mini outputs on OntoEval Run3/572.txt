@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the song a specific track (here, for instance, :Track1) is a recording of:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_Track .
+  ?track :isRecordingOf ?song .
+  FILTER(?track = :Track1)
+}
+------------------------------------------------------------
+
+This query directly answers the CQ “What song is a specific track a recording of?” by retrieving the song associated with the selected track using the property :isRecordingOf.

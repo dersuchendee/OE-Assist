@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?flow ?flowLabel ?quantity ?time
+WHERE {
+  ?flow a :Flow .
+  OPTIONAL { ?flow rdfs:label ?flowLabel . }
+
+  ?flow :hasFlowObservation ?flowObservation .
+  ?flowObservation a :FlowObservation .
+
+  ?flowObservation :hasQuantityValue ?quantity .
+  ?flowObservation :atTime ?time .
+}
+ORDER BY ?flow ?time
+```

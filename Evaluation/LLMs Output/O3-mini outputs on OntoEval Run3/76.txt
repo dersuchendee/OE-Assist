@@ -1,0 +1,17 @@
+**Yes**
+  
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?startDate
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival ns1:startDate ?startDate .
+  FILTER(?festivalLabel = "Roma Loves Shakespeare"@en)
+}
+```
+
+In this query we extract the theatre festival (here “Roma Loves Shakespeare”) and its starting date, satisfying the CQ under a closed world assumption.

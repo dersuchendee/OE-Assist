@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, given an author, retrieves the titles of the plays they wrote:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?author ?playTitle
+WHERE {
+  ?author a :Cl_Author ;
+          :hasWritten ?authorship .
+  ?authorship :playTitle ?playTitle .
+  # To select a specific author, you could add a filter, for example:
+  # FILTER(?author = :SpecificAuthor)
+}
+--------------------------------
+
+This query uses the reification class :Cl_Authorship (which connects :Cl_Author with :Cl_Play) to return the play titles written by a given author under the closed world assumption (i.e. if an author has no explicitly connected written play then no title will be returned).

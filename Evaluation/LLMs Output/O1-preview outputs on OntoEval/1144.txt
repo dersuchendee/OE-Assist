@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?booking ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasBooking ?calendarBooking .
+  ?calendarBooking :refersToBooking ?booking .
+  ?booking :startTime ?startTime .
+  ?booking :endTime ?endTime .
+  
+  # Assuming the time period is specified by variables ?startPeriod and ?endPeriod
+  # You can replace these with concrete dateTime values if needed
+  FILTER (?endTime >= ?startPeriod && ?startTime <= ?endPeriod)
+}
+```

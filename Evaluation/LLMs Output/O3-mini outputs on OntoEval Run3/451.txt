@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that the ontology models temporal band memberships via the reified class Cl_BandMembership (which relates a Cl_Person and a Cl_Band together with a Cl_TimePeriod via the property membershipPeriod), we can answer the CQ “What are the members of a certain band at a certain point in time?” by selecting persons that are linked via a band membership whose associated time period contains the given time‐point.
+
+Below is an example SPARQL query. (In this query the band and time point are provided as input parameters—for example the band “RedHotChiliPeppers” and the desired time point “2004-09-15T00:00:00Z”. It is assumed that a time period is modelled with properties that indicate its beginning and end (here, :hasStart and :hasEnd) so that the given time falls within the interval.):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?person :memberOfBand ?membership .
+  ?membership :bandMember :RedHotChiliPeppers .
+  ?membership :membershipPeriod ?timePeriod .
+  ?timePeriod :hasStart ?start .
+  ?timePeriod :hasEnd ?end .
+  FILTER(xsd:dateTime("2004-09-15T00:00:00Z") >= ?start &&
+         xsd:dateTime("2004-09-15T00:00:00Z") <= ?end)
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+-------------------------------------------------
+
+This query returns all persons (and optionally their labels) who have a band membership in “RedHotChiliPeppers” that is active at the specified point in time.

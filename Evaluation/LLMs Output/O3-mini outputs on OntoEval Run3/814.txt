@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a ns1:Person ;
+          rdfs:label "Pasquale Di Gennaro" ;
+          ns1:hasEmployment ?employment .
+  ?employment ns1:employedAt ns1:OspedaleRiunitoDelleTreValli ;
+              ns1:employmentStartDate ?startDate .
+}
+```

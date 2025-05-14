@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the city name for the given seminar (here, the December 2008 seminar):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?cityName
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate "2008-12-01"^^xsd:date .
+  
+  ?location a :Cl_SeminarLocation ;
+            :locationOfSeminar ?seminar ;
+            :locatedAt ?hospitalLocation .
+            
+  ?hospitalLocation :locatedIn ?city .
+  ?city :cityName ?cityName .
+}
+
+ORDER BY ?seminar
+
+This query navigates from the seminar, via its associated seminar location and then to the hospital location that is itself located in a city (whose name is returned). Since the question "Where did a certain seminar take place?" can be answered by extracting the city (in this case “Nocera Inferiore”), the CQ is supported by the ontology.

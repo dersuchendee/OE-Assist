@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the first employment date of a given person at a given hospital by finding the minimum employmentStartDate linked to an employment relation between those individuals:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?date) AS ?firstEmployment)
+WHERE {
+  ?employment a :Cl_Employment .
+  ?employment :employee ?person .
+  ?employment :employedAt ?hospital .
+  ?employment :employmentStartDate ?date .
+  FILTER(?person = :Pasquale_Di_Gennaro && ?hospital = :Ospedale_Riunito_delle_Tre_Valli)
+}
+---------------------------------
+
+This query fully leverages the properties defined in the ontology to answer the CQ under the closed world assumption.

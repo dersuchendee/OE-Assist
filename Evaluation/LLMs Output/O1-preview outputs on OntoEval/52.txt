@@ -1,0 +1,16 @@
+**Yes**
+
+Here is the SPARQL query that answers the competency question:
+
+```sparql
+PREFIX : <http://www.example.org/cvn_ontology#>
+
+SELECT ?cvn ?cvnLabel
+WHERE {
+  # Replace :ProcessA with the process of interest
+  :ProcessA :isProcessOf ?cvn .
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+}
+```
+
+This query retrieves the CVNs in which a specific process (e.g., `:ProcessA`) is used. It leverages the `:isProcessOf` property, which connects a `:Process` to the `:CVN` it is part of, as defined in the ontology. The `rdfs:label` is optionally retrieved for better readability of the results.

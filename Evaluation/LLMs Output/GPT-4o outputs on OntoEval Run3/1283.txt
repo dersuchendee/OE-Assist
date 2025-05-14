@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "In what context the meeting happened?" can be answered using the ontology provided. The ontology includes the class `Meeting` which has a property `hasContext` linking it to the class `Context`. The `Context` class further includes properties that describe various aspects of the context, such as `hasPurpose`, `involvesSector`, `hasSource`, `hasAnnotation`, and `hasSocialEnvironment`. Therefore, we can construct a SPARQL query to extract the context of a meeting.
+
+```sparql
+SELECT ?meeting ?context ?purpose ?sector ?source ?annotation ?socialEnvironment
+WHERE {
+  ?meeting a :Meeting .
+  ?meeting :hasContext ?context .
+
+  OPTIONAL { ?context :hasPurpose ?purpose . }
+  OPTIONAL { ?context :involvesSector ?sector . }
+  OPTIONAL { ?context :hasSource ?source . }
+  OPTIONAL { ?context :hasAnnotation ?annotation . }
+  OPTIONAL { ?context :hasSocialEnvironment ?socialEnvironment . }
+}
+```

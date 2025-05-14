@@ -1,0 +1,36 @@
+**Yes**
+
+Below is one example of a SPARQL query that – under a closed‐world assumption and using placeholder values – retrieves the (band) role that a given person has in a given band at a particular point in time. (In a real‐data scenario, you would replace the literal labels and time with the desired values.)
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleLabel ?timePeriod ?start ?end
+WHERE {
+  # select the person by name
+  ?person a :Cl_Person ;
+          rdfs:label "John Frusciante" ;
+          :hasRole ?bandRole .
+  
+  # the band role should be associated to a band (by the property :roleOf)
+  ?bandRole :roleOf ?band ;
+            rdfs:label ?roleLabel ;
+            :rolePeriod ?timePeriod .
+  
+  # select the band by name
+  ?band rdfs:label "Red Hot Chili Peppers" .
+  
+  # assume the time period is described with a start and end (if available)
+  ?timePeriod :startTime ?start ;
+              :endTime ?end .
+  
+  # filter to include only roles in effect at the desired point in time.
+  FILTER("2006-01-01T00:00:00Z"^^xsd:dateTime >= ?start &&
+         "2006-01-01T00:00:00Z"^^xsd:dateTime <= ?end)
+}
+ORDER BY ?roleLabel
+---------------------------------
+
+This query demonstrates that the ontology supports answering the CQ “What role does a certain person have in a certain band at a certain point in time?” by retrieving the band‐role (with its time period) that links a person and a band.

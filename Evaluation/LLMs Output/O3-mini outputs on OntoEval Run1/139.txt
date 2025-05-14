@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming the closed world, the ontology supports this competency question. The plays that can be seen at each festival are linked via the property :featuresPlay. For example, the following SPARQL query returns, for every instance of Cl_TheatreFestival, the plays featured in that festival (including optional labels if available):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival :featuresPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?festival
+
+This query demonstrates that the competency question "What plays could be seen during a certain theatre festival?" is answerable given the ontology.

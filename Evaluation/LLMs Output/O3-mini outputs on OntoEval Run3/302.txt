@@ -1,0 +1,17 @@
+**Yes**
+Below is a SPARQL query that retrieves, for a given play (e.g. “The Merchant of Venice”), its title and number of acts recorded via the reified play structure.
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle ?acts
+WHERE {
+  ?play a :Cl_PlayStructure ;
+        :numberOfActs ?acts ;
+        :playTitle ?playTitle .
+  FILTER(?playTitle = "The Merchant of Venice")
+}
+---------------------------------------------------------
+
+This query shows that the ontology explicitly models play structures (through the reification class :Cl_PlayStructure) with the data property :numberOfActs, which makes the competency question answerable under a closed world assumption.

@@ -1,0 +1,30 @@
+**No**
+
+The current ontology does not explicitly model any link between a TuneFamily (or its contained Tunes) and a composer. In other words, while we can retrieve Tunes and TuneFamilies, there is no property or relation in the ontology that connects a TuneFamily to a composer. Therefore, the competency question cannot be fully answered. However, below is a SPARQL query that retrieves the Tunes and their TuneFamilies – giving you a partial answer within the limits of the ontology.
+
+------------------------------------------------
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel ?tuneFamily ?tuneFamilyLabel
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+  
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel . }
+  
+  # Assuming a membership relation exists (e.g., a property linking a TuneFamily to the Tunes it contains),
+  # but since it is not modeled in the ontology, we provide a placeholder triple.
+  ?tuneFamily ?memberProp ?tune .
+  
+  # No triple indicating association with a composer exists.
+}
+ORDER BY ?tuneFamily ?tune
+
+------------------------------------------------
+
+Because there is no information regarding composers, this query only provides a partial answer.

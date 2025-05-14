@@ -1,0 +1,30 @@
+**No**
+
+The CQ asks for a person’s role in a band “at a certain point in time.” Although the ontology does relate persons to roles (via :hasRole and :roleInBand) and even contains membership information with start/end dates (in individuals of type :Cl_Membership), the time aspect is not directly connected to the role information. In other words, while you can tell what roles a person has, you cannot fully determine if that role was “active” at a given moment without manually matching the membership time properties. Thus the CQ is only partially answerable.
+
+Below is a SPARQL query that provides a partial answer by returning a person’s role together with membership start/end dates for a given band and filtering by a provided “point in time”:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?band ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?band .
+  ?person :hasRole ?role .
+  ?membership a :Cl_Membership ;
+              :memberOf ?band ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Replace :John_Frusciante and :Red_Hot_Chili_Peppers
+  # and the date "1989-01-01"^^xsd:date with your specific query parameters.
+  FILTER (?person = :John_Frusciante && ?band = :Red_Hot_Chili_Peppers &&
+         xsd:date("1989-01-01") >= ?membershipStart &&
+         ( !bound(?membershipEnd) || xsd:date("1989-01-01") <= ?membershipEnd ) )
+}
+ORDER BY ?person
+--------------------------------------------------
+
+This query will return the person’s role and the relevant membership dates; note that the time constraint is applied to the membership information rather than directly to the role assignment, so the answer is only partial.

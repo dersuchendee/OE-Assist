@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a hospital with a city. The ontology includes classes and properties related to hospitals, locations, and cities, but there is no direct property that links a hospital to a city. The closest available properties are `:locatedIn` and `:city`, which link hospitals to locations and locations to cities, respectively. However, without specific instances or data, we cannot determine the city for a given hospital.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?hospital ?location ?city
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?location .
+  ?location :city ?city .
+}
+```

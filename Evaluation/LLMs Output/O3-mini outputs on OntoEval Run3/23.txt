@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific water basin (passed as a parameter), retrieves all water bodies that belong to that basin:
+
+---------------------------------
+PREFIX : <http://www.example.org/ontology/water#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?waterBody ?wbLabel
+WHERE {
+  ?waterBody a :WaterBody ;
+             :belongsToBasin ?basin .
+  ?basin a :WaterBasin .
+  FILTER(?basin = <SPECIFIC_WATER_BASIN_URI>)
+  OPTIONAL { ?waterBody rdfs:label ?wbLabel . }
+}
+---------------------------------
+
+Replace <SPECIFIC_WATER_BASIN_URI> with the URI of the water basin of interest. This query fully supports the competency question under the closed world assumption.

@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?critiqueContent
+WHERE {
+  ?critic a :Cl_Critic ;
+          rdfs:label "Brian Hiatt" .
+  ?record a :Cl_Record ;
+           rdfs:label "Stadium Arcadium" .
+  ?critique a :Cl_Critique ;
+             :critiqueMadeBy ?critic ;
+             :critiqueOfRecord ?record ;
+             :critiqueContent ?critiqueContent .
+}
+```
+This query retrieves the content of the critique made by the critic "Brian Hiatt" about the record "Stadium Arcadium". The ontology provides the necessary classes (`:Cl_Critic`, `:Cl_Record`, `:Cl_Critique`) and properties (`:critiqueMadeBy`, `:critiqueOfRecord`, `:critiqueContent`) to model this information, allowing us to extract the answer to the competency question.

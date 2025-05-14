@@ -1,0 +1,21 @@
+**No**
+
+Because the ontology does not include properties that specify whether a set of bells is played electrically, manually, or both.
+
+Partial answer:
+
+```sparql
+PREFIX bell: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arccore: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?setOfBells ?setOfBellsLabel ?bell ?bellLabel
+WHERE {
+    ?setOfBells a bell:SetOfBells .
+    OPTIONAL { ?setOfBells rdfs:label ?setOfBellsLabel . }
+    ?setOfBells arccore:hasComponent ?bell .
+    OPTIONAL { ?bell rdfs:label ?bellLabel . }
+}
+```
+
+This query retrieves sets of bells and their components (bells), but the ontology lacks information about how they are played (electrically, manually, or both), so the competency question cannot be fully answered with the given ontology.

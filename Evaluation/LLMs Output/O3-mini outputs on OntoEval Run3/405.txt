@@ -1,0 +1,25 @@
+**Yes**
+
+The ontology models a production’s single premier via the Cl_ProductionPremier reification. Under the closed world assumption we assume that for every production only the explicitly stated premier event exists. For example, we can answer the CQ “A production has exactly one premier” with the following SPARQL query that returns each production having exactly one associated premier (via the property premierOf):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  {
+    SELECT ?production (COUNT(?premier) AS ?premierCount) (MIN(?premierDate) AS ?premierDate)
+    WHERE {
+      ?premier a :Cl_ProductionPremier ;
+               :premierOf ?production ;
+               :premierDate ?premierDate .
+    }
+    GROUP BY ?production
+    HAVING (COUNT(?premier) = 1)
+  }
+}
+ORDER BY ?production
+------------------------------------------------
+
+This query retrieves productions that have exactly one premier event (as represented by a Cl_ProductionPremier instance) and its premier date.

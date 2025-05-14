@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the location of a specific festival. The `tookPlaceIn` property is used to associate a festival with a city, but there is no direct connection between a specific festival instance and its location in the ontology. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  OPTIONAL { ?festival ns1:tookPlaceIn ?city . }
+}
+```

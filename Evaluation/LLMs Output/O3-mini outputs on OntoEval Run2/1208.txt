@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the level of confidence linking a particular Composition (X) with a specific Tune Family (Y):
+
+--------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?tuneFamily ?confidence
+WHERE {
+  ?composition a :Composition .
+  ?tuneFamily a :TuneFamily .
+  
+  ?composition :hasVariantRelationship ?vr .
+  ?tuneFamily :isPartOfVariantRelationship ?vr .
+  
+  ?vr :hasLevelOfConfidence ?confidence .
+  
+  # Replace :Composition_X and :TuneFamily_Y with the IRIs for composition X and tune family Y, respectively.
+  FILTER (?composition = :Composition_X && ?tuneFamily = :TuneFamily_Y)
+}
+--------------------------
+
+This query assumes that composition X and tune family Y are explicitly identified in the ontology (here using placeholders :Composition_X and :TuneFamily_Y) and retrieves the level of confidence (:hasLevelOfConfidence) associated with their variant relationship, thus fully answering the competency question under the closed world assumption.

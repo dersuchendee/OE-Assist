@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to associate members with a specific ensemble at a certain point in time. The ontology includes classes and properties related to ensembles, productions, and roles, but it lacks a direct connection between a specific ensemble and its members at a specific time.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?ensemble ?member ?production
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?member .
+  ?production :hasEnsemble ?ensemble .
+}
+```
+
+This query retrieves ensembles, their members, and the productions they are associated with, but it does not include temporal information.

@@ -1,0 +1,37 @@
+**Yes**
+
+The ontology fully captures the multiple facets of nurse practices in cancer patient care. For example, it specifies that an article collection (a Cl_ArticleCollection) contains a particular article (a Cl_Article), that a publication (a Cl_Publication) is issued as a book (a Cl_Book) with details such as title and number of pages, and that a seminar presentation (a Cl_SeminarPresentation) presents that article in a seminar (a Cl_Seminar with a seminar date). This interconnected modelling lets us extract a complete picture of the research outputs and presentations.
+
+Under a closed‐world assumption, a SPARQL query to answer a competency question such as “What are the details (article title, published book details, publication date, and seminar date) for the nurse practices in cancer patient care?” becomes possible. One valid SPARQL query is as follows:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?articleTitle ?bookTitle ?numberOfPages ?publicationDate ?seminarDate
+WHERE {
+  # Get the article contained in the article collection
+  :NursePracticesInCancerPatientCare :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+  
+  # Get details on the publication published as a book
+  ?publication a :Cl_Publication ;
+               :publishedAs ?book ;
+               :publicationDate ?publicationDate .
+  ?book a :Cl_Book ;
+        :bookTitle ?bookTitle ;
+        :numberOfPages ?numberOfPages .
+  
+  # Get the seminar presentation details for the article
+  ?presentation a :Cl_SeminarPresentation ;
+                :presentationOf ?article ;
+                :presentedIn ?seminar .
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+ORDER BY ?publicationDate
+-------------------------------------------------------------
+
+This query retrieves the title of the article contained in the “NursePracticesInCancerPatientCare” collection, the corresponding book title with its page number and publication date, as well as the seminar date where the article was presented.

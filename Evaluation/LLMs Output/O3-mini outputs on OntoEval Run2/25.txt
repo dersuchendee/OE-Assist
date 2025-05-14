@@ -1,0 +1,27 @@
+**No**
+The ontology does include a notion of a manufacturer (as the individual actor:manufacturer and by way of process participation in manufacturing processes) and it has classes for products and manufacturing processes. However, there is no direct axiom linking an individual product to its manufacturer. In the available ontology one can only indirectly associate a product to a manufacturer via a manufacturing process and a process participation (where the participant’s role is actor:manufacturer). Due to this indirect modelling—and under the closed‐world assumption—the competency question “Who is the manufacturer of a certain product?” cannot be answered completely. We can only extract a partial answer by retrieving products for which a manufacturing process is recorded together with a participation that has the manufacturer role.
+
+Below is an example SPARQL query that partially answers the CQ by retrieving, for each product produced by a manufacturing process, the actor that participates with the manufacturer role:
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX process: <http://w3id.org/CEON/ontology/process/>
+PREFIX product: <http://w3id.org/CEON/ontology/product/>
+
+SELECT ?product ?productLabel ?manufacturer
+WHERE {
+  ?product a product:Product .
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+  
+  ?process a process:ManufacturingProcess .
+  ?process process:resultingProduct ?product .
+  
+  ?participation a actor:ProcessParticipation .
+  ?participation actorODP:participationIn ?process .
+  ?participation actorODP:participatingActor ?manufacturer .
+  ?participation actorODP:participantRole actor:manufacturer .
+}
+ORDER BY ?product
+
+This query extracts the products that were produced via a manufacturing process and finds the associated manufacturer(s) based on participation. Because the ontology does not assert a direct relation between a product and its manufacturer, the CQ is not fully supported.

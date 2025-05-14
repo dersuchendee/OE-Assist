@@ -1,0 +1,19 @@
+**Yes**
+Below is one SPARQL query that extracts the hospital (and, optionally, the city) where the seminar took place:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?hospital ?city
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :heldIn ?hospital ;
+           :seminarDate ?date .
+  OPTIONAL { ?hospital :locatedIn ?city . }
+  FILTER(?date >= "2008-12-01"^^xsd:date && ?date < "2009-01-01"^^xsd:date)
+}
+ORDER BY ?seminar
+---------------------------------
+
+In this query the ontology’s property :heldIn links the seminar to the hospital. The OPTIONAL clause retrieves the related city (via the :locatedIn property) if available.

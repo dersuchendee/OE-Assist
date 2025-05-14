@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that verifies that every album (record) has at least one track (i.e. that each album has one or more :containsTrack relations):
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+HAVING (COUNT(?track) >= 1)
+──────────────────────────────
+
+In a closed world, if an album were missing any track, it would either not be asserted as a member of :Cl_Album (or would not meet the modeling constraint). Thus, the ontology “models” the CQ that a record always contains at least one track.

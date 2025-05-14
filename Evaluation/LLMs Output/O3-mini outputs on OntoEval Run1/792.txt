@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each person, the degree they studied for together with the corresponding study period (i.e. the start and end dates):
+
+PREFIX : <http://example.org/medical_degrees#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  ?person :studiesFor ?degree .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :hasStartDate ?startDate .
+  ?studyPeriod :hasEndDate ?endDate .
+}
+
+Under the closed world assumption and given that the ontology reifies the study period of a degree via the properties “hasStudyPeriod”, “hasStartDate”, and “hasEndDate”, the competency question is fully supported by the ontology.

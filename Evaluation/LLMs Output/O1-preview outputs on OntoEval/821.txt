@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?person ?hospital ?employmentDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment a :Cl_PersonHospitalEmployment .
+  ?employment :employmentDate ?employmentDate .
+  ?employment :employedAt ?hospital .
+  ?hospital a :Cl_Hospital .
+}
+```

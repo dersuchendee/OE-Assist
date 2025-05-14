@@ -1,0 +1,26 @@
+**Yes**
+Below is an example SPARQL query that finds the preferred system action for a user whose context indicates a Berlin location and a morning time:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?action ?location ?time
+WHERE {
+  ?user a :Cl_User ;
+        :op_prefers ?preference .
+        
+  ?preference a :Cl_UserPreferredAction ;
+              :op_hasPreferredAction ?action ;
+              :op_inContext ?context .
+  
+  ?context :dp_hasLocation ?location ;
+           :dp_hasTime ?time .
+  
+  FILTER(regex(?location, "Berlin", "i"))
+  FILTER((?time >= "06:00:00"^^xsd:time) && (?time < "12:00:00"^^xsd:time))
+}
+ORDER BY ?user
+-------------------------------------------------
+
+This query verifies the competency question by retrieving the system action (from the Cl_SystemAction instances) preferred by a user (Cl_User) through the reified preference (Cl_UserPreferredAction) that is linked to a context (Cl_Context) meeting the story’s conditions.

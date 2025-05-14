@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that uses the reified membership relationships (using the class Cl_Membership with start and end dates) to retrieve the members of a given band at a specified point in time. (In this example the band is given by its IRI and the time is provided as a literal date.)
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?startDate ?endDate
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :memberOf <http://www.example.org/test#RedHotChiliPeppers> .
+  ?membership :member ?member .
+  ?membership :startDate ?startDate .
+  OPTIONAL { ?membership :endDate ?endDate . }
+  OPTIONAL { ?member :name ?memberName . }
+  
+  # Filter by membership period: the chosen query date must fall within [startDate, endDate].
+  # If there is no endDate then we assume the membership is still active.
+  FILTER (
+    xsd:date("2006-05-01") >= ?startDate &&
+    ( !BOUND(?endDate) || xsd:date("2006-05-01") <= ?endDate )
+  )
+}
+ORDER BY ?startDate
+—————————————————————————————
+
+In this query, the date "2006-05-01" is used as an example point in time. You can replace the band IRI and the date literal with appropriate values to answer the CQ for any band and any chosen point in time.

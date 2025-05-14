@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not fully support the competency question because there is no explicit connection between the `Cl_ProductionRole` and a specific `Cl_Production` individual. While `Cl_ProductionRole` is a subclass of both `Cl_Person` and `Cl_Production`, there isn't an object property linking a `Cl_ProductionRole` instance to a separate `Cl_Production` instance. Therefore, we cannot retrieve the roles a person has within a certain production at a certain point in time. 
+
+However, we can extract a partial answer by retrieving the roles a person has and the dates, but without the specific production information.
+
+```sparql
+SELECT ?person ?roleName ?roleDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRoleInProduction ?productionRole .
+  ?productionRole a :Cl_ProductionRole .
+  ?productionRole :roleName ?roleName .
+  ?productionRole :roleDate ?roleDate .
+}
+```

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for ensemble members at a specific point in time. The ontology includes classes and properties related to theatre productions, actors, roles, and ensembles, but it lacks a direct representation of time-specific ensemble membership. Here's a SPARQL query to extract a partial answer, focusing on ensemble members without the time aspect:
+
+```sparql
+SELECT ?ensemble ?actor ?actorName
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?actor .
+  ?actor :hasName ?actorName .
+}
+```

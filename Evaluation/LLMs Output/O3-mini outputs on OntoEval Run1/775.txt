@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the individual in question is represented (for example, as :Pasquale_Di_Gennaro), the ontology already links persons to their medical degrees using the property :hasMedicalDegree. Under a closed world assumption (i.e. if an individual is not asserted to have a degree then they do not have one), you can retrieve the medical degrees for a given person using a query like this:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?degree rdfs:label ?degreeLabel. }
+  FILTER(?person = :Pasquale_Di_Gennaro)
+}
+--------------------------------------------------
+
+This query answers the competency question by extracting the medical degrees associated with the specified person.

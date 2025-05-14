@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any properties or classes related to critics or critiques of records. Therefore, the competency question cannot be fully answered using the given ontology. However, we can extract partial information about records (albums) and their details.
+
+```sparql
+SELECT ?album ?releaseDate ?track
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :albumReleaseDate ?releaseDate . }
+  OPTIONAL { ?album :albumContainsTrack ?track . }
+}
+```

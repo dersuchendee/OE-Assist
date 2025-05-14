@@ -1,0 +1,18 @@
+**No**
+
+We cannot fully answer “most common” since the ontology lacks a quantitative (or ordinal) attribute that lets us rank the microbes by their abundance—for example, there is no numerical value or explicit metric for comparing StandardAbundanceLevel individuals. However, we can at least retrieve, for a given aquifer environment, the microbes that are recorded in that habitat along with their abundance level. For instance, under the closed world assumption you can run this partial query (replace <Aquifer_URI> with the actual aquifer identifier):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbe ?microbeLabel ?abundance ?abundanceLabel
+WHERE {
+  ?microbe a :Microbe .
+  ?microbe :hasPresence ?presence .
+  ?presence :observedIn <Aquifer_URI> .
+  ?presence :hasAbundanceLevel ?abundance .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel . }
+  OPTIONAL { ?abundance rdfs:label ?abundanceLabel . }
+}
+
+This query extracts all microbes in the specified aquifer environment along with the recorded abundance levels, but it does not “rank” them as “most common” without further quantitative data.

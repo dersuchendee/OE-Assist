@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play ;
+        :hasPlayTimePeriod ?period .
+  ?period :startYear ?startYear ;
+          :endYear ?endYear .
+  ?play :playName "The Merchant of Venice" .
+}
+```

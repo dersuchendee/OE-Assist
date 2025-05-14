@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?event ?isAccidental ?person ?hasInvited
+WHERE {
+  ?event a :MeetingEvent .
+  OPTIONAL { ?event :isAccidental ?isAccidental . }
+  
+  ?participation a :Participation .
+  ?participation :involvesEvent ?event .
+  ?participation :involvesPerson ?person .
+  OPTIONAL { ?participation :hasInvited ?hasInvited . }
+}
+```

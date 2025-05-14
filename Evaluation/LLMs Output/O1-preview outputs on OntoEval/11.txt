@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?instrument ?instrumentLabel ?physicalRealization ?physicalRealizationLabel
+WHERE {
+  ?instrument rdf:type :MusicalInstrument .
+  ?instrument :hasPhysicalRealization ?physicalRealization .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  OPTIONAL { ?physicalRealization rdfs:label ?physicalRealizationLabel . }
+}
+```

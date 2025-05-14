@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+  
+  # If you wish to restrict to a specific album (e.g., "Stadium Arcadium"), you could add:
+  # ?album rdfs:label "Stadium Arcadium" .
+}
+```
+
+This query retrieves the release date for albums (instances of :Cl_Album), which fully addresses the competency question "When was a certain album released?" under the closed world assumption.

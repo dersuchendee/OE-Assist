@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the events (i.e. bookings) from the user's calendar which occur during a given time period. (In the query, replace the start and end datetime literals with your desired time boundaries.)
+
+--------------------------------------------------
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?startTime ?endTime
+WHERE {
+  :myCalendar :containsEvent ?event .
+  ?event :hasTimePeriod ?tp .
+  ?tp :startTime ?startTime ;
+      :endTime ?endTime .
+  
+  # Filter events that occur within the specified time period.
+  # Here, the condition checks for events whose time period overlaps with the queried interval.
+  FILTER (
+    ?startTime < "2023-04-01T23:59:59Z"^^xsd:dateTime &&
+    ?endTime > "2023-04-01T00:00:00Z"^^xsd:dateTime
+  )
+}
+--------------------------------------------------
+
+This query answers the competency question by extracting the bookings (events) from the user's calendar that fall within (or overlap with) the specified time period.

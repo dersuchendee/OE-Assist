@@ -1,0 +1,41 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, retrieves pairs of musicians whose working periods overlap—that is, who were active at the same time:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?musician1 ?musician1Label ?musician2 ?musician2Label ?startYear1 ?endYear1 ?startYear2 ?endYear2
+WHERE {
+  ?musician1 a :Musician .
+  OPTIONAL { ?musician1 rdfs:label ?musician1Label . }
+  ?musician1 :hasWorkingPeriod ?wp1 .
+  ?wp1 :startYear ?startYear1 .
+  OPTIONAL { ?wp1 :endYear ?endYear1 . }
+  
+  ?musician2 a :Musician .
+  OPTIONAL { ?musician2 rdfs:label ?musician2Label . }
+  ?musician2 :hasWorkingPeriod ?wp2 .
+  ?wp2 :startYear ?startYear2 .
+  OPTIONAL { ?wp2 :endYear ?endYear2 . }
+  
+  FILTER(?musician1 != ?musician2)
+  # Assume, under closed world, that if an end year is missing it prevents overlap,
+  # or use a fallback value. Here we filter for overlapping periods:
+  FILTER (
+      (bound(?endYear1) && bound(?endYear2) && ?endYear1 >= ?startYear2 && ?endYear2 >= ?startYear1)
+      ||
+      (bound(?endYear1) && !bound(?endYear2) && ?endYear1 >= ?startYear2)
+      ||
+      (!bound(?endYear1) && bound(?endYear2) && ?endYear2 >= ?startYear1)
+  )
+}
+ORDER BY ?musician1 ?musician2
+------------------------------------------------------------
+
+Explanation:
+• This query retrieves pairs of musicians along with their respective working period start and (optional) end years.
+• The FILTER conditions check that the working periods overlap by ensuring one musician’s period does not completely end before the other starts.
+• Under the closed world assumption, properties are assumed complete; if an end year is missing it is handled by the FILTER so as not to falsely assume overlap.
+• The query returns the musicians (and labels, if available) and their working period information, addressing the competency question about the temporal relationships between musicians.

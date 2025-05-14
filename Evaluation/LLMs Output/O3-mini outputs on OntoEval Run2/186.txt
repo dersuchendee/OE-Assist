@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that uses the provided ontology (with its Cl_City class and the isLocatedInCountry property) to answer the CQ “In what country is a certain city located?” under a closed‐world assumption. (Replace the placeholder :SpecificCity with the actual city IRI.)
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityLabel ?country
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  ?city :isLocatedInCountry ?country.
+  FILTER(?city = :SpecificCity)  # Replace :SpecificCity with the actual city identifier
+}
+-----------------------------------------------------------

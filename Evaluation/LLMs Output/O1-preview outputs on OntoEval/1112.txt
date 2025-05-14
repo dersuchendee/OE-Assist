@@ -1,0 +1,27 @@
+**Yes**
+
+The ontology provides classes and properties that model sensor data associated with a user's context. Specifically, `:Cl_UserBrushingActivity` connects a user to sensor data through the `:hasUser` and `:hasSensorData` properties. The sensor data includes information about location and objects, with properties like `:isAlone`, `:isFacing`, and `:isHolding`. Therefore, we can write a SPARQL query to extract the sensor data known about a user's context.
+
+```sparql
+SELECT ?user ?sensorData ?timestamp ?location ?object ?isAlone ?isFacing ?isHolding
+WHERE {
+  ?activity a :Cl_UserBrushingActivity .
+  ?activity :hasUser ?user .
+  ?activity :hasSensorData ?sensorData .
+  
+  OPTIONAL { ?sensorData :hasTimestamp ?timestamp . }
+  
+  OPTIONAL { 
+    ?sensorData :hasLocation ?location .
+    OPTIONAL { ?location :isAlone ?isAlone . }
+    OPTIONAL { ?location :isFacing ?isFacing . }
+  }
+  
+  OPTIONAL { 
+    ?sensorData :hasObject ?object .
+    OPTIONAL { ?object :isHolding ?isHolding . }
+  }
+}
+```
+
+This query retrieves all sensor data related to users' contexts by traversing the relationships defined in the ontology. It gathers information about the user, associated sensor data, timestamps, locations, objects, and relevant properties of each, providing a comprehensive view of the sensor data known about a user's context.

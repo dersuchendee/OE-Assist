@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What does a certain critic say about a certain record?" can be answered using the ontology provided. The ontology includes classes and properties that relate critics to their reviews of music albums. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?critic ?criticLabel ?album ?albumLabel ?review ?reviewContent
+WHERE {
+  ?album a :MusicAlbum .
+  ?album :reviewedBy ?critic .
+  ?critic :hasReview ?review .
+  ?review :reviewContent ?reviewContent .
+
+  OPTIONAL { ?critic rdfs:label ?criticLabel . }
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+}
+```

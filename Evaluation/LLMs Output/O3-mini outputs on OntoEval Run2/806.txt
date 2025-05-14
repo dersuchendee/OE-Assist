@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?studyStart ?studyEnd
+WHERE {
+  ?studyRecord a :Cl_PersonDegreeStudy .
+  ?studyRecord :personHasStudy ?person .
+  ?studyRecord :studyInvolvesDegree ?degree .
+  ?studyRecord :studyDuringPeriod ?studyPeriod .
+  ?studyPeriod :studyStart ?studyStart .
+  ?studyPeriod :studyEnd ?studyEnd .
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given person and degree, the study period (start and end dates) from the ontology. In a closed-world scenario the study period information is expected to be completely asserted through the reified class Cl_PersonDegreeStudyPeriod using the properties :hasPerson, :hasDegree, :studyStartDate and :studyEndDate.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?studyStartDate ?studyEndDate
+WHERE {
+  ?studyPeriod a :Cl_PersonDegreeStudyPeriod ;
+               :hasPerson ?person ;
+               :hasDegree ?degree ;
+               :studyStartDate ?studyStartDate ;
+               :studyEndDate ?studyEndDate .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?degree rdfs:label ?degreeLabel. }
+}
+ORDER BY ?person ?studyStartDate
+--------------------------------------------------
+
+This query demonstrates that the competency question is fully answerable via the provided ontology design.

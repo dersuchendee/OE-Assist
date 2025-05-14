@@ -1,0 +1,19 @@
+**Yes**
+Below is one SPARQL query that uses the reified structure in the ontology to retrieve, for a given performance, the songs that were played:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedSong ?performanceSong .
+  ?performanceSong :songPerformed ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  # Uncomment and adjust the following FILTER to select a particular performance if needed:
+  # FILTER(?performance = <http://www.example.org/test#SpecificPerformance>)
+}
+--------------------------------------------------
+
+Under a closed world assumption, this query will return the songs reified via the intermediate class (Cl_PerformanceSong) that have been associated with the queried performance, thereby answering the competency question.

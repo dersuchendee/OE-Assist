@@ -1,0 +1,19 @@
+**Yes**  
+Below is one SPARQL query that retrieves each production together with its exactly one premiere:
+
+------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premiere
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremiere ?premiere .
+}
+GROUP BY ?production ?premiere
+HAVING (COUNT(?premiere) = 1)
+ORDER BY ?production
+------------------------------------------------------------------
+
+In this query, we assume a closed world where the asserted data fully specifies that each production has exactly one premiere.

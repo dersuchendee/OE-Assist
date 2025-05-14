@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the number of tracks for a given album (in this case “Stadium Arcadium”):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumName ?trackCount
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasName ?albumName .
+  ?album :hasTrackCount ?trackInfo .
+  ?trackInfo :hasTrackCount ?trackCount .
+  FILTER(?albumName = "Stadium Arcadium")
+}
+--------------------------------------------------
+
+Explanation:
+• The ontology models the album’s track count using a reified class (:Cl_AlbumTrackInfo) linked to the album via the property :hasTrackCount.
+• The query looks up an album (instance of :Cl_MusicAlbum) with a given name and retrieves the associated track count from the related reification node.
+• Under the closed world assumption only the stated information is assumed, making the answer derivable from the given assertions.

@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology supports this competency question. We can extract the employment start dates by querying for instances of employment that link a person and a hospital with an employment start date. For example, one SPARQL query under the closed‐world assumption is:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmployment)
+WHERE {
+  ?employment a :Cl_Employment ;
+              :employee ?person ;
+              :employedAt ?hospital ;
+              :employmentStartDate ?startDate .
+}
+GROUP BY ?person ?hospital
+---------------------------------------
+
+This query returns for each person and hospital the earliest (first) employment start date.

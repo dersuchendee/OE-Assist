@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the articles composing a specific book or CD. In this example, we use the individual “NursePracticesInCancerPatientCare” (of type Cl_Book) to retrieve its composed articles:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  :NursePracticesInCancerPatientCare a ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD)
+  
+  :NursePracticesInCancerPatientCare :composedOf ?article .
+  ?article :articleTitle ?articleTitle .
+}
+------------------------------------------------
+
+This query shows that the ontology models the competency question since the “composedOf” property connects a book/CD to its articles, and the article title can be retrieved.

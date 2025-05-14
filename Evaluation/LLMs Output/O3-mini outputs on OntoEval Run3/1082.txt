@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the seminar along with the location where it took place:
+
+------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?seminarDate ?location
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarTookPlaceAt ?location .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+}
+------------------------------------------
+
+Under the closed world assumption, this query extracts the seminars that have an explicit location assigned via the property :seminarTookPlaceAt, thus directly answering the competency question "Where did a certain seminar take place?"

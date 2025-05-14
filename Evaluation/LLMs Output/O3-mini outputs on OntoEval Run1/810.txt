@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves for each person the specific degree and its study period (using the reified degree record in Cl_PersonDegree):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?person :hasDegree ?personDegree .
+  
+  ?personDegree :studyStartDate ?studyStartDate ;
+                :studyEndDate ?studyEndDate ;
+                :degreeType ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+}
+ORDER BY ?person ?studyStartDate

@@ -1,0 +1,14 @@
+**No**
+
+```sparql
+SELECT ?actorName ?employmentStartDate
+WHERE {
+  ?actor rdf:type :Cl_Actor .
+  ?actor :actorName ?actorName .
+  ?actor :employedAt ?employment .
+  ?employment rdf:type :Cl_ActorEmployment .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```
+
+We cannot fully answer the competency question because the ontology lacks a direct way to associate a specific theatre with an actor's employment. While we can retrieve the actor's name and their employment start date through the `:employedAt` property and the `:employmentStartDate` data property, there is no object property or data property in the ontology that allows us to extract the theatre's name or identify the specific theatre where the actor started working. The class `:Cl_ActorEmployment` is a subclass of `:Cl_Actor`, `:Cl_Theatre`, and `:Cl_Date`, but without a property to specify the theatre's name or relate to a theatre entity, we cannot provide a complete answer to the competency question.

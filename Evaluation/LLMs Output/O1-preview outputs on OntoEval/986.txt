@@ -1,0 +1,33 @@
+Answer: **Yes**
+
+The competency question can be answered because the ontology includes the `:pageCount` property for books, and the page count is specified for the individual book `:Book_Nurse_Practices`.
+
+Here is a SPARQL query to retrieve the number of pages a particular book contains:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookTitle ?pageCount
+WHERE {
+    ?book a :Cl_Book .
+    ?book rdfs:label ?bookTitle .
+    ?book :pageCount ?pageCount .
+}
+```
+
+This query retrieves the titles and page counts of all books in the ontology. If you want to find the page count of a specific book, you can modify the query by adding a filter or specifying the book title:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?pageCount
+WHERE {
+    ?book a :Cl_Book .
+    ?book rdfs:label "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" .
+    ?book :pageCount ?pageCount .
+}
+```
+
+This query will return the page count for the specified book.

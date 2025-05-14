@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the specific date of a seminar event. The ontology includes a `:hasDate` property for `:Cl_SeminarEvent`, but there is no direct connection between a specific seminar and its date in the provided ontology. Therefore, a partial answer can be extracted by querying for seminar events and their associated dates, but it will not specify which seminar took place on a certain date.
+
+```sparql
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Cl_SeminarEvent .
+  ?seminar :hasDate ?date .
+}
+```

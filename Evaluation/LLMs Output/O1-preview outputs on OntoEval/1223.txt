@@ -1,0 +1,27 @@
+**Yes**
+
+Since the ontology defines that `RareSpecies` perform some `EcologicalFunction` and are members of `MicrobialCommunity`, we can retrieve the ecological functions that rare species perform in microbial communities from the ontology schema.
+
+```sparql
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?function ?functionLabel
+WHERE {
+  # Retrieve the ecological functions performed by RareSpecies
+  :RareSpecies rdfs:subClassOf ?restriction1 .
+  ?restriction1 owl:onProperty :performsFunction .
+  ?restriction1 owl:someValuesFrom ?function .
+  
+  # Ensure that RareSpecies are members of MicrobialCommunity
+  :RareSpecies rdfs:subClassOf ?restriction2 .
+  ?restriction2 owl:onProperty :isMemberOfCommunity .
+  ?restriction2 owl:someValuesFrom :MicrobialCommunity .
+  
+  # Get labels for the functions, if available
+  OPTIONAL { ?function rdfs:label ?functionLabel . }
+}
+```
+
+This query extracts the `EcologicalFunction` classes that `RareSpecies` perform, given that they are members of `MicrobialCommunity`, as specified in the ontology.

@@ -1,0 +1,23 @@
+**Yes**
+
+The ontology defines media (with Cl_Media) with a subclass Cl_Book (and, by implication, other media types such as CDs may also be modelled as instances of Cl_Media). In addition, the properties 
+  :composedOf (with domain Cl_Media and range Cl_ArticleCollection) and 
+  :containsArticle (with domain Cl_ArticleCollection and range Cl_Article) 
+connect a media item (e.g., a book or CD) to the articles it contains (whose titles can be retrieved via the property :articleTitle). Therefore, using the closed world assumption, one can write a SPARQL query to extract the answer.
+
+For example, if you want to list the articles contained in a specific media item identified by its IRI (<http://www.example.org/test#MyMediaItem>), you could use the following query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?media ?article ?articleTitle
+WHERE {
+  ?media a :Cl_Media .
+  ?media :composedOf ?collection .
+  ?collection :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+  FILTER(?media = <http://www.example.org/test#MyMediaItem>)
+}
+
+This query retrieves the media item (book or CD), its associated article collection, and the titles of each article it is composed of.

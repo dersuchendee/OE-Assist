@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide explicit information about the time period during which an album was recorded. The ontology includes a `recordedDuring` property for `Cl_AlbumRecording`, but it does not specify a time period or range. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?album ?recording ?recordedDuring
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasRecording ?recording .
+  ?recording :recordedDuring ?recordedDuring .
+}
+```

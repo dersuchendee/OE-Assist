@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves the first employment date for a given person at a given hospital by using the reified employment information (i.e. the Cl_PersonHospitalEmployment instance):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personLabel ?hospitalLabel (MIN(?empDate) AS ?firstEmploymentDate)
+WHERE {
+  ?employmentRec a :Cl_PersonHospitalEmployment ;
+                 :personEmployedAtHospital ?person ;
+                 :hospitalHasEmployee ?hospital ;
+                 :employmentStartedOn ?employment .
+                 
+  ?employment :employmentDate ?empDate .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  # Closed-world filtering for a “certain person” at a “certain hospital”
+  FILTER( ?personLabel = "Pasquale Di Gennaro" &&
+          ?hospitalLabel = "Ospedale Riunito delle Tre Valli" )
+}
+GROUP BY ?personLabel ?hospitalLabel
+-------------------------------------------------
+
+In this query, the reified record (an instance of Cl_PersonHospitalEmployment) connects a person, a hospital, and an employment record; then the MIN aggregation on ?empDate returns the earliest employment date for that person at that hospital.

@@ -1,0 +1,32 @@
+**Yes**
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the employment start date (i.e. the time the actor started working for the theatre) for a given actor and theatre. In this ontology the employment relationship is reified by the class Cl_Employment (which is a subclass of Cl_Actor, Cl_Theatre, and Cl_Date) and connected via the property :isEmployedAt. The data property :employmentStartDate of Cl_Employment provides the needed date.
+
+For example, to retrieve the employment start date along with actor and theatre labels, you could use:
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  OPTIONAL { ?actor rdfs:label ?actorName . }
+  
+  ?actor :isEmployedAt ?employment .
+  ?employment a :Cl_Employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  
+  # Because Cl_Employment is also a subclass of Cl_Theatre, we can get theatre info:
+  ?employment a :Cl_Theatre .
+  BIND(?employment AS ?theatre) .
+  OPTIONAL { ?theatre rdfs:label ?theatreName . }
+  
+  # Optionally, to specify a given actor or theatre, add FILTER or VALUES clauses.
+}
+ORDER BY ?actor ?employmentStartDate
+-----------------------------------------------
+
+This query shows that the competency question 
+  “At what time did a certain actor start working for a specific theatre?” 
+is fully answerable via the ontology.

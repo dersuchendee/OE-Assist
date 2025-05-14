@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves a review written by a specific critic about a specified record (album):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?reviewContent
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasReview ?review .
+  ?review :writtenBy ?critic .
+  ?review :reviewContent ?reviewContent .
+  
+  # Replace the following IRIs with the actual critic and album of interest
+  FILTER(?critic = <http://www.example.org/test#CriticExample> &&
+         ?album = <http://www.example.org/test#AlbumExample>)
+}
+------------------------------------------------
+
+In this query, we assume that:
+– The record is represented as an instance of :Cl_Album.
+– The review associated with the album is linked via :hasReview.
+– The review is written by a critic (an instance of :Cl_Critic) using the property :writtenBy.
+– The content of the review is captured by the property :reviewContent.
+
+This query demonstrates that the competency question “What does a certain critic say about a certain record?” is fully modeled by the ontology.

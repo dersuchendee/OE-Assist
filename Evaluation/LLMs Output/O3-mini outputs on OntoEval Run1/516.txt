@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the number of tracks for a given album (in this example, “Stadium Arcadium”):
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?numTracks
+WHERE {
+  ?album a :Album .
+  ?album rdfs:label ?albumLabel .
+  FILTER(STR(?albumLabel) = "Stadium Arcadium")
+  ?album :numberOfTracks ?numTracks .
+}
+
+This query shows that the ontology directly provides a data property (:numberOfTracks) for albums, so the competency question is fully supported.

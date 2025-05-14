@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not directly support the competency question "What instruments does a certain person play?" because there is no direct connection between a person and the instruments they play. The ontology includes classes and properties related to band membership, roles, and performances, but it lacks a direct representation of the relationship between a person and the instruments they play.
+
+However, we can extract a partial answer by identifying the people and their roles in bands, which might imply the instruments they play, but this is not explicitly modeled in the ontology.
+
+```sparql
+SELECT ?person ?role
+WHERE {
+  ?bandRole a :Cl_BandRole .
+  ?bandRole :hasRoleInBand ?person .
+  ?bandRole :hasRole ?role .
+}
+```

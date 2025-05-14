@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that—under a closed‐world assumption—retrieves those persons who are members of a given union at a specified date. In this query the union is provided (e.g. :Union_Male_Nurses) and the date (e.g. "2003-01-01") is used to filter memberships that started on or before that date and (if an end date is declared) ended on or after that date. If no end date is provided we assume the membership is still valid.
+
+–––––––
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOfUnion :Union_Male_Nurses ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  
+  # Specify the point in time of interest
+  FILTER (
+    ?start <= "2003-01-01"^^xsd:date &&
+    ( !BOUND(?end) || ?end >= "2003-01-01"^^xsd:date )
+  )
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+–––––––
+
+This query answers the CQ “Who are the members of a certain union at a certain point in time?” by retrieving persons whose membership period (starting date, and if available, ending date) covers the specified date.

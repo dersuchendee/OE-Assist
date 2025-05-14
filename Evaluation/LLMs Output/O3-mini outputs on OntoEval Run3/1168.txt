@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology links an Implementation Action to an Effect via the property :hasEffect, and the Effect is connected to an External Factor (which may be a SocialFactor or EnvironmentalFactor) through :affectsFactor. Assuming a closed world, we can extract the relevant effects – and their corresponding implementation actions – that impact social and environmental factors with the following SPARQL query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?action ?actionLabel ?effect ?effectLabel ?factor ?factorLabel
+WHERE {
+  ?action a :ImplementationAction .
+  OPTIONAL { ?action rdfs:label ?actionLabel. }
+  
+  ?action :hasEffect ?effect .
+  OPTIONAL { ?effect rdfs:label ?effectLabel. }
+  
+  ?effect :affectsFactor ?factor .
+  OPTIONAL { ?factor rdfs:label ?factorLabel. }
+  
+  FILTER (?factor = :SocialFactor || ?factor = :EnvironmentalFactor)
+}
+------------------------------------------------
+
+This query retrieves all implementation actions with their associated effects and restricts the affected factors to those that are either :SocialFactor or :EnvironmentalFactor, thus answering the CQ under the closed world assumption.

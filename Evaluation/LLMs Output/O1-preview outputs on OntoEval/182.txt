@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?city ?cityName ?countryName
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedIn ?cityCountry .
+  ?cityCountry :countryName ?countryName .
+  OPTIONAL {
+    ?city a :Cl_TheatreLocation .
+    ?city :cityName ?cityName .
+  }
+}
+```

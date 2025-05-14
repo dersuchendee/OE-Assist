@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "At what time did a certain actor start working for a specific theatre?" can be answered using the ontology provided. The ontology includes information about actors, their employment, and the start date of their employment at a specific theatre. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor a theatre:Actor .
+  ?actor theatre:hasEmployment ?employment .
+  ?employment theatre:hasTheatre ?theatre .
+  ?employment theatre:hasStartDate ?startDate .
+}
+```

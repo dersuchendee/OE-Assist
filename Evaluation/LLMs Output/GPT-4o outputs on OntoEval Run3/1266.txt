@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide specific instances or details about the energy infrastructure available. It only defines the class `EnergyInfrastructure` and its relationships with other classes like `Level`, `Legislature`, `SystemBarrier`, and `ExternalFactor`. Therefore, we cannot extract specific information about available energy infrastructure.
+
+Partial SPARQL query to extract some information about the energy infrastructure:
+
+```sparql
+SELECT ?energyInfrastructure ?level ?legislature ?barrier ?factor
+WHERE {
+  ?energyInfrastructure a :EnergyInfrastructure .
+  OPTIONAL { ?energyInfrastructure :hasLevel ?level . }
+  OPTIONAL { ?energyInfrastructure :governedBy ?legislature . }
+  OPTIONAL { ?energyInfrastructure :hasBarrier ?barrier . }
+  OPTIONAL { ?energyInfrastructure :influencedBy ?factor . }
+}
+```

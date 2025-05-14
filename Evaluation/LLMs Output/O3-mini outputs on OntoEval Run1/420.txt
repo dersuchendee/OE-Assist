@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific person (for example, via a parameter or a VALUES clause), retrieves the instruments that the person plays:
+
+-------------------------------------------------
+PREFIX : <http://www.semanticweb.org/musicontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  # Replace :JohnFrusciante with the individual of interest (or use a parameter)
+  VALUES ?person { :JohnFrusciante } 
+  ?person :PlaysInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+-------------------------------------------------
+
+In the closed world view, we assume that the only instruments a person plays are those explicitly asserted via the :PlaysInstrument property. This query fully answers the competency question "What instruments does a certain person play?" for the provided ontology.

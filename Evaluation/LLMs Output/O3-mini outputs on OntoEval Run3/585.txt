@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?songLabel ?compositionDate
+WHERE {
+  ?song a :Song ;
+        rdfs:label ?songLabel ;
+        :composedOn ?compDateNode .
+  ?compDateNode :hasCompositionDate ?compositionDate .
+  
+  # For a specific song, e.g., "Hump de Bump"
+  FILTER(?songLabel = "Hump de Bump")
+}
+```

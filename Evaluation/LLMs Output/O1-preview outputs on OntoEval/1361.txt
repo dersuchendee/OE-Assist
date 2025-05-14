@@ -1,0 +1,22 @@
+**No**
+
+The ontology does not explicitly model organ builders or their roles, so we cannot directly answer the competency question "Which resources mention an organ builder?". However, we can retrieve resources that are associated with agents involved in projects related to organs, which might include organ builders among other roles.
+
+Here is a SPARQL query to extract a partial answer by retrieving resources that mention agents associated with organ-related projects:
+
+```sparql
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+
+SELECT ?resource ?agent
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+  ?project core:hasAgentRole ?agentRole .
+  ?agentRole core:hasAgent ?agent .
+  OPTIONAL { ?resource arco:isDescribedBy ?project . }
+}
+```
+
+This query retrieves organs and their associated agents involved in projects describing the organs. However, without explicit roles or properties indicating that an agent is an organ builder, we cannot precisely answer the competency question.

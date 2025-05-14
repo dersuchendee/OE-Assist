@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that—in a closed world interpretation based only on what is stated in the ontology—retrieves for each BellTower the current sound practice’s method (which, by convention, would be used to distinguish whether the sound is produced manually or electrically):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?bellTowerLabel ?soundMethod ?soundMethodLabel
+WHERE {
+  ?bellTower a :BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?bellTowerLabel . }
+  
+  ?bellTower :currentSoundPractice ?soundPractice .
+  ?soundPractice :hasMethod ?soundMethod .
+  OPTIONAL { ?soundMethod rdfs:label ?soundMethodLabel . }
+}
+ORDER BY ?bellTower
+
+This query shows that the ontology supports the competency question by linking each BellTower (i.e., the “place”) to its current sound practice and the corresponding sound method (e.g. manual or electric).

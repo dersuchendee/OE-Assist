@@ -1,0 +1,38 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?eventSuggestion ?event ?eventLabel ?timePeriod ?weatherCondition
+WHERE {
+  # Find the user
+  ?user a :Cl_User .
+  
+  # User's preferences
+  ?user :hasPreference ?preference .
+  ?preference :likesMovies true^^xsd:boolean .
+  ?preference :prefersEventType ?eventType .
+  
+  # User's free time
+  ?user :hasFreeTime ?freeTime .
+  ?freeTime :isEvening true^^xsd:boolean .
+  
+  # Weather condition
+  ?user :hasWeatherCondition ?weatherCondition .
+  ?weatherCondition :isRaining true^^xsd:boolean .
+  
+  # Event suggestion that matches criteria
+  ?eventSuggestion a :Cl_EventSuggestion .
+  ?eventSuggestion :hasEvent ?event .
+  ?event a :Cl_Movie .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  ?eventSuggestion :hasUserPreference ?preference .
+  ?eventSuggestion :hasSuggestedTime ?timePeriod .
+  ?timePeriod :isEvening true^^xsd:boolean .
+  ?eventSuggestion :hasWeatherDuringEvent ?weatherCondition .
+}
+```
+
+This query retrieves the most suitable event to propose to the user based on their preferences (likes movies), availability (free in the evening), and current weather conditions (it's raining). It suggests movies that are appropriate for the evening time and indoor activities due to the rain, aligning with the user's interests and schedule.

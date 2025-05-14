@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the trophic relationships between different species of aquifer microbes, which are represented in the ontology through the `TrophicRelationship` class and its properties `hasConsumer`, `hasResource`, and `occursIn`. The ontology also includes the `AquiferMicrobeHabitat` class, which is a subclass of `Habitat`, allowing us to specifically query for relationships occurring in aquifer microbe habitats.
+
+```sparql
+SELECT ?consumer ?resource ?habitat
+WHERE {
+  ?relationship a :TrophicRelationship .
+  ?relationship :hasConsumer ?consumer .
+  ?relationship :hasResource ?resource .
+  ?relationship :occursIn ?habitat .
+  ?habitat a :AquiferMicrobeHabitat .
+}
+```

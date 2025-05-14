@@ -1,0 +1,35 @@
+**Yes**
+
+Below is one example query that “asks” for a given ensemble (passed as a parameter) and returns its members that were recorded as belonging via a membership date at or before a given time (using a closed‐world assumption, we ignore memberships without an associated date):
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ensemble ?ensembleLabel ?actor ?actorLabel ?mDate
+WHERE {
+  # Ensemble to be examined (provide its URI as ?ensemble)
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+
+  # The ensemble has members via reified membership
+  ?ensemble :hasMember ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+
+  # The actor’s membership element with a membership date
+  ?actor :hasMembership ?membership .
+  ?membership :hasMembershipDate ?mDate .
+
+  # Only include memberships that are valid at the query time.
+  # Replace "2020-01-01"^^xsd:date with the point in time you are interested in.
+  FILTER(?mDate <= "2020-01-01"^^xsd:date)
+}
+ORDER BY ?ensemble ?actor
+------------------------------------------------------
+
+Explanation:
+• We assume that an actor’s membership is reified via the property :hasMembership and that the membership instance has the property :hasMembershipDate.
+• By filtering for membership dates at or prior to a given query time (here “2020-01-01”), we approximate “at a certain point in time” under a closed-world assumption.
+• Labels are returned when available.
+• In a real query the ensemble in question could also be fixed by adding a triple like: VALUES ?ensemble { <http://www.example.org/test#YourEnsembleURI> }

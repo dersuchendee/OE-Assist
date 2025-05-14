@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine if the sound in a place is performed by hand or by electric means. The ontology includes a `SoundPractice` class and a `SoundMethod` class, but it does not specify the types of sound methods (e.g., manual or electric) that can be used. Therefore, we cannot fully answer the competency question with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?bellTower ?soundMethod
+WHERE {
+  ?bellTower a :BellTower .
+  ?bellTower :currentSoundPractice ?soundPractice .
+  ?soundPractice :hasMethod ?soundMethod .
+}
+```

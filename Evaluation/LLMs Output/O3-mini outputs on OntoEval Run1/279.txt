@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle ?creationPeriod
+WHERE {
+  ?play a :Cl_Play .
+  ?play :wasWrittenDuring ?playCreation .
+  ?playCreation :creationPeriod ?creationPeriod .
+  OPTIONAL { ?play :playTitle ?playTitle . }
+}
+```

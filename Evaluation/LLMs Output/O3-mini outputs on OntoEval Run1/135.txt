@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves the plays associated with a theatre festival (using the classes and properties defined in the ontology):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?festivalName ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName .
+  ?festivalPlay a :Cl_FestivalPlay ;
+                :hasFestival ?festival ;
+                :hasPlay ?play .
+  ?play :playName ?playName .
+}
+------------------------------------------------------------
+
+This query extracts the name of the theatre festival along with the names of the plays (as defined by the class :Cl_Play and connected via :hasPlay to a festival play instance) and thus fully supports the competency question.

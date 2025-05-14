@@ -1,0 +1,19 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each circular value network (CVN), the actors that are involved (via their CVN participation):
+
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?cvn ?actor ?actorLabel
+WHERE {
+  ?cvn a cvn:CVN .
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participationIn ?cvn .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?cvn ?actor
+
+This query is answerable based on the ontology since the participation of an actor in a CVN is modelled by the class actor:CVNParticipation, which connects a CVN instance (via actorODP:participationIn) to an actor (via actorODP:participatingActor).

@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology models the recording time period of albums through the `:wasRecordedDuring` property, which links an `:Cl_Album` to a `:Cl_TimePeriod`. The `:Cl_TimePeriod` class has `:startDate` and `:endDate` properties, allowing us to retrieve the start and end dates of the album's recording period. Therefore, we can write a SPARQL query to extract this information.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?album ?albumLabel ?startDate ?endDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :wasRecordedDuring ?timePeriod .
+  
+  ?timePeriod :startDate ?startDate .
+  ?timePeriod :endDate ?endDate .
+}
+```

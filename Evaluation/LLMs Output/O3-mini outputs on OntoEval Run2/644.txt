@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming instances of the class Cl_Performance are populated with their performance dates using the property performanceDate, you can retrieve the date of a given performance with a query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+  
+This query returns each performance along with the date when it took place, which supports the competency question "When did a certain performance take place?" under the closed world assumption.

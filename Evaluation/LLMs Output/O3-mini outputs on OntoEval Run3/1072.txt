@@ -1,0 +1,25 @@
+**Yes**  
+Below is one example SPARQL query that retrieves the location of a given seminar (here, “a certain seminar”) by following the reified properties in the ontology:
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?location
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  ?seminar :tookPlaceAt ?seminarLocation .
+  ?seminarLocation :seminarLocation ?location .
+  # Optionally, filter for the “certain seminar”, e.g. by date or identifier:
+  # FILTER(?seminar = <http://www.example.org/test#SpecificSeminarID>)
+}
+──────────────────────────────
+
+This query follows the ontology’s modelling:
+1. A seminar (instance of :Cl_Seminar) is linked to a seminar location via the property :tookPlaceAt.
+2. The actual location is found by retrieving the value through the property :seminarLocation on the location instance.
+3. An optional filter can be added to select the “certain seminar” (for instance, by its identifier or date).
+
+As the CQ “Where did a certain seminar take place?” is answerable with the provided classes and properties, we return **Yes**.

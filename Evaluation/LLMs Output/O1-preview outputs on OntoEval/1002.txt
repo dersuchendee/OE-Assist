@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?publicationTitle ?publicationDate
+WHERE {
+  ?publicationInstance a :Cl_PublicationInstance .
+  ?publicationInstance :hasPublication ?publication .
+  ?publicationInstance :publicationDate ?publicationDate .
+  
+  ?publication :publicationTitle ?publicationTitle .
+  ?publication a ?pubType .
+  FILTER (?pubType = :Cl_Book || ?pubType = :Cl_CD)
+}
+```

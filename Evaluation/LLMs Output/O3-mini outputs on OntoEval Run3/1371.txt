@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not explicitly model any property or class that identifies the context (urban, periurban, rural, etc.) in which a building is located. Under a closed world assumption, since no property is defined for a building’s location context in the provided ontology, we can only retrieve bell towers (or churches if they were modelled) without any contextual information. A partial SPARQL query might therefore try to extract available address or location fields if they exist in imported vocabularies (e.g. vCard properties), as in the query below:
+
+--------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ns: <http://www.w3.org/2006/vcard/ns#>
+
+SELECT ?bellTower ?label ?address ?context
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label . }
+  OPTIONAL { ?bellTower ns:hasAddress ?address . }
+  OPTIONAL { ?address ns:locality ?context . }
+}
+--------------------------------------------------
+
+This query partially addresses the CQ by retrieving bell towers and any available address/locality information, though the context (urban, periurban, rural) is not explicitly modelled in the ontology.

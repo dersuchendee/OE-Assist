@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the answer by finding songs and their associated composition events, which provide the composition date. For example, assuming that the song is linked to a composition instance via the property composedOn, here is a SPARQL query that answers the competency question:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songLabel ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  ?song :composedOn ?composition .
+  ?composition :compositionDate ?compositionDate .
+}
+
+This query retrieves each song, its label (if available), and the corresponding composition date, thus answering the CQ "When was a certain song composed?" under the closed world assumption.

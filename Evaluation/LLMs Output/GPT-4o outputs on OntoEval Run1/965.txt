@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "What articles is a specific book or CD composed of?" is supported by the ontology. The ontology includes classes and properties that allow us to query for articles contained within a book or CD. Specifically, the `:containsArticle` property connects `:Cl_ArticleCollection` (which can be a book or CD) to `:Cl_Article`.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?articleCollection ?articleTitle ?articleAuthor
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  ?articleCollection :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+  ?article :articleAuthor ?articleAuthor .
+}
+```
+
+This query retrieves the titles and authors of articles contained within each article collection (book or CD).

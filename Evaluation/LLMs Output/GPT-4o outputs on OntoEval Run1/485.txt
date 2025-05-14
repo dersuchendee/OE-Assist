@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role in a band at a certain point in time. The ontology includes classes and properties for persons, bands, memberships, and roles, but it lacks a direct connection between a person, their role, and the time period of their membership in a band. The closest available information is the membership start and end dates, but these are not directly linked to a specific role.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?band ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMembership ?membership .
+  ?membership :membershipIn ?band .
+  OPTIONAL { ?membership :membershipStart ?membershipStart . }
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+}
+```

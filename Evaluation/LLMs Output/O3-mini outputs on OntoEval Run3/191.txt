@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a ns1:Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production ns1:hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?production
+```

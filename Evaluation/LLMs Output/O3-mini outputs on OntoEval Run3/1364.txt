@@ -1,0 +1,13 @@
+**No**
+
+The current ontology does not model whether a set of bells can be played electrically, manually, or both. There is no property or class in the provided ontology that captures the play mode or activation method of bells. Under the closed world assumption, since the ontology does not assert any information about electrical or manual playing of a set of bells, we can only partially answer the CQ by retrieving the sets of bells.
+
+Partial answer SPARQL query:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?setOfBells
+WHERE {
+  ?setOfBells a bells:SetOfBells .
+}

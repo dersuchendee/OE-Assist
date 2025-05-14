@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?interaction ?aquifer ?autotroph ?heterotroph
+WHERE {
+  ?interaction a :Interaction ;
+               :occursIn ?aquifer ;
+               :hasParticipant ?autotroph, ?heterotroph .
+  
+  ?aquifer a :Aquifer ;
+           :hasNutrientLevel ?nutrientLevel .
+  FILTER(lcase(str(?nutrientLevel)) = "poor")
+  
+  ?autotroph a :Autotroph .
+  ?heterotroph a :Heterotroph .
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the city in question is represented as an instance of Cl_City with an explicit property linking it to its country (via the :cityInCountry property), the following SPARQL query extracts, for each city, the corresponding country:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City ;
+        :cityInCountry ?country .
+}
+--------------------------------------------------
+
+Under the closed world assumption, only explicitly asserted relationships appear; since the ontology contains a triple stating that, for example, Nocera_Inferiore (an instance of Cl_City) is linked to Italy, the query supports the competency question.

@@ -1,0 +1,19 @@
+**Yes**
+
+We can extract the answer by retrieving the employment instance(s) that link the person with the hospital and then selecting the employment start date. Under the closed‐world assumption, if no additional employment instances are present, then the only extracted start date is the one that represents the “first” employment. For example, the following SPARQL query answers the CQ for PasqualeDiGennaro at OspedaleRiunitoDelleTreValli:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employmentStartDate
+WHERE {
+  ?employment rdf:type :Cl_Employment .
+  ?employment :employmentOf :PasqualeDiGennaro .
+  ?employment :employedAt :OspedaleRiunitoDelleTreValli .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+ORDER BY ASC(?employmentStartDate)
+LIMIT 1
+
+This query retrieves the (first) employment start date for the specified person at the specified hospital, therefore the CQ is supported by the ontology.

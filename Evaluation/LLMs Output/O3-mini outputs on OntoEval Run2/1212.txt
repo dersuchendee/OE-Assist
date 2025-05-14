@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?beechForest ?beechForestLabel ?primaryPathway ?primaryPathwayLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?beechForestLabel. }
+  
+  ?beechForest :hasCO2FixationPathway ?primaryPathway .
+  ?primaryPathway a :PrimaryCO2FixationPathway .
+  OPTIONAL { ?primaryPathway rdfs:label ?primaryPathwayLabel. }
+}
+ORDER BY ?beechForest ?primaryPathway
+```

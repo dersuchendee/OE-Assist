@@ -1,0 +1,33 @@
+Answer: **Yes**
+
+The ontology models the necessary classes and properties to answer the competency question. The `Cl_StudyPeriod` class represents study periods with properties linking to the person (`studiedBy`), the degree (`studiedFor`), and the start and end dates (`studyStartDate`, `studyEndDate`). Therefore, we can write a SPARQL query to retrieve the time periods during which a person studied for a specific degree.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+    ?studyPeriod rdf:type :Cl_StudyPeriod .
+    ?studyPeriod :studiedBy ?person .
+    ?studyPeriod :studiedFor ?degree .
+    ?studyPeriod :studyStartDate ?startDate .
+    ?studyPeriod :studyEndDate ?endDate .
+}
+```
+
+This query retrieves all study periods, along with the associated person, degree, and start/end dates. If you want to find the time period for a specific person and degree, you can specify them in the query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?startDate ?endDate
+WHERE {
+    ?studyPeriod rdf:type :Cl_StudyPeriod .
+    ?studyPeriod :studiedBy :Pasquale_Di_Gennaro .
+    ?studyPeriod :studiedFor :CertifiedNurseDegree .
+    ?studyPeriod :studyStartDate ?startDate .
+    ?studyPeriod :studyEndDate ?endDate .
+}
+```

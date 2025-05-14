@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for recordings involving a bell or set of bells. However, we can extract partial information about recordings and the bells involved.
+
+```sparql
+SELECT ?recording ?bell
+WHERE {
+  ?recording a :Recording .
+  ?recording :involvesBell ?bell .
+}
+```

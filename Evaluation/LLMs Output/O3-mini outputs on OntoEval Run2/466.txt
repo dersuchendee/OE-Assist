@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :membershipOfPerson ?person ;
+              :membershipInBand ?band ;
+              :atTime ?time ;
+              :playsRole ?role .
+              
+  # Replace the following URIs and literal with the specific person, band, and time of interest
+  FILTER(?person = <http://www.example.org/test#YourPersonURI> &&
+         ?band   = <http://www.example.org/test#YourBandURI> &&
+         ?time   = "2023-10-10T00:00:00"^^xsd:dateTime)
+}
+```

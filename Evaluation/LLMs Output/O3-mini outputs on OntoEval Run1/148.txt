@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?theatre ?theatreName ?city ?cityName
+WHERE {
+  ?theatre a :Theatre .
+  ?theatre :hasLocation ?city .
+  OPTIONAL { ?theatre :hasName ?theatreName . }
+  OPTIONAL { ?city :hasName ?cityName . }
+}
+```
+
+In this query we retrieve each theatre (and its optional name) along with the city (and its optional name) in which it is located, directly answering the CQ under the closed world assumption.

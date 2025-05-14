@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that the ontology includes the classes for cities and regions as well as the property connecting a city with its region (for example, :Cl_City, :Cl_Region, and the object property :locatedIn), we can write a SPARQL query that retrieves the region for a given city. Under a closed world assumption, we assume that all cities and their associated regions are completely described in the ontology.
+
+For a given city name, the following SPARQL query will return the city and its associated region:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?region ?regionName
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityName ?cityName .
+  ?city :locatedIn ?region .
+  ?region :regionName ?regionName .
+  FILTER(?cityName = "YourCityName")  # Replace "YourCityName" with the specific city name
+}
+------------------------------------------------------------
+
+This query extracts the regions in which a specified city is located, thus fully supporting the competency question "In what region is a certain city located?"

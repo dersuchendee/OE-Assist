@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person, a union (union group), and a time point, retrieves that person’s role within that union group:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  ?assignment a :Cl_UnionRoleAssignment ;
+              :hasPerson ?person ;
+              :hasUnion ?union ;
+              :hasRole ?role ;
+              :timePoint ?time .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  # These filters bind the query to a specific person, union, and time.
+  FILTER(?person = <http://www.example.org/test#SpecificPerson> &&
+         ?union = <http://www.example.org/test#SpecificUnion> &&
+         ?time = "2002-01-01T00:00:00"^^xsd:dateTime)
+}
+-----------------------------------------------------------
+
+In this query, replace <http://www.example.org/test#SpecificPerson>, <http://www.example.org/test#SpecificUnion>, and "2002-01-01T00:00:00"^^xsd:dateTime with the appropriate IRIs and time value for your scenario.

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a festival. The `tookPlaceIn` property connects a `Cl_TheatreFestival` to a `Cl_City`, but there is no direct connection to a specific festival occurrence or event. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :tookPlaceIn ?city .
+}
+```

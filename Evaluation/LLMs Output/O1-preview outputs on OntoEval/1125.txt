@@ -1,0 +1,14 @@
+**No**
+
+```sparql
+SELECT ?action ?actionLabel
+WHERE {
+  :UserJohn :prefers ?action .
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+  ?action :performedBy ?system .
+  ?system :hasLocation :Berlin .
+  ?action :atTime "07:00:00"^^xsd:time .
+}
+```
+
+The competency question cannot be fully answered because the specific context of "brushing teeth" is not represented in the ontology. While we can retrieve the system actions preferred by the user at a certain time and location, the activity (brushing teeth) that defines the particular context is missing. Therefore, the SPARQL query above provides a partial answer by extracting the preferred actions associated with the user in Berlin at 7 AM, but it does not account for the brushing teeth context.

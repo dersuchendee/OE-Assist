@@ -1,0 +1,25 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?filmTitle ?startTime ?cinemaName
+WHERE {
+  ?event a event:Event .
+  OPTIONAL {
+    ?event event:product ?film .
+    ?film :hasTitle ?filmTitle .
+  }
+  OPTIONAL {
+    ?event event:time ?instant .
+    ?instant :hasStartTime ?startTime .
+  }
+  OPTIONAL {
+    ?event event:place ?cinema .
+    ?cinema :hasLocationName ?cinemaName .
+  }
+}
+```

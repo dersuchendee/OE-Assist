@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the members of a given ensemble (here, for example, the ensemble “Ensemble_GrandTheatre_MerchantOfVenice”) whose membership is active at a provided point in time. In this query we assume that the input time is provided as a literal (e.g. "2009-09-10"^^xsd:date) and we use the closed‐world assumption (i.e. if a membershipEndDate is not given then that membership is assumed to be still in force):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel
+WHERE {
+  VALUES ?ensemble { :Ensemble_GrandTheatre_MerchantOfVenice }  
+  ?ensemble :hasEnsembleMembership ?membership .
+  ?membership :memberActor ?actor .
+  ?membership :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  
+  # The given point in time (adjust the literal as needed)
+  BIND("2009-09-10"^^xsd:date AS ?pointTime)
+  
+  FILTER (
+    ?pointTime >= ?start &&
+    ( !bound(?end) || ?pointTime <= ?end )
+  )
+  
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+----------------------------------------------------------------
+
+This query confirms that the CQ “Who are the members of a certain ensemble at a certain point in time?” is answerable using the ontology.

@@ -1,0 +1,35 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves for a given person and union group the role they hold at a specified time. (In practice you would supply the individual’s URI, the union group identifier, and the instant of time as parameters.)
+
+Assuming that individual union role information is “reified” by the property :hasRole (whose range is a :Cl_UnionRole that carries a role date via :roleDate) and that the union group membership is recorded via the property :memberOf (with range :Cl_UnionMembership whose label identifies the union group), one could write a query such as:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?unionMembership ?unionLabel ?role ?roleLabel ?roleDate
+WHERE {
+  # Bind the person of interest (e.g., Pasquale Di Gennaro)
+  BIND(:Pasquale_Di_Gennaro AS ?person) .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  # Retrieve the union membership the person holds and filter for a given union group.
+  ?person :memberOf ?unionMembership .
+  OPTIONAL { ?unionMembership rdfs:label ?unionLabel . }
+  # Replace the following FILTER with the desired union group.
+  FILTER(?unionLabel = "Union for Male Nurses")
+
+  # Retrieve the reified union role information.
+  ?person :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  ?role :roleDate ?roleDate .
+
+  # Filter to check that the role was held at a given instant.
+  # For example, if you want to check the role at a given date-time, you can use:
+  FILTER(?roleDate <= "2002-01-01T00:00:00"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+In this query the user supplies the individual (here bound to :Pasquale_Di_Gennaro), the union group (by filtering on its label “Union for Male Nurses”) and a date condition to ensure the role held is valid at that time. This SPARQL query demonstrates that the ontology supports the competency question “What role does a certain person have within a certain union group at a certain point in time?” under a reification‐pattern design.

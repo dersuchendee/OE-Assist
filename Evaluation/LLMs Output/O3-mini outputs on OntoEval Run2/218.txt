@@ -1,0 +1,38 @@
+**Yes**
+
+Below is a SPARQL query that, given a particular ensemble (identified by its URI) and a point in time (provided as a literal), returns the actors that are members of that ensemble at that time. This query assumes that each actor’s membership is represented via an instance of Cl_EnsembleMembership which is connected to the ensemble by the property membershipOf. The membership time information can be provided either as a single point (membershipAt) or as a period (membershipStart and membershipEnd). Under the closed‐world assumption the query only returns actors whose membership data is asserted in the ontology.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorName ?membership ?membershipStart ?membershipEnd
+WHERE {
+  # Specify the ensemble of interest and the timestamp to check.
+  VALUES ?ensemble { <http://www.example.org/test#SomeEnsemble> }
+  BIND("2009-09-15T00:00:00"^^xsd:dateTime AS ?givenTime)
+  
+  # The membership instance that ties an actor to the ensemble.
+  ?membership :membershipOf ?ensemble .
+  ?actor :hasMembership ?membership .
+  
+  {
+    # Option 1: Membership with an instant timestamp
+    ?membership :membershipAt ?time .
+    FILTER(?time = ?givenTime)
+  }
+  UNION
+  {
+    # Option 2: Membership with a start and end period
+    ?membership :membershipStart ?membershipStart .
+    ?membership :membershipEnd ?membershipEnd .
+    FILTER(?membershipStart <= ?givenTime && ?membershipEnd >= ?givenTime)
+  }
+  
+  OPTIONAL { ?actor rdfs:label ?actorName. }
+}
+ORDER BY ?actor
+--------------------------------------------------
+
+This query answers the CQ “Who are the members of a certain ensemble at a certain point in time?” by retrieving the actors linked via a Cl_EnsembleMembership whose time constraints (either a single timestamp or a valid period) match the given point in time.

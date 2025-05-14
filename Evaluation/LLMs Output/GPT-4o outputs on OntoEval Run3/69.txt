@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What is the composition of a specific resource?" can be answered using the ontology provided. The ontology includes a class `Cl_Resource` and an object property `op_hasComposition` that links a resource to its composition, which is represented by the class `Cl_ResourceComposition`. Therefore, we can write a SPARQL query to extract the composition of a specific resource.
+
+```sparql
+SELECT ?resource ?composition
+WHERE {
+  ?resource a :Cl_Resource .
+  ?resource :op_hasComposition ?composition .
+}
+```

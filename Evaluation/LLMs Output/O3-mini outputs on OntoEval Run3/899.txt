@@ -1,0 +1,22 @@
+**Yes**
+Below is an example SPARQL query that answers the question “Who are the members of a certain union at a certain point in time?” using the reified union membership model in the ontology. In this query, you would replace the IRI for the target union (here “:TargetUnion”) with the specific union of interest and supply the desired date (here “?givenDate”) for which memberships are to be determined.
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_PersonUnionMembership ;
+              :memberOf :TargetUnion ;
+              :membershipStartDate ?membershipStartDate ;
+              :membershipEndDate ?membershipEndDate .
+  ?membership a :Cl_Person .  # since Cl_PersonUnionMembership is also a subclass of Cl_Person
+
+  # Replace "2021-06-01" with the desired point in time.
+  FILTER(xsd:date("2021-06-01") >= ?membershipStartDate &&
+         xsd:date("2021-06-01") <= ?membershipEndDate)
+}
+----------------------------------------------------------------
+
+In this query, we assume that a person’s union membership is valid if the given date (here "2021-06-01") is between the membershipStartDate and membershipEndDate. Adjust the union IRI and date as necessary.

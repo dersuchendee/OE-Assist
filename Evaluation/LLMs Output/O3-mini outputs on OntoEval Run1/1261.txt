@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that extracts the origin of a material and follows the complete trace of processes (by following the initial process and then any subsequent processes via :hasNextProcess):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?material ?origin ?process
+WHERE {
+  ?material a :Material ;
+            :hasOrigin ?origin .
+  # Use a property path to get the complete chain of processes linked from the material
+  OPTIONAL { ?material :undergoesProcess/:hasNextProcess* ?process . }
+}
+ORDER BY ?material ?process
+------------------------------------------------------------
+
+This query works under the closed world assumption by only extracting what is explicitly stated in the ontology.

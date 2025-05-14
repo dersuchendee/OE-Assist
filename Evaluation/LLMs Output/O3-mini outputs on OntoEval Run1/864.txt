@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that uses the reified representation of a city’s location to answer the CQ “In what country is a certain city located?” under a closed‐world assumption. In this query we assume that cities are annotated with a data property (here shown as :cityName) so the “certain city” can be selected by its name.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?country ?countryName
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityName "CertainCityName" .   # Replace "CertainCityName" with the target city name
+  ?cityLocation :locationCity ?city .
+  ?cityLocation :locationCountry ?country .
+  OPTIONAL { ?country :countryName ?countryName . }
+}
+--------------------------------------------------
+
+This query retrieves the country (and optionally its name) for the specified city by following the reification pattern through the pivot class :Cl_CityLocation.

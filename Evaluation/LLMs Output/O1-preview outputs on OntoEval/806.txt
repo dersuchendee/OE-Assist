@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?person ?degree ?studyStart ?studyEnd
+WHERE {
+  ?pds a :Cl_PersonDegreeStudy ;
+       :personHasStudy ?person ;
+       :studyInvolvesDegree ?degree ;
+       :studyDuringPeriod ?studyPeriod .
+
+  ?studyPeriod :studyStart ?studyStart ;
+               :studyEnd ?studyEnd .
+}
+```

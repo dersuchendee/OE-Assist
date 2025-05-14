@@ -1,0 +1,16 @@
+**Yes**
+
+The following SPARQL query can be used (under the closed‐world assumption) to extract the release date of albums (e.g. the “Stadium_Arcadium” album) from the ontology:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+}
+-------------------------------------------------
+
+This query retrieves those albums along with their release dates, thus answering the competency question “When was a certain album released?” using the provided ontology.

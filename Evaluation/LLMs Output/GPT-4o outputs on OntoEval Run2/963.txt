@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine if a specific book or CD is composed of articles. The ontology includes the `:containsArticle` property, which relates books and CDs to articles, but it does not specify which specific articles are contained within a particular book or CD. Therefore, a partial answer can be extracted by identifying books or CDs that contain any articles, but not the specific articles they contain.
+
+```sparql
+SELECT ?bookOrCD ?article
+WHERE {
+  ?bookOrCD a :Cl_Book, :Cl_CD .
+  ?bookOrCD :containsArticle ?article .
+}
+```

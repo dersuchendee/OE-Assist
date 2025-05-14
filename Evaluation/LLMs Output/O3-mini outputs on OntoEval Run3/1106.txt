@@ -1,0 +1,17 @@
+**Yes**
+
+We can check that every seminar (an instance of :Cl_Seminar) has at least one associated presentation (an instance of :Cl_SeminarArticlePresentation that is also an article) via the property :containsPresentationOf. Under the closed‐world assumption, a seminar without any attached presentation would not appear in the query result. For example, you could use the following SPARQL query to list seminars along with the articles presented at each seminar:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?presentation
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :containsPresentationOf ?presentation .
+  # ?presentation is an instance of Cl_SeminarArticlePresentation which, by construction,
+  # is a subclass of both Cl_Seminar and Cl_Article.
+}
+ORDER BY ?seminar
+
+This query verifies the competency question “At least one article is always presented at each seminar.”

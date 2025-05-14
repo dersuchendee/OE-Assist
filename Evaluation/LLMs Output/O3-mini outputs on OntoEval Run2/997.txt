@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer this competency question with the ontology using the following SPARQL query. In this query we select instances of either books or CDs, then use the property that connects them to a publication event (which in turn has a publication date) to extract when they were published.
+
+──────────────────────────────
+SPARQL Query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?publication ?pubDate
+WHERE {
+  { ?publication rdf:type :Cl_Book }
+  UNION
+  { ?publication rdf:type :Cl_CD } .
+  
+  ?publication :hasPublicationEvent ?pubEvent .
+  ?pubEvent :publicationDate ?pubDate .
+}
+
+──────────────────────────────
+
+This query is answerable under the closed world assumption since we assume that the information explicitly stated in the ontology is complete.

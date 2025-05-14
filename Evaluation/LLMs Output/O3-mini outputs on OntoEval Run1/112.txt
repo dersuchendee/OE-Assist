@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the festival’s name along with its location (using the Cl_FestivalLocation construct and the associated properties):
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?location ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName .
+  ?festivalLocation a :Cl_FestivalLocation ;
+                    :hasFestival ?festival ;
+                    :hasLocation ?location .
+  ?location :locationName ?locationName .
+}
+———————————————————————————————
+
+This query extracts the festivals that have an associated festival location and returns the corresponding location’s name.

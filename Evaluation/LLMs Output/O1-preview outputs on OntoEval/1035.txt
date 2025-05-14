@@ -1,0 +1,13 @@
+**Yes**.
+
+The CQ "When did a certain seminar take place?" can be answered using the ontology provided. The ontology contains the class `:Cl_Seminar`, individuals of seminars, and the data property `:seminarDate` which links seminars to their dates. Here's a SPARQL query to retrieve the dates of seminars:
+
+```sparql
+SELECT ?seminar ?date
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarDate ?date .
+}
+```
+
+This query will return all seminars and their dates, allowing us to determine when a certain seminar took place.

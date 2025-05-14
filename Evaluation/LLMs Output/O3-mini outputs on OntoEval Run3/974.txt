@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology models books and their page counts. For example, a book (an instance of :Cl_Book) is linked via a reified class (:Cl_BookDetails) where the data property :hasNumberOfPages holds the number of pages (e.g., 346).
+
+Below is a SPARQL query that retrieves the page count for a particular book (here, :Book_NursePracticesInCancerPatientCare):
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :hasBookDetails ?details .
+  ?details :hasNumberOfPages ?pageCount .
+  FILTER(?book = :Book_NursePracticesInCancerPatientCare)
+}
+-------------------------
+
+This query answers the competency question by extracting the number of pages from the ontology under the closed world assumption.

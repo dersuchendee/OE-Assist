@@ -1,0 +1,14 @@
+**No**
+
+The CQ cannot be fully answered because there is no direct connection between a newspaper, a production, and the star rating in the ontology. Specifically, while we have the `:hasReview` property from `:Cl_Newspaper` to `:Cl_NewspaperReview`, and `:Cl_NewspaperReview` has a `:starRating`, there is no property connecting `:Cl_NewspaperReview` to a specific `:Cl_Production`. 
+
+Here is a SPARQL query to extract a partial answer (star ratings given by newspapers, without linking to specific productions):
+
+```sparql
+SELECT ?newspaper ?starRating
+WHERE {
+  ?newspaper rdf:type :Cl_Newspaper .
+  ?newspaper :hasReview ?review .
+  ?review :starRating ?starRating .
+}
+```

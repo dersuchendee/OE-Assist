@@ -1,0 +1,26 @@
+**Yes**
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves the role name and the corresponding date (i.e. when that role applies) for a given person in a given production at a given time. (Here we use SPARQL VALUES to “plug‐in” the particular person, production, and time you are asking about.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleDate
+WHERE {
+  # Provide the specific person, production, and time (as parameters)
+  VALUES (?person ?production ?time) {
+    (:FabioBianchi :MerchantOfVenice "2009-09-14"^^xsd:date)
+  }
+  
+  ?person :hasRoleInProduction ?role .
+  ?role a :Cl_ProductionRole, :Cl_Production ;
+        :roleName ?roleName ;
+        :roleDate ?roleDate .
+        
+  # Ensure that the role instance corresponds to the given production.
+  FILTER(?role = ?production)
+  
+  # Ensure that the role’s date is the one we are interested in.
+  FILTER(?roleDate = ?time)
+}
+
+In this ontology design the reified production role class (:Cl_ProductionRole) simultaneously plays the role of a person, a production, and a role. Hence, by following the :hasRoleInProduction link from a person and then filtering the instance to be the production of interest (and matching the given time), we can answer the CQ.

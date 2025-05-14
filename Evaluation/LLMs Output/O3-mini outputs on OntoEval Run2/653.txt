@@ -1,0 +1,21 @@
+**Yes**
+
+We can retrieve the songs that were played in a performance using the ns1:hasSong property. Under the closed world assumption (i.e. only the explicitly asserted facts in the ontology are considered true), the following SPARQL query extracts all songs played in performances. If you want to narrow down to a specific performance, you can filter on the performance identifier accordingly.
+
+Example SPARQL query:
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a ns1:Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?performance ns1:hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance
+
+This query returns the list of performances along with their songs, thereby answering the competency question.

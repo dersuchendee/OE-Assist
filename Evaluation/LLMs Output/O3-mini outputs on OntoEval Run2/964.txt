@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that in this ontology a “specific book or CD” is also modelled as an article collection (i.e. it is an instance that both belongs to the union of :Cl_Book and :Cl_CD and supports the property :containsArticle), you can write a SPARQL query like the following. (If you wish to retrieve the articles for a particular book/CD, you can bind its URI in the FILTER or VALUES.) 
+
+Below is one example of such a query:
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?bookLabel ?article ?articleLabel
+WHERE {
+  # Select individuals that are either a book or a CD and also (by modelling) an article collection.
+  ?book a ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD))
+  
+  # Assuming that the same individual supports the property :containsArticle because it is modelled as an article collection  
+  ?book :containsArticle ?article .
+  
+  OPTIONAL { ?book rdfs:label ?bookLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+--------------------------------------------------------------
+
+This query extracts, for each book/CD that is modelled as an article collection, the articles it is composed of.

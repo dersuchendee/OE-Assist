@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+The ontology models that each production has exactly one premier through the `owl:Restriction` on `:hasPremier` with `owl:cardinality "1"`. This means that every instance of `:Cl_Production` must have exactly one `:hasPremier`.
+
+Here is a SPARQL query that retrieves the restriction confirming this:
+
+```sparql
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?restriction
+WHERE {
+  :Cl_Production rdfs:subClassOf ?restriction .
+  ?restriction rdf:type owl:Restriction .
+  ?restriction owl:onProperty :hasPremier .
+  ?restriction owl:cardinality "1"^^xsd:nonNegativeInteger .
+}
+```
+
+This query checks the ontology's schema (TBox) to verify that `:Cl_Production` is a subclass of a restriction that enforces exactly one `:hasPremier`. Therefore, the competency question "A production has exactly one premier." is supported by the ontology.

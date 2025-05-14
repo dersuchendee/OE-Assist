@@ -1,0 +1,17 @@
+**No**
+
+The ontology provided does not contain individual instances of major processes involved in the nitrogen cycle within beech forest ecosystems. The ontology defines classes and properties but lacks specific data about what these major processes are. Therefore, we cannot retrieve direct answers to the competency question using SPARQL queries over this ontology.
+
+However, we can construct a partial SPARQL query that attempts to extract any major processes associated with beech forest ecosystems, but it will not return specific processes due to the absence of instances.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?process
+WHERE {
+  ?ecosystem a :BeechForestEcosystem .
+  ?ecosystem :hasMajorProcess ?process .
+}
+```
+
+This query seeks to find the major processes (`?process`) associated with instances of `:BeechForestEcosystem`. Since there are no individual instances or explicit declarations of such processes in the ontology, the query will not yield any results. To answer the competency question fully, the ontology needs to include instances of `:NitrogenCycleProcess` and relate them to `:BeechForestEcosystem` via the `:hasMajorProcess` property.

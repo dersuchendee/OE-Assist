@@ -1,0 +1,26 @@
+**Yes**  
+Below is an example SPARQL query that, given a specific Tune Family (X) and a specific Measure Type (Y), retrieves each Composition within that family together with the corresponding measure value. Comparison of similarities or differences (e.g. by aggregating or contrasting the measure values) can subsequently be performed on the query result.
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?measure ?measureValue
+WHERE {
+  ?composition a :Composition ;
+               :belongsToTuneFamily ?tuneFamily ;
+               :hasMeasure ?measure .
+  
+  FILTER(?tuneFamily = :TuneFamilyX) .    # Replace :TuneFamilyX with the URI of the given tune family
+  
+  ?measure :measureType ?measureType ;
+           :measureValue ?measureValue .
+  
+  FILTER(?measureType = :MeasureTypeY) .   # Replace :MeasureTypeY with the URI of the given measure type
+  
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+}
+ORDER BY ?composition
+-----------------------------------------------------
+
+In a closed world setting, if a Composition does not explicitly state a measure of the requested type, it will simply not appear in the result.

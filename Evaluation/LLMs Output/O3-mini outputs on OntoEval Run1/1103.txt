@@ -1,0 +1,31 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, checks that every seminar (instance of :Cl_Seminar) has at least one article presented via the property :presentedIn. (If the query returns no results, then every seminar meets the CQ requirement.) 
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar
+WHERE {
+  ?seminar a :Cl_Seminar .
+  FILTER NOT EXISTS {
+    ?article :presentedIn ?seminar .
+  }
+}
+----------------------------------
+
+You can also list the seminars along with the count of presented articles:
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar (COUNT(?article) AS ?numArticles)
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article :presentedIn ?seminar .
+}
+GROUP BY ?seminar
+----------------------------------
+
+If every seminar returns a count of at least 1, then the competency question is fully supported by the ontology.

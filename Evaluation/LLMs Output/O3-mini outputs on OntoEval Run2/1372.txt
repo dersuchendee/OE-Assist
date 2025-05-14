@@ -1,0 +1,18 @@
+**No**
+
+The provided ontology models bells, bell towers, and sets of bells, so you can extract—for bell towers—the number of bells associated via their set of bells using the property defined in the ontology. However, the competency question asks about “church/bell tower,” and the concept of a church is not represented in the ontology. Under a closed‐world assumption, we assume that if no church is explicitly defined then the ontology provides only a partial answer considering bell towers. Here’s a SPARQL query to count, for each bell tower, the number of bells (i.e. a partial answer):
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower (COUNT(?bell) AS ?numBells)
+WHERE {
+  ?bellTower a bells:BellTower .
+  ?bellTower arco:hasComponent ?setOfBells .
+  ?setOfBells arco:hasComponent ?bell .
+  ?bell a bells:Bell .
+}
+GROUP BY ?bellTower
+
+This query extracts the bell towers (from the ontology) along with a count of the associated bells via their set of bells. Since the concept of “church” is not modelled, the complete competency question cannot be fully answered.

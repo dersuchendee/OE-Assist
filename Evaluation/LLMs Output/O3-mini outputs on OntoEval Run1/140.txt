@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology includes a class for theatre festivals (Cl_TheatreFestival), a class for plays (Cl_Play), and an object property (hasPlay) linking festivals to plays. Therefore, the competency question “What plays could be seen during a certain theatre festival?” is fully answerable. Under a closed world assumption, no additional information is assumed beyond what is explicitly present. For example, you can write the following SPARQL query to extract the plays associated with each theatre festival:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival.
+  ?festival :hasPlay ?play.
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+ORDER BY ?festival ?play
+---------------------------------
+
+This query lists each theatre festival along with its associated plays, which fully answers the competency question.

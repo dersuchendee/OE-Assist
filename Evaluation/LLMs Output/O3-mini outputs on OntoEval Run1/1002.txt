@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves publication instances with their publication dates for publications that are either books or CDs:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?publicationDate
+WHERE {
+  ?pubInst a :Cl_PublicationInstance ;
+           :hasPublication ?publication ;
+           :publicationDate ?publicationDate .
+  ?publication :publicationTitle ?publicationTitle .
+  ?publication a ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD)
+}
+ORDER BY ?publicationDate
+———————————————————————————————
+
+In this query we assume that a “publication instance” (of type Cl_PublicationInstance) is linked via the object property :hasPublication to a publication (either a Book or a CD) whose title is given by the data property :publicationTitle, and the publication date is recorded by :publicationDate. This design (using the pivot class Cl_PublicationInstance) means that the competency question “When was a certain book or CD published?” is fully answerable by the ontology under a closed world assumption.

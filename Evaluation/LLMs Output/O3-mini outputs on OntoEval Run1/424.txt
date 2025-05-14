@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that “a certain person” is identified (for example via their IRI or a given label), you can answer this CQ using the property that links a person to the instruments they play. For example, the following SPARQL query extracts all instruments played by a given person (here represented by the IRI ?person):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentName . }
+  
+  # Replace <http://example.org/test#SpecificPerson> with the actual IRI of the person
+  FILTER(?person = <http://www.example.org/test#SpecificPerson>)
+}
+--------------------------------------------------
+
+In a closed world interpretation, this query retrieves the instruments that are explicitly linked to the person using the :playsInstrument property, thereby answering the CQ.

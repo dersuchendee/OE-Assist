@@ -1,0 +1,14 @@
+**No**
+
+```sparql
+SELECT ?personUnionRole ?role ?union ?roleStartDate ?roleEndDate
+WHERE {
+  ?personUnionRole a :Cl_PersonUnionRole .
+  ?personUnionRole :hasRole ?role .
+  ?personUnionRole :memberOf ?union .
+  ?personUnionRole :roleStartDate ?roleStartDate .
+  OPTIONAL { ?personUnionRole :roleEndDate ?roleEndDate . }
+}
+```
+
+The ontology lacks explicit properties connecting individuals of type `:Cl_Person` to their union roles. Although `:Cl_PersonUnionRole` is intended to represent a person's role within a union at a certain time, there is no property linking `:Cl_PersonUnionRole` instances back to `:Cl_Person` instances. Therefore, we cannot fully answer the competency question as it requires knowing the person's specific role within a union at a given time.

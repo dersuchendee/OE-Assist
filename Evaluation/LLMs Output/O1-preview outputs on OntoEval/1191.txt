@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?event ?eventLabel ?eventType
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+
+  BIND(
+    IF (EXISTS { ?event a :ReligiousEvent }, "Religious",
+      IF (EXISTS { ?event a :SecularEvent }, "Secular",
+        "Unknown")
+    ) AS ?eventType
+  )
+}
+```
+
+The ontology provides the necessary classes and relationships to answer the competency question "Was it a religious or a secular event?". The classes `:ReligiousEvent` and `:SecularEvent` are subclasses of `:Event` and are disjoint, meaning an event can be classified as either religious or secular, but not both. The SPARQL query above checks if an event is an instance of `:ReligiousEvent` or `:SecularEvent` and binds the result to `?eventType`. If the event is not classified under either, it binds "Unknown" to `?eventType`. This allows us to extract the required information from the ontology, confirming that the competency question is supported.

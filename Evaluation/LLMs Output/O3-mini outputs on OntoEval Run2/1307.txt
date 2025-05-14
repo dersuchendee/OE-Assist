@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the primary CO2 fixation pathways for ecosystems that are known to be beech forests:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?beechForest ?beechForestLabel ?pathway ?pathwayLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?beechForestLabel . }
+  
+  ?beechForest :hasPrimaryCO2FixationPathway ?pathway .
+  OPTIONAL { ?pathway rdfs:label ?pathwayLabel . }
+}
+-----------------------------------------
+
+This query selects all individuals of class BeechForest (a subclass of ForestEcosystem) and extracts the CO2 fixation pathway associated with them via the property :hasPrimaryCO2FixationPathway.

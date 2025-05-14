@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the previous activity performed by the user. The ontology includes a `previousActivity` property, but there is no data or structure in the ontology that indicates a sequence of activities or links between different activities performed by the user. Therefore, a SPARQL query can only extract partial information about activities without determining the sequence.
+
+```sparql
+SELECT ?activity ?activityLabel
+WHERE {
+  ?activity a :Activity .
+  OPTIONAL { ?activity rdfs:label ?activityLabel . }
+}
+```

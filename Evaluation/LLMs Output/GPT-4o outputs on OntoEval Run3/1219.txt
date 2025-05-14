@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the most common aquifer microbes in a specific aquifer environment. It provides information about microbe occurrences, their abundance, and the environments they are found in, but it lacks a mechanism to aggregate and identify the most common microbes.
+
+Partial answer:
+```sparql
+SELECT ?aquiferEnvironment ?microbe ?abundance
+WHERE {
+  ?occurrence a :MicrobeOccurrence .
+  ?occurrence :hasMicrobe ?microbe .
+  ?occurrence :inEnvironment ?aquiferEnvironment .
+  ?occurrence :hasAbundance ?abundance .
+}
+ORDER BY DESC(?abundance)
+```

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves performances along with the date they took place:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate .
+}
+---------------------------------
+
+In a closed‐world interpretation, only those individuals explicitly stated as instances of :Cl_Performance and with the data property :performanceDate will be returned, which meets the competency question "When did a certain performance take place?"

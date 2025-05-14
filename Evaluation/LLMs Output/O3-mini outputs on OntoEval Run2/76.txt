@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that, under a closed-world assumption, retrieves the start date (i.e. “when”) a particular theatre festival took place. In this example the query filters on the label "Roma Loves Shakespeare" (ignoring case), as indicated in the story.
+
+-----------------------------------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?startDate
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  ?festival rdfs:label ?festivalLabel .
+  ?festival ns1:startDate ?startDate .
+  FILTER(lcase(str(?festivalLabel)) = "roma loves shakespeare")
+}
+-----------------------------------------------------------

@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "During what time period was a certain play written?" can be answered using the provided ontology. The ontology includes the necessary classes and properties to determine the production period during which a play was written.
+
+```sparql
+SELECT ?play ?startDate ?endDate
+WHERE {
+  ?play a :Play .
+  ?play :writtenDuring ?productionPeriod .
+  ?productionPeriod :hasStartDate ?startDate .
+  ?productionPeriod :hasEndDate ?endDate .
+}
+```

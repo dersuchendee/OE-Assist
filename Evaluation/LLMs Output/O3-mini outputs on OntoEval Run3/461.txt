@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming we adopt the closed world assumption and treat the available reification (via the Cl_Membership class and its properties) as fully describing the band memberships over time, this competency question is answerable. For a given band and a point in time, we can query for memberships where the queried date falls between the membershipStart and membershipEnd dates, and then retrieve the member attached via the membership relation.
+
+For example, to find the members of a band (here parameterized as a band resource, e.g., :RedHotChiliPeppers) at a given point in time (e.g., "2005-01-01"), the SPARQL query might be:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel 
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :membershipIn ?band .         # The band to which the membership relates
+  ?membership :memberOf ?member .             # The person who is the member
+  ?membership :membershipStart ?start .
+  ?membership :membershipEnd ?end .
+  
+  FILTER(?band = :RedHotChiliPeppers) .      # Specify the band of interest
+  FILTER(xsd:date("2005-01-01") >= ?start && xsd:date("2005-01-01") <= ?end) .
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+------------------------------------------------
+
+This query returns the members (and their optional labels) of the specified band at the given point in time according to the ontology structure.

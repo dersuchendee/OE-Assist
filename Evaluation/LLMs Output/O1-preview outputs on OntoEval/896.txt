@@ -1,0 +1,25 @@
+Answer: **Yes**
+
+The CQ is answerable because the ontology models union memberships with time intervals using the `:Cl_UnionMembership` class, along with properties `:unionMember`, `:memberOf`, `:membershipStartDate`, and `:membershipEndDate`. Therefore, we can write a SPARQL query to find the union members at a specific point in time.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person
+WHERE {
+  # Input parameters: the union and the date
+  VALUES (?union ?date) { (:Union_Male_Nurses "2003-01-01"^^xsd:date) }
+  
+  # Find union memberships
+  ?membership rdf:type :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOf ?union ;
+              :membershipStartDate ?startDate .
+  
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  
+  # Check that the membership is active at the given date
+  FILTER ( ?startDate <= ?date && ( !bound(?endDate) || ?date <= ?endDate ) )
+}
+```

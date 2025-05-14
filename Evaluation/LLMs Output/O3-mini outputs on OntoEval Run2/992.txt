@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that the particular book is identified by its type :Cl_Book and its page count is stored using the :pageCount data property, you could write the following SPARQL query to extract the answer:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookLabel ?pageCount
+WHERE {
+  ?book a :Cl_Book ;
+        :pageCount ?pageCount .
+  OPTIONAL { ?book rdfs:label ?bookLabel . }
+  # Optionally, if you want to restrict to a specific book, use a FILTER or specify its URI:
+  # FILTER(?bookLabel = "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals")
+}
+
+This query returns each book (of type :Cl_Book), its label, and the number of pages it contains.

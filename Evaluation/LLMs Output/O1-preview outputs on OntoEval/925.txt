@@ -1,0 +1,12 @@
+**No**
+
+```sparql
+SELECT ?person ?unionRole ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionRole ?unionPosition .
+  ?unionPosition :roleInUnion ?unionRole .
+  OPTIONAL { ?unionPosition :roleStartDate ?roleStartDate . }
+  OPTIONAL { ?unionPosition :roleEndDate ?roleEndDate . }
+}
+```

@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any information about performances or their dates. Therefore, the competency question cannot be fully answered. However, we can extract partial information about performances if they were present in the ontology.
+
+```sparql
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedOn ?date .
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed world assumption, retrieves the city (given by the property :isLocatedInCity) where a theatre (of type :Cl_Theatre) is located:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city 
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre :isLocatedInCity ?city .
+}
+ORDER BY ?theatre
+----------------------------------
+
+This query is answerable using the ontology because the property :isLocatedInCity is defined with domain :Cl_Theatre and range xsd:string, allowing us to extract the desired answer.

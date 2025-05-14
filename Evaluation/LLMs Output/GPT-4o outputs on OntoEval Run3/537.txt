@@ -1,0 +1,24 @@
+**Yes**
+
+The competency question "When was a certain album released?" can be answered using the ontology provided. The ontology includes the class `Cl_Album` with a data property `hasReleaseDate` that specifies the release date of an album. Here's a SPARQL query to extract the release date of a specific album:
+
+```sparql
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasReleaseDate ?releaseDate .
+}
+```
+
+This query retrieves all albums and their respective release dates from the ontology. If you want to find the release date of a specific album, you can add a filter condition to the query, such as:
+
+```sparql
+SELECT ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :hasReleaseDate ?releaseDate ;
+         :hasName "Stadium Arcadium" .
+}
+```
+
+This query will return the release date of the album "Stadium Arcadium".

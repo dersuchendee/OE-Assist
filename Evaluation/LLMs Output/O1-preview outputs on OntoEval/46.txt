@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT DISTINCT ?actor ?competency
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :actorHasCompetency ?ac .
+  ?ac :competencyOfActor ?competency .
+}
+```
+
+The competency question "What actors hold this competency?" is answerable using the given ontology. The SPARQL query traverses from the `Cl_Actor` class through the `actorHasCompetency` property to the `Cl_ActorCompetency` class, and then to the `Cl_Competency` class via the `competencyOfActor` property. This effectively retrieves all actors and their associated competencies as defined in the ontology.

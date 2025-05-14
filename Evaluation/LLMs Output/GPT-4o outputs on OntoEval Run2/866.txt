@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the country in which a city is located. The ontology includes classes and properties related to locations, cities, and countries, but it lacks a direct connection between a city and its country. Here's a SPARQL query to extract a partial answer, which retrieves cities and their locations:
+
+```sparql
+SELECT ?city ?location
+WHERE {
+  ?location a :Cl_Location .
+  ?location :city ?city .
+}
+```

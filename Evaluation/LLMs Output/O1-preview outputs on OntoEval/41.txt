@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?actorLabel ?actorType ?actorTypeLabel
+WHERE {
+  # Replace :ThisActor with the actual actor URI you are inquiring about
+  :ThisActor a :Actor .
+  OPTIONAL { :ThisActor rdfs:label ?actorLabel . }
+  :ThisActor :actorType ?actorType .
+  OPTIONAL { ?actorType rdfs:label ?actorTypeLabel . }
+}
+```
+
+The competency question "What is the type of this actor?" can be answered using the ontology provided. The ontology defines the class `:Actor` and the class `:ActorType`, connected via the object property `:actorType`. This allows us to retrieve the type of a specific actor.
+
+In the SPARQL query above, replace `:ThisActor` with the URI of the actor you're interested in. The query retrieves the actor's type and any available labels for both the actor and the actor type.

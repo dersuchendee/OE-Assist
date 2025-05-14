@@ -1,0 +1,23 @@
+**Yes**
+
+The ontology models this CQ because each musician participates in events that have a location (via the property :hasLocation). Assuming that musician Z is identified (for instance, by an rdfs:label "Z"), you can retrieve the places she visited by following her participation in events.
+
+Below is a SPARQL query that answers the CQ:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?place ?placeLabel ?eventYear
+WHERE {
+  ?musician a :Musician ;
+            rdfs:label "Z" .
+  ?musician :participatesIn ?event .
+  ?event :hasLocation ?place ;
+         :hasTime ?eventYear .
+  OPTIONAL { ?place rdfs:label ?placeLabel }
+}
+ORDER BY ?eventYear
+------------------------------------------------
+
+This query returns the unique places (and their labels, if available) where musician Z participated in events, along with the event year, thereby answering the competency question.

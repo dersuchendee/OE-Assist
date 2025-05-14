@@ -1,0 +1,97 @@
+@prefix : <http://www.example.org/test#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<http://www.example.org/test#> a owl:Ontology .
+
+:Person a owl:Class ;
+    rdfs:label "Person" .
+
+:Band a owl:Class ;
+    rdfs:label "Band" .
+
+:Membership a owl:Class ;
+    rdfs:label "Membership" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :memberOf ;
+        owl:someValuesFrom :Band
+    ] .
+
+:memberOf a owl:ObjectProperty ;
+    rdfs:label "memberOf" ;
+    rdfs:domain :Person ;
+    rdfs:range :Band .
+
+:hasMembership a owl:ObjectProperty ;
+    rdfs:label "hasMembership" ;
+    rdfs:domain :Person ;
+    rdfs:range :Membership .
+
+:membershipStart a owl:DatatypeProperty ;
+    rdfs:label "membershipStart" ;
+    rdfs:domain :Membership ;
+    rdfs:range xsd:date .
+
+:membershipEnd a owl:DatatypeProperty ;
+    rdfs:label "membershipEnd" ;
+    rdfs:domain :Membership ;
+    rdfs:range xsd:date .
+
+:Album a owl:Class ;
+    rdfs:label "Album" .
+
+:Critic a owl:Class ;
+    rdfs:label "Critic" .
+
+:Record a owl:Class ;
+    rdfs:label "Record" .
+
+:Critique a owl:Class ;
+    rdfs:label "Critique" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :criticOf ;
+        owl:someValuesFrom :Critic
+    ] ,
+    [
+        a owl:Restriction ;
+        owl:onProperty :critiqueOf ;
+        owl:someValuesFrom :Record
+    ] .
+
+:criticOf a owl:ObjectProperty ;
+    rdfs:label "criticOf" ;
+    rdfs:domain :Critique ;
+    rdfs:range :Critic .
+
+:critiqueOf a owl:ObjectProperty ;
+    rdfs:label "critiqueOf" ;
+    rdfs:domain :Critique ;
+    rdfs:range :Record .
+
+:critiqueContent a owl:DatatypeProperty ;
+    rdfs:label "critiqueContent" ;
+    rdfs:domain :Critique ;
+    rdfs:range xsd:string .
+
+OS: Music production
+The current configuration of the “Red Hot Chili Peppers” are: Anthony Kiedis (vocals), Flea (bass, trumpet, keyboards, and vocals), John Frusciante (guitar), and Chad Smith (drums). The line-up has changed a few times during the years, Frusciante replaced Hillel Slovak in 1988, and when Jack Irons left the band he was briefly replaced by D.H. Peligo until the band found Chad Smith. In addition to playing guitars for Red Hot Chili Peppers Frusciante also contributed to the band “The Mars Volta” as a vocalist for some time. From September 2004, the Red Hot Chili Peppers started recording the album “Stadium Arcadium”. The album contains 28 tracks and was released on May 5, 2006. It includes a track of the song “Hump de Bump”, which was composed on January 26, 2004. The critic Crian Hiatt defined the album as "the most ambitious work in his twenty-three-year career". On August 11 (2006) the band gave a live performance in Portland, Oregon (US), featuring songs from Stadium Arcadium.
+
+CQ: What does a certain critic say about a certain record?
+
+Answer: **Yes**.
+
+The ontology supports the competency question as it includes the necessary classes and properties to model critiques by critics about records. The following SPARQL query can be used to extract the answer:
+
+```sparql
+SELECT ?critic ?record ?critiqueContent
+WHERE {
+  ?critique a :Critique .
+  ?critique :criticOf ?critic .
+  ?critique :critiqueOf ?record .
+  ?critique :critiqueContent ?critiqueContent .
+}
+```

@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves, for a given employee and a given doctor, the evaluation statement text (assuming you pass in the URIs for the specific employee and doctor):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?doctor ?evaluationText
+WHERE {
+  ?employee a :Cl_Person ;
+            :hasEvaluation ?evaluation .
+  ?evaluation :evaluationText ?evaluationText ;
+              :evaluationByDoctor ?doctor .
+  FILTER(?employee = :EmployeeURI && ?doctor = :DoctorURI)
+}
+
+Replace :EmployeeURI and :DoctorURI with the actual URIs of the employee and the doctor of interest. This query answers the competency question by extracting the evaluation statement (its text) that was given by the specified doctor for the designated employee.

@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, extracts the performance details for the song “Hump_de_Bump” (a track on the album Stadium_Arcadium) along with its performance date and location (with city, region, and country):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?city ?region ?country
+WHERE {
+  # Find the performance of the song “Hump_de_Bump” 
+  ?perfSong a :Cl_PerformanceSong ;
+            :performedSong :Hump_de_Bump ;
+            :performedAt ?performance .
+  
+  # Get the performance date  
+  ?performance :performanceDate ?performanceDate ;
+               :performanceLocation ?city .
+  
+  # Get location details: the city is located in a region which in turn is in a country
+  ?city :locatedInRegion ?region .
+  ?region :locatedInCountry ?country .
+}
+--------------------------------------------------
+
+In this query the ontology is assumed to provide enough links (via classes Cl_PerformanceSong, Cl_Performance, Cl_Location, Cl_City, Cl_Region, and Cl_Country) to answer the competency question embedded in the story.

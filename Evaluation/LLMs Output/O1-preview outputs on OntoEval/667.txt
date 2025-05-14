@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What songs were played in a certain performance?" is answerable because the ontology includes the class `:Cl_Performance` and the property `:performedSongs` which links performances to songs. This allows us to retrieve the songs performed at a given performance.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  # Replace :performance1 with the specific performance of interest
+  :performance1 a :Cl_Performance .
+  :performance1 :performedSongs ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```

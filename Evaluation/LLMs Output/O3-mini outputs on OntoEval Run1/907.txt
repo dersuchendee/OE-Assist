@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming the ontology asserts a person’s union role using properties such as :hasRole (linking a Person to a Role), :withinUnion (linking a Role to a Union), and a temporal property (e.g. :atTime used in conjunction with properties like :memberOfAt), you can extract the role a given person has in a specific union at a specific point in time. For example, here is a SPARQL query that uses these properties (with parameters for the person, union, and time):
+
+PREFIX : <http://example.org/unionrole#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?union ?time
+WHERE {
+  ?person a :Person .
+  ?person :hasRole ?role .
+  ?role :withinUnion ?union .
+  ?person :memberOfAt ?union .
+  ?person :atTime ?time .
+  
+  # Filter by a given person, union, and time point (adjust URIs and literal as needed)
+  FILTER(?person = <http://example.org/unionrole#PasqualeDiGennaro> &&
+         ?union = <http://example.org/unionrole#MaleNursesUnion> &&
+         ?time = "2002-01-01"^^xsd:date)
+}
+
+This query retrieves the role held by the specified person in the specified union at the provided time.

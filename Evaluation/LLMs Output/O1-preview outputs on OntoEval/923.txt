@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "What role does a certain person have within a certain union group at a certain point in time?" can be answered by the given ontology.
+
+Here's the SPARQL query that retrieves the role of a person within a union at a specific time:
+
+```sparql
+SELECT ?person ?union ?timePoint ?role
+WHERE {
+  ?roleAssignment a :Cl_UnionRoleAssignment .
+  ?roleAssignment :hasPerson ?person .
+  ?roleAssignment :hasUnion ?union .
+  ?roleAssignment :hasRole ?role .
+  ?roleAssignment :timePoint ?timePoint .
+}
+```
+
+This query selects all instances where a person has been assigned a role within a union at a certain time, effectively answering the competency question using the ontology provided.

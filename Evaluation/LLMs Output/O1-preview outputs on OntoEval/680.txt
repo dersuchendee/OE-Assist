@@ -1,0 +1,53 @@
+Answer: **Yes**
+
+The competency question "Where did a certain performance take place?" is answerable using the provided ontology. The ontology models performances, performance events, and locations, and includes properties that connect these entities.
+
+In the ontology, we have:
+
+- **Classes**:
+  - `:Cl_Performance` represents performances.
+  - `:Cl_PerformanceEvent` represents performance events.
+  - `:Cl_Location` represents locations.
+
+- **Object Properties**:
+  - `:performanceEvent` connects a performance (`:Cl_Performance`) to a performance event (`:Cl_PerformanceEvent`).
+    - Domain: `:Cl_Performance`
+    - Range: `:Cl_PerformanceEvent`
+  - `:performedAt` connects a performance event (`:Cl_PerformanceEvent`) to a location (`:Cl_Location`).
+    - Domain: `:Cl_PerformanceEvent`
+    - Range: `:Cl_Location`
+
+Given these classes and properties, we can traverse from a performance to its location via the performance event.
+
+Here is the SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+
+  ?performance :performanceEvent ?event .
+
+  ?event a :Cl_PerformanceEvent .
+  ?event :performedAt ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```
+
+This query retrieves:
+
+- The performance (`?performance`) and its label (`?performanceLabel`), if available.
+- The location (`?location`) where the performance took place and its label (`?locationLabel`), if available.
+
+**Explanation**:
+
+- We first select instances of `:Cl_Performance`.
+- We use the `:performanceEvent` property to find the associated `:Cl_PerformanceEvent`.
+- From the performance event, we use the `:performedAt` property to find the `:Cl_Location` where the performance took place.
+- We include optional labels to make the output more readable.
+
+This SPARQL query directly answers the competency question by leveraging the ontology's structure that connects performances to locations through performance events.

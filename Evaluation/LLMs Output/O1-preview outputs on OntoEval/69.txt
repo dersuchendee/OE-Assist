@@ -1,0 +1,16 @@
+**No**
+
+The competency question cannot be fully answered using the ontology because the `Cl_ResourceComposition` class lacks detailed properties or data that describe the actual composition of a resource. While the ontology defines that a resource can have a composition through the `op_hasComposition` property, it does not specify what that composition consists of.
+
+Here is a SPARQL query that retrieves the resources and their composition instances as far as possible:
+
+```sparql
+SELECT ?resource ?resourceType ?composition
+WHERE {
+  ?resource a :Cl_Resource .
+  OPTIONAL { ?resource :op_hasType ?resourceType . }
+  OPTIONAL { ?resource :op_hasComposition ?composition . }
+}
+```
+
+This query will list resources along with their types and associated composition instances, but it cannot provide the detailed composition information for each resource, as the ontology does not define properties within `Cl_ResourceComposition` to describe this.

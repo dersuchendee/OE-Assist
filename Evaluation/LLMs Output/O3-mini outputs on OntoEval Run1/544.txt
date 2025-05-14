@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releasedOn ?albumRelease .
+  ?albumRelease :releaseDate ?releaseDate .
+}
+```
+
+In this ontology the film “album” is modelled as a :Cl_Album that is linked via the property :releasedOn to a release entity which in turn has a date defined via :releaseDate. Under a closed world assumption, a query like the one above will return the release date for any album—thus the competency question “When was a certain album released?” is answerable by the ontology.

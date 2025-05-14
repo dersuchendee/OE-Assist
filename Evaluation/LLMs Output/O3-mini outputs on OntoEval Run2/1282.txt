@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?meeting ?time ?location ?reason
+WHERE {
+  ?meeting a :Meeting ;
+           :hasTime ?time ;
+           :hasLocation ?location ;
+           :hasReason ?reason ;
+           :hasParticipant ?person1 ;
+           :hasParticipant ?person2 .
+  FILTER (
+    ((?person1 = :musicianX && ?person2 = :performerY) ||
+     (?person1 = :performerY && ?person2 = :musicianX))
+  )
+}
+```

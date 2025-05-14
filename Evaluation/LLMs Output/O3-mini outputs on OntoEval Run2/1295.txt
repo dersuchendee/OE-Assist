@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, retrieves pairs of musicians whose time periods overlap—that is, who were working at the same time:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?musician1 ?musician2 ?startYear1 ?endYear1 ?startYear2 ?endYear2
+WHERE {
+  ?musician1 a :Musician.
+  ?musician2 a :Musician.
+  FILTER(?musician1 < ?musician2)   # avoid duplicate symmetric pairs
+
+  ?musician1 :hasTimePeriod ?timePeriod1.
+  ?timePeriod1 :startYear ?startYear1.
+  ?timePeriod1 :endYear ?endYear1.
+
+  ?musician2 :hasTimePeriod ?timePeriod2.
+  ?timePeriod2 :startYear ?startYear2.
+  ?timePeriod2 :endYear ?endYear2.
+  
+  # Overlapping condition: musician1's period overlaps musician2's period
+  FILTER(?startYear1 <= ?endYear2 && ?startYear2 <= ?endYear1)
+}
+------------------------------------------------
+
+This query answers the competency question by extracting the time-related details of musicians and identifying those whose working periods overlap.

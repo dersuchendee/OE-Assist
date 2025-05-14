@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the CQ because the ontology explicitly models cities, countries, and the relationship between them (using the property :isLocatedInCountry with a :Cl_City as domain and :Cl_Country as range). Under a closed world assumption, if the data provides the specific city instance (for example, Nocera Inferiore), we can extract the country in which that city is located.
+
+For example, if we assume the city has an rdfs:label "Nocera Inferiore", the SPARQL query would be:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City ;
+        rdfs:label "Nocera Inferiore" ;
+        :isLocatedInCountry ?country .
+}
+----------------------------------
+
+This query extracts the city and its associated country, thereby answering the competency question.

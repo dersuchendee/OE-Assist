@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each production along with its single associated premiere, in accordance with the ontology’s restriction that every Production has exactly one premiere:
+
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premiere
+WHERE {
+  ?production a :Production .
+  ?production :hasPremiere ?premiere .
+}
+ORDER BY ?production
+
+This query answers the competency question by listing each Production and its single Premiere, confirming that the ontology models the CQ "A production has exactly one premier" under the closed world assumption.

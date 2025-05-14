@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?timeValue
+WHERE {
+  ?unionMembership a :Cl_UnionMembership .
+  ?unionMembership :hasEmployee ?employee .
+  ?unionMembership :hasUnion ?union .
+  ?unionMembership :hasTimePoint ?timePoint .
+  ?timePoint :timeValue ?timeValue .
+
+  ?employee a :Cl_Employee .
+  OPTIONAL { ?employee :personName ?personName . }
+
+  OPTIONAL { ?employee rdfs:label ?person . }
+
+  # Optionally filter for a specific union and time
+  # FILTER (?union = :SpecificUnion)
+  # FILTER (?timeValue = "YYYY-MM-DDT00:00:00"^^xsd:dateTime)
+}
+```
+
+This SPARQL query retrieves the members (`?person`) of each union (`?union`) at specific points in time (`?timeValue`). If you want to find members of a certain union at a certain point in time, you can uncomment and adjust the `FILTER` clauses to specify the union and time of interest.

@@ -1,0 +1,21 @@
+**Yes**
+Below is a SPARQL query that retrieves each production along with its single premier (using aggregation to enforce that there is exactly one premier under a closed‐world assumption):
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier ?premierDate ?premierTheatre
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  OPTIONAL { ?premier :premierDate ?premierDate . }
+  OPTIONAL { ?premier :premierTheatre ?premierTheatre . }
+}
+GROUP BY ?production ?premier ?premierDate ?premierTheatre
+HAVING (COUNT(?premier) = 1)
+----------------------------------------------------
+
+This query directly answers the CQ “A production has exactly one premier” by ensuring via the aggregate filter that each production has exactly one premier associated with it.

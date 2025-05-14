@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves for a given performance event the songs played (and, optionally, their titles and the performance’s date):
+
+–––––––––––––––––––––––––––––––––––
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?song ?songTitle
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :hasPerformance ?song .
+  OPTIONAL { ?song :hasTitle ?songTitle . }
+  OPTIONAL { ?performance :hasPerformanceDate ?performanceDate . }
+}
+ORDER BY ?performance ?song
+–––––––––––––––––––––––––––––––––––
+
+In this query, we assume that a performance event (of type Cl_PerformanceEvent) is linked to the songs played via the property :hasPerformance. (This property is part of the reified modelling where performance-song associations appear.) Under the closed‐world assumption only the information explicitly stated in the ontology is returned.

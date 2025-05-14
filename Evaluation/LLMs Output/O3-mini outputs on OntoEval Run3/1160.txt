@@ -1,0 +1,23 @@
+**No**
+
+The current ontology does not allow us to extract the default value for a ticket ordering option given a specific user and context (e.g., event, show time, seat) because there is no explicit link between a user (or contextual information) and the reified ticket ordering option instance.
+
+However, we can at least partially answer the CQ by retrieving the default option value from the reification class that connects a ticket option with its default value. For example, a SPARQL query to extract ticket ordering options (linked to a user’s ticket option) along with their default values might look like this:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?ticketOption ?defaultValue
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasTicketOption ?ticketOption .
+  ?orderingOption a :Cl_TicketOrderingOption ;
+                  :hasTicketOption ?ticketOption ;
+                  :hasDefaultOptionValue ?defaultValue .
+}
+----------------------------------------------------------------
+
+This query extracts the default flag from instances of Cl_TicketOrderingOption for each user-associated ticket option, which is a partial answer as the full contextual connection (e.g., linking to event or show context) is not available in the ontology.

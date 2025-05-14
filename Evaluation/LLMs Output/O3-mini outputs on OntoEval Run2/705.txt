@@ -1,0 +1,14 @@
+**Yes**
+
+The following SPARQL query retrieves the region for a given city using the modeled property that links a city to its city-region:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?region .
+}
+--------------------------------------------------
+
+This query assumes a closed‐world interpretation where only explicitly asserted triples (linking a :Cl_City to a :Cl_CityRegion via the property :locatedIn) are available, making the competency question answerable.

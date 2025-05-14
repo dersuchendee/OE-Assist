@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves all book or CD instances along with their publication dates:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  { ?item a :Cl_Book. } UNION { ?item a :Cl_CD. }
+  ?item :publicationDate ?publicationDate.
+}
+----------------------------------
+
+In this query we assume that the instances of books or CDs are asserted as members of the classes :Cl_Book or :Cl_CD and that their publication date is stored using the :publicationDate property as defined in the ontology. This satisfies the competency question “When was a certain book or CD published?” under the closed world assumption.

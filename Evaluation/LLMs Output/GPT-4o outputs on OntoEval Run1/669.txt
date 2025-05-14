@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about performances or songs played during performances. Therefore, the competency question cannot be fully answered. However, we can extract partial information about tracks and songs recorded in albums.
+
+```sparql
+SELECT ?album ?track ?song
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+  ?track :isRecordingOf ?song .
+}
+```

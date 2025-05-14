@@ -1,0 +1,31 @@
+Answer: **Yes**
+
+The competency question asks about the attributes of the event category, specifically noting that a movie has a genre and a set of actors. Given the ontology provided, the class `:Cl_Event` represents the event category, and its subclass `:Cl_Movie` has properties like `:hasGenre` and `:hasActor`. Additionally, `:Cl_MovieScreening` is related to `:Cl_Event` through `:Cl_Movie` and has its own attributes like `:screenedAt` and `:hasScreeningTime`.
+
+Therefore, we can retrieve the attributes of the event category by querying all properties whose domain is `:Cl_Event` or its subclasses.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?attribute ?attributeLabel ?domain ?range
+WHERE {
+  {
+    ?attribute a owl:ObjectProperty .
+    ?attribute rdfs:domain ?domain .
+    ?attribute rdfs:range ?range .
+    ?domain rdfs:subClassOf* :Cl_Event .
+  }
+  UNION
+  {
+    ?attribute a owl:DatatypeProperty .
+    ?attribute rdfs:domain ?domain .
+    ?attribute rdfs:range ?range .
+    ?domain rdfs:subClassOf* :Cl_Event .
+  }
+  OPTIONAL { ?attribute rdfs:label ?attributeLabel . }
+}
+```
+
+This query selects all object and datatype properties (`?attribute`) along with their labels, domains, and ranges where the domain is `:Cl_Event` or any of its subclasses (`rdfs:subClassOf* :Cl_Event`). This will include properties like `:hasGenre`, `:hasActor`, `:hasTitle`, `:screenedAt`, and `:hasScreeningTime`, which are the attributes of the event category specified in the competency question.

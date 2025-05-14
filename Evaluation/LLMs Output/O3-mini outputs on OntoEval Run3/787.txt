@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves for a given person the reified medical degree information via the association between a person and a reification instance (Cl_PersonDegree):
+
+————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasDegree ?personDegree .       # reification instance linking person to a degree
+  ?personDegree :degreeType ?degree .      # degree type (instance of Cl_MedicalDegree)
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :degreeObtainedDate ?degreeObtainedDate .
+  
+  # You can filter for a specific person, e.g.,
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+}
+————————————
+
+In this query the ontology’s modeling using the reification class Cl_PersonDegree allows us to answer the CQ “What medical degrees does a certain person have?” under the closed world assumption.

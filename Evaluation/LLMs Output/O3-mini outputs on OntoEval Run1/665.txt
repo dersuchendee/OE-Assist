@@ -1,0 +1,18 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the songs performed at the performance held at Portland (using the ontology’s properties for performances, performance songs, and locations):
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song 
+WHERE {
+  ?performanceSong a :Cl_PerformanceSong ;
+                   :performedIn ?performance ;
+                   :performedSong ?song .
+  ?performance :tookPlaceAt ?location .
+  ?location :locationName "Portland, Oregon, US" .
+}
+--------------------------------------------------------------
+
+In this query we assume that all information about performances and their locations is explicitly recorded in the ontology. Hence, the competence question (e.g. “Which songs were performed in Portland, Oregon, US?”) is answerable from the ontology.

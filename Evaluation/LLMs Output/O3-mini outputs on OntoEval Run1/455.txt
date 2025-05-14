@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the band membership information for a given band and a given point in time. This query assumes that band memberships have been modeled by reified membership instances (of class Cl_BandMembership) with properties linking the membership to both the member (via :hasMember) and the band (via :membershipInBand) as well as the membership time (via :atTime). You can substitute the band IRI and the point in time (using an xsd:dateTime literal) as needed.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?membership ?member ?time
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :hasMember ?member ;
+              :membershipInBand :Red_Hot_Chili_Peppers ;
+              :atTime ?time .
+  FILTER(?time = "1988-01-01T00:00:00Z"^^xsd:dateTime)
+}
+------------------------------------------------
+
+This query returns the membership instance, the member individual, and the time value for all memberships of the band “Red_Hot_Chili_Peppers” at the specific point in time "1988-01-01T00:00:00Z".

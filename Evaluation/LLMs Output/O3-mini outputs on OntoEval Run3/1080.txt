@@ -1,0 +1,15 @@
+**Yes**
+
+We can answer the CQ using the ontology because seminars are modelled as instances of :Cl_Seminar which have a property :seminarLocation linking them to a hospital. For example, if we want to retrieve the seminar and its location, we can write the following SPARQL query (assuming that seminar locations are explicitly asserted):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?hospital ?hospitalName
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarLocation ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalName. }
+}
+
+This query extracts the seminar instance(s) along with the hospital (its location) where the seminar took place, thus fully answering the competency question under the closed‐world assumption.

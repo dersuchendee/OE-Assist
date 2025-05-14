@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one example of a SPARQL query that uses the ontology’s union membership reification to select persons (of type Cl_Person) that have a union membership (an instance of Cl_UnionMembership ⎯ linked by the property memberOf from Cl_Person) whose associated union (retrieved via the same property, according to the restriction on Cl_UnionMembership) matches a given union IRI and that became effective (as indicated by the membershipDate) before or at the given point in time.
+
+For example, assuming the specific union is identified by the IRI <http://www.example.org/test#UnionX> and the “point in time” is “2005-01-01T00:00:00” (an arbitrary example value), you could run a query like this:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # The person has a union membership (a reified membership instance)
+  ?person :memberOf ?membership .
+  ?membership a :Cl_UnionMembership .
+  
+  # According to the restriction, the membership instance must point to a union:
+  ?membership :memberOf ?union .
+  FILTER (?union = <http://www.example.org/test#UnionX>)
+  
+  # The membership has a membershipDate – we assume membership becomes effective at that date.
+  ?membership :membershipDate ?membershipDate .
+  
+  # The union membership is effective if the joining date is at or before the given point in time.
+  FILTER (xsd:dateTime("2005-01-01T00:00:00") >= ?membershipDate)
+}
+ORDER BY ?person
+-------------------------------------------------------------
+
+This query answers the competency question “Who are the members of a certain union at a certain point in time?” by retrieving those persons for whom a union membership with the specified union exists and whose membership date is prior to or equal to the given moment.

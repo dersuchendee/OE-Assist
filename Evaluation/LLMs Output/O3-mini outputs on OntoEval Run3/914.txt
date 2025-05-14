@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, given a person, a union, and a time, extracts the role that person has within the union at that time. (In this example the input parameters are hard‐coded as :PasqualeDiGennaro, :UnionOfMaleNurses, and a sample date “2005-01-01”. You could replace these with variables or filter values as needed.)
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?roleTitle ?roleStartDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasUnionMembership ?membership .
+  ?membership :memberOf ?union ;
+              :hasUnionRole ?role .
+  ?role :roleTitle ?roleTitle ;
+        :roleStartDate ?roleStartDate .
+  FILTER( ?person = :PasqualeDiGennaro &&
+          ?union = :UnionOfMaleNurses &&
+          xsd:date("2005-01-01") >= ?roleStartDate )
+}
+-------------------------------------------------
+
+This query assumes that if the given time (here "2005-01-01") is later than or equal to the role’s start date, then that role is considered active at that point in time.

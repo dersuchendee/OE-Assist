@@ -1,0 +1,25 @@
+**Yes**
+
+```sparql
+SELECT ?event ?place ?time ?reason
+WHERE {
+  ?event a :MeetingEvent .
+  
+  # Find the musician X participating in the event
+  ?event :hasParticipant ?musician .
+  ?musician a :Musician ;
+            rdfs:label ?musicianName .
+  FILTER( ?musicianName = "X" )
+  
+  # Find the performer Y participating in the same event
+  ?event :hasParticipant ?performer .
+  ?performer a :Performer ;
+             rdfs:label ?performerName .
+  FILTER( ?performerName = "Y" )
+  
+  # Optionally retrieve the place, time, and reason of the meeting event
+  OPTIONAL { ?event :atPlace ?place . }
+  OPTIONAL { ?event :atTime ?time . }
+  OPTIONAL { ?event :hasReason ?reason . }
+}
+```

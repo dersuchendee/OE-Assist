@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate an instrument realization with its builder. The ontology includes the `InstrumentMaker` class and the `madeBy` property, which relates a `MusicalInstrument` to its `InstrumentMaker`, but it does not include a concept of "instrument realization" or a way to link a specific realization to its builder.
+
+However, we can extract partial information about which instruments are made by which makers:
+
+```sparql
+SELECT ?instrument ?maker
+WHERE {
+  ?instrument a :MusicalInstrument .
+  ?instrument :madeBy ?maker .
+}
+```

@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?agent ?agentLabel ?event ?eventLabel
+WHERE {
+  ?agent a :Agent ;
+         :paidToSupport ?event .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+```

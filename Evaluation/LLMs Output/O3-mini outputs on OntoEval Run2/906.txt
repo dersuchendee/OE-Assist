@@ -1,0 +1,38 @@
+**No**
+
+The ontology does let us relate a person (via ns1:hasRole) to a union role and even to the union they represent (via ns1:represents). However, it does not explicitly reify the role assignment with a time‐validity (or temporal interval) on that role; the temporal aspects (e.g. membership period via ns1:hasMembershipPeriod on a UnionMembership instance) are only loosely connected to the person’s union membership but not to the role assignment itself. Therefore, although we can return the role that a person has in a union, we cannot constrain it to “a certain point in time” in a fully integrated way. Under the closed world assumption this means we can only produce a partial answer.
+
+Below is a SPARQL query that extracts the available information (i.e. a person’s role and the union they represent, including membership period information when available) for a specific person and union:
+
+--------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?role ?roleLabel ?union ?unionLabel ?membership ?startDate
+WHERE {
+  # Select the specified person. For example, PasqualeDiGennaro.
+  BIND(ns1:PasqualeDiGennaro AS ?person)
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  # Get the union role that the person has.
+  ?person ns1:hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  # Get the union that the person represents.
+  ?person ns1:represents ?union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+
+  # Get union membership details if available.
+  ?person ns1:memberOf ?membership .
+  OPTIONAL {
+    ?membership ns1:hasMembershipPeriod ?period .
+    ?period time:hasBeginning ?startDate .
+  }
+
+  # Here one would normally filter for a particular time point.
+  # However, the role assignment is not time-qualified in the ontology.
+}
+--------------------------------------------------
+
+This query returns the person’s role and the union they represent along with any membership period start date available, but it does not let us restrict the answer by an arbitrary point in time.

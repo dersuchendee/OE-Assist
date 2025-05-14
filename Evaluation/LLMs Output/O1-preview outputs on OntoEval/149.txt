@@ -1,0 +1,14 @@
+**Yes**
+
+The ontology defines the classes `:Cl_Theatre` and `:Cl_City`, and the object property `:located_in` connecting theatres to cities. Therefore, we can write a SPARQL query to retrieve the city in which a certain theatre is located.
+
+```sparql
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  
+  ?theatre :located_in ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

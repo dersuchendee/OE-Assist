@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            rdfs:label ?festivalName .
+  # Adjust the filter below to target the specific festival (e.g., "Roma Loves Shakespeare")
+  FILTER (CONTAINS(LCASE(?festivalName), "roma loves shakespeare"))
+  ?festival :hasFestivalOccurrence ?occurrence .
+  ?occurrence :occurredOnDate ?date .
+}
+```

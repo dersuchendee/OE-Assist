@@ -1,0 +1,18 @@
+**Yes**
+Below is one SPARQL query that, given a specific city instance, retrieves the region in which that city is located:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?regionLabel
+WHERE {
+  /* Replace :YourCity with the URI of the specific city of interest */
+  :YourCity a :Cl_City ;
+            :isLocatedIn ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+--------------------------------------------------
+
+Under a closed world assumption this query will return the region for the given city if such information is present in the ontology.

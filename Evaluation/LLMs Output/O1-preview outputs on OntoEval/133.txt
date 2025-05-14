@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festivalName ?playTitle
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalName . }
+  
+  ?festival :hasFestivalOccurrence ?occurrence .
+  
+  ?occurrence :hasPlayParticipation ?participation .
+  ?participation :participatedPlay ?play .
+  ?play rdfs:label ?playTitle .
+}
+```

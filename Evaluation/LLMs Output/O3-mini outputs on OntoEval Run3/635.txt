@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer this CQ using the ontology since it explicitly defines a performance class (Cl_Performance) and a property (performanceDate) that links each performance to its date. Under the closed world assumption, we expect every instance of Cl_Performance that is relevant to have a performanceDate value.
+
+A suitable SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+} 
+
+This query retrieves each performance and the date on which it took place, thus fully addressing the CQ.

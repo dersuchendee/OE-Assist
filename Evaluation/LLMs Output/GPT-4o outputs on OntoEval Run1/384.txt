@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain explicit information about roles within a production at a specific point in time. The ontology includes classes and properties related to festivals, plays, theatres, ensembles, individuals, and roles, but it lacks a direct connection between a person, a production, and a specific time for role assignments. Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted by identifying individuals and their roles, but without the specific production and time context:
+
+```sparql
+SELECT ?individual ?individualName ?role ?roleName
+WHERE {
+  ?individual a :Cl_Individual ;
+              :hasName ?individualName ;
+              :hasRole ?role .
+  ?role :roleName ?roleName .
+}
+```

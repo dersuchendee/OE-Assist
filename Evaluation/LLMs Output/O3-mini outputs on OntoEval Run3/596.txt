@@ -1,0 +1,38 @@
+**Yes**
+
+Below is an example SPARQL query that joins the performance, its location and the hierarchical location information (city, region and country) to answer a competency question such as “Where was the performance of the track ‘HumpDeBump’ (from the album StadiumArcadium) held?” This query uses the modeled classes and properties (e.g. Cl_Performance, tookPlaceAt, locatedIn, regionInCountry) to extract the performance date and location information:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?city ?cityName ?region ?regionName ?country ?countryName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :tookPlaceAt ?city .
+  OPTIONAL { ?city :locationName ?cityName. }
+  
+  OPTIONAL {
+    ?city :locatedIn ?region .
+    OPTIONAL { ?region :locationName ?regionName. }
+    OPTIONAL {
+      ?region :regionInCountry ?country .
+      OPTIONAL { ?country :locationName ?countryName. }
+    }
+  }
+  
+  ?perfSong a :Cl_PerformanceSong ;
+            :performedIn ?performance;
+            :performedSong :HumpDeBump .
+}
+--------------------------------------------------
+
+In this query:
+• We select each performance (that has a performance date) where the performance song instance links the performance with the song :HumpDeBump.
+• The performance’s location (modeled as a city) is retrieved along with its name.
+• Further optional patterns drill down to the region (via :locatedIn) and the country (via :regionInCountry) and get their names.
+• This fully exploits the ontology’s modeling of location for a performance and answers the CQ.
+
+Thus, the competency question is well‐modeled by the ontology.

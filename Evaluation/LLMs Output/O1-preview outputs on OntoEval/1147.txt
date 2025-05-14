@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?freeTimePeriod ?label ?startTime ?endTime
+WHERE {
+  :MyCalendar :hasFreeTimePeriod ?freeTimePeriod .
+  OPTIONAL { ?freeTimePeriod rdfs:label ?label . }
+  ?freeTimePeriod :startTime ?startTime .
+  ?freeTimePeriod :endTime ?endTime .
+}
+ORDER BY ?startTime
+```

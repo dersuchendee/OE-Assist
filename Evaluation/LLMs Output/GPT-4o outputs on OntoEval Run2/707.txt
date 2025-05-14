@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a city and its region. The `locatedIn` property connects a city to a region, but there is no direct connection from a city to a country. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying the region a city is located in.
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?region .
+}
+```

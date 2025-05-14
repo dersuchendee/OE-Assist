@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not fully model the required information to answer “When was the premier of a certain production?” In the final part of the ontology only a relationship between a production and its premier is provided (via the property :hasPremier on :Cl_Production) without a property that records the premier’s date. Under the closed‐world assumption only the modeled facts are available, so we cannot extract the premier date (the date is missing). However, we can write a partial query that retrieves each production along with its associated premier entity and, if available, a premier date using an OPTIONAL clause.
+
+Partial SPARQL query:
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?production ?premier ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  OPTIONAL { ?premier :premierDate ?premierDate. }
+}
+------------------------------------------------
+
+Since the property :premierDate is not defined for :Cl_Premier in the ontology, the CQ isn’t fully answerable.

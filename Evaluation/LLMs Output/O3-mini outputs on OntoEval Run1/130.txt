@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?festival ?play ?title
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :hasPlayAppearance ?playAppearance .
+  ?playAppearance :isPlayOf ?play .
+  ?play :hasTitle ?title .
+}
+```

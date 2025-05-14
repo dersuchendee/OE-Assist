@@ -1,0 +1,17 @@
+**No**  
+The ontology does not reify the relationship between a track and the song it’s a recording of (i.e. there is no reified class linking them, such as a Cl_Record or similar intermediary), so only a partial answer (via the direct property) is possible. For example, you can extract the song for a given track as follows:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_Track .
+  ?track :trackOf ?song .
+  # Optionally filter for a specific track:
+  # FILTER(?track = <http://www.example.org/test#SpecificTrack>)
+}
+--------------------------------------------------
+
+This query retrieves the song associated with each track using the property :trackOf, but without a reified representation the answer is only partial compared to the intended reification approach.

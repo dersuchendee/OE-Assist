@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine how content should be presented based on the user's context, such as their location or activity. The ontology defines classes and properties for users, locations, activities, and devices, but it lacks the necessary rules or logic to infer the appropriate content presentation method based on these factors.
+
+Partial SPARQL query to extract user location and activity:
+
+```sparql
+SELECT ?user ?location ?activity
+WHERE {
+  ?user a :User .
+  OPTIONAL { ?user :hasLocation ?location . }
+  OPTIONAL { ?user :hasActivity ?activity . }
+}
+```

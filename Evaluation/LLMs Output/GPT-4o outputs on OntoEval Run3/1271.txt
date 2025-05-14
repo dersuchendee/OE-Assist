@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide any information about the efficiency of processes. It only describes the types of information required by a collaboration process. Therefore, the competency question cannot be fully answered with the given ontology. However, we can extract partial information about the types of information required by a collaboration process.
+
+```sparql
+SELECT ?process ?infoType
+WHERE {
+  ?process a :CollaborationProcess .
+  ?process ?property ?infoType .
+  FILTER(?property IN (:requiresInfrastructureInfo, :requiresProcessInfo, :requiresEnergyRecoveryInfo, :requiresStakeholderInfo, :requiresEnergyDemandSurplusInfo, :requiresValueInfo))
+}
+```

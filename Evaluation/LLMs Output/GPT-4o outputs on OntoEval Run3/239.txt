@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain any direct relationships or properties that link authors to the plays they have written. Therefore, the competency question "What plays did a certain author write?" cannot be fully answered using the current ontology. However, we can attempt to extract partial information related to plays and writing events, but without the author information.
+
+```sparql
+SELECT ?play
+WHERE {
+  ?writingEvent a :Cl_WritingEvent .
+  ?writingEvent :hasPlay ?play .
+}
+```

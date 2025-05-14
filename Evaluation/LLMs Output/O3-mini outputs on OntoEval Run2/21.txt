@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not explicitly include a concept for an “Instrument Realization” – it only provides the MusicalInstrument class along with a madeBy property linking a MusicalInstrument to its InstrumentMaker. Thus the CQ “Who built an instrument realization?” cannot be fully answered because the notion of “instrument realization” is not modelled. However, you can partially answer the intent by retrieving the instrument makers for instances of MusicalInstrument as follows:
+
+PREFIX : <http://www.semanticweb.org/sophia-music-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel ?maker ?makerLabel
+WHERE {
+  ?instrument a :MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+  
+  ?instrument :madeBy ?maker .
+  OPTIONAL { ?maker rdfs:label ?makerLabel. }
+}

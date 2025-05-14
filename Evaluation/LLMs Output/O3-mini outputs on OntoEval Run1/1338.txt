@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?hospitalizationRate ?registrationDate ?disease
+WHERE {
+  ?hospitalizationRate a :HospitalizationRate .
+  ?hospitalizationRate :hasRegistrationDate ?registrationDate .
+  ?hospitalizationRate :relatesToDisease ?disease .
+}
+ORDER BY ?registrationDate
+```

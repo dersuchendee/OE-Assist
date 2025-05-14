@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a musical instrument and its physical realization. The object property `op_hasPhysicalRealization` connects `Cl_MusicalInstrument` to `Cl_InstrumentRealization`, but there is no instance data or further details provided in the ontology to extract a complete answer. A partial answer can be extracted by identifying musical instruments that have a physical realization property.
+
+```sparql
+SELECT ?musicalInstrument ?instrumentRealization
+WHERE {
+  ?musicalInstrument a :Cl_MusicalInstrument .
+  ?musicalInstrument :op_hasPhysicalRealization ?instrumentRealization .
+}
+```

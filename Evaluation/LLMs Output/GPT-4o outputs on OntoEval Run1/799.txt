@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide explicit information about the start date of the study period for a specific degree. Therefore, we cannot fully answer the competency question. However, we can extract partial information about the end date of the study period for a specific degree.
+
+```sparql
+SELECT ?person ?degree ?degreeTitle ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+}
+```

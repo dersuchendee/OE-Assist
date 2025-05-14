@@ -1,0 +1,17 @@
+**Answer: Yes**
+
+The CQ is answerable since the ontology provides a way to connect a city to a country through the reified class `:Cl_CityLocation`. Even though there isn't a direct property from `:Cl_City` to `:Cl_Country`, the reification allows us to retrieve the information needed.
+
+```sparql
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city rdf:type :Cl_City .
+  OPTIONAL { ?city :cityName ?cityName . }
+  
+  ?city :cityLocation ?cityLocation .
+  ?cityLocation :locationCountry ?country .
+  OPTIONAL { ?country :countryName ?countryName . }
+}
+```
+
+This query retrieves cities and their associated countries by traversing the reified relationships in the ontology.

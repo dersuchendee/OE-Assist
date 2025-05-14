@@ -1,0 +1,14 @@
+**Yes**
+
+You can extract the answer by querying for albums with their associated numberOfTracks. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?numberOfTracks
+WHERE {
+  ?album a :Cl_Album ;
+         :numberOfTracks ?numberOfTracks .
+}
+
+This query retrieves each album along with its number of tracks. Under the closed‐world assumption, if the album (e.g. Stadium_Arcadium) has a asserted value (such as the value 28), then the answer is complete.

@@ -1,0 +1,18 @@
+**No**
+
+While the ontology includes information about persons, their roles within unions, and time periods, there is no property linking the `:Cl_UnionRole` or `:Cl_Role` directly to a `:Cl_Union`. Therefore, we cannot fully answer the competency question "What role does a certain person have within a certain union group at a certain point in time?" because we cannot associate the role with a specific union group.
+
+Here is a SPARQL query to extract the partial answer (person, their role, and the time period):
+
+```sparql
+SELECT ?person ?role ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRole ?unionRole .
+  ?unionRole :role ?role .
+  OPTIONAL { ?unionRole :roleStartDate ?startDate . }
+  OPTIONAL { ?unionRole :roleEndDate ?endDate . }
+}
+```
+
+This query retrieves the persons, their roles, and the associated start and end dates but lacks the connection to the union group due to the absence of such linkage in the ontology.

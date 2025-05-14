@@ -1,0 +1,25 @@
+**Yes**
+Below is one example SPARQL query assuming that the review relation is reified (with a reification class linking an album to a critic’s review) so that we can extract what a given critic said about a given record.
+
+For instance, if the reification is modeled by an instance of a review class (here assumed to be connected via the properties :reviewedBy, :hasCritic, and :hasReview), then the query can be written as follows:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumName ?review
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  OPTIONAL { ?album :hasName ?albumName . }
+  
+  ?album :reviewedBy ?reviewInstance .
+  ?reviewInstance :hasCritic :CrianHiatt .
+  ?reviewInstance :hasReview ?review .
+  
+  # Optionally, restrict to a specific album if needed:
+  # FILTER(?album = :StadiumArcadium)
+}
+—————————————————————————————
+
+In this query the reified review instance connects the album (record) with its review given by a critic (here :CrianHiatt). Therefore the CQ “What does a certain critic say about a certain record?” is supported by the ontology under the closed world assumption.

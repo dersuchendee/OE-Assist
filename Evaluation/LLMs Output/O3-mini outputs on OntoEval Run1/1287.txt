@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?payer ?payerLabel ?event ?eventLabel
+WHERE {
+  ?payment a :Payment ;
+           :hasPayer ?payer ;
+           :supportsEvent ?event .
+  OPTIONAL { ?payer rdfs:label ?payerLabel. }
+  OPTIONAL { ?event rdfs:label ?eventLabel. }
+}
+```

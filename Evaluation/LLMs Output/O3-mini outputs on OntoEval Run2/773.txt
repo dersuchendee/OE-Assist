@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming a given person can be identified (for example, with the IRI <http://www.example.org/test#PasqualeDiGennaro>), the following SPARQL query returns the medical degrees (using the property :hasMedicalDegree along with :degreeName):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName 
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?md .
+  ?md :degreeName ?degreeName .
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+}
+---------------------------------
+
+This query demonstrates that the ontology models the competency question since from an instance of :Cl_Person the associated medical degrees and the corresponding degrees’ names can be retrieved.

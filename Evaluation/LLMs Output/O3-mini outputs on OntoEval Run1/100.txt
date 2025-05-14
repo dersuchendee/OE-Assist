@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that the festival’s location is explicitly asserted using either the property theatre:hasLocation (or its sub‐property theatre:takesPlaceAt), we can answer “Where did a certain festival take place?” by extracting the location for a festival instance (for example, theatre:RomaLovesShakespeare). Under a closed–world assumption the absence of a location means it did not take place anywhere. For example, the following SPARQL query retrieves for each festival its associated location:
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?location ?locationLabel
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  {
+    ?festival theatre:hasLocation ?location .
+  }
+  UNION
+  {
+    ?festival theatre:takesPlaceAt ?location .
+  }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+
+This query shows that the ontology supports the competency question “Where did a certain festival take place?” because we can extract (or infer, under the closed world assumption) the location of each festival from the asserted property statements.

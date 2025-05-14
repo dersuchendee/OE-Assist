@@ -1,0 +1,32 @@
+**Yes**
+Below is one SPARQL query that “extracts” the modelling of the CQ from the ontology by looking up how the BeechForest class is defined to have a process (i.e. Carbon Sequestration) that in turn contributes to the Carbon Cycle:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?process ?cycle
+WHERE {
+  # We restrict the query to the BeechForest class
+  BIND(:BeechForest AS ?beechForest) .
+  
+  # Extract the restriction stating that BeechForest has a process
+  ?beechForest rdfs:subClassOf ?hasProcessRestriction .
+  ?hasProcessRestriction owl:onProperty :hasProcess ;
+                       owl:someValuesFrom ?process .
+  
+  # Make sure the process is Carbon Sequestration
+  FILTER(?process = :CarbonSequestration) .
+  
+  # Then, from Carbon Sequestration, extract how it contributes to a cycle
+  ?process rdfs:subClassOf ?contribRestriction .
+  ?contribRestriction owl:onProperty :contributesTo ;
+                      owl:someValuesFrom ?cycle .
+                      
+  # Ensure that the cycle is the Carbon Cycle 
+  FILTER(?cycle = :CarbonCycle) .
+}
+-------------------------------------------------
+
+Under the closed-world assumption, this query shows that the competency question “How does carbon sequestration in beech forests contribute to overall carbon cycling?” is indeed modelled by the ontology.

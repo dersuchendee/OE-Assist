@@ -1,0 +1,52 @@
+Answer: **Yes**
+
+Here is a SPARQL query that retrieves the members of a specific union at a given point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :isMemberOf ?membership .
+  ?membership :membershipInUnion :TargetUnion .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  
+  FILTER (
+    xsd:date(?startDate) <= xsd:date(?GivenDate) &&
+    ( !bound(?endDate) || xsd:date(?endDate) >= xsd:date(?GivenDate) )
+  )
+}
+```
+
+**Explanation:**
+
+- Replace `:TargetUnion` with the specific union URI you're interested in (e.g., `:MaleNursesUnion`).
+- Replace `?GivenDate` with the date you're querying (e.g., `"2002-01-01"`^^xsd:date).
+- The query searches for persons who have a union membership that started on or before the given date and has not ended before that date.
+- The use of `OPTIONAL { ?membership :membershipEndDate ?endDate . }` allows for memberships that may not have an end date specified (i.e., current memberships).
+
+**Sample Query with Specific Values:**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :isMemberOf ?membership .
+  ?membership :membershipInUnion :MaleNursesUnion .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  
+  FILTER (
+    xsd:date(?startDate) <= "2002-06-15"^^xsd:date &&
+    ( !bound(?endDate) || xsd:date(?endDate) >= "2002-06-15"^^xsd:date )
+  )
+}
+```
+
+This query will return all persons who were members of `:MaleNursesUnion` on June 15, 2002.

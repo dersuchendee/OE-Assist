@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "From what source does this data originate?" can be answered using the ontology provided. The ontology includes a class `Data` that has a property `hasSource` linking it to the class `Source`. This allows us to query for the source of each data instance.
+
+```sparql
+SELECT ?data ?source
+WHERE {
+  ?data a :Data .
+  ?data :hasSource ?source .
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer this CQ because the ontology includes a class for performance events (Cl_PerformanceEvent) and a property (hasDate) to record the date of the performance. Under the closed world assumption, if a performance instance exists with a date, its occurrence can be extracted using the following SPARQL query:
+
+------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :hasDate ?date .
+}
+------------------------------
+
+This query retrieves each performance event along with the date it took place, thus fully modeling the competency question "When did a certain performance take place?"

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?confidenceLevel
+WHERE {
+  ?variant a :VariantAssertion .
+  ?variant :relatesComposition ?composition .
+  ?variant :relatesTuneFamily ?tuneFamily .
+  ?variant :hasConfidenceLevel ?confidenceLevel .
+  
+  FILTER(?composition = :CompositionX && ?tuneFamily = :TuneFamilyY)
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "When is an organ moved to another location?" can be answered using the ontology provided. The ontology includes classes and properties that describe organ movement events, including the time of the movement. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?organ ?movementEvent ?fromLocation ?toLocation ?time
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasMovementEvent ?movementEvent .
+  ?movementEvent :fromLocation ?fromLocation .
+  ?movementEvent :toLocation ?toLocation .
+  ?movementEvent :atTime ?time .
+}
+ORDER BY ?time
+```

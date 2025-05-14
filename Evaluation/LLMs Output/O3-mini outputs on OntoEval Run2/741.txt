@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ by writing a SPARQL query that retrieves a region and follows the property chain indicating in what country the region is located. Assuming that regions are instances of :Cl_Region and that the ontology models the relationship using the properties :regionInCountry (with range :Cl_RegionCountry) and then :countryIncludes (with range :Cl_Country), the query below extracts, for each region, the associated country.
+
+For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  ?region :regionInCountry ?regionCountry .
+  ?regionCountry :countryIncludes ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+--------------------------------------------------
+
+This query returns, for every region in the knowledge base, its country (using the provided property chain).

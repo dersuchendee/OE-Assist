@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the location of each theatre festival (hence answering “Where did a certain festival take place?”):
+
+——————————————
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?location ?locationLabel
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  
+  ?festival theatre:hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+——————————————
+
+This query extracts all instances of theatre festivals along with the location linked by the property theatre:hasLocation.

@@ -1,0 +1,39 @@
+Answer: **Yes**
+
+The ontology supports the competency question "What song is a specific track a recording of?" because it includes the classes `:Cl_Track` and `:Cl_Song`, and the object property `:isRecordingOf` that links a track to the song it records.
+
+Here is a SPARQL query that retrieves the song recorded by each track:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackName ?song ?songName
+WHERE {
+  ?track a :Cl_Track .
+  OPTIONAL { ?track rdfs:label ?trackName . }
+  
+  ?track :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songName . }
+}
+ORDER BY ?trackName
+```
+
+This query selects all individuals of type `:Cl_Track`, optionally retrieves their labels, and finds the songs they are recordings of via the `:isRecordingOf` property. It also optionally retrieves the labels of the songs.
+
+If you are interested in a specific track (e.g., with a known URI), you can modify the query as follows:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songName
+WHERE {
+  :SpecificTrack a :Cl_Track .
+  
+  :SpecificTrack :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songName . }
+}
+```
+
+Replace `:SpecificTrack` with the actual URI of the track you're interested in. This query will retrieve the song that the specific track is a recording of.

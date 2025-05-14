@@ -1,0 +1,23 @@
+**Yes**
+
+We can answer this CQ because the ontology explicitly models books and CDs with a publication date. Using a closed‑world assumption, we can retrieve only those individuals that are explicitly asserted to be of type :Cl_Book or :Cl_CD and that have a :publicationDate.
+
+For example, the following SPARQL query returns the identified book or CD along with its publication date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?itemLabel ?pubDate
+WHERE {
+  {
+    ?item rdf:type :Cl_Book .
+  }
+  UNION
+  {
+    ?item rdf:type :Cl_CD .
+  }
+  OPTIONAL { ?item rdfs:label ?itemLabel. }
+  ?item :publicationDate ?pubDate .
+}

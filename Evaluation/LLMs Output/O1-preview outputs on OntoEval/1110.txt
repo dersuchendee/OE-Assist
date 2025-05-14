@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_hasLocation ?location .
+  OPTIONAL { ?person rdfs:label ?personLabel }
+  OPTIONAL { ?location rdfs:label ?locationLabel }
+}
+```

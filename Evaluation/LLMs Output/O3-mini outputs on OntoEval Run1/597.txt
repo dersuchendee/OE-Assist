@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the composition date for songs:
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song ;
+        :compositionDate ?compositionDate .
+}
+--------------------------------------------------
+
+This query directly extracts the composition date (using the :compositionDate property) for all entities typed as :Cl_Song, which supports the competency question "When was a certain song composed?" under the closed world assumption.

@@ -1,0 +1,21 @@
+**No**
+
+The ontology provided does not include any properties or classes that directly relate to union groups or roles within union groups. Therefore, the competency question cannot be fully answered using the given ontology. However, we can extract partial information about a person's employment at a hospital and their membership in a union.
+
+```sparql
+SELECT ?person ?hospital ?employmentDate ?union ?membershipDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment a :Cl_PersonHospitalEmployment .
+  ?employment :employmentDate ?employmentDate .
+  ?employment :employedAt ?hospital .
+
+  OPTIONAL {
+    ?person :memberOf ?membership .
+    ?membership a :Cl_UnionMembership .
+    ?membership :memberOf ?union .
+    ?membership :membershipDate ?membershipDate .
+  }
+}
+```

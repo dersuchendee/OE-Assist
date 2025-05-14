@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+SELECT ?personLabel ?hospitalLabel ?startDate
+WHERE {
+  ?person a ns1:Person ;
+          rdfs:label ?personLabel ;
+          ns1:hasEmployment ?employment .
+
+  ?employment ns1:employedAt ?hospital ;
+              ns1:employmentStartDate ?startDate .
+
+  ?hospital rdfs:label ?hospitalLabel .
+}
+```

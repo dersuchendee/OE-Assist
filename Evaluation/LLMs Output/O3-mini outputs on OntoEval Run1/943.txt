@@ -1,0 +1,20 @@
+**No**
+
+The ontology does include an evaluation instance (with a property :evaluationStatement and links via :evaluatedBy and :evaluationOf) but it does not distinguish “doctor” from other persons. In other words, while you can extract evaluation statements, the CQ asks for the evaluation given by a certain doctor for a specific employee—but there is no explicit way to filter only evaluations made by doctors. Under the closed‐world assumption, the ontology provides a partial answer (all evaluation statements) but does not fully capture the “doctor” role.
+
+A partial answer can be obtained with:
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluation ?evaluationStatement ?evaluator ?evaluatee
+WHERE {
+  ?evaluation a :Cl_Evaluation .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  ?evaluation :evaluatedBy ?evaluator .
+  ?evaluation :evaluationOf ?evaluatee .
+}
+────────────────────────────
+
+This query returns the evaluation statements along with the evaluator and evaluatee, but it does not filter for an evaluator who is explicitly a doctor.

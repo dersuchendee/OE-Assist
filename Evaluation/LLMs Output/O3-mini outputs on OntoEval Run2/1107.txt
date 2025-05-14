@@ -1,0 +1,17 @@
+**Yes**
+
+We can check that every seminar has at least one presented article by taking a closed‐world view. For example, the following query returns any seminar that lacks a presentation (i.e. has no :hasPresentedArticle link). Under the closed‐world assumption, an empty result set confirms that every seminar does indeed have at least one article presented.
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar
+WHERE {
+  ?seminar a :Cl_Seminar .
+  FILTER NOT EXISTS { ?seminar :hasPresentedArticle ?article . }
+}
+----------------------------------------------------------------
+
+If the above query returns no results, it shows that all seminars satisfy the competency question that “at least one article is always presented at each seminar.”

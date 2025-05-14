@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology supports this CQ. We can extract the occurrence date(s) of a theatre festival (e.g., “Roma Loves Shakespeare”) via the connection between a festival and its festival occurrences that have a date. For example, using the individual :RomaLovesShakespeare, one can retrieve the date of the occurrence with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?occurrence ?date
+WHERE {
+  ?festival a :Cl_Festival ;
+            :hasOccurrence ?occurrence .
+  ?occurrence :hasDate ?date .
+  FILTER(?festival = :RomaLovesShakespeare)
+}
+
+This query retrieves the festival, its occurrence, and the date it took place.

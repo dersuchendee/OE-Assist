@@ -1,0 +1,13 @@
+**Answer: Yes**
+
+```sparql
+SELECT ?person ?band ?role ?timePeriod
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRoleInBand ?bandRole .
+  ?band a :Cl_Band .
+  ?band :hasMemberWithRole ?bandRole .
+  ?bandRole :hasRole ?role .
+  ?bandRole :duringTimePeriod ?timePeriod .
+}
+```

@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not establish a direct relationship between an ensemble and the ensemble memberships that include time information. Specifically, the `:Cl_EnsembleMembership` class is connected to actors via the `:hasMember` property and has a timestamp with `:atTime`, but there is no property linking `:Cl_EnsembleMembership` to a specific ensemble (`:Cl_Ensemble`). Therefore, we cannot fully answer the competency question "Who are the members of a certain ensemble at a certain point in time?"
+
+However, we can provide a partial answer by retrieving actors who have performed in an ensemble, though without precise time information related to their membership in that ensemble.
+
+```sparql
+SELECT ?ensemble ?ensembleLabel ?actor ?actorLabel
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+
+  ?actor :performedIn ?ensemble .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```
+
+This query retrieves all actors who have performed in a given ensemble but does not provide membership times due to the lack of connections between ensemble memberships and ensembles in the ontology.

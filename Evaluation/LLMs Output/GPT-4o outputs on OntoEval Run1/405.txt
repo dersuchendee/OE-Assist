@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology includes the class `Cl_Production` and the property `premierDate` with a cardinality restriction of 1, which indicates that each production has exactly one premier date. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+}
+```

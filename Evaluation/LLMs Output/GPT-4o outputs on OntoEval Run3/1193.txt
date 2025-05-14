@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to link events to the provenance of attendees or the reasons for their attendance. The ontology includes classes for `Event`, `Person`, `Provenance`, `Attendance`, and `Reason`, but it does not explicitly connect these in a way that would allow us to answer the competency question fully. We can extract partial information about attendees and their provenance, but not the reasons for their attendance.
+
+```sparql
+SELECT ?event ?person ?provenance
+WHERE {
+  ?event a :Event .
+  ?event :hasAttendance ?attendance .
+  ?attendance :attendedBy ?person .
+  ?person :hasProvenance ?provenance .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each theatre festival instance, the names of the plays associated with that festival:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :festivalName ?festivalName .
+  ?festival :hasPlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?festivalName ?playName
+------------------------------------------------
+
+In this query we assume a closed world (all relevant plays and their relationships are declared in the ontology) and the CQ “What plays could be seen during a certain theatre festival?” can be answered using the property :hasPlay together with the data property :playName.

@@ -1,0 +1,21 @@
+**Yes**
+
+The ontology explicitly constrains every Seminar to have at least one associated Article (via the owl:Restriction on the property :hasArticle). Under the closed world assumption, any Seminar without an explicitly stated :hasArticle would be interpreted as having none, which would violate the constraint. Therefore, the competency question “At least one article is always presented at each seminar.” is directly answerable using the ontology.
+
+A SPARQL query to extract the seminars along with their articles is shown below:
+
+--------------------------------------------------
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel (COUNT(?article) AS ?numArticles)
+WHERE {
+  ?seminar a :Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :hasArticle ?article .
+}
+GROUP BY ?seminar ?seminarLabel
+HAVING (COUNT(?article) >= 1)
+--------------------------------------------------
+
+This query confirms that every Seminar (i.e. each instance of :Seminar) has at least one :hasArticle relation, which directly models and answers the competency question.

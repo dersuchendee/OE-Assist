@@ -1,0 +1,17 @@
+**No**
+
+The current ontology does not provide a direct link between an individual’s role assignments and a specific production. While it allows us to retrieve the roles a person holds along with their assignment times, we cannot limit these roles to those within a given production because there is no property linking a role assignment (or a role) to a production. A partial query that retrieves the roles and their assignment dates for a given person is as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?assignmentDate
+WHERE {
+  ?person a :Cl_Individual .
+  ?person :hasRole ?role .
+  ?person :hasRoleAssignment ?assignment .
+  ?assignment :assignmentDate ?assignmentDate .
+  # Replace :FabioBianchi with the individual in question
+  FILTER(?person = :FabioBianchi)
+}
+ORDER BY ?assignmentDate

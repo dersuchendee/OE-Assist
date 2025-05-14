@@ -1,0 +1,28 @@
+Answer: **Yes**.
+
+You can retrieve the number of tracks that a particular album contains using the `:numberOfTracks` data property associated with the `:Cl_Album` class.
+
+Here's a SPARQL query that answers the competency question:
+
+```sparql
+SELECT ?album ?numberOfTracks
+WHERE {
+  ?album a :Cl_Album .
+  ?album :numberOfTracks ?numberOfTracks .
+}
+```
+
+This query selects all instances of `:Cl_Album` and retrieves the value of their `:numberOfTracks` property, effectively providing the number of tracks for each album.
+
+Alternatively, if you want to count the number of `:containsTrack` relationships for each album (in case the `:numberOfTracks` property is not available), you can use the following query:
+
+```sparql
+SELECT ?album (COUNT(?track) AS ?numberOfTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+```
+
+This query counts the number of tracks associated with each album through the `:containsTrack` object property, giving you the number of tracks that each album contains.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the articles (and their titles) that were presented in a given seminar (here parametrized as :SeminarOnNursePractices):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+  ?article a :Cl_Article ;
+           :articleTitle ?articleTitle ;
+           :presentedIn ?seminar .
+  FILTER(?seminar = :SeminarOnNursePractices)
+}
+-------------------------------------------------
+
+This query shows that the ontology supports the competency question by allowing us to extract the articles presented in the specified seminar under the closed world assumption.

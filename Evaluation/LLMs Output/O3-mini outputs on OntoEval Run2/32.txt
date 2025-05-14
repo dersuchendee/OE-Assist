@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology records process participation using the reified participation class (actorODP:Participation) that links processes (via actorODP:participationIn) with actors (via actorODP:participatingActor). Therefore, we can answer the CQ “What are the actors involved in the process?” by querying for all participations linking an actor to a process.
+
+Below is an example SPARQL query that under the closed world assumption returns the actors (and optionally the process they participate in):
+
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX process: <http://w3id.org/CEON/ontology/process/>
+PREFIX processODP: <http://w3id.org/CEON/ontology/processODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?process ?processLabel
+WHERE {
+  ?participation a actorODP:Participation ;
+                 actorODP:participatingActor ?actor ;
+                 actorODP:participationIn ?process .
+  # Filter to consider only process instances; you may adjust if both process:Process & processODP:Process are used.
+  { ?process a process:Process } UNION { ?process a processODP:Process } .
+  
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+ORDER BY ?actor ?process

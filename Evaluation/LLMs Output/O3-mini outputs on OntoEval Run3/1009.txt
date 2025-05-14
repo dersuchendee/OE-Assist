@@ -1,0 +1,26 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed-world assumption, retrieves the publication date of any individual that is either a book or a CD:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?label ?pubDate
+WHERE {
+  {
+    ?item a :Cl_Book .
+    OPTIONAL { ?item rdfs:label ?label . }
+    ?item :publicationDate ?pubDate .
+  }
+  UNION
+  {
+    ?item a :Cl_CD .
+    OPTIONAL { ?item rdfs:label ?label . }
+    ?item :publicationDate ?pubDate .
+  }
+}
+------------------------------------------------
+
+This query answers the competency question "When was a certain book or CD published?" by returning the publication dates for individuals that are either books or CDs in the ontology.

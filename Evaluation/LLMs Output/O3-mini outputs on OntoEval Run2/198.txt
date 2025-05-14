@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?production ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  ?production :isBasedOn ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?production
+```

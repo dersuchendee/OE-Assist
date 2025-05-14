@@ -1,0 +1,29 @@
+**Yes**
+
+The competency question is answerable with the given ontology because the ontology models the relationships between an organ, its dispositions, and the dates of those dispositions. Each `:Organ` has one or more `:Disposition` instances associated with it via the `:hasDisposition` property. Each `:Disposition` has a date associated with it via the `:hasDate` property. Therefore, we can retrieve the disposition of a specific organ at a specific point in time by querying for the `:Disposition` associated with the organ that has the matching date.
+
+Here's a SPARQL query that retrieves the disposition of a specific organ at a specific date. Replace `:Organ123` with the URI of the organ you're interested in, and `"YYYY-MM-DD"` with the specific date:
+
+```sparql
+SELECT ?disposition ?baseStop
+WHERE {
+  BIND(:Organ123 AS ?organ)
+  BIND("YYYY-MM-DD"^^xsd:date AS ?specificDate)
+  
+  ?organ a :Organ .
+  ?organ :hasDisposition ?disposition .
+  ?disposition :hasDate ?date .
+  FILTER(?date = ?specificDate)
+  
+  OPTIONAL { ?disposition :hasBaseStop ?baseStop . }
+}
+```
+
+This query:
+
+- Selects the `?disposition` and any associated `?baseStop`.
+- Binds the specific organ and date you're querying about.
+- Filters dispositions to those that have the specific date.
+- Optionally retrieves `:hasBaseStop` information from the disposition.
+
+**Note:** Make sure to replace `:Organ123` with the actual organ identifier and `"YYYY-MM-DD"` with the actual date of interest in `YYYY-MM-DD` format.

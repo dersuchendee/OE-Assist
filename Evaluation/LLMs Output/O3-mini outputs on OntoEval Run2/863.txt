@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :City .
+  ?city :isLocatedIn ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```

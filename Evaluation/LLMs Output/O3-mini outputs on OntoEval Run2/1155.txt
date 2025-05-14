@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?filmEvent ?title ?genre ?startTime ?location ?actor
+WHERE {
+  ?filmEvent a :FilmEvent .
+  OPTIONAL { ?filmEvent :hasTitle ?title . }
+  OPTIONAL { ?filmEvent :hasGenre ?genre . }
+  OPTIONAL { ?filmEvent :hasStartTime ?startTime . }
+  OPTIONAL { ?filmEvent :hasLocation ?location . }
+  OPTIONAL { ?filmEvent :featuresActor ?actor . }
+}
+ORDER BY ?filmEvent
+```

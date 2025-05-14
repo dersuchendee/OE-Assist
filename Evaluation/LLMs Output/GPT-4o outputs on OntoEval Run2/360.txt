@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any direct information about the specific time an actor started working for a specific theatre. The ontology includes information about employment start dates, but it does not directly link an actor to a specific theatre with a start date. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract employment start dates for individuals:
+
+```sparql
+SELECT ?individual ?name ?employmentStartDate
+WHERE {
+  ?individual a :Cl_Individual ;
+              :hasName ?name ;
+              :hasEmployment ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```

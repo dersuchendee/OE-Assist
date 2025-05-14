@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to link an organ to the person who built or renovated it. The ontology includes classes and properties for organs, organ builders, and restorations, but it does not explicitly connect these elements in a way that allows us to answer the competency question directly. We can extract partial information about organs and their builders or restorations, but not specifically who built or renovated an organ.
+
+```sparql
+SELECT ?organ ?builder ?renovator
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ :hasBuilder ?builder . }
+  OPTIONAL {
+    ?organ :hasRestoration ?restoration .
+    ?restoration :hasRenovator ?renovator .
+  }
+}
+```

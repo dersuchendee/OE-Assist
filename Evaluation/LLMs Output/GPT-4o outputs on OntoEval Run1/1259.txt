@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "What is the quantity of a flow at a specific time?" can be answered using the given ontology. The ontology provides the necessary classes and properties to query for the quantity of a flow at a specific time.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?flow ?quantity ?time
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasMeasurement ?measurement .
+  ?measurement :hasQuantityValue ?quantity .
+  ?measurement :hasTime ?time .
+}
+```

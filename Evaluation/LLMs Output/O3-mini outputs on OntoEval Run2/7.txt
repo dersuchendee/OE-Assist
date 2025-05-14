@@ -1,0 +1,23 @@
+**No**
+
+The ontology does not directly relate a Source with a ContextOfProduction. In the ontology, ContextOfProduction is linked to an Organ (via the property “has context of production”), and while a Source may carry information about an Organ (for instance, via unreliable information on an OrganComponent), there is no direct modeling of the context of production for a Source.
+
+A partial answer can be obtained by “chaining” through an OrganComponent (if available) to its Organ, and then retrieving the context of that Organ. For example, if a Source provides unreliable information about an OrganComponent, which in turn is part of an Organ produced under a certain context, you might try the following SPARQL query:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?organ ?context ?productionTime ?productionLocation ?builder
+WHERE {
+  ?source a :Source .
+  ?source :hasUnreliableInformation ?organComponent .
+  ?organComponent :isComponentOf ?organ .
+  ?organ :hasContextOfProduction ?context .
+  OPTIONAL { ?context :hasProductionTime ?productionTime . }
+  OPTIONAL { ?context :hasProductionLocation ?productionLocation . }
+  OPTIONAL { ?context :producedBy ?builder . }
+}
+---------------------------------------------------------------
+
+This query retrieves, for each Source that provides unreliable information about an OrganComponent, the Organ it is part of along with the related context of production. However, since the ontology does not model a direct link between a Source and its context of production, the CQ is only partially answerable.

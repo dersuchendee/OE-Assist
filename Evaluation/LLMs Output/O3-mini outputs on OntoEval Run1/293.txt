@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the “particular play” is provided (for example, via a parameter or known individual such as :MerchantOfVenice), you can retrieve its number of acts using a query like this:
+
+–––––––––––––––––––––––––––––––––––––––––––––––––
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play a :Cl_Play ;
+        :hasNumberOfActs ?numberOfActs .
+  # Optionally, filter for a specific play:
+  FILTER(?play = :MerchantOfVenice)  
+}
+–––––––––––––––––––––––––––––––––––––––––––––––––
+
+Under the closed-world assumption, we assume that if a play does not have a recorded number of acts, then it has none, so this query completely answers the question by extracting the number of acts for each (or a specified) play.

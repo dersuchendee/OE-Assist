@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?process ?cvn
+WHERE {
+  ?process a :Cl_Process .
+  ?process :op_isUsedIn ?processInCVN .
+  ?processInCVN :op_partOfCVN ?cvn .
+}
+```

@@ -1,0 +1,18 @@
+**No**
+
+Despite the ontology including classes like `Cl_Book`, `Cl_ArticleCollection`, and `Cl_Article`, there is no explicit relationship connecting specific books or CDs directly to the articles they are composed of. The property `:containsArticle` connects `Cl_ArticleCollection` to `Cl_Article`, but there is no property linking `Cl_Book` to `Cl_ArticleCollection` or directly to `Cl_Article`.
+
+Here's a SPARQL query that extracts a partial answer by retrieving articles within article collections, but it cannot associate them with specific books or CDs due to the missing relationships:
+
+```sparql
+SELECT ?articleCollection ?articleCollectionTitle ?article ?articleTitle
+WHERE {
+  ?articleCollection rdf:type :Cl_ArticleCollection .
+  OPTIONAL { ?articleCollection :collectionTitle ?articleCollectionTitle . }
+  
+  ?articleCollection :containsArticle ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+```
+
+This query retrieves articles contained in article collections but cannot link them to specific books or CDs.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not directly support querying the number of tracks in an album. The `hasTrackCount` property is associated with `Cl_AlbumTrackInfo`, but there is no direct connection between `Cl_MusicAlbum` and `Cl_AlbumTrackInfo` in the ontology. Therefore, a partial answer can be extracted by querying the tracks associated with an album.
+
+```sparql
+SELECT ?album ?albumName (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasName ?albumName .
+  ?album :hasTrack ?track .
+}
+GROUP BY ?album ?albumName
+```

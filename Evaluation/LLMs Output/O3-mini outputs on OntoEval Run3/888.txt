@@ -1,0 +1,33 @@
+**Yes**
+
+Assuming the union in question is represented by an instance (e.g. :targetUnion) and that the “certain point in time” is provided as a parameter (here we use "2002-01-01"^^xsd:date as an example), the ontology supports union membership via the properties :memberOf, :inUnion, :membershipStartDate, and :membershipEndDate. Under a closed‐world assumption, we can require that a person’s union membership began on or before the query date and either has no explicit end date or ended after the query date.
+
+A SPARQL query to extract the members of a given union at a given time might be:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipStartDate ?membershipEndDate ?union
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :inUnion ?union .
+  ?membership :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # Filter for the target union; replace with the desired union URI.
+  FILTER (?union = :targetUnion)
+  
+  # Filter for memberships active on a given date (here "2002-01-01")
+  FILTER(?membershipStartDate <= "2002-01-01"^^xsd:date &&
+         (!bound(?membershipEndDate) || ?membershipEndDate >= "2002-01-01"^^xsd:date))
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?person
+------------------------------------------------------------
+
+This query retrieves persons whose union membership in the target union is active at the specified time, thus answering the competency question.

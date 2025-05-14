@@ -1,0 +1,32 @@
+**Yes**
+
+Below is one possible SPARQL query. Here we assume that each user instance (of type :Cl_User) is linked via :op_hasAbstractTime to an abstract time instance, and that we can use the current time (using NOW()) to determine which abstract time slot applies. Under the closed world assumption, only the known abstract times (e.g. morning defined as 06:00:00 to 10:00:00) exist.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?abstractTime ?start ?end ?currentTime
+WHERE {
+  # Bind the current time (extracting the time portion from NOW())
+  BIND(xsd:time(substr(str(NOW()), 11, 8)) AS ?currentTime)
+  
+  # Select the particular user; here you can restrict to a specific user URI if needed
+  ?user a :Cl_User .
+  
+  # Link the user with its abstract time instance
+  ?user :op_hasAbstractTime ?abstractTime .
+  
+  # Retrieve the start and end times of the abstract time interval
+  ?abstractTime :dp_hasStartTime ?start ;
+                :dp_hasEndTime ?end .
+  
+  # Only return the abstract time in which the current time falls between start and end  
+  FILTER(?currentTime >= ?start && ?currentTime <= ?end)
+}  
+ORDER BY ?user
+-----------------------------------------------------------
+
+This query extracts, for a given user, the abstract time period (e.g. “morning” when the start is "06:00:00" and end is "10:00:00") that currently applies.

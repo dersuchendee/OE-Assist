@@ -1,0 +1,13 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the medical degrees for a given person (here using the individual PasqualeDiGennaro):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :degreeObtainedDate ?degreeObtainedDate .
+}

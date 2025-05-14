@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for a given production and newspaper, the star rating. Note that under the closed‐world assumption any production–review linking is explicitly provided in the data.
+
+ 
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?newspaper ?production ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper .
+  ?newspaper :hasReview ?production .
+  ?production a :Cl_NewspaperReview .
+  ?production :starRating ?starRating .
+  
+  # Optionally, if you wish to filter for a particular production:
+  # FILTER(?production = <http://www.example.org/test#YourProductionIRI>)
+}
+ 
+In this query the assumption is that a review (an instance of Cl_NewspaperReview) is both a production (since it is a subclass of Cl_Production) and a newspaper’s review, so the “star rating” data is accessible.

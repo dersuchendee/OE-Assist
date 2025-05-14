@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one example SPARQL query that uses the ontology to retrieve the earliest employment start date of a given person at a specific hospital:
+
+----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  :PasqualeDiGennaro :hasEmployment ?employment .
+  ?employment :employmentStartDate ?employmentDate .
+  ?employment :employedAt :OspedaleRiunitoDelleTreValli .
+}
+----------------------------------------------
+
+In a closed‐world approach, if multiple employment records exist for the person at the hospital, the query returns the minimum (earliest) employment date, thereby answering the CQ "When was a certain person first employed at a certain hospital?"

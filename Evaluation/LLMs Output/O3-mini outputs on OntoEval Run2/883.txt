@@ -1,0 +1,31 @@
+**Yes**  
+Below is an example SPARQL query that, given a target union (e.g. ns1:MaleNurseUnion) and a target date (e.g. "2002-06-15T00:00:00Z"), returns the persons (union members) whose union membership period covers that date.
+
+Note: The query assumes that membership periods are modelled as time:Intervals with properties time:hasBeginning and optionally time:hasEnd. Under the closed world assumption, only the explicitly provided membership intervals (and their unions) are considered.
+
+-------------------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  ?membership a ns1:UnionMembership ;
+              ns1:hasUnion ns1:MaleNurseUnion ;  # Change to the target union URI as needed
+              ns1:hasMember ?person ;
+              ns1:hasMembershipPeriod ?period .
+  ?period time:hasBeginning ?start .
+  OPTIONAL { ?period time:hasEnd ?end . }
+  
+  # Define the target date at which we want to check the membership
+  BIND(xsd:dateTime("2002-06-15T00:00:00Z") AS ?targetDate) .
+
+  # The target date must be after or equal to the start and (if exists) before or equal to the end date.
+  FILTER ( ?targetDate >= ?start && ( !bound(?end) || ?targetDate <= ?end ) ) .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+-------------------------------------------------------------
+
+This query answers the CQ “Who are the members of a certain union at a certain point in time?” by using the reified membership information (ns1:UnionMembership with its membership period) available in the ontology.

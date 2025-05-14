@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the composition date of a given song (in this case “HumpDeBump”):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :compositionDate ?compositionDate .
+  FILTER(?song = :HumpDeBump)
+}
+---------------------------------
+
+This query answers the competency question “When was a certain song composed?” by extracting the composition date for the song individual “HumpDeBump” from the ontology, under the closed world assumption.

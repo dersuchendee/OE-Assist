@@ -1,0 +1,15 @@
+Answer: **No**
+
+Because although the ontology defines `:premierDate` as a functional property (meaning each production can have at most one premier date), it does not specify that every production must have exactly one premier date. There is no axiom enforcing that every `:Cl_Production` instance must have a `:premierDate`. Therefore, we cannot conclude from the ontology that every production has exactly one premier.
+
+Partial SPARQL query to retrieve productions that have a premier date:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :premierDate ?premierDate . }
+}
+```
+
+This query retrieves productions that have a `:premierDate`. However, because not all productions are guaranteed to have a premier date in the ontology, it does not prove that every production has exactly one premier.

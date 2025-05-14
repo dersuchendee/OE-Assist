@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying for annotation properties related to the class `RareSpecies`. The ontology provides annotation properties such as `conservationStatus`, `populationTrend`, and `documentedBy` that are applied to the class `RareSpecies`.
+
+Here is a SPARQL query to extract the specific annotation properties used to document rare species within the ontology:
+
+```sparql
+SELECT ?annotationProperty ?label
+WHERE {
+  ?annotationProperty a owl:AnnotationProperty ;
+                      :appliesToClass :RareSpecies ;
+                      rdfs:label ?label .
+}
+```

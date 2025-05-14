@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each production, its name and the premier date as modelled by the reified premier information in the ontology:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premierDate 
+WHERE {
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :hasPremier ?premier .
+  ?premier :hasPremierDate ?premierDate .
+}
+-------------------------------------------------
+
+In this query we assume the closed world: only productions with an explicitly stated premier (via the :hasPremier property linking to an instance of :Cl_ProductionPremier) are returned, so the answer derives solely from the asserted information in the ontology.

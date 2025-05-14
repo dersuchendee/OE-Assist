@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves the publication dates for any instance representing a book or CD (i.e. those that are of type Cl_ArticleCollection):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD a :Cl_ArticleCollection .
+  ?bookOrCD :publicationDate ?publicationDate .
+}
+
+This query extracts all individuals that are an instance of Cl_ArticleCollection (which in this ontology serves as a reified class connecting both Cl_Book and Cl_CD) along with their publicationDate.

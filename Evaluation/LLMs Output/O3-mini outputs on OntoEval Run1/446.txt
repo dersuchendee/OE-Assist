@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world interpretation, retrieves the band members for a given band at a specific point in time. In this example we assume that the band is “Red Hot Chili Peppers” and that the desired time period is indicated by a TimePeriod (for example with label “2004”). You can adjust the values (or use parameters) as needed.
+
+---------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel
+WHERE {
+  ?lineUp a :LineUp ;
+          :partOfBand :RedHotChiliPeppers ;       # selects the desired band
+          :activeDuring ?timePeriod ;              # the time period when the lineup was active
+          :hasMember ?member .
+  ?timePeriod rdfs:label "2004" .                   # filters to the specific point in time
+  OPTIONAL { ?member rdfs:label ?memberLabel } .
+}
+---------------------------------------
+
+In this ontology the reified class LineUp connects a band (via :partOfBand), its members (via :hasMember), and the period when that lineup was active (via :activeDuring). Therefore the competency question “What are the members of a certain band at a certain point in time?” is indeed modelled by the ontology.

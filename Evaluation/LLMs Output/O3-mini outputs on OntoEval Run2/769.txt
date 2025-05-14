@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves, for a given person, all the medical degrees they hold (including any nursing degree, which by the ontology is a subclass of MedicalDegree):
+
+  PREFIX : <http://example.org/medical_degrees#>  
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+  SELECT ?person ?degree ?degreeLabel  
+  WHERE {  
+    ?person a :Person .  
+    ?person :hasMedicalDegree ?degree .  
+    OPTIONAL { ?degree rdfs:label ?degreeLabel . }  
+  }
+
+Under a closed‐world assumption, this query will return the explicit medical degrees assigned to the person in question.

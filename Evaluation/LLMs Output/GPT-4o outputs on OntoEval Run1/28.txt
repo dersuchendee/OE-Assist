@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What are the roles of this actor in this network?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to query the roles associated with an actor within a network. The reification pattern used in the ontology connects actors, roles, and material flows, which supports the competency question.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?actorRole a :Cl_ActorRole .
+  ?actorRole :actorInNetwork ?actor .
+  ?actorRole :roleInNetwork ?role .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves the city where a given hospital (here, represented as the individual :OspedaleRiunitoDelleTreValli) is located. This query assumes that a hospital’s location is represented by an individual (for example, :LocationOfOspedaleRiunito) which has two properties: one linking it to the hospital (using the property :locationOf) and one linking it to a city (using the property :locatedIn). The city’s name is given via the data property :cityName.
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?cityName
+WHERE {
+  ?location :locationOf ?hospital .
+  ?location :locatedIn ?city .
+  ?city :cityName ?cityName .
+  FILTER(?hospital = :OspedaleRiunitoDelleTreValli)
+}
+---------------------------------------------------------------
+
+This query returns the hospital along with the name of the city (for example, "Nocera Inferiore") where it is located.

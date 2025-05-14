@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a seminar. While there is a `heldAt` property that connects a seminar to a hospital, there is no direct connection to a specific location or city where the seminar took place. Therefore, a partial answer can be extracted by identifying the hospital where the seminar was held, but not the specific location.
+
+```sparql
+SELECT ?seminar ?hospital
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :heldAt ?hospital .
+}
+```

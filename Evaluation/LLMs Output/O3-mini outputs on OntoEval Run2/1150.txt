@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?suggestion ?movie ?timePeriod ?weather ?userPreference
+WHERE {
+  ?suggestion a :Cl_EventSuggestion ;
+              :hasEvent ?movie ;
+              :hasSuggestedTime ?timePeriod ;
+              :hasUserPreference ?userPreference ;
+              :hasWeatherDuringEvent ?weather .
+              
+  ?timePeriod :isEvening true .
+  ?weather :isRaining true .
+  ?userPreference :likesMovies true .
+}
+```

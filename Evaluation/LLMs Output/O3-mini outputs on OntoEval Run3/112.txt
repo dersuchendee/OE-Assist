@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that gathers information about productions with a premiere date and an associated review from a specific newspaper. In this query we extract the production’s name, its premier date (using the reified production premier information), and—if available—the star‐rating given by the newspaper and the newspaper’s name.
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?productionName ?premierDate ?reviewRating ?newspaperName 
+WHERE {
+  # Get the production premier instance and its production
+  ?productionPremier a :Cl_ProductionPremier ;
+                       :hasProduction ?production ;
+                       :hasPremierDate ?premierDate .
+  
+  # Get the production name
+  ?production :productionName ?productionName .
+
+  # Optionally, get a review associated with the same production
+  OPTIONAL {
+    ?review a :Cl_Review ;
+            :hasProduction ?production ;
+            :hasStarRating ?reviewRating ;
+            :hasNewspaper ?newspaper .
+    ?newspaper :newspaperName ?newspaperName .
+  }
+}
+ORDER BY ?premierDate
+
+─────────────────────────────
+
+In a closed‐world assumption scenario, we assume that all relevant production, premiere, and review data are provided in the ontology so that this query accurately “answers” the competency question regarding which productions have premiered (when and where) and with what review ratings.

@@ -1,0 +1,16 @@
+**No**
+
+```sparql
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?project ?task ?place 
+WHERE {
+    ?organ a organs:Organ .
+    OPTIONAL { ?organ arco:isDescribedBy ?project . }
+    OPTIONAL { ?project arco:definesTask ?task . }
+    OPTIONAL { ?project arco:hasPlace ?place . }
+}
+```

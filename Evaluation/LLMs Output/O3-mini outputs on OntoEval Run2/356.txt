@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the actor’s employment information is recorded as an instance of :Cl_Employment connected to both an actor (via :hasActor) and a theatre (via :hasTheatre) with a starting date captured by the :startDate property, you can extract the start time with a query such as:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?employment a :Cl_Employment .
+  ?employment :hasActor ?actor .
+  ?employment :hasTheatre ?theatre .
+  ?employment :startDate ?startDate .
+  # Replace <ActorURI> and <TheatreURI> with the specific actor and theatre IRIs
+  FILTER(?actor = <http://www.example.org/test#FabioBianchi> && ?theatre = <http://www.example.org/test#SomeTheatre>)
+}
+---------------------------------------------------
+
+This query retrieves the startDate (i.e. the time when the actor began working for the theatre) from the ontology under a closed world assumption.

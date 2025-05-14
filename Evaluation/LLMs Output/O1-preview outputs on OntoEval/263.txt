@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playTitle ?startDate ?endDate WHERE {
+  ?play a :Play ;
+        :hasTitle ?playTitle ;
+        :wasWrittenDuring ?timeInterval .
+  ?timeInterval a :TimeInterval ;
+                :hasStartDate ?startDate ;
+                :hasEndDate ?endDate .
+}
+```

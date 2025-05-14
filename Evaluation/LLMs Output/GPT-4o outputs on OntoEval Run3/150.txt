@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct property or class that associates a theatre with a city. The closest property is `:isLocatedIn`, which associates a theatre with a city, but there is no instance data or specific property that directly answers the competency question. Therefore, a partial answer can be extracted by querying for theatres and their associated cities, but it will not provide a complete answer without additional instance data.
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :isLocatedIn ?city .
+}
+```

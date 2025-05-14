@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the weather service providing personalized weather information (that is, a weather service that has been configured with a user preference). In this ontology, a WeatherService individual with a user preference (via the property :hasUserPreference) represents one that tailors its forecasts. The query also optionally retrieves its associated forecast and location:
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology/weather#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?service ?serviceLabel ?forecast ?forecastLabel ?location ?locationLabel
+WHERE {
+  ?service a :WeatherService ;
+           rdfs:label ?serviceLabel ;
+           :hasUserPreference ?pref .
+  OPTIONAL {
+    ?service :hasForecast ?forecast .
+    OPTIONAL { ?forecast rdfs:label ?forecastLabel. }
+  }
+  OPTIONAL {
+    ?service :providesForecastFor ?location .
+    OPTIONAL { ?location rdfs:label ?locationLabel. }
+  }
+}
+------------------------------------------------
+
+This query answers the CQ by extracting the weather service that is configured with a user preference (i.e. personalized weather information).

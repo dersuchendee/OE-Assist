@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, extracts the location at which a seminar took place by relying on the property linking a seminar (an instance of Cl_Seminar) to its location (e.g. a Cl_Hospital or more generally a Cl_Location):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?location ?locationLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+
+  ?seminar :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+----------------------------------------------------------------
+
+In this query we are retrieving all seminars along with their associated locations. Under the closed‐world assumption we assume that if a seminar does not have a :hasLocation property then the seminar did not take place anywhere in the ontology, making the query answer complete.

@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming the closed‐world perspective, the ontology asserts directly which instruments each person plays using the “playsInstrument” property. One can write a SPARQL query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+
+This query returns for each individual of type Cl_Person the instruments that they play, thereby answering the CQ "What instruments does a certain person play?" as modelled by the ontology.

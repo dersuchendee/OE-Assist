@@ -1,0 +1,15 @@
+**No**  
+The ontology does not capture any relation between products and their manufacturers. Although a manufacturer individual (:manufacturer) is defined under the actor module, there is no modelling of products (or a property connecting products to their manufacturer) in the ontology. Under the closed world assumption, we cannot infer which product is manufactured by which actor. Therefore, we can only partially answer the CQ by, for example, listing the product instances (from the imported resource ontology) and returning the defined manufacturer individual as a placeholder. One possible partial SPARQL query is:
+
+---------------------------------------
+PREFIX : <http://w3id.org/CEON/ontology/actor/>
+PREFIX res: <http://w3id.org/CEON/ontology/resourceODP/>
+
+SELECT ?product ?manufacturer
+WHERE {
+  ?product a res:Resource .
+  BIND(:manufacturer AS ?manufacturer)
+}
+---------------------------------------
+
+This query retrieves all products (instances of res:Resource) and, for each product, binds the manufacturer individual (:manufacturer) as a partial answer, acknowledging that the intended relation between a product and its manufacturer is not modelled in the ontology.

@@ -1,0 +1,30 @@
+**Yes**
+
+We can answer this CQ by retrieving the employment record that links the actor and the theatre and then fetch the employmentStartDate. Assuming that the ontology models:
+• The theatre as instances of :Cl_Theatre,
+• The employment relationship as instances of :Cl_Employment with a data property :employmentStartDate,
+• The link from a theatre to its employment record via the object property :employs (with domain :Cl_Theatre and range :Cl_Employment),
+• And the link from the employment record to the actor via the object property :employedActor (with range :Cl_Actor),
+
+the following SPARQL query retrieves the employment start date for an actor working for a theatre. (Replace or bind the actor and theatre accordingly.) 
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?actor ?employmentStartDate
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :employs ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?employment :employedActor ?actor .
+  
+  # Optionally, filter by a specific actor and theatre, e.g.:
+  # FILTER(?actor = :Fabio_Bianchi)
+  # FILTER(?theatre = :Grand_Theatre)
+}
+ORDER BY ?employmentStartDate
+------------------------------------------------
+
+This query shows that the ontology supports the competency question.

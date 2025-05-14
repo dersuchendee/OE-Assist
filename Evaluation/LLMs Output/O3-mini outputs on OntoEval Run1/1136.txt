@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?userLocation ?locationLabel ?device ?deviceLabel ?functionality ?functionalityLabel
+WHERE {
+  ?udf a :Cl_UserLocationDeviceFunctionality .
+  ?udf :involvesUserLocation ?userLocation .
+  OPTIONAL { ?userLocation rdfs:label ?locationLabel . }
+  
+  ?udf :involvesDevice ?device .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+  
+  ?udf :involvesFunctionality ?functionality .
+  OPTIONAL { ?functionality rdfs:label ?functionalityLabel . }
+}
+```

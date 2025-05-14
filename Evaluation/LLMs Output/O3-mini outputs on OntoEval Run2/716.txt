@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each city and its associated region according to the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :isInRegion ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+--------------------------------------------------
+
+This query shows that the competency question "In what region is a certain city located?" is fully supported by the ontology (under a closed world assumption) through the property :isInRegion connecting instances of :Cl_City to instances of :Cl_Region.

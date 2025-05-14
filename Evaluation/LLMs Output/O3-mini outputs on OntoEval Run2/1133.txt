@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?indoorLocation ?indoorLabel ?device ?deviceLabel
+WHERE {
+  ?indoorLocation a :IndoorLocation .
+  OPTIONAL { ?indoorLocation rdfs:label ?indoorLabel . }
+  
+  ?indoorLocation :hasDevice ?device .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+}
+```

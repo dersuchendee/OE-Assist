@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the plays written by a specified author (here, for example, "William Shakespeare"). This query navigates from an instance of Cl_Author via the property :hasAuthorPlay to a Cl_AuthorPlay instance and then from that instance via :writtenPlay to the corresponding Cl_Play.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  
+  ?author :hasAuthorPlay ?authorPlay .
+  ?authorPlay :writtenPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  
+  # Filter to a specific author if needed; example shown for "William Shakespeare"
+  FILTER(BOUND(?authorLabel) && LCASE(?authorLabel) = "william shakespeare")
+}
+------------------------------------------------
+
+This query demonstrates that the ontology supports the competency question "What plays did a certain author write?" by extracting the connection between an author and the plays he or she has written.

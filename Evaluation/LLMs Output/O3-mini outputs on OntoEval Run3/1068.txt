@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that retrieves the location where each seminar took place by using the property that links a Seminar with a Location:
+
+──────────────────────────────────────────────
+PREFIX : <http://example.org/seminar#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?location ?locationLabel
+WHERE {
+  ?seminar a :Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :takesPlaceAt ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+──────────────────────────────────────────────
+
+In a closed world setting, this query will list those seminars that have been explicitly linked to a location (e.g. a hospital or a city), which answers the competency question "Where did a certain seminar take place?"

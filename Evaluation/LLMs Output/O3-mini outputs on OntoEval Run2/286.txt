@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, retrieves each play and counts the number of acts (using the property that connects a play with its acts):
+
+———————————————————————————————
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle (COUNT(?act) AS ?numActs)
+WHERE {
+  ?play a :Play .
+  OPTIONAL { ?play :hasTitle ?playTitle . }
+  ?play :hasAct ?act .
+}
+GROUP BY ?play ?playTitle
+ORDER BY ?play
+———————————————————————————————
+
+This query shows that the competency question “How many acts does a particular play contain?” is modeled by the ontology and answerable.

@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?presentation ?presentationLabel ?article ?articleLabel
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  
+  ?seminar ns1:hasPresentation ?presentation .
+  OPTIONAL { ?presentation rdfs:label ?presentationLabel . }
+  
+  ?presentation ns1:presentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?seminar ?presentation
+```

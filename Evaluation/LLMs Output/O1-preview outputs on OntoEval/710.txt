@@ -1,0 +1,16 @@
+**Answer: Yes**
+
+The competency question "In what region is a certain city located?" is answerable with the given ontology. The ontology includes classes `:Cl_City` and `:Cl_Region`, and the object property `:locatedInRegion` that connects instances of cities to their respective regions. Additionally, the ontology contains individuals such as `:Portland` (an instance of `:Cl_City`) and `:Oregon` (an instance of `:Cl_Region`), with the relationship `:Portland :locatedInRegion :Oregon`.
+
+Here's the SPARQL query to extract the answers:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedInRegion ?region .
+}
+```

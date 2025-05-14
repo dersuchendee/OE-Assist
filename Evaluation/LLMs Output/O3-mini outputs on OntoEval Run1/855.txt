@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that uses the ontology’s classes and the :locatedIn property to retrieve the city in which hospitals are located:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital ;
+            :locatedIn ?city .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+--------------------------------------------------
+
+This query returns each hospital along with its associated city, which addresses the competency question "In what city is a certain hospital located?" under a closed world assumption.

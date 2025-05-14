@@ -1,0 +1,25 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?material ?materialLabel ?composition ?compositionLabel ?component ?componentLabel ?percentage
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+  ?material :hasChemicalComposition ?composition .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+  
+  {
+    ?composition :consistsOfElement ?component .
+  }
+  UNION
+  {
+    ?composition :consistsOfCompound ?component .
+  }
+  OPTIONAL { ?component rdfs:label ?componentLabel . }
+  ?component :hasPercentage ?percentage .
+}
+ORDER BY ?material ?composition ?component
+```

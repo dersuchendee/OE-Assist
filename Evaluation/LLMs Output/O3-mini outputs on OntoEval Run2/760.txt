@@ -1,0 +1,25 @@
+**Yes**
+
+We can verify that every record (i.e. every instance of :Cl_Album) has at least one associated track (i.e. a triple using the :containsTrack property). For instance, using the closed‐world assumption we can run a query that looks for any album that lacks a track. An empty result confirms that every album does have at least one track. One SPARQL query to check this is:
+
+--------------------------------------------------
+ASK {
+  ?album a :Cl_Album .
+  FILTER NOT EXISTS {
+    ?album :containsTrack ?track .
+  }
+}
+--------------------------------------------------
+
+Alternatively, if you want to list all albums with a count of their tracks (and then manually check that the count is ≥ 1 for every album), you can use:
+
+--------------------------------------------------
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :containsTrack ?track . }
+}
+GROUP BY ?album
+--------------------------------------------------
+
+If the ASK query returns true (or if every album in the SELECT query has numTracks > 0), then the competency question “A record always contains at least one track” is indeed supported by the ontology.

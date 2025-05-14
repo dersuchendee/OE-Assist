@@ -1,0 +1,30 @@
+**Yes**
+
+The ontology includes a reification for union membership and union roles. In particular, the class Cl_PersonUnionRole (a subclass of Cl_PersonUnionMembership and Cl_UnionRole) is used to associate a person with their union membership and role, together with the data properties “roleStartDate” and “roleEndDate” that let you determine when a given role was in effect. This makes it possible to ask “What role does a certain person have within a certain union group at a certain point in time?” by restricting the results to the time window of interest.
+
+For example, if you assume that the individual representing the “certain person” is identified as :Pasquale_Di_Gennaro and the union group as :Union_MaleNurses, and you want to know his role on a given date (say “2003-01-01”), you could write a query like the following:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel ?roleStart ?roleEnd
+WHERE {
+  # Assume the union membership reification instance is used both as person and union role
+  ?membership a :Cl_PersonUnionRole ;
+              :memberOf :Union_MaleNurses ;
+              :hasRole ?role ;
+              :roleStartDate ?roleStart ;
+              :roleEndDate ?roleEnd .
+  # Since reification makes the membership instance also a Cl_Person, we can filter on the specific person.
+  FILTER(?membership = :Pasquale_Di_Gennaro)
+  
+  # Check that the given time (here “2003-01-01”) falls within the role period
+  FILTER(xsd:date("2003-01-01") >= ?roleStart && xsd:date("2003-01-01") <= ?roleEnd)
+  
+  OPTIONAL { ?role rdfs:label ?roleLabel. }
+}
+--------------------------------------------------------
+
+This query answers the competency question by extracting the role (with its label and its start/end dates) that the specified person has in the given union group at the specified point in time.

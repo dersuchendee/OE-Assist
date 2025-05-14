@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a complete trace of the material, as it lacks a mechanism to represent a sequence of processes that a material undergoes. The ontology only allows for a single process to be associated with a material as its producer. Therefore, it cannot fully answer the competency question regarding the complete trace of the material.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?material ?origin ?process
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material :hasOrigin ?origin . }
+  OPTIONAL { ?material :producedByProcess ?process . }
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves performances and their locations:
+
+----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedIn ?location .
+}
+----------------------------------------------
+
+This query assumes that the ontology uses the property :performedIn to indicate where a performance occurred (for example, as shown by :Performance_Portland having :performedIn :Portland_Oregon).

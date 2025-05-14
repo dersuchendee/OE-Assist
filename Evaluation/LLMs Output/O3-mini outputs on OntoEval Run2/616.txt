@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the critic’s statement (i.e. what a certain critic says) about a certain record:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?record ?critic ?criticStatement
+WHERE {
+  ?review a :Cl_CriticReview ;
+          :reviewOf ?record ;
+          :madeByCritic ?critic ;
+          :criticStatement ?criticStatement .
+  FILTER(?record = :Stadium_Arcadium && ?critic = :Crian_Hiatt)
+}
+--------------------------------------------------
+
+In this query the reviewer and the record parameters are fixed (using the examples from the OS); the query can be adapted to retrieve answers for any given critic and record by appropriately parameterizing the FILTER clause.

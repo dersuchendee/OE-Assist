@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not explicitly define the role of denitrifying bacteria in the denitrification process. While the ontology includes classes for DenitrificationProcess and DenitrifyingBacteria, and a property hasRole, it does not specify what the role is. Therefore, a partial answer can be extracted by identifying the denitrifying bacteria involved in the denitrification process, but not their specific role.
+
+```sparql
+SELECT ?bacteria
+WHERE {
+  ?process a :DenitrificationProcess .
+  ?process :hasParticipant ?bacteria .
+  ?bacteria a :DenitrifyingBacteria .
+}
+```

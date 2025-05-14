@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each book (identified as an instance of Cl_ArticleCollection, which is a subclass of Cl_Book), the number of pages recorded in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?pages
+WHERE {
+  ?book a :Cl_ArticleCollection .
+  ?book :numberOfPages ?pages .
+}
+--------------------------------------------------
+
+This query extracts the answer to the competency question "How many pages does a particular book contain?" under a closed world assumption.

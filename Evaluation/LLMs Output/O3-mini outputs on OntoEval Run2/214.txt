@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one possible SPARQL query that, given an ensemble of interest and a specific time point (supplied as a parameter), retrieves the members whose associated time interval covers that point.
+
+Note: In this query we assume that each ns1:Individual (a potential ensemble member) has an associated ns1:hasTimeInterval value whose ns1:startTime and ns1:endTime indicate the period during which that individual is a member. We also use a VALUES clause to fix the time point (e.g. "2009-09-07T00:00:00+00:00"). Adjust the ensemble IRI and the time value as needed.
+
+-------------------------------------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?ensemble ?ensembleLabel ?member ?memberLabel 
+WHERE {
+  # Specify the time point of interest (adjust as needed)
+  VALUES ?time { "2009-09-07T00:00:00+00:00"^^xsd:dateTime }
+  
+  # Filter for a specific ensemble (replace <ENSEMBLE_IRI> with the target ensemble's IRI)
+  VALUES ?ensemble { <http://example.org/ontology/theatre#YourEnsembleIRI> }
+  
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel. }
+  
+  # Get the members of the ensemble
+  ?ensemble ns1:hasMember ?member.
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+  
+  # Check that the member has a valid time interval covering the specified time
+  ?member ns1:hasTimeInterval ?interval.
+  ?interval ns1:startTime ?start.
+  ?interval ns1:endTime ?end.
+  FILTER(?time >= ?start && ?time <= ?end)
+}
+-------------------------------------------------------------
+
+Under the closed world assumption (i.e. only explicitly stated information is assumed true), this query extracts the ensemble members who are active at the given time.

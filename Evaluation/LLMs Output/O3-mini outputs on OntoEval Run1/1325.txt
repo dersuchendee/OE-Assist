@@ -1,0 +1,28 @@
+**Yes**
+Below is one possible SPARQL query that “asks” the ontology for the axiom pattern showing that Energy Metabolism is defined such that it (i) contributes to some CO2 Fixation Pathway and (ii) occurs in an Aquatic Ecosystem. Under a closed world assumption, this query inspects the class‐level (TBox) restrictions that answer the CQ:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyMetabolism ?property ?co2FixationPathway ?occursIn
+WHERE {
+  # Retrieve the restriction stating that EnergyMetabolism contributes to a CO2FixationPathway.
+  :EnergyMetabolism rdfs:subClassOf ?contribRestriction .
+  ?contribRestriction owl:onProperty :contributesTo ;
+                      owl:someValuesFrom ?co2FixationPathway .
+
+  BIND(:EnergyMetabolism AS ?energyMetabolism)
+  BIND(:contributesTo AS ?property)
+
+  # Optionally, check that EnergyMetabolism occurs in an Aquatic Ecosystem.
+  OPTIONAL {
+    :EnergyMetabolism rdfs:subClassOf ?occRestriction .
+    ?occRestriction owl:onProperty :occursIn ;
+                    owl:someValuesFrom ?occursIn .
+    FILTER(?occursIn = :AquaticEcosystem)
+  }
+}
+ORDER BY ?energyMetabolism ?co2FixationPathway
+
+This query extracts the answer from the ontology by showing that the class EnergyMetabolism is restricted with a “contributesTo” relationship toward some instance of CO2FixationPathway and (optionally) that it occurs in an AquaticEcosystem. Hence, the competency question is modelled by the ontology.

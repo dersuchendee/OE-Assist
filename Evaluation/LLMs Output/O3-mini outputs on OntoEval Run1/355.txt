@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the start date on which a given actor started working for a given theatre. (Replace the placeholders "Fabio Bianchi" and "Specific Theatre" with the appropriate names as they are encoded in your data.)
+
+------------------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?employment a :Employment .
+  ?employment :hasEmployee ?actor .
+  ?actor rdfs:label ?actorName .
+  
+  ?employment :hasEmployer ?theatre .
+  ?theatre rdfs:label ?theatreName .
+  
+  ?employment :hasStartDate ?startDate .
+  
+  FILTER(?actorName = "Fabio Bianchi" && ?theatreName = "Specific Theatre")
+}
+------------------------------------------------------------
+
+In this query, we assume that the ontology models employment relationships by the reified class :Employment, which links an Actor (via :hasEmployee) with a Theatre (via :hasEmployer) along with a start date provided over the property :hasStartDate. This makes the competency question answerable under the closed world assumption.

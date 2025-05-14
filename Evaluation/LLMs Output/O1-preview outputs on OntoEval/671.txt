@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?song ?songTitle
+WHERE {
+  # Specify the performance of interest, e.g., with a known URI :GivenPerformance
+  # or filter by date and location if available
+  ?performance a :Cl_Performance .
+  ?performance :performedSongs ?song .
+  OPTIONAL { ?song rdfs:label ?songTitle . }
+  # If the performance is known:
+  FILTER ( ?performance = :GivenPerformance )
+  # If you need to filter by date or location, include these lines:
+  # ?performance :performedOn ?date .
+  # ?performance :performanceLocation ?location .
+  # FILTER ( ?date = "2006-08-11"^^xsd:date && ?location = :Portland_Oregon )
+}
+```

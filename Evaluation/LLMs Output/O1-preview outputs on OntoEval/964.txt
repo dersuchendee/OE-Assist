@@ -1,0 +1,14 @@
+**No**
+
+Given the ontology, there is no direct relationship between a specific book or CD and the articles it is composed of. The ontology defines that an `:ArticleCollection` contains articles through the `:containsArticle` property, but there is no link between `:Cl_Book` or `:Cl_CD` and `:Cl_ArticleCollection`. Therefore, we cannot write a SPARQL query to answer the competency question as is.
+
+However, we can extract partial information about which articles are contained in article collections:
+
+```sparql
+SELECT ?articleCollection ?article ?articleLabel
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  ?articleCollection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```

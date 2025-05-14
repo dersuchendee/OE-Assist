@@ -1,0 +1,16 @@
+**No**
+
+```sparql
+SELECT ?actorName ?roleName ?date
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName ;
+         :hasRole ?actorRole .
+
+  ?actorRole a :Cl_ActorRole ;
+             :roleName ?roleName ;
+             :roleDate ?date .
+}
+```
+
+The ontology lacks explicit properties to connect `:Cl_ActorRole` to a specific production in a way that allows us to retrieve the production name. While we can retrieve the actor's name, role name, and the date associated with the role, we cannot obtain the production within which the role is performed. Therefore, we cannot fully answer the competency question with the given ontology.

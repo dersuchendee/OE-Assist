@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question is supported by the ontology because the ontology includes the necessary classes and properties to represent actors, their roles, productions, and the dates associated with those roles. Specifically, the `:Cl_ActorRole` class and the properties `:hasRole`, `:hasRoleInProduction`, and `:hasRoleDate` allow us to model the roles that an actor has within a production at a certain point in time.
+
+Here is the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?production ?date ?roleLabel
+WHERE {
+  ?person a :Cl_Actor .
+  ?person :hasRole ?actorRole .
+  
+  ?actorRole a :Cl_ActorRole .
+  ?actorRole :hasRoleInProduction ?production .
+  ?actorRole :hasRoleDate ?date .
+  
+  OPTIONAL { ?actorRole rdfs:label ?roleLabel . }
+  
+  # If you want to specify a certain person, production, or date, uncomment and modify the filters below:
+  # FILTER (?person = :SpecificPersonURI) .
+  # FILTER (?production = :SpecificProductionURI) .
+  # FILTER (?date = "YYYY-MM-DD"^^xsd:date) .
+}
+```
+
+This query retrieves the roles that an actor (`?person`) has within a production (`?production`) at a specific date (`?date`). The `?roleLabel` retrieves the label of the role if available.

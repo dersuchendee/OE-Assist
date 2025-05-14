@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that returns the date for each seminar event by linking the seminar occurrence with its seminar and extracting its date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?event a :Cl_SeminarEvent .
+  ?event :P_isOccurrenceOf ?seminar .
+  ?event :P_hasDate ?date .
+  # Optionally, if you need to filter for a “certain seminar”, add a FILTER or VALUES clause below.
+}
+ORDER BY ?seminar ?date
+
+This query shows that the ontology allows one to identify when a seminar took place by querying for its event date, so the CQ is modelled by the ontology.

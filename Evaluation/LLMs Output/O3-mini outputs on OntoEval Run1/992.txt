@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that books are represented as instances of :Cl_Book and that the number of pages is stored using the :pageCount data property, a SPARQL query to answer “How many pages does a particular book contain?” could be as follows:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :pageCount ?pageCount .
+  # Optionally, if the particular book is identifiable by a label, you could add:
+  # ?book rdfs:label ?label .
+  # FILTER(lcase(str(?label)) = "nurse practices in cancer patient care – longitudinal studies at italian hospitals")
+}
+---------------------------------------------------------------
+
+This query retrieves all books (instances of :Cl_Book) along with their associated page count. Under the closed world assumption, if the data for the specific book exists in the ontology, this query will provide the complete answer.

@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the CQ with the following SPARQL query. Under the closed world assumption, only cities with an explicitly stated region using the property :isLocatedIn will be returned.
+
+----------------------------------------------------------------
+SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedIn ?region .
+}
+----------------------------------------------------------------
+
+This query retrieves each individual of type :Cl_City along with the region it is located in (as governed by :isLocatedIn), so the CQ is fully supported by the ontology.

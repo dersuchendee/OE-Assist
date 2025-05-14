@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming we have a resource URI for the “certain author” (for example, <http://www.example.org/test#SomeAuthor>), the following SPARQL query retrieves the plays written by that author:
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  FILTER(?author = <http://www.example.org/test#SomeAuthor>)
+  
+  ?author :wrotePlay ?play .
+  OPTIONAL {
+    ?play rdfs:label ?playLabel
+  }
+}
+-----------------------------------------------
+
+Under the closed world assumption, only the explicitly stated triples in the ontology are considered, and this query will return the complete answer based on the available data.

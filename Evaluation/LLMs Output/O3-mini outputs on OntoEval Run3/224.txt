@@ -1,0 +1,29 @@
+**Yes**
+
+The ontology provides classes and properties – notably the reified membership class (:Cl_EnsembleMembership) with its property :atTime, along with the links between actors (:Cl_Actor) and ensembles (via :performedIn and the membership relation :memberOf) – so that one may retrieve, for a given ensemble and a given time, the actors who are members at that time. For instance, one can write a SPARQL query like the following (using a given ensemble IRI and a fixed time value as parameters):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?membershipTime
+WHERE {
+  # Select the target ensemble (replace with the ensemble of interest)
+  VALUES ?ensemble { :MerchantOfVeniceEnsemble }
+  
+  # Get actors that performed in the target ensemble
+  ?actor :performedIn ?ensemble .
+  
+  # Get the membership instance (reified membership) for the actor
+  ?actor :memberOf ?membership .
+  ?membership :atTime ?membershipTime .
+  
+  # Optionally attach a human‐readable label
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  
+  # Filter by a specific time: replace the literal below with the desired point in time
+  FILTER(?membershipTime = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?actor
+
+In a closed‐world setting (i.e. assuming that only the stated facts hold), this query returns the actors who are members of the given ensemble at the specific point in time.

@@ -1,0 +1,17 @@
+**Yes**
+
+Under the closed‐world assumption we can assume that any production not having a premier is seen as having no premier, and since the premier date property is functional (i.e. at most one value), we can use a query that selects productions with exactly one associated premier date. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (SAMPLE(?premier) AS ?premierDate)
+WHERE {
+  ?production rdf:type :Cl_TheatreProduction .
+  OPTIONAL { ?production :dp_premierDate ?premier. }
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+
+This query returns all productions that have exactly one premier date, thereby modeling the competency question "A production has exactly one premier."

@@ -1,0 +1,12 @@
+**Yes**
+
+Below is one SPARQL query that retrieves all recordings which involve a bell or set of bells, using the fact that such recordings are explicitly typed using the class RecordingInvolvingBell:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?recording ?label
+WHERE {
+  ?recording a :RecordingInvolvingBell .
+  OPTIONAL { ?recording rdfs:label ?label . }
+}

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine equivalence between habitats based on their microbial and fungal communities' composition. However, we can extract partial information about the compositions of each habitat.
+
+```sparql
+SELECT ?habitat ?composition ?microbialCommunity ?fungalCommunity
+WHERE {
+  ?habitat a :Habitat .
+  ?habitat :hasComposition ?composition .
+  ?composition :hasMicrobialCommunity ?microbialCommunity .
+  ?composition :hasFungalCommunity ?fungalCommunity .
+}
+```

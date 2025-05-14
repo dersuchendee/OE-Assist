@@ -1,0 +1,29 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" is supported by the ontology because it includes a restriction that enforces this constraint. Specifically, every instance of `:Cl_Seminar` must have at least one associated `:Cl_Article` through the `:hasArticle` property.
+
+Here is a SPARQL query that retrieves the restriction enforcing this constraint:
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?restriction
+WHERE {
+  ?restriction rdf:type owl:Restriction .
+  ?restriction owl:onProperty :hasArticle .
+  ?restriction owl:someValuesFrom :Cl_Article .
+  ?restriction rdfs:subClassOf :Cl_Seminar .
+}
+```
+
+This query searches for any restrictions that:
+
+- Are of type `owl:Restriction`.
+- Operate on the property `:hasArticle`.
+- Require some values from the class `:Cl_Article`.
+- Are subclasses of `:Cl_Seminar`.
+
+The result confirms that the ontology models the competency question by enforcing that every seminar must have at least one article presented.

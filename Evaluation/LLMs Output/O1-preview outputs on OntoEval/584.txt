@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the competency question "When was a certain song composed?" using the provided ontology. The ontology includes information about songs (`ns1:Song`) and their composition dates through the `ns1:composedOn` property. Here's a SPARQL query that retrieves the composition date of each song:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songLabel ?compositionDate
+WHERE {
+  ?song a ns1:Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  ?song ns1:composedOn ?compositionDate .
+}
+ORDER BY ?songLabel
+```
+
+This query selects all resources of type `ns1:Song`, retrieves their labels (if available), and their composition dates. It effectively answers the competency question by providing the composition dates of songs present in the ontology.

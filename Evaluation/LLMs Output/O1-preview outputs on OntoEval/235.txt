@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?play a :Play .
+  ?play :hasAuthor ?author .
+  ?author rdfs:label ?authorName .
+  FILTER(?authorName = "William Shakespeare")
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each theatre festival, the plays that have been scheduled within that festival (using the reified connection provided by the FestivalPlay construct):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName .
+  ?festivalPlay a :Cl_FestivalPlay ;
+                :hasFestival ?festival ;
+                :hasPlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?festivalName ?playName
+—————————————————————————————
+
+This query extracts each festival along with its name and finds the associated play (via the :Cl_FestivalPlay reification). This shows that the CQ "What plays could be seen during a certain theatre festival?" is fully answerable given the modeled ontology.

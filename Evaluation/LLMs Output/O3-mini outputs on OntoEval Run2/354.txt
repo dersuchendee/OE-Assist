@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one way to write a SPARQL query that retrieves the start date an actor began working for a theatre, based on the employment details in the ontology:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?employment rdf:type :Cl_ActorEmployment ;
+              :employment_actor ?actor ;
+              :employment_theatre ?theatre ;
+              :employment_start_date ?employmentStartDate .
+  
+  # Optionally, filter for a specific actor and a specific theatre
+  # Example:
+  # FILTER(?actor = :FabioBianchi && ?theatre = :TheGrandTheatre)
+}
+------------------------------------------------
+
+In this query, the ontology reifies actor employment as instances of Cl_ActorEmployment that link an actor (via :employment_actor) to a theatre (via :employment_theatre) and record the starting date (via :employment_start_date). Under the closed world assumption, this query extracts the answer to the competency question:
+“At what time did a certain actor start working for a specific theatre?”

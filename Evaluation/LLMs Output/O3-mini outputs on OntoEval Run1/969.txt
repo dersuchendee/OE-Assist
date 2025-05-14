@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example of a SPARQL query that, given a specific publication (book or CD), returns the articles that compose it:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  # Replace :pub1 with the IRI of the specific book or CD
+  VALUES ?pub { :pub1 }
+
+  # Ensure the publication is either a book or a CD
+  ?pub a ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD)
+
+  # Query for the articles contained in the publication via the containsArticle property
+  ?pub :containsArticle ?article .
+
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+------------------------------------------------------------
+
+This query assumes the closed world interpretation where only explicitly stated facts are considered, and it retrieves the articles composed in the specific book or CD.

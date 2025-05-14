@@ -1,0 +1,29 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the seminar along with the hospital where it was held (and, optionally, the city where that hospital is located). This query uses the property :heldAt (with domain :Cl_Seminar) and also, if available, the property :isLocatedInCity to indicate the seminar’s location according to the ontology.
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :heldAt ?hospital ;
+           :seminarDate ?seminarDate .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL { 
+    ?hospital :isLocatedInCity ?city .
+    OPTIONAL { ?city rdfs:label ?cityLabel . }
+  }
+  # Optionally, if you want to narrow down to a particular seminar (e.g., December 2008),
+  # you can use a FILTER like the following, assuming seminarDate is xsd:date:
+  # FILTER (year(xsd:date(?seminarDate)) = 2008)
+}
+ORDER BY ?seminarDate
+
+─────────────────────────────
+
+This query answers the competency question “Where did a certain seminar take place?” by retrieving the seminar’s date, the hospital it was held at, and—if available—the city in which that hospital is located.

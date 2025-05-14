@@ -1,0 +1,15 @@
+Answer: **No**
+
+Under the closed world assumption, we cannot fully answer the competency question "What are the actors involved in the process?" because the ontology does not contain instances of actors participating in any processes. However, we can extract partial information about the types of actor roles that can be involved in processes.
+
+Here is a SPARQL query to retrieve the actor roles defined in the ontology that are related to processes:
+
+```sparql
+SELECT ?actorRole
+WHERE {
+  ?actorRole a owl:NamedIndividual .
+  ?actorRole rdf:type actor:ActorProcessRole .
+}
+```
+
+This query will list the actor roles that are individuals of `actor:ActorProcessRole`, which represents the roles actors can have in processes according to the ontology.

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?area ?areaLabel 
+       (COUNT(?chemicalMeasurement) AS ?chemicalCount)
+       (COUNT(?physicalMeasurement) AS ?physicalCount)
+WHERE {
+  ?area a :Area .
+  OPTIONAL { ?area rdfs:label ?areaLabel . }
+  OPTIONAL { ?area :hasChemicalMeasurement ?chemicalMeasurement . }
+  OPTIONAL { ?area :hasPhysicalMeasurement ?physicalMeasurement . }
+}
+GROUP BY ?area ?areaLabel
+ORDER BY ?area
+```

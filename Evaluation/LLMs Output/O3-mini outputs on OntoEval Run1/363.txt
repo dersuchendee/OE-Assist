@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each employment record, the actor (with label if available), the theatre (with label if available), and the employment start date. This directly answers the CQ “At what time did a certain actor start working for a specific theatre?”
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?employmentStartDate
+WHERE {
+  ?employment a :Cl_ActorEmployment .
+  ?employment :employmentActor ?actor .
+  ?employment :employedAt ?theatre .
+  ?employment :employmentStartDate ?employmentStartDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+}
+ORDER BY ?actor ?employmentStartDate

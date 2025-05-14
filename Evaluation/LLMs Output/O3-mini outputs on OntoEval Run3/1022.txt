@@ -1,0 +1,15 @@
+**Yes**
+Below is an example SPARQL query that retrieves seminars along with the date on which they took place. (Under the closed‐world assumption we assume that every seminar instance has a value for the “has date” property.)
+
+PREFIX : <http://example.org/seminar#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarTitle ?date
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasDate ?date .
+  OPTIONAL { ?seminar :hasSeminarTitle ?seminarTitle . }
+}
+
+This query answers the competency question “When did a certain seminar take place?” by retrieving all seminars (?seminar) and the corresponding date (?date) when they took place, with an optional title for identification.

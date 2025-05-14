@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the album recording start and end dates (i.e. the time period during which an album was recorded) for each album in the ontology. You may further filter by a specific album (e.g., by its label) if needed.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+  ?album :albumRecordingStartDate ?recordingStart .
+  ?album :albumRecordingEndDate   ?recordingEnd .
+}
+ORDER BY ?album
+--------------------------------------------------
+
+This query shows that the ontology supports the competency question “During what time period was a certain album recorded?” by directly linking albums (of type Cl_Album) to their recording start and end dates.

@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that “reifies” the band‐membership by using the Cl_PersonRoleBandTime class. In this query you can replace the band and the chosen point in time (using a filter on the membership’s time) as needed:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?band ?member ?role ?membershipTime
+WHERE {
+  ?membership a :Cl_PersonRoleBandTime .
+  ?membership :hasBand ?band .
+  ?membership :hasPerson ?member .
+  ?membership :hasRole ?role .
+  ?membership :hasTime ?membershipTime .
+  
+  # For example, retrieve members of :RedHotChiliPeppers that were active
+  # on or before a chosen point in time.
+  FILTER(?band = :RedHotChiliPeppers && ?membershipTime <= "2005-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?membershipTime
+---------------------------------------------------
+
+This query returns the members (the persons with their roles and the time at which the membership is recorded) for a chosen band at a specific point in time. Under a closed‐world assumption we assume that the reified membership information fully specifies the band’s members at any given moment.

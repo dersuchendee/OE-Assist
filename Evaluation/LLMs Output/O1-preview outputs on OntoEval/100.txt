@@ -1,0 +1,17 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology contains festivals and their locations via the property `theatre:hasLocation`.
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?location ?locationLabel
+WHERE {
+  ?festival rdf:type theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival theatre:hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

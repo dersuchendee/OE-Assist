@@ -1,0 +1,31 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?species ?speciesLabel ?characteristic ?charLabel
+WHERE {
+  ?species a :RareSpecies .
+  ?species :isFoundIn ?aquifer .
+  ?aquifer a :Aquifer .
+  ?species :hasCharacteristic ?characteristic .
+  
+  OPTIONAL { ?species rdfs:label ?speciesLabel . }
+  OPTIONAL { ?characteristic rdfs:label ?charLabel . }
+  
+  # Replace :SpecificAquifer with the URI of the specific aquifer you're interested in
+  FILTER(?aquifer = :SpecificAquifer)
+}
+```
+
+In this SPARQL query:
+- `?species` selects the rare species.
+- `?aquifer` is the specific aquifer of interest (you would replace `:SpecificAquifer` with the actual aquifer URI).
+- `?characteristic` retrieves the characteristics of these rare species.
+- The ontology provides all the necessary classes and properties to model this competency question:
+  - `:RareSpecies` is defined as species with a rarity status of "rare".
+  - `:isFoundIn` links species to their habitats, and since `:Aquifer` is a subclass of `:Habitat`, it can be used here.
+  - `:hasCharacteristic` links species to their characteristics.
+  
+Therefore, the ontology supports the competency question, and the SPARQL query can be used to extract the desired information.

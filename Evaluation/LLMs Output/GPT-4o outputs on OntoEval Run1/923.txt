@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role within a union group at a specific point in time. The ontology includes classes and properties related to persons, unions, roles, and time points, but it lacks a direct connection between these elements to answer the competency question fully. However, we can extract partial information about union memberships and roles.
+
+```sparql
+SELECT ?person ?union ?role ?timePoint
+WHERE {
+  ?roleAssignment a :Cl_UnionRoleAssignment ;
+                  :hasPerson ?person ;
+                  :hasUnion ?union ;
+                  :hasRole ?role .
+  OPTIONAL { ?roleAssignment :timePoint ?timePoint . }
+}
+```

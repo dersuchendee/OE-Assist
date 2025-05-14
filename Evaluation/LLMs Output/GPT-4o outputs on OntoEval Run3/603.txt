@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "When was a certain song composed?" can be answered using the ontology provided. The ontology includes the class `Cl_SongComposition` which is a subclass of `Cl_Song` and `Cl_Date`, and it has a data property `compositionDate` that can be used to retrieve the composition date of a song.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedOn ?composition .
+  ?composition a :Cl_SongComposition .
+  ?composition :compositionDate ?compositionDate .
+}
+```

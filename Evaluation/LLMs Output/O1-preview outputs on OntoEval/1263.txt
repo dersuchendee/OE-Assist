@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology includes the necessary classes and properties to retrieve the effects that implementation actions have on external social and environmental factors. Specifically, `ImplementationAction` is connected to `Effect` via `:hasEffect`, and `Effect` is connected to `ExternalFactor` via `:affectsFactor`. Since `SocialFactor` and `EnvironmentalFactor` are subclasses of `ExternalFactor`, we can retrieve the social and environmental factors affected.
+
+```sparql
+SELECT ?implementationAction ?effect ?externalFactor
+WHERE {
+  ?implementationAction a :ImplementationAction .
+  ?implementationAction :hasEffect ?effect .
+  ?effect :affectsFactor ?externalFactor .
+  ?externalFactor a ?factorType .
+  FILTER (?factorType = :SocialFactor || ?factorType = :EnvironmentalFactor)
+}
+```

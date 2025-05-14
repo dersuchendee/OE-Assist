@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate articles with specific seminars. The ontology includes classes and properties for seminars, articles, and seminar presentations, but it lacks a direct link between articles and the seminars in which they were presented. Therefore, a partial answer can be extracted by identifying articles and seminars separately, but not their direct association.
+
+```sparql
+SELECT ?article ?articleTitle ?seminar ?seminarDate
+WHERE {
+  ?article a :Cl_Article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+  
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+}
+```

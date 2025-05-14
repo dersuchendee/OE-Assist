@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given person, the union role that person holds within a particular union group during a specified time (i.e. where the specified time point falls between the membership’s start and end times):
+
+-----------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?unionGroup ?startTime ?endTime
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionMembership ?membership .
+  ?membership :hasUnionRole ?role .
+  ?person :partOfUnionGroup ?unionGroup .
+  ?membership :unionMembershipDuring ?period .
+  ?period :startTime ?startTime .
+  ?period :endTime ?endTime .
+  
+  # Replace the example date with the point in time of interest.
+  FILTER (
+    xsd:dateTime("2003-01-01T00:00:00") >= ?startTime &&
+    xsd:dateTime("2003-01-01T00:00:00") <= ?endTime
+  )
+}
+-----------------------------
+
+In this query, using the reified union membership (modeled by :Cl_UnionMembership) and its associated properties, we can extract the role a person holds in a union group at a given moment.

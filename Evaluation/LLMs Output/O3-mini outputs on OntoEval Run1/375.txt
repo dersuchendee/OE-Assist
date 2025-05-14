@@ -1,0 +1,36 @@
+**Yes**
+
+Below is a SPARQL query that—under the closed world assumption—retrieves which roles a given person has in a given production at a specified point in time:
+
+————————————————————————————
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel ?time ?production ?prodLabel
+WHERE {
+  # Bind the specific person, production, and time of interest:
+  VALUES ?person { ns1:FabioBianchi } .
+  VALUES ?production { ns1:MerchantOfVenice } .
+  VALUES ?pointInTime { "2009-09-07T00:00:00+00:00"^^xsd:dateTime } .
+
+  # Retrieve time-indexed roles for the person
+  ?person ns1:hasTimeIndexedRole ?tir .
+  ?tir ns1:atTime ?time .
+  
+  # Ensure the time matches the specified point (using closed world, equality is assumed)
+  FILTER(?time = ?pointInTime)
+
+  # Get the role from the time-indexed structure
+  ?tir ns1:hasRole ?role .
+  
+  # Ensure that the role is in the specified production
+  ?role ns1:inProduction ?production .
+  
+  # Optional labels for better readability  
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+}
+————————————————————————————
+
+In this query we assume the ontology’s modelling of TimeIndexedRole—linking a person, a time (via ns1:atTime), and a role (via ns1:hasRole) which in turn is connected to a production (via ns1:inProduction)—fully supports the competency question.

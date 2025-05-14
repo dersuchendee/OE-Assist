@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query to extract the premier date of productions:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+ORDER BY ?production
+--------------------------------------------------
+
+This query assumes the closed world where each production has exactly one associated premier (as enforced by the cardinality restriction on :hasPremier), and the premier instance carries a date via the :premierDate property.

@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the closed world view (i.e. only events explicitly typed as either a ReligiousEvent or a SecularEvent are assumed to belong to that category), we can fully answer the competency question by checking an event’s membership in either subclass. For example, the following SPARQL query retrieves all events together with a label indicating whether they are religious or secular:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?event (IF(BOUND(?religious), "Religious", "Secular") AS ?eventType)
+WHERE {
+  ?event a :Event .
+  { ?event a :ReligiousEvent . BIND(?event AS ?religious) }
+  UNION
+  { ?event a :SecularEvent }
+}
+
+This query works under a closed world assumption, since only those events explicitly asserted as either :ReligiousEvent or :SecularEvent are recognized.

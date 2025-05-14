@@ -1,0 +1,30 @@
+**Yes**
+
+The competency question is answerable because the ontology models that each `:Seminar` must have at least one `:hasPresentedArticle` relationship to an `:Article`. This is enforced through the `owl:minQualifiedCardinality` restriction in the ontology:
+
+```ttl
+:Seminar rdf:type owl:Class ;
+    rdfs:subClassOf :Event ,
+        [ rdf:type owl:Restriction ;
+          owl:onProperty :hasPresentedArticle ;
+          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+          owl:onClass :Article
+        ] .
+```
+
+This restriction ensures that any instance of `:Seminar` will have at least one associated `:Article` presented.
+
+Here's a SPARQL query to retrieve all seminars and their presented articles:
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar rdf:type :Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+```
+
+This query selects all instances of `:Seminar` and their associated `:Article` instances presented at each seminar, confirming that every seminar has at least one article.

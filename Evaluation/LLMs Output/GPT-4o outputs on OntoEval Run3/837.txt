@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate a hospital with a city. The ontology includes properties like `ns1:locatedIn` for associating a hospital with a city, but there is no direct property or class that represents the city of a hospital. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying hospitals and their associated cities.
+
+```sparql
+SELECT ?hospital ?city
+WHERE {
+  ?hospital a ns1:Hospital .
+  ?hospital ns1:locatedIn ?city .
+}
+```

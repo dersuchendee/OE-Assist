@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for actors holding specific information. However, we can extract partial information about actors and their capabilities, which might indirectly relate to the information they hold.
+
+```sparql
+SELECT ?actor ?capability
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL {
+    ?capability :capabilityOf ?actor .
+  }
+}
+```

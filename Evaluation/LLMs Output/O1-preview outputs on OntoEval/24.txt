@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "What types of water bodies can be listed?" is answerable using the given ontology. The ontology defines various subclasses of `:Cl_WaterBody`, including both direct subclasses and subclasses of those subclasses. We can retrieve all these water body types by querying for all classes that are subclasses (direct or indirect) of `:Cl_WaterBody`.
+
+Here is a SPARQL query to extract the list of water body types:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?waterBodyType
+WHERE {
+  ?waterBodyType rdfs:subClassOf+ :Cl_WaterBody .
+}
+```
+
+This query uses `rdfs:subClassOf+` to traverse the subclass hierarchy and find all classes that are subclasses of `:Cl_WaterBody`, including indirect subclasses. The `DISTINCT` keyword ensures that each water body type is listed only once.

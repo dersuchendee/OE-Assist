@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology models article collections (both books and CDs) using the class ns1:ArticleCollection (with Book and CD as subclasses) and associates articles with them via the ns1:hasArticle property. Therefore, given a specific book or CD one can write a SPARQL query to extract the articles that compose it.
+
+Below is an example SPARQL query (under a closed world assumption) that retrieves, for each book or CD, its label alongside the articles it is composed of:
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection a ?collectionType .
+  FILTER(?collectionType = ns1:Book || ?collectionType = ns1:CD) .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel } .
+  ?collection ns1:hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel } .
+}
+
+This query will return each book or CD (the article collection) along with the articles (and their labels) that are part of it.

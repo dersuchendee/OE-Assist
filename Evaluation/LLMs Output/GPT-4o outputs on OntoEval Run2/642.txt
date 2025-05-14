@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any information about performances or their dates. Therefore, the competency question "When did a certain performance take place?" cannot be fully answered using the given ontology. However, we can extract partial information about performances if they were present.
+
+```sparql
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+```

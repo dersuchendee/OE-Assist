@@ -1,0 +1,17 @@
+**Yes**  
+Below is a SPARQL query that retrieves each album’s release date by following the reified structure of album releases in the ontology:
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releasedOn ?albumRelease .
+  ?albumRelease :releaseDate ?releaseDate .
+}
+------------------------------------
+
+This query assumes that album instances (of type Cl_Album) are linked via the property releasedOn to an instance of Cl_AlbumRelease, which in turn has the property releaseDate supplying the release date. This models the competency question “When was a certain album released?” using the reification provided by the ontology.

@@ -1,0 +1,33 @@
+**Yes**
+
+Below is one possible SPARQL query that—in a closed‐world setting—retrieves the union role of a given person within a given union at a specified point in time. In this query, you provide the URI for the person (?person), the URI for the union group (?union), and the time of interest (e.g. a literal for ?time). The query uses the union membership (linking the person to a union) and the corresponding union role (with its start and end dates) to check which role was active at the given time.
+
+For example:
+
+—————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membership ?unionRole ?role ?roleStart ?roleEnd
+WHERE {
+  # Specify the particular person and union group
+  VALUES ?person { <http://www.example.org/test#PasqualeDiGennaro> }
+  VALUES ?union { <http://www.example.org/test#SomeUnionGroup> }
+  
+  # Person must be a member of the union
+  ?person :memberOf ?membership .
+  ?membership :membershipUnion ?union .
+  
+  # Get the union role held by the person (the reification class instance)
+  ?person :hasUnionRole ?unionRole .
+  ?unionRole :roleInUnion ?role .
+  ?unionRole :roleStartDate ?roleStart .
+  ?unionRole :roleEndDate ?roleEnd .
+  
+  # Filter: the given time (e.g., "2005-06-01"^^xsd:date) must fall within role dates
+  FILTER ( "2005-06-01"^^xsd:date >= ?roleStart && "2005-06-01"^^xsd:date <= ?roleEnd )
+}
+ORDER BY ?person
+—————————————
+
+This query answers the CQ by extracting the role held by a given person within a specified union at a certain point in time.

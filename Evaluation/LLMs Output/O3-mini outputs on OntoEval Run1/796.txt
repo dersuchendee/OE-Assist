@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each person, the study period (with its starting and ending dates) during which they pursued a specific degree:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?fromDate ?toDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :studiedDuring ?studyPeriod .
+  
+  ?studyPeriod :forDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  
+  ?studyPeriod :fromDate ?fromDate .
+  ?studyPeriod :toDate ?toDate .
+}
+ORDER BY ?person ?fromDate
+------------------------------------------------------------
+
+This query extracts, for each person, the study period during which they studied for a particular degree (ensuring that the time period information, including the starting and ending dates, is modeled in the ontology via the :Cl_StudyPeriod class).

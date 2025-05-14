@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the publication date of a specific book or CD. The ontology includes a `hasPublicationDate` property, but it is not connected to specific instances of books or CDs in the provided ontology. Therefore, a partial answer can be extracted by querying for publications and their publication dates, but it will not specify whether the publication is a book or a CD.
+
+```sparql
+SELECT ?publication ?publicationDate
+WHERE {
+  ?publication a :Publication .
+  ?publication :hasPublicationDate ?publicationDate .
+}
+```

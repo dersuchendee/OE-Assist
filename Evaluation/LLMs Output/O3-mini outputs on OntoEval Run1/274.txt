@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?play ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  ?play :writtenDuring ?playCreation .
+  ?playCreation :timePeriod ?timePeriod .
+}
+```

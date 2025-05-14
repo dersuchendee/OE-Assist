@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves for a specified performance (or for all performances if no filter is applied) the songs that were played:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?song ?songName ?playedOn
+WHERE {
+  ?performance a :Cl_PlayedSong .
+  ?performance :hasSong ?song .
+  OPTIONAL { ?song :songName ?songName . }
+  OPTIONAL { ?performance :playedOn ?playedOn . }
+  # To target a specific performance, you could add a FILTER or bind a specific IRI, for example:
+  # FILTER(?performance = <http://www.example.org/test#Performance_123>)
+}
+ORDER BY ?performance ?playedOn
+--------------------------------------------------
+
+This query answers the competency question "Which songs were played in a certain performance?" by selecting each performance (of type Cl_PlayedSong), retrieving its associated songs via the :hasSong property, and optionally extracting the song name and the time the song was played.

@@ -1,0 +1,34 @@
+**Yes**
+
+Because the ontology clearly models article collections as either books or CDs that are composed of articles using the object property op_composedOf, the competency question is fully answerable under a closed world assumption. For any specific book or CD (an instance of either Cl_Book or Cl_CD), you can retrieve its associated articles by following the op_composedOf relation.
+
+For instance, the following SPARQL query retrieves the title of a specific book or CD (e.g. one provided as a parameter) and the titles of the articles it is composed of:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?collectionTitle ?article ?articleTitle
+WHERE {
+  # The collection can be either a Book or a CD
+  { ?collection a :Cl_Book }
+  UNION
+  { ?collection a :Cl_CD } .
+  
+  # Optionally retrieve its title
+  OPTIONAL { ?collection :dp_hasTitle ?collectionTitle } .
+  
+  # Retrieve the articles it is composed of via op_composedOf
+  ?collection :op_composedOf ?article .
+  
+  # Optionally retrieve the title of the article
+  OPTIONAL { ?article :dp_hasTitle ?articleTitle } .
+  
+  # (Optional) Filter for a specific collection if desired; for example:
+  # FILTER (?collection = :ArticleCollection_NursePractices)
+}
+--------------------------------------------------
+
+This query demonstrates how the competency question "What articles is a specific book or CD composed of?" can be answered using the provided ontology.

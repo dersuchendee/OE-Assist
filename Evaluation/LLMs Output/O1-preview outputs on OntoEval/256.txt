@@ -1,0 +1,16 @@
+**Answer:** **Yes**
+
+Here, the CQ is answerable because the ontology models authors and plays, and the relationship "hasWritten" connects authors to plays via the reification class `Cl_Authorship`. The `playTitle` data property allows us to retrieve the titles of the plays written by authors.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?author ?playTitle
+WHERE {
+    ?author a :Cl_Author .
+    ?author :hasWritten ?authorship .
+    ?authorship :playTitle ?playTitle .
+}
+```
+
+This SPARQL query retrieves authors (`?author`) and the titles of the plays (`?playTitle`) they have written by navigating through the `hasWritten` object property and accessing the `playTitle` data property of the `Cl_Authorship` class.

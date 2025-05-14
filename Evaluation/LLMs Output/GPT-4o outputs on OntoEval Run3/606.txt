@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to connect a critic to a specific record and their review. The ontology includes classes and properties for critics and albums, but it lacks a direct property or reification to capture the critic's opinion about a specific album. Here's a SPARQL query to extract a partial answer, which lists albums and their critics without the specific review content:
+
+```sparql
+SELECT ?album ?critic
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :reviewedBy ?critic .
+}
+```

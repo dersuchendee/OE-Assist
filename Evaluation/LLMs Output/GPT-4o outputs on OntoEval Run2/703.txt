@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "In what region is a certain city located?" can be answered using the ontology provided. The ontology includes classes and properties that relate cities to regions, specifically through the `locatedIn` property. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?region .
+  ?region a :Cl_Region .
+}
+```

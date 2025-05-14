@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not have a direct connection between a critic and a record, which is necessary to answer the competency question. However, we can extract partial information about critics and albums they review.
+
+```sparql
+SELECT ?critic ?album ?reviewText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?review a :Cl_CriticReview .
+  ?review :reviews ?critic .
+  ?review :reviewedAlbum ?album .
+  ?review :reviewText ?reviewText .
+}
+```

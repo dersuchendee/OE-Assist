@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not assert any individual for “rubisco” nor explicitly connects an enzyme labeled “rubisco” to a CO2 fixation process. Under a closed world assumption, although the ontology defines the classes (Enzyme, CO2FixationProcess, ProcessRole, etc.) and properties (:hasRole, :inProcess), it lacks the specific instance data needed for this competency question. However, we can write a partial SPARQL query that attempts to retrieve the role of an enzyme labeled “rubisco” if such data were present:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?enzyme ?enzymeLabel ?role ?roleLabel ?process ?processLabel
+WHERE {
+  ?enzyme a :Enzyme ;
+          rdfs:label ?enzymeLabel .
+  FILTER (lcase(str(?enzymeLabel)) = "rubisco")
+  
+  OPTIONAL {
+    ?enzyme :hasRole ?role .
+    OPTIONAL { ?role rdfs:label ?roleLabel . }
+    ?role :inProcess ?process .
+    ?process a :CO2FixationProcess .
+    OPTIONAL { ?process rdfs:label ?processLabel . }
+  }
+}

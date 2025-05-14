@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor rdf:type :Cl_Actor .
+  ?actor :op_hasEmploymentPeriod ?employmentPeriod .
+  ?employmentPeriod rdf:type :Cl_EmploymentPeriod .
+  ?employmentPeriod :op_employmentIn ?theatre .
+  ?employmentPeriod :dp_startDate ?startDate .
+}
+```

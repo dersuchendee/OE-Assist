@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology includes explicit classes for books and CDs (:Cl_Book and :Cl_CD) and models the relation “containsArticle” between these collections and articles (instances of :Cl_Article). Thus, we can directly write a SPARQL query to answer the CQ “What articles is a specific book or CD composed of?” Here is a sample query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  { ?collection a :Cl_Book }
+  UNION
+  { ?collection a :Cl_CD } .
+  
+  OPTIONAL { ?collection rdfs:label ?collectionLabel }
+  
+  ?collection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel }
+}
+
+This query retrieves each book or CD along with its associated articles, making the CQ fully supported by the ontology.

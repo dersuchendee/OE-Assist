@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What medical degrees does a certain person have?" can be answered using the ontology provided. The ontology includes the class `Cl_Person` and the object property `hasMedicalDegree` which connects a person to their medical degrees. The data properties `degreeTitle` and `degreeObtainedDate` provide additional information about the degrees.
+
+Here is a SPARQL query to extract the medical degrees of a specific person:
+
+```sparql
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+```
+
+This query retrieves the medical degrees of the individual `PasqualeDiGennaro`, including the title and the date the degree was obtained.

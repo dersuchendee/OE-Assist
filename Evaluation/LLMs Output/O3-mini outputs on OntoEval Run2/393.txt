@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that the individual person, production, and time of interest are already represented in the ontology (as instances of Cl_Person, Cl_Production, and Cl_Date, respectively), the following SPARQL query extracts the roles that a given person has in a specific production at a specific point in time. (Replace the URI placeholders and date value with the actual values.)
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleName ?roleDate
+WHERE {
+  # Select a given person, production, and match the role occurring at a certain time
+  VALUES ?person { <http://www.example.org/test#Person_Example> } 
+  VALUES ?production { <http://www.example.org/test#Production_Example> }
+  VALUES ?timePoint { "2009-09-15"^^xsd:date }  # example time point
+  
+  ?person a :Cl_Person ;
+          :hasRole ?role .
+  
+  ?role :roleInProduction ?production ;
+        :roleAtTime ?roleDate ;
+        :roleName ?roleName .
+  
+  FILTER(?roleDate = ?timePoint)
+}
+------------------------------------------------------------
+
+This query retrieves all roles (with their role names and the time associated with the role) for the specified person in the given production at the provided time point.

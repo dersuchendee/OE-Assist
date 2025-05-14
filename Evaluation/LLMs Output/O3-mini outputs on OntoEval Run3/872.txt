@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming a closed‐world reading where only explicitly stated triples hold, the ontology does indeed provide explicit assertions for cities (of type :Cl_City) and their associated countries (via the :cityInCountry property). For instance, the individual representing “Nocera Inferiore” (or its location) is linked to the individual “Italy” (of type :Cl_Country). One can therefore extract the answer with a SPARQL query such as:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  
+  ?city :cityInCountry ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+----------------------------------------------------------------
+
+This query returns the cities along with their linked country information, which confirms that the CQ “In what country is a certain city located?” is modeled in the ontology.

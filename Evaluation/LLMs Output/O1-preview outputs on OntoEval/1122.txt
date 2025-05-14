@@ -1,0 +1,11 @@
+Answer: **Yes**
+Here the CQ is answerable because the ontology provides the necessary classes and properties to retrieve the user's location. The `Cl_User` class is connected to `Cl_Location` through the `hasLocation` property, and `Cl_Location` has a `locatedIn` data property that gives the location name.
+
+```sparql
+SELECT ?user ?locationName
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasLocation ?location .
+  ?location :locatedIn ?locationName .
+}
+```

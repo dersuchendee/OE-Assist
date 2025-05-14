@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine which specific articles a book or CD is composed of. The ontology includes a class `Cl_ArticleCollection` which is a subclass of both `Cl_Book` and `Cl_CD`, and it has an object property `containsArticle` that links to `Cl_Article`. However, the competency question asks for a specific book or CD, and the ontology does not provide a way to distinguish between different books or CDs or to identify a specific one.
+
+Partial SPARQL query to extract articles contained in any article collection:
+
+```sparql
+SELECT ?articleCollection ?article
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  ?articleCollection :containsArticle ?article .
+}
+```

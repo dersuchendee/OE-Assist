@@ -1,0 +1,24 @@
+**No**
+
+The ontology does not model the end date of ensemble memberships, so we cannot determine the members of an ensemble at a specific point in time. We can only know the date when each person became a member.
+
+Here's a SPARQL query to extract partial information:
+
+```sparql
+SELECT ?ensemble ?ensembleName ?person ?personName ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleName . }
+  
+  ?ensemble :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership .
+  
+  ?membership a :Cl_Person .
+  OPTIONAL { ?membership rdfs:label ?personName . }
+  
+  ?membership :membershipDate ?membershipDate .
+}
+ORDER BY ?ensemble ?person ?membershipDate
+```
+
+This query retrieves the ensembles, their members, and the dates when each person became a member. However, without information about when memberships end, we cannot accurately determine the members at a specific point in time.

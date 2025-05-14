@@ -1,0 +1,28 @@
+**Answer: Yes**
+
+The ontology includes classes for books and CDs (`:Cl_Book` and `:Cl_CD`), both of which are subclasses of `:Cl_Publication`. The data property `:publicationDate` has domain `:Cl_Publication`, which means it can be used to store the publication date of any publication, including books and CDs.
+
+Therefore, we can write a SPARQL query to retrieve the publication date of books and CDs from the ontology:
+
+```sparql
+SELECT ?publication ?publicationDate
+WHERE {
+  { ?publication a :Cl_Book } UNION { ?publication a :Cl_CD } .
+  ?publication :publicationDate ?publicationDate .
+}
+```
+
+This query selects all instances of `:Cl_Book` and `:Cl_CD` and retrieves their associated publication dates using the `:publicationDate` property.
+
+If there is a property for the title of the publication (e.g., `rdfs:label` or `:title`), you can include it in the query to identify a specific book or CD:
+
+```sparql
+SELECT ?publication ?title ?publicationDate
+WHERE {
+  { ?publication a :Cl_Book } UNION { ?publication a :Cl_CD } .
+  ?publication :publicationDate ?publicationDate .
+  OPTIONAL { ?publication rdfs:label ?title . }
+}
+```
+
+This extended query will retrieve the titles along with the publication dates, allowing you to find out when a certain book or CD was published.

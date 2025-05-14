@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not enforce that a production has exactly one premier due to the absence of cardinality constraints on the `:hasPremier` property. Therefore, we cannot confirm that a production has exactly one premier using this ontology.
+
+However, we can extract productions and their premiers (if any) using the following SPARQL query:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+```
+
+This query retrieves productions and their associated premier dates but does not verify the exact cardinality of premiers per production.

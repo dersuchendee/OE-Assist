@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves, for a given album (here, Stadium Arcadium), its recording start and end dates:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  # Find the recording that is linked to the album via the :recorded property  
+  ?recording :recorded ?album ;
+             :recordingStart ?recordingStart ;
+             :recordingEnd ?recordingEnd .
+  FILTER(?album = :Stadium_Arcadium)
+}
+--------------------------------------------------
+
+Under the closed-world assumption (i.e. assuming any missing data are false), this query returns the recording period of the album, thus fully modeling the competency question.

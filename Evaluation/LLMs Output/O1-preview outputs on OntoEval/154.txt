@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not fully support the competency question because there is no explicit object property linking a theatre to a city individual (instance of `Cl_City`). Instead, the theatre's location is stored as a string literal in the data property `dp_location`. Therefore, we cannot retrieve the city as an individual but can only obtain the city name as a string. Here's a SPARQL query that extracts the partial answer:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?theatre ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :dp_location ?cityName .
+}
+```
+
+This query selects theatres and their location names, but it doesn't link theatres to city individuals within the ontology.

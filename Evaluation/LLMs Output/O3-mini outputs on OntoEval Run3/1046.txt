@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves the articles presented in a given seminar by using the :hasPresentedArticle property of the :Cl_Seminar class.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?article :title ?articleTitle . }
+  
+  # Replace <SEM_ID> with the specific seminar IRI if needed.
+  FILTER(?seminar = <SEM_ID>)
+}
+------------------------------------------------
+
+This query extracts, for a specified seminar, which articles were presented along with their optional labels/titles.

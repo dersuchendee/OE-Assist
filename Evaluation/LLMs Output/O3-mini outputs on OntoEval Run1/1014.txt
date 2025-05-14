@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming the ontology uses closed‐world reasoning and that all instances of a book or CD will have an associated publication date via the :publicationDate property, you can fully answer the CQ. For example, you can extract the publication date of all instances of :Cl_Book and :Cl_CD with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?pubDate
+WHERE {
+  { ?item a :Cl_Book } UNION { ?item a :Cl_CD } .
+  ?item :publicationDate ?pubDate .
+}
+ORDER BY ?pubDate
+
+This query returns each book or CD (?item) along with its publication date (?pubDate).

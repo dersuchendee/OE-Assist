@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that, using the closed world assumption, retrieves the country for a given city (in this case, Rome):
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?country
+WHERE {
+  ?city a ns1:City .
+  ?city ns1:isInCountry ?country .
+  FILTER(?city = dbr:Rome)
+}
+
+This query shows that the ontology explicitly models the relation “is in country” for cities (with domain ns1:City and range ns1:Country), so the competency question is fully answerable.

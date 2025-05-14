@@ -1,0 +1,22 @@
+**Yes**
+
+The competency question is supported by the ontology. We can write a SPARQL query to extract the attribute values for the weather service that are used to derive personalized weather information for a user.
+
+```sparql
+SELECT ?weatherService ?url ?location ?prognosis ?duration
+WHERE {
+  ?weatherService a :Cl_WeatherService .
+  ?weatherService :hasURL ?url .
+
+  ?userPreference a :Cl_UserPreference .
+  ?userPreference :hasLocation ?location .
+  ?userPreference :hasPrognosis ?prognosis .
+
+  ?prognosis :hasDuration ?duration .
+
+  ?userWeatherServicePreference a :Cl_UserWeatherServicePreference .
+  ?userWeatherServicePreference :hasUserPreference ?userPreference .
+  ?userWeatherServicePreference :hasLocation ?location .
+  ?userWeatherServicePreference :hasPrognosis ?prognosis .
+}
+```

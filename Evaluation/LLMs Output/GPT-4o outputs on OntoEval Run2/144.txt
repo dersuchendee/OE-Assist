@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between theatres and cities, which is necessary to answer the competency question about the location of a theatre. However, there is partial information available about the location of some theatres. Here's a SPARQL query to extract this partial information:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :locatedIn ?city .
+}
+```

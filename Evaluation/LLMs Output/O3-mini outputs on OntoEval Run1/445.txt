@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that, given a band (here using ns1:RedHotChiliPeppers as an example) and a particular time (?queryTime), retrieves the persons (members) whose band memberships include that time:
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?role ?beginDate ?endDate
+WHERE {
+  # Find persons with an associated membership
+  ?member a ns1:Person ;
+          rdfs:label ?memberName ;
+          ns1:hasMembership ?membership ;
+          ns1:hasRole ?role .
+          
+  # The membership is reified as a BandMembership and connected to the band 
+  ?membership ns1:membershipInBand ns1:RedHotChiliPeppers ;
+              ns1:memberDuring ?timeInterval .
+              
+  # Each time interval has a begin and an end date
+  ?timeInterval ns1:hasBeginDate ?beginDate ;
+                ns1:hasEndDate ?endDate .
+
+  # Filter to include only those memberships valid at the given point in time
+  FILTER(
+      xsd:date(?queryTime) >= ?beginDate &&
+      xsd:date(?queryTime) <= ?endDate
+  )
+}
+ORDER BY ?memberName
+
+# To use the query, bind the variable ?queryTime to the desired date (for example "2006-01-01"^^xsd:date) either via the query interface or using a VALUES clause.
+  
+This query shows that the CQ is supported by the ontology since the reified membership (ns1:BandMembership with the time interval via ns1:memberDuring) captures the necessary temporal information for determining membership at a specific point in time.

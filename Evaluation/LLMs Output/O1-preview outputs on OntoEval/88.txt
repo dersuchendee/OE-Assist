@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+SELECT ?festival ?festivalName ?eventDate
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  OPTIONAL { ?festival :festivalName ?festivalName . }
+  ?festival :hasFestivalEvent ?event .
+  ?event :hasDate ?date .
+  ?date :eventDate ?eventDate .
+}
+```

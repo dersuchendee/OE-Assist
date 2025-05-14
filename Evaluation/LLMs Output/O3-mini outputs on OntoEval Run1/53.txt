@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each value network, the actors involved via the reified connection:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?valueNetwork ?actor ?actorLabel
+WHERE {
+  ?actorInValueNetwork a :Cl_ActorInValueNetwork ;
+                       :op_actorInvolvedInProcess ?actor ;
+                       :op_valueNetworkOfActor ?valueNetwork .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+---------------------------------------
+
+This query demonstrates that the CQ is answerable using the ontology (under the closed world assumption) by retrieving all actor instances that have been linked to a value network via the reification class :Cl_ActorInValueNetwork.

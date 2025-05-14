@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves each event and indicates whether it is a religious or a secular event:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event 
+       (IF(EXISTS { ?event a :ReligiousEvent }, "Religious", 
+           IF(EXISTS { ?event a :SecularEvent }, "Secular", "Not Classified")
+          ) AS ?classification)
+WHERE {
+  ?event a :Event .
+}
+ORDER BY ?event
+--------------------------------------------------------
+
+This query works by first selecting all individuals of type :Event. It then uses the IF(EXISTS{…}) construct to check whether an event is explicitly declared as a :ReligiousEvent or a :SecularEvent. If neither is the case, the query returns "Not Classified", thus providing a complete answer under the closed world assumption.

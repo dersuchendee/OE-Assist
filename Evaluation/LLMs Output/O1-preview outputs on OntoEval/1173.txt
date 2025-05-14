@@ -1,0 +1,13 @@
+Answer: **Yes**
+
+The competency question can be answered using the ontology, as we can retrieve the timestamp of each energy data change and its detailed breakdown through the properties defined.
+
+```sparql
+SELECT ?energyData ?timestamp ?detailedBreakdown
+WHERE {
+  ?energyData a :EnergyData .
+  ?energyData :hasChange ?dataChange .
+  ?dataChange :hasTimestamp ?timestamp .
+  ?energyData :hasDetailedBreakdown ?detailedBreakdown .
+}
+```

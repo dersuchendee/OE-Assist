@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology provides employment information via the “:employedAt” property linking an actor (of type :Cl_Actor) to an employment instance (of type :Cl_ActorEmployment), which in turn has the property “:employmentStartDate” and relates to a theatre using “:employmentTheatre”. This lets us determine when a given actor began working at a certain theatre.
+
+For example, you could use the following SPARQL query to answer the CQ:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName ;
+         :employedAt ?employment .
+  ?employment :employmentTheatre ?theatre ;
+              :employmentStartDate ?employmentStartDate .
+  ?theatre :theatreName ?theatreName .
+  # Optionally filter for a specific actor or theatre:
+  # FILTER(?actorName = "Fabio Bianchi") 
+  # FILTER(?theatreName = "The Grand Theatre")
+}
+ORDER BY ?actorName
+
+This query extracts, for each actor, the name of the actor, the associated theatre, and the employment start date, thereby answering the competency question under the closed world assumption.

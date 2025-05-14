@@ -1,0 +1,14 @@
+**Yes**
+Below is a sample SPARQL query that retrieves each seminar along with the articles presented (ensuring that at least one article is linked to each seminar):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :presentedArticle ?article .
+}
+ORDER BY ?seminar ?article
+
+This query confirms that every instance of :Cl_Seminar has at least one associated :presentedArticle, which models the competency question "At least one article is always presented at each seminar" under a closed world assumption.

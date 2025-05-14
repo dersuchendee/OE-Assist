@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?network ?actor
+WHERE {
+  {
+    ?network a :Cl_CircularValueNetwork .
+    ?network :op_hasActor ?actor .
+  }
+  UNION
+  {
+    ?actor :op_involvedIn ?involvement .
+    ?involvement :op_partOf ?network .
+  }
+}
+```

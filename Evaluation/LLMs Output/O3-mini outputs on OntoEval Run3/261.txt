@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, using the closed world assumption, extracts the time period in which a given play (in this case “The Merchant of Venice”) was written:
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?startDate ?endDate
+WHERE {
+  ?play a theatre:Play ;
+        rdfs:label ?playLabel ;
+        theatre:hasTimePeriod ?tp .
+  ?tp theatre:hasStartDate ?startDate ;
+      theatre:hasEndDate ?endDate .
+  
+  FILTER(?playLabel = "The Merchant of Venice")
+}

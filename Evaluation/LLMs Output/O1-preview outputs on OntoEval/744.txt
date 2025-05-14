@@ -1,0 +1,17 @@
+**No**
+
+```sparql
+SELECT ?record ?recordTitle ?track ?trackTitle
+WHERE {
+  ?record a ?recordType .
+  FILTER (?recordType IN (:Cl_Book, :Cl_CD))
+  OPTIONAL { ?record :dp_hasTitle ?recordTitle . }
+  OPTIONAL {
+    ?record :op_composedOf ?composition .
+    ?composition a :Cl_Article .
+    OPTIONAL { ?composition :dp_hasTitle ?trackTitle . }
+  }
+}
+```
+
+The ontology does not enforce that every record (e.g., instances of `:Cl_Book` or `:Cl_CD`) must contain at least one track (e.g., instances of `:Cl_Article`). There are no cardinality constraints specified on the `:op_composedOf` property to ensure that. Therefore, while we can query for records and their associated tracks, we cannot guarantee that every record contains at least one track based on the ontology provided.

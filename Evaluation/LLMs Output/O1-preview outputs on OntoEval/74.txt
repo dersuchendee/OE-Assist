@@ -1,0 +1,27 @@
+Answer: **Yes**
+
+The competency question can be answered using the ontology because it includes the necessary classes and properties to determine when a theatre festival took place. Specifically, the ontology defines the class `:TheatreFestival` with the property `:hasDate` that associates a festival with its date. Additionally, festivals have the `:hasName` property, allowing us to specify or list festivals by name.
+
+Here is the SPARQL query to find out when theatre festivals took place:
+
+```sparql
+SELECT ?festivalName ?date
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :hasName ?festivalName .
+  ?festival :hasDate ?date .
+}
+```
+
+This query retrieves the names and dates of all theatre festivals in the ontology. If you want to find the date of a specific festival, such as "Roma Loves Shakespeare," you can modify the query as follows:
+
+```sparql
+SELECT ?date
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :hasName "Roma Loves Shakespeare" .
+  ?festival :hasDate ?date .
+}
+```
+
+This will provide the date when the specified theatre festival took place.

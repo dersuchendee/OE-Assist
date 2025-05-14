@@ -1,0 +1,21 @@
+**Yes**
+
+The following SPARQL query extracts, for a given book or CD instance, the articles by first retrieving its composition information (via the :composedOf property) and then, from that composition, the articles (also via the :composedOf property):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?composition ?article ?articleLabel
+WHERE {
+  ?book a :Cl_BookOrCD .
+  # If you want to restrict the query to a specific book or CD, you may uncomment and adjust the following line:
+  # FILTER(?book = <http://www.example.org/test#SpecificBookURI>)
+
+  ?book :composedOf ?composition .
+  ?composition :composedOf ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+--------------------------------------------------
+
+Under a closed‐world assumption, this query retrieves the complete answer when the ontology models the reification of composition (i.e. linking a Cl_BookOrCD to its Cl_Composition and then to Cl_Article).

@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "What are the materials of this component or product?" can be answered using the ontology provided. The ontology defines the relationships between products, components, and materials, allowing us to query for the materials associated with a given component or product.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?productOrComponent ?material
+WHERE {
+  {
+    ?productOrComponent a :Product .
+    ?productOrComponent :isMadeOf ?material .
+  }
+  UNION
+  {
+    ?productOrComponent a :Component .
+    ?productOrComponent :isMadeOf ?material .
+  }
+}
+```

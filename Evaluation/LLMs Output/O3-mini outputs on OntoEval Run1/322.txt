@@ -1,0 +1,13 @@
+**Yes**
+
+The ontology defines a pivot class for production premiers (Cl_ProductionPremier) and links it to productions via the property :hasPremier. The premier date is recorded with the data property :premierDate on the production premier instance. Therefore, we can extract the answer using the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}

@@ -1,0 +1,37 @@
+**Yes**
+
+Assuming that the time intervals in the ontology follow the Time Ontology (with, for example, time:hasBeginning and time:hasEnd properties) so that we can decide membership “at a certain point in time”, here is one possible SPARQL query. In this query we assume that the user supplies a particular band (for example, the Red Hot Chili Peppers) and a time point of interest. Under the closed‐world assumption the absence of additional time interval information means that only those memberships whose interval explicitly contains the given time point will be returned.
+
+—————————————————————————————
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?musician ?musicianName ?intervalStart ?intervalEnd
+WHERE {
+  # Specify the band of interest
+  BIND(:RedHotChiliPeppers AS ?band) .
+  
+  # Find memberships for the band
+  ?membership :membershipInBand ?band .
+  
+  # Get the musician associated with the membership and his/her name
+  ?musician :memberOf ?membership ;
+             :hasName ?musicianName .
+  
+  # Get the time interval for the membership
+  ?membership :membershipTime ?interval .
+  ?interval time:hasBeginning ?intervalStart ;
+            time:hasEnd ?intervalEnd .
+  
+  # Bind a given point in time (modify this value as needed)
+  BIND(xsd:dateTime("2004-10-01T00:00:00"^^xsd:dateTime) AS ?timePoint) .
+  
+  # Return only memberships valid at the time point
+  FILTER(?timePoint >= ?intervalStart && ?timePoint <= ?intervalEnd)
+}
+ORDER BY ?musicianName
+—————————————————————————————
+
+This query extracts the musicians (their URI and name) who are members of a given band at the specified time by verifying that the time point falls within the membership time interval.

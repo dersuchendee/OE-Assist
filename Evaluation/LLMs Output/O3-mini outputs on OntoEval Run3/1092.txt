@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming a closed world (i.e. if a seminar does not explicitly state a presented article, then it has none), the ontology includes a restriction stating that every instance of Cl_Seminar must have at least one value for the property :hasPresentedArticle (with range Cl_Article). Therefore, we can write a SPARQL query to extract all seminars along with the articles that have been presented.
+
+Example SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+ORDER BY ?seminar
+
+This query returns each seminar and its associated presented article, thus verifying the competency question "At least one article is always presented at each seminar."

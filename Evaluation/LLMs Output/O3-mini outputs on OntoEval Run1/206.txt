@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed world assumption, retrieves for each production the play that forms its basis:
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?play ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?play .
+  OPTIONAL { ?play :playName ?playName. }
+}
+-------------------------
+
+This query assumes that productions are explicitly linked via the “basedOnPlay” property to a play, which is consistent with the ontology provided.

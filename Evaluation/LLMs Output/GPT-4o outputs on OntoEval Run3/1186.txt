@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "Where did she live?" can be answered using the ontology provided. The ontology includes a `Person` class and a `Place` class, with an object property `hasLivedIn` that connects a person to a place. Therefore, we can write a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?place
+WHERE {
+  ?person a :Person .
+  ?person :hasLivedIn ?place .
+}
+```

@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

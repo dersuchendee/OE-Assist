@@ -1,0 +1,17 @@
+Answer: **No**
+
+```sparql
+SELECT ?person ?personLabel ?event ?eventLabel ?isAccidental ?hasInvited
+WHERE {
+  ?participation a :Participation .
+  ?participation :involvesPerson ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?participation :involvesEvent ?event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  OPTIONAL { 
+    ?event a :MeetingEvent .
+    ?event :isAccidental ?isAccidental .
+  }
+  OPTIONAL { ?participation :hasInvited ?hasInvited . }
+}
+```

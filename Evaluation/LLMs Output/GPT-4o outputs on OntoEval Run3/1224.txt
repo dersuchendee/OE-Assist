@@ -1,0 +1,15 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to model trophic relationships between different species of aquifer microbes. The `eats` and `isEatenBy` properties allow us to establish these relationships. Here is a SPARQL query to extract the trophic relationships:
+
+```sparql
+SELECT ?microbe1 ?microbe1Label ?microbe2 ?microbe2Label
+WHERE {
+  ?microbe1 a :AquiferMicrobeSpecies .
+  OPTIONAL { ?microbe1 rdfs:label ?microbe1Label . }
+
+  ?microbe1 :eats ?microbe2 .
+  ?microbe2 a :AquiferMicrobeSpecies .
+  OPTIONAL { ?microbe2 rdfs:label ?microbe2Label . }
+}
+```

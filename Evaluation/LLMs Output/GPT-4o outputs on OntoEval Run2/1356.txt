@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to identify the original parts of an organ. However, we can extract information about the parts included in an organ, which might help in identifying original parts if additional context or data is available.
+
+```sparql
+SELECT ?organ ?part
+WHERE {
+  ?organ a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  ?organ <https://w3id.org/arco/ontology/core/includesPart> ?part .
+}
+```

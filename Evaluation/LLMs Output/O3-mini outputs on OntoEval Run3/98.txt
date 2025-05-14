@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves the city where a given festival (for example, "Roma Loves Shakespeare") took place using the ontology’s concepts and relations:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?city ?cityName
+WHERE {
+  ?festival a :Cl_FestivalOccurrence ;
+            :hasName ?festivalName ;
+            :occursIn ?city .
+  ?city :hasName ?cityName .
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+—————————————————————————————
+
+This query works under a closed world assumption on the ontology and extracts the festival occurrence along with its associated city (location), answering the competency question.

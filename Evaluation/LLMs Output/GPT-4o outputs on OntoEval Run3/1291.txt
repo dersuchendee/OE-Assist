@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to characterize the relation among participants in an event. The ontology includes classes and properties for events, participants, and their roles, but it lacks explicit properties or classes to define relationships among participants within an event.
+
+Partial SPARQL query to extract participants of events:
+
+```sparql
+SELECT ?event ?participant
+WHERE {
+  ?event a :Event .
+  ?event :hasParticipant ?participant .
+}
+```

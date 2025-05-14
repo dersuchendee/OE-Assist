@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?disposition
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  
+  ?organ :hasDispositionAtTime ?dispAtTime .
+  ?dispAtTime :hasDisposition ?disposition .
+  ?dispAtTime :atTime ?time .
+  
+  FILTER(?time = "SPECIFIC_DATETIME"^^xsd:dateTime)
+}
+```

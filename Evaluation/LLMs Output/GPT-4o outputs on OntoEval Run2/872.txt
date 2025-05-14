@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct connection between a city and the country it is located in. However, we can extract partial information about cities and their associated countries.
+
+```sparql
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL {
+    ?city :cityInCountry ?country .
+    OPTIONAL { ?country rdfs:label ?countryLabel . }
+  }
+}
+```

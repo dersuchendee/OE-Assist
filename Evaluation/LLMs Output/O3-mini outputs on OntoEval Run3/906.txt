@@ -1,0 +1,37 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the union role held by a given person within a given union group at a particular time. (In this example we use ns1:PasqualeDiGennaro as the person, ns1:MaleNurseUnion as the union, and we filter for a time point of “2005-01-01T00:00:00Z”. You can change these values as needed.)
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?role ?roleLabel ?union ?unionLabel ?membershipStart ?membershipEnd
+WHERE {
+  # Specify the person of interest
+  VALUES ?person { ns1:PasqualeDiGennaro }.
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Retrieve the union role held by the person
+  ?person ns1:hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # The role is linked to a specific union group via the property roleInUnion
+  ?role ns1:roleInUnion ?union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  
+  # Retrieve the membership information to get the valid time period
+  ?person ns1:memberOf ?membership .
+  ?membership ns1:hasUnion ?union .
+  ?membership ns1:hasMembershipPeriod ?interval .
+  ?interval time:hasBeginning ?membershipStart .
+  OPTIONAL { ?interval time:hasEnd ?membershipEnd . }
+  
+  # Filter the results to a specific time point (e.g., 2005-01-01)
+  FILTER (
+    "2005-01-01T00:00:00Z"^^xsd:dateTime >= ?membershipStart &&
+    ( !BOUND(?membershipEnd) || "2005-01-01T00:00:00Z"^^xsd:dateTime <= ?membershipEnd )
+  )
+}
+ORDER BY ?person

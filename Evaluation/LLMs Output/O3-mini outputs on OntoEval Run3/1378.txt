@@ -1,0 +1,41 @@
+**Yes**
+
+The CQ “In what context the meeting happened?” can be answered by the ontology. In the MEETUPS Ontology, a historical meetup (mtps:Meetup) is associated with participants (mtps:hasParticipant), a location (mtps:hasPlace), a time expression (mtps:happensAt), and a purpose (mtps:hasAPurpose). These components together describe the context of a meeting. Assuming a closed world, only information that is explicitly stated is available.
+
+Below is a SPARQL query that extracts, for each meetup, the related participants, place, time expression, and purpose:
+
+------------------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?meetup ?meetupLabel 
+       ?participant ?participantLabel 
+       ?place ?placeLabel 
+       ?timeExpression 
+       ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup rdfs:label ?meetupLabel . }
+  
+  OPTIONAL { 
+    ?meetup mtps:hasParticipant ?participant .
+    OPTIONAL { ?participant rdfs:label ?participantLabel . }
+  }
+  OPTIONAL { 
+    ?meetup mtps:hasPlace ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+  }
+  OPTIONAL { 
+    ?meetup mtps:happensAt ?timeExpression .
+  }
+  OPTIONAL { 
+    ?meetup mtps:hasAPurpose ?purpose .
+    OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+  }
+}
+ORDER BY ?meetup
+------------------------------------------------------------
+
+This query returns all details that together form the context of each meetup.

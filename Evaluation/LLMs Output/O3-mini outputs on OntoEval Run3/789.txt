@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one possible SPARQL query that extracts the study period (with start and end dates) for a given person and degree from the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?studyPeriod ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Person ;
+          :studiedDuring ?studyPeriod .
+  ?studyPeriod :degreeObtained ?degree ;
+               :hasStartDate ?startDate ;
+               :hasEndDate ?endDate .
+  
+  # Uncomment and modify the following filters to restrict the query
+  # to a specific person and degree:
+  # FILTER(?person = :PasqualeDiGennaro)
+  # FILTER(?degree = :CertifiedNurseDegree)
+}
+ORDER BY ?person ?startDate
+--------------------------------------------------
+
+This query answers the competency question "During what time period did a certain person study for a specific degree?" by retrieving the individual (person), the associated study period, the obtained degree, and the start and end dates of that study period under the closed world assumption.

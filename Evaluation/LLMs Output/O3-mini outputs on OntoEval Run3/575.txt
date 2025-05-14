@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that a “specific track” is identified (for example, by its URI or a parameter), you can write a SPARQL query that retrieves the song recorded by that track via the :trackOf property. For example:
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_Track .
+  ?track :trackOf ?song .
+  # Replace :SpecificTrack with the URI of the specific track you are interested in:
+  FILTER(?track = :SpecificTrack)
+}
+-------------------------
+
+This query uses the ontology’s declaration that a track (of type :Cl_Track) is connected to a song (of type :Cl_Song) by the :trackOf property, thus fully answering the competency question under a closed world assumption.

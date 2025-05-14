@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each energy flow, its associated data along with the time point at which that data applies. Under a closed‐world assumption (i.e. assuming that every Energy Flow individual indeed comes with exactly one hasData and one atTime relation as specified by the ontology) this query returns the full answer to the CQ.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyFlow ?data ?time
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  ?energyFlow :hasData ?data .
+  ?energyFlow :atTime ?time .
+}
+ORDER BY ?energyFlow
+------------------------------------------------
+
+This query extracts the data of each energy flow at its associated (and only) time point.

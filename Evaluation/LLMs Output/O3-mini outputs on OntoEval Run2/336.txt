@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that a “newspaper review” is modelled as an instance of :Cl_NewspaperReview (which is a subclass of :Cl_Newspaper) that links a newspaper’s review to a production via the property :reviewsProduction and carries its star‐rating via :hasStarRating, the following SPARQL query retrieves, for a given newspaper and production, the star rating:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?starRating
+WHERE {
+  ?review a :Cl_NewspaperReview ;
+          :hasStarRating ?starRating ;
+          :reviewsProduction ?production .
+  ?review rdfs:label ?newspaperName .
+  
+  # Using a closed world assumption: We assume that only reviews with an associated 
+  # label (the newspaper’s name) exist, so we filter on the desired newspaper.
+  FILTER(?newspaperName = "Il Gazzettino")
+  
+  # Optionally, if you need to extract the rating for a specific production, 
+  # you could further constrain ?production, e.g., 
+  # FILTER(?production = <http://www.example.org/test#MerchantOfVeniceProduction>)
+}
+ORDER BY ?production ?starRating
+--------------------------------------------------
+
+This query shows that the ontology supports answering the competency question under a closed‐world assumption.

@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each production, the play on which it is based. In this ontology the production is linked via the property :hasBasis to an instance of :Cl_ProductionBasedOnPlay, which in turn is connected via the property :basedOn to an instance of :Cl_Play.
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?prodTitle ?play ?playTitle
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :dp_title ?prodTitle . }
+  ?production :hasBasis ?prodBasedOn .
+  ?prodBasedOn :basedOn ?play .
+  OPTIONAL { ?play :dp_title ?playTitle . }
+}
+ORDER BY ?production
+-----------------------------------------
+
+This query under the closed-world assumption checks for productions that have a basis and returns the associated play along with optional title information.

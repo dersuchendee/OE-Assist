@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming we have individual cities (instances of :Cl_City) and that the ontology provides the property :locatedInRegion with range :Cl_CityRegion and that a region is given by the related property :regionIncludes (from the city region to the actual :Cl_Region), the following SPARQL query will return, for a given city, the region in which it is located:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  
+  ?city :locatedInRegion ?cityRegion .
+  ?cityRegion a :Cl_CityRegion .
+  ?cityRegion :regionIncludes ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+———————————————————————————————
+
+This query under the closed world assumption returns all cities (and their optional labels) together with the regions in which they are located (and their optional labels), thus modeling the competency question "In what region is a certain city located?"

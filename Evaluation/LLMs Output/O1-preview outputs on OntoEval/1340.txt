@@ -1,0 +1,29 @@
+**Yes**
+
+The competency question is answerable using the ontology provided since all the required classes and properties are modeled and interconnected appropriately. The ontology includes the classes `:Recorder`, `:Measurement`, `:MicrobiologicalSubstance`, and `:SurfaceWater`, along with properties that relate these classes (`:recordedBy`, `:measuresSubstance`, `:hasLocation`, and `:hasTime`).
+
+Here's a SPARQL query that retrieves the recorders who record measurements of microbiological substances in surface waters along with the associated times:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?recorder ?measurement ?surfaceWater ?time
+WHERE {
+    ?measurement a :Measurement .
+    ?measurement :recordedBy ?recorder .
+    ?measurement :measuresSubstance ?substance .
+    ?measurement :hasLocation ?surfaceWater .
+    ?measurement :hasTime ?time .
+}
+```
+
+This query selects the `?recorder`, `?measurement`, `?surfaceWater`, and `?time` where:
+
+- `?measurement` is an instance of `:Measurement`.
+- `?measurement` is recorded by `?recorder` (`:recordedBy` property).
+- `?measurement` measures a microbiological substance (`:measuresSubstance` property).
+- `?measurement` has a location in surface water (`:hasLocation` property).
+- `?measurement` has a time associated with it (`:hasTime` property).
+
+This satisfies the competency question by identifying who records the amounts of microbiological substances in surface waters over time.

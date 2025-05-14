@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+  # To restrict to a specific theatre festival, you might add a FILTER if you know its identifier:
+  # FILTER(?festival = <http://www.example.org/test#RomaLovesShakespeare>)
+}
+ORDER BY ?occurrenceDate
+```

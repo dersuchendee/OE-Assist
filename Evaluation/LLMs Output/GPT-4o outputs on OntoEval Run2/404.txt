@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question "A production has exactly one premier" can be answered using the ontology provided. The ontology includes the class `Cl_ProductionPremier` and the property `hasPremier`, which connects a `Cl_Production` to a `Cl_ProductionPremier`. This allows us to query for productions that have exactly one premier.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?production
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  FILTER NOT EXISTS {
+    ?production :hasPremier ?otherPremier .
+    FILTER(?otherPremier != ?premier)
+  }
+}
+```
+
+This query selects productions that have a premier and ensures that there is no other distinct premier associated with the same production, thus confirming that the production has exactly one premier.

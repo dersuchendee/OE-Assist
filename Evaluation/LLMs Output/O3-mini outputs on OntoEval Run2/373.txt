@@ -1,0 +1,37 @@
+**Yes**
+Below is an example SPARQL query that returns, for a given person, production, and time, the roles (via the time‐indexed roles) that connect the person with a production at that specific point in time:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?personName ?prodTitle ?role ?timeValue 
+WHERE {
+  # Identify the person by name (parameterize as needed)
+  ?person a :Person ;
+          :hasName "Fabio Bianchi" .
+  OPTIONAL { ?person :hasName ?personName . }
+  
+  # Find the person’s time-indexed roles
+  ?person :hasTimeIndexedRole ?timeIndexedRole .
+  
+  # Get the time for this role
+  ?timeIndexedRole :hasTime ?timeInstant .
+  ?timeInstant time:inXSDDateTime ?timeValue .
+  
+  # Ensure the time matches the given point (parameterize as needed)
+  FILTER (?timeValue = "2009-09-07T20:00:00Z"^^xsd:dateTime)
+  
+  # Retrieve the underlying role from the time-indexed role
+  ?timeIndexedRole :hasRole ?role .
+  
+  # Relate the role to a production via the performedIn relation
+  ?role :performedIn ?production .
+  ?production :hasTitle "The Merchant of Venice" .
+  OPTIONAL { ?production :hasTitle ?prodTitle . }
+}
+-------------------------------------------------------------
+
+This query shows that the ontology models the CQ by allowing us to extract, for a specified person ("Fabio Bianchi"), the roles they played in a given production ("The Merchant of Venice") at a particular point in time ("2009-09-07T20:00:00Z").

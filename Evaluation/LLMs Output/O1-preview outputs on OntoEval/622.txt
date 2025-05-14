@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique .
+  ?critique :criticOf :SpecificCritic .
+  ?critique :critiqueOf :SpecificRecord .
+  ?critique :critiqueContent ?critiqueContent .
+}
+```
+
+This query retrieves what a certain critic (represented by `:SpecificCritic`) says about a certain record (represented by `:SpecificRecord`) by fetching the `critiqueContent` associated with the critique of that record by that critic.

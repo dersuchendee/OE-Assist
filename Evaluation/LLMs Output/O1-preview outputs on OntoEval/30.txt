@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX product: <http://w3id.org/CEON/ontology/product/>
+
+SELECT DISTINCT ?actor ?product
+WHERE {
+  ?viewingResource a actor:ViewingResource .
+  ?viewingResource actorODP:participatingActor ?actor .
+  ?viewingResource actorODP:participatingResource ?product .
+  ?product a product:Product .
+}
+```

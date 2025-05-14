@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is answerable because the ontology contains the class `:Cl_Hospital`, the class `:Cl_City`, and the object property `:locatedIn` which connects hospitals to cities (`rdfs:domain :Cl_Hospital ; rdfs:range :Cl_City`). This allows us to retrieve the city in which any given hospital is located.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?hospital ?city
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+}
+```

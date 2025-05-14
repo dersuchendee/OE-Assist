@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer “When was a certain album released?” using the ontology by retrieving the release date of an album (an instance of Cl_Album) via its :release_date property. For example, to retrieve the release date of an album (optionally filtered by a specific album name), under a closed-world assumption the following SPARQL query can be used:
+
+---------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?release_date
+WHERE {
+  ?album a :Cl_Album ;
+         :release_date ?release_date .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+  
+  # If desired, filter for a specific album (e.g., "Stadium Arcadium"):
+  # FILTER (STR(?albumLabel) = "Stadium Arcadium")
+}
+---------------------
+
+This query extracts the album and its release date, showing that the competency question is answerable given the provided ontology.

@@ -1,0 +1,20 @@
+**No**
+
+The ontology as provided does not include any explicit modeling for a “measure Y” (i.e. an attribute or property capturing quantitative or qualitative similarities/differences of compositions). Although tunes (compositions) and tune families are defined, there is no property linking a tune’s characteristics to a “measure Y” so that the complete comparison as asked in the CQ is not answerable.
+
+A partial answer can be obtained by retrieving the tunes (i.e. compositions) that belong to a given tune family (here assumed to be identified by its IRI). Note that the membership relation between a TuneFamily (a subclass of core:Collection) and its tunes is not explicitly defined in the snippet. Assuming that the collection membership is expressed (in some imported vocabulary) by a property (for example, rdf:member), the following SPARQL query can be used to extract the compositions of a given tune family:
+
+------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel
+WHERE {
+  <http://example.org/tunefamilyX> rdf:member ?tune .
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel. }
+}
+------------------------------------------------
+
+This query returns the tunes associated with the specified tune family X. However, without a modeled “measure Y” in the ontology the further comparisons (the similarities/differences among compositions) cannot be fully answered by the available data.

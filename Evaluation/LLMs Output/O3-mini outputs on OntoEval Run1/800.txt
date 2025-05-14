@@ -1,0 +1,25 @@
+**Yes**
+
+We can extract the study period of a person for a specific degree because the ontology provides a chain linking a person (Cl_Person) to a degree (Cl_MedicalDegree) via the property :hasMedicalDegree, and then the degree is linked to a study period (Cl_StudyPeriod) through :hasStudyPeriod. The study period itself has start and end dates given by the data properties :studyStartDate and :studyEndDate.
+
+A SPARQL query to extract the time period (study start and end dates) for a given person and degree might look like this:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+  
+  # Optionally, filter for a specific person and the degree of interest:
+  # FILTER(?person = :PasqualeDiGennaro && ?degreeTitle = "Certified Nurse")
+}
+--------------------------------------------------
+
+Under a closed-world assumption we assume that if the study period is not asserted then the person did not study for that degree.

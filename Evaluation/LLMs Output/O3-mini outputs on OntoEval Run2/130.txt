@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that returns, for each festival, the plays featured during one (or more) of its occurrences:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalOccurrence ?play ?playTitle
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?festivalOccurrence .
+  ?festivalOccurrence :hasPlayAppearance ?appearance .
+  ?appearance :isPlayOf ?play .
+  ?play :hasTitle ?playTitle .
+}
+ORDER BY ?festival ?festivalOccurrence ?playTitle
+------------------------------------------------------------
+
+This query shows that the ontology supports the competency question "What plays could be seen during a certain theatre festival?" by retrieving the plays (and their titles) linked to each festival occurrence via the appropriate object properties.

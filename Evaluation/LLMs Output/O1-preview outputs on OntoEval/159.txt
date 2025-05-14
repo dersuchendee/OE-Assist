@@ -1,0 +1,21 @@
+**Yes**
+
+The competency question can be answered using the ontology provided. We can write a SPARQL query to retrieve the city in which a certain theatre is located by traversing the relationships defined in the ontology.
+
+Here's the SPARQL query:
+
+```sparql
+SELECT ?theatre ?cityName
+WHERE {
+   ?theatre a :Cl_Theatre .
+   ?theatre :locatedIn ?theatreLocation .
+   ?theatreLocation :cityName ?cityName .
+}
+```
+
+This query works as follows:
+- It selects all instances `?theatre` of the class `:Cl_Theatre`.
+- For each theatre, it finds the associated `?theatreLocation` through the `:locatedIn` property.
+- It then retrieves the `?cityName` from the `?theatreLocation` using the `:cityName` data property.
+
+The ontology defines `:Cl_TheatreLocation` as a reification class that is a subclass of both `:Cl_Theatre` and `:Cl_City`, connecting theatres with cities. The `:cityName` property is associated with `:Cl_TheatreLocation`, allowing us to extract the city's name.

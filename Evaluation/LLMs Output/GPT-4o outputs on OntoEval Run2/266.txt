@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a play was written. The ontology includes a `writtenDuring` property for the `Cl_Play` class, but it is a datatype property with a range of `xsd:string`, which does not provide a structured way to query for a specific time period. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?play ?writtenDuring
+WHERE {
+  ?play a :Cl_Play .
+  ?play :writtenDuring ?writtenDuring .
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :containsTrack ?track .
+}
+```
+
+The CQ "A record always contains at least one track." is not fully supported by the ontology. While the ontology defines the class `:Cl_Album` with a `owl:minCardinality 1` restriction on the `:containsTrack` property, there are no instances in the ontology data where an album is explicitly linked to at least one track using the `:containsTrack` property. Under the Closed World Assumption, we consider only the information explicitly provided in the ontology. Since the ontology does not specify any tracks contained in albums, we cannot confirm that every album contains at least one track. 
+
+The provided SPARQL query attempts to retrieve albums and their associated tracks. However, due to the absence of `:containsTrack` relationships in the data, the query will not return any results, indicating that the competency question is not fully addressed by the current ontology.

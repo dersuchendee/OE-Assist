@@ -1,0 +1,14 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the title and page count of publications that are books:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bookTitle ?pageCount
+WHERE {
+  ?book a :Cl_Publication ;
+        :publicationType "Book" ;
+        :publicationTitle ?bookTitle ;
+        :pageCount ?pageCount .
+}

@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties related to the nitrogen cycle processes within beech forest ecosystems. The following SPARQL query can be used to extract the major processes involved in the nitrogen cycle in beech forest ecosystems:
+
+```sparql
+SELECT ?process ?processLabel
+WHERE {
+  ?ecosystem a :BeechForestEcosystem .
+  ?ecosystem :hasMajorProcess ?process .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+```

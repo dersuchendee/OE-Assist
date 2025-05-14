@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the sources of a project that an organ is involved in. The ontology includes classes and properties related to organs, projects, and their components, but it lacks explicit properties or relationships that connect a project to its sources. Therefore, a SPARQL query can only provide a partial answer by listing projects associated with organs, without detailing their sources.
+
+```sparql
+SELECT ?organ ?project
+WHERE {
+  ?organ a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  ?organ <https://w3id.org/arco/ontology/core/isDescribedBy> ?project .
+}
+```

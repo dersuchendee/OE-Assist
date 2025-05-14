@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that returns the plays written by authors. In this query, you can filter for a specific author if needed (for example, by matching the author’s name):
+
+-------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?authorName ?play ?playTitle
+WHERE {
+  ?author a :Cl_Author ;
+          :hasName ?authorName ;
+          :wrotePlay ?play .
+  ?play a :Cl_Play ;
+        :hasTitle ?playTitle .
+  
+  # Optionally, filter to a specific author (e.g., William Shakespeare)
+  # FILTER(?authorName = "William Shakespeare")
+}
+-------------------------------------------
+
+This query extracts the plays (and their titles) written by each author, thereby answering the competency question "What plays did a certain author write?" under the closed-world assumption of the ontology.

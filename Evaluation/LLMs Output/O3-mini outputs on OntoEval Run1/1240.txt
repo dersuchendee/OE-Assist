@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming the ontology is under the closed world assumption, the following SPARQL query extracts Energy Metabolism processes that are affected by a Carbon-Nitrogen Ratio and that occur in a microbial community involved in carbon and nitrogen cycling:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyMetabolism ?energyMetabolismLabel ?ratio ?ratioLabel ?community ?communityLabel
+WHERE {
+  ?energyMetabolism a :EnergyMetabolism .
+  OPTIONAL { ?energyMetabolism rdfs:label ?energyMetabolismLabel . }
+  
+  ?energyMetabolism :affectedBy ?ratio .
+  ?ratio a :CarbonNitrogenRatio .
+  OPTIONAL { ?ratio rdfs:label ?ratioLabel . }
+  
+  ?energyMetabolism :occursIn ?community .
+  ?community a :MicrobialCommunityInCNCycling .
+  OPTIONAL { ?community rdfs:label ?communityLabel . }
+}
+ORDER BY ?energyMetabolism
+--------------------------------------------------
+
+This query answers the competency question by retrieving the energy metabolism processes along with the associated carbon-nitrogen ratio factor and the corresponding microbial community, thus showing how the ratio may impact energy metabolism in the context of carbon and nitrogen cycling.

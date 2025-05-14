@@ -1,0 +1,14 @@
+**Yes**
+
+Below is a SPARQL query that, under a Closed World Assumption, extracts the number of tracks for a specific album (in this case, "Stadium Arcadium"):
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?numberOfTracks
+WHERE {
+  ?album a ns1:Album ;
+         ns1:numberOfTracks ?numberOfTracks ;
+         rdfs:label ?albumLabel .
+  FILTER(?album = ns1:StadiumArcadium)
+}

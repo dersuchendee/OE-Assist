@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for a set of actors associated with a film event, as there are no instances of actors or a direct connection between a film event and a set of actors. However, we can extract partial information about the film event's title, genre, and location.
+
+```sparql
+SELECT ?filmEvent ?title ?genre ?location
+WHERE {
+  ?filmEvent a :FilmEvent .
+  OPTIONAL { ?filmEvent :hasTitle ?title . }
+  OPTIONAL { ?filmEvent :hasGenre ?genre . }
+  OPTIONAL { ?filmEvent :hasLocation ?location . }
+}
+```

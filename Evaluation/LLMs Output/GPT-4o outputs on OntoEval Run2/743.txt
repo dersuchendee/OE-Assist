@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "A record always contains at least one track" is supported by the ontology. The ontology includes a restriction on the `Album` class that specifies it must have at least one `Track`. This is represented by the `owl:minCardinality "1"` restriction on the `hasTrack` property for the `Album` class.
+
+Here is a SPARQL query to verify that every album in the ontology contains at least one track:
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album a :Album .
+  ?album :hasTrack ?track .
+}
+```
+
+This query will return all albums and their associated tracks, confirming that each album has at least one track.

@@ -1,0 +1,15 @@
+**No**  
+The provided ontology does not capture the notion of a “track” in a music production context. It includes a class ns1:CD and a property ns1:hasArticle (which seems oriented toward a different domain, e.g. scholarly publications) but does not model musical tracks. Under a closed‐world assumption, we must consider that unless explicitly stated, a CD does not have any tracks. Therefore, we can only retrieve a partial answer by extracting CDs and any associated “tracks” (here interpreted as articles, though they are not semantically equivalent to musical tracks).
+
+A partial SPARQL query is:
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+
+SELECT ?cd (COUNT(?article) AS ?numTracks)
+WHERE {
+  ?cd a ns1:CD .
+  OPTIONAL { ?cd ns1:hasArticle ?article . }
+}
+GROUP BY ?cd
+
+This query returns each CD and the number of articles (as a surrogate for tracks). Since the ontology does not capture the concept of a musical track, the CQ is only partially answerable from the data.

@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?powerRelation ?superior ?subordinate ?relationType ?superiorLabel ?subordinateLabel ?relationTypeLabel
+WHERE {
+  ?powerRelation a :PowerRelation ;
+                 :hasSuperior ?superior ;
+                 :hasSubordinate ?subordinate ;
+                 :hasRelationType ?relationType .
+  OPTIONAL { ?superior rdfs:label ?superiorLabel . }
+  OPTIONAL { ?subordinate rdfs:label ?subordinateLabel . }
+  OPTIONAL { ?relationType rdfs:label ?relationTypeLabel . }
+}
+```

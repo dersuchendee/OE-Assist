@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer this CQ because the ontology includes a plays class (Cl_Play) and a data property (containsActs) that records the number of acts a play contains. Under the closed world assumption, we assume that if a play does not have a value for containsActs, then it does not contain any recorded value for the number of acts.
+
+Below is a sample SPARQL query that retrieves the play (optionally with a human‐readable label) and the number of acts it contains. (You may substitute the filtering condition with a specific play URI if you wish to query a particular play.)
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?acts
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :containsActs ?acts .
+}
+ORDER BY ?play
+-----------------------------------------------------------

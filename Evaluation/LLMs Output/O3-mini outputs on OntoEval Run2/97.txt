@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :tookPlaceIn ?city .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

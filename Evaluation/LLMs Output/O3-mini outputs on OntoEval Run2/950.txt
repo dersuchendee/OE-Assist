@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  # Replace :SpecificCollection with the IRI of the specific Book or CD of interest.
+  VALUES ?collection { :Book_NursePracticesInCancerPatientCare } 
+  ?collection :hasArticle ?article .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```

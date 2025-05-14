@@ -1,0 +1,31 @@
+**Yes**
+
+We can retrieve the reified “user action” (an instance of Cl_UserAction) that links the user to details about the activity that was performed previously. For example, if we assume that “previously” means selecting the most recent action linked to the user (using a time value on the Cl_Time instance), the query below joins the user with its performed actions and—if available—the associated time bounds (using dp_hasStartTime and dp_hasEndTime of the Cl_Time instance). Under the closed‐world assumption, if no such data exists the query will return nothing.
+
+Below is one example SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?actionType ?location ?day ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :op_performedAction ?userAction .
+  ?userAction :op_actionType ?actionType .
+  OPTIONAL { ?userAction :op_inLocation ?location . }
+  OPTIONAL { ?userAction :op_onDay ?day . }
+  OPTIONAL { 
+      ?userAction :op_duringTime ?time .
+      ?time :dp_hasStartTime ?startTime ;
+            :dp_hasEndTime ?endTime .
+  }
+}
+ORDER BY DESC(?startTime)
+LIMIT 1
+--------------------------------------------------
+
+This query extracts, for a given user, the action type (e.g. brushing teeth), the location (e.g. bathroom), the day (e.g. Thursday), and the time interval associated with “morning” (if available). In this way, the ontology supports the competency question “What did the user do previously?” via reification.

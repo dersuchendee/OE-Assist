@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer this CQ by querying for instances of the book class and retrieving their number of pages. For example, if we want to retrieve the book along with its label and the total number of pages, we could use the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?label ?pages
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book rdfs:label ?label } .
+  ?book :numberOfPages ?pages .
+}
+ORDER BY ?label
+
+This query fully captures the competency question “How many pages does a particular book contain?” under the closed world assumption using the provided ontology.

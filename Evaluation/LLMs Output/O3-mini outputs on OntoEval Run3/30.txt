@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the actors who viewed a product by selecting instances of the ViewingResource relation (whose participant role is fixed to actor:viewer) and then extracting the participating actor and the associated product:
+
+-----------------------------------------------------------
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX product: <http://w3id.org/CEON/ontology/product/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?viewer ?viewerLabel ?product ?productLabel
+WHERE {
+  ?viewingRecord a actor:ViewingResource .
+  ?viewingRecord actorODP:participatingActor ?viewer .
+  ?viewingRecord actorODP:participatingResource ?product .
+
+  OPTIONAL { ?viewer rdfs:label ?viewerLabel . }
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+}
+-----------------------------------------------------------
+
+This query answers the CQ "Who viewed a product?" by identifying which viewing events (instances of actor:ViewingResource) link an actor with a product under a closed world assumption.

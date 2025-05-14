@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one way to write a SPARQL query that returns, in one result set via UNION, first the persons who were invited to any event (using the :isInvitedTo property) and second the meetings together with their “accidental” status (via the :isAccidental property). Under the closed‐world assumption, a missing invitation means the person was not invited.
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?entity ?entityType ?label ?invitationEvent ?isAccidental
+WHERE {
+  {
+    ?entity a :Person .
+    BIND("Person" AS ?entityType)
+    OPTIONAL { ?entity rdfs:label ?label. }
+    OPTIONAL { ?entity :isInvitedTo ?invitationEvent. }
+    FILTER(BOUND(?invitationEvent))
+  }
+  UNION
+  {
+    ?entity a :Meeting .
+    BIND("Meeting" AS ?entityType)
+    OPTIONAL { ?entity rdfs:label ?label. }
+    ?entity :isAccidental ?isAccidental.
+  }
+}
+ORDER BY ?entityType ?label
+--------------------------------------------------------
+
+This query shows for persons that were explicitly invited (i.e. those with at least one :isInvitedTo triple) and for meetings, it returns the boolean value of the :isAccidental property.

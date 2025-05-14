@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to trace who viewed a product. However, we can extract partial information about actors and their roles related to resources, which might include viewing.
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?relation a :ViewingResource .
+  ?relation actorODP:participatingActor ?actor .
+  ?relation actorODP:participantRole ?role .
+}
+```

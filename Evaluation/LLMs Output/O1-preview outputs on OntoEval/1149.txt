@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?event ?eventLabel
+WHERE {
+  ?event a :Event .
+  ?event :hasEventCategory :MovieCategory .
+  ?event :isAvailableDuring :Evening .
+  
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+```

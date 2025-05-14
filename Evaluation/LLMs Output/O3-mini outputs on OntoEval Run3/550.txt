@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one example of a SPARQL query that uses the ontology’s classes and properties to retrieve the song (derived from a track of the album "StadiumArcadium") along with the region in which that song was performed. In this query we first obtain the tracks contained in the album via the property “:containsTrack”, then “reify” the song behind a track using the “:recordingOf” relation. Next, we link to the performance data via instances of “:Cl_PerformanceSong” and then follow the “:tookPlaceAt” property (which points to a city) and finally use “:locatedIn” to retrieve the region. The query aggregates the number of performances per song in each region to help understand how the tracks vary (for example in frequency) by region.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?song (COUNT(DISTINCT ?performance) AS ?numPerformances)
+WHERE {
+  # Get the album "StadiumArcadium" and its tracks
+  :StadiumArcadium :containsTrack ?track .
+  # Get the underlying song for each track
+  ?track :recordingOf ?song .
+  
+  # Get performance(s) of the song
+  ?performanceSong a :Cl_PerformanceSong ;
+                   :performedSong ?song ;
+                   :performedIn ?performance .
+  
+  # Get region information from the performance location:
+  ?performance :tookPlaceAt ?city .
+  ?city :locatedIn ?region .
+}
+GROUP BY ?region ?song
+ORDER BY ?region ?song
+------------------------------------------------
+
+This query will return, for each song from the album, the region in which the song was performed and the number of performances – providing a view of how the tracks "vary" by region.

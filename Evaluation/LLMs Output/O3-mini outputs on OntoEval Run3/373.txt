@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one example SPARQL query that answers the competency question “What roles does a certain person have within a certain production at a certain point in time?” under the closed world assumption. In this query we assume you want to check for a person (e.g. with name "Fabio Bianchi"), a production (e.g. with title "The Merchant of Venice"), and a specific time (e.g. "2009-09-07T20:00:00Z"):
+
+────────────────────────────
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?name ?role ?production ?productionTitle ?timeInstant
+WHERE {
+  ?person a :Person ;
+          :hasName ?name ;
+          :hasTimeIndexedRole ?tir .
+  ?tir :hasTime ?timeInstant ;
+       :hasRole ?role .
+  ?role :performedIn ?production .
+  ?production :hasTitle ?productionTitle .
+  
+  # Closed world: specify the person, production, and time of interest
+  FILTER(?name = "Fabio Bianchi"@en)
+  FILTER(?productionTitle = "The Merchant of Venice"@en)
+  FILTER(?timeInstant = "2009-09-07T20:00:00Z"^^xsd:dateTime)
+}
+────────────────────────────
+
+This query retrieves the person’s roles (via the time-indexed role connection) and checks that the role belongs to the specified production at the given time, thus fully modeling the competency question as answerable within the ontology structure.

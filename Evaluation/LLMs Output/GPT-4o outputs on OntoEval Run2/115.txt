@@ -1,0 +1,18 @@
+**No**
+
+The ontology provided does not contain any direct information about the location of a festival. The ontology includes classes and properties related to theatre festivals, plays, and locations, but there is no direct connection between a festival and its location. Therefore, the competency question "Where did a certain festival take place?" cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL {
+    ?festival :locatedIn ?locationInfo .
+    ?locationInfo :locationCity ?location .
+  }
+}
+```
+
+This query attempts to retrieve the location of festivals, but due to the lack of direct connections in the ontology, it may not return complete results.

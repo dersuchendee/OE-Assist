@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a property to identify a specific theatre festival (e.g., a name or label). Therefore, the competency question "When did a certain theatre festival take place?" cannot be fully answered using the given ontology.
+
+However, we can extract the dates of all theatre festivals using the following SPARQL query:
+
+```sparql
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasDate ?date .
+}
+```

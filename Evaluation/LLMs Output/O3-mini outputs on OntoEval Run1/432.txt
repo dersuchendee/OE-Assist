@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person (e.g., JohnFrusciante), extracts the instruments they play:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  FILTER(?person = :JohnFrusciante)
+}
+-------------------------------------------------
+
+You can replace :JohnFrusciante with any individual URI of interest.

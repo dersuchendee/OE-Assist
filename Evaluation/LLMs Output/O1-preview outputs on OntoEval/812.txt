@@ -1,0 +1,68 @@
+**Yes**.
+
+The competency question "When was a certain person first employed at a certain hospital?" can be answered using the provided ontology. The ontology includes classes and properties that connect a `Person` to an `Employment` record, which in turn is associated with the `Hospital` where the person is employed and the `employmentStartDate`. Using these relationships, we can construct a SPARQL query to retrieve the employment start date of a person at a hospital.
+
+Here's the SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?hospital ?hospitalLabel ?startDate
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  ?person :hasEmploymentRecord ?employment .
+  ?employment :employmentStartDate ?startDate .
+  ?employment :employedAt ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+ORDER BY ?person ?startDate
+```
+
+**Explanation:**
+
+- **Prefixes**: We define the prefixes used in the ontology for clarity.
+- **Selection Variables**:
+  - `?person`: The individual person.
+  - `?personLabel`: The label of the person, if available.
+  - `?hospital`: The hospital where the person is employed.
+  - `?hospitalLabel`: The label of the hospital, if available.
+  - `?startDate`: The employment start date.
+- **Query Patterns**:
+  - `?person a :Person .`: Finds individuals of type `Person`.
+  - `?person :hasEmploymentRecord ?employment .`: Gets the employment records associated with the person.
+  - `?employment :employmentStartDate ?startDate .`: Retrieves the start date of the employment.
+  - `?employment :employedAt ?hospital .`: Finds the hospital where the employment took place.
+- **Optional Patterns**:
+  - `OPTIONAL { ?person rdfs:label ?personLabel . }`: Retrieves the person's label if it exists.
+  - `OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }`: Retrieves the hospital's label if it exists.
+- **Ordering**:
+  - `ORDER BY ?person ?startDate`: Orders the results by person and start date.
+
+**Note**: If there are multiple employment records for a person at the same hospital, and we are interested in the first employment date, we can modify the query to group the results and retrieve the earliest date:
+
+```sparql
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?hospital ?hospitalLabel (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  ?person :hasEmploymentRecord ?employment .
+  ?employment :employmentStartDate ?startDate .
+  ?employment :employedAt ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+GROUP BY ?person ?personLabel ?hospital ?hospitalLabel
+ORDER BY ?person ?firstEmploymentDate
+```
+
+This modified query uses `MIN(?startDate)` to find the earliest employment start date for each person at each hospital.
+
+**Conclusion**:
+
+The ontology adequately models the relationships required to answer the competency question, and the SPARQL query demonstrates how to extract the desired information. Therefore, the competency question is supported by the ontology.

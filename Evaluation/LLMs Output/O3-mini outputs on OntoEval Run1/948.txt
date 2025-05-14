@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one SPARQL query that, given a specific doctor and a specific employee, retrieves the evaluation statement provided by the doctor for that employee:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?doctor rdf:type :Cl_Doctor .
+  ?employee rdf:type :Cl_Employee .
+  ?doctor :evaluates ?evaluation .
+  ?evaluation :evaluationFor ?employee .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  
+  # Replace the following URIs with the actual identifiers for the doctor and employee
+  FILTER(?doctor = <http://www.example.org/test#Doctor_123>) .
+  FILTER(?employee = <http://www.example.org/test#Employee_456>) .
+}
+------------------------------------------------------------
+
+This query shows that the evaluation statement CQ is fully answerable from the ontology using the provided reification classes and properties.

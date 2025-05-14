@@ -1,0 +1,16 @@
+**Yes**
+Below is an example SPARQL query that extracts the premier date for productions:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+  # Optional: add FILTER clauses to target a specific production if needed.
+}
+---------------------------------
+
+In a closed world setting the absence of a premierDate for a production means that production would not be returned, satisfying the competency question "When was the premier of a certain production?" by retrieving the premier dates associated with production instances in the ontology.

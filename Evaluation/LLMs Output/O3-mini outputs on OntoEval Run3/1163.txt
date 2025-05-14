@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?quality ?time
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasQualityObservation ?obs .
+  ?obs :hasQuality ?quality .
+  ?obs :observedAtTime ?time .
+}
+ORDER BY ?flow ?time
+```

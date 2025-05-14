@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves hospitals along with the cities in which they are located:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  ?hospital :locatedIn ?location .
+  ?location :city ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+--------------------------------------------------
+
+This query checks that an instance of the class Cl_Hospital is linked (via the property :locatedIn) to a location which, in turn, is connected through the property :city to a city. This shows that the CQ "In what city is a certain hospital located?" is answerable by the ontology under the closed world assumption.

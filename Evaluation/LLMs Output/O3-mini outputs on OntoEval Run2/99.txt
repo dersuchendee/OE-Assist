@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the location of a given festival (e.g., "Roma Loves Shakespeare") using the property ns1:tookPlaceIn. For instance, if we want to know where the festival ns1:RomaLovesShakespeare took place, we can use the following SPARQL query:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a ns1:TheatreFestival ;
+            ns1:tookPlaceIn ?city .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  FILTER(?festival = ns1:RomaLovesShakespeare)
+}
+
+This query shows that the location (the city) where the festival took place is modelled in the ontology, and thus our CQ is supported under the closed world assumption.

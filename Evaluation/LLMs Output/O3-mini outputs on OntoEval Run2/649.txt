@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves performances along with the date when they took place. It uses the reification classes and properties defined in the ontology—specifically, it looks for individuals of type Cl_Performance and then follows the performedOn property to get a Cl_PerformanceDate individual, from which the performanceDate (an xsd:date) is retrieved.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedOn ?performanceDate .
+  ?performanceDate :performanceDate ?date .
+}
+--------------------------------------------------
+
+This query demonstrates that the competency question "When did a certain performance take place?" is answerable given the ontology structure.

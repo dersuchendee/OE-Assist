@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any information about union members or the specific point in time for union membership. However, we can extract partial information about union memberships and their start dates.
+
+```sparql
+SELECT ?person ?union ?membershipStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionMembership ?membership .
+  ?membership :memberOf ?union .
+  ?membership :membershipStartDate ?membershipStartDate .
+}
+```

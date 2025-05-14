@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?recording ?recordingLabel ?bellOrSet ?bellOrSetLabel
+WHERE {
+  ?recording a :RecordingInvolvingBell .
+  OPTIONAL { ?recording rdfs:label ?recordingLabel . }
+  ?recording :involvesBell ?bellOrSet .
+  OPTIONAL { ?bellOrSet rdfs:label ?bellOrSetLabel . }
+}
+```

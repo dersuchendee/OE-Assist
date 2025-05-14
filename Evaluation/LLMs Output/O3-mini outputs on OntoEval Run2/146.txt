@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the theatre along with the city in which it is located (using the property theatre:locatedIn):
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a theatre:Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  
+  ?theatre theatre:locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}

@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not directly model a “composition” for Material instances—that is, it does not explicitly assert that a material is composed of other parts. In this ontology a Product is composed of Components, and Components are made of Materials. Therefore, “What is the composition of this material?” cannot be answered in full, because materials are not further subdivided or reified into constituent parts. However, you can write a SPARQL query that retrieves some partial information about a material by retrieving its associated properties, provenance, and even the components (and their parent products) that are made of it. For example:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?material ?property ?provenance ?component ?product
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material :hasProperty ?property . }
+  OPTIONAL { ?material :hasProvenance ?provenance . }
+  OPTIONAL { 
+    ?component :isMadeOf ?material .
+    OPTIONAL { ?component :isComponentOf ?product . }
+  }
+}
+
+This query extracts a partial answer by showing, for each material, its properties and provenance (which describe its characteristics) and also any component (and the corresponding product) that uses the material.

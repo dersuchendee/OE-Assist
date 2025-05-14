@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that (a) a production can be linked to its review via the property :hasReview, (b) that a review (an instance of :Cl_ProductionReview) carries the star‐rating via :hasStarRating, and (c) that there is a connection from the production to the newspaper that provided the review (via, for example, the property :hasNewspaper), the following SPARQL query retrieves the star rating given by a specified newspaper for a specified production. (In a closed‐world setting we assume that if the production is not linked to a review or a newspaper then no rating exists.)
+
+Example SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?starRating
+WHERE {
+  ?production a :Cl_Production ;
+              :hasReview ?review ;
+              :hasNewspaper ?newspaper .
+  ?review :hasStarRating ?starRating .
+  # Filter to a certain production and newspaper
+  FILTER(?production = :MerchantOfVenice)
+  FILTER(?newspaper = :IlGazzettino)
+}
+--------------------------------------------------
+
+This query answers the CQ “What is the ‘star rating’ given by a certain newspaper for a certain production?” by extracting the star rating for production :MerchantOfVenice as reviewed by newspaper :IlGazzettino.

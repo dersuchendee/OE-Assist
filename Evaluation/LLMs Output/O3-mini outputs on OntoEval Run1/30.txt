@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX product: <http://w3id.org/CEON/ontology/product/>
+
+SELECT ?actor ?actorLabel ?product ?productLabel
+WHERE {
+  ?viewing a actor:ViewingResource .
+  ?viewing actorODP:participatingActor ?actor .
+  ?viewing actorODP:participatingResource ?product .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+}
+```

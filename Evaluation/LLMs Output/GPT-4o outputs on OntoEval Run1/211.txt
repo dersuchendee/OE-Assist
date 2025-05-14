@@ -1,0 +1,24 @@
+**Yes**
+
+The competency question "Who are the members of a certain ensemble at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to identify ensemble memberships and their time frames. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?ensemble ?ensembleName ?actor ?actorName
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble :hasName ?ensembleName . }
+
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :membershipOf ?ensemble .
+  ?membership :member ?actor .
+  OPTIONAL { ?actor :hasName ?actorName . }
+
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  FILTER (?startDate <= "2023-10-01"^^xsd:date && (!BOUND(?endDate) || ?endDate >= "2023-10-01"^^xsd:date))
+}
+ORDER BY ?ensemble ?actor
+```
+
+This query retrieves the members of ensembles that are active at a specific point in time (e.g., October 1, 2023). It checks for ensemble memberships that have started on or before the given date and have not ended before the given date.

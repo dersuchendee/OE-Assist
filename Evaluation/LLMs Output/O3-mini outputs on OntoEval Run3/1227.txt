@@ -1,0 +1,21 @@
+**No**
+
+The ontology only provides TBox definitions indicating that BeechForest (a subclass of ForestEcosystem) must have some CO2 fixation pathway that is a PrimaryCO2FixationPathway (via a restriction on :hasCO2FixationPathway). However, it does not list any explicit individuals or further details about the primary CO2 fixation pathways (or their instances) in forest ecosystems. Hence, only a partial answer can be retrieved by “querying” the TBox restrictions.
+
+A partial SPARQL query that extracts the intended restriction from the ontology is:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?restriction ?primaryPathway
+WHERE {
+  :BeechForest rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty :hasCO2FixationPathway ;
+               owl:someValuesFrom ?primaryPathway .
+}
+--------------------------------------------------
+
+This query retrieves the restriction on BeechForest that enforces the connection to a primary CO2 fixation pathway, but no detailed individuals or further data are available under the closed world assumption.

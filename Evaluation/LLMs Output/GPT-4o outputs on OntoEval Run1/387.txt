@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain information about the specific roles a person has within a production at a certain point in time. While there are classes and properties related to productions, actors, and roles, the ontology does not explicitly connect these elements in a way that would allow us to query for the roles a person has within a specific production at a specific time.
+
+Here is a SPARQL query to extract a partial answer, which lists the roles assigned to actors in a production, but without the specific time context:
+
+```sparql
+SELECT ?actor ?actorLabel ?role ?roleLabel
+WHERE {
+  ?production :hasRoleAssignment ?roleAssignment .
+  ?roleAssignment :roleActor ?actor .
+  ?roleAssignment :role ?role .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?festivalName ?playName
+WHERE {
+  ?festivalPlay rdf:type :Cl_FestivalPlay ;
+                :hasFestival ?festival ;
+                :hasPlay ?play .
+  ?festival :festivalName ?festivalName .
+  ?play :playName ?playName .
+  # Uncomment the following line to specify a particular festival
+  # FILTER (str(?festivalName) = "Roma Loves Shakespeare")
+}
+```

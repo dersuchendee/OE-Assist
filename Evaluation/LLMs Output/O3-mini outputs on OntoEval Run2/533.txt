@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the “particular album” is represented as an instance of the :Cl_Album class (and that the number of tracks is stored with the data property :numberOfTracks), the following SPARQL query retrieves, for each album, the number of tracks it contains. Under the closed world assumption, we assume that every album has a recorded value for :numberOfTracks.
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ 
+SELECT ?album ?albumLabel ?numTracks
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :numberOfTracks ?numTracks .
+}
+---------------------------------
+
+If you need the answer for a specific album (for example, Stadium Arcadium), you can parameterize the query further by filtering on that album's identifier or label.

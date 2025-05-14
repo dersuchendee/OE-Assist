@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one valid SPARQL query that retrieves the study period (start and end dates) for each instance of a person–degree association (i.e. an instance of Cl_PersonDegreeStudy) using the associated reified study period information:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?personDegreeStudy ?startDate ?endDate
+WHERE {
+  ?personDegreeStudy a :Cl_PersonDegreeStudy ;
+                      :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?startDate ;
+               :studyEndDate ?endDate .
+}
+ORDER BY ?personDegreeStudy ?startDate
+------------------------------------------------------
+
+Under a closed world assumption, we assume that all required information (i.e. the study period dates) is explicitly defined in the ontology. This query shows that the CQ “During what time period did a certain person study for a specific degree?” is answerable from the ontology.

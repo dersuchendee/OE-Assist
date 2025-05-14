@@ -1,0 +1,29 @@
+**Yes**
+
+The competency question "Where did a certain performance take place?" is supported by the ontology. The ontology includes classes and properties that model performances (`:Cl_Performance`), venues (`:Cl_Venue`), and the relation `:takesPlaceIn` which connects a performance to the venue where it occurred.
+
+Here is a SPARQL query that retrieves performances and their locations:
+
+```sparql
+SELECT ?performance ?performanceDate ?venue ?venueName ?city ?cityName ?region ?regionName ?country ?countryName
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  OPTIONAL { ?performance :performanceDate ?performanceDate . }
+  ?performance :takesPlaceIn ?venue .
+  OPTIONAL { ?venue rdfs:label ?venueName . }
+  OPTIONAL { 
+    ?venue :locatedIn ?city .
+    OPTIONAL { ?city rdfs:label ?cityName . }
+    OPTIONAL { 
+      ?city :isLocatedIn ?region .
+      OPTIONAL { ?region rdfs:label ?regionName . }
+      OPTIONAL { 
+        ?region :isPartOf ?country .
+        OPTIONAL { ?country rdfs:label ?countryName . }
+      }
+    }
+  }
+}
+```
+
+This query retrieves all performances along with their dates and locations, including the venue, city, region, and country if available. The use of `OPTIONAL` allows for partial information if some location details are missing.

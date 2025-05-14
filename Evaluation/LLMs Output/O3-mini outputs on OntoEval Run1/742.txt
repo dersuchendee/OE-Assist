@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer the question using the ontology. Under the closed‐world assumption, every instance of Cl_MusicAlbum is required (by means of both the owl:equivalentClass restriction on :hasTrack and the reification pattern using Cl_RecordContainsTrack with the object property :containsTrack) to be connected to at least one track. For instance, the following SPARQL query retrieves all music albums along with their reified tracks (via the :containsTrack → :trackContained chain). An album not appearing in the results would indicate a violation of the “always contains at least one track” constraint (but under closed‐world, none should appear without a track):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?album ?albumTitle ?track ?trackTitle
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  OPTIONAL { ?album :hasTitle ?albumTitle . }
+  
+  ?album :containsTrack ?recordContainsTrack .
+  ?recordContainsTrack :trackContained ?track .
+  OPTIONAL { ?track :hasTitle ?trackTitle . }
+}
+ORDER BY ?album
+------------------------------------------------
+
+This query demonstrates that every record (music album) is associated (through the reification mechanism) with at least one track, thus confirming the competency question "A record always contains at least one track" is modeled by the ontology.

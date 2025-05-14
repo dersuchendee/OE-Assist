@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "How many acts does a particular play contain?" can be answered using the given ontology. The ontology provides information about plays and their act information, including the number of acts. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?play ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasActInformation ?actInfo .
+  ?actInfo :actCount ?actCount .
+}
+```

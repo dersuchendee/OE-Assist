@@ -1,0 +1,17 @@
+**Yes**
+
+We can retrieve the premier date for a production (e.g. :TheMerchantOfVeniceProduction) using the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production ;
+              :premierDate ?premierDate .
+}
+ORDER BY ?production
+--------------------------------------------------
+
+This query extracts all productions (under the closed world assumption that missing data implies the fact is false) together with their premier dates, thereby answering the competency question "When was the premier of a certain production?"

@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that, given a band (as ?bandFilter) and a specific point in time (as ?timePoint), retrieves the members whose band membership interval covers that time:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?bandLabel ?member ?memberLabel ?membershipStart ?membershipEnd
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :memberOfBand ?band ;
+              :isMember ?member ;
+              :membershipStartDate ?membershipStart .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEnd. }
+  OPTIONAL { ?band rdfs:label ?bandLabel. }
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+  
+  # Closed world assumption: only those memberships explicitly defined are considered.
+  FILTER( ?band = ?bandFilter )
+  FILTER( 
+    xsd:dateTime(?timePoint) >= xsd:dateTime(?membershipStart)
+    &&
+    ( !BOUND(?membershipEnd) || xsd:dateTime(?timePoint) <= xsd:dateTime(?membershipEnd) )
+  )
+}
+ORDER BY ?member
+-----------------------------------------------------
+
+In this query the variables ?bandFilter and ?timePoint need to be bound (for example using VALUES or via query parameters) to the specific band and the point in time under investigation. This query demonstrates that the ontology models the competency question "What are the members of a certain band at a certain point in time?"

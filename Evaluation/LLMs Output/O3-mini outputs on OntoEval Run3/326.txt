@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?newspaper ?production ?rating
+WHERE {
+  ?review a :Cl_ReviewRating ;
+          :reviews ?newspaper ;
+          :concerns ?production ;
+          :hasStarRating ?rating .
+}
+```

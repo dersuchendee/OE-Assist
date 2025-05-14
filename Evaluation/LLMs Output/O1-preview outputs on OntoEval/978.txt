@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question is answerable using the provided ontology, as it includes the class `:Book` and the datatype property `:pageCount` associated with it. Here's a SPARQL query that retrieves the page count of a particular book based on its title:
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+
+SELECT ?pageCount
+WHERE {
+  ?book a :Book .
+  ?book :title "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" .
+  ?book :pageCount ?pageCount .
+}
+```
+
+This query selects the `?pageCount` of the book with the specified title. The ontology provides the necessary classes and properties to answer the competency question under the closed-world assumption.

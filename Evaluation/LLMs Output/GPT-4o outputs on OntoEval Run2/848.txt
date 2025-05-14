@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the city in which a hospital is located. The ontology includes a property `:locatedIn` that relates a hospital to a city, but there is no information about the specific city for each hospital. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?hospital ?city
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital :locatedIn ?city . }
+}
+```

@@ -1,0 +1,12 @@
+**Yes**
+
+Below is an example of a SPARQL query that extracts, for each album in the ontology, the number of tracks it contains:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?numberOfTracks
+WHERE {
+  ?album a :Cl_Album .
+  ?album :numberOfTracks ?numberOfTracks .
+}

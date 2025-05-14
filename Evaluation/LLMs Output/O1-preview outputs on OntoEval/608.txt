@@ -1,0 +1,34 @@
+**Yes**
+
+The competency question "What does a certain critic say about a certain record?" can be answered using the provided ontology. The ontology includes classes and properties that represent critics, records, reviews, and opinions. Here's the SPARQL query that extracts the critic's opinion about a record:
+
+```sparql
+PREFIX : <http://example.org/music#>
+
+SELECT ?opinion
+WHERE {
+  ?review a :Review .
+  ?review :hasCritic ?critic .
+  ?review :hasRecord ?record .
+  ?review :opinion ?opinion .
+  
+  # Replace these URIs with the specific critic and record you're interested in
+  FILTER(?critic = :SpecificCritic && ?record = :SpecificRecord)
+}
+```
+
+To use this query for specific individuals, replace `:SpecificCritic` and `:SpecificRecord` with the URIs of the critic and record you're interested in. For example, to find out what Crian Hiatt said about "Stadium Arcadium", you'd modify the query as follows:
+
+```sparql
+PREFIX : <http://example.org/music#>
+
+SELECT ?opinion
+WHERE {
+  ?review a :Review .
+  ?review :hasCritic :CrianHiatt .
+  ?review :hasRecord :StadiumArcadium .
+  ?review :opinion ?opinion .
+}
+```
+
+This query will return the opinion expressed by Crian Hiatt about the album "Stadium Arcadium".

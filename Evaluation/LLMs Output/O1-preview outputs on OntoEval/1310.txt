@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?guild ?guildLabel ?habitat ?habitatLabel
+WHERE {
+  ?guild a :MicrobialFunctionalGuild .
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+
+  ?guild :hasInvolvement ?involvement .
+
+  ?involvement :involvesProcess :Autolithoautotrophy .
+  ?involvement :occursInHabitat ?habitat .
+  OPTIONAL { ?habitat rdfs:label ?habitatLabel . }
+}
+```

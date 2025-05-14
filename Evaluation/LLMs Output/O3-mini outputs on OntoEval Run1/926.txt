@@ -1,0 +1,23 @@
+**Yes**
+Below is one example of a SPARQL query that retrieves the evaluation statement (its content and date) written by a specified doctor for a specified employee.
+
+─────────────────────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement ?evalDate ?evalContent
+WHERE {
+  ?evaluationStatement a :Cl_EvaluationStatement ;
+                       :hasWrittenStatement ?doctor ;
+                       :evaluatesEmployee ?employee ;
+                       :hasEvaluationDate ?evalDate ;
+                       :hasEvaluationContent ?evalContent .
+  # Replace :Doctor1 and :PasqualeDiGennaro with the specific doctor's and employee's URIs as needed.
+  FILTER(?doctor = :Doctor1 && ?employee = :PasqualeDiGennaro)
+} 
+
+─────────────────────────────────────────────
+
+This query uses the reified evaluation statement structure in the ontology, matching a specified doctor and employee (using closed world assumption on the provided ontology).

@@ -1,0 +1,32 @@
+**Yes**
+
+The Competency Question (CQ) "How many acts does a particular play contain?" is answerable using the provided ontology. The ontology includes the class `:Cl_Play` and a data property `:hasNumberOfActs` that connects a play to its number of acts.
+
+Here is a SPARQL query that retrieves the number of acts for each play:
+
+```sparql
+SELECT ?play ?playTitle ?numberOfActs
+WHERE {
+    ?play rdf:type :Cl_Play .
+    OPTIONAL { ?play rdfs:label ?playTitle . }
+    ?play :hasNumberOfActs ?numberOfActs .
+}
+```
+
+If you want to find the number of acts for a specific play (e.g., "MerchantOfVenice"), you can use the following query:
+
+```sparql
+SELECT ?numberOfActs
+WHERE {
+    :MerchantOfVenice rdf:type :Cl_Play .
+    :MerchantOfVenice :hasNumberOfActs ?numberOfActs .
+}
+```
+
+**Explanation:**
+
+- The ontology defines `:Cl_Play` as a class representing plays.
+- The data property `:hasNumberOfActs` links a play to an integer value representing the number of acts.
+- The individual `:MerchantOfVenice` is an instance of `:Cl_Play` and has the property `:hasNumberOfActs` with the value `5`.
+
+Therefore, the CQ is fully supported by the ontology, and the provided SPARQL queries can extract the required information under the closed-world assumption.

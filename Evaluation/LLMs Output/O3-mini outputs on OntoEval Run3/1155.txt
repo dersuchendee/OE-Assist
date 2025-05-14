@@ -1,0 +1,16 @@
+**Yes**
+Below is one example SPARQL query that returns the properties (attributes) defined for the FilmEvent class (i.e. the event category) by retrieving all properties whose rdfs:domain is FilmEvent:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?property ?propertyLabel ?range
+WHERE {
+  ?property rdfs:domain :FilmEvent .
+  OPTIONAL { ?property rdfs:label ?propertyLabel . }
+  OPTIONAL { ?property rdfs:range ?range . }
+}
+--------------------------------------------------
+
+This query shows that the ontology models the attributes of the event category (such as hasTitle, hasGenre, hasStartTime, hasLocation, and featuresActor) and therefore supports the competency question.

@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the number of tracks recorded for each album (using the closed‐world assumption on the available data):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?numTracks
+WHERE {
+  ?album a :Cl_Album ;
+         :numberOfTracks ?numTracks .
+} 
+
+This query returns each album instance together with its recorded number of tracks, thus fully answering the competency question.

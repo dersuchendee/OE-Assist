@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "What articles is a specific book or CD composed of?" can be answered using the ontology provided. The ontology includes classes for `Book`, `CD`, and `Article`, and there is a property `hasArticle` that connects `Book` and `CD` to `Article`. Therefore, we can write a SPARQL query to extract the articles contained within a specific book or CD.
+
+```sparql
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection a ?collectionType .
+  FILTER (?collectionType IN (:Book, :CD))
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+
+  ?collection :hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```

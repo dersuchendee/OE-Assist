@@ -1,0 +1,11 @@
+**Answer: Yes**
+
+The competency question is answerable because the ontology defines the class `:Cl_Play` and a datatype property `:containsActs` with domain `:Cl_Play` and range `xsd:integer`. This allows us to retrieve the number of acts that a particular play contains.
+
+```sparql
+SELECT ?play ?numActs
+WHERE {
+    ?play rdf:type :Cl_Play .
+    ?play :containsActs ?numActs .
+}
+```

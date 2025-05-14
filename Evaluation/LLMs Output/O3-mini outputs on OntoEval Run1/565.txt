@@ -1,0 +1,16 @@
+**No**  
+It is unclear from the provided ontology which property or class instance links a track (an instance of Cl_Track) to the song it records. A partial query can at least list all track instances and any song‐related data (such as a song name) that have been asserted on the track. For example:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?track ?songName
+WHERE {
+  ?track a :Cl_Track .
+  OPTIONAL { ?track :songName ?songName . }
+}
+---------------------------------
+
+This query retrieves all track instances along with any song names declared on them. Since there is no explicit property (e.g. “recordingOf”) linking a track to its song, the query can only partially answer the CQ.

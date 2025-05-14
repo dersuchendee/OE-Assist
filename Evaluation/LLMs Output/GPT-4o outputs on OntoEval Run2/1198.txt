@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to extract the geographic location of places where musicians performed, as it lacks specific properties or classes related to geographic information. However, we can extract partial information about performances and their associated places.
+
+```sparql
+SELECT ?performance ?place
+WHERE {
+  ?performance a :Performance .
+  ?performance :tookPlaceAt ?place .
+}
+```

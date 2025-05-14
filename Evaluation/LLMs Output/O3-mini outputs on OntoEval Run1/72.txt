@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves for every individual that is either a Component or a Product the associated Material via the property :isMadeOf (and, for Products, also via collectionentity:hasMember):
+
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?entity ?entityLabel ?material ?materialLabel
+WHERE {
+  {
+    ?entity a :Component .
+    ?entity :isMadeOf ?material .
+  }
+  UNION
+  {
+    ?entity a :Product .
+    {
+      ?entity :isMadeOf ?material .
+    }
+    UNION
+    {
+      ?entity collectionentity:hasMember ?material .
+    }
+  }
+  OPTIONAL { ?entity rdfs:label ?entityLabel . }
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+}
+ORDER BY ?entity ?material

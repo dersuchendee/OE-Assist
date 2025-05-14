@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example of a SPARQL query that extracts—for a given song—the date it was composed, as modelled by the ontology:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songLabel ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  
+  ?song :composedOn ?songComposition .
+  ?songComposition :compositionDate ?compositionDate .
+}
+—————————————————————————————
+
+Under the closed world assumption, if no composition date is explicitly recorded for a given song, then it is considered not composed (or unknown) in the dataset. This query demonstrates that the competency question “When was a certain song composed?” is indeed answerable using the ontology.

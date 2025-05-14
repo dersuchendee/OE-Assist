@@ -1,0 +1,14 @@
+**No**  
+The provided ontology does not explicitly model an “organ builder” (or related information), so while no complete answer to the CQ can be extracted, the following partial query searches for any resource having a literal that might mention “organ builder” (via a keyword search):
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+
+SELECT DISTINCT ?resource ?literal
+WHERE {
+  ?resource ?p ?literal .
+  FILTER(regex(str(?literal), "organ builder", "i"))
+} 
+
+This query returns any resource with a property value containing “organ builder,” which under the closed world assumption indicates that the ontology does not fully support the competency question.

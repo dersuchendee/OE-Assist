@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide specific instances or data about events, times, or days of the week. It only defines classes and properties without any specific data that can be queried to answer the competency question. Therefore, a SPARQL query can only extract partial information about the structure of the ontology.
+
+```sparql
+SELECT ?event ?time ?dayOfWeek
+WHERE {
+  ?event a :Cl_BathroomEvent .
+  OPTIONAL { ?event :op_hasTime ?time . }
+  OPTIONAL { ?event :op_hasDayOfWeek ?dayOfWeek . }
+}
+```

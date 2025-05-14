@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves albums together with their release dates. In our ontology the class Cl_Album has a data property “releaseDate” (with range xsd:date) that is associated with album instances (e.g. :Stadium_Arcadium). Under the closed‐world assumption, only those albums with an explicitly given release date will be returned.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}
+--------------------------------------------------
+
+This query answers the competency question “When was a certain album released?” by extracting the release date for all album individuals modeled in the ontology.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the writing event (and its start and end dates) for a given play (for instance, “The Merchant of Venice”):
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?startDate ?endDate
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasWritingEvent ?writingEvent .
+  ?writingEvent :hasStartDate ?startDate ;
+                :hasEndDate   ?endDate .
+  # Optionally, filter for a specific play identified by its URI
+  FILTER(?play = <http://www.example.org/test#TheMerchantOfVenice>)
+}
+-------------------------------------------------------
+
+This query works under the closed world assumption by only returning plays that explicitly have a linked writing event with defined start and end dates.

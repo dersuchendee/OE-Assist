@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not contain any information about the star ratings given by newspapers for specific productions. However, we can extract partial information about the productions and the newspapers involved.
+
+```sparql
+SELECT ?production ?productionName ?newspaper ?newspaperName
+WHERE {
+  ?review a :Cl_Review .
+  ?review :hasProduction ?production .
+  ?production :productionName ?productionName .
+  ?review :hasNewspaper ?newspaper .
+  ?newspaper :newspaperName ?newspaperName .
+}
+```

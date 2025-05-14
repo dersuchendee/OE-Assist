@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly support querying for specific chemical parameters associated with specific aquifer fungi. The ontology provides a structure for associating aquifer fungi with chemical parameters through the `hasAssociatedChemicalParameter` property, but it does not provide a direct way to query for specific associations between chemical parameters and aquifer fungi.
+
+Partial answer:
+```sparql
+SELECT ?fungus ?chemicalParameter
+WHERE {
+  ?fungus a :AquiferFungus .
+  ?fungus :hasAssociatedChemicalParameter ?chemicalParameter .
+}
+```

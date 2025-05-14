@@ -1,0 +1,26 @@
+**Yes**
+
+We can answer this CQ using the reification of ensemble membership provided in the ontology. Assuming that the ensemble memberships are indicated via the class Cl_EnsembleMembership and related properties (:membershipOf, :member, :membershipStartDate, and optionally :membershipEndDate), we can write a query that—for a given ensemble and a specific point in time—retrieves the actor members whose membership period covers that time.
+
+For example, if we supply an ensemble IRI (here as <http://www.example.org/test#GivenEnsemble>) and a time (here shown as "2009-09-15T00:00:00"^^xsd:dateTime), the following SPARQL query will extract the members:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_EnsembleMembership ;
+              :membershipOf <http://www.example.org/test#GivenEnsemble> ;
+              :member ?actor ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate. }
+  ?actor :hasName ?actorName .
+  FILTER (
+     xsd:dateTime("2009-09-15T00:00:00") >= ?membershipStartDate &&
+     ( !bound(?membershipEndDate) || xsd:dateTime("2009-09-15T00:00:00") <= ?membershipEndDate )
+  )
+}
+----------------------------------------------------------------
+
+This query returns the actors (with their names and membership period information) who are members of the specified ensemble at the given point in time, thus fully answering the competency question.

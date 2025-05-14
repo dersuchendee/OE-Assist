@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves each city from the ontology along with the country it is located in:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :City .
+  ?city :isLocatedIn ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}

@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the free time periods for a given calendar (here “MyCalendar”) that fall within today (assumed to be "2023-04-01"). Note that under the closed world assumption we assume the data for today’s free time periods is complete in the ontology:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?calendar ?freeTime ?freeTimeLabel ?startTime ?endTime
+WHERE {
+  ?calendar a :Calendar .
+  ?calendar rdfs:label "My Calendar" .
+  ?calendar :hasFreeTimePeriod ?freeTime .
+  ?freeTime :startTime ?startTime ;
+            :endTime ?endTime .
+  OPTIONAL { ?freeTime rdfs:label ?freeTimeLabel . }
+  
+  # Filter free time periods for today (2023-04-01)
+  FILTER (
+    ?startTime >= "2023-04-01T00:00:00Z"^^xsd:dateTime &&
+    ?endTime <= "2023-04-01T23:59:59Z"^^xsd:dateTime
+  )
+}
+ORDER BY ?startTime

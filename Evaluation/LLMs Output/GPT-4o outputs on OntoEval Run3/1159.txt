@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology as it provides the necessary classes and properties to query the available options for an event, such as seat selection and show time. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?event ?ticketOption ?seat ?showTime
+WHERE {
+  ?event a :Event .
+  ?event :hasTicketOption ?ticketOption .
+  ?ticketOption :hasSeat ?seat .
+  ?ticketOption :hasShowTime ?showTime .
+}
+```

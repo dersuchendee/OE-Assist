@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine the country in which a specific region is located. The ontology includes classes and properties related to cities, regions, and countries, but it lacks a direct connection or property that specifies the country for a given region. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL {
+    ?region :partOf ?country .
+    ?country a :Cl_Country .
+  }
+}
+```

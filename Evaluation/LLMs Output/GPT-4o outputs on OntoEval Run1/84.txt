@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to query for the specific dates of theatre festivals. The ontology includes classes and properties related to festivals, cities, and occurrences, but it lacks a direct link between a specific festival and its occurrence date. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?occurrence ?date
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence a :Cl_FestivalOccurrence .
+  OPTIONAL { ?occurrence :hasDate ?date . }
+}
+```
+
+This query will return festivals and their occurrences, but the date information might not be complete or directly linked to the specific festival in question.

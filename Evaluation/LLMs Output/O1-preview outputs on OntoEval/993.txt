@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a property to identify a particular book (e.g., by title or identifier), so we cannot specify which book we are querying about. Therefore, we cannot fully answer the CQ "How many pages does a particular book contain?"
+
+Partial SPARQL query to list all books and their page counts:
+
+```sparql
+SELECT ?book ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :hasPageCount ?pageCount .
+}
+```

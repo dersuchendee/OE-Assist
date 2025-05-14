@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the ontology includes an Employment class linking actors to theatres via properties such as :hasEmployee, :hasEmployer, and a start date property :hasStartDate, we can write a SPARQL query that retrieves the start date for a given actor at a specific theatre. For example, to get the employment start date of “Fabio Bianchi” at “The Grand Theatre”, one could use this query:
+
+--------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?employment a :Employment ;
+              :hasEmployee ?actor ;
+              :hasEmployer ?theatre ;
+              :hasStartDate ?startDate .
+  ?actor :hasName "Fabio Bianchi" .
+  ?theatre :hasName "The Grand Theatre" .
+}
+--------------------------------------------------
+
+Under the closed world assumption, only the explicitly stated employment records will be returned, ensuring that the resulting start date is as recorded in the ontology.

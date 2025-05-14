@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that a newspaper review is reified via the pivot class Cl_NewspaperReview—which is defined as a subclass of both Cl_Newspaper and Cl_Production—and that the star rating is attached as a data property on that review instance, we can answer the CQ. Under the closed‐world assumption the following query extracts, for a given newspaper and production, the star rating:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?newspaper ?production ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper ;
+             :hasReview ?review .
+             
+  ?review a :Cl_NewspaperReview, :Cl_Production ;
+          :starRating ?starRating .
+          
+  # Assuming that the production details (e.g., play title) are also provided on the review,
+  # we extract an identifying literal property if available:
+  OPTIONAL { ?review :playTitle ?production }
+}
+ORDER BY ?newspaper ?production
+--------------------------------------------------
+
+This query retrieves each newspaper (instance of Cl_Newspaper), its associated review (which, as a Cl_NewspaperReview, also represents a reviewed production), and the star rating given by the newspaper.

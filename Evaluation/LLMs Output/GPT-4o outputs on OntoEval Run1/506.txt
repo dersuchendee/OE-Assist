@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a specific album was recorded. The ontology includes properties related to albums, such as `albumRecordingStartDate` and `albumRecordingEndDate`, but it does not specify which album these dates correspond to. Therefore, a partial answer can be extracted by querying for albums and their recording start and end dates, but it will not specify the album in question.
+
+```sparql
+SELECT ?album ?startDate ?endDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :albumRecordingStartDate ?startDate . }
+  OPTIONAL { ?album :albumRecordingEndDate ?endDate . }
+}
+```

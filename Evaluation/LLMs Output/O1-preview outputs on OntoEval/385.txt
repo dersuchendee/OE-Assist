@@ -1,0 +1,36 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorName ?role ?roleName ?production ?productionName
+WHERE {
+  ?roleAssignment a :Cl_RoleAssignment ;
+                  :op_roleOf ?actor ;
+                  :op_hasRole ?role ;
+                  :op_roleInProduction ?production ;
+                  :dp_startDate ?startDate .
+  OPTIONAL { ?roleAssignment :dp_endDate ?endDate . }
+  OPTIONAL { ?actor rdfs:label ?actorName . }
+  OPTIONAL { ?role rdfs:label ?roleName . }
+  OPTIONAL { ?production rdfs:label ?productionName . }
+  
+  # Filter for a specific date, actor, and production.
+  # Replace "SpecificDate" with the desired date in "YYYY-MM-DD" format,
+  # :SpecificActor with the desired actor URI,
+  # and :SpecificProduction with the desired production URI.
+  
+  FILTER (
+    xsd:date("SpecificDate") >= ?startDate && 
+    ( !bound(?endDate) || xsd:date("SpecificDate") <= ?endDate )
+  )
+  FILTER ( ?actor = :SpecificActor )
+  FILTER ( ?production = :SpecificProduction )
+}
+```
+
+This SPARQL query retrieves the roles that a specific actor (`?actor`) has within a specific production (`?production`) at a specific point in time (`"SpecificDate"`). The query checks for role assignments where the date falls within the start and end dates of the role assignment.
+
+Replace `"SpecificDate"` with the date you're interested in (e.g., `"2009-09-10"`), `:SpecificActor` with the actor's URI (e.g., `:FabioBianchi`), and `:SpecificProduction` with the production's URI (e.g., `:MerchantOfVeniceProduction`).

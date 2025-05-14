@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine if an event is religious or secular. The classes `ReligiousEvent` and `SecularEvent` are defined, but there is no property or mechanism in the ontology to classify a specific instance of `Event` as either `ReligiousEvent` or `SecularEvent`. Therefore, a SPARQL query can only extract partial information about events without specifying their type.
+
+```sparql
+SELECT ?event ?eventType
+WHERE {
+  ?event a :Event .
+  OPTIONAL {
+    { ?event a :ReligiousEvent . BIND("Religious" AS ?eventType) }
+    UNION
+    { ?event a :SecularEvent . BIND("Secular" AS ?eventType) }
+  }
+}
+```

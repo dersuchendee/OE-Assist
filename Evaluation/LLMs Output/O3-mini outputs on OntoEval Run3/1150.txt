@@ -1,0 +1,34 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?eventSuggestion ?event ?suggestedTime ?user ?weather ?preference
+WHERE {
+  ?user a :Cl_User .
+  
+  # The user’s current weather condition must indicate it is raining
+  ?user :hasWeatherCondition ?weather .
+  ?weather :isRaining "true"^^xsd:boolean .
+  
+  # The user’s calendar should indicate free time during the evening
+  ?user :hasFreeTime ?freeTime .
+  ?freeTime :isEvening "true"^^xsd:boolean .
+  
+  # The user’s preference indicates a liking for movies
+  ?user :hasPreference ?preference .
+  ?preference :likesMovies "true"^^xsd:boolean .
+  
+  # Retrieve an event suggestion meeting all criteria:
+  ?eventSuggestion a :Cl_EventSuggestion ;
+                   :hasEvent ?event ;
+                   :hasSuggestedTime ?suggestedTime ;
+                   :hasUserPreference ?preference ;
+                   :hasWeatherDuringEvent ?weather .
+  
+  # Ensure the proposed event is a movie
+  ?event a :Cl_Movie .
+}
+ORDER BY ?eventSuggestion
+```

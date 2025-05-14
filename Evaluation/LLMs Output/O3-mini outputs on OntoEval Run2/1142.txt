@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?activity ?weatherCondition ?movieGenre
+WHERE {
+  ?user a :Cl_User ;
+        :prefers ?preference .
+  ?preference a :Cl_UserPreference .
+  OPTIONAL { ?preference :hasActivity ?activity . }
+  OPTIONAL { ?preference :hasWeatherCondition ?weatherCondition . }
+  OPTIONAL { ?preference :hasPreferredGenre ?movieGenre . }
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each performance, the songs that were played during that performance (using the reified representation via the class Cl_SongPerformance):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?songPerformance a :Cl_SongPerformance .
+  ?songPerformance :inPerformance ?performance .
+  ?songPerformance :performedSong ?song .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance ?song
+------------------------------------------------
+
+This query uses the closed world assumption by relying on the explicit individuals stated in the ontology.

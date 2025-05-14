@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the study period details (start and end dates) for persons studying for a specific degree. This query assumes a closed‐world view on the ontology, exploiting properties connecting a Person with a StudyPeriod (via ns1:hasStudyPeriod) and the association between that study period and the degree (via ns1:studiesFor):
+
+---------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?startDate ?endDate
+WHERE {
+  ?person a ns1:Person ;
+          ns1:hasStudyPeriod ?studyPeriod .
+  ?studyPeriod ns1:hasStartDate ?startDate ;
+               ns1:hasEndDate ?endDate ;
+               ns1:studiesFor ?degree .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+}
+ORDER BY ?person ?startDate
+---------------------------------------------------
+
+This query extracts, for each person, the associated study period (with start and end dates) and the degree they studied for, thus fully addressing the competency question: “During what time period did a certain person study for a specific degree?”

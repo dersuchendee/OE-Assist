@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?performance ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :hasSetlist ?setlist .
+  ?setlist :includesSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+  # To restrict to a specific performance, uncomment and specify the performance URI:
+  # FILTER(?performance = :PerformanceStadiumArcadiumPortland)
+}
+ORDER BY ?performance ?song
+```

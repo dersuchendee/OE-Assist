@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question is answerable using the ontology provided because it includes the necessary classes and properties to represent critics, critiques, records, and the text that critics write about records. Specifically, the ontology contains the classes `:Cl_Critic`, `:Cl_Critique`, and `:Cl_Record`, along with the object properties `:criticizes` and `:critiqueOf`, and the datatype property `:critiqueText`.
+
+Here is a SPARQL query that retrieves what a certain critic says about a certain record:
+
+```sparql
+SELECT ?critiqueText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?critic :criticizes ?critique .
+  ?critique :critiqueOf ?record .
+  ?critique :critiqueText ?critiqueText .
+  FILTER (?critic = :SpecificCritic && ?record = :SpecificRecord)
+}
+```
+
+Replace `:SpecificCritic` and `:SpecificRecord` with the URIs of the critic and record you're interested in.

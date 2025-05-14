@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for the CVNs an actor is participating in. However, we can extract partial information about actors and their roles in CVNs.
+
+```sparql
+SELECT ?actor ?cvn
+WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participationIn ?cvn .
+}
+```

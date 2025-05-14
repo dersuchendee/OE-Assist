@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?source ?sourceLabel ?context ?contextLabel
+WHERE {
+  ?source a :Source .
+  ?source :hasContextOfUsage ?context .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  OPTIONAL { ?context rdfs:label ?contextLabel . }
+}
+```

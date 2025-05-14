@@ -1,0 +1,14 @@
+**Answer: No**
+
+The ontology does not model the composition of a material, as materials are not composed of other entities in this ontology. Therefore, the competency question cannot be fully answered based on the given ontology. However, we can provide a partial answer by retrieving the properties and provenance associated with each material.
+
+```sparql
+SELECT ?material ?property ?provenance
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material :hasProperty ?property . }
+  OPTIONAL { ?material :hasProvenance ?provenance . }
+}
+```
+
+This query will return all materials along with their properties and provenance, which may partially address the question by providing details about each material's characteristics.

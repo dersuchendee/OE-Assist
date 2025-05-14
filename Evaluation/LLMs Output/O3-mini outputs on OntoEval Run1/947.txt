@@ -1,0 +1,15 @@
+**Yes**
+Below is one SPARQL query example to retrieve the evaluation statement given by a specific doctor for a specific employee (replace the placeholders for the doctor and employee IRIs as needed):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_EvaluationAssignment .
+  ?evaluation :evaluatedBy ?doctor .
+  ?evaluation :evaluates ?employee .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  FILTER(?doctor = <http://www.example.org/test#Doctor_123> &&
+         ?employee = <http://www.example.org/test#Employee_456>)
+}

@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that retrieves the country for a given city (here the city is provided as an input parameter URI):
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isLocatedIn ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+  # Uncomment and set the following FILTER if you wish to restrict to a specific city:
+  # FILTER(?city = <http://example.org/ontology#YourCityURI>)
+} 
+
+This query directly exploits the :isLocatedIn property that relates a city (domain :City) to a country (range :Country) as modelled in the ontology under the closed world assumption.

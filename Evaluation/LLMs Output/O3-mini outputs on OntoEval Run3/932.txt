@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming we know the specific URIs (or can supply them as parameters) for the doctor and the employee, the following SPARQL query shows how to extract the evaluation statement (its date and text) written by that doctor about that employee:
+
+----------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?evaluationStatement ?statementDate ?statementText
+WHERE {
+  ?evaluationStatement a :EvaluationStatement .
+  ?evaluationStatement :authoredBy <http://example.org/ontology#DoctorX> .
+  ?evaluationStatement :aboutEmployee <http://example.org/ontology#EmployeeY> .
+  OPTIONAL { ?evaluationStatement :statementDate ?statementDate } .
+  OPTIONAL { ?evaluationStatement :statementText ?statementText } .
+}
+----------------------------------------------------------------
+
+This query retrieves the evaluation statement (and optionally its date and text content) authored by the specified doctor for the specified employee.

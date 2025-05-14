@@ -1,0 +1,24 @@
+**No**  
+The ontology does not fully model the membership reification that ties together a musician’s role with a band and an explicit time period (i.e. there isn’t a “membership” instance that captures the role played by a musician in a band at a given time). However, we can extract a partial answer by querying for line‐ups (which capture the band and the time period) and then retrieving a musician’s role (if available) from the musician’s properties. For example, under a closed world assumption, a partial answer can be extracted as follows:
+
+----------------------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?musician ?musicianLabel ?band ?bandLabel ?time ?role ?roleLabel
+WHERE {
+  ?lineup a :LineUp ;
+          :partOfBand ?band ;
+          :activeDuring ?time ;
+          :hasMember ?musician .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+  OPTIONAL { ?musician :hasRole ?role .
+             OPTIONAL { ?role rdfs:label ?roleLabel . }
+           }
+}
+ORDER BY ?band ?time ?musician
+----------------------------------------------------------------
+
+In this query the association between the musician and the band is retrieved via the lineup and its active time. However, because the role is not explicitly tied to the membership instance (that is, there is no reified membership linking a musician’s role directly to a band at a given time) the query returns only partial information regarding the intended competency question.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with the instruments they play. The ontology defines a class `Cl_InstrumentPlaying` that is a subclass of both `Cl_Person` and `Cl_Instrument`, but it does not provide a direct property to link a person to the instruments they play. The `playsInstrument` and `playedBy` properties are defined, but they are not used in a way that allows us to directly query which instruments a person plays.
+
+Here's a SPARQL query to extract a partial answer, which would list the `Cl_InstrumentPlaying` instances, but it won't directly answer the CQ:
+
+```sparql
+SELECT ?person ?instrumentPlaying
+WHERE {
+  ?instrumentPlaying a :Cl_InstrumentPlaying .
+  ?person :playsInstrument ?instrumentPlaying .
+}
+```

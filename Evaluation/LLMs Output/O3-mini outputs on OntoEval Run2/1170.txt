@@ -1,0 +1,30 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each actor, object, or process, the legal conditions and legislations that affect it:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?entity ?entityLabel ?legalCondition ?legalConditionLabel ?legislation ?legislationLabel
+WHERE {
+  { ?entity a :Actor . } 
+  UNION
+  { ?entity a :Object . } 
+  UNION
+  { ?entity a :Process . }
+  
+  OPTIONAL { ?entity rdfs:label ?entityLabel . }
+  
+  OPTIONAL { 
+    ?entity :isAffectedByLegalCondition ?legalCondition .
+    OPTIONAL { ?legalCondition rdfs:label ?legalConditionLabel . }
+  }
+  
+  OPTIONAL { 
+    ?entity :isAffectedByLegislation ?legislation .
+    OPTIONAL { ?legislation rdfs:label ?legislationLabel . }
+  }
+}
+-------------------------------------------------------
+
+This query leverages the defined properties in the ontology to extract the legal conditions and legislation affecting any entity (Actor, Object, or Process) as required by the competency question while enforcing a closed world assumption.

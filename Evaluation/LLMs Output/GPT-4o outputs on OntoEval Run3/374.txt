@@ -1,0 +1,22 @@
+**No**
+
+The competency question "What roles does a certain person have within a certain production at a certain point in time?" is not fully supported by the ontology. The ontology contains classes and properties related to persons, roles, and productions, but it lacks a direct way to associate a person with a role in a production at a specific point in time. The ontology does have a reification class `Cl_PersonRoleInProduction` that connects persons, roles, and productions, but it does not include a temporal component to specify the point in time.
+
+Here is a SPARQL query to extract a partial answer, which retrieves the roles a person has in a production without considering the time aspect:
+
+```sparql
+SELECT ?person ?personName ?role ?roleName ?production ?productionTitle
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasName ?personName .
+  ?person :hasPersonRoleInProduction ?personRoleInProduction .
+
+  ?personRoleInProduction :withRole ?role .
+  ?role :hasRoleName ?roleName .
+
+  ?personRoleInProduction :inProduction ?production .
+  ?production :hasTitle ?productionTitle .
+}
+```
+
+This query retrieves the roles a person has in a production, but it does not include the temporal aspect required by the competency question.

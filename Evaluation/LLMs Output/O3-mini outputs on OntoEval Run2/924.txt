@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the union role of a specified person in a specified union at a given time. (Replace the placeholder IRIs and date values with the actual ones.)
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleStartDate ?roleEndDate
+WHERE {
+  ?assignment a :Cl_UnionRoleAssignment .
+  ?assignment :roleOf ?person .
+  ?assignment :roleInUnion ?union .
+  ?assignment :hasRole ?role .
+  ?assignment :roleStartDate ?roleStartDate .
+  ?assignment :roleEndDate ?roleEndDate .
+  
+  # Here specify your parameters:
+  FILTER (?person = <http://www.example.org/test#PersonXYZ> &&
+          ?union = <http://www.example.org/test#UnionABC> &&
+          xsd:date("2005-06-15") >= ?roleStartDate &&
+          xsd:date("2005-06-15") <= ?roleEndDate)
+}
+------------------------------------------------------------
+
+This query checks for union role assignments (via the reified class :Cl_UnionRoleAssignment) that link a person, union, and role, and it selects the assignment where the given time (here “2005-06-15”) falls between the role’s start and end dates.

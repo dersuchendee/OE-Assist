@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that uses the reified “membership” relations (i.e. instances of Cl_PersonRoleBandTime) to extract, for a given band and a chosen time point, the persons (and optionally their roles) that were members at that time. Note that under the closed‐world assumption we restrict memberships to those with a recorded time not later than the given “snapshot” date. You can adjust the filter value as needed.
+
+ 
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?membershipTime
+WHERE {
+  ?membership a :Cl_PersonRoleBandTime ;
+              :hasBand :RedHotChiliPeppers ;
+              :hasPerson ?person ;
+              :hasRole ?role ;
+              :hasTime ?membershipTime .
+  # Only consider memberships that started on or before the given time point.
+  FILTER(?membershipTime <= "1987-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?membershipTime
+
+This query answers the CQ “What are the members of a certain band at a certain point in time?” by returning the band members (and their roles) of RedHotChiliPeppers valid at or before January 1, 1987.

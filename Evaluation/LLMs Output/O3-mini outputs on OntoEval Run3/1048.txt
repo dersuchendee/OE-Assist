@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that in the ontology an article presentation is reified as an instance of Cl_ArticlePresentation that links a seminar (via :hasSeminar) with the actual article (via :hasArticle) and includes the presentation details (e.g. date via :hasPresentationDate), a SPARQL query that retrieves the articles presented in a given seminar (here represented by a specific URI, e.g. <http://www.example.org/test#SpecificSeminar>) is as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?title ?presentationDate
+WHERE {
+  <http://www.example.org/test#SpecificSeminar> a :Cl_Seminar .
+  
+  ?presentation a :Cl_ArticlePresentation ;
+                :hasSeminar <http://www.example.org/test#SpecificSeminar> ;
+                :hasArticle ?article ;
+                :hasPresentationDate ?presentationDate .
+  
+  OPTIONAL { 
+    ?article :hasTitle ?title .
+  }
+} 
+
+This query answers the competency question by extracting the articles (and optional titles) together with the presentation dates associated with a given seminar under the closed world assumption.

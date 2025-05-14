@@ -1,0 +1,19 @@
+Answer: **No**
+
+Although the ontology relates organs to projects (via the isDescribedBy restriction) and projects may be linked to agents, it does not explicitly model “building” or “renovating” events or relate organs to their (re)builders. Under the closed‐world assumption, we cannot fully answer “Who built and/or renovated an organ?” with the available properties. However, a partial answer can be extracted by retrieving organs, the projects that describe them, and any agents linked to those projects.
+
+For a partial answer, you could use this SPARQL query:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?organ ?organLabel ?project ?agent
+WHERE {
+  ?organ a organs:Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel. }
+  ?organ arco:isDescribedBy ?project .
+  OPTIONAL { ?project arco:hasAgent ?agent . }
+}
+
+This query shows, for each organ, the project that “describes” it (which might be related to its construction or restoration) together with any associated agent.

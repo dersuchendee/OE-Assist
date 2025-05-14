@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the ontology models theatre festivals using a reified occurrence (i.e. a Cl_FestivalOccurrence that carries an occurrenceDate and is connected to a Cl_TheatreFestival through the hasOccurrence property), you can write a SPARQL query to retrieve when a given theatre festival took place. For example, if you want to know when a certain festival (e.g. identified by its URI or even filtered by a label if available) occurred, you could use the query below:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?date .
+  # Optionally, if your data contains a festival name (e.g. through rdfs:label), you could filter:
+  # ?festival rdfs:label "Roma Loves Shakespeare" .
+}
+
+In the closed world assumption this query will only return dates for festivals declared in the ontology, thus providing the answer to the competency question.

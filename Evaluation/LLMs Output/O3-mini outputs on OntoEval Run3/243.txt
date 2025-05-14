@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that a “certain author” is provided (or bound to a given URI), you could answer the CQ with a query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  ?author :wrote ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  FILTER(?author = :SpecificAuthor)  # Replace :SpecificAuthor with the desired author’s URI
+}
+
+This query extracts all plays written by the specified author, and so the CQ is modeled by the ontology.

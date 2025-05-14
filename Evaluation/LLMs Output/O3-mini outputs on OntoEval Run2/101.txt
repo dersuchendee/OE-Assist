@@ -1,0 +1,23 @@
+**Yes**
+Below is one SPARQL query that, under the closed‐world assumption, retrieves the city (location) where a given theatre festival took place by joining the festival’s occurrence with the city that “has” that occurrence:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            rdfs:label ?festivalLabel ;
+            :hasFestivalOccurrence ?occurrence .
+  
+  ?city a :Cl_City ;
+        rdfs:label ?cityLabel ;
+        :cityHasOccurrence ?occurrence .
+  
+  # Replace "Roma Loves Shakespeare" with the target festival label if needed
+  FILTER (LCASE(?festivalLabel) = "roma loves shakespeare")
+}
+-----------------------------------------------------
+
+This query answers the competency question “Where did a certain festival take place?” by leveraging the reified occurrence of the festival linked to a city via the property cityHasOccurrence.

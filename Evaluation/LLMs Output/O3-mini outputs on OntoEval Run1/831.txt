@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that the “employment” relation is reified via the class Cl_PersonHospitalEmployment and that each such employment instance carries an employmentStartDate and is linked both to a person and a hospital (via :hasEmployment and :hasHospital), we can write a SPARQL query that returns the earliest (first) employment date for a given person at a given hospital. For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmployment)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasEmployment ?employment .
+  ?employment a :Cl_PersonHospitalEmployment .
+  ?employment :employmentStartDate ?startDate .
+  ?employment :hasHospital ?hospital .
+  
+  # Optionally restrict to a specific person and hospital, e.g.:
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  # FILTER(?hospital = <http://www.example.org/test#OspedaleRiunitoDelleTreValli>)
+}
+GROUP BY ?person ?hospital
+--------------------------------------------------
+
+This query—under the closed world assumption—extracts the first employment date for each person/hospital pair, thus fully modelling the CQ "When was a certain person first employed at a certain hospital?"

@@ -1,0 +1,16 @@
+**Yes**
+
+We can retrieve the location of a given theatre festival using the dp_location property on the :Cl_TheatreFestival class. For example, the following SPARQL query returns each festival and its location:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :dp_location ?location .
+}
+------------------------------------------------
+
+Under the closed world assumption, since the ontology explicitly states a location for each instance of :Cl_TheatreFestival (e.g., :RomaLovesShakespeare is associated with "Rome"), the competency question “Where did a certain festival take place?” is answerable.

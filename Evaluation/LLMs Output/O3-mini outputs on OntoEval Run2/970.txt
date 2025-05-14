@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming you have a specific book or CD in mind (identified by its URI), you can retrieve the articles it contains with the following SPARQL query:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?itemLabel ?article ?articleLabel
+WHERE {
+  ?item a ?type .
+  FILTER(?type = :Cl_Book || ?type = :Cl_CD)
+  ?item :containsArticle ?article .
+  OPTIONAL { ?item rdfs:label ?itemLabel. }
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+------------------------------------------------------------
+
+This query lists each book or CD along with the articles they contain, which fully answers the competency question "What articles is a specific book or CD composed of?" within the provided ontology.

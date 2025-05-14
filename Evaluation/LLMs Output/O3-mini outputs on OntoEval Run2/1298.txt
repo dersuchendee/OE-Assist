@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query. (Replace the placeholder date with the specific point in time you want.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?organ ?organLabel ?disposition ?date ?baseStop ?baseStopLabel
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  
+  ?organ :hasDisposition ?disposition .
+  ?disposition :hasDate ?date .
+  FILTER(?date = "2021-01-01"^^xsd:date)  # Replace with the desired specific date
+  
+  ?disposition :hasBaseStop ?baseStop .
+  OPTIONAL { ?baseStop rdfs:label ?baseStopLabel . }
+}
+--------------------------------------------------
+
+This query uses the fact that each Organ is linked to its Disposition (which includes the date via :hasDate and the associated base stops via :hasBaseStop). Under a closed world assumption, only the available data is returned.

@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?album ?albumLabel ?timePeriod ?timeLabel
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :albumOf ?recording .
+  
+  ?recording :recordedDuring ?timePeriod .
+  OPTIONAL { ?timePeriod rdfs:label ?timeLabel . }
+}
+```

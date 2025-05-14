@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves beech forests, the carbon sequestration they participate in, and how that sequestration contributes to carbon cycling:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?forestLabel ?carbonSequestration ?sequestrationLabel ?carbonCycling ?cyclingLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?forestLabel . }
+  
+  ?beechForest :participatesIn ?carbonSequestration .
+  OPTIONAL { ?carbonSequestration rdfs:label ?sequestrationLabel . }
+
+  ?carbonSequestration :contributesTo ?carbonCycling .
+  OPTIONAL { ?carbonCycling rdfs:label ?cyclingLabel . }
+}
+ORDER BY ?beechForest
+
+In this query the link between beech forests, their associated carbon sequestration process, and the resulting contribution to carbon cycling is explicitly extracted—thus modeling the competency question.

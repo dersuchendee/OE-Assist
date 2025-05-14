@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for a given theatre festival, the plays that are being produced (via the production chain):
+
+--------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?play ?playTitle
+WHERE {
+  # Find the theatre festival of interest.
+  ?festival a :TheatreFestival .
+  OPTIONAL { ?festival :hasName ?festivalName . }
+
+  # Retrieve the productions featured by the festival.
+  ?festival :featuresProduction ?production .
+  
+  # Each production is associated to a play.
+  ?production :productionOf ?play .
+  OPTIONAL { ?play :hasTitle ?playTitle . }
+}
+ORDER BY ?festival ?playTitle
+--------------------------------------------------
+
+Under the closed world assumption, we assume only the explicitly asserted links (such as :featuresProduction and :productionOf) are available, so this query fully addresses the competency question.

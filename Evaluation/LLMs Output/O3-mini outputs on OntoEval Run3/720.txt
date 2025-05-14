@@ -1,0 +1,16 @@
+**No**
+
+Although the ontology defines a property (:locatedIn) to link a region to a country, no instance uses that property. Instead, the only available information is that the region (e.g., :Portland) uses the external property dbo:country. Under a closed world assumption, we cannot assume that dbo:country is equivalent to :locatedIn. Therefore, we can only retrieve a partial answer using dbo:country. For example, the following SPARQL query extracts the country of each region based on the available dbo:country property:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?region ?country
+WHERE {
+  ?region a :Region .
+  ?region dbo:country ?country .
+}
+--------------------------------------------------
+
+This query returns the country for regions where dbo:country is specified, but it does not fully answer the CQ as modeled by the intended :locatedIn relationship.

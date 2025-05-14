@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, returns for each Region the Country it is located in:
+
+PREFIX geo: <http://example.org/geo#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?regionName ?country ?countryName
+WHERE {
+  ?region a geo:Region .
+  ?region geo:isPartOf ?country .
+  ?country a geo:Country .
+  OPTIONAL { ?region geo:placeName ?regionName . }
+  OPTIONAL { ?country geo:placeName ?countryName . }
+}

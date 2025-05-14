@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?environment ?environmentLabel ?microbe ?microbeLabel (SUM(?abundance) AS ?totalAbundance)
+WHERE {
+  ?occurrence a :MicrobeOccurrence .
+  ?occurrence :inEnvironment ?environment .
+  OPTIONAL { ?environment rdfs:label ?environmentLabel . }
+  
+  ?occurrence :hasMicrobe ?microbe .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel . }
+  
+  ?occurrence :hasAbundance ?abundance .
+}
+GROUP BY ?environment ?environmentLabel ?microbe ?microbeLabel
+ORDER BY ?environment DESC(?totalAbundance)
+```

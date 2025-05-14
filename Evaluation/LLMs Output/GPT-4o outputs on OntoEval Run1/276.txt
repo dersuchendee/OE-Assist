@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query the time period during which a play was written. The ontology includes a class `Cl_PlayCreation` with a property `creationPeriod`, but there is no direct connection to a specific play or author that would allow us to extract this information. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?play ?creationPeriod
+WHERE {
+  ?play a :Cl_Play .
+  ?play :wasWrittenDuring ?creation .
+  ?creation :creationPeriod ?creationPeriod .
+}
+```

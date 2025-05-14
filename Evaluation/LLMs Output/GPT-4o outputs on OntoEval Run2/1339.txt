@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying for contaminated sites within a geographical area and their recorded times, which are represented in the ontology. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?contaminatedSite ?siteLabel ?geographicalArea ?areaLabel ?observation ?recordedTime
+WHERE {
+  ?contaminatedSite a :ContaminatedSite .
+  OPTIONAL { ?contaminatedSite rdfs:label ?siteLabel . }
+
+  ?contaminatedSite :locatedIn ?geographicalArea .
+  OPTIONAL { ?geographicalArea rdfs:label ?areaLabel . }
+
+  ?contaminatedSite :hasObservation ?observation .
+  ?observation :hasRecordedTime ?recordedTime .
+}
+ORDER BY ?geographicalArea ?recordedTime
+```

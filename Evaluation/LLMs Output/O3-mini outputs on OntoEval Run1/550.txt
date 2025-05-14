@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves each album together with the tracks it contains (based on the explicit restriction in the ontology that every album must contain at least one track):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?track
+WHERE {
+  ?album a :Cl_Album ;
+         :containsTrack ?track .
+}
+ORDER BY ?album ?track
+--------------------------------------------------
+
+This query answers the competency question under the closed world assumption by extracting all albums and their associated tracks as modeled in the ontology.

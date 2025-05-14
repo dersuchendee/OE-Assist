@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?community ?rareSpecies ?ecologicalFunction
+WHERE {
+  ?community a :MicrobialCommunity .
+  ?community :hasMember ?rareSpecies .
+  ?rareSpecies a :RareSpecies .
+  ?rareSpecies :performsFunction ?ecologicalFunction .
+}
+ORDER BY ?community ?rareSpecies
+```

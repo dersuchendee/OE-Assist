@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming a closed‐world interpretation, we can check that every production (instance of :Cl_Production) has exactly one premier date by verifying that it has one and only one value for the property :premierDate. For example, the following SPARQL query extracts each production together with its premier date only if there is exactly one such date:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production (SAMPLE(?premierDate) AS ?premierDate)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+}
+GROUP BY ?production
+HAVING (COUNT(?premierDate) = 1)
+ORDER BY ?production
+--------------------------------------------------
+
+In this query we:
+1. Retrieve all individuals of type :Cl_Production that have a :premierDate.
+2. Group by the production to count how many premier dates are attached.
+3. Return only those productions for which the count equals 1.
+
+This fulfills the competency question “A production has exactly one premier.”

@@ -1,0 +1,28 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?playName WHERE {
+  ?authorPlay a :Cl_AuthorPlay ;
+              :hasAuthor ?author ;
+              :hasPlay ?play .
+  ?author :authorName ?authorName .
+  ?play :playName ?playName .
+  FILTER(?authorName = "Author Name")
+}
+ORDER BY ?playName
+```
+
+Replace `"Author Name"` with the name of the author you are interested in, for example `"William Shakespeare"`:
+
+```sparql
+SELECT ?playName WHERE {
+  ?authorPlay a :Cl_AuthorPlay ;
+              :hasAuthor ?author ;
+              :hasPlay ?play .
+  ?author :authorName "William Shakespeare" .
+  ?play :playName ?playName .
+}
+ORDER BY ?playName
+```
+
+This query retrieves the names of plays written by the specified author from the ontology.

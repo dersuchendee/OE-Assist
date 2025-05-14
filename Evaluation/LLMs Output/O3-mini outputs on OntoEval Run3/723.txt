@@ -1,0 +1,16 @@
+**No**
+
+Although the ontology defines classes for Country, Region, and the relationships between them (using properties like isPartOf), it does not include explicit region‐individuals with asserted country membership that fully answer the CQ. Under the closed world assumption you could still retrieve those regions that have an isPartOf relation to a country, which is a partial answer.
+
+A sample SPARQL query to return any region (if available) with its corresponding country is:
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel 
+WHERE {
+  ?region a :Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+  ?region :isPartOf ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel. }
+}

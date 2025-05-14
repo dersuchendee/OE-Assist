@@ -1,0 +1,32 @@
+**Yes**
+
+Assuming that unions, their memberships, and associated time periods are explicitly asserted in the ontology, we can extract the union’s members at a given time using the reified membership information. For example, let “Union X” be the targeted union and “?queryTime” be the given time point. Under the closed‐world assumption, we assume that a union membership is valid only if a time period is explicitly defined and the queried time falls between the membership’s start and end dates.
+
+A possible SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?employeeLabel ?start ?end
+WHERE {
+  # Identify the target union using its label (adjust the filter value as needed)
+  ?union a :Cl_Union ;
+         rdfs:label "Union X" .
+  
+  # Get a member relation indicating membership (via reified membership)
+  ?union :hasMember ?membership .
+  ?membership :memberDuring ?timePeriod .
+  ?timePeriod :startTime ?start ;
+              :endTime ?end .
+              
+  # Retrieve the employee who is the union member (assuming union membership is linked to an employee)
+  ?employee a :Cl_Employee ;
+            :hasUnionMembership ?membership .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  
+  # Filter: the queried time point must fall within the membership period.
+  FILTER(xsd:date("2003-01-01") >= ?start && xsd:date("2003-01-01") <= ?end)
+}
+
+This query returns the employees (union members) of “Union X” whose membership time period covers January 1, 2003. Adjust the union identifier and the queried time as needed.

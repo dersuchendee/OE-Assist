@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "What places did musician Z visit in her career?" can be answered using the ontology provided. The ontology includes classes and properties that relate musicians to visit events and places. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?place ?placeLabel
+WHERE {
+  ?musician a :Musician ;
+            rdfs:label "Z" ;
+            :participatedIn ?visitEvent .
+
+  ?visitEvent a :VisitEvent ;
+              :occursAt ?place .
+
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

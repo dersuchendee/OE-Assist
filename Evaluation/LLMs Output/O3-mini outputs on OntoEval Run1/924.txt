@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the union role of a given person in a given union at a particular date. (In this query the IRI for the person, the union and the date are used as parameters. You may replace the IRIs and date with your concrete values.):
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?start ?end
+WHERE {
+  ?assignment a :Cl_UnionRoleAssignment .
+  ?assignment :roleOf ?person .
+  ?assignment :roleInUnion ?union .
+  ?assignment :hasRole ?role .
+  ?assignment :roleStartDate ?start .
+  OPTIONAL { ?assignment :roleEndDate ?end . }
+  
+  FILTER(
+    ?person = :PasqualeDiGennaro && 
+    ?union = :SomeUnion && 
+    xsd:date("2003-06-15") >= ?start && 
+    ( !bound(?end) || xsd:date("2003-06-15") <= ?end )
+  )
+}
+--------------------------------------------------------------
+
+In this query the date "2003-06-15" (given as an example) is checked to lie between the assignment’s starting date and (if present) the ending date. This shows how the ontology’s reification for union role assignments makes the CQ answerable under a closed world assumption.

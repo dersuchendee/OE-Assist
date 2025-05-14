@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves for a given seminar (or all seminars) the articles that were presented. In this ontology the reified class Cl_SeminarArticlePresentation makes the connection between seminars and the articles (since it is a subclass both of Cl_Seminar and Cl_Article). The query follows the property :containsPresentationOf to extract those article presentations:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?presentation ?articleLabel ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :containsPresentationOf ?presentation .
+  # Since Cl_SeminarArticlePresentation is a subclass of Cl_Article,
+  # ?presentation represents the article that was presented.
+  OPTIONAL { ?presentation rdfs:label ?articleLabel . }
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+}
+ORDER BY ?seminar ?presentation
+---------------------------------
+
+This query answers the CQ “What articles were presented in a certain seminar?” by listing for each seminar the associated article presentations (with labels if available) along with the seminar date for context.

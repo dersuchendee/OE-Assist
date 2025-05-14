@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming you have IRIs (or literals) to identify the critic of interest and the specific record, you can extract the critic’s review text as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?reviewText
+WHERE {
+  ?critic a :Cl_Critic ;
+          :gaveReview ?review .
+  ?record a :Cl_Record ;
+          :hasReview ?review .
+  ?review :reviewText ?reviewText .
+  
+  # Replace the following with appropriate IRIs or filters for a specific critic and record
+  FILTER(?critic = <http://www.example.org/test#Critic_CrianHiatt> && ?record = <http://www.example.org/test#Record_Album>)
+}

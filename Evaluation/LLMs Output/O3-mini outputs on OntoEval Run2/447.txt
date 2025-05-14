@@ -1,0 +1,34 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the artists (members) of a specific band who were active (i.e. their membership dates encompass) at a given time. In this query, the ontology’s reified membership (Cl_Membership) is used along with its properties (membership_artist, membership_band, membership_startDate, membership_endDate). Under the closed world assumption, if an end date is missing then the membership is assumed to be ongoing.
+
+For demonstration, a specific band IRI (e.g. <http://www.example.org/test#RedHotChiliPeppers>) is used and a time point is bound (here as "2005-01-01") so that only memberships active on that date are shown.
+
+───────────────────────── SPARQL Query ─────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?artist ?artistLabel ?startDate ?endDate
+WHERE {
+  # Retrieve membership records for the given band
+  ?membership a :Cl_Membership ;
+              :membership_band <http://www.example.org/test#RedHotChiliPeppers> ;
+              :membership_artist ?artist ;
+              :membership_startDate ?startDate .
+  OPTIONAL { ?membership :membership_endDate ?endDate . }
+  
+  # Bind the point in time for which we want to check membership
+  BIND(xsd:date("2005-01-01") AS ?time)
+  
+  # Only return memberships that started on or before the time and
+  # either have no end date or ended on or after the time.
+  FILTER ( ?time >= ?startDate &&
+           ( !bound(?endDate) || ?time <= ?endDate ) )
+
+  OPTIONAL { ?artist rdfs:label ?artistLabel . }
+}
+ORDER BY ?artist
+───────────────────────── End Query ─────────────────────────
+
+This query fully addresses the competency question "What are the members of a certain band at a certain point in time?" using the given ontology.

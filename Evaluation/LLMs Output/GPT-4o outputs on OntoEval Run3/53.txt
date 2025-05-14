@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not directly provide a way to extract actors involved in a value network without additional information or properties that directly link actors to value networks. However, we can extract partial information about actors and their involvement in processes, which might indirectly relate to value networks.
+
+```sparql
+SELECT DISTINCT ?actor
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :op_performsProcess ?process .
+}
+```

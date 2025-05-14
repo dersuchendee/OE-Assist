@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not directly model the relationship between seminars and the articles presented in them. While there is a `ns1:presentedArticle` property that associates a presentation with an article, and a `ns1:partOfSeminar` property that associates a presentation with a seminar, there is no direct way to query which articles were presented in a specific seminar without additional information or assumptions.
+
+However, a partial answer can be extracted by querying the presentations associated with a seminar and then retrieving the articles associated with those presentations:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a ns1:Seminar .
+  ?seminar ns1:hasPresentation ?presentation .
+  ?presentation ns1:presentedArticle ?article .
+}
+```

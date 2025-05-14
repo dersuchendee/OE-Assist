@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to link a "Policy Practitioner" to the specific geographical area they monitor for hospitalizations related to a disease. The ontology defines a "Policy Practitioner" as a subclass of "Monitor" and specifies that a "Monitor" can monitor "Hospitalization". However, there is no direct property or class that connects a "Policy Practitioner" to a specific "Geographical Area" or "Disease" they monitor.
+
+Partial SPARQL query to extract information about monitors and hospitalizations:
+
+```sparql
+SELECT ?monitor ?hospitalization ?disease ?geographicalArea
+WHERE {
+  ?monitor a :Monitor .
+  ?monitor :monitors ?hospitalization .
+  ?hospitalization :forDisease ?disease .
+  ?hospitalization :inGeographicalArea ?geographicalArea .
+}
+```

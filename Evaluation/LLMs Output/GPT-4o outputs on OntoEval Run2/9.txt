@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the context of usage of a source. The ontology defines a `ContextOfUsage` class and a `hasContextOfUsage` property, but there is no information about the specific context of usage for each source. The ontology only provides a specific context for the `Encyclopedia` source related to Paul's restoration planning. Therefore, a partial answer can be extracted for this specific case.
+
+```sparql
+SELECT ?source ?context
+WHERE {
+  ?source a :Source .
+  ?source :hasContextOfUsage ?context .
+}
+```

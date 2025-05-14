@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the evaluation statement given by a specific doctor for a specific employee. (Replace the placeholders for the doctor and employee URIs as needed.)
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_DoctorEmployeeEvaluation .
+  ?evaluation :evaluationByDoctor ?doctor .
+  ?evaluation :evaluationOfEmployee ?employee .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  FILTER(?doctor = <http://www.example.org/test#Doctor_X> &&
+         ?employee = <http://www.example.org/test#Employee_Y>)
+}
+--------------------------------------------------------------
+
+This query uses the reification class :Cl_DoctorEmployeeEvaluation along with its object properties :evaluationByDoctor and :evaluationOfEmployee and the data property :evaluationStatement to answer the CQ under the closed world assumption.

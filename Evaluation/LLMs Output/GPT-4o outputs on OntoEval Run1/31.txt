@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any properties or classes that directly relate to the action of viewing a product. The ontology includes classes and properties related to actors, roles, and resources, but there is no explicit connection between an actor and a product through a "viewing" action. Therefore, the competency question "Who viewed a product?" cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted by identifying actors who have a role related to resources, but this does not specifically address the action of viewing:
+
+```sparql
+SELECT ?actor
+WHERE {
+  ?relation a :ViewingResource .
+  ?relation actorODP:participatingActor ?actor .
+}
+```
+
+This query attempts to find actors involved in any resource relation, but it does not specifically identify those who viewed a product, as the ontology lacks the necessary properties to make this distinction.

@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology defines a class for publications (e.g., books or CDs) as :Cl_Publication and for articles as :Cl_Article. It also defines the object property :composedOfArticles (with domain :Cl_Publication and range :Cl_Article) that links a publication to the articles that compose it. This supports the competency question “What articles is a specific book or CD composed of?” under the closed world assumption.
+
+For example, you can query the publication and find all linked articles (using the property :composedOfArticles) with the query below. You can filter by a specific publication (e.g., by its URI or by its title). One possible SPARQL query is:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?article ?articleTitle
+WHERE {
+  ?publication a :Cl_Publication ;
+               :publicationTitle ?publicationTitle ;
+               :composedOfArticles ?article .
+  ?article a :Cl_Article ;
+           :articleTitle ?articleTitle .
+  
+  # Optionally, filter for a specific book or CD by title or URI:
+  # FILTER(?publication = :NursePracticesInCancerPatientCare)
+}
+----------------------------------------------------------------
+
+This query extracts each publication along with its title and the articles (with their titles) that compose it, thereby answering the competency question.

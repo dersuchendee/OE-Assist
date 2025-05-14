@@ -1,0 +1,19 @@
+**No**
+
+The current ontology’s recording information is provided via an instance of Cl_AlbumRecording with start and end dates but there is no explicit property linking the album (e.g. Stadium Arcadium) to its recording event. Under the closed‐world assumption we cannot infer the album’s recording period without that explicit connection. However, we can partially answer the question by retrieving the recording events along with their start and end dates.
+
+For example:
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?recording ?startDate ?endDate
+WHERE {
+  ?recording a :Cl_AlbumRecording .
+  ?recording :dp_recordingStartDate ?startDate ;
+             :dp_recordingEndDate ?endDate .
+}
+------------------------------------
+
+This query returns the available recording periods (partial answer) even though the album is not directly linked to its recording event in the ontology.

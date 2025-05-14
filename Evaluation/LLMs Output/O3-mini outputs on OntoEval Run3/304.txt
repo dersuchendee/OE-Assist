@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Production ;
+              rdfs:label ?label ;
+              :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+  FILTER(CONTAINS(LCASE(?label), "merchant of venice at the grand theatre"))
+}
+```

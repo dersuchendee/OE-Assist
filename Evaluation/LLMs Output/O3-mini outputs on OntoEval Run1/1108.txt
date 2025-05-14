@@ -1,0 +1,14 @@
+**Yes**
+
+Under the closed-world assumption, every seminar must have at least one associated article. We can query for seminars along with at least one article presented in them. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :hasArticle ?article .
+}
+
+This query returns every seminar that has at least one article, verifying that the ontology models the competency question.

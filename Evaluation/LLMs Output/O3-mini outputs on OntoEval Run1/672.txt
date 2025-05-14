@@ -1,0 +1,26 @@
+**Yes**
+
+We can answer this CQ using the reification introduced in the ontology. One way to retrieve the songs played as part of a performance is to use the property chain defined by:
+• a performance has associated performance songs (via :performedSongs), and  
+• each performance song “includesSong” the actual song.
+
+A SPARQL query under the closed‐world assumption might look like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?performance :performedSongs ?performanceSong .
+  ?performanceSong :includesSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  
+  # Optionally restrict to a particular performance by URI:
+  # FILTER (?performance = <http://www.example.org/test#SomePerformanceID>)
+}
+ORDER BY ?performance ?songLabel
+
+This query retrieves each performance (and its label) along with the songs (and their labels) that were played in that performance.

@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves classes defined as parameters representing the quality of water bodies (here, by having a restriction on the “representsQualityOf” property with WaterBody as the filler):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?parameter ?label
+WHERE {
+  ?parameter rdfs:subClassOf :Parameter .
+  ?parameter rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :representsQualityOf ;
+               owl:someValuesFrom :WaterBody .
+  OPTIONAL { ?parameter rdfs:label ?label . }
+}

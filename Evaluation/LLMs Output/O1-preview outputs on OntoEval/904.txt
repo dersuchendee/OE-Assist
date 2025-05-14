@@ -1,0 +1,30 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.semanticweb.org/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  # Given the person, union, and time
+  BIND(:PasqualeDiGennaro AS ?person)
+  BIND(:UnionOfMaleNurses AS ?union)
+  BIND("2005-06-15T00:00:00Z"^^xsd:dateTime AS ?time)
+
+  ?person :hasRole ?role .
+  ?person :memberOfUnion ?union .
+  ?union :hasUnionRepresentative ?role .
+
+  ?role :roleActiveDuring ?interval .
+  ?interval time:hasBeginning ?startTime .
+  ?interval time:hasEnd ?endTime .
+
+  FILTER(?time >= ?startTime && ?time <= ?endTime)
+
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+```
+
+This SPARQL query retrieves the role that a person has within a union at a specific point in time. It matches the ontology's structure by connecting the person to their role, verifying their membership in the union, and ensuring the role is active during the specified time.

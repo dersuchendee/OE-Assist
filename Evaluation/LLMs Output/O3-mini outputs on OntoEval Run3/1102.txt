@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each seminar, the articles presented in it. In our ontology the class Cl_Seminar is linked (via the intermediary class Cl_SeminarArticlePresentation) to an article using the properties presentedIn and articlePresented. This query answers the competency question “At least one article is always presented at each seminar” by returning, for each seminar, its associated article(s).
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?presentation a :Cl_SeminarArticlePresentation .
+  ?presentation :presentedIn ?seminar .
+  ?presentation :articlePresented ?article .
+}
+ORDER BY ?seminar
+-------------------------------------------------
+
+Under the closed-world assumption, if any seminar is missing at least one related article through a presentation, it would not appear in the result—the ontology imposes (via an owl:minCardinality restriction) that each seminar has at least one article presentation.

@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific agent (person or organization) with the monitoring of hospitalizations for a disease in a geographical area. The ontology defines the classes and properties related to agents, diseases, geographical areas, and hospitalizations, but it lacks a direct connection between an agent and the monitoring activity for hospitalizations.
+
+Partial answer:
+```sparql
+SELECT ?agent ?hospitalization ?disease ?area
+WHERE {
+  ?agent a :Agent .
+  ?agent :monitors ?hospitalization .
+  ?hospitalization :hasDisease ?disease .
+  ?hospitalization :occursIn ?area .
+}
+```

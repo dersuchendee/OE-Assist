@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not explicitly include any information about an enzyme instance called “rubisco” or link any enzyme with a CO2 fixation process through a role. Under the closed world assumption, we assume that missing information means that the connection “rubisco” in the context of the CO2 fixation process is not modeled. The following SPARQL query would attempt to extract such information, but it would only return a partial answer (likely an empty result set) if the needed individuals and links are not present in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?enzyme ?enzymeLabel ?role ?roleLabel ?process ?processLabel
+WHERE {
+  ?enzyme a :Enzyme ;
+          rdfs:label "rubisco" ;
+          :hasRole ?role .
+  ?role :inProcess ?process .
+  ?process a :CO2FixationProcess .
+  OPTIONAL { ?enzyme rdfs:label ?enzymeLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}

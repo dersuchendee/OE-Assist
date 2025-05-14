@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given author, the titles of the plays they have written according to the ontology.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?playTitle
+WHERE {
+  ?author a :Cl_Author .
+  # Here, we assume that the author’s identity is given via an rdfs:label.
+  # Replace "William Shakespeare" with the desired author name.
+  ?author rdfs:label "William Shakespeare" .
+  
+  ?author :hasWritten ?authorship .
+  ?authorship :playTitle ?playTitle .
+}
+------------------------------------------------
+
+This query works under the closed world assumption because it retrieves only those plays that are explicitly connected through the :hasWritten property from the specified author.

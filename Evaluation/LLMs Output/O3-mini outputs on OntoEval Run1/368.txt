@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that the ontology is interpreted under a closed‐world assumption, we can answer the CQ “At what time did a certain actor start working for a specific theatre?” because the ontology provides an employment reification through the pivot class Cl_Employment. This class is defined as a subclass of both Cl_Actor and Cl_Theatre and is linked to the actor via the object property isEmployedAt. Its data property employmentStartDate allows us to extract the employment start date. For example, you can use the following SPARQL query to retrieve, for each actor employment relationship that also plays the role of the theatre (using the fact that an individual in Cl_Employment is typed both as an actor and as a theatre), the employment start date:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :isEmployedAt ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?employment a :Cl_Theatre .
+  BIND(?employment AS ?theatre)
+}
+-----------------------------------------------------
+
+In this query:
+1. We select all individuals ?actor of type Cl_Actor.
+2. We follow the :isEmployedAt property to get the employment instance.
+3. We retrieve the start date via the :employmentStartDate property.
+4. We require that the employment instance is also of type Cl_Theatre (using the fact that Cl_Employment is a subclass of Cl_Theatre in this modeling) to ensure it represents the specific theatre affiliation.
+5. We bind the employment record as ?theatre so that the answer shows both the employment’s theatre information and the start date.
+
+Thus, the CQ is completely answerable in the ontology.

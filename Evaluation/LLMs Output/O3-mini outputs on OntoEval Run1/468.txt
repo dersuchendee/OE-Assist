@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the role of a given person in a given band at a specified time. (In this query the parameters :SomePerson, :SomeBand, and the desired ?queryTime are placeholders that you can replace with the appropriate IRIs and date‐time literal.)
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :hasMembership ?band .
+  ?membership :hasRole ?role .
+  ?membership :atTime ?time .
+  FILTER(?person = :SomePerson &&
+         ?band = :SomeBand &&
+         ?time = "2000-01-01T00:00:00"^^xsd:dateTime)
+}
+---------------------------------------------------
+
+In this query, we assume that the ontology models band memberships through the reified class :Cl_BandMembership (via the :memberOf, :hasMembership, :hasRole, and :atTime properties), so the CQ is fully supported in the closed world context.

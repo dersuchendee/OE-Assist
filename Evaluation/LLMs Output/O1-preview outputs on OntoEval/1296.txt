@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?composer ?composerName ?networkMember ?networkMemberName ?networkMemberType
+WHERE {
+  ?composer a :Composer ;
+            rdfs:label ?composerName ;
+            :hasNetworkMember ?networkMember .
+
+  ?networkMember a ?networkMemberType ;
+                 rdfs:label ?networkMemberName .
+
+  ?networkMemberType rdfs:label ?networkMemberTypeName .
+}
+```

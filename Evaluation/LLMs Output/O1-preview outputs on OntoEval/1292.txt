@@ -1,0 +1,17 @@
+**Answer: Yes**
+
+The competency question asks whether there was a power relation (e.g., Patron/Musician). The ontology models `PowerRelation` as a class with properties that connect it to `Person` via `hasSuperior` and `hasSubordinate`, and to `RelationType` via `hasRelationType`. Even though specific instances (e.g., specific patrons or musicians) are not provided in the ontology, the structure allows us to query for power relations.
+
+Here is the SPARQL query to retrieve existing power relations:
+
+```sparql
+SELECT ?powerRelation ?superior ?subordinate ?relationType
+WHERE {
+  ?powerRelation a :PowerRelation .
+  ?powerRelation :hasSuperior ?superior .
+  ?powerRelation :hasSubordinate ?subordinate .
+  ?powerRelation :hasRelationType ?relationType .
+}
+```
+
+This query selects all instances of `PowerRelation` and retrieves their associated superior and subordinate persons, as well as the type of relation. If the ontology had instances of `PowerRelation`, this query would extract them, thus answering the competency question affirmatively.

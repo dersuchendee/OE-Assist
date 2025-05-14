@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songTitle
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :performedSong ?song .
+  OPTIONAL { ?song :songTitle ?songTitle . }
+}
+ORDER BY ?performance
+```

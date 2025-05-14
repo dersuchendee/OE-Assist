@@ -1,0 +1,24 @@
+**No**
+
+The ontology does not include any explicit property or annotation that models a variant relationship between a composition (Tune) and a tune family (TuneFamily) along with a “level of confidence” (or similar metric). Under a closed world assumption, we cannot assume any such relation exists without it being declared. Therefore, only a partial answer can be retrieved (for example, listing Tunes and their TuneFamilies if any association exists).
+
+Below is a SPARQL query that retrieves Tunes and TuneFamilies assuming an association property (here, we use a hypothetical property core:isVariantOf for illustration), but note that the confidence level is not modelled in the ontology:
+
+-----------------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+
+SELECT ?tune ?tuneLabel ?tuneFamily ?tfLabel
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tfLabel . }
+  # The following triple is a hypothetical connection;
+  # the ontology does NOT actually specify a variant relation with confidence.
+  ?tune core:isVariantOf ?tuneFamily .
+}
+-----------------------------------------------------------
+
+Since the ontology does not capture the “level of confidence” for the variant relation, the CQ cannot be fully answered from the provided ontology.

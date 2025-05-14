@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves productions (modeled as Cl_ProductionPremier) together with their premier dates:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_ProductionPremier .
+  ?production :hasPremierDate ?premierDate .
+}
+ORDER BY ?production
+
+This query shows that the ontology provides a reified connection between a production (specifically those that are premier productions) and their premier date via the property hasPremierDate, allowing us to answer the competency question under a closed world assumption.

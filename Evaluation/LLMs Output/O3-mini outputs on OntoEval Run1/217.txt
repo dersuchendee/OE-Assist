@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given ensemble and a specified point in time, the actors that are members during that time. (In this example the ensemble is identified by its URI, and the given time is provided as a constant; you may replace these values as needed.)
+
+------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel
+WHERE {
+  ?membership a :EnsembleMembership ;
+              :ensemble <http://example.org/theatreontology#YourEnsemble> ;
+              :member ?actor ;
+              :during ?interval .
+  ?interval :hasStartDate ?start ;
+            :hasEndDate ?end .
+  # Replace the date below with the point in time you wish to check.
+  FILTER(xsd:dateTime("2009-09-10T00:00:00") >= ?start && xsd:dateTime("2009-09-10T00:00:00") <= ?end)
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+------------------------------------------------
+
+This query works under the closed world assumption to answer the competency question: "Who are the members of a certain ensemble at a certain point in time?"

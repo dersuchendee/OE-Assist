@@ -1,0 +1,18 @@
+**Yes**
+Below is one possible SPARQL query that retrieves all theatre productions that have exactly one premiere:
+
+-------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premiere) AS ?numPremieres)
+WHERE {
+  ?production a :TheatreProduction .
+  OPTIONAL { ?production :hasPremiere ?premiere . }
+}
+GROUP BY ?production
+HAVING (COUNT(?premiere) = 1)
+-------------------------------------
+
+In a closed world scenario, this query confirms that each retrieved production has exactly one premiere, matching the CQ "A production has exactly one premier."

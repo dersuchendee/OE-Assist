@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that festival occurrences (which are subclasses of Cl_TheatreFestival) record their dates using the data property :hasDate and (in this closed‐world model) that the festival “Roma Loves Shakespeare” is represented by an occurrence individual, you can answer “When did a certain theatre festival take place?” with the following SPARQL query. (Here we assume the festival occurrence has a :hasName property matching “Roma Loves Shakespeare” – if not, one would need to link the generic festival individual with its occurrence.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festivalOccurrence ?date
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence ;
+                      :hasName "Roma Loves Shakespeare" ;
+                      :hasDate ?date .
+}
+ORDER BY ?date
+
+This query returns the occurrence(s) of the “Roma Loves Shakespeare” festival together with the date(s) on which it took place.

@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What actors hold this competency?" can be answered using the ontology provided. The ontology defines a relationship between actors and competencies through the `:hasCompetency` property. We can write a SPARQL query to extract the actors and their competencies.
+
+```sparql
+SELECT ?actor ?actorLabel ?competency ?competencyLabel
+WHERE {
+  ?actor a :Actor .
+  ?actor :hasCompetency ?competency .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?competency rdfs:label ?competencyLabel . }
+}
+```

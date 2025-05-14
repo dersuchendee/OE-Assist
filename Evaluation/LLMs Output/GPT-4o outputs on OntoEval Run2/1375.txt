@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a musician with the places they visited. The ontology focuses on meetups, participants, and locations, but it does not explicitly link a musician to the places they visited outside of the context of a meetup. Here's a SPARQL query to extract a partial answer, focusing on meetups and their locations:
+
+```sparql
+SELECT ?musician ?place
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  ?participant rdfs:label ?musician .
+  ?meetup mtps:hasPlace ?place .
+}
+```

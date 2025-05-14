@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?employmentStartDate) AS ?firstEmploymentDate)
+WHERE {
+  ?employment a :Cl_Employment ;
+              :employedPerson :Pasquale_Di_Gennaro ;
+              :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+              :employmentStartDate ?employmentStartDate .
+}
+```

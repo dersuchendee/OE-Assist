@@ -1,0 +1,20 @@
+**No**
+
+The CQ “Who are the members of a certain union at a certain point in time?” cannot be fully answered using the current ontology because—even though the ontology includes classes for unions (e.g. Cl_Union) and reified union membership (Cl_PersonUnionMembership with the properties :personMemberOfUnion and :membershipDuring)—there is no explicit temporal property (such as a start or end date) associated with the union membership. Under a closed world assumption, if that temporal information isn’t explicitly modelled, we cannot filter the union memberships by a given “point in time.”
+
+A SPARQL query that extracts a partial answer (i.e. the persons who are members of a given union, without the temporal restriction) might be written as follows:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?union ?unionLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?union .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+}
+---------------------------------------------------------
+
+This query finds persons who are members of a union, but it cannot restrict the results to a specific point in time since the ontology does not provide the necessary temporal data.

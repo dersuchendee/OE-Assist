@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example SPARQL query that answers the CQ under a closed‐world assumption. This query retrieves the role(s) that a given person (e.g. Fabio Bianchi) has in a given production (e.g. the Merchant of Venice production) and that are valid at a specified time point.
+
+Assume that:
+1. Instances for the person and production already exist.
+2. Each RoleAssignment links a person (via :assignedPerson), a role (via :assignedRole), the production (via :inProduction) and the valid time interval (via :during). The time interval is defined by its start and end dates using the properties :hasStartDate and :hasEndDate.
+
+You can plug in the desired IRIs (here shown as placeholders) and time point accordingly.
+
+------------------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?start ?end
+WHERE {
+  ?assignment a :RoleAssignment .
+  ?assignment :assignedPerson <http://example.org/theatreontology#FabioBianchi> .
+  ?assignment :assignedRole ?role .
+  ?assignment :inProduction <http://example.org/theatreontology#MerchantOfVeniceProduction> .
+  ?assignment :during ?interval .
+  ?interval :hasStartDate ?start ;
+            :hasEndDate ?end .
+
+  # Check that the given time point (e.g., 2009-09-08T00:00:00) is within the valid interval.
+  FILTER(xsd:dateTime("2009-09-08T00:00:00") >= ?start && xsd:dateTime("2009-09-08T00:00:00") <= ?end)
+}
+------------------------------------------------------------
+
+This query fully addresses the competency question by extracting the roles (and their corresponding validity intervals) for the specified person within the specified production at the given time.

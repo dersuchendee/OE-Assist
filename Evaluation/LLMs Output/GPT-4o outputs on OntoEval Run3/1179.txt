@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question can be answered by the ontology as it includes classes and properties that allow us to determine the play methods of a set of bells. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?setOfBells ?playMethod
+WHERE {
+  ?setOfBells a :SetOfBells .
+  ?setOfBells :hasPlayMethod ?playMethod .
+  FILTER(?playMethod IN (:ManualPlayMethod, :ElectricPlayMethod))
+}
+```

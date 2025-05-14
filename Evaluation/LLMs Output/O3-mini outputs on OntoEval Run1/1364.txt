@@ -1,0 +1,12 @@
+Answer: **No**.
+
+The ontology does not include any properties or classes that capture whether a set of bells is "played electrically" or "played manually" (or both). Therefore, while we can list the existing sets of bells and their components, we cannot directly answer the CQ about the play mode with the given ontology. Here’s a partial SPARQL query that retrieves the available sets of bells and their related bells:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT DISTINCT ?setOfBells ?bell
+WHERE {
+  ?setOfBells a bells:SetOfBells .
+  OPTIONAL { ?setOfBells arco:hasComponent ?bell . }
+}

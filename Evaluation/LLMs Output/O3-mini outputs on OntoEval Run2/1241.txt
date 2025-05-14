@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves nitrogen leaching observations in forest ecosystems, groups the results by soil type, and aggregates the recorded nitrogen leaching rates to show how the values vary across soil types:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?soilType ?soilTypeLabel (AVG(?rate) AS ?avgRate) (MIN(?rate) AS ?minRate) (MAX(?rate) AS ?maxRate)
+WHERE {
+  ?obs a :NitrogenLeachingObservation .
+  ?obs :hasSoilType ?soilType .
+  ?obs :hasNitrogenLeachingRate ?rate .
+  ?obs :occursIn ?ecosystem .
+  ?ecosystem a :ForestEcosystem .
+
+  OPTIONAL { ?soilType rdfs:label ?soilTypeLabel . }
+}
+GROUP BY ?soilType ?soilTypeLabel
+ORDER BY ?soilType
+------------------------------------------------------

@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that individual actors and theatres are identified in the data, the ontology lets you connect an actor to their employment (the pivot class that is also a theatre) via the property “:isEmployedAt” and retrieve the employment’s start date (via “:employmentStartDate”). Under the closed world assumption every asserted fact is taken as complete, so the following query extracts the start date for a given actor working for a given theatre:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :isEmployedAt ?employment .
+  ?employment a :Cl_Theatre .    # since Cl_Employment is also a Cl_Theatre
+  ?employment :employmentStartDate ?startDate .
+  
+  # Optionally, restrict to a specific actor and theatre by their IRIs:
+  FILTER(?actor = <http://www.example.org/test#SpecificActor> &&
+         ?employment = <http://www.example.org/test#SpecificTheatre>)
+}
+----------------------------------------------------
+
+This query shows that the competency question “At what time did a certain actor start working for a specific theatre?” is modelled by the given ontology.

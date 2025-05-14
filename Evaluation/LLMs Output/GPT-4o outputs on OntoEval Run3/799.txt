@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide information about the specific time period during which a person studied for a specific degree. It only provides the degree obtained date and the end date of the study period, but not the start date. Therefore, a complete answer to the competency question cannot be extracted.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?degree ?degreeTitle ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+}
+```

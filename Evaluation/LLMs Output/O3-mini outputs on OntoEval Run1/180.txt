@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the country corresponding to a given city (using a parameterized or named city, for example, "Rome"):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName ;
+        :inCountry ?country .
+  ?country :countryName ?countryName .
+  FILTER(?cityName = "Rome")
+}
+----------------------------------------------------------------
+
+This query demonstrates that the ontology models the competency question “In what country is a certain city located?” since one can extract the country's name from the city using the :inCountry property.

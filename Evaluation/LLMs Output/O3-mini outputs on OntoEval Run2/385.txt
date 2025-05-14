@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given actor, production, and date, the roles the actor had in that production during an interval that contains the given date:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?production ?role ?startDate ?endDate
+WHERE {
+  ?roleAssignment a :Cl_RoleAssignment ;
+                  :op_roleOf ?person ;
+                  :op_roleInProduction ?production ;
+                  :op_hasRole ?role ;
+                  :dp_startDate ?startDate ;
+                  :dp_endDate ?endDate .
+  # Replace the following with appropriate parameters:
+  FILTER (?person = :FabioBianchi &&
+          ?production = :MerchantOfVeniceProduction &&
+          "2009-09-15"^^xsd:date >= ?startDate &&
+          "2009-09-15"^^xsd:date <= ?endDate)
+}
+———————————————————————————————
+
+In this query, we assume that the “certain person” is :FabioBianchi, the “certain production” is :MerchantOfVeniceProduction, and we are checking for roles held on 2009-09-15. You can replace these values with parameters as required.

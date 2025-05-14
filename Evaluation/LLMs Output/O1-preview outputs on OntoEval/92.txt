@@ -1,0 +1,12 @@
+Answer: **No** partial answer:
+
+The CQ cannot be fully answered because the ontology does not provide a way to specify a particular theatre festival (e.g., by name). However, we can retrieve all theatre festivals and their occurrence dates.
+
+```sparql
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+}
+```

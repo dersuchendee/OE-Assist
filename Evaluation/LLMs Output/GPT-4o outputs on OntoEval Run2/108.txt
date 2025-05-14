@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a festival. The ontology includes a `dp_location` property for `Cl_TheatreFestival`, but it does not specify which city or venue the festival took place in. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival :dp_location ?location . }
+}
+```

@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a way to associate a specific newspaper with its review and star rating for a certain production. The `:Cl_NewspaperReview` class is a subclass of `:Cl_Newspaper`, which makes it challenging to link a review to the newspaper that published it. There is no property in the ontology that connects a `:Cl_NewspaperReview` to a `:Cl_Newspaper`. Under the closed world assumption, we cannot infer this missing relationship.
+
+However, we can extract the star ratings for productions without specifying the newspaper that gave them. Here's a SPARQL query that retrieves the productions and their associated star ratings:
+
+```sparql
+SELECT ?production ?starRating
+WHERE {
+  ?review rdf:type :Cl_NewspaperReview .
+  ?review :reviewsProduction ?production .
+  ?review :hasStarRating ?starRating .
+}
+```

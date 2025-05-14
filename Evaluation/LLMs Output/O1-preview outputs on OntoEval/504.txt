@@ -1,0 +1,16 @@
+**Answer: Yes**
+
+The competency question is answerable because the ontology includes information about albums and their recording periods through the class `:Cl_RecordingPeriod`. Each recording period is linked to an album via the `:recordedAlbum` property and has data properties `:recordingStart` and `:recordingEnd`, which provide the time period during which the album was recorded.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?recordingPeriod rdf:type :Cl_RecordingPeriod .
+  ?recordingPeriod :recordedAlbum ?album .
+  ?recordingPeriod :recordingStart ?recordingStart .
+  ?recordingPeriod :recordingEnd ?recordingEnd .
+}
+```

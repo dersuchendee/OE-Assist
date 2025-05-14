@@ -1,0 +1,19 @@
+**No**
+
+The CQ cannot be fully answered using the given ontology because there is no property or class that directly represents the name or type of the role that a person has within a union group. The ontology defines the classes and relationships between `Cl_Person`, `Cl_Union`, and `Cl_UnionRole`, and includes the date of the role (`:roleDate`), but it lacks a property to specify the role's name or type. Under the Closed World Assumption, we cannot infer information that is not explicitly modeled in the ontology.
+
+However, we can extract a partial answer that shows which persons have roles in which unions at certain points in time.
+
+```sparql
+SELECT ?person ?union ?date
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRole ?unionRole .
+  ?unionRole a :Cl_UnionRole .
+  ?unionRole :hasRole ?union .
+  ?union a :Cl_Union .
+  ?unionRole :roleDate ?date .
+}
+```
+
+This query retrieves the person, the union they have a role with, and the date of the role, but it cannot provide the specific role that the person holds within the union.

@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?production
+WHERE {
+  ?production rdf:type :Cl_Production .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+```
+
+In this query, we retrieve all instances of `:Cl_Production` and count the number of `:hasPremier` relationships they have. Under the closed world assumption, since the ontology specifies exactly one `:hasPremier` for each production, we conclude that each production has exactly one premier.

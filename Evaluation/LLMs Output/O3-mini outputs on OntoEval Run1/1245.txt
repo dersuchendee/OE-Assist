@@ -1,0 +1,21 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?agent ?agentLabel ?observation ?time ?amount ?water
+WHERE {
+  ?agent a :Agent .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+  
+  ?agent :records ?observation .
+  ?observation a :MicrobiologicalSubstanceAmountObservation .
+  
+  ?observation :atTime ?time .
+  ?observation :hasAmount ?amount .
+  ?observation :inWaterBody ?water .
+}
+ORDER BY ?agent ?time
+```

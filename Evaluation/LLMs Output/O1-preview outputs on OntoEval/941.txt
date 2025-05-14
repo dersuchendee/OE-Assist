@@ -1,0 +1,45 @@
+**Yes**
+
+The competency question can be answered using the ontology provided. Here's a SPARQL query that retrieves the evaluation statements given by doctors to employees:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?doctor ?doctorName ?employee ?employeeName ?evaluationStatement
+WHERE {
+  ?evaluation rdf:type :Cl_Evaluation ;
+              :evaluatedBy ?doctor ;
+              :evaluates ?employee ;
+              :evaluationStatement ?evaluationStatement .
+  OPTIONAL { ?doctor rdfs:label ?doctorName . }
+  OPTIONAL { ?employee rdfs:label ?employeeName . }
+}
+```
+
+This query selects all evaluation statements along with the associated doctor and employee. It utilizes the following classes and properties from the ontology:
+
+- Classes:
+  - `:Cl_Evaluation`
+  - `:Cl_Doctor`
+  - `:Cl_Employee`
+- Object Properties:
+  - `:evaluatedBy`
+  - `:evaluates`
+- Datatype Properties:
+  - `:evaluationStatement`
+- Individuals:
+  - `:Dr_Smith` (an instance of `:Cl_Doctor`)
+  - `:Pasquale_Di_Gennaro` (an instance of `:Cl_Person`, presumably a `:Cl_Employee`)
+
+**Explanation:**
+
+- The query looks for all instances of `:Cl_Evaluation`.
+- For each evaluation, it retrieves:
+  - The doctor who evaluated (`:evaluatedBy`).
+  - The employee who was evaluated (`:evaluates`).
+  - The evaluation statement (`:evaluationStatement`).
+- `OPTIONAL` clauses are used to get labels (`rdfs:label`) for the doctor and employee if they are available.
+
+**Note:** This SPARQL query assumes that the ontology includes instances and that the properties are used as specified. Under the closed-world assumption, since all the necessary classes, properties, and individuals are defined in the ontology, the competency question is fully supported.

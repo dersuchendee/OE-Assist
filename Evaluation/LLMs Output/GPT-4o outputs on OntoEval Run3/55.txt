@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly support querying which materials a product consists of, as the relationship between products and materials is mediated by the `Cl_ProductComposition` class. However, we can extract a partial answer by querying the `Cl_ProductComposition` instances associated with products and their materials.
+
+```sparql
+SELECT ?product ?material
+WHERE {
+  ?product a :Cl_Product .
+  ?product :consistsOf ?composition .
+  ?composition :hasMaterial ?material .
+}
+```

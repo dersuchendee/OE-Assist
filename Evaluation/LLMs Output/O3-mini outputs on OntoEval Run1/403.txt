@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that retrieves every production paired with its premier—and by counting the linked premier per production we can verify that each production has exactly one premier (assuming closed‐world data):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+GROUP BY ?production ?premier
+HAVING (COUNT(?premier) = 1)
+
+This query checks for each production that one—and only one—premier is associated via the :hasPremier property.

@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the roles held by a given person in a given production at a specified point in time. (You would provide the appropriate values for ?person, ?production, and ?time.):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel ?start ?end
+WHERE {
+  ?roleAssignment a :Cl_RoleAssignment ;
+                  :op_roleOf ?person ;
+                  :op_hasRole ?role ;
+                  :op_roleInProduction ?production ;
+                  :dp_startDate ?start ;
+                  :dp_endDate ?end .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # Filter for a specific point in time (e.g., "2009-09-15")
+  FILTER(xsd:date(?time) >= ?start && xsd:date(?time) <= ?end)
+  
+  # Bindings (replace the IRIs and date literal with the actual ones)
+  # For example:
+  # BIND(<http://www.example.org/test#FabioBianchi> AS ?person)
+  # BIND(<http://www.example.org/test#MerchantOfVeniceProduction> AS ?production)
+  # BIND("2009-09-15"^^xsd:date AS ?time)
+}
+------------------------------------------------
+
+This query is answerable from the ontology because the reified class :Cl_RoleAssignment connects an actor (?person) to a role and to the production, along with the temporal constraints (:dp_startDate and :dp_endDate) so that the competency question is fully supported under the closed world assumption.

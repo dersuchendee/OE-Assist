@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, counts the album tracks for a given album (here “Stadium Arcadium” is identified via its label):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album rdfs:label "Stadium Arcadium" .
+  ?album :containsTracks ?track .
+}
+GROUP BY ?album
+---------------------------------
+
+This query retrieves the album identified as “Stadium Arcadium” and counts all ?track instances connected to it via the property :containsTracks, thus fully answering the CQ.

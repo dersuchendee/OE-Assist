@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that the “certain doctor” and “certain employee” are identified by their IRIs (for example, :Dr_Smith and :Emp_Johnson), the following SPARQL query retrieves the evaluation statement provided by the doctor for that employee:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  :Dr_Smith a :Cl_Doctor ;
+            :evaluates ?evaluation .
+  ?evaluation :evaluationFor :Emp_Johnson ;
+              :evaluationStatement ?evaluationStatement .
+}
+--------------------------------------------------
+
+This query works under the closed world assumption. It uses the reification pattern in the ontology:
+• The doctor (:Dr_Smith) invokes the :evaluates property linking him to an evaluation instance.
+• That evaluation instance relates to the employee (:Emp_Johnson) via the :evaluationFor property.
+• The actual evaluation statement is then read from the data property :evaluationStatement on the evaluation instance.
+
+Thus, the CQ is supported by the ontology.

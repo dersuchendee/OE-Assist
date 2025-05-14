@@ -1,0 +1,13 @@
+**No**
+
+The provided ontology defines the unit of measure for chemical measurements using the class ChemicalMeasurement and its property hasUnit. However, it does not include any information that distinguishes chemical measurements “in water” (or that ties the measurement to a water context). Therefore, while we can retrieve the units of measure for chemical measurements, we cannot filter them by water‐related criteria. A partial answer can be obtained with this query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?chemicalMeasurement ?unit ?unitLabel
+WHERE {
+  ?chemicalMeasurement a :ChemicalMeasurement .
+  ?chemicalMeasurement :hasUnit ?unit .
+  OPTIONAL { ?unit rdfs:label ?unitLabel . }
+}

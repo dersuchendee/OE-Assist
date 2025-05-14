@@ -1,0 +1,22 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?calendar ?freeTime ?freeTimeLabel ?startTime ?endTime
+WHERE {
+  ?calendar a :Calendar .
+  ?calendar :hasFreeTimePeriod ?freeTime .
+  OPTIONAL { ?freeTime rdfs:label ?freeTimeLabel . }
+  ?freeTime :startTime ?startTime ;
+            :endTime ?endTime .
+    
+  # Assuming "today" is 2023-04-01 for this example,
+  # we filter free time periods where the start time is on 2023-04-01.
+  FILTER (
+    STRSTARTS(STR(?startTime), "2023-04-01")
+  )
+}
+ORDER BY ?startTime
+```

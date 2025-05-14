@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that assumes “she” is identified by a known IRI (here used as <http://www.example.org/test#She>). The query retrieves each performance event where that musician performed and the corresponding location where the event took place.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performanceEvent ?location ?time
+WHERE {
+  ?performanceEvent a :PerformanceEvent ;
+                    :performedBy <http://www.example.org/test#She> ;
+                    :performedAt ?location ;
+                    :hasTime ?time .
+}
+ORDER BY ?time
+--------------------------------------------------
+
+This query shows that the CQ “Where did she perform?” is answerable using the provided ontology under a closed-world assumption.

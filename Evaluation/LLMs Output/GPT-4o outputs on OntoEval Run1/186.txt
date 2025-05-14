@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between a city and the country it is located in. The ontology includes a class `Cl_City` with a data property `isLocatedInCountry`, but there is no direct link between a city and a specific country instance. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedInCountry ?country .
+}
+```

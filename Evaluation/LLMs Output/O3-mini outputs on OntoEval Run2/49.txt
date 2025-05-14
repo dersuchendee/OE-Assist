@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, retrieves for each circular value network (instances of Cl_CircularValueNetwork) the actors involved via the op_hasActor relation:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?network ?networkLabel ?actor ?actorLabel
+WHERE {
+  ?network a :Cl_CircularValueNetwork .
+  OPTIONAL { ?network rdfs:label ?networkLabel . }
+  
+  ?network :op_hasActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?network ?actor

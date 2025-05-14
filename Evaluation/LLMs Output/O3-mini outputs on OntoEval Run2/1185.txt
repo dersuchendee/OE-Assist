@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?musician ?location
+WHERE {
+  ?musician a :FemaleMusician .
+  {
+    ?musician :performedAt ?location .
+  }
+  UNION
+  {
+    ?musician :hasPerformed ?performance .
+    ?performance :takesPlaceAt ?location .
+  }
+}
+```

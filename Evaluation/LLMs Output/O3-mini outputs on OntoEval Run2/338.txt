@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the star rating given by a specified newspaper for a given theatre production. This query assumes a closed world where only the asserted triples exists and uses fixed identifiers for the production and newspaper (in this example, :MerchantOfVeniceProduction and :IlGazzettino). You can parameterize the production and newspaper values as needed.
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?starRating
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :op_hasReview ?review .
+  ?review :dp_starRating ?starRating .
+  ?review :op_reviewedBy ?newspaper .
+  
+  # Closed world: filter for the specific production and newspaper
+  FILTER(?production = :MerchantOfVeniceProduction && ?newspaper = :IlGazzettino)
+}
+---------------------------------

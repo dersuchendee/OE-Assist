@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the review text provided by a specified critic (e.g. :CrianHiatt) for a given record (e.g. :StadiumArcadium):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?reviewText
+WHERE {
+  ?review rdf:type :Cl_CriticReview ;
+          :reviewedBy ?critic ;
+          :reviews ?record ;
+          :reviewText ?reviewText .
+  FILTER(?critic = :CrianHiatt && ?record = :StadiumArcadium)
+}
+---------------------------------
+
+In a more general scenario (parameterized for a “certain critic” and “a certain record”), you could use variables or bind the URIs as needed.

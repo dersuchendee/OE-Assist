@@ -1,0 +1,26 @@
+**Yes**  
+Below is a SPARQL query which, under a closed world assumption, computes for each diagnosis code the average number of admissions per hospital:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?diagnosis (AVG(?hospAdmissionCount) AS ?averageAdmissions)
+WHERE {
+  {
+    SELECT ?hospital ?diagnosis (COUNT(?admission) AS ?hospAdmissionCount)
+    WHERE {
+      ?hospital a :Hospital .
+      ?hospital :hasAdmission ?admission .
+      ?admission :hasDiagnosisCode ?diagnosis .
+    }
+    GROUP BY ?hospital ?diagnosis
+  }
+}
+GROUP BY ?diagnosis
+------------------------------------------------------------
+
+This query first calculates, for each hospital and diagnosis code, the number of admissions. Then it groups the results by diagnosis code to compute the average number of admissions per hospital for that diagnosis code, thereby answering the competency question.

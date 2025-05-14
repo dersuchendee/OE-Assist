@@ -1,0 +1,24 @@
+**No**  
+The ontology does not explicitly model the relationship between a church/bell tower and whether it contains either a single bell or a set‐of‐bells (poliorganic instrument). In our ontology we have classes for Bell, SetOfBells, and BellTower, but no property directly links a church or bell tower with either an individual Bell (or a SetOfBells) that “resides” in it. Under the closed world assumption, we cannot assume that such a relation exists unless it is explicitly asserted. 
+
+Here is a SPARQL query that produces a partial answer by listing the bell towers and, if available, any connected component via the property arco:hasComponent. In an ideal model, a bell tower would relate to a set of bells (and through the set, to individual bells), but since that relationship is not fully modelled we can only extract what is explicitly available:
+
+--------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco:  <https://w3id.org/arco/ontology/core/>
+
+SELECT ?bellTower ?setOfBells ?bell
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL {
+    ?bellTower arco:hasComponent ?maybeSet .
+    ?maybeSet a bells:SetOfBells .
+    BIND(?maybeSet AS ?setOfBells)
+    OPTIONAL {
+      ?setOfBells arco:hasComponent ?bell .
+    }
+  }
+}
+--------------------------------------------------
+
+This query retrieves each bell tower and, when available, the associated SetOfBells and any Bells that are components of that set.  

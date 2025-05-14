@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?microbialCommunity ?rareSpecies ?ecologicalFunction ?rareSpeciesLabel ?ecologicalFunctionLabel
+WHERE {
+  ?microbialCommunity a :MicrobialCommunity .
+  ?microbialCommunity :hasMember ?rareSpecies .
+  ?rareSpecies a :RareSpecies .
+  ?rareSpecies :performsFunction ?ecologicalFunction .
+  OPTIONAL { ?rareSpecies rdfs:label ?rareSpeciesLabel . }
+  OPTIONAL { ?ecologicalFunction rdfs:label ?ecologicalFunctionLabel . }
+}
+ORDER BY ?microbialCommunity ?rareSpecies
+```

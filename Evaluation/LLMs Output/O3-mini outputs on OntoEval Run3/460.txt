@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, returns the persons (members) of a given band when their membership (with start and end dates) is active at a specified point in time. In this example the band is given by its URI (here :Band_X) and the date of interest is provided (as "YYYY-MM-DD"^^xsd:date):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_Membership ;
+              :membershipBand :Band_X ;
+              :membershipPerson ?person ;
+              :membershipStartDate ?membershipStartDate ;
+              :membershipEndDate ?membershipEndDate .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  # Replace "2005-01-01" with the date of interest.
+  FILTER (xsd:date("2005-01-01") >= ?membershipStartDate &&
+          xsd:date("2005-01-01") <= ?membershipEndDate)
+}
+ORDER BY ?person
+------------------------------------------------
+
+Explanation:
+• This query finds all instances of :Cl_Membership that link a person and a band (:membershipBand) and retrieves the membership’s start and end dates.
+• It then filters those memberships to keep only the ones that are “active” at the given date (in this example, January 1, 2005).
+• The use of a closed world assumption means that if a membership does not explicitly have an end date or its dates do not bracket the given point in time, it is not considered active.
+
+Such a query shows that the ontology models the competency question, making it answerable via SPARQL.

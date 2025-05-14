@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "Who invented an instrument?" can be answered using the ontology provided. The ontology includes the class `MusicalInstrument` and the object property `inventedBy` which relates a musical instrument to its inventor, who is a `Person`. Therefore, we can write a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?instrument ?instrumentLabel ?inventor ?inventorLabel
+WHERE {
+  ?instrument a :MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  
+  ?instrument :inventedBy ?inventor .
+  OPTIONAL { ?inventor rdfs:label ?inventorLabel . }
+}
+```

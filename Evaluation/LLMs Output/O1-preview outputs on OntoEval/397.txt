@@ -1,0 +1,23 @@
+Answer: **Yes**
+
+The competency question is supported by the ontology, as it models that a production has exactly one premiere through a cardinality restriction on the `:hasPremiere` property in the definition of the `:Production` class.
+
+Here is a SPARQL query that retrieves the classes which have a cardinality restriction of exactly one on the `:hasPremiere` property:
+
+```sparql
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?productionClass ?cardinality
+WHERE {
+  ?productionClass rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :hasPremiere ;
+    owl:cardinality ?cardinality
+  ] .
+  FILTER(?cardinality = "1"^^xsd:nonNegativeInteger)
+}
+```
+
+This query will return the `:Production` class along with the cardinality "1", confirming that according to the ontology, each production has exactly one premiere.

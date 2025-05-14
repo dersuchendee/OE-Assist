@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming that the performance is modelled as an instance of the class Cl_Performance and the date it took place is captured by the data property performanceDate, we can answer the CQ under a closed world assumption. For example, the following SPARQL query retrieves all performances along with the date at which they occurred:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+
+This query extracts the answer to "When did a certain performance take place?" from the ontology.

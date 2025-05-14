@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one SPARQL query that exploits the reification modeled in the ontology. In this example we assume that a performance is represented by an instance of Cl_Performance and that the relationship between a performance and its songs is captured by the property playedSong (from a performance to a reified performance–song object) and by the property songPlayed (linking a song to that reified performance–song instance):
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance ;
+               :playedSong ?perfSong ;
+               :performanceDate ?performanceDate .
+  ?song a :Cl_Song ;
+        :songPlayed ?perfSong .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance ?performanceDate
+------------------------------------
+
+This query retrieves, for each performance, the date of the performance and the songs played during that performance.

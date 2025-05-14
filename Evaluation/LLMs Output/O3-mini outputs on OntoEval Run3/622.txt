@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that retrieves the critique content provided by a given critic about a specific record. In this query we assume that the critic and the record are identified by their URIs (here using (for example) Crian Hiatt and the record “StadiumArcadiumAlbum”) which you can adjust as needed:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique ;
+            :criticOf <http://www.example.org/test#CrianHiatt> ;
+            :critiqueOf <http://www.example.org/test#StadiumArcadiumAlbum> ;
+            :critiqueContent ?critiqueContent .
+}
+-----------------------------------------------------
+
+This query is answerable because the ontology reifies the critique using the class Cl_Critique, and the object properties :criticOf and :critiqueOf (along with the data property :critiqueContent) allow extracting what a certain critic said about a certain record under the closed world assumption.

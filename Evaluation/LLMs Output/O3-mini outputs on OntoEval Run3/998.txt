@@ -1,0 +1,14 @@
+**Yes**
+
+The ontology supports this competency question since both Book and CD (which are subclasses of Publication) have the property ns1:hasPublicationDate that specifies the publication date. Here is a SPARQL query that retrieves the publication dates for instances of either Book or CD:
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubDate
+WHERE {
+  { ?publication a ns1:Book . }
+  UNION
+  { ?publication a ns1:CD . }
+  ?publication ns1:hasPublicationDate ?pubDate .
+}

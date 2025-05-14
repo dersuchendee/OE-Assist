@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :hasRelease ?release .
+  ?release :hasReleaseDate ?releaseDate .
+}
+```
+
+This query retrieves albums with their release events and associated release dates, thus answering the competency question "When was a certain album released?" under the closed-world assumption.

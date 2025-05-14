@@ -1,0 +1,15 @@
+**Yes**  
+Below is a SPARQL query that uses the reification in the ontology (via Cl_SongComposition) to obtain the composition date of a given song:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedOn ?songComposition .
+  ?songComposition :compositionDate ?compositionDate .
+  # Optionally, you can filter by song title or identifier, for example:
+  # ?song rdfs:label "Song Title" .
+}
+ORDER BY ?song

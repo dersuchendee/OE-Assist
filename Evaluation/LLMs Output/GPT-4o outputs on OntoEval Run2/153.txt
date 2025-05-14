@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain any information about the specific city in which a theatre is located. The ontology includes a class `Cl_Theatre` and a property `locatedIn` that links a theatre to a city, but there are no specific instances or data that provide the city for a given theatre. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre :locatedIn ?city . }
+}
+```

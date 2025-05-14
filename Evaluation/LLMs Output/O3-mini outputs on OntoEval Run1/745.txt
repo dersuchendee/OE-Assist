@@ -1,0 +1,13 @@
+**No**
+The current ontology does not explicitly model the relationship between a record (e.g., a CD or album) and its constituent tracks. Although the OS describes music production including album track details, there is no property or reified structure (e.g., a “hasTrack” property or a Track class) in the ontology that would allow us to fully answer the CQ “A record always contains at least one track.” Under a closed‐world assumption, we can only partially extract records (CDs) that are declared in the ontology. For a partial answer we could use a query like:
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a ns1:CD .
+  OPTIONAL { ?record ns1:hasTrack ?track . }
+}
+
+This query lists all instances of ns1:CD and, where available, any associated track information. Since the “hasTrack” predicate is not modeled in the ontology, the query will return the records without corresponding track details.

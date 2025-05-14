@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?process ?processLabel ?efficiency
+WHERE {
+  ?process a :Process ;
+           :hasEfficiency ?efficiency .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+ORDER BY ?process
+```

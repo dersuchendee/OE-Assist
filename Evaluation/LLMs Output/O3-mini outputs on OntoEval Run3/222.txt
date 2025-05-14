@@ -1,0 +1,31 @@
+**Yes**
+
+One can answer this CQ using the ontology. The ontology models ensembles (class Cl_Ensemble), individuals (Cl_Individual) and ensemble memberships (Cl_EnsembleMembership) with a time stamp (property :atTime). Given a particular ensemble and a particular point in time, you can write a SPARQL query that returns the individuals who are members at that time. For example, if you want to know the members of the ensemble :MerchantOfVeniceEnsemble at a given time (say, "2009-09-01T00:00:00Z"), the query would be:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?individual ?name ?membershipTime
+WHERE {
+  # Here we specify a particular ensemble; this can be parameterized as needed.
+  VALUES ?ensemble { :MerchantOfVeniceEnsemble }
+  
+  # Get individuals known to be members of this ensemble
+  ?ensemble :hasMember ?individual .
+  
+  # Retrieve the membership record that connects the individual to the ensemble
+  ?individual :hasEnsembleMembership ?membership .
+  
+  # Get the timestamp at which the membership holds
+  ?membership :atTime ?membershipTime .
+  
+  # Assuming we want the membership that exactly matches the given point in time.
+  FILTER(?membershipTime = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+  
+  OPTIONAL { ?individual :hasName ?name . }
+}
+ORDER BY ?individual
+-------------------------------------------------
+
+This query retrieves for a given ensemble the individuals whose membership time matches the provided time, thereby directly answering the competency question.

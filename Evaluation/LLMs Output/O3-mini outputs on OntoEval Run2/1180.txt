@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+SELECT ?place ?placeLabel ?performance ?performanceLabel
+WHERE {
+  ?place a :Place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+  
+  ?place :hasSound ?sound .
+  ?sound :isCurrentlyPerformed true .
+  ?sound :hasMeans ?performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+}
+ORDER BY ?place
+```

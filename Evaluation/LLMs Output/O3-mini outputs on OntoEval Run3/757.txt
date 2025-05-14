@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves all albums along with the track(s) they contain. In this way we can ensure that every album (record) indeed has at least one track—a direct rendering of the competency requirement.
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?track
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+ORDER BY ?album
+
+--------------------------------------------------
+
+This query shows that every album instance (as modelled by :Cl_Album) has at least one associated track via the :containsTrack property.

@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves a particular book along with its page count. (In a closed‐world setting we assume that every book has exactly one page count value according to the ontology’s cardinality restrictions.)
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?title ?pageCount
+WHERE {
+  ?book a :Book .
+  OPTIONAL { ?book :title ?title . }
+  ?book :pageCount ?pageCount .
+  # Optionally, to restrict to a particular book (e.g., by title), uncomment:
+  # FILTER(?title = "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals")
+}

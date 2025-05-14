@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given seminar, the articles that were presented. In this ontology the reification class Cl_SeminarArticlePresentation is used to represent an article presentation. A seminar (instance of Cl_Seminar) “contains” one or more seminar article presentations (via the property containsPresentationOf), and each such presentation is itself an article (because the class Cl_SeminarArticlePresentation is declared as a subclass of both Cl_Seminar and Cl_Article).
+
+You can run the query below (optionally filtering by a specific seminar identifier) to obtain the answer:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?articlePresentation
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :containsPresentationOf ?articlePresentation .
+  ?articlePresentation a :Cl_SeminarArticlePresentation .
+  # Optionally, if you want to restrict to a given seminar, uncomment and adjust the next line:
+  # FILTER(?seminar = :SpecificSeminarID)
+}
+-----------------------------------------------------
+
+This query gets each seminar and, via the reification relation established by containsPresentationOf, extracts the corresponding article presentation instance (which—by inheritance—embodies the article being presented).

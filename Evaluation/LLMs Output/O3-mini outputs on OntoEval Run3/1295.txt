@@ -1,0 +1,29 @@
+**Yes**
+
+The ontology provides each musician’s active time period (via the mandatory :hasTimePeriod property along with its start and end years), which lets us compute when musicians were active concurrently. Under the closed world assumption, we assume that the stated time periods are complete, so we can infer overlapping time spans between musicians. One can write the following SPARQL query to extract pairs of musicians whose work periods overlap:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?musician1 ?name1 ?start1 ?end1 ?musician2 ?name2 ?start2 ?end2 
+WHERE {
+  ?musician1 a :Musician .
+  ?musician1 :hasTimePeriod ?tp1 .
+  ?tp1 :startYear ?start1 .
+  ?tp1 :endYear ?end1 .
+  OPTIONAL { ?musician1 rdfs:label ?name1 . }
+
+  ?musician2 a :Musician .
+  ?musician2 :hasTimePeriod ?tp2 .
+  ?tp2 :startYear ?start2 .
+  ?tp2 :endYear ?end2 .
+  OPTIONAL { ?musician2 rdfs:label ?name2 . }
+
+  FILTER(?musician1 != ?musician2)
+  FILTER(?start1 <= ?end2 && ?end1 >= ?start2)
+}
+ORDER BY ?start1 ?start2
+------------------------------------------------
+
+This query retrieves pairs of musicians where the time period of one overlaps with that of the other, thereby addressing the competency question regarding the time relationship between different musicians.

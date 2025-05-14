@@ -1,0 +1,13 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?play rdf:type :Play .
+  ?play :performedAt ?festival .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+}
+```
+
+This query retrieves plays (`?play`) along with their labels (`?playLabel`) that were performed at theatre festivals (`?festival`) along with their labels (`?festivalLabel`). It directly reflects the competency question "What plays could be seen during a certain theatre festival?" by extracting the relationships defined in the ontology between plays and theatre festivals via the `:performedAt` property.

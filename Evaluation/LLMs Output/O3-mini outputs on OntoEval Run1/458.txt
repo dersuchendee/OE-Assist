@@ -1,0 +1,48 @@
+**Yes**
+
+Below is an example SPARQL query that “answers” a competency question inspired by the story. For example, consider a competency question such as: 
+
+  “What details are known about the album ‘StadiumArcadium’—its release date, the tracks it contains, any critic reviews, and the live performance(s) associated with it (including when and where those performances took place)?” 
+
+Assuming a closed‐world view and using the ontology’s classes (e.g. Cl_Album, Cl_Review, Cl_Performance, Cl_Location, etc.), one answer would be the following query:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?releaseDate ?track ?reviewText ?criticName ?performance ?performanceDate ?locationName 
+WHERE {
+  # Get the album “StadiumArcadium” and its release date and tracks
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate ;
+         :containsTrack ?track .
+  FILTER(?album = :StadiumArcadium)
+  
+  # Optionally get any review for the album including critic details
+  OPTIONAL {
+    ?review a :Cl_Review ;
+            :reviewedRecord ?album ;
+            :reviewText ?reviewText ;
+            :reviewedBy ?critic .
+    OPTIONAL { ?critic rdfs:label ?criticName }
+  }
+  
+  # Optionally get performance details: the performance in which a song from the album was performed,
+  # its date, and the location where it took place.
+  OPTIONAL {
+    ?perfSong a :Cl_PerformanceSong ;
+              :performedSong ?song ;
+              :performedIn ?performance .
+    ?performance :performanceDate ?performanceDate ;
+                 :tookPlaceAt ?location .
+    OPTIONAL { ?location :locationName ?locationName }
+  }
+}
+ORDER BY ?releaseDate
+--------------------------------------------------------
+
+This query extracts the album “StadiumArcadium” (with its mandatory track information as enforced by the minCardinality restriction), its release date, any reviews (and critic labels), and any performance information (including performance date and location). 
+
+Thus, the competency question is fully answerable by the ontology.

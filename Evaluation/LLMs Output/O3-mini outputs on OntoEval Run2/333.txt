@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?production ?newspaper ?ratingValue
+WHERE {
+  ?review a :Cl_TheatreProductionReview .
+  ?review :forProduction ?production .
+  ?review :givenBy ?newspaper .
+  ?review :hasStarRating ?starRating .
+  ?starRating :hasStarRatingValue ?ratingValue .
+}
+```

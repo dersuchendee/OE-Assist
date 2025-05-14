@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query to retrieve the date of each performance (using the property “performanceDate” defined on instances of Cl_Performance):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?date .
+}
+ORDER BY ?date
+--------------------------------------------------
+
+This query shows that the CQ “When did a certain performance take place?” can be answered using the ontology as the performance date is explicitly modelled by the property :performanceDate on performances.

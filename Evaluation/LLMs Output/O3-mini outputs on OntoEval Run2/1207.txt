@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?organ ?organLabel ?event ?time ?fromLocation ?toLocation
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+
+  ?organ :hasMovementEvent ?event .
+  ?event :atTime ?time .
+  ?event :fromLocation ?fromLocation .
+  ?event :toLocation ?toLocation .
+}
+ORDER BY ?organ ?time
+```

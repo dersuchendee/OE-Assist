@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the performance along with its geographic location (i.e. the city where the performance took place):
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?city
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedIn ?city .
+}
+--------------------------------
+
+This query works under a closed world assumption by returning only those performances that have an explicit :performedIn relation to a city (such as :Performance_Portland performedIn :Portland_Oregon).

@@ -1,0 +1,21 @@
+**Yes**
+
+This competency question is answerable from the ontology. We can retrieve the employment start date for a given actor–theatre pair by following the reified employment period. For example, if we want to know when FabioBianchi started working at TheGrandTheatreRome, the SPARQL query would be:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :op_hasEmploymentPeriod ?ep .
+  ?ep :op_employmentIn ?theatre ;
+      :dp_startDate ?startDate .
+  OPTIONAL { ?actor :hasName ?actorName . }
+  OPTIONAL { ?theatre :hasName ?theatreName . }
+  FILTER(?actor = :FabioBianchi && ?theatre = :TheGrandTheatreRome)
+}
+---------------------------------------------------------
+
+This query returns the actor, the theatre, and the date when the actor started working at that theatre.

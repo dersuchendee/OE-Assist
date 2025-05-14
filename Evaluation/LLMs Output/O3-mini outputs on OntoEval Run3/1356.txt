@@ -1,0 +1,15 @@
+**No**
+The current ontology does not explicitly model location information for parts of an organ. However, if we assume that “original parts” could be identified via a property such as arco:isCurrentParthood (with a value true indicating that the part is still original) and that organs include parts through arco:includesPart, we can partially extract those parts. For example, the following SPARQL retrieves—for each organ—the parts marked as current (i.e. original), even though no explicit spatial “location” is given:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?part ?isCurrent
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:includesPart ?part .
+  ?part arco:isCurrentParthood ?isCurrent .
+  FILTER(?isCurrent = true)
+}
+
+This query only provides a partial answer (i.e. a list of parts assumed to be “original”) because the ontology does not include information about “where” (spatial location) those parts are located.

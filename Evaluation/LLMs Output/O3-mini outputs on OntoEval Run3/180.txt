@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for a given city (e.g. Rome), the country in which it is located using the :inCountry property defined in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName ;
+        :inCountry ?country .
+  ?country :countryName ?countryName .
+  # Optionally, filter for a specific city (e.g. "Rome")
+  # FILTER(?cityName = "Rome")
+}
+--------------------------------------------------
+
+This query shows that the ontology models the CQ since it allows us to directly extract the country for any given city using the :inCountry relation.

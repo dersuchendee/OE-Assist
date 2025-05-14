@@ -1,0 +1,16 @@
+**Yes**
+
+We can extract the region for a given city using the property :locatedIn on instances of :Cl_City. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  # Filter to a specific city if needed, e.g.:
+  # FILTER(?city = <http://www.example.org/test#YourCityURI>)
+}

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the individual for the seminar is already identified (for example, as :SeminarInDecember2008), the following SPARQL query extracts the articles (and their titles) that were presented in that seminar:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  ?presentation a :Cl_SeminarPresentation ;
+                :presentedIn :SeminarInDecember2008 ;
+                :presentationOf ?article .
+  ?article :articleTitle ?articleTitle .
+}
+--------------------------------------------------
+
+This query works under the closed-world assumption by explicitly using the known individual (:SeminarInDecember2008) and the reified structure that connects seminar presentations to articles via the properties :presentedIn and :presentationOf.

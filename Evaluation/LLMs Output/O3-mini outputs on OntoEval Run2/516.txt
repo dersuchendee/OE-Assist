@@ -1,0 +1,20 @@
+**Yes**
+Below is a SPARQL query that retrieves an album (with its label) together with the number of tracks recorded (using the explicit property that captures the track count):
+
+─────────────────────────────────────────────
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?numTracks
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :numberOfTracks ?numTracks .
+}
+ORDER BY ?albumLabel
+
+─────────────────────────────────────────────
+
+Under the closed‐world assumption the absence of a track count means that no other tracks exist beyond what is explicitly recorded (or the explicit number provided); thus, the CQ “How many tracks does a particular album contain?” is fully answerable via the ontology.

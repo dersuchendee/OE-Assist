@@ -1,0 +1,14 @@
+**No**
+
+The competency question "When was a certain person first employed at a certain hospital?" is not fully supported by the given ontology. The ontology provides information about employment, including the start date, but it does not directly link a person to a specific hospital through employment. The ontology has classes and properties related to employment, hospitals, and persons, but it lacks a direct connection between a person and a hospital through employment.
+
+Here is a SPARQL query to extract a partial answer, which retrieves the employment start date for a person, but it does not specify the hospital:
+
+```sparql
+SELECT ?person ?employmentStartDate
+WHERE {
+  ?employment a :Employment .
+  ?employment :hasEmployee ?person .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```

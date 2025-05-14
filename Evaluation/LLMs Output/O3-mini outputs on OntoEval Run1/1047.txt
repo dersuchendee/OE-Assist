@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the seminar of interest is identified by its IRI (or that we are interested in all seminars), here is a SPARQL query that, under a closed‐world assumption, retrieves the articles presented in each seminar along with any available titles:
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarTitle ?article ?articleTitle
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?seminar rdfs:label ?seminarTitle . }
+  OPTIONAL { ?article rdfs:label ?articleTitle . }
+}
+------------------------------------------------
+
+This query models the competency question by directly retrieving the articles (via the :hasPresentedArticle property) that were presented during a seminar, fulfilling the information requested by the CQ.

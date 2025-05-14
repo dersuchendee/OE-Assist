@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle. }
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate. }
+  # For a specific person (e.g., PasqualeDiGennaro), uncomment the following line:
+  # FILTER(?person = :PasqualeDiGennaro)
+}
+```

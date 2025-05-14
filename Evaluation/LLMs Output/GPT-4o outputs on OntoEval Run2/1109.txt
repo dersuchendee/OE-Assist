@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" is supported by the ontology. The ontology includes a restriction on the `Cl_Seminar` class that ensures each seminar has at least one article presented in it. This is represented by the `owl:someValuesFrom` restriction on the `:presentedIn` property, which requires that a seminar must have at least one associated article.
+
+Here is a SPARQL query to extract seminars and their presented articles:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article :presentedIn ?seminar .
+}
+```

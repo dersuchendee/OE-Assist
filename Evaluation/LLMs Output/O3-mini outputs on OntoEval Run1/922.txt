@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one example SPARQL query that, using a closed‐world assumption, retrieves the role played by a given person in a specific union at a given date. In this query the parameters – the person IRI, the union group IRI, and the date (point in time) – are passed as values via variables (or can be replaced with concrete IRIs and a literal date). The query uses the reified union role class (Cl_PersonUnionRole) and its properties (memberOf, hasRole, roleStartDate, roleEndDate) to select the role that was active at the specified date.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?union ?role ?roleStartDate ?roleEndDate
+WHERE {
+  # The reification instance that connects the person with union membership and the associated role
+  ?pur a :Cl_PersonUnionRole ;
+       :hasRole ?role ;
+       :memberOf ?union ;
+       :roleStartDate ?roleStartDate ;
+       :roleEndDate ?roleEndDate .
+       
+  # Because Cl_PersonUnionRole is a subclass of Cl_Person, the instance itself represents the person.
+  BIND(?pur AS ?person)
+  
+  # Closed-world filtering: only include results for the given person, union and when the given time is within role period.
+  FILTER(?person = <http://www.example.org/test#GivenPersonIRI>)
+  FILTER(?union = <http://www.example.org/test#GivenUnionIRI>)
+  FILTER(xsd:date("2005-06-15") >= ?roleStartDate && xsd:date("2005-06-15") <= ?roleEndDate)
+}
+------------------------------------------------------------
+
+In this query replace:
+• <http://www.example.org/test#GivenPersonIRI> with the actual IRI of the person,
+• <http://www.example.org/test#GivenUnionIRI> with the IRI of the union group, and
+• xsd:date("2005-06-15") with the specific date you want to check.
+
+This query shows that the CQ – “What role does a certain person have within a certain union group at a certain point in time?” – is answerable through the ontology.

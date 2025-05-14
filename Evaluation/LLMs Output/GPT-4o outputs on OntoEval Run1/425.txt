@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain any information about the instruments that a person plays. However, we can extract partial information about the roles that a person has in a band, which might imply certain instruments.
+
+```sparql
+SELECT ?person ?personName ?role ?roleName
+WHERE {
+  ?person a :Person .
+  ?person :personName ?personName .
+  ?person :hasRole ?role .
+  ?role :roleName ?roleName .
+}
+```

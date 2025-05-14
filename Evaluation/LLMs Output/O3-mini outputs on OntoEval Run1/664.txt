@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for each performance, the songs performed at that event by leveraging the reified PerformanceSong relationships:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?song
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate .
+  ?performanceSong a :Cl_PerformanceSong ;
+                   :performedAt ?performance ;
+                   :performedSong ?song .
+}
+ORDER BY ?performance ?performanceDate ?song
+
+--------------------------------------------------
+
+This query finds all individuals of type Cl_Performance, then, via the reified relation (i.e. instances of Cl_PerformanceSong), it connects each performance with the songs performed.

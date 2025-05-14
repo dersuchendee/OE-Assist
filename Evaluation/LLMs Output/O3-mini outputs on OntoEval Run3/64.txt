@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific resource (for instance, :GlassBottle), retrieves all its asserted types (rdf:type):
+
+----------------------------------
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?resource ?type
+WHERE {
+  VALUES ?resource { :GlassBottle }   # Replace :GlassBottle with the specific resource as needed
+  ?resource rdf:type ?type .
+}
+----------------------------------
+
+This query extracts the types directly declared for the resource, making use of the closed world assumption on the provided ontology.

@@ -1,0 +1,21 @@
+**Yes**
+
+Since the ontology defines an Exchange class (with subclasses MaterialExchange and InformationExchange) and a data property hasSuccessStatus that records a boolean outcome for each exchange, we can write a SPARQL query to extract, for instance, all material and information exchanges along with their success statuses. Under the closed world assumption the absence of data implies the exchange does not exist.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?exchange ?exchangeType ?successStatus
+WHERE {
+  ?exchange a :Exchange ;
+            :hasSuccessStatus ?successStatus .
+  OPTIONAL {
+    ?exchange rdf:type ?exchangeType .
+    FILTER(?exchangeType IN (:MaterialExchange, :InformationExchange))
+  }
+}
+```
+
+This query retrieves each exchange (whether material or information), its specific type (if available), and its corresponding success status, thereby answering the competency question.

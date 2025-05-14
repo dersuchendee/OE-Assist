@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the employment start date for actors at their respective theatres:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :actorName ?actorName .
+  ?actor :employedAt ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?employment :employmentTheatre ?theatre .
+  ?theatre :theatreName ?theatreName .
+}
+------------------------------------------------
+
+This query extracts the actor, their name, the theatre at which they are employed, and the date when the employment started.

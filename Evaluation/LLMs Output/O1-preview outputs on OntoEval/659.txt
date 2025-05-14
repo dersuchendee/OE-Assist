@@ -1,0 +1,29 @@
+**Yes**
+
+Here is the SPARQL query to retrieve the songs played in a certain performance:
+
+```sparql
+SELECT ?song
+WHERE {
+    # Replace <PERFORMANCE_URI> with the URI of the specific performance you're interested in
+    BIND(<PERFORMANCE_URI> AS ?performance)
+    
+    ?performance a :Cl_Performance .
+    ?performance :playedSong ?performanceSong .
+    ?performanceSong a :Cl_PerformanceSong .
+    ?performanceSong :songPlayed ?song .
+    ?song a :Cl_Song .
+}
+```
+
+This query works as follows:
+
+- It selects all songs (`?song`) that were played during a specific performance (`?performance`).
+- It starts by binding the specific performance URI to `?performance`.
+- It ensures that `?performance` is an instance of `:Cl_Performance`.
+- It uses the `:playedSong` property to find `?performanceSong` instances associated with the performance.
+- It verifies that `?performanceSong` is an instance of `:Cl_PerformanceSong`, which connects performances and songs.
+- It uses the `:songPlayed` property to find the songs (`?song`) associated with the performance song.
+- It ensures that `?song` is an instance of `:Cl_Song`.
+
+This query leverages the ontology's classes and properties to navigate from a performance to the songs played during that performance, thus confirming that the competency question is answerable using the provided ontology.

@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the closed-world interpretation of the ontology, we have complete information about authors and the plays they wrote. The class :Cl_Author and the object property :op_hasWritten link an author to the play(s) they wrote. Here’s a SPARQL query that, given an author (or for all authors), retrieves the plays they have written:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  ?author :op_hasWritten ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+------------------------------------------------------------
+
+This query extracts, for each author in the ontology, the plays they have written.

@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the presence of microbial functional guilds in a specific aquifer ecosystem, which is represented in the ontology through the `MicrobialPresenceObservation` class and its properties.
+
+```sparql
+SELECT ?aquiferEcosystem ?guild
+WHERE {
+  ?observation a :MicrobialPresenceObservation .
+  ?observation :isObservationOf ?aquiferEcosystem .
+  ?observation :hasObservedGuild ?guild .
+}
+```

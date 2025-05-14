@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that “a particular book” is modelled as an individual of class Cl_Book with a data property :numberOfPages, you can answer the competency question. For example, one could use the following SPARQL query (optionally filtering by the book’s label if available):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?label ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :numberOfPages ?numberOfPages .
+  OPTIONAL { ?book rdfs:label ?label . }
+  # Optionally, restrict to a particular book, for example:
+  # FILTER(CONTAINS(LCASE(?label), "nurse practices in cancer patient care"))
+}
+
+This query retrieves each book instance along with its label and the value of :numberOfPages, thereby fully answering the competency question under a closed world assumption.

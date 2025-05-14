@@ -1,0 +1,13 @@
+**No**
+
+The competency question "When did a certain performance take place?" cannot be fully answered by the ontology because there is no property to uniquely identify a specific performance (e.g., performance name or ID). The ontology defines the class `:Cl_Performance` and the property `:performanceDate` that links a performance to its date, but without a way to specify which performance we're interested in, we cannot retrieve the exact date for a particular performance.
+
+However, we can extract all performances and their dates using the following SPARQL query:
+
+```sparql
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?date .
+}
+```

@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer this competency question by writing a query that finds all productions that have a premier and then, using grouping and counting, verifies that each production has exactly one premier. Under a closed‐world assumption the absence of additional premier data means that what is in the dataset is all that is true. For example, the following SPARQL query returns each production (of type :Cl_Production) along with its unique premier and premierDate provided that exactly one premier is recorded:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (SAMPLE(?premier) AS ?thePremier) (SAMPLE(?premierDate) AS ?premierDate)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)

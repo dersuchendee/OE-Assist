@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption for the ontology, retrieves the plays written by a specific author (for instance “William Shakespeare”), using the classes and properties defined (Cl_Author, Cl_AuthorPlay, :hasAuthor, and :hasPlay):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playName
+WHERE {
+  ?author a :Cl_Author ;
+          :authorName "William Shakespeare" .
+  ?authorPlay a :Cl_AuthorPlay ;
+              :hasAuthor ?author ;
+              :hasPlay ?play .
+  ?play :playName ?playName .
+}
+--------------------------------------------------
+
+This query is answerable given the ontology, thus the CQ “What plays did a certain author write?” is modelled by the ontology.

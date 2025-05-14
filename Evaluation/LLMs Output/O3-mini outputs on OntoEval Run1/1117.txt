@@ -1,0 +1,17 @@
+**No**
+
+Since the ontology does not explicitly indicate which activity is immediately “previous” (there’s a property :previousActivity but no instance triples use it to order the user’s activities), the competency question “What did the user do previously?” cannot be fully answered. However, we can extract a partial answer by retrieving all activities performed by the user.
+
+For example:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?activity ?activityLabel
+WHERE {
+  ?activity a :Activity ;
+            :performedBy :User .
+  OPTIONAL { ?activity rdfs:label ?activityLabel. }
+}
+
+This query returns the activities performed by the user, which is a partial answer to the CQ under a closed world assumption.

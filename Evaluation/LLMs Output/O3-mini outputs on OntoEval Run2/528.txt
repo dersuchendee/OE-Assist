@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the album and its track count:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?trackCount 
+WHERE {
+  ?album a :Cl_Album ;
+         :trackCount ?trackCount .
+  # Optionally, filter for a specific album (e.g., StadiumArcadium)
+  FILTER(?album = :StadiumArcadium)
+}
+
+--------------------------------------------------
+
+This query demonstrates that the ontology explicitly models the number of tracks for an album using the :trackCount data property, so the competency question is fully supported.

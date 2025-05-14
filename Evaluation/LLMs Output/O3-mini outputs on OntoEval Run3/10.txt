@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?instrument ?instrumentLabel ?realization ?realizationLabel
+WHERE {
+  ?instrument a :Cl_MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  ?instrument :op_hasPhysicalRealization ?realization .
+  OPTIONAL { ?realization rdfs:label ?realizationLabel . }
+}
+```

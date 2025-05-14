@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the star rating a given newspaper gave for a given production:
+
+--------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?prodLabel ?newspaper ?newsLabel ?starRating
+WHERE {
+  ?production a theatre:Production .
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+  
+  ?production theatre:hasReview ?review .
+  ?review theatre:hasStarRating ?starRating .
+  ?review theatre:publishedIn ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?newsLabel . }
+}
+ORDER BY ?production ?newspaper
+--------------------------------------------------
+
+This query leverages the ontology’s available classes and properties – such as theatre:Production, theatre:hasReview, theatre:hasStarRating, and theatre:publishedIn – which support extracting the answer to the competency question under a closed world interpretation.

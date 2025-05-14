@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain any information about countries or regions, which is necessary to answer the competency question about the country in which a certain region is located. However, we can extract partial information about the locations that are part of the ontology.
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Region .
+  ?region :isPartOf ?country .
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer this competency question using the ontology because the employment start date is captured via the data property employmentStartDate (with domain Cl_Person) and the employedAt relation links a person (actor) to their theatre. Assuming we have individuals for the actor and theatre, a query may look like this:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?actor rdf:type :Cl_Person ;
+         :employedAt ?theatre ;
+         :employmentStartDate ?employmentStartDate .
+  
+  # Optionally, filter for a particular actor and theatre if known
+  # FILTER(?actor = <http://www.example.org/test#FabioBianchi> && ?theatre = <http://www.example.org/test#SpecificTheatre>)
+}
+--------------------------------------------------
+
+This query retrieves for each actor (a Cl_Person) that is employed at a theatre (via employedAt) the associated employmentStartDate, thus answering: “At what time did a certain actor start working for a specific theatre?” under the closed world assumption.

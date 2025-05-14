@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine when a specific performance took place. The ontology includes classes and properties related to performances, bands, and locations, but it lacks a direct connection between a specific performance and its date. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?performance ?band ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?band :hasPerformance ?performance .
+  ?performance :performedAt ?location .
+}
+```

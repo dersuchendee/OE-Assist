@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to extract the context of a meeting, such as the type of event or the reason for the meeting. The ontology includes classes and properties related to participants, places, and time, but it lacks explicit properties or classes that describe the context or purpose of the meeting in detail.
+
+Partial answer:
+```sparql
+SELECT ?meetup ?participant ?place ?time
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup mtps:hasParticipant ?participant . }
+  OPTIONAL { ?meetup mtps:hasPlace ?place . }
+  OPTIONAL { ?meetup mtps:happensAt ?time . }
+}
+```

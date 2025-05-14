@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the relationship between the carbon-nitrogen ratio and energy metabolism within microbial communities involved in carbon and nitrogen cycling. The ontology provides the necessary classes and properties to model this relationship.
+
+```sparql
+SELECT ?community ?communityLabel ?process ?processLabel
+WHERE {
+  ?process a :EnergyMetabolism .
+  ?process :affectedBy :CarbonNitrogenRatio .
+  ?process :occursIn ?community .
+  ?community a :MicrobialCommunityInCNCycling .
+
+  OPTIONAL { ?community rdfs:label ?communityLabel . }
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+```

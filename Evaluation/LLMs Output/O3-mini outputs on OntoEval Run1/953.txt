@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves for a given article collection instance (which is either a Book or a CD) the articles it contains:
+
+PREFIX : <http://example.org/articlecollection#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleTitle
+WHERE {
+  ?collection a ?type .
+  FILTER(?type IN (:Book, :CD))
+  OPTIONAL { ?collection rdfs:label ?collectionLabel. }
+  
+  ?collection :contains ?article .
+  OPTIONAL { ?article :hasArticleTitle ?articleTitle. }
+}
+ORDER BY ?collection ?articleTitle
+
+This query answers the competency question by extracting, for any Book or CD (which are subclasses of ArticleCollection), the articles that compose it.

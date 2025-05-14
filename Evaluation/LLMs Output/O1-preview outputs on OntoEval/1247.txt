@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?waterBody ?chemicalSubstance ?measurementTime ?levelValue
+WHERE {
+  ?observation a :ChemicalSubstanceObservation .
+  ?observation :isObservationOfWaterBody ?waterBody .
+  ?observation :isObservationOfChemicalSubstance ?chemicalSubstance .
+  ?observation :hasMeasurementTime ?measurementTime .
+  OPTIONAL { ?observation :hasLevelValue ?levelValue . }
+}
+```

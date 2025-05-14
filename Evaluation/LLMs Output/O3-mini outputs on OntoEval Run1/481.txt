@@ -1,0 +1,20 @@
+**Yes**
+
+One can answer a question such as “What role does a certain person have in a certain band at a certain point in time?” using this ontology. For example, to retrieve the role for John Frusciante in the Red Hot Chili Peppers at the time “1988-01-01T00:00:00”, one may write a query like:
+
+——————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleTime
+WHERE {
+  ?personRole a :Cl_PersonRole ;
+              :roleOf :JohnFrusciante ;
+              :roleInBand :RedHotChiliPeppers ;
+              :hasRole ?role ;
+              :roleTime ?roleTime .
+  FILTER(?roleTime = "1988-01-01T00:00:00"^^xsd:dateTime)
+}
+——————————————————————————————
+
+This query extracts the role (and its effective time) for the given person in the given band at the specified time.

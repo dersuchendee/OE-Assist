@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When was an instrument realization built?" can be answered using the ontology provided. The ontology includes the `InstrumentRealization` class and the `hasCreationDate` property, which indicates the specific date or time period when an instrument realization was built. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?instrumentRealization ?label ?creationDate
+WHERE {
+  ?instrumentRealization a :InstrumentRealization .
+  ?instrumentRealization rdfs:label ?label .
+  ?instrumentRealization :hasCreationDate ?creationDate .
+}
+ORDER BY ?creationDate
+```

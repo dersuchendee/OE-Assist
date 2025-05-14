@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a ns1:Person ;
+          ns1:playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+```

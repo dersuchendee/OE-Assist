@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the answer using the available relations, for example:
+
+---------------------------------
+PREFIX : <http://example.org/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+---------------------------------
+
+This query retrieves each hospital and the city in which it is located.

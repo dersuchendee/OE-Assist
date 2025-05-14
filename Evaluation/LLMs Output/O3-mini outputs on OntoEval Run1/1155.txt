@@ -1,0 +1,26 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the key attributes defined for FilmEvent instances (including title, genre, start time, location, and optionally any actors featured). This shows that the ontology supports the competency question.
+
+-----------------------------------------------------
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?filmEvent ?title ?genre ?startTime ?location ?locationLabel (GROUP_CONCAT(DISTINCT ?actor; separator=", ") AS ?actors)
+WHERE {
+  ?filmEvent a :FilmEvent .
+  ?filmEvent :hasTitle ?title .
+  ?filmEvent :hasGenre ?genre .
+  ?filmEvent :hasStartTime ?startTime .
+  ?filmEvent :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  OPTIONAL { ?filmEvent :featuresActor ?actor . }
+}
+GROUP BY ?filmEvent ?title ?genre ?startTime ?location ?locationLabel
+ORDER BY ?filmEvent
+
+-----------------------------------------------------
+
+Under the closed world assumption, this query lists the attribute values for film events—in this case, exemplified by the “X-men” preview event—thus satisfying the CQ "What are the attributes of this event category (e.g. a movie has a genre and a set of actors)?"

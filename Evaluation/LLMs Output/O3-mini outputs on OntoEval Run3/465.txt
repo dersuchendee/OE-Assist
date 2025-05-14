@@ -1,0 +1,28 @@
+**Yes**
+
+Assuming that a “certain band” is identified (for example, by its rdfs:label) and that each band membership (modeled by the reified class Cl_BandMembership) is linked to a time period (with data properties such as a start and end date on the time period instance), we can query for all membership instances that are active at a given time. For instance, if we want to know the members of the “Red Hot Chili Peppers” active on a given point in time (here bound as a fixed date “2005-01-01T00:00:00Z”), a SPARQL query under a closed world assumption would look like this:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel ?timePeriod ?start ?end
+WHERE {
+  ?band a :Cl_Band ;
+        rdfs:label "Red Hot Chili Peppers" ;
+        :hasMember ?membership .
+  
+  ?membership a :Cl_BandMembership ;
+              rdfs:label ?memberLabel ;
+              :memberOfDuring ?timePeriod .
+
+  ?timePeriod :start ?start ;
+              :end ?end .
+
+  FILTER ( "2005-01-01T00:00:00Z"^^xsd:dateTime >= ?start &&
+           "2005-01-01T00:00:00Z"^^xsd:dateTime <= ?end )
+}
+--------------------------------------------------
+
+This query retrieves, for the given band and the specified point in time, all membership instances (which due to the reification also represent the persons) along with their associated time period boundaries. (Note: The property names for the start and end of the time period are assumed; they should be replaced with the actual data properties from your ontology.)

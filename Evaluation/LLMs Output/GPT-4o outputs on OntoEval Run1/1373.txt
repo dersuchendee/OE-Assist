@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question "Is there a single bell or a poliorganic instrument (a set of bells) in a church/bell tower?" can be answered using the ontology provided. The ontology includes classes for `Bell`, `SetOfBells`, and `BellTower`, and relationships that connect these entities. We can write a SPARQL query to determine if a bell tower contains either a single bell or a set of bells.
+
+```sparql
+SELECT ?bellTower ?bell ?setOfBells
+WHERE {
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+
+  OPTIONAL {
+    ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+    ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+    ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+  }
+
+  OPTIONAL {
+    ?setOfBells a <https://w3id.org/polifonia/ontology/bell/SetOfBells> .
+    ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+  }
+}
+```
+
+This query checks for the presence of either a single bell or a set of bells within a bell tower, thus answering the competency question.

@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology defines a pivot class (:Cl_PlayCreation) that is a subclass of both :Cl_Play and :Cl_TimePeriod. In addition, it defines an object property (:wasWrittenDuring) linking a play to its creation period and a data property (:creationPeriod) for expressing the time period as a string. Under a closed‐world assumption, we assume that a play’s writing period is completely captured via these properties. Therefore, the following SPARQL query can be used (optionally filtering by title—for example, “Merchant of Venice”—if you are interested in a particular play):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?title ?creationPeriod
+WHERE {
+  ?play a :Cl_Play .
+  ?play :wasWrittenDuring ?playCreation .
+  ?playCreation :creationPeriod ?creationPeriod .
+  OPTIONAL { ?play :playTitle ?title . }
+  # If you wish to restrict to a specific play, uncomment the following filter:
+  # FILTER(CONTAINS(lcase(?title), "merchant of venice"))
+}

@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer the CQ “Give me information about this resource” because the ontology provides a class hierarchy (e.g., Resource, Product, Component, Material) with associated datatype and object properties (like rdfs:label, rdfs:comment, hasType, hasComposition, isUsedIn, etc.). Under a closed world assumption, we can write a SPARQL query to fetch all available information about resource instances. For example:
+
+-------------------------------
+PREFIX : <http://www.example.org/ontology/circular_value_network#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?resource ?property ?value
+WHERE {
+  ?resource a :Resource .
+  ?resource ?property ?value .
+}
+ORDER BY ?resource ?property
+-------------------------------
+
+This query returns all triples about each instance of Resource, which effectively “gives information” about the resource as required by the competency question.

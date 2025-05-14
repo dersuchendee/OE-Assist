@@ -1,0 +1,22 @@
+**Yes**
+
+We can retrieve the plays written by a given author (i.e. the plays the author “has written”) because the ontology includes both a reified authorship class (Cl_Authorship) that is linked to authors (domain of hasWritten is Cl_Author) and to plays (because Cl_Authorship is also a subclass of Cl_Play). Under the closed world assumption we assume that all needed assertions (links from authors to authorship instances and play titles) are explicitly stated. For a given author, we can query all associated Cl_Authorship instances and extract the play titles.
+
+A corresponding SPARQL query is:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?playTitle
+WHERE {
+  ?author a :Cl_Author .
+  ?author :hasWritten ?authorship .
+  ?authorship :playTitle ?playTitle .
+  # Optionally, to filter for a specific author, for example:
+  # FILTER(?author = <http://www.example.org/test#SpecificAuthor>)
+}
+ORDER BY ?author ?playTitle
+--------------------------------------------------
+
+This query extracts, for each author (a Cl_Author), the title of the play that was written by that author according to the modeled reified relationship using Cl_Authorship.

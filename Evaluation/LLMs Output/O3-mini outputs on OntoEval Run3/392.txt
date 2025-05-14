@@ -1,0 +1,33 @@
+**Yes**
+
+Assuming that a “production role” is modelled as a reified membership in the pivot class :Cl_ProductionRole (which is declared as a subclass of :Cl_Person, :Cl_Production, and :Cl_Role) and that a person’s participation in a given production (with an associated role name and role date) is captured via the object property :hasRoleInProduction, we can answer the CQ by “joining” the person to its production–role membership. In a closed‐world view we assume that any instance that is not explicitly stated does not hold. Thus, for a given person, a given production, and a given date (or time point) we can restrict the results accordingly.
+
+For example, if we assume the caller provides specific URIs for the person and the production and a date (or time point) for which the role is in effect, the SPARQL query would be as follows:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleDate
+WHERE {
+  # Assume these are the given parameters:
+  VALUES ?person { <http://www.example.org/test#Fabio_Bianchi> }
+  VALUES ?production { <http://www.example.org/test#Merchant_of_Venice_Production> }
+  VALUES ?targetDate { "2009-09-15"^^xsd:date }
+
+  ?person :hasRoleInProduction ?role .
+  ?role a :Cl_ProductionRole ;
+        :roleName ?roleName ;
+        :roleDate ?roleDate .
+
+  # Since :Cl_ProductionRole is also a subtype of :Cl_Production,
+  # we can restrict to the given production by requiring that
+  # the role–instance is (or denotes) the specific production:
+  FILTER(?role = ?production)
+
+  # Filter based on the designated (point in) time.
+  FILTER(?roleDate = ?targetDate)
+}
+--------------------------------------------------
+
+This query retrieves the role name and role date for the specified person in the given production at the exact time (here “2009‑09‑15”). Hence, the ontology does model the CQ.

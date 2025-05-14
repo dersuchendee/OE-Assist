@@ -1,0 +1,23 @@
+**No**  
+The ontology does not include explicit properties or restrictions that capture the measures (e.g. weight, dimensions, mounting system, material) of a bell. Under a closed world assumption, we cannot retrieve complete information for the measures as demanded by the CQ. However, a partial answer can be obtained by retrieving all properties of any bell that hint at measurement details, for example by filtering property IRIs for keywords such as “measure”, “weight”, “dimension”, “mounting” or “material” (if such properties exist in the dataset).
+
+For example, a partial SPARQL query could be:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bell ?bellLabel ?property ?value
+WHERE {
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel. }
+  ?bell ?property ?value.
+  FILTER (
+    regex(str(?property), "measure", "i") ||
+    regex(str(?property), "weight", "i") ||
+    regex(str(?property), "dimension", "i") ||
+    regex(str(?property), "mounting", "i") ||
+    regex(str(?property), "material", "i")
+  )
+}
+
+This query will return any data that might be related to measurement aspects of bells, though the ontology itself does not model these details explicitly.

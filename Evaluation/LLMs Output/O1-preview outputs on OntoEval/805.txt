@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question asks: "During what time period did a certain person study for a specific degree?"
+
+The ontology models this information through the classes `Cl_Person`, `Cl_MedicalDegree`, and `Cl_StudyPeriod`. The relationships `hasMedicalDegree` and `hasStudyPeriod` connect a person to their degrees and the corresponding study periods. Data properties `studyStartDate` and `studyEndDate` provide the time period of study.
+
+Here is the SPARQL query to extract the required information:
+
+```sparql
+SELECT ?person ?degreeTitle ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree a :Cl_MedicalDegree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod a :Cl_StudyPeriod .
+  ?studyPeriod :studyStartDate ?startDate .
+  ?studyPeriod :studyEndDate ?endDate .
+}
+```
+
+This query retrieves the person, the title of the degree they studied, and the start and end dates of the study period, effectively answering the competency question using the provided ontology.

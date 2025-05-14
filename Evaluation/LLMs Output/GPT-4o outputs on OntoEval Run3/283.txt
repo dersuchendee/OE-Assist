@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "How many acts does a particular play contain?" can be answered using the ontology provided. The ontology includes the `ns1:numberOfActs` property, which specifies the number of acts that a play contains. Therefore, we can write a SPARQL query to extract this information.
+
+```sparql
+SELECT ?play ?playLabel ?numberOfActs
+WHERE {
+  ?play a ns1:Play .
+  ?play rdfs:label ?playLabel .
+  ?play ns1:numberOfActs ?numberOfActs .
+}
+```

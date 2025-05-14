@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not explicitly model the relationship between seminars and articles being presented at them. While there is a class `Cl_SeminarArticlePresentation` and properties like `:articlePresentedIn` and `:presentationOfArticle`, there is no direct connection to ensure that at least one article is always presented at each seminar. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract information about articles presented in seminars:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?presentation rdf:type :Cl_SeminarArticlePresentation .
+  ?presentation :articlePresentedIn ?seminar .
+  ?presentation :presentationOfArticle ?article .
+}
+```

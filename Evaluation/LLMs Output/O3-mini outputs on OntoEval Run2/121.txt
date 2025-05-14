@@ -1,0 +1,23 @@
+**Yes**
+Below is one example SPARQL query that follows the reified modelling in the ontology. In this query we assume that a theatre festival (an instance of Cl_TheatreFestival) is linked to one or more productions (via an object property such as :hasProduction) and that each production is in turn linked to a play (via the property :hasPlay). Also note that the plays’ names are given by the data property :hasName. For example, to retrieve the plays shown during the “Roma Loves Shakespeare” festival you could use:
+
+################################################################################
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasName ?festivalName ;
+            :hasProduction ?production .
+  ?production a :Cl_TheatreProduction ;
+              :hasPlay ?play .
+  ?play :hasName ?playName .
+  
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+ORDER BY ?playName
+################################################################################
+
+With the closed‐world assumption, only the plays explicitly connected (via the reification linking the festival, production, and play) will be returned, which answers the competency question.

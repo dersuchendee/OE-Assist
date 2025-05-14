@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publicationTitle ?publicationDate
+WHERE {
+  ?pubInstance a :Cl_PublicationInstance .
+  ?pubInstance :hasPublication ?pub .
+  ?pubInstance :publicationDate ?publicationDate .
+  ?pub :publicationTitle ?publicationTitle .
+  { ?pub a :Cl_Book . }
+  UNION
+  { ?pub a :Cl_CD . }
+}
+```

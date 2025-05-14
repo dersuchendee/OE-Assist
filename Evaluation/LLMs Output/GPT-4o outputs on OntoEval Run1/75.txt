@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the date of a theatre festival. While there are classes and properties related to festivals, productions, and cities, the specific connection between a festival and its occurrence date is not clearly established in the ontology. Therefore, a partial answer can be extracted by querying for festivals and their associated productions, but not the exact date of the festival.
+
+```sparql
+SELECT ?festival ?festivalName ?production ?productionName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasName ?festivalName .
+  ?festival :hasProduction ?production .
+  ?production :hasName ?productionName .
+}
+```

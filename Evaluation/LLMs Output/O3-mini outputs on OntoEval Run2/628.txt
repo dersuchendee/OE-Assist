@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves each performance along with its label and performance date:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?performanceDate
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :hasPerformanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+------------------------------------------------
+
+This query shows that the ontology includes the necessary information (via the :hasPerformanceDate property) to answer the CQ "When did a certain performance take place?" under a closed world assumption.

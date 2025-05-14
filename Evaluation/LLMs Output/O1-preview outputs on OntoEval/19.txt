@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.semanticweb.org/sophia-music-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrumentRealization ?label ?creationDate
+WHERE {
+  ?instrumentRealization rdf:type :InstrumentRealization .
+  OPTIONAL { ?instrumentRealization rdfs:label ?label . }
+  ?instrumentRealization :hasCreationDate ?creationDate .
+}
+```

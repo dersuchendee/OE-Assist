@@ -1,0 +1,21 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName
+WHERE {
+    # Specify the production of interest
+    :Production_GrandTheatre_MerchantOfVenice rdf:type :Cl_Production .
+
+    # Find the ProductionPlay instance linking the production to the play
+    ?productionPlay rdf:type :Cl_ProductionPlay ;
+                    :hasProduction :Production_GrandTheatre_MerchantOfVenice ;
+                    :hasPlay ?play .
+
+    # Get the name of the play
+    ?play :playName ?playName .
+}
+```

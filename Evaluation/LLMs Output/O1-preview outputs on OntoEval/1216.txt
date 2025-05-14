@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?majorClass ?majorClassLabel ?subClass ?subClassLabel
+WHERE {
+  VALUES ?majorClass { :AquaticMicrobe :AquaticFungus }
+  
+  OPTIONAL { ?majorClass rdfs:label ?majorClassLabel }
+  
+  ?subClass rdfs:subClassOf ?majorClass .
+  OPTIONAL { ?subClass rdfs:label ?subClassLabel }
+}
+```

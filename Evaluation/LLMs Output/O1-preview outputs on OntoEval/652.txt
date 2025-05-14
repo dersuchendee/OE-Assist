@@ -1,0 +1,25 @@
+**Yes**
+
+The competency question is answerable because the ontology includes classes and properties that connect performances to songs via the property `:hasPerformance`. Specifically, `:Cl_PerformanceEvent` instances are linked to `:Cl_MusicTrack` instances (songs) through the `:hasPerformance` property.
+
+Here's the SPARQL query to retrieve the songs played in a certain performance:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?song ?songName
+WHERE {
+  # Specify the performance of interest
+  ?performance rdf:type :Cl_PerformanceEvent .
+  FILTER (?performance = :PortlandPerformance)
+  
+  # Find songs associated with the performance
+  ?performance :hasPerformance ?song .
+  ?song rdf:type :Cl_MusicTrack .
+  
+  # Optional: Get the song name if available
+  OPTIONAL { ?song :hasName ?songName . }
+}
+```
+
+This query selects the songs (`?song`) and their names (`?songName`) that were played during the specified performance (`:PortlandPerformance`). You can replace `:PortlandPerformance` with any other performance URI to get songs played in that performance.

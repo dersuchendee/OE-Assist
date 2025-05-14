@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a seminar is represented as an instance of :Cl_Seminar with an associated start date via the :startDate property, you can extract the date of a given seminar. For example, if the “certain seminar” is identified (e.g. by its URI or by a label), the following query returns its start date:
+
+-------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?startDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :startDate ?startDate .
+  # Uncomment and adjust the following line if you need to filter for a specific seminar
+  # FILTER(?seminar = :YourSeminarIdentifier)
+}
+-------------------------------
+
+This query shows that the ontology supports the competency question by directly linking a seminar instance with its date under a closed‐world assumption.

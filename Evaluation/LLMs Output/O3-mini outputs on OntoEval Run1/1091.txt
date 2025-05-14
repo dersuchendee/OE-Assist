@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology asserts that every Seminar (i.e., every instance of :Seminar) has at least one associated article via the restriction:
+
+  :Seminar rdfs:subClassOf [ a owl:Restriction ; owl:onProperty :presents ; owl:minCardinality "1"^^xsd:nonNegativeInteger ] .
+
+Thus, under the closed world assumption the competency question “At least one article is always presented at each seminar” is answerable via a query that retrieves each seminar together with the article(s) it presents. One such SPARQL query is:
+
+PREFIX : <http://example.org/seminararticles#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :presents ?article .
+}
+ORDER BY ?seminar
+
+This query lists all seminars along with at least one article they present.

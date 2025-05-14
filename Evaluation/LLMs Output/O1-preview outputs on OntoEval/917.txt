@@ -1,0 +1,44 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?union ?unionName ?roleName ?roleStart ?roleEnd
+WHERE {
+  ?role rdf:type :Cl_UnionRole .
+  ?role :roleHolder ?person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?role :hasUnionRole ?union .
+  OPTIONAL { ?union rdfs:label ?unionName . }
+  
+  ?role :roleName ?roleName .
+  ?role :roleStartDate ?roleStart .
+  OPTIONAL { ?role :roleEndDate ?roleEnd . }
+  
+  FILTER(?roleStart <= ?queryDate && ( !bound(?roleEnd) || ?roleEnd >= ?queryDate ))
+}
+```
+
+To use the query for a specific person, union group, and point in time, you can replace `?person`, `?union`, and `?queryDate` with specific values or add additional FILTER conditions. For example, to find the role of "Pasquale Di Gennaro" in "Union for Male Nurses" on "2002-01-01":
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleStart ?roleEnd
+WHERE {
+  ?role rdf:type :Cl_UnionRole .
+  ?role :roleHolder :Pasquale_Di_Gennaro .
+  ?role :hasUnionRole :Union_Male_Nurses .
+  
+  ?role :roleName ?roleName .
+  ?role :roleStartDate ?roleStart .
+  OPTIONAL { ?role :roleEndDate ?roleEnd . }
+  
+  FILTER(?roleStart <= "2002-01-01"^^xsd:date && ( !bound(?roleEnd) || ?roleEnd >= "2002-01-01"^^xsd:date ))
+}
+```
+
+This query will return the role "Union Representative" that Pasquale Di Gennaro has within the Union for Male Nurses starting from "2002-01-01".

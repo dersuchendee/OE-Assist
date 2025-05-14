@@ -1,0 +1,30 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question "What instruments does a certain person play?" Specifically, the `:plays` object property connects individuals of class `:Cl_Person` to `:Cl_Instrument`. Therefore, we can write a SPARQL query to extract the instruments played by a specific person.
+
+Here's an example SPARQL query:
+
+```sparql
+SELECT ?instrumentName
+WHERE {
+  :PersonName a :Cl_Person .
+  :PersonName :plays ?instrument .
+  ?instrument :instrumentName ?instrumentName .
+}
+```
+
+Replace `:PersonName` with the specific individual's URI (e.g., `:Flea`, `:JohnFrusciante`, etc.). This query retrieves the names of the instruments played by the specified person.
+
+If you want to list all persons and the instruments they play, you can use:
+
+```sparql
+SELECT ?personName ?instrumentName
+WHERE {
+  ?person a :Cl_Person .
+  ?person :name ?personName .
+  ?person :plays ?instrument .
+  ?instrument :instrumentName ?instrumentName .
+}
+```
+
+This query returns a list of all individuals and the instruments they play.

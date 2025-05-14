@@ -1,0 +1,21 @@
+**No**
+
+The ontology provided does not have a direct way to model the concept of an "ensemble" or its members at a specific point in time. The ontology includes classes and properties related to theatre productions, actors, roles, and festivals, but it lacks a specific structure to capture the membership of an ensemble at a certain point in time.
+
+Here's a SPARQL query to extract a partial answer, focusing on actors and their roles in productions:
+
+```sparql
+SELECT ?actor ?actorName ?production ?productionName ?role ?roleName
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :hasName ?actorName .
+  ?actor :performsIn ?production .
+  ?production :hasName ?productionName .
+  OPTIONAL {
+    ?actor :playsRole ?role .
+    ?role :hasName ?roleName .
+  }
+}
+```
+
+This query retrieves actors, the productions they perform in, and optionally their roles, but it does not capture the concept of an ensemble or the specific point in time of their membership.

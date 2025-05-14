@@ -1,0 +1,38 @@
+**Yes**
+
+We can answer this CQ using the ontology because it defines a class for cities (Cl_City) and an object property (locatedInRegion) linking any city to its region. Under the closed world assumption, if an instance of Cl_City is known to be linked with a region via :locatedInRegion, then the region of that city is determined.
+
+For example, if we want to know in what region a specific city (say, Portland) is located, we can use the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedInRegion ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+  FILTER(?city = <http://www.example.org/test#Portland>)
+}
+--------------------------------------------------
+
+If you need a more generic query that returns all cities and their associated regions, you could use:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedInRegion ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+}
+--------------------------------------------------
+
+Thus, the ontology models the CQ, and we can extract the answer with the provided SPARQL query.

@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves performances along with their location details (city, region and country) as specified in the story and modeled in the ontology:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?cityName ?regionName ?countryName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :tookPlaceAt ?city .
+  ?city a :Cl_City ;
+        :locationName ?cityName ;
+        :locatedIn ?region .
+  ?region a :Cl_Region ;
+          :locationName ?regionName ;
+          :regionInCountry ?country .
+  ?country a :Cl_Country ;
+           :locationName ?countryName .
+}
+ORDER BY ?performanceDate
+—————————————————————————————
+
+This query extracts the performance instances where the band performed (modeled as :Cl_Performance) along with the date and the location hierarchy defined in the ontology (city → region → country).

@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate union membership with a specific point in time. While there is a `hasMembershipPeriod` property, it is not directly linked to individuals in a way that allows querying for members at a specific time. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?union ?start ?end
+WHERE {
+  ?membership a ns1:UnionMembership ;
+              ns1:hasMember ?person ;
+              ns1:hasUnion ?union ;
+              ns1:hasMembershipPeriod ?period .
+  ?period time:hasBeginning ?start .
+  OPTIONAL { ?period time:hasEnd ?end . }
+}
+```

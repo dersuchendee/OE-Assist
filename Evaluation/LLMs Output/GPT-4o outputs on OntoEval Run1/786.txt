@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to query for the medical degrees of a specific person. The ontology includes a class `Cl_Person` and a class `Cl_MedicalDegree`, and there is an object property `hasMedicalDegree` that connects a person to a medical degree. However, the ontology does not provide any specific individuals or instances of these classes, nor does it provide any data properties or additional information that would allow us to query for a specific person's medical degrees.
+
+A partial SPARQL query to extract the medical degrees of any person (if instances were available) would look like this:
+
+```sparql
+SELECT ?person ?degree
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+}
+```
+
+This query assumes that there are instances of `Cl_Person` and `Cl_MedicalDegree` in the data, which are not provided in the ontology.

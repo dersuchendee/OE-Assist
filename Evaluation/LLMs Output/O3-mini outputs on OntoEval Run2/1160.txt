@@ -1,0 +1,24 @@
+**No**
+
+The ontology is partially supportive. It provides a reification class (Cl_TicketOrderingOption) with the data property (hasDefaultOptionValue) that indicates the default value. However, it does not link a Cl_TicketOrderingOption instance clearly to a specific user and context. For example, while a user is connected to Cl_TicketOption via the hasTicketOption property (with Cl_TicketOrderingOption defined in relation to having some ticket option), there is no explicit connection between Cl_User (or context details) and Cl_TicketOrderingOption. This means that although we can extract default values for a ticket ordering option, we cannot fully answer “What is the default value of this option for this user in this context?” without additional axioms or properties to relate the ordering option to a given user and context.
+
+A partial SPARQL query to extract the default value for a user’s ticket option is given below:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?user ?defaultValue
+WHERE {
+  ?user a :Cl_User ;
+        :hasTicketOption ?ticketOption .
+  ?orderingOption a :Cl_TicketOrderingOption ;
+         :hasTicketOption ?ticketOption ;
+         :hasDefaultOptionValue ?defaultValue .
+}
+---------------------------------
+
+This query will retrieve users along with the default option value associated with their ticket option. However, because there is no explicit link to the “context” (e.g., the event or other ordering conditions) in the ontology, only a partial answer can be obtained.

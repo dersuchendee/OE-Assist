@@ -1,0 +1,27 @@
+**Yes**
+The ontology uses reified band memberships (via ns1:BandMembership) that record the time interval during which a person is a member of a band (using ns1:memberDuring with a time interval having a begin and end date). Thus we can formulate a query that, for a given person, band, and a point in time, checks that the membership’s time interval covers that date and then returns the person’s role (via ns1:hasRole). For example:
+
+------------------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role
+WHERE {
+  ?person ns1:hasMembership ?membership .
+  ?membership ns1:membershipInBand ?band .
+  ?membership ns1:memberDuring ?interval .
+  ?interval ns1:hasBeginDate ?begin .
+  ?interval ns1:hasEndDate ?end .
+  ?person ns1:hasRole ?role .
+  
+  # Replace the following with the desired person, band, and time.
+  FILTER(
+    ?person = ns1:JohnFrusciante &&
+    ?band = ns1:RedHotChiliPeppers &&
+    xsd:date("2005-01-01") >= ?begin &&
+    xsd:date("2005-01-01") <= ?end
+  )
+}
+------------------------------------------------------------
+
+This query extracts the role that a specific person (here John Frusciante) has in a given band (Red Hot Chili Peppers) at the specific time (e.g., January 1, 2005).

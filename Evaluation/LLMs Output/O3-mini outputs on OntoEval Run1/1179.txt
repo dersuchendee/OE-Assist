@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, returns each instance of a set of bells together with an indication of whether the instance is played manually, electrically, or both. This query relies on the ontology’s classification (i.e. instances being explicitly typed as members of the appropriate class):
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?setOfBells 
+       (IF(?inBoth, "Manually and Electrically", 
+           IF(?inManual, "Manual Only", 
+              IF(?inElectric, "Electric Only", "Unknown"))) AS ?playMethod)
+       (COALESCE(?label, "No Label") AS ?setLabel)
+WHERE {
+  ?setOfBells a :SetOfBells .
+  OPTIONAL { ?setOfBells rdfs:label ?label . }
+  
+  # Check membership in each defined class:
+  BIND( EXISTS { ?setOfBells a :SetOfBellsPlayedManually } AS ?inManual ).
+  BIND( EXISTS { ?setOfBells a :SetOfBellsPlayedElectrically } AS ?inElectric ).
+  BIND( EXISTS { ?setOfBells a :SetOfBellsPlayedManuallyAndElectrically } AS ?inBoth ).
+}
+ORDER BY ?setOfBells
+-------------------------------------------------------
+
+In this query, we first retrieve each instance of :SetOfBells. Then, using the closed-world assumption, we check whether each such instance is classified (via explicit type assertions) as :SetOfBellsPlayedManually, :SetOfBellsPlayedElectrically, or :SetOfBellsPlayedManuallyAndElectrically. Based on these checks, the query returns a result indicating whether the set of bells is played manually, electrically, or both.

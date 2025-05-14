@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What articles is a specific book or CD composed of?" can be answered using the ontology provided. The ontology includes the `:composedOf` object property, which relates a `:Cl_Publication` (such as a book or CD) to `:Cl_Article`. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?publication ?publicationTitle ?article ?articleTitle
+WHERE {
+  ?publication a :Cl_Publication .
+  ?publication :publicationTitle ?publicationTitle .
+  ?publication :composedOf ?article .
+  ?article :articleTitle ?articleTitle .
+}
+```

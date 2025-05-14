@@ -1,0 +1,33 @@
+**Yes**
+
+The Competency Question "What are the members of a certain band at a certain point in time?" is answerable with the given ontology. The ontology models band memberships using `ns1:BandMembership`, which associates a `ns1:Person` with a `ns1:Band` and includes temporal information about the membership period through `ns1:memberDuring` and time intervals.
+
+Here's a SPARQL query that retrieves the members of a given band at a specified date:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?role ?instrument
+WHERE {
+  # Specify the band and the date here
+  BIND(ns1:RedHotChiliPeppers AS ?band)
+  BIND("2006-08-11"^^xsd:date AS ?date)
+  
+  ?person ns1:hasMembership ?membership .
+  ?membership a ns1:BandMembership .
+  ?membership ns1:membershipInBand ?band .
+  ?membership ns1:memberDuring ?timeInterval .
+  ?timeInterval ns1:hasBeginDate ?beginDate .
+  ?timeInterval ns1:hasEndDate ?endDate .
+  
+  FILTER (?beginDate <= ?date && ?date <= ?endDate) .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?person ns1:hasRole ?role . }
+  OPTIONAL { ?person ns1:playsInstrument ?instrument . }
+}
+```
+
+This query returns all the persons who were members of the specified band (`?band`) during the given date (`?date`). Replace `ns1:RedHotChiliPeppers` and `"2006-08-11"^^xsd:date` with the desired band and date to retrieve the relevant members.

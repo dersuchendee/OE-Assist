@@ -1,0 +1,15 @@
+**No**
+
+While the ontology supports retrieving a user’s location (through the Cl_User, Cl_Location, and the :hasLocation and :locatedIn properties), there is no modelling for where “the system runs.” Therefore, we can only extract a partial answer corresponding to where the user lives. A partial SPARQL query to retrieve the user’s living location is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?locationValue
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasLocation ?loc .
+  ?loc :locatedIn ?locationValue .
+}
+
+This query returns the location value associated with each user, but does not address “where the system runs.”

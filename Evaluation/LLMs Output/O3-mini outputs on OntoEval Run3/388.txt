@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one example of a SPARQL query that uses the reified “actor role” information to answer the CQ “What roles does a certain person have within a certain production at a certain point in time?” In our ontology the role an actor plays in a production is represented by an instance of the reification class (here :Cl_ActorRole) that “connects” an actor (embedded in the resource name or via a property), a role (via the :hasRole property), the production (via the :roleInProduction property) and the time‐period (via the :roleTimePeriod property). One can then extract the answer by filtering on the particular actor, production and time period of interest. For example, if one wants to know the roles “Fabio Bianchi” plays in production “The Merchant of Venice at The Grand Theatre” during “September 2009”, one may write:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorRole ?role ?roleName ?production ?productionName ?timePeriod ?timePeriodValue
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+             :hasRole ?role ;
+             :roleInProduction ?production ;
+             :roleTimePeriod ?timePeriod .
+  ?role :roleName ?roleName .
+  ?production :productionName ?productionName .
+  ?timePeriod :timePeriod ?timePeriodValue .
+
+  # Here we “filter” by a given actor, production and time period.
+  # (In this example the actor is indicated by a pattern in the actorRole’s URI name.)
+  FILTER(regex(str(?actorRole), "FabioBianchi"))
+  FILTER(?productionName = "The Merchant of Venice at The Grand Theatre")
+  FILTER(?timePeriodValue = "September 2009")
+}
+ORDER BY ?actorRole
+--------------------------------------------------
+
+This query retrieves the reified information linking the actor (here identified by “FabioBianchi” in the resource name), the role (with its label via ?roleName), the production (with its production name) and the time period (with its value). Thus the competency question is modeled by the ontology and answerable via such a SPARQL query.

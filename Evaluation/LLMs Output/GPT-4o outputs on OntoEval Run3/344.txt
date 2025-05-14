@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not include any properties or classes related to newspaper ratings or star ratings for productions. Therefore, the competency question cannot be fully answered using the given ontology. However, we can extract partial information about productions and newspapers.
+
+```sparql
+SELECT ?production ?newspaper
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL {
+    ?production :ratedBy ?rating .
+    ?rating a :Cl_NewspaperRating .
+    ?rating :starRating ?starRating .
+    ?rating a :Cl_Newspaper .
+  }
+}
+```

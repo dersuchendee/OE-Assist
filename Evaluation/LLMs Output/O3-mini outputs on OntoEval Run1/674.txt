@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each performance (or for a specified performance), the venue where it took place:
+
+-----------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?venue ?venueLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :performedAt ?venue .
+  OPTIONAL { ?venue rdfs:label ?venueLabel . }
+  
+  # Uncomment the following line to filter for a specific performance by label:
+  # FILTER (str(?performanceLabel) = "Live Performance in Portland")
+}
+-----------------
+
+This query answers the competency question "Where did a certain performance take place?" by extracting which venue each performance is associated with via the property :performedAt.

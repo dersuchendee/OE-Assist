@@ -1,0 +1,37 @@
+**Yes**
+Below is a SPARQL query that, given a band and a specific time, returns its members whose memberships cover that time. (Here we assume that the time:Interval individual used in the ontology has properties time:hasBeginning and time:hasEnd to denote the start and end of the interval.)
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?membershipInterval ?begin ?end
+WHERE {
+  # Specify the band of interest (e.g., “Red Hot Chili Peppers”)
+  ?band rdf:type :Band ;
+        rdfs:label "Red Hot Chili Peppers" .
+
+  # Retrieve memberships linking the band and its musicians
+  ?membership :membershipInBand ?band ;
+              :membershipTime ?membershipInterval .
+
+  # Assume a musician has that membership
+  ?member :memberOf ?membership ;
+          :hasName ?memberName .
+
+  # Get the start and end of the membership interval
+  ?membershipInterval time:hasBeginning ?begin ;
+                      time:hasEnd ?end .
+
+  # A given time (as an xsd:dateTime literal) is provided; for example:
+  BIND(xsd:dateTime("2004-10-01T00:00:00Z") AS ?time)
+  
+  # Check if the given time is within the membership interval
+  FILTER(?time >= ?begin && ?time <= ?end)
+}
+-----------------------------------------------------------
+
+This query directly answers the CQ by extracting the band members who were active at the specified point in time.

@@ -1,0 +1,26 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?energyData ?timestamp ?energyConsumption ?carbonEmission ?materialFlow ?directEffect ?indirectEffect ?reboundEffect ?economicValue ?environmentalValue ?socialValue ?valueCreated ?valueMissed ?valueDestroyed
+WHERE {
+  ?energyData a :EnergyData ;
+              :hasChange ?change .
+  ?change :hasTimestamp ?timestamp .
+  
+  OPTIONAL { ?change :hasEnergyConsumption ?energyConsumption . }
+  OPTIONAL { ?change :hasCarbonEmission ?carbonEmission . }
+  OPTIONAL { ?change :hasMaterialFlow ?materialFlow . }
+  OPTIONAL { ?change :hasDirectEffect ?directEffect . }
+  OPTIONAL { ?change :hasIndirectEffect ?indirectEffect . }
+  OPTIONAL { ?change :hasReboundEffect ?reboundEffect . }
+  OPTIONAL { ?change :hasEconomicValue ?economicValue . }
+  OPTIONAL { ?change :hasEnvironmentalValue ?environmentalValue . }
+  OPTIONAL { ?change :hasSocialValue ?socialValue . }
+  OPTIONAL { ?change :hasValueCreated ?valueCreated . }
+  OPTIONAL { ?change :hasValueMissed ?valueMissed . }
+  OPTIONAL { ?change :hasValueDestroyed ?valueDestroyed . }
+}
+```

@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific resource (by its URI), retrieves its composition and the components or materials that compose it:
+
+------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?resourceLabel ?composition ?component ?componentLabel
+WHERE {
+  # Bind the specific resource (replace <RESOURCE_URI> with the actual resource URI)
+  BIND(<RESOURCE_URI> AS ?resource) .
+  
+  OPTIONAL { ?resource rdfs:label ?resourceLabel . }
+  
+  # Get the associated composition from the resource
+  ?resource :hasComposition ?composition .
+
+  # Get the components/materials that make up the composition
+  ?composition :isComposedOf ?component .
+  OPTIONAL { ?component rdfs:label ?componentLabel . }
+}
+------------------------------------------------------------
+
+This query answers the competency question "What is the composition of a specific resource?" by extracting the composition information (through the property :hasComposition) and the constituent components or materials (via :isComposedOf) for the given resource under a closed world assumption.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct connection between a production and the play it is based on. The property `:isBasedOnPlay` is a datatype property with a range of `xsd:string`, which means it stores the name of the play as a string rather than linking to an instance of `:Cl_Play`. Therefore, we cannot directly query for the play that a production is based on using the ontology's structure.
+
+Partial answer:
+```sparql
+SELECT ?production ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :isBasedOnPlay ?playName .
+}
+```

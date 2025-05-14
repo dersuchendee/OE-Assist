@@ -1,0 +1,13 @@
+Answer: **Yes**
+
+Because the ontology includes the necessary classes and properties to answer the competency question. The class `:Cl_Play` represents a play, and the property `:hasNumberOfActs` (with domain `:Cl_Play` and range `xsd:integer`) allows us to retrieve the number of acts for each play. Therefore, we can write a SPARQL query to extract the number of acts that a particular play contains.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasNumberOfActs ?numberOfActs .
+}
+```

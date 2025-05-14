@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that individuals are explicitly declared in the ontology (closed world assumption) and that authors are connected to the plays they wrote via the wrotePlay property, we can extract the answer with the following SPARQL query:
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?author ?play
+WHERE {
+  ?author rdf:type :Cl_Author .
+  ?author :wrotePlay ?play .
+}
+------------------------------------
+
+This query retrieves each author (of type Cl_Author) and the plays (of type Cl_Play – as per the range of wrotePlay) they wrote, thus fully supporting the competency question "What plays did a certain author write?"

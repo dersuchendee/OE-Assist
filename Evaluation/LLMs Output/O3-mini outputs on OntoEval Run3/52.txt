@@ -1,0 +1,13 @@
+**Yes**
+
+Below is one example SPARQL query. In this query we assume that “this process” is passed as a parameter (here using :ProcessA as an example) and we use the property :isProcessOf to find the related CVN(s):
+
+PREFIX : <http://www.example.org/cvn_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?cvn ?cvnLabel
+WHERE {
+  VALUES ?process { :ProcessA }  # Replace :ProcessA with the process of interest
+  ?process :isProcessOf ?cvn .
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+}

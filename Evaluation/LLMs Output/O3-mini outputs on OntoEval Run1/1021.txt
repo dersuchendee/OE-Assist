@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a ns1:Seminar ;
+           ns1:hasDate ?date .
+  # Optionally, if targeting the specific seminar mentioned in the story:
+  FILTER(?seminar = ns1:SeminarOnNewArticles)
+}
+```

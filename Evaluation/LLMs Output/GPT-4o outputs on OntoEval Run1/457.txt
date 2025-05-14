@@ -1,0 +1,15 @@
+**No**
+
+The competency question "What are the members of a certain band at a certain point in time?" is not fully supported by the ontology. The ontology provides information about band memberships and the time of membership, but it does not directly link a specific point in time to the members of a band. The ontology would need a mechanism to query members at a specific time, such as a time-based membership history.
+
+Partial SPARQL query to extract band members and their membership times:
+
+```sparql
+SELECT ?band ?member ?membershipTime
+WHERE {
+  ?membership rdf:type :Cl_BandMembership .
+  ?membership :hasMember ?member .
+  ?membership :memberOf ?band .
+  ?membership :membershipTime ?membershipTime .
+}
+```

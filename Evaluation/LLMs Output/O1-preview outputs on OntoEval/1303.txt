@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question is supported by the ontology because the ontology includes the necessary classes and properties to represent a `VariantAssertion` that connects a `Composition` to a `TuneFamily` with an associated `hasConfidenceLevel`. This allows us to query the confidence level of a specific composition being a variant in a specific tune family.
+
+Here is the SPARQL query to retrieve the confidence level for a given composition `:CompositionX` and tune family `:TuneFamilyY`:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?confidenceLevel
+WHERE {
+  :CompositionX a :Composition .
+  :TuneFamilyY a :TuneFamily .
+  
+  ?variantAssertion a :VariantAssertion ;
+                    :relatesComposition :CompositionX ;
+                    :relatesTuneFamily :TuneFamilyY ;
+                    :hasConfidenceLevel ?confidenceLevel .
+}
+```
+
+This query finds the `VariantAssertion` that relates `:CompositionX` to `:TuneFamilyY` and retrieves the associated `?confidenceLevel`. Replace `:CompositionX` and `:TuneFamilyY` with the actual URIs of the composition and tune family you are interested in.

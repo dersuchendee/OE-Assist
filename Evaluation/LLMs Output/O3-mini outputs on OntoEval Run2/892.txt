@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that selects persons who are members of a given union (here, for instance, the Male Nurses Union) at a specified point in time. In this query we assume that a person has a union membership (via the property :isMemberOf) which in turn links (via :membershipInUnion) to a union, and that each union membership has a start date (and, if applicable, an end date). The filter checks that the given point in time falls on or after the membership start date and (if an end date is given) on or before the membership end date.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :isMemberOf ?membership .
+  ?membership :membershipInUnion :MaleNursesUnion .
+  ?membership :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  
+  # Replace "2003-01-01" with any point in time (as an xsd:date)
+  FILTER(
+    xsd:date("2003-01-01") >= ?start &&
+    ( !bound(?end) || xsd:date("2003-01-01") <= ?end )
+  )
+}
+-----------------------------------------------------------
+
+In this query the union is set to :MaleNursesUnion and the time point is "2003-01-01". You may replace these with the desired union URI and date literal to answer the competency question.

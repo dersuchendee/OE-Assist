@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, returns the location (place) of a given performance by following the “takesPlaceAt” property from a Performance:
+  
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?place ?placeName
+WHERE {
+  ?performance a :Performance ;
+               :takesPlaceAt ?place .
+  OPTIONAL { ?place :placeName ?placeName . }
+} 
+
+This query confirms that the ontology models the CQ “Where did a certain performance take place?” by retrieving the performance and its associated place.

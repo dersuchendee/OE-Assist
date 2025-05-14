@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not contain any information about authors or their written works. Therefore, it is not possible to directly answer the competency question "What plays did a certain author write?" using the given ontology. However, we can extract partial information about plays that are part of theatre festivals.
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasPlay ?play .
+  ?play :playName ?playName .
+}
+```

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?album (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTracks ?track .
+  # Optionally filter by a specific album URI:
+  # FILTER(?album = <http://www.example.org/test#StadiumArcadium>)
+}
+GROUP BY ?album
+```

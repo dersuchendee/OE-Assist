@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title ?startDate ?endDate
+WHERE {
+  ?play a :Play ;
+        :hasTitle ?title ;
+        :wasWrittenDuring ?timeInterval .
+  ?timeInterval :hasStartDate ?startDate ;
+                :hasEndDate ?endDate .
+  # Optionally, filter by a specific play title:
+  FILTER(?title = "The Merchant of Venice")
+}
+```

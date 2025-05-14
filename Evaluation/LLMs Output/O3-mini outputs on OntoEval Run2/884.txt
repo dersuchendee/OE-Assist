@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that union membership over time is modelled by the properties “hasMemberAt” (from a :Union to a staff member) and “atTime” (which marks the point in time when that membership applies), we can answer the CQ “Who are the members of a certain union at a certain point in time?” by writing a query that, for a given union and time, retrieves its members. Under the closed world assumption, only explicitly asserted triples are considered, so only those unions with an asserted “hasMemberAt” triple—and an associated “atTime” value—will be returned.
+
+For example, if we want to know the members of a union (with a given IRI or label) at a specific time (e.g., “2002-01-01T00:00:00Z”), the following SPARQL query can be used:
+
+--------------------------------------------------
+PREFIX : <http://example.org/union#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?union ?unionLabel ?member ?memberLabel ?time
+WHERE {
+  ?union a :Union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  
+  ?union :hasMemberAt ?member .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  ?member :atTime ?time .
+  
+  FILTER(?time = "2002-01-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?union ?member
+--------------------------------------------------
+
+This query finds all unions and their members that are related via the :hasMemberAt property and filters for those cases where the membership is asserted at the specified time.

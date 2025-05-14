@@ -1,0 +1,13 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?critic ?criticLabel ?record ?recordLabel ?reviewContent
+WHERE {
+  ?review a ns1:Review ;
+          ns1:reviewedBy ?critic ;
+          ns1:reviewOf ?record ;
+          ns1:hasContent ?reviewContent .
+  OPTIONAL { ?critic rdfs:label ?criticLabel . }
+  OPTIONAL { ?record rdfs:label ?recordLabel . }
+}
+```

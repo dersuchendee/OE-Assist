@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for the premier date of a specific production. The ontology includes classes and properties related to productions, premier events, and dates, but it lacks a direct connection between a specific production and its premier date. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?production ?premier ?premierDate
+WHERE {
+  ?premier a :Cl_PremierEvent .
+  ?premier :productionOf ?production .
+  ?premier :premierDate ?premierDate .
+}
+```

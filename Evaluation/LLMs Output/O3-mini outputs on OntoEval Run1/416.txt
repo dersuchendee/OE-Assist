@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, returns productions along with their (exactly one) premier date:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+GROUP BY ?production ?premier
+HAVING (COUNT(?premier) = 1)
+-------------------------------------------------
+
+This query lists each production and its unique premier date, ensuring that every production returned has exactly one premier as required by the CQ.

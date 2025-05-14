@@ -1,0 +1,46 @@
+**No**
+
+The ontology does not provide temporal information associated with the roles that a person holds within a union at specific points in time. While we have information about persons, unions, roles, and membership periods, the specific time points when a person holds a particular role within a union are not modeled in the ontology. The `ns1:hasRole` property does not include temporal qualifiers, and there is no mechanism to associate time intervals with roles.
+
+Here is a SPARQL query to extract partial information about persons, their roles within unions, and union memberships:
+
+```sparql
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?union ?unionName ?role ?roleName ?membershipStart ?membershipEnd
+WHERE {
+  ?person a ns1:Person .
+  OPTIONAL { ?person foaf:name ?personName . }
+
+  OPTIONAL {
+    ?person ns1:memberOf ?unionMembership .
+    ?unionMembership ns1:hasUnion ?union .
+    OPTIONAL { ?union rdfs:label ?unionName . }
+
+    OPTIONAL {
+      ?unionMembership ns1:hasMembershipPeriod ?membershipPeriod .
+      ?membershipPeriod time:hasBeginning ?membershipStart .
+      OPTIONAL { ?membershipPeriod time:hasEnd ?membershipEnd . }
+    }
+  }
+
+  OPTIONAL {
+    ?person ns1:hasRole ?role .
+    ?role a ns1:UnionRole .
+    OPTIONAL { ?role rdfs:label ?roleName . }
+    ?role ns1:roleInUnion ?union .
+  }
+}
+```
+
+This query retrieves:
+
+- Persons and their names.
+- Unions and their names that the persons are members of.
+- Roles that the persons have within unions.
+- Membership start and end dates (if available).
+
+**Note:** The query provides partial information because it lacks the temporal association between the roles and specific points in time. Without modeling the temporal aspect of role assignments (e.g., using a reified relationship or associating time intervals with `ns1:hasRole`), we cannot fully answer the competency question.

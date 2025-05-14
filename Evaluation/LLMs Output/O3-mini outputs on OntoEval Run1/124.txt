@@ -1,0 +1,24 @@
+**Yes**
+Below is a SPARQL query that, using the closed world assumption, retrieves the plays shown during a given theatre festival (here exemplified by a festival whose label is "Roma Loves Shakespeare") by following the chain from the festival to its festival participations, then to the productions and, via the production, to the play that is being produced.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival rdfs:label ?festivalLabel .
+  FILTER(?festivalLabel = "Roma Loves Shakespeare") .
+  
+  ?festival :hasFestivalParticipation ?festPart .
+  ?production a :Cl_Production .
+  ?production :hasProductionParticipation ?festPart .
+  ?production :isProductionOf ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+--------------------------------------------------
+
+This query confirms that the competency question "What plays could be seen during a certain theatre festival?" is answerable using the ontology.

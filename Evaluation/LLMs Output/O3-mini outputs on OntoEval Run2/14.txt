@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?instrument ?inventor
+WHERE {
+  ?event rdf:type :Cl_InventionEvent .
+  ?event :Op_inventionEvent ?instrument .
+  ?event :Op_inventor ?inventor .
+}
+ORDER BY ?instrument
+```

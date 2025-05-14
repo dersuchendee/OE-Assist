@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?writtenDuring
+WHERE {
+  ?play a :Cl_Play .
+  ?play :writtenDuring ?writtenDuring .
+}
+```
+
+In this ontology the property :writtenDuring (with domain :Cl_Play) is used to record the time period during which a play was written. Thus, for a given play (e.g., “The Merchant of Venice”), the SPARQL query above retrieves its written period, satisfying the CQ under the closed world assumption.

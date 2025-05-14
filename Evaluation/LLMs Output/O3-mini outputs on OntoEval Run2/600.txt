@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer “When was a certain song composed?” by retrieving the composition date from songs (instances of :Cl_Song) via the :composedDate data property. Under the closed world assumption (i.e. only those song instances explicitly stating a composed date will be returned), the following SPARQL query delivers the answer:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?composedDate
+WHERE {
+  ?song a :Cl_Song ;
+        :composedDate ?composedDate .
+}
+---------------------------------
+
+This query assumes that the song of interest is among those explicitly described in the ontology with a composed date.

@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?play ?playTitle
+WHERE {
+  ?production a :TheatreProduction .
+  ?production :productionOf ?play .
+  OPTIONAL { ?play :hasTitle ?playTitle . }
+}
+```

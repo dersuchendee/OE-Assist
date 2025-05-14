@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :op_writtenBy ?author .
+  ?author rdf:type :Cl_Author .
+  ?author :dp_authorName ?authorName .
+  
+  # Replace "William Shakespeare" with the desired author name
+  FILTER (str(?authorName) = "William Shakespeare")
+  
+  OPTIONAL { ?play :dp_title ?playTitle . }
+}
+```
+
+This SPARQL query retrieves the plays written by a specific author. It matches plays of type `:Cl_Play` that are connected via the `:op_writtenBy` property to an author of type `:Cl_Author`. By filtering on the author's name (e.g., "William Shakespeare"), it extracts the titles of the plays written by that author.

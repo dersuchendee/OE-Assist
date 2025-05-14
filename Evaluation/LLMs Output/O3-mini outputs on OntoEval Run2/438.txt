@@ -1,0 +1,25 @@
+**Yes**
+
+We can retrieve the instruments played by a given person using the playsInstrument property. For example, assuming the URI of the person is provided as a parameter (e.g. ex:PersonX), a possible SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?instrument 
+WHERE {
+  :PersonX a :Cl_Person ;
+           :playsInstrument ?instrument .
+}
+
+In a more general query (if you want to list all persons with their instruments) you could use:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person ;
+          :playsInstrument ?instrument .
+}
+
+This demonstrates that the ontology models the competency question.

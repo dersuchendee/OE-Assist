@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a festival. The `hasLocation` property is defined with `Cl_TheatreFestival` as its domain and `Cl_City` as its range, but there is no instance data provided in the ontology to query against. Therefore, a partial answer can be extracted by querying for festivals and their associated locations, assuming such data exists.
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival :hasLocation ?location . }
+}
+```

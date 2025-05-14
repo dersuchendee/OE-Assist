@@ -1,0 +1,14 @@
+**No**
+
+The competency question asks for the "star rating" given by a certain newspaper for a certain production. The ontology contains information about reviews and ratings, but it does not explicitly connect a newspaper to a specific production through a review. The ontology does have a class `Cl_ReviewRating` and a property `:reviews` that connects a newspaper to a review rating, but it does not directly connect this to a specific production.
+
+Here's a SPARQL query to extract a partial answer, which retrieves the star rating for a production, but without specifying the newspaper:
+
+```sparql
+SELECT ?production ?starRating
+WHERE {
+  ?reviewRating a :Cl_ReviewRating ;
+                :concerns ?production ;
+                :hasStarRating ?starRating .
+}
+```

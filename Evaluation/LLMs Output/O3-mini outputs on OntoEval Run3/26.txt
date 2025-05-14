@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide any explicit connection between products and manufacturers. While a manufacturer individual (:manufacturer) is present, there is no structure in the ontology that relates a product (or class of products) to a manufacturer. Under the closed world assumption, we know that if a relation were intended to be captured, it would need explicit axioms or properties linking products to manufacturers, which are absent.
+
+A partial SPARQL query to retrieve the manufacturer individual is:
+
+PREFIX : <http://w3id.org/CEON/ontology/actor/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?manufacturer
+WHERE {
+  ?manufacturer rdf:type :manufacturer .
+}

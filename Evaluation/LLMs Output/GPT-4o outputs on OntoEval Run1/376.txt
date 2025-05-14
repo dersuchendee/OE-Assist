@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate roles with specific productions and time points. The ontology includes classes and properties for actors, roles, and productions, but it lacks a mechanism to specify the roles an actor has within a specific production at a specific time. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?actor ?role ?production
+WHERE {
+  ?actor a theatre:Actor .
+  ?actor theatre:hasRole ?role .
+  ?actor theatre:participatesIn ?production .
+}
+```

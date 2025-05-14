@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?collection ?article ?articleTitle
+WHERE {
+  # Select either a Book or a CD as an article collection
+  ?collection a ?type .
+  FILTER(?type = :Book || ?type = :CD) .
+  
+  # Retrieve the articles contained within the collection
+  ?collection :contains ?article .
+  
+  # Optionally, get the title of the article
+  OPTIONAL { ?article :hasArticleTitle ?articleTitle } .
+}
+ORDER BY ?collection ?article
+```

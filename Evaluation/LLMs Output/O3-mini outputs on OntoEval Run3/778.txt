@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves all the medical degrees (with titles and obtained dates when available) for the person PasqualeDiGennaro.
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeTitle ?obtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?obtainedDate . }
+}
+--------------------------------------------------------
+
+This query shows that the CQ is fully supported by the ontology.

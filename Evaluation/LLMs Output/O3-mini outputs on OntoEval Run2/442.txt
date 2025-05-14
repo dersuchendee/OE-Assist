@@ -1,0 +1,34 @@
+**Yes**
+Below is an example SPARQL query that retrieves the members of a given band (e.g. “Red Hot Chili Peppers”) who were active at a specified point in time (provided as ?givenTime). This query uses the closed world assumption by expecting that a missing membershipEnd indicates an ongoing membership.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?role ?membershipStart ?membershipEnd
+WHERE {
+  # Identify the musical group by name (change the string value as needed)
+  ?band a :Cl_MusicalGroup ;
+        :hasName "Red Hot Chili Peppers" ;
+        :hasMembership ?membership .
+  
+  # Find membership details
+  ?membership :hasRole ?role ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Connect the person that holds this membership
+  ?person :memberOf ?membership .
+  
+  # Define the point in time for which we check membership (update this value as needed)
+  BIND(xsd:date("2005-01-01") AS ?givenTime) .
+  
+  # Filter: the membership must have started on or before ?givenTime and either not ended or ended after ?givenTime
+  FILTER (?membershipStart <= ?givenTime 
+          && ( !BOUND(?membershipEnd) || ?membershipEnd >= ?givenTime ))
+}
+ORDER BY ?person
+-----------------------------------------------------------
+
+This query answers the competency question "What are the members of a certain band at a certain point in time?" using the ontology provided.

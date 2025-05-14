@@ -1,0 +1,30 @@
+**Yes**
+
+Assuming that being “a member of an ensemble at a given point in time” means that an individual has an ensemble membership instance with an :atTime value exactly equal to the given time (and that the ensemble links its memberships to the respective individuals), you can answer the competency question with a query like this:
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?ensemble ?individual ?individualName ?time 
+WHERE {
+  # Select the specific ensemble of interest.
+  ?ensemble a :Cl_Ensemble.
+  FILTER(?ensemble = <http://www.example.org/test#MerchantOfVeniceEnsemble>) .
+  
+  # Link the ensemble to its members
+  ?ensemble :hasMember ?individual.
+  OPTIONAL { ?individual :hasName ?individualName. }
+  
+  # Get the membership reification which records the time information
+  ?individual :hasEnsembleMembership ?membership.
+  ?membership :atTime ?time.
+  
+  # Only include memberships that hold at the specified point in time.
+  FILTER(?time = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?individual
+-----------------------------------------------
+
+This query returns the ensemble (here specifically the MerchantOfVeniceEnsemble), each individual member (with an optional name), and the time stamp of their membership – effectively answering “Who are the members of a certain ensemble at a certain point in time?” under the closed world assumption.

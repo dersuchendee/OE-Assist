@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the ontology has individuals for hospitals linked to the city where they are located via the property :locatedIn (with domain :Cl_Hospital and range :Cl_City), you can answer the competency question. Here is an example SPARQL query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?hospital ?city
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+}
+------------------------------------------------
+
+This query retrieves each hospital and the corresponding city where it is located, fulfilling the competency question "In what city is a certain hospital located?" under the closed world assumption.

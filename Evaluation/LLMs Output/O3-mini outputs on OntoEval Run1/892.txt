@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, returns persons who are members of a given union (here, for example, :MaleNursesUnion) at a given point in time (here, “2003‑01‑01”):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :isMemberOf ?membership .
+  ?membership :membershipInUnion :MaleNursesUnion ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  FILTER(
+    ?membershipStartDate <= "2003-01-01"^^xsd:date &&
+    ( !BOUND(?membershipEndDate) || ?membershipEndDate >= "2003-01-01"^^xsd:date )
+  )
+}
+--------------------------------------------------
+
+This query retrieves the persons who are members of the specified union at the given time point.

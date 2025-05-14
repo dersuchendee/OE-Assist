@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+    ?actor rdf:type :Cl_Actor .
+    ?actor :actorName ?actorName .
+    ?actor :employedAt ?employment .
+
+    ?employment rdf:type :Cl_ActorEmployment .
+    ?employment :employmentTheatre ?theatre .
+    ?employment :employmentStartDate ?startDate .
+
+    ?theatre rdf:type :Cl_Theatre .
+    ?theatre :theatreName ?theatreName .
+}
+```

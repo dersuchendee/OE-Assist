@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the play name which serves as the basis for a given production:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?playName
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :basedOnPlay ?productionPlay .
+  ?productionPlay :playName ?playName .
+}
+--------------------------------
+
+In this query, we assume that productions are explicitly asserted as instances of :Cl_Production and that the link from a production to its underlying play is modeled via the property :basedOnPlay, while the play’s name is provided by the data property :playName. Under the closed world assumption, only those productions and plays that are stated in the ontology will be returned.

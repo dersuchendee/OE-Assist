@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves for a given person (e.g. Pasquale Di Gennaro) and a given hospital (e.g. Ospedale Riunito delle Tre Valli) the first employment date by selecting the minimum employmentDate from the reified employment events:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?date) AS ?firstEmploymentDate)
+WHERE {
+  :Pasquale_Di_Gennaro a :Cl_Person ;
+                           :employedAt ?employment .
+  ?employment :employmentDate ?date ;
+              :employedAt :Ospedale_Riunito_delle_Tre_Valli .
+}
+
+This query answers the competency question “When was a certain person first employed at a certain hospital?” according to the ontology’s modelling of employment via a reified event (i.e. an instance of Cl_PersonHospitalEmployment with an employmentDate property and a connection to a hospital).

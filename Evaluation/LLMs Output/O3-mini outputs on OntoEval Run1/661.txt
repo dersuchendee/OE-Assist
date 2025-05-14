@@ -1,0 +1,23 @@
+**Yes**
+
+You can answer the CQ using the ontology by retrieving each monitoring point, its measurements, and for each measurement the physical parameter, the time of recording, and the value. Under the closed world assumption (i.e. assuming no unasserted data exists), the following SPARQL query retrieves the required information:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+  
+  ?monitoringPoint :hasMeasurement ?measurement .
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+  
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+
+This query fully extracts the information needed to answer: “What physical parameters have been recorded at each monitoring point, and how do these measurements vary over time?”

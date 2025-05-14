@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that uses the reified employment relationship (modeled as instances of Cl_ActorEmployment) to report the employment start date of a given actor at a given theatre:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actorName ?theatreName ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :employment_actor ?actor ;
+              :employment_theatre ?theatre ;
+              :employment_start_date ?startDate .
+  ?actor rdfs:label ?actorName .
+  ?theatre rdfs:label ?theatreName .
+  
+  # Replace the following FILTER values with the desired actor and theatre names
+  FILTER(?actorName = "Fabio Bianchi" && ?theatreName = "The Grand Theatre")
+}
+--------------------------------------------------
+
+This query retrieves the actor’s name, the theatre’s name, and the start date when the actor began working at the theatre.

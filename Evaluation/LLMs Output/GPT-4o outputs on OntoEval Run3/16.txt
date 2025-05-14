@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "When was an instrument invented?" can be answered using the ontology provided. The ontology includes the class `Cl_InstrumentInvention` and the data property `dp_inventionDate`, which can be used to retrieve the invention date of a musical instrument.
+
+```sparql
+SELECT ?instrument ?inventionDate
+WHERE {
+  ?instrument a :Cl_MusicalInstrument .
+  ?instrument :op_hasInvention ?invention .
+  ?invention :dp_inventionDate ?inventionDate .
+}
+```

@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the type of a specific resource (e.g., whether it is a product, component, or material). The ontology only provides information about resources, materials, recycling processes, and efficiencies. Here's a SPARQL query to extract partial information about resources and their materials:
+
+```sparql
+SELECT ?resource ?resourceLabel ?material ?materialLabel
+WHERE {
+  ?resource a :Resource .
+  OPTIONAL { ?resource rdfs:label ?resourceLabel . }
+  OPTIONAL {
+    ?resource :isMadeOf ?material .
+    OPTIONAL { ?material rdfs:label ?materialLabel . }
+  }
+}
+```

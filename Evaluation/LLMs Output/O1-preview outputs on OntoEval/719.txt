@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+The competency question can be answered using the ontology provided. The ontology defines classes `:Cl_Region` and `:Cl_Country`, and an object property `:op_isLocatedIn` that relates regions to countries. It also includes instances `:Ind_Oregon` (a region) and `:Ind_US` (a country), with `:Ind_Oregon` related to `:Ind_US` via `:op_isLocatedIn`.
+
+Here is the SPARQL query to retrieve the countries in which certain regions are located:
+
+```sparql
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  ?region :op_isLocatedIn ?country .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```

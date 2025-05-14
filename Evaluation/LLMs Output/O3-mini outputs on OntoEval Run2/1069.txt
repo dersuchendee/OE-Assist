@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the location (and associated details) where a seminar took place. This query uses the occurrence event of a seminar (modeled as :Cl_SeminarEvent) along with the properties that link the event to a seminar (:P_isOccurrenceOf) and to its location (:P_occursAt):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?location ?locationLabel ?date
+WHERE {
+  ?seminarEvent a :Cl_SeminarEvent ;
+                  :P_isOccurrenceOf ?seminar ;
+                  :P_occursAt ?location .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  OPTIONAL { ?seminarEvent :P_hasDate ?date . }
+}
+ORDER BY ?date
+--------------------------------------------------
+
+Under the closed world assumption the absence of explicit assertions ensures that only those seminars, events, and locations stated in the ontology are retrieved.

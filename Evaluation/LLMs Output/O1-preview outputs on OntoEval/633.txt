@@ -1,0 +1,13 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?performance ?startDate ?endDate
+WHERE {
+  ?performance a :Performance .
+  ?performance :hasTimeInterval ?timeInterval .
+  ?timeInterval :startDate ?startDate .
+  ?timeInterval :endDate ?endDate .
+}
+```
+
+This query retrieves all performances along with their start and end dates, effectively answering the competency question "When did a certain performance take place?" using the provided ontology.

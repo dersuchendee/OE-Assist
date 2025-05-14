@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given aquifer ecosystem, the microbial functional guilds observed there:
+
+------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?guild ?guildLabel
+WHERE {
+  /* Replace :SpecificAquifer with the IRI of the specific aquifer ecosystem of interest */
+  :SpecificAquifer a :AquiferEcosystem .
+  
+  ?obs a :MicrobialPresenceObservation .
+  ?obs :isObservationOf :SpecificAquifer .
+  ?obs :hasObservedGuild ?guild .
+  
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+}
+------------------------------
+
+Under the closed world assumption, this query checks that a given aquifer ecosystem (e.g., :SpecificAquifer) is observed via MicrobialPresenceObservation to have specific microbial functional guilds. This fully supports the competency question.

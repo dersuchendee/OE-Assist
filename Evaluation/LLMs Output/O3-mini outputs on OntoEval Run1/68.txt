@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/circular_value_network#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?label ?type ?composition ?usedIn ?input ?output
+WHERE {
+  ?resource a :Resource .
+  OPTIONAL { ?resource rdfs:label ?label . }
+  OPTIONAL { ?resource :hasType ?type . }
+  OPTIONAL { ?resource :hasComposition ?composition . }
+  OPTIONAL { ?resource :isUsedIn ?usedIn . }
+  OPTIONAL { ?step :hasInput ?resource . BIND(?step AS ?input) }
+  OPTIONAL { ?step2 :hasOutput ?resource . BIND(?step2 AS ?output) }
+}
+```

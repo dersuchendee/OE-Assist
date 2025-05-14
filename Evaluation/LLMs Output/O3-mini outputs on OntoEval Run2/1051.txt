@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one way of writing a SPARQL query that, under the closed‐world assumption and using the reified presentation structure, returns the articles (with optional labels) that were presented in a given seminar (here assumed to have the IRI :Seminar_ID):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?article ?articleLabel
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :presentedIn ?seminar .
+  FILTER(?seminar = :Seminar_ID)
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+---------------------------------
+
+Explanation:
+• The ontology models article presentations by reifying the presentation event as an instance of :Cl_Presentation. (Its definition includes a restriction indicating that the presentation must be “presented in” a seminar.)
+• The query starts with all individuals of type :Cl_Article that are linked via the property :presentedIn to a presentation.
+• It then “joins” that presentation through the same property (as specified by the reification restriction) to the actual seminar.
+• The FILTER clause restricts the answer to a particular seminar (here provided as :Seminar_ID). 
+
+Thus, the competency question “What articles were presented in a certain seminar?” is fully answerable using the ontology, and the provided query extracts the required answer.

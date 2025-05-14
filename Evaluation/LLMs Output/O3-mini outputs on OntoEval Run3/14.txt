@@ -1,0 +1,22 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?instrument ?instrumentLabel ?inventor ?inventorLabel
+WHERE {
+  ?instrument a :Cl_MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  
+  {
+    ?instrument :Op_inventedBy ?inventor .
+  }
+  UNION
+  {
+    ?inventionEvent a :Cl_InventionEvent .
+    ?inventionEvent :Op_inventionEvent ?instrument .
+    ?inventionEvent :Op_inventor ?inventor .
+  }
+  OPTIONAL { ?inventor rdfs:label ?inventorLabel . }
+}
+```

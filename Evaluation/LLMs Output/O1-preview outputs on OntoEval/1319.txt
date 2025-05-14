@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?consumer ?consumerLabel ?resource ?resourceLabel
+WHERE {
+  ?trophicRelationship a :TrophicRelationship .
+  ?trophicRelationship :hasConsumer ?consumer .
+  ?trophicRelationship :hasResource ?resource .
+  ?trophicRelationship :occursIn ?habitat .
+  ?habitat a :AquiferMicrobeHabitat .
+  OPTIONAL { ?consumer rdfs:label ?consumerLabel . }
+  OPTIONAL { ?resource rdfs:label ?resourceLabel . }
+}
+```
+
+This query retrieves the trophic relationships between different species of aquifer microbes by selecting the consumer and resource species involved in each trophic relationship that occurs in an Aquifer Microbe Habitat.

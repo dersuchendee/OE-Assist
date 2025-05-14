@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?event ?attendee ?source ?reason ?mechanism
+WHERE {
+  ?event a :Event .
+  ?event :hasAttendee ?attendee .
+  ?attendee :hasProvenance ?provenance .
+  ?provenance :documentedBy ?source .
+  ?provenance :hasReason ?reason .
+  ?provenance :hasMechanism ?mechanism .
+}
+ORDER BY ?event ?attendee
+```

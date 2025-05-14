@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, returns the members of a given band (for example, the RedHotChiliPeppers) at a given point in time. In this query we assume that a reified relationship (of type Cl_PersonRoleBandTime) connects a person to a band with an associated time. (In a closed‐world reading, only those individuals explicitly linked with a starting time before or equal to the query time are taken as “currently” members.)
+
+For example, to retrieve the members of the RedHotChiliPeppers as of a chosen query time (say “2006-08-11T00:00:00”^^xsd:dateTime), you could write:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personName ?role ?roleName ?membershipTime
+WHERE {
+  ?membership a :Cl_PersonRoleBandTime ;
+              :hasBand :RedHotChiliPeppers ;
+              :hasPerson ?person ;
+              :hasRole ?role ;
+              :hasTime ?membershipTime .
+  # Under the closed world assumption, assume that a membership
+  # is “active” if its associated time is before or at the query time.
+  FILTER (?membershipTime <= "2006-08-11T00:00:00"^^xsd:dateTime)
+  
+  OPTIONAL { ?person rdfs:label ?personName . }
+  OPTIONAL { ?role rdfs:label ?roleName . }
+}
+-----------------------------------------------------
+
+This query returns those persons (and their roles) who are recorded as members of the band with a membership time before or equal to the given query time. Adjust the band and time filters as needed for your competency question.

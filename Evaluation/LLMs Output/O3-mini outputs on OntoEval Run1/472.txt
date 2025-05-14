@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that leverages the reified BandMembership class to extract the role (with its time interval) held by a given person in a given band at a specified time point. (In this query, replace the placeholders :SomePerson, :SomeBand, and the date literal with the desired parameters.)
+
+-------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personName ?bandName ?roleName ?startDate ?endDate
+WHERE {
+  ?membership a :BandMembership ;
+              :involvesMember :SomePerson ;      # Replace with the specific person
+              :hasBand :SomeBand ;                # Replace with the specific band
+              :hasRole ?role ;
+              :hasTimeInterval ?ti .
+  ?ti :startDate ?startDate ;
+      :endDate ?endDate .
+  :SomePerson :personName ?personName .
+  :SomeBand :bandName ?bandName .
+  ?role :roleName ?roleName .
+  
+  # Filter to check that the given time point (replace with desired date) falls within the time interval.
+  FILTER ("2000-01-01"^^xsd:date >= ?startDate && "2000-01-01"^^xsd:date <= ?endDate)
+}
+ORDER BY ?startDate
+-------------------------------------------------
+
+This query demonstrates that the competency question is fully answerable from the ontology, under the closed world assumption.

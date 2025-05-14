@@ -1,0 +1,17 @@
+**No**  
+Because the ontology does not model the temporal aspect of the role—there is no mechanism to specify the time validity of a person’s role in a band—only a static relationship between a person and a role is provided. A partial answer can be obtained by retrieving the band members and their roles, ignoring any time qualification:
+
+PREFIX ex: <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?bandName ?person ?personName ?role ?roleLabel
+WHERE {
+  ?band a ex:Band .
+  OPTIONAL { ?band rdfs:label ?bandName . }
+  
+  ?band ex:hasMember ?person .
+  OPTIONAL { ?person ex:hasName ?personName . }
+  
+  ?person ex:hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}

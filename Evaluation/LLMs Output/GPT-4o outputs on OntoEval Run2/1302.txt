@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine when an organ is moved to another location. The ontology includes classes and properties related to movement events, but it does not specify a direct connection between an organ and the specific date of movement. Here's a SPARQL query to extract partial information about movement events:
+
+```sparql
+SELECT ?organ ?movementEvent ?movementDate ?movedFrom ?movedTo
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasMovementEvent ?movementEvent .
+  ?movementEvent :movementDate ?movementDate .
+  ?movementEvent :movedFrom ?movedFrom .
+  ?movementEvent :movedTo ?movedTo .
+}
+```

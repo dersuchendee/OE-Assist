@@ -1,0 +1,14 @@
+**Yes**
+
+We can answer this CQ using the ontology. In our ontology the class :Cl_Play is connected with the data property :writtenDuring that indicates the time period during which the play was written. Here is an example SPARQL query that extracts the play and its writing period:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?writtenDuring
+WHERE {
+  ?play a :Cl_Play .
+  ?play :writtenDuring ?writtenDuring .
+}
+
+This query returns for each play (for example, :MerchantOfVenice) the value of its :writtenDuring property (e.g., "1596-1598").

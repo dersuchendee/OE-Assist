@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/medical_degrees#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person :studiesFor ?degree .
+  ?degree :hasStudyPeriod ?period .
+  ?period :hasStartDate ?startDate .
+  ?period :hasEndDate ?endDate .
+}
+```

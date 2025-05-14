@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves each seminar along with at least one associated article (via its presentation) as required by the competency question:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?articlePresentation
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :containsPresentationOf ?articlePresentation .
+  ?articlePresentation a :Cl_SeminarArticlePresentation .
+  ?articlePresentation a :Cl_Article .
+}
+ORDER BY ?seminar
+--------------------------------------------------
+
+This query checks that every seminar instance (of type :Cl_Seminar) has at least one associated presentation (a reified instance of :Cl_SeminarArticlePresentation that is also an instance of :Cl_Article). Under a closed world assumption, this confirms that each seminar has at least one article presented, which satisfies the CQ.

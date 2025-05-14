@@ -1,0 +1,32 @@
+**Yes**
+
+The competency question "What song is a specific track a recording of?" is answerable using the ontology because it includes the relevant classes and properties:
+
+- Classes: `:Cl_Track` and `:Cl_Song`.
+- Object Property: `:isRecordingOf` which connects a track to the song it is a recording of.
+
+Here is a SPARQL query that retrieves the song associated with each track:
+
+```sparql
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+
+  ?track :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```
+
+If you are interested in a specific track (e.g., `:HumpDeBumpTrack`), the query would be:
+
+```sparql
+SELECT ?song ?songLabel
+WHERE {
+  :HumpDeBumpTrack a :Cl_Track .
+  :HumpDeBumpTrack :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```
+
+This query will provide the song that the specified track is a recording of, fulfilling the competency question using the ontology provided.

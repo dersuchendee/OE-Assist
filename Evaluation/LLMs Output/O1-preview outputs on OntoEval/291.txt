@@ -1,0 +1,29 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?playTitle ?actCount
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :hasTitle ?playTitle .
+  ?play :containsActs ?actCount .
+}
+```
+
+This query retrieves the number of acts (`?actCount`) for each play (`?play`) in the ontology. It matches all instances of `:Cl_Play`, extracts their titles via `:hasTitle`, and gets the number of acts using `:containsActs`. If you have a particular play in mind, for example, "The Merchant of Venice", you can modify the query with a filter:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?actCount
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :hasTitle "The Merchant of Venice" .
+  ?play :containsActs ?actCount .
+}
+```
+
+This modified query will return the number of acts for "The Merchant of Venice" specifically.

@@ -1,0 +1,25 @@
+**Yes**
+Below is a SPARQL query that exploits the reification in the ontology. In this ontology, a newspaper review is modelled as an instance of the reified class Cl_NewspaperReview (which is defined as a subclass of both Cl_Newspaper and Cl_Production) and is linked to the newspaper via the property :hasReview. The star rating is recorded via the data property :starRating. Under the closed‐world assumption, one may assume that if a review exists linking the newspaper and the production then the review instance “is” (i.e. equals) the production instance. A query to retrieve the star rating for a particular production reviewed by a particular newspaper could be written as follows:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?starRating
+WHERE {
+  # Select the specific newspaper and production by (for example) their labels.
+  ?newspaper a :Cl_Newspaper ;
+             rdfs:label "Il Gazzettino" .
+  ?production a :Cl_Production ;
+              rdfs:label "Merchant of Venice" .
+  # The newspaper has a review (which, by reification, is also a production instance).
+  ?newspaper :hasReview ?review .
+  ?review a :Cl_NewspaperReview ;
+          :starRating ?starRating .
+  # Enforce that the review refers to the production in question.
+  FILTER (?review = ?production)
+}
+-----------------------------------------------------
+
+In this query, by filtering with “?review = ?production” we make use of the reification that connects a newspaper’s review directly with a production. This shows that the competency question is fully answerable using the ontology.

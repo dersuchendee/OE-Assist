@@ -1,0 +1,20 @@
+**No**
+
+The current ontology does allow extracting which person plays which role within a band, but it does not capture temporal information (i.e. “at a certain point in time”) for band membership or role changes. Under the closed world assumption, a query can list the current associations, but it cannot determine historic or time‐specific roles.
+
+Below is a SPARQL query that extracts existing band members with their roles (thus providing a partial answer):
+
+PREFIX ex: <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?bandLabel ?person ?personName ?role ?roleLabel
+WHERE {
+  ?band a ex:Band ;
+        ex:hasMember ?person .
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+  ?person ex:hasName ?personName ;
+          ex:hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+
+This query retrieves the band, member, and role information, but note that no temporal filtering is possible because the ontology does not include time data for the role assignment.

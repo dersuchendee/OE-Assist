@@ -1,0 +1,30 @@
+**Yes**
+Below is an example SPARQL query that returns the ensemble members along with the time period (date) when they were part of that ensemble. In this case the query assumes that you want to inspect a specific ensemble (for example, the ensemble for the “Merchant of Venice” production) and then filter the memberships based on the time period (which is modelled by the date associated with the membership):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?actor ?actorName ?membershipDate
+WHERE {
+  # Find ensemble memberships (individuals of Cl_EnsembleMembership)
+  ?membership a :Cl_EnsembleMembership ;
+              :hasEnsemble ?ensemble ;
+              :hasMember ?actor ;
+              :hasTimePeriod ?time .
+              
+  # Get the actor’s name
+  ?actor :actorName ?actorName .
+  
+  # Get the date information from the time period node
+  ?time :festivalDate ?membershipDate .
+  
+  # (Optional) Filter for a specific ensemble if desired
+  # FILTER(?ensemble = :Ensemble_GrandTheatre_MerchantOfVenice)
+}
+ORDER BY ?ensemble ?membershipDate
+------------------------------------------------------------
+
+This query “extracts the answer” to the competency question “Who are the members of a certain ensemble at a certain point in time?” since it retrieves, for each ensemble membership, the associated ensemble, the actor (with his/her name) and the date (time period) of the membership.

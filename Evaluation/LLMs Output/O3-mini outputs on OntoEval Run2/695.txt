@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves each performance along with the location where it took place:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedAt ?location .
+}
+-----------------------------------------
+
+In this query we assume that performances are instances of :Cl_Performance and that the property :performedAt links a performance to its location (which is an instance of :Cl_PerformanceLocation and/or a location class). Under the closed world assumption, only the explicitly stated triples are returned.

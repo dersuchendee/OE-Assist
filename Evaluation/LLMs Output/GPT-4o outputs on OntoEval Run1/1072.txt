@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a seminar. The ontology includes classes and properties related to seminars, seminar locations, and locations, but it lacks a direct connection between a specific seminar and its location. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?seminar ?location
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?seminar :tookPlaceAt ?seminarLocation .
+    ?seminarLocation :seminarLocation ?location .
+  }
+}
+```

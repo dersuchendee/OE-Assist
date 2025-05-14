@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves each region and the country it is located in (using :isPartOf under the closed world assumption):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  ?region :isPartOf ?country .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+ORDER BY ?region
+—————————————————————————————
+
+This query answers the CQ by extracting the country corresponding to each region in the ontology.

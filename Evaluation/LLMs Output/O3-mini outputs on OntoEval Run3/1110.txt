@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the competency question fully using the ontology’s reification pivot (the Cl_PersonLocationActivity class) that connects a person and an indoor location. The following SPARQL query retrieves the person and their associated location (where the location is of type Cl_Location, which in this ontology includes indoor locations such as Cl_Bathroom):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  ?activity a :Cl_PersonLocationActivity .
+  ?activity :op_hasPerson ?person .
+  ?activity :op_hasActivityLocation ?location .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+} 
+
+This query extracts which person (who) is at which indoor location (where) according to the modeled reification, thereby fully supporting the competency question.

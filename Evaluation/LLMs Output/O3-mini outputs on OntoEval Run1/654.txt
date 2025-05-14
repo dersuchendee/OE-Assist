@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‑world reading of the ontology, retrieves the songs played in each performance:
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?performance :hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance ?song
+
+This query demonstrates that the ontology supports the competency question “What songs were played in a certain performance?” since it connects the Performance class with the Song class via the property :hasSong.

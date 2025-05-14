@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology models a play’s structure using the reified class Cl_PlayStructure (a subclass of Cl_Play) that is linked to a data property, numberOfActs. In other words, for plays that are modelled as instances of Cl_PlayStructure, you can extract the number of acts recorded using the property numberOfActs. For example, to get the number of acts for a particular play (e.g. “Merchant of Venice”), you could use a query like this:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playTitle ?numberOfActs
+WHERE {
+  ?play a :Cl_PlayStructure .
+  ?play :numberOfActs ?numberOfActs .
+  OPTIONAL { ?play :playTitle ?playTitle . }
+  FILTER(?playTitle = "Merchant of Venice")
+}
+------------------------------------------------
+
+This SPARQL query returns the play instance, its title, and the number of acts contained. Thus, the competency question “How many acts does a particular play contain?” is supported by the ontology.

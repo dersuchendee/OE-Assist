@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, counts the number of tracks associated with a given album (in this case, "Stadium Arcadium"):
+
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?albumTitle (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :hasTrack ?track .
+  FILTER(?albumTitle = "Stadium Arcadium")
+}
+GROUP BY ?albumTitle
+
+This query answers the CQ “How many tracks does a particular album contain?” by counting how many tracks are linked to the album.

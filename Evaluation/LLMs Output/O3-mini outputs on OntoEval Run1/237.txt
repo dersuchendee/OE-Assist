@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, retrieves the plays written by a given author (in this example, William Shakespeare):
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  # Specify the author of interest; change as necessary
+  VALUES ?author { ns1:WilliamShakespeare }
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  
+  ?author ns1:wrotePlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?playLabel

@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not fully model the competency question. While it defines the classes and reification for modeling an actor's employment at a theatre with a start date, it lacks the necessary object properties to connect an employment instance to a specific theatre. Specifically, there is no property linking the `Cl_Employment` class to the `Cl_Theatre` class directly or indirectly. Thus, we cannot retrieve the theatre associated with an actor's employment.
+
+However, we can extract partial information about actors and their employment start dates.
+
+```sparql
+SELECT ?actorName ?startDate
+WHERE {
+  ?actor a :Cl_Actor .
+  OPTIONAL { ?actor :actorName ?actorName . }
+  
+  ?actor :isEmployedAt ?employment .
+  ?employment a :Cl_Employment .
+  ?employment :employmentStartDate ?startDate .
+}
+```
+
+This query retrieves actors and their employment start dates but does not provide information about the specific theatres they started working for.

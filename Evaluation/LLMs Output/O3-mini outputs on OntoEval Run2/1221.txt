@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?interaction ?guild ?guildLabel ?aquifer ?aquiferLabel
+WHERE {
+  ?interaction a :Interaction ;
+               :hasParticipant ?guild ;
+               :occursIn ?aquifer .
+  ?aquifer a :NutrientPoorAquifer .
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+}
+ORDER BY ?interaction ?guild
+```

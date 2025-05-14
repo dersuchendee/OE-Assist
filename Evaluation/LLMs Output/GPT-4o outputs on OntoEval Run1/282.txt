@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query the number of acts a particular play contains. The ontology includes classes and properties related to plays, productions, and other theatre-related concepts, but it lacks a direct connection between a play and its act count. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?play ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL {
+    ?play :hasActInformation ?actInfo .
+    ?actInfo :actCount ?actCount .
+  }
+}
+```

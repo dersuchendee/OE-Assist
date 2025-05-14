@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology defines a class `Cl_Production` with an object property `hasPremier` that has a cardinality constraint of 1, meaning each production has exactly one premier. Here's a SPARQL query to extract the productions and their premiers:
+
+```sparql
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+```

@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?data ?dataLabel ?source ?sourceLabel
+WHERE {
+  ?data a :Data .
+  OPTIONAL { ?data rdfs:label ?dataLabel . }
+  ?data :originatesFrom ?source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+}
+```

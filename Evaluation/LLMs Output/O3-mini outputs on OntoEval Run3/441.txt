@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the instruments played by a given person (using a parameter for that person):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  # Identify the person (replace <personURI> with the actual URI for the person)
+  BIND(<personURI> AS ?person)
+  
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  
+  # Retrieve the instruments that the person plays based on the playsInstrument property 
+  ?person :playsInstrument ?instrument.
+  
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+}
+------------------------------------------------------------
+
+This query answers the CQ: “What instruments does a certain person play?” under the closed world assumption.

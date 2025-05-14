@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate roles with specific productions and time points. However, we can extract partial information about actors and their participation in productions.
+
+```sparql
+SELECT ?actor ?actorLabel ?production ?productionLabel
+WHERE {
+  ?actor a theatre:Actor .
+  ?actor rdfs:label ?actorLabel .
+  ?actor theatre:participatesIn ?production .
+  ?production rdfs:label ?productionLabel .
+}
+```

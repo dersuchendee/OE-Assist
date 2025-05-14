@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  { ?item a :Cl_Book } UNION { ?item a :Cl_CD } .
+  ?item :publicationDate ?publicationDate .
+}
+ORDER BY ?item
+```

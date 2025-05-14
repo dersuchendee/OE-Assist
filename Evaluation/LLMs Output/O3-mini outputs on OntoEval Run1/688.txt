@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that extracts, for each performance, its associated location and the location’s name (according to the final portion of the ontology which defines Cl_Performance, Cl_Location and the property :tookPlaceAt with a data property :locationName):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?locationName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :tookPlaceAt ?loc .
+  ?loc :locationName ?locationName .
+}
+--------------------------------------------------
+
+Under the closed‐world interpretation, only explicitly asserted locations are considered, so this query returns the intended answer if the competency question is “Which performance took place at which location?” or a variation thereof.

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the number of acts for a given play (in this case, filtering for a play whose label includes “Merchant of Venice”):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?numberOfActs
+WHERE {
+  ?play a :Cl_Play ;
+        :numberOfActs ?numberOfActs .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  FILTER (CONTAINS(LCASE(?playLabel), "merchant of venice"))
+}
+--------------------------------------------------
+
+This query uses the ontology’s property :numberOfActs (with domain :Cl_Play) to answer the competency question “How many acts does a particular play contain?” under the closed world assumption.

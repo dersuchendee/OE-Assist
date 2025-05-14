@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?musician1 ?musician2 ?start1 ?end1 ?start2 ?end2 
+WHERE {
+  ?musician1 a :Musician .
+  ?musician1 :hasTimePeriod ?timePeriod1 .
+  ?timePeriod1 :startYear ?start1 .
+  ?timePeriod1 :endYear ?end1 .
+
+  ?musician2 a :Musician .
+  ?musician2 :hasTimePeriod ?timePeriod2 .
+  ?timePeriod2 :startYear ?start2 .
+  ?timePeriod2 :endYear ?end2 .
+
+  # Avoid comparing the same musician and ensure overlap of time intervals.
+  FILTER(?musician1 != ?musician2 && ?start1 <= ?end2 && ?start2 <= ?end1)
+}
+ORDER BY ?musician1 ?musician2
+```

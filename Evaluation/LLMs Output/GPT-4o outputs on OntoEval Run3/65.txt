@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What are the components of this product?" can be answered using the ontology provided. The ontology includes a class `Cl_Product` and a reification class `Cl_ProductComponent` that connects products to their components. The `isComposedOf` property links `Cl_ProductComponent` to `Cl_Material`, which represents the components of the product.
+
+Here is a SPARQL query to extract the components of a product:
+
+```sparql
+SELECT ?product ?component ?material
+WHERE {
+  ?product a :Cl_Product .
+  ?product :hasComponent ?component .
+  ?component :isComposedOf ?material .
+}
+```

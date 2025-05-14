@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that uses the reified membership structure (i.e. the Cl_Membership class and its related properties) to retrieve the members of a given ensemble at a given time:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?member
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :ensembleInMembership ?ensemble .
+  ?membership :memberInMembership ?member .
+  ?membership :atTime ?time .
+  FILTER(?ensemble = <http://www.example.org/test#YourEnsembleURI> &&
+         ?time = <http://www.example.org/test#YourTimeURI>)
+}
+-----------------------------------------------------------
+
+Replace <http://www.example.org/test#YourEnsembleURI> and <http://www.example.org/test#YourTimeURI> with the specific ensemble and time instance URIs you wish to query.

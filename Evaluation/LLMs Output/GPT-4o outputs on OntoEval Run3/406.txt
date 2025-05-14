@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not explicitly model the concept of a "premier" for a production. While there is a class `Cl_ProductionPremier` and a property `hasPremierDate`, there is no explicit restriction or cardinality constraint that enforces a production to have exactly one premier. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract productions with their premier dates:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_ProductionPremier .
+  ?production :hasPremierDate ?premierDate .
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves the date(s) associated with seminar instances (using the class :Cl_Seminar and its property :seminarDate):
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+----------------------------------------------------
+
+This query shows that the ontology provides the necessary classes and properties (namely, the seminar class and its corresponding date property) so that “When did a certain seminar take place?” can be answered from the knowledge base.

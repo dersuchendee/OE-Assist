@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the subclass restrictions on EnergyMetabolism showing that it contributesTo CO2FixationPathway and occursIn AquaticEcosystem:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?contribTarget ?ecosystem
+WHERE {
+  # Retrieve the restriction stating that EnergyMetabolism contributesTo a process
+  :EnergyMetabolism rdfs:subClassOf ?contribRestriction .
+  ?contribRestriction owl:onProperty :contributesTo ;
+                      owl:someValuesFrom ?contribTarget .
+  
+  # Retrieve the restriction stating that EnergyMetabolism occursIn an ecosystem
+  :EnergyMetabolism rdfs:subClassOf ?ecosystemRestriction .
+  ?ecosystemRestriction owl:onProperty :occursIn ;
+                        owl:someValuesFrom ?ecosystem .
+  
+  # Filter to only get the intended classes
+  FILTER(?contribTarget = :CO2FixationPathway && ?ecosystem = :AquaticEcosystem)
+}
+--------------------------------------------------
+
+This query shows that the ontology models “How does energy metabolism contribute to CO2 fixation pathways in aquatic ecosystems?” because it explicitly captures that EnergyMetabolism (a subclass of MetabolicProcess) has a restriction where it contributesTo some CO2FixationPathway and it occursIn some AquaticEcosystem.

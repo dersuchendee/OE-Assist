@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one example of a SPARQL query that “asks” the CQ – it retrieves the record (album), its associated review text, and the critic who provided that review. You could optionally restrict the query to a specific critic or record by adding additional FILTER clauses.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?record ?recordLabel ?critic ?criticLabel ?reviewText 
+WHERE {
+  ?review a :Cl_Review ;
+          :reviewedBy ?critic ;
+          :reviewOf ?record ;
+          :reviewText ?reviewText .
+  OPTIONAL { ?record rdfs:label ?recordLabel. }
+  OPTIONAL { ?critic rdfs:label ?criticLabel. }
+}
+--------------------------------------------------
+
+This query extracts the album (record) that was reviewed, the critic who reviewed it, and the content of the review, which answers the competency question “What does a certain critic say about a certain record?” under the closed world assumption of the provided ontology.

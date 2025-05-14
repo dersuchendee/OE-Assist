@@ -1,0 +1,14 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the track count associated with each album (or a specific album, e.g. :StadiumArcadium):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?trackCount
+WHERE {
+  ?album a :Cl_Album .
+  ?album :trackCount ?trackCount .
+}
+ORDER BY ?album
+
+This query shows that the ontology explicitly associates a track count (e.g. 28 for StadiumArcadium) with a given album, thereby answering the competency question.

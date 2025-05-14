@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming the specific track is identified by a URI (e.g., :SpecificTrack), you can extract the song that the track is a recording of with the following SPARQL query:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?song
+WHERE {
+  :SpecificTrack a :Cl_Track ;
+                 :trackOf ?song .
+}
+-----------------------------------------
+
+This query uses the ontology’s definition where tracks (of type :Cl_Track) are linked to the song (of type :Cl_Song) they record via the :trackOf property.

@@ -1,0 +1,15 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed‐world assumption, returns for a given author (here assumed to be an instance of Cl_Playwright, a subclass of Cl_Author) the plays they wrote using the property wrotePlay:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?author ?play ?playName
+WHERE {
+  ?author a :Cl_Playwright .
+  ?author :wrotePlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?author ?playName

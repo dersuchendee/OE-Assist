@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming we want to know the members of (for example) the MaleNursesUnion at a specified date (here given as "2002-05-01"), we can write a query that extracts all union memberships where the membership started on or before the given time and either has no termination date (i.e. it’s still active) or has an end date later than the specified date. Under a closed‐world assumption, any missing end date is taken to indicate that the membership is still ongoing.
+
+For example, the SPARQL query below retrieves the persons who are members of a given union (here :MaleNursesUnion) at a given point in time (here "2002-05-01"):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :memberOf :MaleNursesUnion ;
+              :membershipOf ?person ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  FILTER (
+      xsd:date("2002-05-01") >= ?start 
+      && ( !bound(?end) || xsd:date("2002-05-01") <= ?end )
+  )
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+--------------------------------------------------
+
+In this query, we check that the membership start date is on or before the given date and, if an end date is provided, that the given date is not later than that end date. This makes the CQ answerable from the ontology.

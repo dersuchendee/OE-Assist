@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  ?roleAssignment a :Cl_UnionRoleAssignment .
+  ?roleAssignment :roleOf ?inputPerson .
+  ?roleAssignment :roleInUnion ?inputUnion .
+  ?roleAssignment :hasRole ?role .
+  ?roleAssignment :roleStartDate ?roleStartDate .
+  OPTIONAL { ?roleAssignment :roleEndDate ?roleEndDate . }
+
+  FILTER (
+    xsd:date(?roleStartDate) <= xsd:date(?inputDate) &&
+    ( !BOUND(?roleEndDate) || xsd:date(?inputDate) <= xsd:date(?roleEndDate) )
+  )
+}
+```
+
+This query retrieves the role (`?role`) that a specific person (`?inputPerson`) has within a specific union (`?inputUnion`) at a specific date (`?inputDate`). It checks that the input date falls within the period of the role assignment, considering the start and optional end dates.

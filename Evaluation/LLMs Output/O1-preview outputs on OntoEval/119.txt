@@ -1,0 +1,14 @@
+Answer: **No**
+
+Due to the absence of connections between the theatre festival and the festival play appearances via the `:hasProduction` property, we cannot determine which plays could be seen during a certain theatre festival.
+
+However, we can provide a partial answer by listing the plays featured in festival play appearances.
+
+```sparql
+SELECT DISTINCT ?play ?playName
+WHERE {
+  ?appearance rdf:type :Cl_FestivalPlayAppearance .
+  ?appearance :featuresPlay ?play .
+  OPTIONAL { ?play :hasName ?playName . }
+}
+```

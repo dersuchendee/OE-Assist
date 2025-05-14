@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+SELECT ?collection ?collectionTitle ?pageCount ?article ?articleTitle
+WHERE {
+  { ?collection a :Cl_Book . }
+  UNION
+  { ?collection a :Cl_CD . }
+  OPTIONAL { ?collection :dp_hasTitle ?collectionTitle . }
+  OPTIONAL { ?collection :dp_hasPageCount ?pageCount . }
+  
+  ?collection :op_composedOf ?article .
+  OPTIONAL { ?article :dp_hasTitle ?articleTitle . }
+}
+ORDER BY ?collection
+```

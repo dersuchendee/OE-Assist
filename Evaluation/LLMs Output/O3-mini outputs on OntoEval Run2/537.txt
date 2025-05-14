@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer “When was a certain album released?” by querying for albums and their release dates. For example, using the ontology provided, a SPARQL query could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?title ?releaseDate
+WHERE {
+  ?album a :Cl_MusicAlbum ;
+         :hasTitle ?title ;
+         :hasReleaseDate ?releaseDate .
+  # Optionally, filter for a specific album e.g.:
+  # FILTER(?title = "Stadium Arcadium")
+}
+ORDER BY ?title
+
+This query retrieves each album’s title and its release date, which fully answers the competency question under a closed world assumption.

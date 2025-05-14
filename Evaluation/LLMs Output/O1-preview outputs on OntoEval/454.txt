@@ -1,0 +1,13 @@
+Answer: **No**.
+
+The ontology does not allow us to determine the members of a band at a specific point in time, because there is no link between the `:Cl_Membership` instances (which have membership dates) and the `:Cl_Person` individuals (the band members). Without a property connecting `:Cl_Membership` to `:Cl_Person`, we cannot retrieve the members active in the band at a given date.
+
+However, we can retrieve partial information about the members of the band without considering the time aspect.
+
+```sparql
+SELECT ?person
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :memberOf :Red_Hot_Chili_Peppers .
+}
+```

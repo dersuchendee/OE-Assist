@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?startDate ?endDate
+WHERE {
+  ?album a ns1:Album ;
+         rdfs:label "Stadium Arcadium"@en ;
+         ns1:hasRecordingSession ?recordingSession .
+  
+  ?recordingSession ns1:hasTimeInterval ?interval .
+  
+  ?interval ns1:hasStartDate ?startDate ;
+            ns1:hasEndDate ?endDate .
+}
+```

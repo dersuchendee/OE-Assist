@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves productions with exactly one premier, using the class defined via the cardinality restriction (theatre:ProductionWithOnePremier):
+
+-----------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?prodLabel ?premier ?premierDate
+WHERE {
+  ?production a theatre:ProductionWithOnePremier .
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+  
+  ?production theatre:hasPremier ?premier .
+  ?premier theatre:hasPremierDate ?premierDate .
+}
+-----------------
+
+This query assumes a closed world where the cardinality restriction in theatre:ProductionWithOnePremier guarantees that each production has exactly one premier.

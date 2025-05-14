@@ -1,0 +1,25 @@
+**Yes**
+
+```sparql
+SELECT ?flow ?process ?energyRequirement ?reboundEffect
+WHERE {
+  ?flow a :Flow .
+  
+  # Find processes that have the flow as input or output
+  {
+    ?process :hasInput ?flow .
+  } UNION {
+    ?process :hasOutput ?flow .
+  }
+  
+  # Get EnergyRequirement of the process
+  OPTIONAL {
+    ?process :hasEnergyRequirement ?energyRequirement .
+  }
+  
+  # Get ReboundEffect of the process
+  OPTIONAL {
+    ?process :hasReboundEffect ?reboundEffect .
+  }
+}
+```

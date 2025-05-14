@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming our ontology models plays with the property :hasNumberOfActs (with domain :Cl_Play and range xsd:integer), we can answer the CQ “How many acts does a particular play contain?” by querying for that property. For example, if we want the number of acts for each play (or for a particular one if its identifier is known), we could use:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :hasNumberOfActs ?numberOfActs .
+  # To restrict to a particular play, uncomment and adapt the following filter:
+  # FILTER(?play = :MerchantOfVenice)
+}
+-----------------------------------------------------
+
+Under the closed world assumption, if a play individual is not explicitly stated to have a number of acts, we assume it does not have one in the dataset.

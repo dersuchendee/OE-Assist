@@ -1,0 +1,12 @@
+**Yes**
+Below is a SPARQL query that retrieves a book along with its title (if available) and its page count:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?title ?pageCount
+WHERE {
+  ?book a :Book .
+  OPTIONAL { ?book :title ?title . }
+  ?book :pageCount ?pageCount .
+}

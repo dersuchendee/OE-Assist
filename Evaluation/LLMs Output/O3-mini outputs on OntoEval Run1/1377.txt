@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that the individuals representing “musician X” and “performer Y” exist in the data (e.g., as <http://example.org/musicianX> and <http://example.org/performerY>), the MEETUPS ontology supports this CQ. The ontology models a meetup event (mtps:Meetup) that has multiple participants (mtps:hasParticipant), a location (mtps:hasPlace), a time expression (mtps:happensAt), and a reason (mtps:hasAPurpose). Thus, we can write a SPARQL query to check if there is any meetup event where both musician X and performer Y participated, and then retrieve where (mtps:hasPlace), when (mtps:happensAt) and why (mtps:hasAPurpose) the meetup happened.
+
+Below is an example SPARQL query:
+
+--------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?meetup ?place ?timeExpr ?purpose
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasParticipant ?p1, ?p2 ;
+          mtps:hasPlace ?place ;
+          mtps:happensAt ?timeExpr ;
+          mtps:hasAPurpose ?purpose .
+  
+  FILTER(
+    ((?p1 = <http://example.org/musicianX> && ?p2 = <http://example.org/performerY>) ||
+     (?p1 = <http://example.org/performerY> && ?p2 = <http://example.org/musicianX>))
+  )
+}
+--------------------------------------------------
+
+This query returns meetup events where both musician X and performer Y are participants and extracts the location, time expression, and purpose of the event.

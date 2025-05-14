@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the seminar individual is linked to the hospital via the property holdsSeminar and that the hospital’s geographic location is available through the op_isLocatedIn property (with its city name provided via the dp_cityName data property), the ontology supports the CQ. Under the closed‐world assumption, you can extract the answer with a query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?hospital ?city ?cityName
+WHERE {
+  # Link hospitals to the seminars they hold
+  ?hospital a :Cl_Hospital ;
+            :holdsSeminar ?seminar ;
+            :op_isLocatedIn ?city .
+  # Retrieve the city name (geographic location)
+  ?city :dp_cityName ?cityName .
+}
+ORDER BY ?seminar
+
+This query finds seminars held by hospitals and then follows the link to obtain the geographic location (city) of each hospital.

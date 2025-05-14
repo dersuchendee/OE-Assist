@@ -1,0 +1,14 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, extracts the date(s) on which theatre festivals took place. (If you wish to restrict to a “certain” festival you can add a FILTER or specify the festival’s label/IRI.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasDate ?date .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+}
+ORDER BY ?date

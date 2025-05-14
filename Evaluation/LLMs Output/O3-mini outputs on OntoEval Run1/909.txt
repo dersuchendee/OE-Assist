@@ -1,0 +1,35 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the union role assignment—i.e. the role held by a person within a union at a given time interval—from the ontology. Note that here we assume that the ontology models union role assignments via the class UnionRoleAssignment, which is linked to a person (via hasAgent), a union role (via hasRole), the union (via inUnion), and a time interval (via atTime with startDate/endDate). You can substitute the URI of the person, the union, and adjust the time filter as needed.
+
+----------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?union ?unionLabel ?role ?roleLabel ?timeInterval ?startDate ?endDate
+WHERE {
+  ?assignment a :UnionRoleAssignment ;
+              :hasAgent ?person ;
+              :hasRole  ?role ;
+              :inUnion  ?union ;
+              :atTime   ?timeInterval .
+              
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?timeInterval :startDate ?startDate . }
+  OPTIONAL { ?timeInterval :endDate   ?endDate . }
+  
+  # Filter to check the assignment for a specific person, union and time point.
+  # Replace the URIs and time as appropriate.
+  FILTER(
+    (?person = <http://example.org/ontology#PasqualeDiGennaro>) &&
+    (?union = <http://example.org/ontology#MaleNursesUnion>) &&
+    ("2005-01-01T00:00:00"^^xsd:dateTime >= ?startDate) &&
+    ("2005-01-01T00:00:00"^^xsd:dateTime <= ?endDate)
+  )
+}
+ORDER BY ?person ?role
+----------------------------------------------------------------
+
+This query shows that the ontology indeed models the competency question, allowing us to extract the role that a given person (e.g., Pasquale Di Gennaro) holds in a specific union (e.g., Male Nurses Union) at the point in time of January 1, 2005.

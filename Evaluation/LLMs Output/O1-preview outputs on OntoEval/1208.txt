@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question can be answered using the ontology, as the `VariantRelationship` class connects a `Composition` and a `TuneFamily` through the properties `:involvesComposition` and `:involvesTuneFamily`, and provides the `:hasLevelOfConfidence` property which indicates the level of confidence.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?levelOfConfidence
+WHERE {
+  ?variantRelationship a :VariantRelationship .
+  ?variantRelationship :involvesComposition :X .
+  ?variantRelationship :involvesTuneFamily :Y .
+  ?variantRelationship :hasLevelOfConfidence ?levelOfConfidence .
+}
+```

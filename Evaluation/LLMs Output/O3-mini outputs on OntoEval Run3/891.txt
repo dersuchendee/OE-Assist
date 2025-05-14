@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that a person’s union membership is valid from the recorded membership start date onward (and that no explicit end date is given, so under a closed‐world assumption memberships without an end date are considered valid), you can answer the CQ “Who are the members of a certain union at a certain point in time?” by selecting all persons whose union membership start date is on or before that point. For example, if you want to know the members of a given union (say, :UnionOfMaleNurses) at a given date (for instance, 2005-01-01), you can run the following query:
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionMembership ?membership .
+  ?membership :memberOf :UnionOfMaleNurses .
+  ?membership :membershipStartDate ?membershipStartDate .
+  
+  # Select memberships that started on or before the given point in time
+  FILTER(xsd:date("2005-01-01") >= ?membershipStartDate)
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+──────────────────────────────
+
+This query will retrieve the persons (and optionally their labels) who became members of :UnionOfMaleNurses on or before January 1, 2005. Adjust the union URI and the query date as needed to answer the competency question for different unions or points in time.

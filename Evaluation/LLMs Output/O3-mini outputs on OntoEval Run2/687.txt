@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the performance and its (closed‐world assumed) location:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?location .
+}
+
+─────────────────────────────
+
+This query will return the performance instance(s) along with their associated location(s), which answers the competency question "Where did a certain performance take place?" according to the provided ontology.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, retrieves each seminar together with at least one seminar presentation that in turn presents an article. (When run, this query will only return seminars for which an article has been presented. In a closed‐world scenario, if every seminar is guaranteed to have at least one article presented then no seminar is “missing” from these results.) 
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?presentation ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentation ?presentation .
+  ?presentation :presentationOfArticle ?article .
+}
+ORDER BY ?seminar
+-------------------------------------------------
+
+This query shows that for each seminar (instance of Cl_Seminar) there is at least one related presentation whose associated article (via the property presentationOfArticle) is available—thus supporting the CQ “At least one article is always presented at each seminar.”

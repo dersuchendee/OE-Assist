@@ -1,0 +1,13 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the number of acts for a particular play (e.g., "The Merchant of Venice") from the ontology:
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play a theatre:Play ;
+        rdfs:label "The Merchant of Venice" ;
+        theatre:hasNumberOfActs ?numberOfActs .
+}

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the city where each hospital is located. The query assumes that for any hospital (of type :Cl_Hospital), there is a location (via property :locatedIn) and that location is linked to a city (via property :inCity).
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?hospital ?city
+WHERE {
+  ?hospital rdf:type :Cl_Hospital .
+  ?hospital :locatedIn ?location .
+  ?location :inCity ?city .
+}
+---------------------------------
+
+Under the closed world assumption (i.e. data not explicitly stated is assumed not to exist), this query will return the city for each hospital whose location and city information are provided in the ontology.

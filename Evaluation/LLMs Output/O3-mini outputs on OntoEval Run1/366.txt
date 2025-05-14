@@ -1,0 +1,28 @@
+**Yes**
+
+Assuming that the employment of an actor at a theatre is captured via an employment record (i.e. an instance of the class Cl_ActorEmployment, which—by design—is also (reified as) a theatre and a date) and that the starting date is stored using the data property employmentStartDate, a SPARQL query to answer the CQ (“At what time did a certain actor start working for a specific theatre?”) can be written as follows:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?theatreName ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName ;
+         :employedAt ?employment .
+
+  ?employment a :Cl_ActorEmployment ;
+              :employmentStartDate ?employmentStartDate ;
+              a :Cl_Theatre ;       # since Cl_ActorEmployment is a subclass of Cl_Theatre
+              :theatreName ?theatreName .
+  
+  # Here we use a FILTER to select a “certain actor” and a “specific theatre”
+  FILTER(?actorName = "Fabio Bianchi" && ?theatreName = "The Grand Theatre")
+}
+ORDER BY ?employmentStartDate
+-----------------------------------------------------------
+
+This query extracts the actor’s name, the theatre name, and the employment starting date using the employment record linking the actor to the theatre under the closed world assumption.

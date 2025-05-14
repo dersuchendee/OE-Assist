@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not include any specific properties or classes that directly relate a book or CD to the articles it is composed of. While there are classes for `Book`, `CD`, and `Article`, and a property `hasMember` that could potentially relate a collection to its members, there is no explicit connection between a specific book or CD and the articles it contains. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract information about books and CDs:
+
+```sparql
+SELECT ?collection ?article
+WHERE {
+  ?collection a :ArticleCollection .
+  ?collection :hasMember ?article .
+}
+```
+
+This query retrieves collections and their articles, but it does not distinguish between books and CDs or specify which articles belong to which specific book or CD.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each city, the country in which the city is located:
+
+------------------------------------------------
+PREFIX : <http://example.org/hospital#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city rdfs:label ?cityLabel }
+  
+  ?city :locatedIn ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel }
+}
+------------------------------------------------
+
+In a closed-world setting this query returns only those pairs for which the relationship has been explicitly modeled.

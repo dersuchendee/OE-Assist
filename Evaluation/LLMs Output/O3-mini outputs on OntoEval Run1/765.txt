@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  ?person a :Cl_Person .
+  FILTER(?person = :PasqualeDiGennaro) .
+  
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+ORDER BY ?degreeObtainedDate
+```

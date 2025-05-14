@@ -1,0 +1,16 @@
+**No**
+
+The current ontology lacks an explicit link between a festival (an instance of Cl_Festival) and its occurrence (an instance of Cl_FestivalOccurrence). Although you can retrieve where a festival occurrence took place (via the tookPlaceIn property), you cannot directly connect a specific festival to its occurrence to fully answer “Where did a certain festival take place?”. Under a closed world assumption, you can only obtain a partial answer by retrieving the locations of festival occurrences.
+
+A partial SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?festivalOccurrence ?city
+WHERE {
+  ?festivalOccurrence rdf:type :Cl_FestivalOccurrence .
+  ?festivalOccurrence :tookPlaceIn ?city .
+}
+
+This query returns the festival occurrences and the cities where they took place, but it does not tie them back to the festival individuals (e.g., RomaLovesShakespeare), so it is only a partial answer to the CQ.

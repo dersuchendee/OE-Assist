@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves retrieving contaminated sites, their geographical areas, and the time of observation, all of which are represented in the ontology.
+
+```sparql
+SELECT ?contaminatedSite ?area ?observationTime
+WHERE {
+  ?contaminatedSite a :ContaminatedSite .
+  ?contaminatedSite :hasObservation ?observation .
+
+  ?observation :observedInArea ?area .
+  ?observation :hasObservationTime ?observationTime .
+}
+```

@@ -1,0 +1,20 @@
+**No**
+
+The ontology defines individuals, roles, and role assignments (with assignment dates) for persons (e.g. via :hasRoleAssignment and :roleOf) but does not relate a production (an instance of :Cl_Production) to the role assignments. In other words, while we can list a person’s roles and the times they were assigned, we cannot filter those roles by a particular production because no property connects a role (or role assignment) to a production.
+
+A partial query that returns a person’s roles at a given time (but not filtered by a production) might be:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?assignmentDate
+WHERE {
+  :FabioBianchi :hasRoleAssignment ?assignment .
+  ?assignment :roleOf ?role ;
+              :assignmentDate ?assignmentDate .
+  FILTER(?assignmentDate = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+}
+---------------------------------
+
+This query can extract the roles assigned to Fabio Bianchi at the specified date, but note that there is no connection in the ontology linking those role assignments to a specific production.

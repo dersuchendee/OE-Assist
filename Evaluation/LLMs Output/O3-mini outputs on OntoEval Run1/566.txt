@@ -1,0 +1,12 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves the song a given track is a recording of (assuming the track is identified in the dataset):
+
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track .
+  ?track :isRecordingOf ?recording .
+  ?recording :recordedSong ?song .
+}

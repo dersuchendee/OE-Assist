@@ -1,0 +1,17 @@
+**No**
+The ontology provides information on bells (via the class Bell), sets of bells (SetOfBells), and bell towers (BellTower), and even uses the ArCo property hasComponent to connect objects. However, it does not explicitly associate churches with these bell towers nor does it fully model the distinction between a church and a bell tower. In a closed world, we can only partially answer the CQ by retrieving bell towers that have a set of bells and count the bells in each. For a partial answer we can use the following SPARQL query:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower (COUNT(?bell) AS ?bellCount)
+WHERE {
+  ?bellTower a bells:BellTower .
+  ?bellTower arco:hasComponent ?setOfBells .
+  ?setOfBells a bells:SetOfBells .
+  ?setOfBells arco:hasComponent ?bell .
+}
+GROUP BY ?bellTower
+
+This query retrieves, for each bell tower, the count of bells (via the connection from a bell tower to its component set of bells using arco:hasComponent). Since the ontology does not model churches or explicitly connect churches to bell towers, the CQ is only partially supported.

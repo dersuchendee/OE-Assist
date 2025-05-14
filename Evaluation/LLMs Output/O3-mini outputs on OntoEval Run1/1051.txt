@@ -1,0 +1,26 @@
+**Yes**
+
+We can answer the competency question “What articles were presented in a certain seminar?” because the ontology includes a reification of the presentation event. In particular, an article (of type Cl_Article) is connected via the object property presentedAt to a reified presentation (of type Cl_SeminarPresentation) that in turn is constrained to be related to a seminar (of type Cl_Seminar). Under a closed‐world assumption, we can assume that if a seminar is not linked by the property (using the given pattern) to a presentation, then no article was presented there.
+
+A corresponding SPARQL query is shown below. (Replace <http://www.example.org/test#SomeSeminar> with the URI of the particular seminar of interest.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?article ?articleLabel ?seminar ?seminarDate
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedAt ?presentation .
+  ?presentation :presentedAt ?seminar .
+  ?seminar a :Cl_Seminar .
+  
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  
+  FILTER(?seminar = <http://www.example.org/test#SomeSeminar>)
+}
+ORDER BY ?article
+------------------------------------------------
+
+This query extracts all articles associated (via a reified presentation) with the designated seminar, which shows that the CQ is supported by the ontology.

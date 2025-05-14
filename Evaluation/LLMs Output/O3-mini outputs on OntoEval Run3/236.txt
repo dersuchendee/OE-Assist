@@ -1,0 +1,18 @@
+**Yes**
+
+We can fully answer this CQ using the ontology because plays are represented as instances of :Cl_Play (or its subclass :Cl_WrittenWork) and they are linked to their authors through the property :op_writtenBy. For example, to find the plays written by a particular author (e.g., William Shakespeare), one can use the following SPARQL query:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title
+WHERE {
+  ?play a :Cl_Play .
+  ?play :op_writtenBy ?author .
+  ?author :dp_authorName "William Shakespeare" .
+  ?play :dp_title ?title .
+}
+---------------------------------------
+
+This query retrieves all plays (instances of :Cl_Play) that are linked via the property :op_writtenBy to an author whose name is "William Shakespeare" (as asserted using the data property :dp_authorName) and gets the title of each play via :dp_title.

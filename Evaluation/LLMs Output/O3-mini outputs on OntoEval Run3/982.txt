@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer this CQ. For example, assuming that a “particular book” is represented as an instance of the class Cl_BookOrCD and that its number of pages is recorded via the property :numberOfPages, a SPARQL query under the closed‑world assumption could be:
+
+---------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?pages
+WHERE {
+  ?book rdf:type :Cl_BookOrCD .
+  ?book :numberOfPages ?pages .
+  # Optionally, add a FILTER or VALUES clause to select the particular book of interest.
+}
+---------------------------
+
+This query retrieves the book (or books) along with the corresponding number of pages, effectively supporting the competency question.

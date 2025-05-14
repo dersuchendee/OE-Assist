@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+SELECT ?article ?articleTitle
+WHERE {
+  ?seminar a :Seminar ;
+           :hasPresentedArticle ?article ;
+           :title ?seminarTitle .
+  ?article :title ?articleTitle .
+  FILTER (?seminarTitle = "Seminar Title")  # Replace "Seminar Title" with the specific seminar's title
+}
+```

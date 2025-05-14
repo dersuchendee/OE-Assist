@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that answers the competency question by retrieving song(s) along with the date(s) they were composed. Under the closed world assumption, we expect the song to explicitly state its composition date via the ns1:composedOn property.
+
+-------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songLabel ?composedDate 
+WHERE {
+  ?song a ns1:Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  ?song ns1:composedOn ?composedDate .
+}
+ORDER BY ?song
+-------------------------
+
+This query lists each song (with its label, if available) and the date when it was composed, satisfying the CQ "When was a certain song composed?"

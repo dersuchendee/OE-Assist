@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?opinion
+WHERE {
+  ?review a :Review ;
+          :hasCritic ?critic ;
+          :hasRecord ?record ;
+          :opinion ?opinion .
+  FILTER(?critic = :CrianHiatt && ?record = :StadiumArcadium)
+}
+```

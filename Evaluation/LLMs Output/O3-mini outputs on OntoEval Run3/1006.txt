@@ -1,0 +1,13 @@
+**Yes**
+
+We can retrieve the publication date of a book or CD from the ontology. For example, the ontology models books (class :Cl_Book) and CDs (class :Cl_CD) as subclasses of :Cl_Publication, and uses the data property :publicationDate to record when the publication was released. Here is a SPARQL query that answers this CQ:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?publication ?publicationTitle ?publicationDate
+WHERE {
+  { ?publication rdf:type :Cl_Book } UNION { ?publication rdf:type :Cl_CD } .
+  ?publication :publicationTitle ?publicationTitle .
+  ?publication :publicationDate ?publicationDate .
+}

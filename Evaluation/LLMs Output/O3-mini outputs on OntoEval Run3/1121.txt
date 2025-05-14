@@ -1,0 +1,25 @@
+**Yes**
+
+The ontology provides user-specific abstract time definitions (through the property :hasAbstractTimeDefinition) along with start and end times (via :hasStartTime and :hasEndTime). Given a user (e.g., :User1234), you can write a SPARQL query to check which abstract time period applies at the current time by comparing the current time (using NOW()) with the defined start and end times.
+
+For example, assuming your SPARQL engine supports the NOW() function and TIME() to extract the time portion, the following query retrieves the abstract time period for a specific user if the current time falls between the defined start and end times:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?abstractTime ?startTime ?endTime ?currentTime
+WHERE {
+  ?user a :User ;
+        :hasAbstractTimeDefinition ?abstractTime .
+  ?abstractTime :hasStartTime ?startTime ;
+                :hasEndTime ?endTime .
+
+  BIND( TIME(NOW()) AS ?currentTime )
+  FILTER ( ?currentTime >= ?startTime && ?currentTime <= ?endTime )
+}
+--------------------------------------------------
+
+This query answers the CQ "What 'abstract time' (e.g. 'morning') is it now according to this particular user?" by retrieving the applicable abstract time definition where the current time falls within the user's defined time range.

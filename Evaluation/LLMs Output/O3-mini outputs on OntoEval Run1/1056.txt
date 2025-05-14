@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?article ?articleLabel
+WHERE {
+  ?presentation a :Cl_SeminarArticlePresentation .
+  ?presentation :presentedIn <http://www.example.org/test#Seminar_December_2008> .
+  ?presentation :articlePresented ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```

@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "Where did a certain performance take place?" can be answered using the ontology provided. The ontology includes the class `Cl_PerformanceEvent` with a data property `hasLocation` that specifies the location of a performance. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :hasLocation ?location .
+}
+```

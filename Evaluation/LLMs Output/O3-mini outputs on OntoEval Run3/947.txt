@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology includes a reified class for evaluations (Cl_EvaluationAssignment) that connects a doctor (via the :evaluatedBy property) and an employee (via the :evaluates property) with an evaluation statement (via the :evaluationStatement data property). This means the competency question “What is the evaluation statement given by a certain doctor for a certain employee?” is fully answerable using the ontology.
+
+For example, given specific URIs for the doctor and the employee, you could use the following SPARQL query:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?eval a :Cl_EvaluationAssignment .
+  ?eval :evaluatedBy ?doctor .
+  ?eval :evaluates ?employee .
+  ?eval :evaluationStatement ?evaluationStatement .
+  FILTER(?doctor = <http://www.example.org/test#Doctor123>) .
+  FILTER(?employee = <http://www.example.org/test#Employee456>) .
+}
+---------------------------------------
+
+This query will retrieve the evaluation statement submitted by the specified doctor for the specified employee, demonstrating that the CQ is fully supported by the ontology under the closed world assumption.

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the actor and theatre are represented in the ontology (with the employment relationship captured by a Cl_Employment instance linking a theatre and an actor via the properties :employs and :employedActor, with the employment start time recorded by the data property :employmentStartDate), one can answer the CQ. Under a closed‐world assumption, all the necessary facts are expected to be explicitly stated. For example, if “Fabio Bianchi” is the actor and “The Grand Theatre” the specific theatre, the following SPARQL query retrieves the time (start date) at which the actor started working for that theatre:
+
+-----------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?employmentStartDate
+WHERE {
+  :TheGrandTheatre rdf:type :Cl_Theatre .
+  :TheGrandTheatre :employs ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?employment :employedActor :FabioBianchi .
+}
+-----------------------
+
+This query shows that the CQ “At what time did a certain actor start working for a specific theatre?” is answerable by the ontology.

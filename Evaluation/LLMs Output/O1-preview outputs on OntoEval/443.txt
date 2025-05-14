@@ -1,0 +1,26 @@
+Answer: **No**
+
+Because the ontology does not contain specific time data for the membership intervals, we cannot determine the members of a particular band at a specific point in time.
+
+Here is a SPARQL query to extract the partial answer (members of a band, regardless of time):
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?bandName ?memberName
+WHERE {
+  ?band rdf:type :Band .
+  OPTIONAL { ?band rdfs:label ?bandName . }
+  
+  ?membership rdf:type :Membership ;
+              :membershipInBand ?band ;
+              :membershipTime ?timeInterval .
+              
+  ?member rdf:type :Musician ;
+          :hasName ?memberName ;
+          :memberOf ?membership .
+}
+```
+
+This query retrieves the members of each band but cannot filter by a specific point in time due to the lack of detailed time interval data in the ontology.

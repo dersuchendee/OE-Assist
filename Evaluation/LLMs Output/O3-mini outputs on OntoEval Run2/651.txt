@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, extracts the songs played in a specific performance (here, for example, the performance identified by :PerformancePortland2006):
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  :PerformancePortland2006 :hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+}
+------------------------------------------------
+
+This query directly answers the CQ by retrieving the song (and its label, if available) that was played in the designated performance.

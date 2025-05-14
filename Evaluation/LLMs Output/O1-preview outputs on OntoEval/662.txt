@@ -1,0 +1,25 @@
+**Yes**
+
+```sparql
+SELECT ?song
+WHERE {
+  ?setlist :performedDuring :Performance_Portland .
+  ?setlist :includesSong ?song .
+}
+```
+
+This query retrieves the songs played during a specific performance (in this case, `:Performance_Portland`) by navigating the relationships defined in the ontology:
+- `:setlist` is of type `:Cl_PerformanceSetlist` that is linked to the performance via `:performedDuring`.
+- The songs included in the setlist are retrieved using the `:includesSong` property.
+
+If you want the query to be applicable to any performance, you can use a variable for the performance:
+
+```sparql
+SELECT ?performance ?song
+WHERE {
+  ?setlist :performedDuring ?performance .
+  ?setlist :includesSong ?song .
+}
+```
+
+This version allows you to retrieve songs for all performances recorded in the ontology.

@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :op_composedDuring ?compositionEvent .
+  ?compositionEvent :dp_compositionDate ?compositionDate .
+  FILTER(?song = :ind_HumpDeBump)
+}
+```

@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that answers the CQ “At least one article is always presented at each seminar”. In our ontology every seminar (an instance of :Cl_Seminar) is defined to require at least one article (an instance of :Cl_Article) via the property :presentedIn. The following query retrieves seminars along with the titles of the articles presented in each seminar, ensuring that for every seminar at least one associated article exists:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar (GROUP_CONCAT(?articleTitle; separator=", ") AS ?articles)
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .   # if you wish to see the seminar date
+  ?article a :Cl_Article ;
+           :presentedIn ?seminar ;
+           :articleTitle ?articleTitle .
+}
+GROUP BY ?seminar ?seminarDate
+ORDER BY ?seminar
+-------------------------------------------------
+
+Under the closed world assumption this query confirms that every seminar has at least one article associated via the :presentedIn property, thus fully supporting the competency question.

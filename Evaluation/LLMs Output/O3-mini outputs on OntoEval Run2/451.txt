@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one possible SPARQL query that assumes membership is reified using a class (here :Cl_BandMembership) linking a person, a band, and a time period. In this query we assume that the time period individual (of type :Cl_TimePeriod) is further annotated with start and end dates (properties such as :hasStart and :hasEnd) so that we can “check” whether the given point in time falls within the membership period. (Under the closed‐world assumption, only those individuals with an explicit time period are considered, so non‐asserted memberships are ruled out.)
+
+For example, to ask “What are the members of a certain band (replace :SomeBand with the band’s IRI) at a given point in time (here provided as 2023-10-01T00:00:00Z)?” you could use:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?membership ?start ?end
+WHERE {
+  ?person :memberOfBand ?membership .
+  ?membership :bandMember :SomeBand .
+  ?membership :membershipPeriod ?tp .
+  ?tp :hasStart ?start ;
+      :hasEnd ?end .
+  
+  # Filter to include only memberships active at the given point in time
+  FILTER("2023-10-01T00:00:00Z"^^xsd:dateTime >= ?start && "2023-10-01T00:00:00Z"^^xsd:dateTime <= ?end)
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+------------------------------------------------------------
+
+This query returns all persons (with their optional labels) who are members of the given band at the queried point in time according to the reified membership information in the ontology.

@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology, as it is possible to write a SPARQL query to extract the codes corresponding to each disease category.
+
+```sparql
+SELECT ?diseaseCategory ?diseaseCategoryLabel ?code ?codeLabel
+WHERE {
+  ?diseaseCategory a :DiseaseCategory .
+  OPTIONAL { ?diseaseCategory rdfs:label ?diseaseCategoryLabel . }
+
+  ?diseaseCategory :hasCode ?code .
+  OPTIONAL { ?code rdfs:label ?codeLabel . }
+}
+```

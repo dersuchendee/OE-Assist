@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that extracts the “star rating” given by a newspaper for a production using the reified review rating construct:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionName ?newspaper ?newspaperName ?starRating
+WHERE {
+  ?review a :Cl_ReviewRating ;
+          :hasStarRating ?starRating ;
+          :concerns ?production ;
+          :reviews ?newspaper .
+  OPTIONAL { ?production :hasName ?productionName . }
+  OPTIONAL { ?newspaper :hasName ?newspaperName . }
+}
+-------------------------------------------------------------
+
+Under the closed world assumption, we assume that the existing facts in the ontology fully capture the relationships. In the ontology, the reified individual such as ReviewRating_Il_Gazzettino_Merchant_of_Venice connects the newspaper (:Il_Gazzettino) to the production (:The_Merchant_of_Venice_Grand_Theatre) with the star rating as data. Therefore, the competency question “What is the ‘star rating’ given by a certain newspaper for a certain production?” is modeled and answerable via the query above.

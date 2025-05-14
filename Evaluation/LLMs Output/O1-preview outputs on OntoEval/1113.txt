@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/onto#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?sensorData
+WHERE {
+  :User123 :hasRole ?userRole .
+  ?sensorData a :SensorData .
+  ?sensorData :detectedActivity ?userRole .
+}
+```
+This query retrieves the sensor data related to `:User123` by matching the user's role with the detected activity in the sensor data. It effectively answers the competency question by providing the sensor data known about this user's context based on the ontology provided.

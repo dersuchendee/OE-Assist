@@ -1,0 +1,16 @@
+**No**
+
+The ontology partially supports answering the CQ by allowing us to query the declared purpose of each meetup, but only one of the CQ’s event types ("celebration") is explicitly defined (as mtps:PublicCelebration). The CQ asks whether a meetup was a celebration, a festival, or a private event, but “festival” and “private event” are not directly represented in the ontology. Thus, under a closed‐world assumption, we can only extract the meetup’s purpose—a partial answer to the CQ.
+
+Partial Answer SPARQL Query:
+--------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+
+SELECT ?meetup ?purpose
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasAPurpose ?purpose .
+}
+ORDER BY ?meetup
+--------------------------------------------------

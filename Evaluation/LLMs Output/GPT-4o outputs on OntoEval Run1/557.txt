@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not contain any direct information about albums or their release dates. However, it does contain classes and properties related to albums, such as `:Cl_Album`, `:Cl_AlbumRelease`, and `:releaseDate`. Therefore, a partial SPARQL query can be constructed to extract information about albums and their release dates, but it will not provide a complete answer to the competency question without additional data.
+
+```sparql
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releasedOn ?release .
+  ?release :releaseDate ?releaseDate .
+}
+```

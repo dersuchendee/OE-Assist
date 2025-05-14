@@ -1,0 +1,18 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the location of a given festival (for example, “Roma Loves Shakespeare”) by using the fact that instances of :TheatreFestival have a name via :hasName and take place in a location via :takesPlaceIn:
+
+-------------------------------------------------------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalName ?location ?locationName
+WHERE {
+  ?festival a :TheatreFestival ;
+            :hasName ?festivalName ;
+            :takesPlaceIn ?location .
+  OPTIONAL { ?location :hasName ?locationName . }
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+-------------------------------------------------------------------------------------------------
+
+This query shows that the CQ “Where did a certain festival take place?” is fully answerable given the ontology.

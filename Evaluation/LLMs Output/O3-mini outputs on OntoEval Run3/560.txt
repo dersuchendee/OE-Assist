@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, extracts the song (i.e. the musical work) that a given track recording represents via the reified relation (using the property op_isRecordingOf):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?trackRecording ?song ?songName
+WHERE {
+  ?trackRecording rdf:type :Cl_TrackRecording .
+  ?trackRecording :op_isRecordingOf ?song .
+  OPTIONAL { ?song :hasName ?songName . }
+}
+--------------------------------------------------
+
+This query retrieves all track recordings along with the song (musical work) each recording is of, which directly answers the competency question “What song is a specific track a recording of?”

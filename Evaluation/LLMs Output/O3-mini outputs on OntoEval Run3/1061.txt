@@ -1,0 +1,23 @@
+**Yes**
+
+The ontology defines a seminar class (:Cl_Seminar) with a restriction that it must have at least one presented article via the property (:hasPresentedArticle). Hence, we can retrieve the articles associated with a given seminar. For example, assuming we know the URI of the particular seminar, the following SPARQL query answers the competency question:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?article ?articleLabel
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  
+  # Filter to restrict to the particular seminar (replace <Seminar_URI> with the actual URI)
+  FILTER(?seminar = <Seminar_URI>)
+}
+--------------------------------------------------
+
+In a closed-world scenario, since the ontology models seminars and their presented articles explicitly, the CQ is fully answerable by the above query.

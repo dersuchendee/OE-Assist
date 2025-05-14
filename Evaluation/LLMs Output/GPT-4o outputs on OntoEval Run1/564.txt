@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct relationship between a track and the song it is a recording of. The ontology defines classes for `Song`, `Track`, and `Album`, and it includes properties like `isRecordingOf` and `hasRecording`, but there is no explicit data or individuals that link a specific track to a song. Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted by identifying tracks and their titles:
+
+```sparql
+SELECT ?track ?trackTitle
+WHERE {
+  ?track a :Track .
+  ?track :trackTitle ?trackTitle .
+}
+```

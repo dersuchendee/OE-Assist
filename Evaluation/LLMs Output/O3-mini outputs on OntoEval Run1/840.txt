@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology provides a Hospital class that is defined to be located in a City (via the "isLocatedIn" property). Thus, given an individual hospital (for example, “Ospedale Riunito delle Tre Valli”), you can write a SPARQL query that retrieves the city where the hospital is located.
+
+Below is an example query:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  ?hospital :isLocatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+--------------------------------------------------
+
+This query returns each hospital along with its (optional) label and the city in which it is located.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, retrieves the date for a given theatre festival (here “Roma Loves Shakespeare”) from the ontology:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?dateValue
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName .
+  ?fd a :Cl_FestivalDate ;
+      :hasFestival ?festival ;
+      :hasDate ?date .
+  ?date :festivalDate ?dateValue .
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+------------------------------------------------------------
+
+This query shows that the ontology models the competency question “When did [a given] theatre festival take place?” because it lets us extract the festival’s date information.

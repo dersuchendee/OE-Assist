@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "In what country is a certain region located?" can be answered using the ontology provided. The ontology includes the `ns1:isPartOf` property, which associates a region with the country it is part of. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a ns1:Region .
+  ?region ns1:isPartOf ?country .
+}
+```

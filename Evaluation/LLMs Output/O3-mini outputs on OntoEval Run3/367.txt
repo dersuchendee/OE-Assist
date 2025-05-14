@@ -1,0 +1,27 @@
+**Yes**
+Assuming that the employment instance is reified (via the class Cl_ActorEmployment) to capture the actor’s employment date for a given theatre (using a property such as “forTheatre” to link the employment record to the theatre), a SPARQL query answering “At what time did a certain actor start working for a specific theatre?” can be written as follows:
+
+———————————————————————————————
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :employedAt ?employment .
+  ?employment a :Cl_ActorEmployment ;
+              :employmentStartDate ?startDate ;
+              :forTheatre ?theatre .
+  # Use FILTER to specify the particular actor and theatre.
+  FILTER(?actor = :FabioBianchi && ?theatre = :TheGrandTheatre)
+}
+```
+———————————————————————————————
+
+In this query the following is assumed under a closed‐world interpretation:
+1. Every employment relationship is reified as an instance of Cl_ActorEmployment.
+2. The property :employmentStartDate records the date the actor started working.
+3. A property (here named :forTheatre) links the employment record to the theatre.
+
+Thus, the competency question is fully supported by the ontology.

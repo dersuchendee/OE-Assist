@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premierDateValue
+WHERE {
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :hasPremier ?premier .
+  ?premier :premierDate ?pdResource .
+  ?pdResource :premierDateValue ?premierDateValue .
+}
+ORDER BY ?production
+```

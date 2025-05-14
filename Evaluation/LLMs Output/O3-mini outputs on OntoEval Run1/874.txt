@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the country of a given city (e.g., “Nocera Inferiore”) by exploiting the relationships between a city, its city location, and the country:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?country ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName "Nocera Inferiore" .
+  ?cityLocation a :Cl_CityLocation ;
+                :cityLocationOf ?city ;
+                :cityLocatedIn ?country .
+  ?country :countryName ?countryName .
+}
+———————————————————————————————
+
+In a closed‐world setting, since the ontology explicitly provides that “Nocera Inferiore” is located in “Italy”, this query fully answers the competency question "In what country is a certain city located?"

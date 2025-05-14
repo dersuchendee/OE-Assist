@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+SELECT ?doctor ?employee ?evaluation_text
+WHERE {
+  ?evaluation_event a :Cl_EvaluationEvent .
+  ?evaluation_event :evaluation_text ?evaluation_text .
+  
+  ?doctor a :Cl_Doctor ;
+          :conducts_evaluation_event ?evaluation_event .
+  
+  ?employee a :Cl_Employee ;
+            :undergoes_evaluation_event ?evaluation_event .
+}
+```
+
+This query retrieves the evaluation statements (`?evaluation_text`) given by doctors (`?doctor`) to employees (`?employee`). It utilizes the relationships defined in the ontology:
+
+- **`:conducts_evaluation_event`** links a doctor to the evaluation event they conducted.
+- **`:undergoes_evaluation_event`** links an employee to the evaluation event they underwent.
+- **`:evaluation_text`** provides the text of the evaluation.
+
+The query selects all instances where a doctor has conducted an evaluation event that an employee has undergone, retrieving the associated evaluation text.

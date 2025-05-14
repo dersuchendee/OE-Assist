@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the city (location) in which a given festival’s occurrence took place:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?occurrence ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :takesPlaceIn ?city .
+  # Optionally, to retrieve the label(s) if available:
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}

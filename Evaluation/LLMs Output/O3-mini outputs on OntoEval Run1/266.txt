@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology includes the property “writtenDuring” (with domain Cl_Play) for plays, which lets us extract the time period during which a play was written. For example, if we want to retrieve the time period for (say) “The Merchant of Venice,” we can write a SPARQL query similar to the one below:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?writtenDuring
+WHERE {
+  ?play a :Cl_Play .
+  ?play :writtenDuring ?writtenDuring .
+  OPTIONAL { ?play rdfs:label ?label . }
+  # Uncomment the next line to filter by a specific play title:
+  # FILTER(regex(?label, "Merchant of Venice", "i"))
+}
+---------------------------------------------------------
+
+This query retrieves all plays along with their associated “writtenDuring” value, allowing us to answer the competency question under the closed world assumption.

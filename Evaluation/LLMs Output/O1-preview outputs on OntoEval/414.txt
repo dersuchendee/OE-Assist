@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not enforce that a production has exactly one premier since there are no cardinality restrictions specified on the `hasPremier` property in the ontology. Therefore, the competency question is not fully supported by the ontology.
+
+However, we can write a SPARQL query to retrieve the number of premiers each production has:
+
+```sparql
+SELECT ?production (COUNT(?premier) AS ?numPremiers)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremier ?premier . }
+}
+GROUP BY ?production
+```
+
+This query will list each production and the number of premiers it has, but it cannot enforce or confirm that every production has exactly one premier based solely on the given ontology.

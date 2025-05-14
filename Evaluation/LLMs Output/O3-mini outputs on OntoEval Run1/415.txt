@@ -1,0 +1,16 @@
+**Yes**
+
+We can verify that each production has exactly one premier by retrieving productions and ensuring that for each production there is one—and only one—associated premier (with its premier date). Under the closed‐world assumption the query below returns only those productions that meet this requirement.
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (SAMPLE(?premierDate) AS ?premierDate)
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)

@@ -1,0 +1,13 @@
+**No**  
+Because the ontology does not explicitly assert (via a cardinality or existential restriction on Cl_Record) that every record must be connected to at least one track, we cannot fully answer the CQ “A record always contains at least one track” using the ontology. However, under a closed world assumption we can extract a partial answer – for example, identifying records that lack any track, which would indicate violations of that expectation.
+
+A partial answer can be obtained with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record
+WHERE {
+  ?record a :Cl_Record .
+  FILTER NOT EXISTS { ?record :containsTrack ?recordTrack . }
+}

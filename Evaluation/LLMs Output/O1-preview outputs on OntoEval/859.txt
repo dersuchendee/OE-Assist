@@ -1,0 +1,15 @@
+**Answer: Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city :dp_cityName ?cityName . }
+  ?city :op_isLocatedIn ?country .
+}
+```
+
+This SPARQL query retrieves cities and the countries they are located in. It uses the ontology where `:Cl_City` and `:Cl_Country` are classes, and there's an object property `:op_isLocatedIn` connecting cities to countries. We use the optional pattern to get the city name if available via the data property `:dp_cityName`.

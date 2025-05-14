@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not include any explicit representation for whether participants were invited, so we cannot fully answer the first part of the CQ ("Were they invited?"). However, a partial answer can be provided regarding whether the meeting was accidental by checking if the meetup’s purpose is recorded as Coincidence (which in this ontology represents an accidental meeting). The SPARQL query below extracts for each meetup its purpose (and hence if it was accidental, it would be mtps:Coincidence). Note that no information about invitation is available in the ontology.
+
+-------------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL {
+    ?meetup mtps:hasAPurpose ?purpose .
+    # Filter to identify accidental meetings (assuming mtps:Coincidence indicates an accidental meeting)
+    FILTER(?purpose = mtps:Coincidence)
+  }
+}
+-------------------------------------------------------
+
+This query provides a partial answer by retrieving meetups whose stated purpose is Coincidence (and thus, potentially accidental), while leaving open the missing information regarding invitation details.

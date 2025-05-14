@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain explicit information about ensemble membership at specific points in time. While it does have classes and properties related to ensembles, productions, and actors, it lacks the necessary temporal information to answer the competency question about ensemble membership at a certain point in time. Here's a SPARQL query to extract a partial answer, which lists ensemble members without considering the time aspect:
+
+```sparql
+SELECT ?ensemble ?actor
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?actor .
+}
+```

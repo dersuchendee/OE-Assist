@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the start date of employment for actors at theatres as modelled in the ontology:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :hasActor ?actor ;
+              :hasTheatre ?theatre ;
+              :hasStartDate ?startDate .
+  OPTIONAL { ?actor :actorName ?actorName . }
+  OPTIONAL { ?theatre :theatreName ?theatreName . }
+}
+ORDER BY ?startDate
+-------------------------------------------------
+
+This query extracts the actor, theatre, and the employment start date (i.e. when a certain actor started working at a specific theatre) from the ontology, which demonstrates that the competency question is indeed supported.

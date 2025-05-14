@@ -1,0 +1,30 @@
+**Yes**
+
+Below is one example SPARQL query that, under a closed‐world assumption, retrieves the role a given person (e.g. :PasqualeDiGennaro) holds in a union, but only if the role’s start date is on or before a given “point in time” (which you can adjust as needed):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?roleTitle ?roleStartDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasUnionMembership ?membership .
+  ?membership :memberOf ?union ;
+              :hasUnionRole ?role .
+  ?role :roleTitle ?roleTitle ;
+        :roleStartDate ?roleStartDate .
+  FILTER(?person = :PasqualeDiGennaro)
+  # Only consider roles that started before or on the specified point in time:
+  FILTER(?roleStartDate <= "2003-01-01"^^xsd:date)
+}
+ORDER BY ?roleStartDate
+------------------------------------------------------------
+
+In this query the idea is:
+• We retrieve a person’s union membership (linking via :hasUnionMembership).
+• For each membership we get the union (via :memberOf) and the associated role (via :hasUnionRole) along with its title and start date.
+• The filter compares the role’s start date to a given date (here "2003-01-01") to simulate the “at a certain point in time” constraint.
+• Under a closed‐world assumption, if there is no end date we assume the role continues from its start date onward.
+
+This shows that the ontology models the competency question.

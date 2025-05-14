@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that our data contains events that are explicitly typed as one of the three classes (Celebration, Festival, or PrivateEvent) – and under a closed‐world assumption (i.e. if an event is not explicitly declared to be one of these types then it is not assumed to be an instance of any of them) – we can write a SPARQL query to extract, for each event, its category as follows:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventType ?typeLabel
+WHERE {
+  ?event a :Event .
+  ?event a ?eventType .
+  FILTER(?eventType IN (:Celebration, :Festival, :PrivateEvent))
+  OPTIONAL { ?eventType rdfs:label ?typeLabel. }
+}
+------------------------------------------------------------
+
+This query returns each event along with the type (i.e. whether it is a Celebration, Festival, or Private Event) in accordance with the ontology, thus showing that the CQ is modelled by the ontology.

@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that individual cities are instances of :Cl_City and the ontology links a city to its region through an intermediate class—for instance, a city is associated with a “city region” via the property :cityRegion, and that “city region” is then linked to the actual region via the property :regionOfCity—the following SPARQL query answers the CQ:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+
+  ?city :cityRegion ?cityRegion .
+  ?cityRegion :regionOfCity ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+--------------------------------------------------
+
+This query retrieves each city along with the region (through its associated “city region”) in which that city is located.

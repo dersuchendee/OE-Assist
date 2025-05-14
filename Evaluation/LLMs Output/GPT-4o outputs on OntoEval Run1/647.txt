@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not contain any information related to performances or their dates. Therefore, the competency question "When did a certain performance take place?" cannot be fully answered using the given ontology. However, a partial query can be constructed to retrieve any available performance-related data, if it existed in the ontology.
+
+```sparql
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performanceParticipation a :Cl_PerformanceParticipation .
+  ?performanceParticipation :performance ?performance .
+  ?performanceParticipation :performanceDate ?performanceDate .
+}
+```
+
+This query assumes that there would be a class `:Cl_PerformanceParticipation` and properties `:performance` and `:performanceDate` in the ontology, which are not present in the provided ontology.

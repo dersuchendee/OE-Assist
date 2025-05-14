@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that musician Z is represented by the instance :MusicianZ, the following SPARQL query retrieves the places associated with the events in which they participated (and therefore the places they visited):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?place ?placeLabel
+WHERE {
+  :MusicianZ a :Musician .
+  :MusicianZ :participatesIn ?event .
+  ?event :hasLocation ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+ORDER BY ?place
+--------------------------------------------------
+
+This query answers the competency question by extracting all places (and their labels, if available) from the events in which musician Z took part, as modelled in the ontology under the closed world assumption.

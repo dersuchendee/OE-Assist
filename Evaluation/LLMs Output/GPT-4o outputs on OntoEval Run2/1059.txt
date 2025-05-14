@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate articles with specific seminars. The ontology includes classes for `Cl_Article` and `Cl_Seminar`, but there is no direct object property linking articles to seminars. The closest relation is through `Cl_SeminarPresentation`, which is a subclass of both `Cl_Seminar` and `Cl_Article`, but it does not provide a direct link between an article and a seminar.
+
+Here is a SPARQL query to extract a partial answer, which lists articles and seminars separately:
+
+```sparql
+SELECT ?article ?seminar
+WHERE {
+  ?article a :Cl_Article .
+  ?seminar a :Cl_Seminar .
+}
+```

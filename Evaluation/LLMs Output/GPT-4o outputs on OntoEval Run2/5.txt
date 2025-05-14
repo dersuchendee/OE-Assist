@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not include any information about the specific types of sources, such as "Personal journals" or "literary texts," which are mentioned in the story. The ontology only defines a general "Source" class and some subclasses like "Encyclopedia" and "Expert," but it does not provide a way to query for specific types of sources as described in the competency question.
+
+Here is a SPARQL query to extract a partial answer, which would list the types of sources defined in the ontology:
+
+```sparql
+SELECT ?source ?type
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source :hasType ?type . }
+}
+```

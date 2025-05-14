@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+Here is a SPARQL query to retrieve the songs played in each performance:
+
+```sparql
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+
+  ?performance :hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance ?song
+```

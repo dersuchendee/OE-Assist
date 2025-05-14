@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine where a user lives or where the system runs. The ontology includes classes and properties related to users, locations, and weather displays, but it lacks specific instances or data that would allow us to answer the competency question directly. Here's a SPARQL query to extract a partial answer, which would list users and their associated locations if such data were available:
+
+```sparql
+SELECT ?user ?location
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasLocation ?locationEntity .
+  ?locationEntity :locatedIn ?location .
+}
+```

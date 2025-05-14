@@ -1,0 +1,28 @@
+**Yes**
+
+The competency question can be answered using the provided ontology. The ontology includes classes and properties that represent the transport of dissolved carbon between environmental compartments such as soil and groundwater. Specifically:
+
+- `:DissolvedCarbonTransportProcess` represents transport processes where the transported substance is dissolved carbon.
+- The properties `:fromCompartment` and `:toCompartment` specify the source and destination environmental compartments of the transport process.
+- The classes `:Soil` and `:Groundwater` are subclasses of `:EnvironmentalCompartment`, representing specific compartments like soil and groundwater.
+
+Here is a SPARQL query to retrieve information about how dissolved carbon is transported between different environmental compartments:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?process ?processLabel ?fromCompartment ?fromCompLabel ?toCompartment ?toCompLabel
+WHERE {
+  ?process a :DissolvedCarbonTransportProcess .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  
+  ?process :fromCompartment ?fromCompartment .
+  OPTIONAL { ?fromCompartment rdfs:label ?fromCompLabel . }
+  
+  ?process :toCompartment ?toCompartment .
+  OPTIONAL { ?toCompartment rdfs:label ?toCompLabel . }
+}
+```
+
+This query retrieves all instances of `:DissolvedCarbonTransportProcess`, along with their associated source and destination compartments. It also attempts to retrieve any labels for better readability.

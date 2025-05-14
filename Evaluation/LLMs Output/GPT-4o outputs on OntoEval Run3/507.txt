@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain any properties or classes related to the recording period of an album. Therefore, it is not possible to directly answer the competency question "During what time period was a certain album recorded?" using the given ontology. However, we can extract partial information about albums and their recording sessions, if any, but without specific time periods.
+
+```sparql
+SELECT ?album ?recordingSession
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :recordedDuring ?recordingSession . }
+}
+```

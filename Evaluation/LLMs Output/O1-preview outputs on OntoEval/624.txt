@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?reviewContent
+WHERE {
+  ?album a :Cl_Album ;
+         rdfs:label "Stadium Arcadium" .
+  ?critic a :Cl_Critic ;
+          rdfs:label "Brian Hiatt" .
+  ?album :hasReview ?review .
+  ?review :writtenBy ?critic .
+  ?review :reviewContent ?reviewContent .
+}
+```

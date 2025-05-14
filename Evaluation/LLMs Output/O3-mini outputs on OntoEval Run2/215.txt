@@ -1,0 +1,16 @@
+**No**  
+The ontology does not fully support reification of ensemble membership at a specified point in time (i.e. there is no instance of a reified class such as theatre:EnsembleAtTime with an explicit theatre:atTime value). However, we can partially extract the members of an ensemble regardless of the temporal condition. For example, using a partial answer we can query:
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?actor ?time
+WHERE {
+  ?ensemble rdf:type theatre:Ensemble .
+  ?ensemble theatre:hasMember ?actor .
+  OPTIONAL { ?ensemble theatre:atTime ?time. }
+  FILTER(?ensemble = theatre:RomaLovesShakespeareEnsemble)
+}
+
+This query returns the actors (members) of the ensemble (here, for example, “Roma Loves Shakespeare Ensemble”) plus any recorded time information. Since the ontology does not provide explicit time assignments on ensemble instances, the CQ about a “certain point in time” is only partially answerable.

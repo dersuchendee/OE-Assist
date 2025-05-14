@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the premier date of a specific production. The ontology includes a class `Cl_ProductionPremier` with a property `hasPremierDate`, but there is no direct connection between a specific production and its premier date. Therefore, a partial answer can be extracted by querying for all productions with their premier dates, but it cannot be filtered for a specific production.
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_ProductionPremier .
+  ?production :hasPremierDate ?premierDate .
+}
+```

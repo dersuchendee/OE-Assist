@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query bookings within a specific time period. The ontology includes classes and properties related to users, calendars, bookings, and time periods, but it lacks a direct connection between bookings and specific time periods that would allow for querying bookings within a certain time frame.
+
+Partial answer:
+```sparql
+SELECT ?calendar ?booking ?startTime ?endTime
+WHERE {
+  ?user :hasCalendar ?calendar .
+  ?calendar :containsBooking ?booking .
+  ?booking :startTime ?startTime .
+  ?booking :endTime ?endTime .
+}
+```

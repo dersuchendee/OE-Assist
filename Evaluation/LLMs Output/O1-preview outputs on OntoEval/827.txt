@@ -1,0 +1,13 @@
+**No**
+
+```sparql
+SELECT ?person ?hospital ?employmentDate
+WHERE {
+  ?employment rdf:type :Cl_Employment ;
+              :employee ?person ;
+              :employedAt ?hospital ;
+              :employmentDate ?employmentDate .
+}
+```
+
+In this ontology, there is no instance data representing employment information for any person at any hospital. Therefore, we cannot answer the competency question "When was a certain person first employed at a certain hospital?" directly from the ontology. The SPARQL query above attempts to retrieve employment information, but it will return no results due to the absence of such data in the ontology.

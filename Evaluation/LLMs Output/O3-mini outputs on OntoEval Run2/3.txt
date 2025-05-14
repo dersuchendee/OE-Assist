@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?sourceLabel ?score ?explanation
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  
+  ?source :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityScore ?score .
+  OPTIONAL { ?assessment :hasCredibilityExplanation ?explanation . }
+}
+ORDER BY ?source
+```

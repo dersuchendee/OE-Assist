@@ -1,0 +1,21 @@
+**Yes**
+```sparql
+SELECT ?activity ?timestamp ?alone ?facing ?holding
+WHERE {
+  ?activity a :Cl_UserBrushingActivity .
+  ?activity :hasSensorData ?sensorData .
+  ?sensorData :hasTimestamp ?timestamp .
+
+  OPTIONAL {
+    ?sensorData :hasLocation ?location .
+    ?location :isAlone ?alone .
+    ?location :isFacing ?facing .
+  }
+  
+  OPTIONAL {
+    ?sensorData :hasObject ?object .
+    ?object :isHolding ?holding .
+  }
+}
+ORDER BY ?activity ?timestamp
+```

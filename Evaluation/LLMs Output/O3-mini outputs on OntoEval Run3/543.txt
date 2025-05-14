@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that an album instance is defined as a :Cl_Album and that its release information is captured by linking it via the :releasedAlbum property to an instance of :Cl_AlbumRelease that in turn has a :releaseDate (of type xsd:date), we can write a SPARQL query that retrieves the release date for a specified album. Under the closed world assumption, only explicitly asserted information is considered.
+
+For example, if you wish to get the release date for a certain album (e.g. identified by its URI), you could use the following query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releasedAlbum ?albumRelease .
+  ?albumRelease :releaseDate ?releaseDate .
+  # Optionally, restrict to a specific album:
+  # FILTER(?album = <http://www.example.org/test#StadiumArcadium>)
+}
+
+This query shows that the competency question “When was a certain album released?” is fully modelled by the ontology.

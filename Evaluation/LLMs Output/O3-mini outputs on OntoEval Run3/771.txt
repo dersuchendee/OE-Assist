@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeName ?degreeDate
+WHERE {
+  # A particular person is assumed to be identified;
+  # you may replace :PasqualeDiGennaro with the URI of the person in question.
+  :PasqualeDiGennaro :hasDegree ?degree .
+  ?degree a :MedicalDegree .
+  OPTIONAL { ?degree :degreeName ?degreeName. }
+  OPTIONAL { ?degree :degreeDate ?degreeDate. }
+}
+ORDER BY ?degreeDate
+```

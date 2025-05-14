@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?numTracks
+WHERE {
+  ?album a ns1:Album .
+  ?album ns1:numberOfTracks ?numTracks .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+}
+ORDER BY ?album
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the page count for each book (i.e. instances of Cl_Book):
+
+——————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?pageCount
+WHERE {
+  ?book rdf:type :Cl_Book .
+  ?book :pageCount ?pageCount .
+}
+—————————————————————————————— 
+
+This query shows that the ontology supports the competency question "How many pages does a particular book contain?" under the closed‐world assumption.

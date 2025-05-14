@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a festival. The `hasLocation` property is defined with a domain of `Cl_TheatreFestival` and a range of `Cl_City`, but there is no instance data or specific festival information provided in the ontology to answer the competency question directly. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival :hasLocation ?location . }
+}
+```

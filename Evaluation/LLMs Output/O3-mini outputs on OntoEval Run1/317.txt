@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming a closed‐world interpretation, the production’s premiere information is explicitly stored via a property linking a production to its unique premiere (with a premiere date). For example, the ontology defines a production (of type Cl_Production) that has a premiere (via the :hasPremiere property) and the premiere has a date (using the :premiereDate property). Thus we can answer the CQ “When was the premier of a certain production?” with the following SPARQL query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremiere ?premiere .
+  ?premiere :premiereDate ?premiereDate .
+}
+------------------------------------------------
+
+This query retrieves, for each production in the ontology, the corresponding premiere date, providing an answer to the competency question.

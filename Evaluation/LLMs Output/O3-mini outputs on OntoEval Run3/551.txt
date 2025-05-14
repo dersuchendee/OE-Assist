@@ -1,0 +1,17 @@
+**Yes**
+
+A competency question like “When was a certain album released?” can be answered via this ontology because albums (instances of :Cl_Album) are annotated with a data property (:releaseDate). For example, to retrieve the release date for the “Stadium Arcadium” album, you could run:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+  FILTER(?album = :StadiumArcadium)
+}
+---------------------------------
+
+This query extracts the release date directly from the ontology, so the CQ is fully supported.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that returns the publication date for each individual of type Cl_Book or Cl_CD (i.e. for any book or CD in the ontology):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?item ?itemLabel ?publicationDate
+WHERE { 
+  { ?item a :Cl_Book }
+  UNION
+  { ?item a :Cl_CD } .
+  OPTIONAL { ?item rdfs:label ?itemLabel . }
+  ?item :publicationDate ?publicationDate .
+}
+ORDER BY ?publicationDate
+—————————————————————————————
+
+This query demonstrates that the ontology models the competency question “When was a certain book or CD published?” by retrieving the publication date property from individuals that are classified as a book or CD.

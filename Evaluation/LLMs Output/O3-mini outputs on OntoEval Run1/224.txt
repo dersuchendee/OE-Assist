@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world interpretation, retrieves the actor members of a given ensemble (for example, MerchantOfVeniceEnsemble) at a specified time (e.g. "2009-09-01T00:00:00Z"):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?membershipTime
+WHERE {
+  # Select a specific ensemble
+  :MerchantOfVeniceEnsemble a :Cl_Ensemble .
+  
+  # Find actors who performed in that ensemble and have a reified membership carrying a time stamp
+  ?actor a :Cl_Actor ;
+         :performedIn :MerchantOfVeniceEnsemble ;
+         :memberOf ?membership .
+  ?membership :atTime ?membershipTime .
+  
+  # Closed world: filter for the given point in time
+  FILTER(?membershipTime = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+  
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+------------------------------------------------
+
+This query shows that the ontology supports answering the CQ "Who are the members of a certain ensemble at a certain point in time?" by linking ensemble membership (via the reified membership with its atTime property) and the ensemble relation via :performedIn and :memberOf.

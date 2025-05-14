@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?critic ?criticName ?album ?albumName ?reviewText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?critic :reviews ?review .
+  ?review a :Cl_CriticReview .
+  ?review :reviewText ?reviewText .
+  ?album a :Cl_Album .
+  ?album :reviewedAlbum ?review .
+  OPTIONAL { ?critic rdfs:label ?criticName . }
+  OPTIONAL { ?album rdfs:label ?albumName . }
+}
+```

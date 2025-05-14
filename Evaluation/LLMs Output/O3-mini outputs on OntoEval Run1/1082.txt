@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming the closed‐world interpretation, the ontology explicitly models seminars via the class Cl_Seminar and their locations via the object property seminarTookPlaceAt (with range Cl_Location). This allows us to directly write a SPARQL query to retrieve “where” a particular seminar took place. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?location
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarTookPlaceAt ?location .
+}
+
+This query retrieves all seminars (instances of Cl_Seminar) along with their corresponding locations, which answers the competency question "Where did a certain seminar take place?" under the closed world assumption.

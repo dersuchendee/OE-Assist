@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that individual theatre festivals are represented as instances of :Cl_TheatreFestival, and that each festival has one or more associated occurrences (instances of :Cl_FestivalOccurrence) linked via the property :hasOccurrence—with the occurrence date captured by the data property :occurrenceDate—you can extract the date(s) when a specific festival took place. For example, if you know the URI or a label of the specific festival (here filtering on “Roma Loves Shakespeare”), you can run a SPARQL query like this:
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  FILTER (CONTAINS(LCASE(STR(?festivalLabel)), "roma loves shakespeare"))
+}
+----------------------------------------------------------
+
+This query retrieves the dates associated with the festival whose label contains “roma loves shakespeare”. (Under a closed world assumption, only the data explicitly present is returned.)

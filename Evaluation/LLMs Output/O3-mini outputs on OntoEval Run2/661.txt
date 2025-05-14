@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the songs played during each performance by following the reified relationship through a performance’s setlist:
+
+—————————————————————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceDate ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance :performanceDate ?performanceDate. }
+  
+  ?performance :hasSetlist ?setlist .
+  ?setlist :includesSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+}
+ORDER BY ?performance ?performanceDate ?song
+—————————————————————————————————————————————
+
+In a closed world view (assuming that if a performance is present then its setlist must specify all performed songs), this query fully answers the competency question "What songs were played in a certain performance?" by retrieving the songs linked to each performance.

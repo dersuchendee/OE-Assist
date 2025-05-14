@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?employment a :Employment .
+  ?employment :hasEmployee ?person .
+  ?employment :hasEmployer ?hospital .
+  ?employment :employmentStartDate ?employmentDate .
+  FILTER(
+    ?person = <http://example.org/ontology#PasqualeDiGennaro> &&
+    ?hospital = <http://example.org/ontology#OspedaleRiunitoDelleTreValli>
+  )
+}
+```

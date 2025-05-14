@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that extracts pairs of participants along with the type of relation connecting them. This query assumes that data explicitly asserts one of the relation properties (such as :hasRelationWith, :collaboratedWith, :influencedBy, :influenced, or :metAtEvent) between participants:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?participant1 ?participant1Label ?relation ?participant2 ?participant2Label
+WHERE {
+  ?participant1 a :Participant .
+  ?participant2 a :Participant .
+  
+  ?participant1 ?relation ?participant2 .
+  FILTER(?relation IN (:hasRelationWith, :collaboratedWith, :influencedBy, :influenced, :metAtEvent))
+  
+  OPTIONAL { ?participant1 rdfs:label ?participant1Label . }
+  OPTIONAL { ?participant2 rdfs:label ?participant2Label . }
+}
+ORDER BY ?participant1 ?relation ?participant2
+--------------------------------------------------
+
+Under the closed world assumption, this query retrieves the explicit relationships asserted among participants—thus characterizing how they relate to one another as required by the competency question.

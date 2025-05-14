@@ -1,0 +1,12 @@
+**No**
+
+The current ontology does not include any properties that explicitly represent the geographic location or address of a building/church/bell tower. Using a closed world assumption, we assume that no other (external) location-related information exists in the ontology. We can only retrieve bell tower individuals (and possibly their labels), but we cannot extract their locations. Here is a SPARQL query to return a partial answer (i.e. the bell towers that are modelled):
+
+PREFIX bell: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?label
+WHERE {
+  ?bellTower a bell:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label . }
+}

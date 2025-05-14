@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+SELECT ?aquaticFungus ?fungusLabel ?aquifer ?aquiferLabel ?heterotroph ?heterotrophLabel ?abundance ?activityLevel
+WHERE {
+  ?aquaticFungus a :AquaticFungus .
+  OPTIONAL { ?aquaticFungus rdfs:label ?fungusLabel . }
+
+  ?aquaticFungus :livesIn ?aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+  
+  ?aquaticFungus :influencesAbundanceOf ?heterotroph .
+  ?aquaticFungus :influencesActivityOf ?heterotroph .
+  OPTIONAL { ?heterotroph rdfs:label ?heterotrophLabel . }
+
+  ?heterotroph :livesIn ?aquifer .
+  OPTIONAL { ?heterotroph :hasAbundance ?abundance . }
+  OPTIONAL { ?heterotroph :hasActivityLevel ?activityLevel . }
+}
+```

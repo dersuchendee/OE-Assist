@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed‐world semantics, we require that for every production, only one premier date is given. In the ontology a premiere is modelled by having the production instance also be an instance of Cl_ProductionPremier (a subclass of Cl_Production) and having exactly one value for the property hasPremierDate. The following SPARQL query returns productions (of type Cl_Production) that have exactly one premier date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (SAMPLE(?premierDate) AS ?premierDate)
+WHERE {
+  ?production a :Cl_Production .
+  ?production a :Cl_ProductionPremier .  
+  ?production :hasPremierDate ?premierDate .
+}
+GROUP BY ?production
+HAVING (COUNT(?premierDate) = 1)
+
+This query “models” the CQ “A production has exactly one premier” by retrieving production instances that (being also production premiers) have one premier date, in line with the intended cardinality constraint.

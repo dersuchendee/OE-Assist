@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one SPARQL query that, given a specific time (here set to "2009-09-10"), will return for each ensemble the actors whose ensemble memberships cover that instant in time:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?ensemble ?actor ?actorLabel
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasEnsembleMembership ?membership .
+  ?membership :memberActor ?actor .
+  ?membership :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  
+  # Replace "2009-09-10"^^xsd:date with the desired point in time.
+  BIND("2009-09-10"^^xsd:date AS ?time)
+  FILTER (?time >= ?start && (!BOUND(?end) || ?time <= ?end))
+  
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?ensemble ?actorLabel

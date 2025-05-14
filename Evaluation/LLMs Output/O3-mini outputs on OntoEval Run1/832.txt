@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that the individual representing “Pasquale Di Gennaro” is identified in the ontology (e.g. as :PasqualeDiGennaro) and the hospital “Ospedale Riunito delle Tre Valli” is represented (e.g. as :OspedaleRiunitoDelleTreValli), one can leverage the reified employment information to extract the employment start date. For example, using a closed world assumption one may write a SPARQL query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?employmentStartDate) AS ?firstEmployment)
+WHERE {
+  ?employment a :Cl_Employment ;
+              :hasEmployee :PasqualeDiGennaro ;
+              :employedAt :OspedaleRiunitoDelleTreValli ;
+              :employmentStartDate ?employmentStartDate .
+}
+
+This query finds all employment events for the given person at the given hospital and returns the earliest start date.

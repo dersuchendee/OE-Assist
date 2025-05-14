@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that retrieves the production and its premier date by using the reified event (Cl_ProductionPremier) which links a production (via premierOf) with its premier date (via premierDate):
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?prodPremier a :Cl_ProductionPremier ;
+               :premierOf ?production ;
+               :premierDate ?premierDate .
+  # To focus on a certain production, you can add a filtering condition, e.g.:
+  # FILTER(?production = :SomeProduction)
+}
+---------------------------------------------------------

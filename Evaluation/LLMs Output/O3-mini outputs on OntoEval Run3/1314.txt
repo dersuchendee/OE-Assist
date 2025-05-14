@@ -1,0 +1,24 @@
+**No**
+
+Although the ontology captures that microbes have a presence that is observed in an aquifer environment and have an associated abundance level, it does not explicitly model the notion of “most common” (for instance, by quantifying or ordering abundance levels). Under the closed world assumption, while we can list microbes observed in a specific aquifer environment and even count how many presence assertions exist per microbe, we can only provide a partial answer that assumes frequency (i.e. the count of presence instances) stands in for “commonality.”
+
+A partial SPARQL query to extract a count per microbe (which could be used to decide which ones are most common) is shown below. Note that you may need to substitute :SpecificAquiferEnvironment with the actual aquifer environment individual in your data.
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbe ?microbeLabel (COUNT(?presence) AS ?presenceCount)
+WHERE {
+  ?microbe a :Microbe .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel . }
+  
+  ?microbe :hasPresence ?presence .
+  ?presence :observedIn ?aquiferEnv .
+  FILTER(?aquiferEnv = :SpecificAquiferEnvironment)
+}
+GROUP BY ?microbe ?microbeLabel
+ORDER BY DESC(?presenceCount)
+---------------------------------------------------
+
+This query lists microbes present in the given aquifer environment along with a count of their presence assertions. However, since “most common” isn’t explicitly captured in the ontology, the CQ is only partially answerable.

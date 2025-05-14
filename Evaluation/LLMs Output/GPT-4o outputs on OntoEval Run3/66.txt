@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What are the components of this product?" can be answered using the ontology provided. The ontology includes a `Product` class with a `hasComponent` object property that relates a product to its components, which are instances of the `Component` class. Here is a SPARQL query to extract the components of a product:
+
+```sparql
+SELECT ?product ?productLabel ?component ?componentLabel
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+
+  ?product :hasComponent ?component .
+  OPTIONAL { ?component rdfs:label ?componentLabel . }
+}
+```

@@ -1,0 +1,31 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city ns1:isInCountry ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```
+
+**Explanation:**
+The competency question "In what country is a certain city located?" is answerable using the provided ontology. Here's why:
+
+- **Classes and Properties Exist**: The ontology defines the classes `ns1:City` and `ns1:Country`, and the object property `ns1:isInCountry`, which relates cities to countries.
+
+- **Data Availability**: The ontology includes specific instances of cities and their corresponding countries:
+  - `dbr:Rome ns1:isInCountry ns1:Italy .`
+  - `dbr:Pisa ns1:isInCountry ns1:Italy .`
+  - `dbr:Venice ns1:isInCountry ns1:Italy .`
+  - `ns1:Italy a ns1:Country ; rdfs:label "Italy"@en .`
+
+- **Inference through Domain and Range**: Although `dbr:Rome`, `dbr:Pisa`, and `dbr:Venice` are not explicitly typed as `ns1:City`, the domain of `ns1:isInCountry` is `ns1:City`. Under RDFS semantics and the closed world assumption, we can infer that these resources are cities.
+
+- **SPARQL Query Constructs**: The provided SPARQL query retrieves all city-country pairs by querying triples where a city is related to a country via `ns1:isInCountry`. The `OPTIONAL` clauses attempt to fetch labels for better readability.
+
+Therefore, the SPARQL query effectively answers the competency question using the ontology's data.

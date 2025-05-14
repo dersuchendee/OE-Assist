@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves all instances of article collections (i.e. those representing books or CDs) along with their publication dates:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD a :Cl_ArticleCollection .
+  ?bookOrCD :publicationDate ?publicationDate .
+}
+-------------------------------------------------
+
+This query answers the competency question “When was a certain book or CD published?” since the ontology models books or CDs as instances of :Cl_ArticleCollection with an associated :publicationDate.

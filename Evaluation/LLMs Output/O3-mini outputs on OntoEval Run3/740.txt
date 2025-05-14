@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming a closed world interpretation, the ontology supports the CQ since regions are modeled as instances of Cl_Region and their association to countries is represented by the object property :locatedInCountry (with Cl_Region as the domain and Cl_Country as the range). Therefore, we can write a SPARQL query to extract, for each region, the country in which it is located. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  ?region :locatedInCountry ?country .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+
+This query retrieves each region (with its optional label) and the corresponding country (with its optional label) using the :locatedInCountry relation.

@@ -1,0 +1,26 @@
+**Yes**
+```sparql
+SELECT ?entity ?entityType ?legalCondition ?legislation
+WHERE {
+  {
+    ?legalCondition a :LegalCondition ;
+                    :affectsActor ?entity ;
+                    :governedBy ?legislation .
+    BIND("Actor" AS ?entityType)
+  }
+  UNION
+  {
+    ?legalCondition a :LegalCondition ;
+                    :affectsObject ?entity ;
+                    :governedBy ?legislation .
+    BIND("Object" AS ?entityType)
+  }
+  UNION
+  {
+    ?legalCondition a :LegalCondition ;
+                    :affectsProcess ?entity ;
+                    :governedBy ?legislation .
+    BIND("Process" AS ?entityType)
+  }
+}
+```

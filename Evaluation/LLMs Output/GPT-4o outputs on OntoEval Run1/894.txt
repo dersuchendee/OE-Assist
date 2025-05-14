@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain any information about union memberships at specific points in time. It does have information about union memberships and roles, but it lacks temporal data to answer the competency question fully. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?union ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :unionMember ?person .
+  ?membership :memberOfUnion ?union .
+  OPTIONAL { ?membership :membershipStartDate ?membershipStartDate . }
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+}
+```
+
+This query retrieves union memberships and their start and end dates, but it does not provide the ability to query for memberships at a specific point in time.

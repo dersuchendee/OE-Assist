@@ -1,0 +1,16 @@
+**No**
+Because the ontology does not explicitly capture the intended relation “is a recording of” that connects a track to a song (distinct from the track itself), we can only partially answer the CQ by retrieving details about tracks. For example, the following SPARQL query returns information about tracks (and hence their labels), but it does not fulfill the complete semantics of “what song is a specific track a recording of?”
+
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?recordedDate ?album ?albumLabel
+WHERE {
+  ?track a :Track ;
+         rdfs:label ?trackLabel ;
+         :recordedOn ?recordedDate ;
+         :isTrackOf ?album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+}
+
+This query yields a partial answer by showing which album a track belongs to and its recording date, but it does not directly answer “what song is a track a recording of?” since the ontology lacks an explicit modeling of a song entity separate from the track.

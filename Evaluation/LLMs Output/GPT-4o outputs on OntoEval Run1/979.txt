@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the number of pages a particular book contains. The ontology includes classes and properties related to publications, books, and articles, but it lacks a direct connection or property that specifies the number of pages for a book. Therefore, a partial answer can be extracted by querying for books, but the page count cannot be retrieved.
+
+```sparql
+SELECT ?book ?title
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book :title ?title . }
+}
+```

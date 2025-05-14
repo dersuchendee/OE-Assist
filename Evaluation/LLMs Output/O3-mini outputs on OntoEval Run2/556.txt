@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the release date for any album (and thus can be used to answer “When was a certain album released?”):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate 
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}
+------------------------------------------------
+
+In a use case you might bind a specific album (for example, the “Stadium Arcadium” album) by adding a FILTER or binding its IRI to answer the CQ.

@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer this competency question by retrieving the earliest employment start date from the employment records that connect a given person with a certain hospital. For example, assuming the individual and hospital are identified by their IRIs (e.g. <http://www.example.org/test#Pasquale_Di_Gennaro> and <http://www.example.org/test#Ospedale_Riunito_delle_Tre_Valli>), the following SPARQL query returns the person’s first employment date at that hospital:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person (MIN(?startDate) AS ?firstEmployment)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :hospital ?hospital .
+  ?employment :employmentStartDate ?startDate .
+  FILTER(?person = <http://www.example.org/test#Pasquale_Di_Gennaro> &&
+         ?hospital = <http://www.example.org/test#Ospedale_Riunito_delle_Tre_Valli>)
+}
+GROUP BY ?person
+--------------------------------------------------
+
+In a closed‐world setting, we assume that all the relevant employment records are present so that this query fully models the competency question.

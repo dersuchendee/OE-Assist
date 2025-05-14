@@ -1,0 +1,25 @@
+**Yes**
+
+```sparql
+SELECT ?production ?premiere
+WHERE {
+  ?production rdf:type :TheatreProduction .
+  ?production :hasPremiere ?premiere .
+}
+```
+
+The ontology specifies that every `:TheatreProduction` has exactly one `:hasPremiere` property due to the cardinality restriction:
+
+```ttl
+:TheatreProduction rdf:type owl:Class ;
+    rdfs:subClassOf 
+        :Event ,
+        [ rdf:type owl:Restriction ;
+          owl:onProperty :hasPremiere ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger
+        ] ;
+    rdfs:label "Theatre Production"@en ;
+    rdfs:comment "A specific staging or performance of a play, which has exactly one premiere."@en .
+```
+
+Under the closed world assumption, we can query all productions and their associated premiere using the SPARQL query above. The query retrieves all instances of `:TheatreProduction` along with their corresponding `:Premiere`. Since the ontology enforces that each production must have exactly one premiere, the query effectively answers the competency question.

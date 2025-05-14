@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example of a SPARQL query that, using the reification of band roles, extracts for a given person (and implicitly all persons), the role(s) they held in a band at particular time periods:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?role ?roleLabel ?timePeriod
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  ?person :hasRoleInBand ?bandRole .
+  ?bandRole a :Cl_BandRole .
+  ?bandRole :playsRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  ?bandRole :roleDuring ?timePeriod .
+
+  ?band a :Cl_Band .
+  ?band :hasMember ?bandRole .
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+}
+ORDER BY ?person ?timePeriod
+-------------------------------------------------------------
+
+In this query we assume a closed world (i.e. all the relevant information is explicitly asserted); therefore, the CQ “What role does a certain person have in a certain band at a certain point in time?” is answerable through the reification constructs (Cl_BandRole with :roleDuring and :playsRole, together with linking the band membership via :hasMember).

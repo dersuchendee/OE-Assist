@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?guild ?guildLabel ?habitat ?habitatLabel
+WHERE {
+  ?guild a :MicrobialFunctionalGuild .
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+  
+  ?guild :isInvolvedIn ?process .
+  ?process a :Autolithoautotrophy .
+  
+  ?process :occursInHabitat ?habitat .
+  OPTIONAL { ?habitat rdfs:label ?habitatLabel . }
+}
+```

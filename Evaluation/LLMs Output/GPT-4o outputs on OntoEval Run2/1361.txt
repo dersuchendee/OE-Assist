@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any specific mention of an "organ builder" or a related concept that could be used to identify resources mentioning an organ builder. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial query can be constructed to identify resources related to organs, which might indirectly mention an organ builder if such information were available in the data.
+
+```sparql
+SELECT ?resource ?description
+WHERE {
+  ?resource a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  OPTIONAL { ?resource <https://w3id.org/arco/ontology/core/isDescribedBy> ?description . }
+}
+```
+
+This query retrieves resources that are instances of the `Organ` class and any descriptions associated with them, which might contain information about an organ builder if such data were present.

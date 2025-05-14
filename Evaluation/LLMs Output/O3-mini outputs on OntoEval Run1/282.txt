@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?play ?title ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :dp_title ?title . }
+  ?play :hasActInformation ?actInfo .
+  ?actInfo :actCount ?actCount .
+}
+```

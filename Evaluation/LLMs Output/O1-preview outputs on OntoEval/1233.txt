@@ -1,0 +1,50 @@
+**Yes**
+
+The ontology models the relationships necessary to answer the competency question. The ontology defines that a `BeechForest` has a process of `CarbonSequestration`, which contributes to the `CarbonCycle`. Therefore, we can write a SPARQL query to extract how carbon sequestration in beech forests contributes to overall carbon cycling.
+
+Here is the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForestLabel ?processLabel ?cycleLabel
+WHERE {
+  # Retrieve the BeechForest class
+  :BeechForest a owl:Class ;
+               rdfs:label ?beechForestLabel ;
+               rdfs:subClassOf ?beechForestRestriction .
+
+  # BeechForest hasProcess some CarbonSequestration
+  ?beechForestRestriction a owl:Restriction ;
+                          owl:onProperty :hasProcess ;
+                          owl:someValuesFrom ?process .
+
+  ?process a owl:Class ;
+           rdfs:label ?processLabel ;
+           rdfs:subClassOf ?processRestriction .
+
+  # CarbonSequestration contributesTo some CarbonCycle
+  ?processRestriction a owl:Restriction ;
+                      owl:onProperty :contributesTo ;
+                      owl:someValuesFrom ?cycle .
+
+  ?cycle a owl:Class ;
+         rdfs:label ?cycleLabel .
+
+  FILTER(?cycle = :CarbonCycle)
+}
+```
+
+This query retrieves the labels of `BeechForest`, the `CarbonSequestration` process, and the `CarbonCycle` to show how they are connected through the properties `hasProcess` and `contributesTo`.
+
+*Explanation:*
+
+- We start by selecting the `BeechForest` class and its label.
+- We navigate the `rdfs:subClassOf` relationships to find the restriction that specifies `hasProcess` some `CarbonSequestration`.
+- We retrieve the `CarbonSequestration` process and its label.
+- We then find the restriction that specifies `contributesTo` some `CarbonCycle`.
+- We retrieve the `CarbonCycle` class and its label.
+
+This SPARQL query demonstrates how carbon sequestration in beech forests contributes to overall carbon cycling as defined in the ontology.

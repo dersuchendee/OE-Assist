@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, retrieves for each play its associated number of acts:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :containsActs ?playActs .
+  ?playActs :numberOfActs ?numberOfActs .
+}
+--------------------------------------------------
+
+This query answers the question “How many acts does a particular play contain?” by linking a play to its reified “acts” information.

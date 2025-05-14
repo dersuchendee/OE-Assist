@@ -1,0 +1,34 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleTitle
+WHERE {
+  :PasqualeDiGennaro a :Cl_Person .
+
+  # Find Pasquale's union membership in the Male Nurses Union
+  ?membership :membershipOf :PasqualeDiGennaro ;
+              :memberOf :MaleNursesUnion .
+
+  # Find the role associated with the membership
+  ?role :hasRole ?membership ;
+        :roleTitle ?roleTitle ;
+        :roleStartDate ?startDate .
+
+  # Optional end date of the role
+  OPTIONAL { ?role :roleEndDate ?endDate . }
+
+  # Specify the point in time you're interested in
+  BIND ("2002-06-01"^^xsd:date AS ?queryDate)
+
+  # Ensure the role is active at the query date
+  FILTER(
+    ?queryDate >= ?startDate &&
+    ( !bound(?endDate) || ?queryDate <= ?endDate )
+  )
+}
+```
+
+This query retrieves the role that **Pasquale Di Gennaro** has within the **Male Nurses Union** at the specified point in time (e.g., June 1, 2002). The query checks that the role is active on that date by comparing it with the role's start date and optional end date.

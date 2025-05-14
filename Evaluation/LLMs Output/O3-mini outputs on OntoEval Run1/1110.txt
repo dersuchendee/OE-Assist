@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one SPARQL query that, using the reification class, retrieves which person is associated with which indoor location (in this case, by filtering for bathrooms):
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?activityLocation
+WHERE {
+  ?record a :Cl_PersonLocationActivity ;
+          :op_hasPerson ?person ;
+          :op_hasActivityLocation ?activityLocation .
+  ?activityLocation a :Cl_Bathroom .
+}
+---------------------------------------------------
+
+This query answers the competency question "Who is where in this indoor location?" by extracting the person and their indoor location based on the reification linking individuals to their location (and here, filtering for bathrooms as indoor locations).

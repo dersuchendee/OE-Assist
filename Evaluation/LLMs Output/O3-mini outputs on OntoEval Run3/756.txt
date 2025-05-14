@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that retrieves for each album (record) how many tracks it contains. Under the closed‐world assumption you would expect that every album has at least one track:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+------------------------------------------------------------
+
+If every album returns a trackCount ≥ 1 then the competency question “A record always contains at least one track” is fully supported by the ontology.

@@ -1,0 +1,25 @@
+**Yes**
+
+The following SPARQL query retrieves, for each monitoring point, the physical parameters that have been measured along with the time each measurement was taken and its corresponding value:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+
+  ?monitoringPoint :hasMeasurement ?measurement .
+
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+
+This query works under the closed world assumption over the provided ontology and answers the CQ by extracting the physical parameters recorded at each monitoring point and showing how these measurements vary over time.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves seminars and the hospital where each seminar took place (using the property seminarLocatedIn):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }  
+  ?seminar :seminarLocatedIn ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+ORDER BY ?seminarDate
+-------------------------------------------------
+
+This query works under a closed world assumption by directly extracting the location (hospital) of each seminar from the ontology, thus supporting the competency question “Where did a certain seminar take place?”

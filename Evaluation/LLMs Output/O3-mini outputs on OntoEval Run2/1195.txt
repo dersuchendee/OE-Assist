@@ -1,0 +1,22 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, returns—for each Meeting—the value of its “isAccidental” property and, when available, the persons who were invited (i.e. for whom the :isInvitedTo relationship holds):
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?meeting ?meetingLabel ?isAccidental ?invitedPerson ?personLabel
+WHERE {
+  ?meeting a :Meeting ;
+           :isAccidental ?isAccidental .
+  OPTIONAL { ?meeting rdfs:label ?meetingLabel. }
+  OPTIONAL {
+    ?invitedPerson :isInvitedTo ?meeting .
+    OPTIONAL { ?invitedPerson rdfs:label ?personLabel. }
+  }
+}
+ORDER BY ?meeting ?invitedPerson
+------------------------------------------------------
+
+This query answers the CQ “Were they invited? Was the meeting accidental?” by extracting for each meeting (with its accidental flag) the persons that were invited, based on the ontology’s definitions.

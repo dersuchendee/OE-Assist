@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel ?composedOn
+WHERE {
+  ?song a ns1:Song .
+  ?song rdfs:label ?songLabel .
+  ?song ns1:composedOn ?composedOn .
+  # Optionally restrict to a particular song, e.g., Hump de Bump:
+  FILTER(regex(?songLabel, "Hump de Bump", "i"))
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ using the Recording construct and its associated time interval. For example, to retrieve the recording time period for the album “Stadium Arcadium,” you can use the following SPARQL query:
+
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?recording a :Recording ;
+             :recordedAlbum ?album ;
+             :recordedDuring ?timeInterval .
+  ?timeInterval :startDate ?recordingStart ;
+                :endDate ?recordingEnd .
+  FILTER(?album = :StadiumArcadium)
+}
+
+This query extracts the album along with the start and end dates of its recording time period.

@@ -1,0 +1,32 @@
+**Yes**
+Below is one example of a SPARQL query that uses the available reified union membership data (under the closed‐world assumption) to answer “Who are the members of a certain union at a certain point in time?” In this example the union of interest is provided as a parameter (for instance, via its IRI in the FILTER clause) and the point in time is given as a date literal.
+
+Example query:
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :membershipUnion ?union .
+  
+  # Replace the union IRI below with the desired union instance
+  FILTER(?union = <http://www.example.org/test#UnionMaleNurses>) .
+
+  ?membership :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # Replace the givenTime value below with the time of interest
+  BIND(xsd:date("2003-01-01") AS ?givenTime) .
+  
+  FILTER(
+      ?givenTime >= ?membershipStartDate &&
+      (!bound(?membershipEndDate) || ?givenTime <= ?membershipEndDate)
+  )
+}
+────────────────────────────
+
+This query returns the persons who are members of the specified union at the given point in time, checking that the membership started on or before the date and that the membership’s end date (if given) is after that time.

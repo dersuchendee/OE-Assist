@@ -1,0 +1,27 @@
+**No**
+
+The provided ontology does not explicitly model the relationship indicating that a composition (a :Tune) is identified as a variant in a tune family (a :TuneFamily). In other words, there is no defined property (or reified structure) linking a tune to its corresponding tune family as a variant. Under the closed world assumption, we must assume that if such a relation were not stated in the ontology then it does not hold.
+
+However, if we wanted to retrieve a partial answer—that is, to list the tunes and any potential relations (if any triples happen to indicate some connection in the data)—we could use a query that attempts to find any triple linking a tune and a tune family, even though the expected “variant” relationship is not modeled explicitly:
+
+--------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel ?tuneFamily ?familyLabel ?relation
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+  
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?familyLabel . }
+
+  # Attempt to retrieve any relation that connects a tune and a family -
+  # note: there is no specific property for "is variant in", so we look for any predicate.
+  ?tuneFamily ?relation ?tune .
+}
+--------------------------------------------------
+
+This query will return any observed triple that might incidentally link a tune to a tune family. Since the ontology does not define a clear property for indicating that “composition X is a variant in a tune family,” the CQ is only partially answerable.

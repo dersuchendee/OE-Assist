@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves the page count for books (i.e. instances of Cl_Book):
+
+──────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookLabel ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book rdfs:label ?bookLabel . }
+  ?book :pageCount ?pageCount .
+}
+──────────────────────────────────────────────
+
+This query shows that the ontology does capture the necessary property (pageCount) on the class Cl_Book so that the question “How many pages does a particular book contain?” is answerable.

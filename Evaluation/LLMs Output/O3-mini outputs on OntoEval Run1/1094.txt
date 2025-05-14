@@ -1,0 +1,17 @@
+**Yes**
+Below is one SPARQL query that—under a closed‐world assumption—retrieves, for every seminar, its associated article presentations (and the articles presented). In a correctly populated dataset the query will return at least one article for every seminar, thereby “answering” the CQ:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?presentation ?article
+WHERE {
+  ?presentation a :Cl_ArticlePresentation ;
+                :hasSeminar ?seminar ;
+                :hasArticle ?article .
+}
+ORDER BY ?seminar ?presentation
+------------------------------------------------
+
+In a closed‐world view, if any seminar were missing an associated article (via a presentation), the query would not return that seminar. Thus, if the data are complete then every instance of :Cl_Seminar is linked (through a reified article presentation) to at least one :Cl_Article, which confirms the CQ.

@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the role of a person within a union group at a specific time, which can be extracted using the provided ontology structure. Here's the SPARQL query:
+
+```sparql
+SELECT ?person ?unionGroup ?role ?startDate ?endDate
+WHERE {
+  ?person :hasRoleMembership ?roleMembership .
+  ?roleMembership :roleMembershipIn ?unionGroup .
+  ?roleMembership :roleOfMembership ?role .
+  ?roleMembership :roleStartDate ?startDate .
+  OPTIONAL { ?roleMembership :roleEndDate ?endDate . }
+  
+  FILTER (?startDate <= "2023-10-01"^^xsd:date && (!BOUND(?endDate) || ?endDate >= "2023-10-01"^^xsd:date))
+}
+```

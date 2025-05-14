@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What role does rubisco play in the CO2 fixation process?" is supported by the ontology. The ontology defines Rubisco as a subclass of Enzyme that has a role as a CatalystRole and catalyzes the CO2FixationProcess. Therefore, we can write a SPARQL query to extract this information.
+
+```sparql
+SELECT ?role ?process
+WHERE {
+  :Rubisco a :Enzyme .
+  :Rubisco :hasRole ?role .
+  :Rubisco :catalyzesProcess ?process .
+}
+```

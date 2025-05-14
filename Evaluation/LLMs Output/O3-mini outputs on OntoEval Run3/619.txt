@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that retrieves the review text provided by critic CrianHiatt for the record (album) StadiumArcadium:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?reviewText
+WHERE {
+  ?review rdf:type :Cl_Review .
+  ?review :reviewedBy :CrianHiatt .
+  ?review :reviewedRecord :StadiumArcadium .
+  ?review :reviewText ?reviewText .
+}
+----------------------------------
+
+This query shows that the ontology supports the competency question "What does a certain critic say about a certain record?" by directly retrieving the review text for the specified critic and record.

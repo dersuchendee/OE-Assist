@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology supports the competency question "What is the nature of the event?" because it defines the class `:Event` with the object property `:hasNature` linking it to an instance of `:EventType`. This allows us to query for events and their natures as specified by the ontology.
+
+Here is a SPARQL query that retrieves events and their associated natures:
+
+```sparql
+SELECT ?event ?eventLabel ?nature ?natureLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  ?event :hasNature ?nature .
+  OPTIONAL { ?nature rdfs:label ?natureLabel . }
+}
+```
+
+This query selects all instances of `:Event` and retrieves their `:hasNature` property values, which are instances of `:EventType`. It also attempts to retrieve any labels associated with the events and event types for better readability.

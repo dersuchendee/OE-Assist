@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that relate dissolved carbon in water to carbon cycling in karst systems. The ontology defines the necessary classes and relationships to answer the question.
+
+```sparql
+SELECT ?dissolvedCarbon ?carbonCycling
+WHERE {
+  ?dissolvedCarbon a :DissolvedCarbonInWater .
+  ?dissolvedCarbon :participatesIn ?carbonCycling .
+  ?carbonCycling a :CarbonCyclingInKarstSystems .
+}
+```

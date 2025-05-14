@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific play (for example, "The Merchant of Venice"), extracts the number of acts recorded by the ontology:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?numActs
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :containsActs ?numActs .
+  FILTER (regex(lcase(str(?playLabel)), "merchant of venice"))
+}
+----------------------------------------------------
+
+In a closed world setting, we assume that only those plays with an explicitly stated :containsActs value have that information recorded. This query answers the competency question by retrieving how many acts the specified play contains.

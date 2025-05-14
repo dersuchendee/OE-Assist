@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a way to determine free time periods in a user's calendar. It only defines the structure for calendar events and their time periods, but it lacks the necessary information or properties to identify gaps or free periods between events.
+
+Partial answer:
+```sparql
+SELECT ?event ?startTime ?endTime
+WHERE {
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasEvent ?event .
+  ?event :eventTime ?timePeriod .
+  ?timePeriod :startTime ?startTime .
+  ?timePeriod :endTime ?endTime .
+}
+```

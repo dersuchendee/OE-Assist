@@ -1,0 +1,17 @@
+**Yes**
+
+One can answer “When was a certain song composed?” using the classes and properties defined in the ontology. For example, assuming that each song (an instance of :Cl_Song) is linked via the property :composedOn to a composition object (an instance of :Cl_SongComposition) which in turn has the date via the property :compositionDate, the following SPARQL query (using a closed world interpretation) returns the composition date for each song:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedOn ?songComposition .
+  ?songComposition :compositionDate ?compositionDate .
+}
+----------------------------------------------------------------
+
+This query retrieves each song and its corresponding composition date, thus fully supporting the CQ.

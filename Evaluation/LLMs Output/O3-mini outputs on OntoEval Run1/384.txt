@@ -1,0 +1,21 @@
+**No**
+
+The ontology models role assignments for individuals (using classes such as Cl_Individual, Cl_Role, and Cl_RoleAssignment) and even the temporal information of those assignments (via the property atTime or assignmentDate), but it does not tie the roles or role assignments explicitly to a production (i.e. there is no relation linking a role assignment or an individual’s role to an instance of Cl_Production). Therefore, while we can retrieve the roles a person has and when those assignments occur, we cannot with certainty constrain those roles “within a certain production.”
+
+A partial answer can be extracted with a query such as:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?assignmentDate
+WHERE {
+  ?person a :Cl_Individual .
+  ?person :hasRoleAssignment ?assignment .
+  ?assignment :assignmentDate ?assignmentDate .
+  ?assignment :roleOf ?role .
+  FILTER (?person = :FabioBianchi)   # restrict to the person in question, for example
+}
+------------------------------------------------
+
+This query returns the roles assigned to the individual (e.g. FabioBianchi) and the date of assignment, but it does not check whether these roles pertain to a specific production.

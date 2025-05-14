@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the specific location where a participant performed. The ontology includes classes and properties related to meetups, participants, and locations, but it does not specify a direct relationship between a participant and a specific performance location.
+
+Partial answer:
+```sparql
+SELECT ?participant ?location
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  ?meetup mtps:hasPlace ?location .
+}
+```

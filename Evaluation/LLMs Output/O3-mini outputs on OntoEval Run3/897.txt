@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming we want to retrieve the persons that are members of, for example, the “MaleNursesUnion” at a given time (e.g. "2002-01-01"), one can write a query such as:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person 
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :memberOf :MaleNursesUnion ;
+              :membershipOf ?person ;
+              :membershipStartDate ?start .
+  
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  
+  FILTER(
+    ?start <= "2002-01-01"^^xsd:date &&
+    (!BOUND(?end) || ?end >= "2002-01-01"^^xsd:date)
+  )
+}
+
+--------------------------------------------------
+
+This query retrieves individuals (i.e. persons) who are members of the MaleNursesUnion with a membership starting on or before the given date and either with no defined end date or an end date on/after the specified date. Under the closed‐world assumption, only explicitly stated memberships are available.

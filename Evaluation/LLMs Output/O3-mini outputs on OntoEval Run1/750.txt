@@ -1,0 +1,15 @@
+**Yes**
+Below is one SPARQL query that tests the competency question “A record always contains at least one track.” Under the closed‐world assumption you can check for any record (album) that does not have any tracks:
+ 
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album
+WHERE {
+  ?album a :Cl_Album .
+  FILTER NOT EXISTS { ?album :containsTrack ?track . }
+}
+------------------------------------------------
+
+If the ontology has been modeled correctly (with the owl:minCardinality 1 restriction on :containsTrack for :Cl_Album), this query should return no results, confirming that every record (album) contains at least one track.

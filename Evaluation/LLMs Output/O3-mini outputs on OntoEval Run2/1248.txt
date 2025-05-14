@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, computes for each hospital and each diagnosis code the number of admissions and then computes the average number of admissions (across hospitals) per diagnosis code. (If a particular diagnosis code should be provided, you can add an appropriate FILTER clause.)
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# This query first computes the total admissions per hospital per diagnosis code.
+# Then it aggregates these counts to derive the average admissions (across hospitals)
+# for each diagnosis code.
+SELECT ?diagnosisCode (AVG(?numAdmissions) AS ?avgAdmissions)
+WHERE {
+  {
+    SELECT ?hospital ?diagnosisCode (COUNT(?admission) AS ?numAdmissions)
+    WHERE {
+      ?hospital a :Hospital .
+      ?hospital :hasAdmission ?admission .
+      ?admission :hasDiagnosisCode ?diagnosisCode .
+      # If you wish to focus on a specific diagnosis code, uncomment and modify the next line:
+      # FILTER(?diagnosisCode = :SomeDiagnosisCode)
+    }
+    GROUP BY ?hospital ?diagnosisCode
+  }
+}
+GROUP BY ?diagnosisCode
+----------------------------------------------------------------
+
+This query demonstrates that the ontology is modeled in such a way that the competency question—"How many admissions on average does each hospital report for a given diagnosis code?"—is answerable by extracting and aggregating the data as needed.

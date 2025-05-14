@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "During what time period was a certain play written?" can be answered using the ontology provided. The ontology includes classes and properties related to plays and their time periods, specifically the `Cl_PlayTimePeriod` class and the `startYear` and `endYear` properties. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?play ?startYear ?endYear
+WHERE {
+  ?playTimePeriod a :Cl_PlayTimePeriod .
+  ?playTimePeriod :hasPlay ?play .
+  ?playTimePeriod :startYear ?startYear .
+  ?playTimePeriod :endYear ?endYear .
+}
+```

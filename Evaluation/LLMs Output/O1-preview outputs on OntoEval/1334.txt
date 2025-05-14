@@ -1,0 +1,28 @@
+Answer: **No**
+
+The ontology does include classes and properties related to forest ecosystems, specifically beech forests, and their relationships with carbon and nitrogen cycling processes in groundwater systems. However, it does not provide details on **how** beech forests affect these cycling processes. The ontology lacks the specific mechanisms or descriptions of the influence that beech forests have on carbon and nitrogen cycling in nearby groundwater systems. Therefore, the competency question cannot be fully answered using the given ontology.
+
+Here's a SPARQL query that attempts to extract partial information based on the available ontology structure:
+
+```sparql
+SELECT ?forestClass ?processClass ?systemClass
+WHERE {
+  ?forestClass rdfs:subClassOf* :BeechForest .
+  
+  ?forestClass rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:onProperty :affectsCycling ;
+      owl:someValuesFrom ?processClass
+  ] .
+  FILTER (?processClass = :CarbonCycling || ?processClass = :NitrogenCycling) .
+  
+  ?processClass rdfs:subClassOf* [
+      a owl:Restriction ;
+      owl:onProperty :occursIn ;
+      owl:someValuesFrom ?systemClass
+  ] .
+  FILTER (?systemClass = :GroundwaterSystem) .
+}
+```
+
+This query retrieves the relationships between the classes `:BeechForest`, `:CarbonCycling`, `:NitrogenCycling`, and `:GroundwaterSystem` as defined in the ontology. However, it does not provide details on **how** the beech forests affect the cycling processes, which is essential to fully answer the competency question.

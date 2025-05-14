@@ -1,0 +1,31 @@
+**Yes**
+Below is an example SPARQL query that, using the reified membership information, returns the actors (members) of a given ensemble who were members at a specified point in time. (Adjust the ensemble name and the time parameter as needed.)
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorName ?membership ?membershipStartDate ?membershipEndDate
+WHERE {
+  # Specify the ensemble of interest (change "Your Ensemble Name Here" as needed)
+  ?ensemble a :Cl_Ensemble ;
+            :hasName "Your Ensemble Name Here" .
+
+  # Retrieve the membership instance associated with the ensemble
+  ?ensemble :ensembleHasMembership ?membership .
+
+  # Membership time interval
+  ?membership :membershipStartDate ?membershipStartDate .
+  ?membership :membershipEndDate ?membershipEndDate .
+
+  # Use the closed world assumption: Filter memberships active at the given time
+  FILTER ("2009-09-15"^^xsd:date >= ?membershipStartDate && "2009-09-15"^^xsd:date <= ?membershipEndDate)
+
+  # Get the member (actor) indicated in the membership reification
+  ?membership :member ?actor .
+  OPTIONAL { ?actor :hasName ?actorName . }
+}
+-------------------------------------------------
+
+This query leverages the reified membership (using :Cl_EnsembleMembership and related properties) to answer the competency question "Who are the members of a certain ensemble at a certain point in time?"

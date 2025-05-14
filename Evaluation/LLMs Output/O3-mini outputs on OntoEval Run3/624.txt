@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that uses the review-related classes and properties to extract what a given critic (e.g. represented by the individual :CrianHiatt) has said about a specific record (album):
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?review ?reviewContent
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :hasReview ?review .
+  ?review :writtenBy ?critic .
+  ?review :reviewContent ?reviewContent .
+  
+  # Filter for the specific critic (replace :CrianHiatt with the appropriate individual)
+  FILTER(?critic = :CrianHiatt)
+}
+---------------------------------------------------
+
+This query returns all albums (records) along with their reviews written by the critic :CrianHiatt and the content of those reviews.

@@ -1,0 +1,31 @@
+**Yes**
+
+We can answer this CQ using the ontology. Under the closed‐world assumption, the seminar event is reified—with a property (for example, :heldAt) linking a seminar (of type :Cl_SeminarEvent) to the hospital (of type :Cl_Hospital) where it took place. For instance, given that the ontology asserts an individual such as :SeminarHeldAtOspedaleRiunitoDelleTreValli with a triple
+
+  :SeminarHeldAtOspedaleRiunitoDelleTreValli :heldAt :OspedaleRiunitoDelleTreValli .
+
+we can extract the location of any given seminar.
+
+Below is a SPARQL query that retrieves each seminar event and the hospital where it was held, with an optional label for the hospital:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?hospital ?hospitalName
+WHERE {
+  ?seminar a :Cl_SeminarEvent ;
+           :heldAt ?hospital ;
+           :hasDate ?date .
+  # If the CQ refers to a specific seminar (for example, the December 2008 seminar),
+  # add a filter for the date, e.g.:
+  # FILTER (?date >= "2008-12-01"^^xsd:date && ?date < "2008-12-31"^^xsd:date)
+  
+  OPTIONAL { ?hospital :hasName ?hospitalName . }
+}
+ORDER BY ?date
+
+--------------------------------------------------
+
+This query shows that the ontology models the seminar’s location information, hence the CQ is answerable.

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, returns productions that have exactly one premier:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premier) AS ?premierCount)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremier ?premier . }
+}
+GROUP BY ?production
+HAVING (?premierCount = 1)
+
+This query checks that each production has exactly one associated premier event, thus supporting the CQ.

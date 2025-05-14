@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the city in which a specific theatre is located. The ontology includes a `:locatedIn` property that links a theatre to a city, but there is no direct connection between a theatre and a specific city name that can be queried. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :locatedIn ?city .
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that the “membership” of an ensemble is reified as an instance of :Cl_EnsembleMembership (which is a subclass of both :Cl_Person and :Cl_Ensemble) and that the date property :membershipDate indicates when the membership was recorded, we can answer the competency question “Who are the members of a certain ensemble at a certain point in time?” by selecting the members (i.e. the Cl_EnsembleMembership instances) linked via the :hasMember property from a given ensemble. Under the closed‐world assumption, only explicitly stated memberships exist.
+
+For example, if we want to check the membership at a given date (here “2007-01-01” as a placeholder for the “certain point in time”), the following SPARQL query returns the ensemble, its member, and the membership date:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble ;
+            :hasMember ?member .
+  ?member a :Cl_EnsembleMembership ;
+          :membershipDate ?membershipDate .
+  FILTER(?membershipDate <= "2007-01-01"^^xsd:date)
+}
+------------------------------------------------------------
+
+In this query the FILTER restricts the results to memberships recorded on or before the designated date, so that one can infer that those persons are “members at that point in time”.

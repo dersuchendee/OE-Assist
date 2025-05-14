@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?PersonName ?BandName ?Role WHERE {
+  ?person a :Cl_Person ;
+          :hasName ?PersonName ;
+          :memberOf ?membership .
+  ?membership a :Cl_BandMembership ;
+              :hasMembership ?band ;
+              :hasRole ?Role ;
+              :membershipStart ?startDate .
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+  ?band a :Cl_MusicalGroup ;
+        :hasName ?BandName .
+  
+  # Bind the date you're interested in
+  BIND ("2006-01-01"^^xsd:date AS ?Date)  # Replace with the desired date
+  
+  FILTER ( ?Date >= ?startDate && ( !bound(?endDate) || ?Date <= ?endDate ) )
+}
+```
+
+This SPARQL query retrieves the role (`?Role`) that a person (`?PersonName`) has in a band (`?BandName`) at a specific point in time (`?Date`). It uses the `:Cl_BandMembership` class to link the person, band, role, and membership dates, allowing us to check whether the person was a member of the band during the given date. The ontology provides sufficient classes and properties to model this competency question.

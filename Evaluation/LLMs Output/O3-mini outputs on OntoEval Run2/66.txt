@@ -1,0 +1,29 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, extracts the components of a given product (here exemplified by an instance such as :Product123) along with details about each component’s origin and production process:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?product ?productLabel ?component ?componentLabel ?origin ?originLabel ?process ?processLabel
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+  
+  ?product :hasComponent ?component .
+  OPTIONAL { ?component rdfs:label ?componentLabel . }
+  
+  OPTIONAL {
+    ?component :hasOrigin ?origin .
+    OPTIONAL { ?origin rdfs:label ?originLabel . }
+  }
+  
+  OPTIONAL {
+    ?component :producedBy ?process .
+    OPTIONAL { ?process rdfs:label ?processLabel . }
+  }
+}
+--------------------------------------------------
+
+This query answers the competency question "What are the components of this product?" by retrieving, for each product, its associated components together with any available information on the component’s origin and production process, which aligns with the requirements in the provided story.

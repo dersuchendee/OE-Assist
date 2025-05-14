@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?sourceLabel ?context ?contextLabel
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel. }
+  ?source :hasContextOfUsage ?context .
+  OPTIONAL { ?context rdfs:label ?contextLabel. }
+}
+```

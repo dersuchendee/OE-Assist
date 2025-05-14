@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that answers the competency question by retrieving music albums along with their release dates (using the closed world assumption):
+
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :MusicAlbum .
+  OPTIONAL { ?album rdfs:label ?albumLabel }
+  ?album :releaseDate ?releaseDate .
+}
+ORDER BY ?album
+
+This query lists all albums defined in the ontology along with their labels and release dates, which models the CQ “When was a certain album released?” under the closed world assumption.

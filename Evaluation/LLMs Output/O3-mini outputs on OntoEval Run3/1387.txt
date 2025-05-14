@@ -1,0 +1,20 @@
+**No**
+
+The provided Tunes ontology does not include any explicit construct or reification related to an "assignment" of a composition to a tune family (e.g. no properties like :assignedComposition, :assignedTo, or :assignedBy that would link a composition to a tune family along with an agent who performed the assignment). Under the closed world assumption, if such properties or relationships are not defined, we cannot expect a fully answerable query for the CQ.
+
+A SPARQL query that extracts a partial answer (attempting to retrieve any triples that might indicate such an assignment if they were present) could be modeled as follows:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?assignment ?agent
+WHERE {
+  # Attempt to locate an assignment triple (if any) linking a composition to a tune family.
+  ?assignment :assignedComposition <http://example.org/compositionX> ;
+              :assignedTo <http://example.org/tuneFamilyY> ;
+              :assignedBy ?agent .
+}
+
+This query assumes the existence of properties (:assignedComposition, :assignedTo, :assignedBy) that would capture the assignment relation. However, since these are not part of the current ontology, the query would only return a partial answer (likely no results), which confirms that theCQ is not fully supported by the ontology.

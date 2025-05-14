@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology provides classes and properties that allow us to retrieve compositions belonging to a specific tune family and their associated measures of a specific type. By querying these measures, we can compare their values to identify similarities and differences among the compositions.
+
+```sparql
+SELECT ?composition ?compositionLabel ?measureValue
+WHERE {
+  # Retrieve compositions belonging to TuneFamilyX
+  ?composition a :Composition ;
+       :belongsToTuneFamily :TuneFamilyX ;
+       :hasMeasure ?measure .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+  
+  # Retrieve measures of type MeasureTypeY
+  ?measure :measureType :MeasureTypeY ;
+           :measureValue ?measureValue .
+}
+```
+
+Replace `:TuneFamilyX` with the specific tune family you're interested in, and `:MeasureTypeY` with the specific measure type. This query will return each composition in the tune family along with its measure value for the specified measure type, allowing you to analyze similarities and differences.

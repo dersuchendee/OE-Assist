@@ -1,0 +1,10 @@
+**Yes**
+
+```sparql
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+```

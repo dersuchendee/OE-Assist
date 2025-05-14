@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the number of acts a particular play contains. The ontology includes classes and properties related to plays, productions, and other theatre-related concepts, but it lacks a specific property or class that directly associates a play with its number of acts.
+
+However, we can extract partial information about plays and their titles, which might be useful for further investigation or manual lookup.
+
+```sparql
+SELECT ?play ?title
+WHERE {
+  ?play a :Cl_Play .
+  ?play :dp_title ?title .
+}
+```

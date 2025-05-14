@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that the individual representing the “certain city” is available in the ontology and the property :cityInRegion connects a city (of type :Cl_City) with a region (of type :Cl_Region), the competency question is fully answerable. Under the closed‐world assumption, only the explicitly stated facts will be used. For example, if the target city is known (say it has the URI :SomeCity), the following SPARQL query implements the CQ:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel }
+  
+  ?city :cityInRegion ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel }
+  
+  FILTER(?city = :SomeCity)
+}
+--------------------------------------------------
+
+This query returns the region (and its label, if available) in which the specified city (:SomeCity) is located.

@@ -1,0 +1,16 @@
+Answer: **No**
+
+The given ontology does not provide a direct connection between an album and its recording time period. Specifically, there is no property that links an instance of `:Cl_AlbumRecording` (which has the recording start and end dates) to its corresponding `:Cl_Album`. Without a property to associate an album recording with the album, we cannot fully answer the competency question "During what time period was a certain album recorded?" using the ontology.
+
+However, we can extract the recording time periods of album recordings in the ontology without associating them with specific albums. Here's a SPARQL query to retrieve the recording start and end dates of album recordings:
+
+```sparql
+SELECT ?albumRecording ?startDate ?endDate
+WHERE {
+  ?albumRecording rdf:type :Cl_AlbumRecording .
+  OPTIONAL { ?albumRecording :dp_recordingStartDate ?startDate . }
+  OPTIONAL { ?albumRecording :dp_recordingEndDate ?endDate . }
+}
+```
+
+This query retrieves all instances of `:Cl_AlbumRecording` along with their recording start and end dates, if available. However, since we cannot link these recordings to specific albums, the query provides only a partial answer to the competency question.

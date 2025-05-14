@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one way to write a SPARQL query that, under a closed‐world assumption, returns the persons who are members of a given union at a specified point in time. (Here ?specificUnion and ?pointTime are provided as parameters.)
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membership ?start ?end
+WHERE {
+  ?person a :Cl_Person .
+  ?person :isMemberOf ?membership .
+  ?membership :membershipInUnion ?union .
+  FILTER(?union = :MaleNursesUnion)   # Replace with the desired union URI if needed
+  
+  ?membership :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+
+  # Check that the provided point in time (?pointTime) is within the membership period.
+  # Under the closed world assumption, if no membershipEndDate is given, we assume the membership is active from start onwards.
+  FILTER ( xsd:date(?pointTime) >= ?start &&
+           ( !bound(?end) || xsd:date(?pointTime) <= ?end ) )
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+------------------------------------------------------------
+
+In this query, you supply the value for ?pointTime (e.g., "2008-01-01"^^xsd:date) and, if needed, change the union filter. This SPARQL query demonstrates that the ontology models the competency question “Who are the members of a certain union at a certain point in time?” effectively.

@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the publication date for instances that are either books or CDs (using a closed world assumption by filtering only for those explicitly typed as :Cl_Book or :Cl_CD):
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationDate
+WHERE {
+  ?publication a ?pubType .
+  FILTER (?pubType = :Cl_Book || ?pubType = :Cl_CD)
+  ?publication :publicationDate ?publicationDate .
+}
+
+─────────────────────────────
+
+This query directly extracts the answer to the competency question “When was a certain book or CD published?” from the ontology.

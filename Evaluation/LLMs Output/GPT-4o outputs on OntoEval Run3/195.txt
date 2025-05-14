@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between a theatre production and the play it is based on. The ontology includes classes and properties related to plays, productions, and theatre festivals, but it lacks a specific property that links a production to the play it is based on. Therefore, a SPARQL query can only extract partial information about productions and plays separately.
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  OPTIONAL {
+    ?play a :Cl_Play .
+  }
+}
+```

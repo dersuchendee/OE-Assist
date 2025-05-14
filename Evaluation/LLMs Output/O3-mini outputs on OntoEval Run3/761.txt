@@ -1,0 +1,17 @@
+**Yes**
+
+Under the closed‐world assumption this ontology ensures that every instance of :Cl_Album (i.e. a record) has at least one related :Cl_Track via the property :containsTrack (as specified by the owl:Restriction). Therefore, we can answer the CQ by writing a SPARQL query that lists each record along with its track(s):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?record ?track
+WHERE {
+  ?record a :Cl_Album .
+  ?record :containsTrack ?track .
+}
+ORDER BY ?record
+---------------------------------
+
+If this query returns results for all records in your data, then the competency question “A record always contains at least one track” is fully supported by your ontology.

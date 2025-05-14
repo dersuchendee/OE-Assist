@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query using the ontology’s classes and properties (with a closed‐world interpretation, assuming only explicitly stated triples exist) to retrieve the plays scheduled for a given theatre festival. In this query, you could filter for a specific festival (e.g., by its label):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  ?festival :hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+  
+  # Example filter: Uncomment and adjust if you wish to restrict to a specific festival
+  # FILTER(regex(?festivalLabel, "Roma Loves Shakespeare", "i"))
+}
+----------------------------------------------------------------
+
+This query extracts each theatre festival along with its associated plays, addressing the competency question.

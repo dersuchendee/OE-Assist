@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that uses the reification class (Cl_PersonDegreeStudy) to retrieve the medical degrees a person has:
+ 
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ 
+SELECT ?person ?degree ?degreeName
+WHERE {
+  ?record a :Cl_PersonDegreeStudy .
+  ?record :personHasStudy ?person .
+  ?record :studyInvolvesDegree ?degree .
+  ?degree :degreeName ?degreeName .
+}
+--------------------------------------------------------------
+ 
+This query assumes the ontology models the connection between a person and their medical degrees via the reification class Cl_PersonDegreeStudy. Under the closed‐world assumption, only those degrees explicitly recorded in the ontology are returned.

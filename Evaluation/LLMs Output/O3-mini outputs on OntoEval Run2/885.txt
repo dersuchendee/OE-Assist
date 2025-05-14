@@ -1,0 +1,24 @@
+**Yes**
+Below is one example of a SPARQL query that retrieves the employees (i.e. union members) who belong to a specified union at a given point in time. (Replace the placeholders :SpecificUnion and the date literal with the actual union and time you are interested in.)
+
+--------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?employee ?employeeLabel ?union ?timeValue
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion ?union ;
+              :hasTimePoint ?timePoint ;
+              :hasEmployee ?employee .
+  
+  ?timePoint :timeValue ?timeValue .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  
+  # Filter to a specific union and a specific time point
+  FILTER (?union = :SpecificUnion && ?timeValue = "2002-01-01T00:00:00"^^xsd:dateTime)
+}
+--------------------------------------
+  
+This query confirms that the ontology provides the necessary classes and relations (using reification in :Cl_UnionMembership) to answer the competency question "Who are the members of a certain union at a certain point in time?" under the closed world assumption.

@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?process ?contribution ?ecosystem
+WHERE {
+  ?process a owl:Class ;
+           rdfs:subClassOf [
+             a owl:Restriction ;
+             owl:onProperty :contributesTo ;
+             owl:someValuesFrom ?contribution
+           ] ;
+           rdfs:subClassOf [
+             a owl:Restriction ;
+             owl:onProperty :occursIn ;
+             owl:someValuesFrom ?ecosystem
+           ] .
+  FILTER(?process = :EnergyMetabolism)
+  FILTER(?contribution = :CO2FixationPathway)
+  FILTER(?ecosystem = :AquaticEcosystem)
+}
+```
+
+This query retrieves the relationship showing that **Energy Metabolism** (`:EnergyMetabolism`) contributes to **CO2 Fixation Pathways** (`:CO2FixationPathway`) within **Aquatic Ecosystems** (`:AquaticEcosystem`), as defined in the ontology. It demonstrates how energy metabolism contributes to CO2 fixation pathways in aquatic ecosystems by leveraging the `:contributesTo` and `:occursIn` properties specified in the ontology's class restrictions.

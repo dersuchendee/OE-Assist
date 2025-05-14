@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the relationships between energy metabolism, CO2 fixation pathways, and aquatic ecosystems, which are all represented in the ontology.
+
+```sparql
+SELECT ?energyMetabolism ?co2FixationPathway ?aquaticEcosystem
+WHERE {
+  ?energyMetabolism a :EnergyMetabolism .
+  ?energyMetabolism :contributesTo ?co2FixationPathway .
+  ?energyMetabolism :occursIn ?aquaticEcosystem .
+  ?co2FixationPathway a :CO2FixationPathway .
+  ?co2FixationPathway :occursIn ?aquaticEcosystem .
+}
+```

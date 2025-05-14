@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?seminar ?seminarLabel ?location ?locationLabel
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasLocation ?location .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

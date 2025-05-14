@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the publication date of a specific book or CD. However, we can extract partial information about the publication dates of article collections in general.
+
+```sparql
+SELECT ?articleCollection ?publicationDate
+WHERE {
+  ?articleCollection a :ArticleCollection .
+  ?articleCollection :hasPublicationDate ?publicationDate .
+}
+```

@@ -1,0 +1,30 @@
+**No**
+
+The ontology does not provide explicit instance‐data linking actual forest ecosystem individuals, beech forests, biogeochemical processes (carbon and nitrogen cycling), and nearby groundwater systems. In its current TBox form, we only have class axioms and restrictions without reified instances or explicit relationships. A partial SPARQL query (executed under the closed‐world assumption) may help to extract information defined at the schema level from the ontology. For example, you can run a query like:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?forest ?restriction ?process ?groundwater
+WHERE {
+  # Focus on the Beech Forest class
+  VALUES ?forest { :BeechForest }
+  
+  # Extract the restriction on the property "affects"
+  ?forest rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :affects ;
+               owl:someValuesFrom ?process .
+  
+  # Only consider processes that are either CarbonCycling or NitrogenCycling
+  FILTER(?process = :CarbonCycling || ?process = :NitrogenCycling)
+  
+  # From the process, get the restriction on where the process occurs
+  ?process rdfs:subClassOf ?occursRest .
+  ?occursRest owl:onProperty :occursIn ;
+              owl:someValuesFrom ?groundwater .
+}
+----------------------------------------------------------------
+
+This query extracts the schema‐level (partial) answer to “How do forest ecosystems, specifically beech forests, affect carbon and nitrogen cycling in nearby groundwater systems?” even though explicit instance data is missing.

@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question can be answered using the ontology.
+
+```sparql
+SELECT ?play ?playLabel ?startDate ?endDate
+WHERE {
+  ?play a :Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :writtenDuring ?period .
+  ?period a :ProductionPeriod .
+  ?period :hasStartDate ?startDate .
+  ?period :hasEndDate ?endDate .
+}
+```

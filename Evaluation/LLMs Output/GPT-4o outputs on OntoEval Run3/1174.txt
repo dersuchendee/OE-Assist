@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What are the potential rebound effects of this action/process?" can be answered using the ontology provided. The ontology includes classes for `Action`, `Process`, and `PotentialReboundEffect`, and there is a property `hasPotentialReboundEffect` that connects `Action` to `PotentialReboundEffect`. Since `Process` is a subclass of `Action`, it can also have potential rebound effects. Therefore, we can write a SPARQL query to extract the potential rebound effects for actions and processes.
+
+```sparql
+SELECT ?action ?actionLabel ?reboundEffect ?reboundEffectLabel
+WHERE {
+  ?action a :Action .
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+
+  ?action :hasPotentialReboundEffect ?reboundEffect .
+  OPTIONAL { ?reboundEffect rdfs:label ?reboundEffectLabel . }
+}
+```

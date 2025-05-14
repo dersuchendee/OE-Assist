@@ -1,0 +1,35 @@
+**Yes**
+
+The competency question "When was a certain person first employed at a certain hospital?" can be answered using the provided ontology. The ontology includes classes and properties that model persons, their employment at hospitals, and the employment start dates.
+
+Here's a SPARQL query to retrieve the required information:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?hospital ?hospitalName ?employmentDate
+WHERE {
+  ?person a :Cl_Person ;
+          :isEmployedAt ?hospital ;
+          :hasEmploymentStartDate ?employmentDate .
+  OPTIONAL { ?person :hasName ?personName . }
+  OPTIONAL { ?hospital :hasName ?hospitalName . }
+}
+```
+
+This query retrieves:
+
+- `?person`: The URI of the person.
+- `?personName`: The name of the person (if available).
+- `?hospital`: The URI of the hospital where the person is employed.
+- `?hospitalName`: The name of the hospital (if available).
+- `?employmentDate`: The start date of the person's employment at the hospital.
+
+**Explanation:**
+
+- The `:isEmployedAt` property connects a person (`:Cl_Person`) to a hospital (`:Cl_Hospital`).
+- The `:hasEmploymentStartDate` property provides the employment start date.
+- The `:hasName` property provides optional labels for better readability.
+
+**Therefore, the ontology supports the competency question, and the answer is affirmative.**

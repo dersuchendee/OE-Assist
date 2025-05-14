@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct connection between a city and the country it is located in. The `inCountry` property connects a city to a country, but there is no direct class or property that represents a city being located in a specific country. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract city and country information:
+
+```sparql
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName ;
+        :inCountry ?country .
+  ?country :countryName ?countryName .
+}
+```

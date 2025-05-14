@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not explicitly model the concept of "rebound effects" or "added energy requirements" in relation to a "material flow." While there are classes for `ReboundEffect` and `EnergyRequirement`, they are associated with `Process` rather than `Flow`. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract related information:
+
+```sparql
+SELECT ?process ?energyRequirement ?reboundEffect
+WHERE {
+  ?process a :Process .
+  OPTIONAL { ?process :hasEnergyRequirement ?energyRequirement . }
+  OPTIONAL { ?process :hasReboundEffect ?reboundEffect . }
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a festival with a specific location through a property or class that connects them. The `tookPlaceIn` property connects `Cl_FestivalOccurrence` to `Cl_City`, but there is no direct connection from `Cl_Festival` to `Cl_FestivalOccurrence` in the ontology. Therefore, we cannot directly answer the CQ with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?occurrence a :Cl_FestivalOccurrence ;
+              :tookPlaceIn ?city .
+}
+```

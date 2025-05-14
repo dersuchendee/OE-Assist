@@ -1,0 +1,13 @@
+Answer: **Yes**.
+
+The CQ is answerable because the ontology includes the `:Cl_PlayTimePeriod` class and properties `:hasPlayTimePeriod`, `:startYear`, and `:endYear`, which connect plays with the time periods during which they were written.
+
+```sparql
+SELECT ?play ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasPlayTimePeriod ?timePeriod .
+  ?timePeriod :startYear ?startYear .
+  ?timePeriod :endYear ?endYear .
+}
+```

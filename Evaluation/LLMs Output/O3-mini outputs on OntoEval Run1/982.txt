@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the number of pages for books (instances of Cl_BookOrCD):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?book ?numPages
+WHERE {
+  ?book a :Cl_BookOrCD .
+  ?book :numberOfPages ?numPages .
+}
+--------------------------------------------------
+
+This query answers the competency question “How many pages does a particular book contain?” by selecting entities of type Cl_BookOrCD and returning the value of their :numberOfPages property under the closed world assumption.

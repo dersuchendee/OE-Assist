@@ -1,0 +1,17 @@
+**Yes**
+Below is one possible SPARQL query to retrieve the region for a given city. In this query we assume the city of interest is identified by its URI (here represented as ?city, but you can replace it with a specific URI, e.g. :SomeCity). The query exploits the property “:locatedInRegion” that connects instances of :Cl_City to instances of :Cl_CityRegion (which, by definition, is a subclass of both :Cl_City and :Cl_Region):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedInRegion ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+  # If you want to filter for a specific city, uncomment and modify the following line:
+  # FILTER(?city = :YourCityURI)
+}
+
+This query works under the closed world assumption by retrieving only those cities that explicitly have a :locatedInRegion relation.

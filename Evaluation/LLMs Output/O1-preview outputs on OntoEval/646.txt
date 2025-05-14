@@ -1,0 +1,25 @@
+Answer: **Yes**
+
+The competency question "When did a certain performance take place?" can be answered using the provided ontology. The ontology includes the class `:Cl_Performance` and the data property `:performanceDate`, which allows us to retrieve the date of a performance.
+
+Here is a SPARQL query to retrieve the date of a specific performance:
+
+```sparql
+SELECT ?date
+WHERE {
+  :SpecificPerformance a :Cl_Performance .
+  :SpecificPerformance :performanceDate ?date .
+}
+```
+
+Replace `:SpecificPerformance` with the URI of the performance you are interested in.
+
+Alternatively, to retrieve the dates of all performances, you can use the following query:
+
+```sparql
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?date .
+}
+```

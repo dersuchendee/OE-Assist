@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?song ?songLabel ?composedOn
+WHERE {
+  ?song a :Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  ?song :composedOn ?composedOn .
+}
+ORDER BY ?songLabel
+```

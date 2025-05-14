@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not include information about the countries of the bands or musicians, so we cannot fully answer the competency question about musicians in each band from the same country. Here's a SPARQL query to extract a partial answer—listing musicians, the instruments they play, and the bands they are part of:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?instrument ?band
+WHERE {
+  ?person rdf:type :Cl_Person .
+  
+  OPTIONAL { ?person :playsInstrument ?instrument . }
+
+  ?bandMembership rdf:type :Cl_BandMembership .
+  ?bandMembership :hasMember ?person .
+  ?bandMembership :membershipInBand ?band .
+}
+```
+
+This query retrieves all individuals of type `:Cl_Person`, the instruments they play (if any), and the bands they are members of through `:Cl_BandMembership`. However, since there's no information about countries in relation to bands or musicians, the query cannot filter or group them based on being from the same country.

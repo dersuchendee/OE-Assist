@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves energy metabolism processes (instances of :EnergyMetabolism) together with the CO2 fixation pathways to which they contribute and that occur in aquatic ecosystems.
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyMetabolism ?energyLabel ?co2Fixation ?cpLabel ?ecosystem ?ecosystemLabel
+WHERE {
+  ?energyMetabolism a :EnergyMetabolism .
+  OPTIONAL { ?energyMetabolism rdfs:label ?energyLabel . }
+  
+  ?energyMetabolism :contributesTo ?co2Fixation .
+  OPTIONAL { ?co2Fixation rdfs:label ?cpLabel . }
+  
+  ?energyMetabolism :occursIn ?ecosystem .
+  ?ecosystem a :AquaticEcosystem .
+  OPTIONAL { ?ecosystem rdfs:label ?ecosystemLabel . }
+}
+ORDER BY ?energyMetabolism
+------------------------------------------------------
+
+This query shows how energy metabolism contributes to CO2 fixation pathways (via the :contributesTo property) and ensures that the involved processes occur in an aquatic ecosystem as required by the CQ.

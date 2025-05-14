@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves each region (an instance of Cl_Region) and the country in which it is located according to the property locatedInCountry:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?region ?country
+WHERE {
+  ?region rdf:type :Cl_Region .
+  ?region :locatedInCountry ?country .
+}
+--------------------------------
+
+This query answers the competency question “In what country is a certain region located?” by extracting all regions along with their associated country information from the ontology under a closed world assumption.

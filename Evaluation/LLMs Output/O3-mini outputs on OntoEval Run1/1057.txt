@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the articles presented in a given seminar. For instance, to get the articles (with their titles and authors) that were presented in a seminar identified as :Seminar_1, you can use:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?title ?author
+WHERE {
+  ?article a :Cl_SeminarArticle ;
+           :articleTitle ?title ;
+           :articleAuthor ?author ;
+           :presentedIn :Seminar_1 .
+}
+----------------------------------------------------------------
+
+This query uses the modeled class Cl_SeminarArticle (a subclass connecting seminars and articles) along with the property :presentedIn to extract the answer to the CQ "What articles were presented in a certain seminar?" under the closed‐world assumption.

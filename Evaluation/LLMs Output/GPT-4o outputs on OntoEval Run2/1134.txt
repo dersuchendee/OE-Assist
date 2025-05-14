@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not provide a direct way to query the functionalities of a device. The ontology describes classes and properties related to weather display methods, mirrors, loudspeakers, and user activities, but it does not explicitly define a "device" or its functionalities. A partial answer could be obtained by querying the weather display methods provided by mirrors and loudspeakers.
+
+```sparql
+SELECT ?device ?functionality
+WHERE {
+  {
+    ?device a :Cl_Mirror .
+    ?device :providesWeatherGraphics ?weatherDisplay .
+    BIND("Weather Graphics" AS ?functionality)
+  }
+  UNION
+  {
+    ?device a :Cl_Loudspeaker .
+    ?device :providesWeatherAudio ?weatherDisplay .
+    BIND("Weather Audio" AS ?functionality)
+  }
+}
+```

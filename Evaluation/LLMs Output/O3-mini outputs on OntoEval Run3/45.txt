@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?capability ?capabilityLabel
+WHERE {
+  ?capability a :Capability .
+  ?capability :capabilityOf ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?capability rdfs:label ?capabilityLabel . }
+}
+```

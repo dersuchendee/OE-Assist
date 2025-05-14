@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" can be answered using the ontology provided. The ontology includes classes and properties that relate seminars to seminar presentations and articles. We can write a SPARQL query to check if every seminar has at least one article presented.
+
+```sparql
+SELECT ?seminar
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?presentation rdf:type :Cl_SeminarPresentation .
+  ?presentation :presentationOf ?seminar .
+  ?article :presentedIn ?presentation .
+}
+GROUP BY ?seminar
+HAVING (COUNT(?article) > 0)
+```
+
+This query retrieves seminars that have at least one article presented, ensuring that the competency question is supported by the ontology.

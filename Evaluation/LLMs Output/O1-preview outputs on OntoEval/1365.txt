@@ -1,0 +1,14 @@
+**No**
+
+The competency question cannot be fully answered because the ontology does not contain information about whether the sound is performed by hand or by electric means. However, we can extract partial information about the bells and bell towers.
+
+```sparql
+SELECT ?bellTower ?bell
+WHERE {
+  ?bellTower a bell:BellTower .
+  OPTIONAL {
+    ?setOfBells bell:isInBellTower ?bellTower .
+    ?bellSet bell:hasComponent ?bell .
+  }
+}
+```

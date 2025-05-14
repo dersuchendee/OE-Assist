@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a play was written. The ontology includes a property `:writtenDuring` that links a play to a time period, but it does not provide specific dates or a range of years for when the play was written. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?play ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName ;
+        :writtenDuring ?timePeriod .
+  ?timePeriod :timePeriod ?timePeriodValue .
+}
+```

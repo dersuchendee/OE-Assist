@@ -1,0 +1,16 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the specific book (or books) together with its page count:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookLabel ?pageCount
+WHERE {
+  ?book a :Book ;
+        :pageCount ?pageCount .
+  OPTIONAL { ?book rdfs:label ?bookLabel. }
+}
+--------------------------------------------------
+
+This query assumes the book is explicitly typed as an instance of :Book and that its page count is stored using the :pageCount property. Under the closed world assumption, if the particular book and its page count are asserted in the ontology, the query will return its total number of pages.

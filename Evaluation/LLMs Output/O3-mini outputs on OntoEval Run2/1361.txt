@@ -1,0 +1,12 @@
+**No**  
+The ontology does not explicitly model the notion of “organ builder” (or a relation/attribute that identifies which resource is an organ builder). Under the closed‐world assumption, we cannot conclude that any resource “mentions an organ builder” based on the defined classes and properties. However, a partial answer can be obtained by searching for any resource with a label or comment that contains the term "organ builder". For example:
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?resource ?label
+WHERE {
+  ?resource rdfs:label ?label .
+  FILTER(regex(str(?label), "organ builder", "i"))
+}
+
+This query returns all resources whose label contains the phrase “organ builder”, thereby providing a partial answer even though the ontology does not explicitly reify the organ builder concept.

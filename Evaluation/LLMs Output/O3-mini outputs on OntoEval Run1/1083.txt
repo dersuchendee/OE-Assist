@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the seminar along with the hospital (its location) at which it was held, based on the property :seminarHeldAt in the ontology:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?hospital ?hospitalLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :seminarHeldAt ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+---------------------------------------------------------
+
+In this closed‐world interpretation we assume that only seminars explicitly having a :seminarHeldAt property are considered to have a location, hence the query “Where did a certain seminar take place?” is fully answerable from the ontology.

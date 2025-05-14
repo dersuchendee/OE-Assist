@@ -1,0 +1,13 @@
+**Yes**
+
+Because the ontology contains the classes `Person`, `MedicalDegree`, and the property `hasMedicalDegree` linking `Person` to `MedicalDegree`, we can write a SPARQL query to retrieve the medical degrees a person has.
+
+```sparql
+SELECT ?person ?personName ?degree ?degreeLabel
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+}
+```

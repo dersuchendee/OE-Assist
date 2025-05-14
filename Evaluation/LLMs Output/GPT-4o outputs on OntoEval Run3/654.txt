@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any information about specific performances or the songs played during those performances. The ontology includes classes and properties related to bands, musicians, albums, music tracks, and performances, but it lacks the necessary data to answer the competency question about which songs were played in a certain performance.
+
+Here is a SPARQL query to extract a partial answer, which would list performances and their associated bands, but not the specific songs played:
+
+```sparql
+SELECT ?performance ?band
+WHERE {
+  ?performance a :Performance .
+  ?performance :hasPerformer ?band .
+}
+```

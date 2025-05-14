@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example SPARQL query that, using a closed‐world assumption, selects the persons who are members of a specified union (e.g. the “Union for Male Nurses”) at a given point in time. In this query we assume the date parameter (here “2003-01-01”) represents the “certain point in time” and we keep into account that a membership is active if its start date is on or before that date and – if an end date is provided – that the given date is on or before the end date.
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOfUnion ?union ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Filter by a specific union and a given point in time (here: 2003-01-01)
+  FILTER(
+    ?union = :Union_Male_Nurses &&
+    ?membershipStartDate <= xsd:date("2003-01-01") &&
+    ( !bound(?membershipEndDate) || xsd:date("2003-01-01") <= ?membershipEndDate )
+  )
+}
+ORDER BY ?person
+─────────────────────────────
+
+This query will return all persons whose union membership (for the specified union) is active at the given time, thus answering the competency question.

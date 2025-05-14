@@ -1,0 +1,19 @@
+**No**
+
+Under a closed‑world assumption, the Organs ontology provides detailed definitions of classes (e.g. organs:Organ) and relationships, but it does not capture an explicit “mention” relation or reified statement that a resource “mentions an organ.” In other words, while we can list the resources that are typed as organs, the CQ “Which resources mention an organ?” seems to ask for all resources (for example, texts or documents) that include a statement referring to an organ—even if indirectly. In the ontology there is no explicit property (or reification construct) linking a resource (such as a project, or document, or archival record) to the fact that it “mentions” an organ. 
+
+We can still return a partial answer by listing those resources that are asserted to be of type organs:Organ. Note that without individuals and explicit “mention” assertions the query returns only the small set of explicitly typed organs. For a richer answer additional modelling would be required.
+
+Partial answer query:
+--------------------------------
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?label
+WHERE {
+  ?resource a organs:Organ .
+  OPTIONAL { ?resource rdfs:label ?label . }
+}
+--------------------------------
+
+This query extracts the set of resources that are typed as organs:Organ, which is a partial answer to the CQ since it does not capture any resource that “mentions” an organ without being explicitly typed.

@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?instrumentRealization ?instrumentLabel ?creationDate
+WHERE {
+  ?instrumentRealization a :InstrumentRealization .
+  OPTIONAL { ?instrumentRealization rdfs:label ?instrumentLabel . }
+  ?instrumentRealization :hasCreationDate ?creationDate .
+}
+ORDER BY ?creationDate
+```

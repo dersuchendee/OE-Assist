@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasTrack ?track .
+  # To target a particular album, you could add a FILTER, for example:
+  # FILTER(?album = <http://www.example.org/test#StadiumArcadium>)
+}
+GROUP BY ?album
+```

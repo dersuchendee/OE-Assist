@@ -1,0 +1,20 @@
+**No**
+
+The CQ asks whether an event was a celebration, a festival, or a private event. However, the ontology only models event "purposes" via the mtps:Purpose class with specific individuals such as mtps:PublicCelebration (which may cover celebrations) and mtps:PersonalLife (which could be interpreted as private events). There is no specific modelling for festivals. Hence, while we can partially answer by retrieving the meetups with purposes corresponding to celebration or private events, we cannot fully decide for a festival. 
+
+Below is a SPARQL query that extracts the meetups along with their associated purpose (filtered to mtps:PublicCelebration and mtps:PersonalLife):
+
+--------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+  FILTER(?purpose IN (mtps:PublicCelebration, mtps:PersonalLife))
+}
+--------------------------------------------------
+
+This query provides only a partial answer to the CQ under the closed world assumption, as the ontology does not model a festival event separately.

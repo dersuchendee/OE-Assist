@@ -1,0 +1,34 @@
+**Yes**
+
+The ontology models roles as instances of the reification class :Cl_ActorRole (which is also a :Cl_Actor, :Cl_Role, :Cl_Production and :Cl_Date). This means that for each actor we can follow the property :hasRole to retrieve the role information that (by design) carries information both about the production in which the role appears and the time (via its membership in the date class). Assuming that “a certain person” is identified by his/her :actorName, “a certain production” is indicated by the fact that the role instance is also an instance of :Cl_Production (or one might use an additional production identifier if available), and “a certain point in time” is encoded by the data property :roleDate on the role instance, one can write a SPARQL query that retrieves the role(s) of a given actor within a particular production and date.
+
+For example, if we want to retrieve all roles held by an actor with a given name in a specified production (here represented by filtering on a production parameter, for example by an expected production name using a placeholder property or by using an external filter on a date), the query could be written as follows:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actorName ?roleName ?roleDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName "Fabio Bianchi" ;    # Replace with the target person’s name
+         :hasRole ?role .
+  ?role a :Cl_ActorRole ;
+        :roleName ?roleName ;
+        :roleDate ?roleDate .
+
+  # Ensure that the role is part of a production (its membership in :Cl_Production)
+  ?role a :Cl_Production .
+
+  # Filtering by a certain time (example: a specific date)
+  FILTER(?roleDate = "2009-09-15"^^xsd:date)   # Replace with the target date
+
+  # If a production label/identifier is available (assuming a property, e.g., :productionName),
+  # one could add:
+  # ?role :productionName "The Merchant of Venice" .
+}
+ORDER BY ?roleDate
+--------------------------------------------------
+
+This query, under the Closed World Assumption, retrieves the roles that the specified person (here “Fabio Bianchi”) has assumed in a production (as indicated by the membership in :Cl_Production) at the specified point in time.

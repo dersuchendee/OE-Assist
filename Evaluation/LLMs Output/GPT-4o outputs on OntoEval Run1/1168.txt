@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query the effects on external social and environmental factors. The ontology defines classes and properties related to implementation actions and their effects on external factors, but it does not specify the specific effects on social and environmental factors. Therefore, a partial answer can be extracted by querying the effects on external factors in general.
+
+```sparql
+SELECT ?implementationAction ?effect ?externalFactor
+WHERE {
+  ?implementationAction a :ImplementationAction .
+  ?implementationAction :hasEffect ?effect .
+  ?effect :affectsFactor ?externalFactor .
+}
+```

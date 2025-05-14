@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the number of pages for a given book (i.e. any individual of the class Cl_Book):
+
+-------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?publicationTitle ?pages 
+WHERE {  
+  ?book a :Cl_Book .  
+  OPTIONAL { ?book :publicationTitle ?publicationTitle . }  
+  ?book :pageNumber ?pages .
+}
+-------------------------------------------
+
+This query returns each book (with its title, if provided) and the corresponding page number, directly answering the CQ "How many pages does a particular book contain?"

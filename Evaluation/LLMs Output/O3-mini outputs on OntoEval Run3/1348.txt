@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+SELECT ?measurement ?measurementType ?spatialDistribution ?area
+WHERE {
+  {
+    ?measurement a :ChemicalMeasurement .
+    BIND("Chemical" AS ?measurementType)
+  }
+  UNION
+  {
+    ?measurement a :PhysicalMeasurement .
+    BIND("Physical" AS ?measurementType)
+  }
+  ?measurement :hasSpatialDistribution ?spatialDistribution .
+  ?measurement :locatedInArea ?area .
+}
+ORDER BY ?measurementType ?measurement
+```

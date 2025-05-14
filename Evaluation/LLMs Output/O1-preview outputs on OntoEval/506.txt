@@ -1,0 +1,16 @@
+Answer: **No**
+
+Although the ontology includes the class `:Cl_Album` and the properties `:albumRecordingStartDate` and `:albumRecordingEndDate`, it does not include a property to specify the album's name or title. Under the closed world assumption, we cannot identify a specific album to query about without an album name property. Therefore, we cannot fully answer the competency question: **"During what time period was a certain album recorded?"**
+
+However, we can retrieve the recording time periods for all albums present in the ontology. Here is a SPARQL query to extract partial information:
+
+```sparql
+SELECT ?album ?startDate ?endDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :albumRecordingStartDate ?startDate . }
+  OPTIONAL { ?album :albumRecordingEndDate ?endDate . }
+}
+```
+
+This query retrieves all albums and their recording start and end dates, if available. Without the ability to specify an album by name, we cannot answer the competency question as intended.

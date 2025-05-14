@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the instruments played by a given person (where you can substitute the person's identifier):
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+  # Optionally, filter for the specific person by URI or label, for example:
+  # FILTER(?person = <http://www.example.org/test#AnthonyKiedis>)
+}
+---------------------------------------

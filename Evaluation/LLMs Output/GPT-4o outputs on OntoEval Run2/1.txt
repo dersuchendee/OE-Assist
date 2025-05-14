@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the subject of a source. The ontology defines a `hasSubject` property, but there are no instances or data linking a `Source` to a `Subject` using this property. Therefore, we cannot fully answer the competency question with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?source ?subject
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source :hasSubject ?subject . }
+}
+```

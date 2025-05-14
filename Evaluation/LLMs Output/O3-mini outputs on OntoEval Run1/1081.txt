@@ -1,0 +1,35 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the seminar and its location (via the seminar location individual that links the seminar to the hospital location):
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalLabel ?city ?cityName
+WHERE {
+  # Find the seminar
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+           
+  # Get the seminar location that presents the seminar
+  ?semLoc a :Cl_SeminarLocation ;
+          :locationOfSeminar ?seminar ;
+          :locatedAt ?hospitalLoc .
+          
+  # Link the hospital location to the actual hospital
+  ?hospitalLoc :locationOf ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  # If available, further link the hospital location to the city
+  ?hospitalLoc :locatedIn ?city .
+  OPTIONAL { ?city :cityName ?cityName . }
+}
+ORDER BY ?seminarDate
+
+─────────────────────────────
+
+This query takes advantage of the reified location defined in the ontology (using :Cl_SeminarLocation with properties :locatedAt and :locationOfSeminar) and returns for each seminar its date, the associated hospital (and its label if available) and the city name of the hospital’s location.

@@ -1,0 +1,16 @@
+**Yes**
+
+The CQ "Where did a certain performance take place?" is answerable using the provided ontology. The ontology defines the necessary classes and properties to represent performances and their locations. Specifically, it includes the classes `:Cl_Performance`, `:Cl_PerformanceParticipation`, and `:Cl_Location`, along with the property `:performanceLocation` that relates a performance participation to a location.
+
+Here's a SPARQL query to extract the locations of performances:
+
+```sparql
+SELECT ?performance ?location
+WHERE {
+  ?participation a :Cl_PerformanceParticipation ;
+                 :performance ?performance ;
+                 :performanceLocation ?location .
+}
+```
+
+This query retrieves all performances and their associated locations by traversing the `:Cl_PerformanceParticipation` instances and accessing the `:performanceLocation` property.

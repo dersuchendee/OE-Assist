@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the number of pages for a particular book (here assumed to be identified as :Book_1):
+
+-----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?numberOfPages
+WHERE {
+  ?book a :Cl_ArticleCollection .
+  ?book :numberOfPages ?numberOfPages .
+  FILTER(?book = :Book_1)
+}
+-----------------
+
+This query assumes that the book is modelled as an instance of :Cl_ArticleCollection (which, by the ontology design, is a kind of book) and that its number of pages is stored using the :numberOfPages data property.

@@ -1,0 +1,24 @@
+**Yes**
+Assuming that the production, review, and newspaper information are represented as follows in the ontology—with a TheatreProduction having one or more associated Reviews via :hasReview, each Review having a star rating via :hasStarRating, and being linked to a Newspaper via :reviewedBy—you can extract the “star rating” given by a particular newspaper for a specific production with this query. (Replace the URIs in the FILTER clause with the specific production and newspaper of interest.)
+
+-----------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?prodName ?review ?starRating ?newspaper
+WHERE {
+  ?production a :TheatreProduction .
+  OPTIONAL { ?production :hasName ?prodName . }
+  
+  ?production :hasReview ?review .
+  ?review :hasStarRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  
+  FILTER(
+      ?production = <http://example.org/theatreontology#Production1> &&
+      ?newspaper  = <http://example.org/theatreontology#Newspaper1>
+  )
+}
+-----------------------------------
+
+Since the ontology connects productions to reviews and reviews to star ratings and newspapers, the competency question is answerable under the (closed-world) assumption.

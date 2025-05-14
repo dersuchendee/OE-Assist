@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the release date of an album. The ontology includes a `releaseDate` property for the `Cl_Album` class, but there is no direct connection between an album and its release date in the provided data. Therefore, a partial answer can be extracted by querying for albums and their release dates, but it may not be complete or accurate.
+
+```sparql
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :releaseDate ?releaseDate . }
+}
+```

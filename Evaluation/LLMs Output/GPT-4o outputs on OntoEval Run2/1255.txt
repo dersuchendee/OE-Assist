@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not have a direct connection between chemical measurements and water concentration values. The ontology defines a `ChemicalMeasurement` class with a `hasConcentrationValue` property, but it does not specify that these measurements are related to water. The `inMedium` property connects `ChemicalMeasurement` to `Water`, but it does not provide concentration values specifically for water. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?chemicalMeasurement ?concentrationValue
+WHERE {
+  ?chemicalMeasurement a :ChemicalMeasurement .
+  ?chemicalMeasurement :hasConcentrationValue ?concentrationValue .
+}
+```

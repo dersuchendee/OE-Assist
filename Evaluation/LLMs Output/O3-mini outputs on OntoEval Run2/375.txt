@@ -1,0 +1,30 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel ?production ?productionLabel ?time
+WHERE {
+  # Bind the specific person, production, and point in time of interest.
+  # Replace the following literals with the desired values.
+  VALUES ?person { ns1:FabioBianchi } 
+  VALUES ?productionTarget { ns1:MerchantOfVenice } 
+  BIND("2009-09-07T00:00:00+00:00"^^xsd:dateTime AS ?targetTime)
+
+  # Retrieve the time-indexed roles of the person
+  ?person ns1:hasTimeIndexedRole ?timeIndexedRole .
+  ?timeIndexedRole ns1:hasRole ?role ;
+                   ns1:atTime ?time .
+  ?role ns1:inProduction ?production .
+
+  # Apply filters: production should match the given one, and 
+  # the role is valid at the specified time (assuming an exact match).
+  FILTER(?production = ?productionTarget)
+  FILTER(?time = ?targetTime)
+
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+}
+```

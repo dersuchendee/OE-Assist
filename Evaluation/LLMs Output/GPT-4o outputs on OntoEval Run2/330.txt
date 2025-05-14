@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not contain any information about star ratings given by newspapers for productions. Therefore, the competency question cannot be fully answered using the provided ontology. However, we can extract partial information about the productions and the newspapers that might be related.
+
+```sparql
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel
+WHERE {
+  ?production a theatre:Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?review theatre:isReviewOf ?production .
+  ?review theatre:publishedIn ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+}
+```

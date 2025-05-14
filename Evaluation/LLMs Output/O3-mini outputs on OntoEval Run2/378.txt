@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the roles a given person has in a specified production when the queried point in time (provided as “?queryTime”) falls within the time interval of the role assignment:
+
+--------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?assignment ?role ?roleLabel ?production ?productionLabel ?startDate ?endDate
+WHERE {
+  ?assignment a :RoleAssignment ;
+              :assignedPerson <http://example.org/theatreontology#SomePerson> ;
+              :inProduction <http://example.org/theatreontology#SomeProduction> ;
+              :assignedRole ?role ;
+              :during ?timeInterval .
+  ?timeInterval :hasStartDate ?startDate ;
+                :hasEndDate ?endDate .
+  # Replace the following date string with the desired query time
+  BIND(xsd:dateTime("2021-10-15T00:00:00") AS ?queryTime)
+  FILTER(?queryTime >= ?startDate && ?queryTime <= ?endDate)
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { <http://example.org/theatreontology#SomeProduction> rdfs:label ?productionLabel . }
+}
+--------------------------------------------------
+
+In this query, you must replace <http://example.org/theatreontology#SomePerson> and <http://example.org/theatreontology#SomeProduction> with the actual URIs of the person and the production of interest; similarly, adjust the query time as needed. This query exploits the reified RoleAssignment (with its associated time interval) to check that the specified time falls within the interval (using a FILTER), thereby answering the CQ.

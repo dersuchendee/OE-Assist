@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with their medical degrees. The ontology includes classes and properties related to degrees and fields of study, but it lacks a direct connection between a person and their specific medical degrees. Here's a SPARQL query to extract a partial answer, which lists degrees and their fields of study, but not directly linked to a person:
+
+```sparql
+SELECT ?degree ?degreeName ?fieldOfStudy
+WHERE {
+  ?degree a :MedicalDegree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+  ?degree :hasFieldOfStudy ?fieldOfStudy .
+}
+```

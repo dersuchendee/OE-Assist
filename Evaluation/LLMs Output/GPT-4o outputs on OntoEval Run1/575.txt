@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a specific track and the song it is a recording of. The ontology includes classes for `Cl_Track` and `Cl_Song`, and a property `trackOf` that connects a track to a song, but there is no information about specific tracks or songs in the ontology. Therefore, a SPARQL query can only extract partial information about the relationship between tracks and songs.
+
+```sparql
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track .
+  ?track :trackOf ?song .
+}
+```

@@ -1,0 +1,26 @@
+**Yes**
+  
+Below is a SPARQL query that retrieves persons and the indoor locations (Bathrooms) where they are found. In this ontology the location may be associated directly to a Person via the property isLocatedIn or indirectly via a ToothbrushingActivity having a location and linking to the person (through hasAgent). The following query uses a UNION to cover both cases under the closed-world assumption:
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  {
+    ?person a :Person .
+    ?person :isLocatedIn ?location .
+  }
+  UNION
+  {
+    ?activity a :ToothbrushingActivity .
+    ?activity :hasLocation ?location .
+    ?activity :hasAgent ?person .
+  }
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+------------------------------------------------
+
+This query answers the competency question "Who is where in this indoor location?" by extracting the person and the associated bathroom (indoor location), whether the relation is stated directly or exhibited via the toothbrushing activity.

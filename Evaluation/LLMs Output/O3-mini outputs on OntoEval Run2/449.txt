@@ -1,0 +1,33 @@
+**Yes**
+Below is an example SPARQL query that, given a band of interest and a time point, retrieves its members (using the reified membership with start and end dates):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?band ?bandLabel ?member ?memberLabel ?startDate ?endDate
+WHERE {
+  # Band of interest (you can replace the IRI with the specific band)
+  VALUES ?band { <http://www.example.org/test#SomeBand> }
+  ?band rdfs:label ?bandLabel .
+  
+  # Retrieve the membership information for the band
+  ?band :hasMember ?membership .
+  ?membership :member ?member .
+  ?member rdfs:label ?memberLabel .
+  
+  # Get the membership period
+  ?membership :startDate ?startDate .
+  OPTIONAL { ?membership :endDate ?endDate }
+  
+  # Define the point in time (change the date as needed)
+  BIND("2006-01-01"^^xsd:date AS ?pointInTime)
+  
+  # Filter memberships active at the given point in time:
+  FILTER(?pointInTime >= ?startDate && (!bound(?endDate) || ?pointInTime <= ?endDate))
+}
+ORDER BY ?memberLabel
+------------------------------------------------
+
+This query uses the reified membership (Cl_Membership) to check that the queried time point is within the membership period and thus answers the competency question.

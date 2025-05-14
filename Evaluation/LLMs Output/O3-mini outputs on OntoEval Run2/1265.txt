@@ -1,0 +1,34 @@
+**Yes**
+Below is a SPARQL query that retrieves each legal condition, the legislation governing it, and the actor/object/process affected via the corresponding properties:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?legalCondition ?legalConditionLabel ?affectedEntity ?entityType ?legislation ?legislationLabel
+WHERE {
+  ?legalCondition a :LegalCondition ;
+                  :governedBy ?legislation .
+  OPTIONAL { ?legalCondition rdfs:label ?legalConditionLabel . }
+  
+  {
+    ?legalCondition :affectsActor ?affectedEntity .
+    BIND("Actor" AS ?entityType)
+  }
+  UNION
+  {
+    ?legalCondition :affectsObject ?affectedEntity .
+    BIND("Object" AS ?entityType)
+  }
+  UNION
+  {
+    ?legalCondition :affectsProcess ?affectedEntity .
+    BIND("Process" AS ?entityType)
+  }
+  
+  OPTIONAL { ?legislation rdfs:label ?legislationLabel . }
+}
+ORDER BY ?legalCondition
+------------------------------------------------------------
+
+Under a closed world assumption, only those legal conditions with explicit assertions for affected actors, objects, or processes and their governing legislation will be returned.

@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one possible SPARQL query that uses the reified membership information (via the Cl_Membership class) to retrieve the role a person has in a band at a given point in time (here represented as a fixed date, which you can replace with your target date):
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMembership ?membership .
+  ?membership :membershipIn ?band .
+  ?membership :hasRole ?role .
+  ?membership :membershipStart ?membershipStart .
+  ?membership :membershipEnd ?membershipEnd .
+  
+  # Replace "2005-01-01" with the desired point in time.
+  FILTER (("2005-01-01"^^xsd:date) >= ?membershipStart &&
+          ("2005-01-01"^^xsd:date) <= ?membershipEnd)
+}
+ORDER BY ?person ?band
+-----------------------------------------------------------
+
+In this query, we assume the closed world: the membership period (from ?membershipStart to ?membershipEnd) determines the period during which the role is active. You may adapt the target date or add additional criteria (e.g., a specific person or band) as needed.

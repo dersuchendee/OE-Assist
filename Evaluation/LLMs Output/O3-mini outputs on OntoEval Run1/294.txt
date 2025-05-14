@@ -1,0 +1,16 @@
+**Yes**
+Below is an example SPARQL query that counts the number of acts for a specific play (in this case, "The Merchant of Venice"):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play (COUNT(?act) AS ?actCount)
+WHERE {
+  ?play a :Cl_Play ;
+        rdfs:label "The Merchant of Venice" ;
+        :hasAct ?act .
+}
+GROUP BY ?play
+
+This query retrieves the play with label "The Merchant of Venice", counts all related :Cl_PlayAct instances (i.e. its acts), and returns the total count.

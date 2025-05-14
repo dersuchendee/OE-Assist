@@ -1,0 +1,13 @@
+**No**  
+The ontology does not explicitly represent the time dimension on ensemble membership, so while you can retrieve the members of an ensemble, you cannot filter them by a specific point in time. Below is a SPARQL query that extracts a partial answer (the ensemble members) without considering the temporal aspect:
+
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ensemble ?ensembleLabel ?member ?memberName
+WHERE {
+  ?ensemble a :Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel. }
+  ?ensemble :hasMember ?member .
+  OPTIONAL { ?member :hasName ?memberName. }
+}

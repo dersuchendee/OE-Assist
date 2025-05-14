@@ -1,0 +1,15 @@
+**No**  
+The ontology only asserts that any instance of CollaborateAndAlignProcesses (i.e. the implementation action “collaborate and align processes”) must require some Information (via the restriction on :requiresInformation), but it does not specify which kinds of Information are needed. In other words, the CQ “What information is needed to collaborate and align processes?” cannot be fully answered from the ontology—it can only list that some Information is required without detailing what that information is.
+
+A SPARQL query that provides this partial answer is:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collaboration ?information
+WHERE {
+  ?collaboration a :CollaborateAndAlignProcesses .
+  ?collaboration :requiresInformation ?information .
+}
+-----------------------------------------------------------

@@ -1,0 +1,36 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the actors (members) of a specified ensemble at a given time. In this query the ensemble and the point in time are provided as parameters:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleLabel ?actor ?actorLabel ?membershipTime
+WHERE {
+  # Ensure the ensemble is of the appropriate type.
+  ?ensemble a :Cl_Ensemble .
+  
+  # Optionally filter for a given ensemble (replace with desired URI or remove this clause to list all ensembles).
+  FILTER(?ensemble = :MerchantOfVeniceEnsemble) .
+  
+  # Get human-readable name if available.
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  
+  # Link actor to the ensemble via their membership and performance.
+  ?actor :performedIn ?ensemble .
+  ?actor :memberOf ?membership .
+  ?membership :atTime ?membershipTime .
+  
+  # Filter for a specific point in time (for example, September 1, 2009; adjust as needed).
+  FILTER(?membershipTime = "2009-09-01T00:00:00Z"^^xsd:dateTime) .
+  
+  # Optionally get actor labels.
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?ensemble ?membershipTime ?actor
+-------------------------------------------------
+
+This query shows that the ontology supports the competency question “Who are the members of a certain ensemble at a certain point in time?” by retrieving actors whose membership record carries a date matching a given time and whose performance is linked to the given ensemble.

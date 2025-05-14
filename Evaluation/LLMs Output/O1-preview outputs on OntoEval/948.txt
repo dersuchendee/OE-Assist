@@ -1,0 +1,41 @@
+**Yes**
+
+The competency question can be answered using the ontology provided. The ontology includes the necessary classes and properties to represent doctors, employees, evaluations, and evaluation statements.
+
+Here's the SPARQL query to retrieve the evaluation statement given by a certain doctor for a certain employee:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluationStatement
+WHERE {
+  # Specify the doctor and employee URIs
+  BIND (<Doctor_URI> AS ?doctor)
+  BIND (<Employee_URI> AS ?employee)
+  
+  # Ensure the doctor is of type Cl_Doctor
+  ?doctor rdf:type :Cl_Doctor .
+
+  # The doctor evaluates an evaluation
+  ?doctor :evaluates ?evaluation .
+
+  # The evaluation is for the specified employee
+  ?evaluation :evaluationFor ?employee .
+
+  # Ensure the employee is of type Cl_Employee
+  ?employee rdf:type :Cl_Employee .
+
+  # Retrieve the evaluation statement
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+```
+
+Please replace `<Doctor_URI>` and `<Employee_URI>` with the actual URIs of the doctor and employee you're interested in.
+
+This query works by:
+
+- Selecting the evaluation statements (`?evaluationStatement`) associated with evaluations where:
+  - A specific doctor (`?doctor`) who is a `:Cl_Doctor` evaluates (`:evaluates`) an evaluation (`?evaluation`).
+  - The evaluation is for a specific employee (`?employee`) who is a `:Cl_Employee`.
+- The evaluation has an `:evaluationStatement` which contains the desired information.

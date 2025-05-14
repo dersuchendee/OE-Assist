@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?production ?productionLabel ?premierDate WHERE {
+  ?production a ns1:Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production ns1:hasPremier ?premier .
+  ?premier ns1:premierDate ?premierDate .
+}
+```

@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "How does energy metabolism contribute to CO2 fixation pathways in aquatic ecosystems?" can be answered using the given ontology. The ontology provides a connection between Energy Metabolism and CO2 Fixation Pathway through the `contributesTo` property, and both occur in Aquatic Ecosystems. Here is a SPARQL query to extract the relevant information:
+
+```sparql
+SELECT ?energyMetabolism ?co2FixationPathway ?aquaticEcosystem
+WHERE {
+  ?energyMetabolism a :EnergyMetabolism .
+  ?energyMetabolism :contributesTo ?co2FixationPathway .
+  ?energyMetabolism :occursIn ?aquaticEcosystem .
+  ?co2FixationPathway a :CO2FixationPathway .
+  ?co2FixationPathway :occursIn ?aquaticEcosystem .
+}
+```

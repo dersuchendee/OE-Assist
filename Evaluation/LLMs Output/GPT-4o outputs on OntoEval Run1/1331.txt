@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties related to the nitrogen cycle processes in beech forest ecosystems. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?process ?processLabel
+WHERE {
+  ?ecosystem a :BeechForestEcosystem .
+  ?ecosystem :hasMajorProcess ?process .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+```

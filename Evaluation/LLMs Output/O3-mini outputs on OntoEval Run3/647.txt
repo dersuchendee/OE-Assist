@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?participation a :Cl_PerformanceParticipation .
+  ?participation :performance ?performance .
+  ?participation :performanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+```

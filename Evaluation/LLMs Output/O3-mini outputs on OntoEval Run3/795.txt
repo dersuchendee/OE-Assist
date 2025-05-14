@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?start ?end
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedFor ?study .
+  ?study :hasDegree ?degree .
+  ?study :startedStudying ?start .
+  ?study :endedStudying ?end .
+}
+ORDER BY ?person ?start
+```

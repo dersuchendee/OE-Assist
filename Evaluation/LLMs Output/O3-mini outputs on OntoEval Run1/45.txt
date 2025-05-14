@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?actor ?actorLabel ?capability ?capabilityLabel
+WHERE {
+  ?capability a :Capability ;
+              :capabilityOf ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+  OPTIONAL { ?capability rdfs:label ?capabilityLabel. }
+}
+```

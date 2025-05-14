@@ -1,0 +1,17 @@
+**Yes**
+
+We can extract the answer because the ontology defines a performance class (:Cl_Performance) and a property (:performanceDate) that relates a performance to a date. Assuming a closed world (only explicitly stated dates are available), the following SPARQL query retrieves the performance instances along with the dates at which they took place.
+
+----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+----------------

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query to extract the answer under the closed‐world assumption (i.e. only explicitly asserted facts are considered):
+
+---------------------------------------------------
+PREFIX : <http://example.org/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?country
+WHERE {
+  ?city a :City .
+  ?city :locatedIn ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+---------------------------------------------------
+
+This query retrieves each city (as an instance of :City) along with the country it is located in (via the :locatedIn property).

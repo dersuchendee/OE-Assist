@@ -1,0 +1,22 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the plays written by a given author (e.g. “William Shakespeare”) using the reified authorship relation in the ontology:
+
+—————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?authorName ?playName
+WHERE {
+  ?author a :Cl_Author ;
+          :authorName "William Shakespeare" ;
+          :wrotePlay ?authorship .
+  
+  ?authorship a :Cl_Authorship ;
+              :playName ?playName .
+              
+  # Closed-World: Only instances explicitly asserted are considered
+}
+—————
+
+In this query the reified class :Cl_Authorship connects an author (of type :Cl_Author with an :authorName) to the play produced (whose label is provided by the data property :playName).

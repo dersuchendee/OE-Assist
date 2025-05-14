@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, extracts the medical degrees held by the person (here using PasqualeDiGennaro as the “certain person”):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+---------------------------------

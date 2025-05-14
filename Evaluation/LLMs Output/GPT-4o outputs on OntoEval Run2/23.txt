@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "Which water bodies belong to a specific water basin?" can be answered using the ontology provided. The ontology defines the relationship between water bodies and water basins through the `:belongsToBasin` object property. Therefore, we can write a SPARQL query to extract the answer.
+
+```sparql
+SELECT ?waterBody ?waterBodyLabel ?waterBasin ?waterBasinLabel
+WHERE {
+  ?waterBody a :WaterBody .
+  ?waterBody :belongsToBasin ?waterBasin .
+  OPTIONAL { ?waterBody rdfs:label ?waterBodyLabel . }
+  OPTIONAL { ?waterBasin rdfs:label ?waterBasinLabel . }
+}
+```

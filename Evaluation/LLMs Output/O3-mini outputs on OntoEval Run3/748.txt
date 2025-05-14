@@ -1,0 +1,25 @@
+**Yes**
+
+We can answer this CQ by querying the MonitoringPoint instances, then following their hasMeasurement relations to the Measurement instances, retrieving the associated physical parameter, time, and value. One SPARQL query to do this is:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?monitoringPoint ?mpLabel ?physicalParameter ?ppLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+  
+  ?monitoringPoint :hasMeasurement ?measurement .
+  
+  ?measurement :measuresParameter ?physicalParameter .
+  OPTIONAL { ?physicalParameter rdfs:label ?ppLabel . }
+  
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+---------------------------------------------------------
+
+Under a closed-world assumption (i.e. any missing statement is taken as false), this query will return the physical parameters recorded at each MonitoringPoint along with how their measurements vary over time.

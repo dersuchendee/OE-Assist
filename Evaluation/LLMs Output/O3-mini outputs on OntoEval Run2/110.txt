@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the location of a given festival by following the relationships defined in the ontology (from the festival instance via its occurrence to the associated city):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?location ?locationLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            rdfs:label ?festivalLabel ;  # if labels are defined
+            :hasFestivalOccurrence ?occurrence .
+  ?occurrence :festivalLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  # Optionally, filter for a specific festival:
+  # FILTER(?festival = :Festival_RomaLovesShakespeare)
+}
+
+This query uses the properties defined in the ontology (such as :hasFestivalOccurrence and :festivalLocation) to locate the city where the festival took place.

@@ -1,0 +1,14 @@
+**No**
+
+The ontology only provides a simple assertion that a city (of type :Cl_City) is linked to a region (of type :Cl_Region) via the object property :op_isLocatedIn. There is no reification (or an intermediary class) connecting cities and their regions, and the OS “Music production” does not contribute to this location‐based competency question. Therefore, while a partial answer can be obtained, the CQ is not fully modelled as a reification CQ.
+
+Below is a SPARQL query that extracts the available link between cities and regions:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :op_isLocatedIn ?region .
+}

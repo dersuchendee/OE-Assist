@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that answers the CQ—“What instruments does a certain person play?”—by retrieving a person (which you may parameterize by their URI) along with all the instruments they play:
+
+─────────────────────────────
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a ns1:Person .
+  ?person ns1:playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  # To focus on a specific person, you can uncomment and adjust the following filter:
+  # FILTER(?person = ns1:JohnFrusciante)
+}
+ORDER BY ?person ?instrument
+
+─────────────────────────────
+
+This query works under a closed world assumption in that it retrieves only those individuals explicitly stated in the ontology as playing an instrument via the property ns1:playsInstrument.

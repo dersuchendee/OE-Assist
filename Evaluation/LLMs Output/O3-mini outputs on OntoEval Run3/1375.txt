@@ -1,0 +1,17 @@
+**No**  
+The available ontology does not clearly model "musician Z" as a specific individual with attributes (such as being a musician) that can be directly linked to meetups. However, we can extract a partial answer by retrieving the places of meetups that include a participant having a label that contains “musician Z”. For example, one may run the following SPARQL query (applying a closed‐world assumption to regard what is not stated as false):
+
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?place ?placeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  ?participant rdfs:label ?participantLabel .
+  FILTER(CONTAINS(LCASE(?participantLabel), "musician z"))
+  ?meetup mtps:hasPlace ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel. }
+}
+
+This query retrieves the locations (places) associated with meetups where a participant whose label contains “musician z” is involved, giving a partial answer to the CQ.

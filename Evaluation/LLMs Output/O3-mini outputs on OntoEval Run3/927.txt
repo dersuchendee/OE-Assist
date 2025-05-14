@@ -1,0 +1,20 @@
+**Yes**
+Below is a SPARQL query that, given a specific doctor and employee, extracts the evaluation statement written by that doctor for that employee:
+
+-------------------------------------------------------
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?evaluation ?evalLabel
+WHERE {
+  ?doctor a :Doctor .
+  ?employee a :Employee .
+  ?doctor :hasEvaluation ?evaluation .
+  ?evaluation :evaluationOf ?employee .
+  OPTIONAL { ?evaluation rdfs:label ?evalLabel . }
+  # To restrict for a particular doctor and employee, uncomment and set their URIs:
+  # FILTER (?doctor = <http://example.org/yourDoctorURI> && ?employee = <http://example.org/yourEmployeeURI>)
+}
+-------------------------------------------------------
+
+Using the closed world assumption, the ontology provides enough explicit connections (via :hasEvaluation and :evaluationOf properties) so that the evaluation statement given by a certain doctor for a certain employee is answerable.

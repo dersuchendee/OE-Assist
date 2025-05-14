@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?material ?origin ?process
+WHERE {
+  ?material a :Material .
+  ?material :hasOrigin ?origin .
+  OPTIONAL {
+    ?material :undergoesProcess ?initialProcess .
+    ?initialProcess (:hasNextProcess)* ?process .
+  }
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ because the ontology models authors and the plays they have written through the reification class :Cl_Authorship. In the ontology, an instance of :Cl_Author is linked via the object property :hasWritten to an instance of :Cl_Authorship, which in turn (being a subclass of both :Cl_Author and :Cl_Play) carries the data property :playTitle. Using the closed world assumption, we assume that if a given author is not linked via :hasWritten, then they have not written any plays. Thus, the following SPARQL query will return—for each author—the plays they have written:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?author ?authorLabel ?playTitle 
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  ?author :hasWritten ?authorship .
+  ?authorship :playTitle ?playTitle .
+}
+--------------------------------------------------
+
+This query extracts each author along with the title of the plays written as stored in the ontology.

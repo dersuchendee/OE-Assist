@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about the specific locations where festivals take place, other than the city. Therefore, a SPARQL query can only provide partial information about the city where a festival occurred.
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :takesPlaceIn ?city .
+}
+```

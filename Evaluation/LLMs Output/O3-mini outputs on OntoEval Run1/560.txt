@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that, given a specific track recording instance, retrieves the song it is a recording of:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :Cl_TrackRecording .
+  OPTIONAL { ?track rdfs:label ?trackLabel. }
+  
+  ?track :op_isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+  
+  # To target a specific track, you can uncomment and adjust the following FILTER:
+  # FILTER(?track = :YourSpecificTrackURI)
+}
+--------------------------------------------------
+
+In this query the reification property :op_isRecordingOf links a track recording (an instance of :Cl_TrackRecording) to the song (an instance of :Cl_Song or similar) that it is a recording of. Under the closed world assumption the ontology provides sufficient structure to answer the CQ.

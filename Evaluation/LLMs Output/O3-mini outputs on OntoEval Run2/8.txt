@@ -1,0 +1,26 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each source along with its usage context (i.e. its associated source context and related properties such as production date, location, goal, creator, and related event):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?sourceLabel ?context ?prodDate ?prodLocation ?prodGoal ?creator ?event ?contentTheme ?emotionalResponse ?historicalPeriod
+WHERE {
+  ?source a :Cl_Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel. }
+  
+  OPTIONAL { ?source :Op_hasSourceContext ?context . }
+  OPTIONAL { ?context :Dp_hasProductionDate ?prodDate . }
+  OPTIONAL { ?context :Dp_hasProductionLocation ?prodLocation . }
+  OPTIONAL { ?context :Dp_hasProductionGoal ?prodGoal . }
+  OPTIONAL { ?context :Op_createdBy ?creator . }
+  OPTIONAL { ?context :Op_relatedToEvent ?event . }
+  OPTIONAL { ?source :Op_elicitedEmotionalResponse ?emotionalResponse . }
+  OPTIONAL { ?source :Op_belongsToHistoricalPeriod ?historicalPeriod . }
+  OPTIONAL { ?source :Dp_hasContentTheme ?contentTheme . }
+} 
+
+This query answers the CQ under a closed world assumption by extracting available facts about the usage context of each source.

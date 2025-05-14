@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each album, its time period of recording by following the relationships defined in the ontology:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album ;
+         :recordedDuring ?albumRecording .
+  ?albumRecording :recordingPeriod ?recordingPeriod .
+}
+ORDER BY ?album
+------------------------------------------------------------
+
+In this query the CQ “During what time period was a certain album recorded?” is answerable using the ontology constructs:
+– Albums are instances of :Cl_Album.
+– The recording event is linked to the album via :recordedDuring.
+– The time period of the recording is retrieved through :recordingPeriod.
+
+Under a closed world assumption, we assume that if such triples do not exist for a particular album then no recording time is available.

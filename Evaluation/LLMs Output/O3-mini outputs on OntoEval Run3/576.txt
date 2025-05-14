@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific track IRI, retrieves the song that the track is a recording of:
+
+  PREFIX : <http://www.example.org/test#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+  SELECT ?song
+  WHERE {
+    ?specificTrack a :Cl_Track ;
+                   :trackOf ?song .
+    FILTER(?specificTrack = <http://www.example.org/test#YourSpecificTrackIRI>)
+  }
+
+Replace <http://www.example.org/test#YourSpecificTrackIRI> with the IRI of the track you are interested in. This query assumes a closed world where the ontology explicitly includes the necessary track-to-song relationship via the :trackOf property.

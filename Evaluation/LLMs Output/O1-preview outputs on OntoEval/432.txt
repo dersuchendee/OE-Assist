@@ -1,0 +1,36 @@
+**Yes**
+
+The competency question can be answered because the ontology contains the `:playsInstrument` property, which relates instances of `:Cl_Person` to instances of `:Cl_Instrument`. Therefore, we can write a SPARQL query to retrieve the instruments played by a certain person.
+
+To find the instruments that a specific person plays (e.g., `:AnthonyKiedis`), you can use the following SPARQL query:
+
+```sparql
+SELECT ?instrument
+WHERE {
+  :AnthonyKiedis :playsInstrument ?instrument .
+}
+```
+
+If you want to parameterize the query for any person, you can use:
+
+```sparql
+SELECT ?instrument
+WHERE {
+  ?person :playsInstrument ?instrument .
+  FILTER (?person = :PersonX)
+}
+```
+
+Replace `:PersonX` with the URI of the person you're interested in.
+
+Alternatively, to get all persons and the instruments they play, you can use:
+
+```sparql
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+```
+
+This query will return all instances of `:Cl_Person` and the instruments they play according to the ontology.

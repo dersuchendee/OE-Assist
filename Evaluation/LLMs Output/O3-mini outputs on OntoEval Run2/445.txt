@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that, given a band (in this example, “Red Hot Chili Peppers”) and a specific date, returns the persons who were members at that point in time:
+
+-------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?person a ns1:Person ;
+          ns1:hasMembership ?membership ;
+          rdfs:label ?personLabel .
+  ?membership ns1:membershipInBand ns1:RedHotChiliPeppers ;
+              ns1:memberDuring ?timeInterval .
+  ?timeInterval ns1:hasBeginDate ?beginDate ;
+                ns1:hasEndDate ?endDate .
+
+  # Provide the point in time to check membership validity.
+  BIND("2005-01-01"^^xsd:date AS ?givenDate)
+
+  FILTER(?givenDate >= ?beginDate && ?givenDate <= ?endDate)
+}
+-------------------------------------------------
+
+This query works under the closed world assumption by only considering the explicitly provided membership time intervals.

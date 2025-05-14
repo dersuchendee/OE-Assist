@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example SPARQL query that, given a band and a specific time, returns all persons who are recorded as a member of that band at that moment:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?membershipTime
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :membershipInBand ?band ;
+              :hasMember ?member ;
+              :atTime ?membershipTime .
+  FILTER(?band = :Red_Hot_Chili_Peppers &&
+         ?membershipTime = "1988-01-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?member
+--------------------------------
+
+In this query the band is specified (e.g., :Red_Hot_Chili_Peppers) and the query filters for memberships recorded at the given point in time. This shows that the ontology models the competency question.

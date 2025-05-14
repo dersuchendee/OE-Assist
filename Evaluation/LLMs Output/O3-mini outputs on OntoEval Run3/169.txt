@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed-world assumption, retrieves for each city its country (i.e. the country in which the city is located):
+
+PREFIX geo: <http://www.semanticweb.org/ontologies/geo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a geo:City .
+  ?city geo:locatedIn ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+
+This query answers the CQ “In what country is a certain city located?” by returning all cities along with the country they are associated with.

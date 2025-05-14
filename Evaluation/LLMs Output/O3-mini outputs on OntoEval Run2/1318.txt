@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?community ?communityLabel ?rareSpecies ?rareSpeciesLabel ?ecoFunction ?ecoFunctionLabel
+WHERE {
+  ?community a :MicrobialCommunity .
+  OPTIONAL { ?community rdfs:label ?communityLabel . }
+  
+  ?community :hasMember ?species .
+  ?species a :RareSpecies .
+  OPTIONAL { ?species rdfs:label ?rareSpeciesLabel . }
+  
+  ?species :performsFunction ?ecoFunction .
+  OPTIONAL { ?ecoFunction rdfs:label ?ecoFunctionLabel . }
+}
+ORDER BY ?community ?rareSpecies
+```

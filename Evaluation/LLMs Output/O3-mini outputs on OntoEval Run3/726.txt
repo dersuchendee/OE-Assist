@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the region and country information are explicitly asserted using the property “:partOf” (with regions being instances of :Cl_Region and countries of :Cl_Country) and under a closed‑world assumption (only asserted facts are taken as true), we can answer the CQ “In what country is a certain region located?” by a query such as:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?regionName ?country 
+WHERE {
+  ?region a :Cl_Region ;
+          :regionName ?regionName ;
+          :partOf ?country .
+}
+--------------------------------------------------
+
+This query retrieves each region (with its regionName) and the country it is asserted to be part of, thus supporting the CQ.

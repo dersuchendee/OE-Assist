@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide enough information to answer the competency question completely. While it indicates that persons can participate in travels that have destinations, it lacks details about the origins of the travels or whether the persons were already at the destination place. Therefore, we cannot determine if they traveled specifically to reach the place. However, we can extract partial information about which persons have participated in travels and the destinations of those travels.
+
+```sparql
+SELECT DISTINCT ?person ?destination
+WHERE {
+  ?person a :Person ;
+          :participatedInTravel ?travel .
+  ?travel a :Travel ;
+          :hasDestination ?destination .
+}
+```

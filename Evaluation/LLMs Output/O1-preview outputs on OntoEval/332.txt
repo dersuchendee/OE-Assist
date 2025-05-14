@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?starRating
+WHERE {
+  # Specify the production and newspaper of interest
+  ?production a :TheatreProduction ;
+              :hasName "The Grand Theatre Production of The Merchant of Venice" ;
+              :hasReview ?review .
+  ?review :reviewedBy ?newspaper ;
+          :hasStarRating ?starRating .
+  ?newspaper :hasName "Il Gazzettino" .
+}
+```

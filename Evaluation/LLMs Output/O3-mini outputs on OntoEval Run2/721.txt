@@ -1,0 +1,14 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed-world assumption, retrieves each region together with its country using the provided property (op_isLocatedIn):
+
+PREFIX : <http://www.example.org/test#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region ;
+          :op_isLocatedIn ?country .
+  OPTIONAL { ?region rdfs:label ?regionLabel }
+  OPTIONAL { ?country rdfs:label ?countryLabel }
+}

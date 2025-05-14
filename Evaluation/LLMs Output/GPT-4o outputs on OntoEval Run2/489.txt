@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between the album and its recording period. The class `Cl_AlbumRecording` is not directly linked to `Cl_Album`, and the properties `dp_recordingStartDate` and `dp_recordingEndDate` are associated with `Cl_AlbumRecording`, not `Cl_Album`. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?album ?startDate ?endDate
+WHERE {
+  ?albumRecording a :Cl_AlbumRecording .
+  ?albumRecording :dp_recordingStartDate ?startDate .
+  ?albumRecording :dp_recordingEndDate ?endDate .
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+Below is a SPARQL query that retrieves evaluation statements written by a given doctor for a given employee. (Replace the placeholder URIs for the specific doctor and employee as needed.)
+
+---------------------------------------------------
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?evaluationStatement ?statementLabel
+WHERE {
+  # Specify the specific doctor and employee by their URIs
+  VALUES ?doctor { <http://example.org/instances/Doctor_PasqualeDiGennaro> } 
+  VALUES ?employee { <http://example.org/instances/Employee_TargetEmployee> }
+  
+  ?doctor a :Doctor .
+  ?employee a :Employee .
+  
+  # Retrieve the evaluation statement that the doctor has produced for the employee
+  ?doctor :hasEvaluation ?evaluationStatement .
+  ?evaluationStatement :evaluationOf ?employee .
+  
+  OPTIONAL { ?evaluationStatement rdfs:label ?statementLabel . }
+}
+---------------------------------------------------

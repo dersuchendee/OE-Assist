@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer this CQ because the ontology contains an explicit class for tracks (Cl_Track), an explicit class for songs (Cl_Song), and the object property (isRecordingOf) that links a track to the song of which it is a recording. Under the closed world assumption, we assume that any track recorded has such a relation where available.
+
+Here is a SPARQL query that returns, for each track, the song it is a recording of:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track ;
+         :isRecordingOf ?song .
+}
+
+This query returns all tracks and the corresponding song they represent, thus fully answering the CQ.

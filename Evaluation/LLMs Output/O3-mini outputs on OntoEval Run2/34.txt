@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer this CQ using the ontology. In the ontology, actor participation in a CVN is represented by instances of actor:CVNParticipation (a subclass of actorODP:CollaborationParticipation) where the participation relation links an actor (via actorODP:participatingActor) with a CVN (via actorODP:participationIn that is restricted to cvn:CVN). Under a closed-world assumption, we assume that if a participation relationship exists, then that participation in a CVN is explicitly stated.
+
+For example, the following SPARQL query will list the actors along with the CVNs they are participating in:
+
+-----------------------------------------------
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?cvn ?cvnLabel
+WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participationIn ?cvn .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+}
+ORDER BY ?actor
+-----------------------------------------------
+
+This query extracts CVNs associated with each actor’s participation in the CVN, thus fully supporting the competency question.

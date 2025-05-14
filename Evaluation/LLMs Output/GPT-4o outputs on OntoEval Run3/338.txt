@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any information about newspaper reviews or star ratings for theatre productions. Therefore, the competency question cannot be fully answered using the given ontology. However, a partial answer can be extracted by identifying the theatre productions and their associated plays.
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :op_isBasedOnPlay ?play .
+}
+```

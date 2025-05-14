@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each meetup along with its purpose, which represents the “nature” of the event as modelled in the ontology:
+
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+}
+ORDER BY ?meetup
+
+This query extracts the required information under the closed world assumption, as all meetups are required to have a purpose (i.e., a defined nature of the event).

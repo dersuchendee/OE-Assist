@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+# This query checks for records without any track.
+# Under the closed world assumption,
+# an empty result indicates that every record contains at least one track.
+SELECT ?record
+WHERE {
+  ?record a :Cl_Record .
+  FILTER NOT EXISTS { ?record :hasTrack ?recordTrack . }
+}
+```

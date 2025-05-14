@@ -1,0 +1,16 @@
+**Yes**
+Below is one possible SPARQL query that, given an author (to be supplied as a parameter), retrieves the plays that the author wrote via the writing events:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?writingEvent a :Cl_WritingEvent ;
+                :hasAuthor ?author ;
+                :hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  FILTER (?author = <http://www.example.org/test#William_Shakespeare>)
+}
+
+This query is answerable under the closed world assumption since the ontology reifies the author–play relationship through a writing event, making it possible to extract the plays by a specified author.

@@ -1,0 +1,28 @@
+**No**
+Because the ontology does not include an explicit relation (or reified statement) linking a composition (here modeled as a :Tune) to a tune family (modeled as :TuneFamily) via an "assignment" property (or a provenance triple attribute that specifies which agent made the assignment), we cannot fully answer the competency question “Who assigned composition X to tune family Y?” under the closed world assumption. However, a partial answer can be extracted—for instance, by retrieving the tunes and tune families for which some triple uses a property hinting at an assignment relation. For example:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel ?tuneFamily ?tuneFamilyLabel ?assignmentProperty ?agent
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+  
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel . }
+  
+  # Attempt to detect an assignment relation by checking for properties between a tune and a tune family
+  OPTIONAL {
+    ?tune ?assignmentProperty ?tuneFamily .
+    FILTER(contains(lcase(str(?assignmentProperty)),"assign"))
+    # Optionally, fetch agent involved if the assignment is reified in a structure,
+    # e.g., if there is a triple pattern where the assignment node indicates who assigned.
+    OPTIONAL { ?assignmentProperty :assignedBy ?agent . }
+  }
+}
+ORDER BY ?tune ?tuneFamily
+
+This query attempts to retrieve any property whose name (in its IRI string) suggests an “assignment” between a tune and a tune family along with any related “agent” (e.g., the assigner). Because no such property is defined in the ontology, the query may return only the tunes and tune families without any assignment evidence. Therefore, while the query can partially extract related entities, the competency question isn’t fully modeled by the ontology.

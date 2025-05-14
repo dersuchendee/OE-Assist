@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "What was the disposition of the organ at a specific point in time?" can be answered using the given ontology. The ontology provides the necessary classes and properties to query the disposition of an organ at a specific time.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?organ ?disposition ?time
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasDispositionAtTime ?dispositionAtTime .
+  ?dispositionAtTime :hasDisposition ?disposition .
+  ?dispositionAtTime :atTime ?time .
+  FILTER(?time = "SPECIFIC_DATE_TIME"^^xsd:dateTime)  # Replace SPECIFIC_DATE_TIME with the desired date and time
+}
+```
+
+This query retrieves the organ, its disposition, and the time of the disposition, filtered by a specific date and time.

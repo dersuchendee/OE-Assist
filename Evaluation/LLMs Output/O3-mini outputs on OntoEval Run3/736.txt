@@ -1,0 +1,11 @@
+**No**  
+The CQ “In what country is a certain region located?” is not fully answerable within the given reified modelling (i.e. through a connection with Cl_Membership) since the geographical aspects (regions and countries) are only modelled with direct properties rather than via a reified class. However, you can extract a partial answer using the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?region ?country
+WHERE {
+  ?region rdf:type :Cl_Region .
+  ?region :regionInCountry ?country .
+}

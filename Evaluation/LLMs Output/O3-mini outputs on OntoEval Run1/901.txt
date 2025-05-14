@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific union URI and a point‐in‐time (by date), retrieves the persons who are members of that union at that moment. Under the closed world assumption, we assume that the provided membership start/end dates fully describe the membership period.
+
+(Replace the placeholder URI and the ?time value as needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership .
+  ?membership :memberOf <http://www.example.org/test#SomeUnion> .
+  ?membership :hasMember ?person .
+  ?membership :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # Replace "2002-06-15"^^xsd:date with the desired point in time.
+  FILTER (
+    "2002-06-15"^^xsd:date >= ?membershipStartDate &&
+    ( !BOUND(?membershipEndDate) || "2002-06-15"^^xsd:date <= ?membershipEndDate )
+  )
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?person
+--------------------------------------------------
+
+This query finds all union membership assertions for the given union (<http://www.example.org/test#SomeUnion>) and then uses a FILTER to ensure that the chosen time ("2002-06-15" in this example) lies after the membership start date and (if available) before the membership end date.

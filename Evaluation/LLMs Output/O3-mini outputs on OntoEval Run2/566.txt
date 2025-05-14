@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given track, the song it is a recording of (using the closed‐world assumption that the properties and classes in the ontology capture the intended associations):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?song ?songLabel
+WHERE {  
+  ?track a :Cl_Track .
+  ?track :isRecordingOf ?trackRecording .
+  ?trackRecording :recordedSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  
+  # For a specific track, bind its URI (replace :SpecificTrack with the actual track identifier)
+  FILTER(?track = :SpecificTrack)
+}
+----------------------------------------------------------------
+
+In this query, a track (an instance of Cl_Track) is linked via the property isRecordingOf to its associated recording entity which in turn is linked by recordedSong to the song. This answers the CQ "What song is a specific track a recording of?"

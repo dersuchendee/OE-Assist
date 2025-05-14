@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the date of a given performance by navigating from the performance reification to its associated performance date.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedOn ?perfDateNode .
+  ?perfDateNode :performanceDate ?performanceDate .
+  # You can add a FILTER here to select a specific performance if needed.
+}
+------------------------------------------------------------
+
+In the query, we assume that performances are instances of :Cl_Performance and that the date information is reified via a :Cl_PerformanceDate instance (linked by the property :performedOn) which carries the actual date value connected via the data property :performanceDate. With the closed world assumption, if the performance instance has its date defined according to this pattern, the query will return the answer to “When did a certain performance take place?”

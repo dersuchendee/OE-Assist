@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that each theatre festival is modelled as an instance of :Cl_TheatreFestival with its date recorded using the property :date (and that a festival may have a label), one can write a query to obtain the date of a specific festival (for instance, one whose label contains “Roma Loves Shakespeare”). Under the closed‐world assumption this query extracts the complete answer. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :date ?date .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  FILTER(regex(?festivalLabel, "Roma Loves Shakespeare", "i"))
+}
+
+This SPARQL query returns the festival (and its label) along with the date it took place, thus fully modelling the competency question.

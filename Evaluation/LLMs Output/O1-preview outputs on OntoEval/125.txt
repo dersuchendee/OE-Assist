@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+SELECT ?festival ?festivalName ?play ?playTitle
+WHERE {
+  ?festival a :TheatreFestival .
+  OPTIONAL { ?festival :hasName ?festivalName . }
+  ?festival :featuresPlay ?play .
+  OPTIONAL { ?play :hasTitle ?playTitle . }
+}
+```

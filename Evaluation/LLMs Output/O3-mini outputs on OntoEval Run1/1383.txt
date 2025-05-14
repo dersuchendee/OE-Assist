@@ -1,0 +1,22 @@
+**No**
+
+The provided ontology does not contain any explicit representation of whether participants were “invited” (i.e. a property or reified structure to indicate an invitation) and it models meeting “purposes” (such as mtps:Coincidence, which may suggest an accidental or chance encounter) but does not relate this directly to an invitation status. Therefore, only part of the competency question can be answerable—namely, whether a meeting was accidental (by checking if its purpose is mtps:Coincidence). The aspect “Were they invited?” is not modelled. Under the closed‐world assumption we can only partially answer this CQ.
+
+For a partial answer please see the following SPARQL query, which retrieves all meetups, their participants, and—for those meetings that have a purpose of mtps:Coincidence—the meeting purpose (suggesting the “accidental” aspect):
+
+------------------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meeting ?participant ?purpose
+WHERE {
+  ?meeting a mtps:Meetup .
+  OPTIONAL { ?meeting mtps:hasParticipant ?participant . }
+  OPTIONAL { 
+    ?meeting mtps:hasAPurpose ?purpose .
+    FILTER(?purpose = mtps:Coincidence)
+  }
+}
+------------------------------------------------------------
+
+This query returns a partial answer, since it does not cover the invitation status which is not modelled in the ontology.

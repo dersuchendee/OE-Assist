@@ -1,0 +1,22 @@
+**Yes**
+
+We can answer the competency question since the ontology contains the class for authors (Cl_Author) and a property (:hasWritten) that links an author to a play (Cl_Play).
+
+For example, the following SPARQL query returns the plays written by a given author (here represented as ?author, which you could bind to a specific individual):
+
+-----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  ?author :hasWritten ?play .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?author
+-----------------
+
+Using our closed world assumption, only those triples explicitly stated in the ontology will be retrieved as the answer.

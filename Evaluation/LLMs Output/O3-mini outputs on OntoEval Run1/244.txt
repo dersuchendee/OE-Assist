@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that, given an author (which you can bind as a parameter), extracts the plays written by that author using the ontology property :hasWritten:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  
+  ?author :hasWritten ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  
+  # If you want to restrict to a certain author, add a FILTER or bind the author URI.
+  # For example: FILTER(?author = <http://www.example.org/test#SomeAuthor>)
+}
+-----------------------------------------------------------
+
+This query shows that the ontology models the relationship between authors and the plays they have written.

@@ -1,0 +1,16 @@
+**Yes**
+Below is an example SPARQL query that retrieves the date (when the festival took place) for a theatre festival (here assumed to be identified by its rdfs:label):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?label ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival rdfs:label ?label .
+  ?festival :date ?date .
+  FILTER(CONTAINS(LCASE(?label), "roma loves shakespeare"))
+}
+
+This query exploits the fact that instances of Cl_TheatreFestival are related to a date (via the :date property) and are labeled (using rdfs:label). The FILTER clause selects the “certain” festival (in this case one with a label containing "roma loves shakespeare"). Under the closed world assumption, we assume that only those individuals with an explicitly stated date will be returned.

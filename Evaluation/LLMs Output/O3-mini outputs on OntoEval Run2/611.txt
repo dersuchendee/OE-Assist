@@ -1,0 +1,23 @@
+**Yes**
+Below is an example SPARQL query that, given a specific critic and record, extracts what the critic said (the review text and date):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?reviewText ?reviewDate
+WHERE {
+  ?review a :Cl_Review ;
+          :givenBy ?critic ;
+          :about ?record ;
+          :reviewText ?reviewText ;
+          :reviewDate ?reviewDate .
+  # Replace the IRIs below with the specific critic and record of interest
+  FILTER(?critic = <http://www.example.org/test#SomeCritic> && 
+         ?record = <http://www.example.org/test#SomeRecord>)
+}
+--------------------------------------------------
+
+In this query the ontology’s classes and properties (Cl_Review, :givenBy, :about, :reviewText, and :reviewDate) allow us to answer the competency question “What does a certain critic say about a certain record?” under a closed world assumption.

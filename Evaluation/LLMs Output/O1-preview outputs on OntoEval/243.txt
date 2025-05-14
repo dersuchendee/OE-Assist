@@ -1,0 +1,26 @@
+**Yes**
+
+We can answer the competency question because the ontology contains the necessary classes and properties to link authors to the plays they have written via the `:wrote` property between `:Cl_Author` and `:Cl_Play`. This allows us to construct a SPARQL query to retrieve the plays written by a specific author.
+
+```sparql
+SELECT ?author ?authorName ?play ?playName
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorName . }
+  ?author :wrote ?play .
+  OPTIONAL { ?play rdfs:label ?playName . }
+}
+```
+
+This query retrieves all authors and the plays they have written. If you want to find plays written by a specific author, you can filter by the author's name or URI. For example, to get plays written by William Shakespeare:
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?author a :Cl_Author .
+  ?author rdfs:label ?authorName .
+  FILTER(CONTAINS(LCASE(?authorName), LCASE("William Shakespeare")))
+  ?author :wrote ?play .
+  OPTIONAL { ?play rdfs:label ?playName . }
+}
+```

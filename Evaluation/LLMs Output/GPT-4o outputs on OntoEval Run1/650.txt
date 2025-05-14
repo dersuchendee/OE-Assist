@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not directly support the competency question "What songs were played in a certain performance?" because it lacks a direct connection between performances and songs played in them. However, it does have a reification class `Cl_PerformanceSong` that can be used to partially answer the question by connecting performances to songs through reification.
+
+Here's a SPARQL query to extract a partial answer using the reification approach:
+
+```sparql
+SELECT ?performance ?performanceName ?song ?songName
+WHERE {
+  ?performanceSong a :Cl_PerformanceSong .
+  ?performanceSong :performanceOf ?performance .
+  ?performance :hasName ?performanceName .
+
+  ?performanceSong :songPlayed ?song .
+  ?song :hasName ?songName .
+}
+```

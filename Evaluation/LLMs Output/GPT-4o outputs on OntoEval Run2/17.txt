@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "When was an instrument invented?" can be answered using the ontology provided. The ontology includes classes and properties that relate musical instruments to their invention events and the time periods during which they were invented. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?instrument ?instrumentLabel ?year
+WHERE {
+  ?instrument a :MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  
+  ?instrument :wasInventedDuring ?timePeriod .
+  ?timePeriod :hasInvention ?invention .
+  ?invention :hasYear ?year .
+}
+```

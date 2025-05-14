@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology includes classes for both books and CDs (as subclasses of the article collection) along with a publication event that carries the publication date. You can extract the publication date for either a book or a CD using a SPARQL query such as:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  ?item a ?type .
+  VALUES ?type { :Cl_Book :Cl_CD }
+  ?item :hasPublicationEvent ?pubEvent .
+  ?pubEvent :publicationDate ?publicationDate .
+}
+--------------------------------------------------
+
+This query returns the publication date for the specified book or CD, thereby fully supporting the competency question.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate a theatre with a city. The ontology includes classes for `Cl_Theatre` and `Cl_City`, but there is no direct property linking a theatre to a city. The closest property is `locatedIn`, which links a `Cl_Building` to a `Cl_City`, but `Cl_Theatre` is a subclass of `Cl_Building`, and the ontology does not specify instances or data to make this connection.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?theatre
+WHERE {
+  ?theatre a :Cl_Theatre .
+}
+```

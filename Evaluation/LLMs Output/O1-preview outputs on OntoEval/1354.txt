@@ -1,0 +1,16 @@
+**No**
+
+```sparql
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+
+SELECT DISTINCT ?organ ?agent
+WHERE {
+  ?organ a organs:Organ .
+  ?organ core:isDescribedBy ?project .
+  ?project core:hasAgentRole ?agentRole .
+  ?agentRole core:hasAgent ?agent .
+}
+```
+
+The ontology does not provide enough information to determine whether an agent built or renovated an organ specifically. While we can find the agents associated with a project related to an organ, the ontology lacks details about the specific tasks (like building or renovating) performed by those agents. Therefore, under the closed-world assumption, we cannot fully answer the competency question.

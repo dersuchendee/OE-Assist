@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?site ?siteLabel ?area ?areaLabel ?time
+WHERE {
+  ?site a :ContaminatedSite .
+  ?site :hasObservation ?obs .
+  ?obs :observedInArea ?area .
+  ?obs :hasObservationTime ?time .
+  OPTIONAL { ?site rdfs:label ?siteLabel . }
+  OPTIONAL { ?area rdfs:label ?areaLabel . }
+}
+ORDER BY ?site ?time
+```

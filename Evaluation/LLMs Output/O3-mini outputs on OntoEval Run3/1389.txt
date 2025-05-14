@@ -1,0 +1,19 @@
+**Yes**
+
+The Tunes ontology defines collections (namely :TuneFamily and :LyricsFamily) as subclasses of core:Collection. Under the closed‐world assumption we assume that no other collections exist in the tune family. You can retrieve all these collections by querying for classes in the Tunes module that are defined as sub‐classes of core:Collection. For example:
+
+--------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?label
+WHERE {
+  ?collection rdfs:subClassOf core:Collection .
+  FILTER(STRSTARTS(STR(?collection), "https://w3id.org/polifonia/ontology/tunes/"))
+  OPTIONAL { ?collection rdfs:label ?label. }
+}
+ORDER BY ?collection
+--------------------------------------------------
+
+This query will return the collections defined in the tune family (e.g. :TuneFamily and :LyricsFamily) as modelled in the ontology.

@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ since the ontology includes MusicAlbum instances that have an associated release date via the :releaseDate datatype property. Assuming that the “certain album” is provided (or can be filtered), a SPARQL query extracting the album and its release date is shown below:
+
+------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :MusicAlbum .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+  ?album :releaseDate ?releaseDate .
+  # To restrict to a specific album, e.g., Stadium Arcadium, uncomment:
+  # FILTER(?album = :StadiumArcadium)
+}
+ORDER BY ?releaseDate
+------------------------------
+
+This query returns the album(s) along with their labels (if present) and their release dates, thereby answering the competency question.

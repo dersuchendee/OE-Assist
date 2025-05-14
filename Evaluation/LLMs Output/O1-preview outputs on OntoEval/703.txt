@@ -1,0 +1,20 @@
+**No**
+
+We cannot fully answer the competency question because the ontology lacks individual instances of cities and regions; it only defines classes and their relationships through restrictions. However, we can extract partial information about city classes and their associated region classes based on the subclass restrictions.
+
+Here's a SPARQL query to retrieve city classes and the regions they are associated with via the `:locatedIn` property:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city rdfs:subClassOf :Cl_City .
+  ?city rdfs:subClassOf ?cityRestriction .
+  
+  ?cityRestriction owl:onProperty :locatedIn .
+  ?cityRestriction owl:someValuesFrom ?region .
+  
+  ?region rdfs:subClassOf :Cl_Region .
+}
+```
+
+This query selects city classes that are subclasses of `:Cl_City` and have a restriction indicating they are `:locatedIn` some region. It then retrieves the region classes that are subclasses of `:Cl_Region`.

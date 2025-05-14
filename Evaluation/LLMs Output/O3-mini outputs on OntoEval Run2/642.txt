@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves each performance’s date and the name of the location where it took place:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?date ?locationName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?date ;
+               :tookPlaceAt ?location .
+  ?location :locationName ?locationName .
+}
+ORDER BY ?date
+
+─────────────────────────────
+
+This query extracts the performances along with their dates and the names of the locations where they took place, thus showing that the competency question is indeed modelled by the ontology.

@@ -1,0 +1,23 @@
+**No**
+
+The ontology does not provide a direct way to determine how content should be presented based on the user's context, such as their location or activity. The ontology defines classes and properties related to user location, activity, and content presentation devices, but it lacks the rules or logic needed to decide the presentation mode based on these contexts.
+
+Partial answer:
+```sparql
+SELECT ?user ?location ?activity ?content ?device
+WHERE {
+  ?user a :User .
+  ?user :hasLocation ?location .
+  ?user :hasActivity ?activity .
+  
+  {
+    ?device a :SmartMirror .
+    ?device :displaysContent ?content .
+  }
+  UNION
+  {
+    ?device a :SmartSpeaker .
+    ?device :readsOutContent ?content .
+  }
+}
+```

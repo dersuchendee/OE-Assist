@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves the title of a book and its associated page count using the properties defined in the ontology (under closed world assumption):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?book ?title ?pages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :hasTitle ?title .
+  ?book :hasBookDetails ?details .
+  ?details :hasNumberOfPages ?pages .
+}
+  
+This query extracts, for each book instance, its title and the number of pages recorded in its associated book details.

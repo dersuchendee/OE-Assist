@@ -1,0 +1,20 @@
+**Yes**
+
+We can extract the answer by following the relationships defined in the ontology. In the ontology, a city is linked to its location via a class (e.g.,   Cl_CityLocation ) and that location asserts the country in which the city is located by means of the property “cityLocatedIn” (with the country’s type Cl_Country that carries the data property “countryName”). Notice for example that :LocationOfNoceraInferiore is connected to :NoceraInferiore via :cityLocationOf and to the country (e.g., :Italy) via :cityLocatedIn. Under the closed world assumption, we assume that if a triple is not present then the fact is false, so we can rely directly on this connection.
+
+A corresponding SPARQL query to answer “In what country is a certain city located?” (for instance, to get the country each city is located in) is:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?countryName
+WHERE {
+  # Obtain the location that links a city and a country
+  ?location :cityLocationOf ?city ;
+            :cityLocatedIn ?country .
+  ?country :countryName ?countryName .
+}
+--------------------------------------------------
+
+This query will return, for each city, the name of the country to which it is connected via its location.

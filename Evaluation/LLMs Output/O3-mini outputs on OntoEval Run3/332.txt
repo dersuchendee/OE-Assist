@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, would answer the CQ by retrieving the star rating given by a specific newspaper (e.g. “Il Gazzettino”) for a specified production:
+
+--------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?review ?starRating
+WHERE {
+  ?production a :TheatreProduction ;
+              :hasReview ?review .
+  ?review :reviewedBy ?newspaper ;
+          :hasStarRating ?starRating .
+  # Replace the IRI below with the actual URI for the target newspaper
+  FILTER (?newspaper = <http://example.org/theatreontology#IlGazzettino>)
+  # Optionally, you could filter by production if needed:
+  # FILTER (?production = <http://example.org/theatreontology#YourProductionURI>)
+}
+--------------------------------------------------
+
+In this query, we assume that the ontology provides the classes and properties (e.g. :TheatreProduction, :Review, :hasReview, :reviewedBy, and :hasStarRating) needed to answer the CQ.

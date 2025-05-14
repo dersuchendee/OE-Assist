@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine the current time or match it against the user's abstract time definitions. However, we can extract the user's definition of "morning" as a partial answer.
+
+```sparql
+SELECT ?user ?abstractTime ?startTime ?endTime
+WHERE {
+  ?user a :User .
+  ?user :hasAbstractTimeDefinition ?abstractTime .
+  ?abstractTime a :Morning .
+  ?abstractTime :hasStartTime ?startTime .
+  ?abstractTime :hasEndTime ?endTime .
+}
+```

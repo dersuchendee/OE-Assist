@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology connects seminars to presentations (which are also articles) via the property :seminarIncludesPresentation. Hence, every instance of :Cl_Seminar should have at least one associated instance of :Cl_SeminarPresentation (a subclass of both :Cl_Seminar and :Cl_Article), effectively modelling “at least one article is always presented at each seminar.”
+
+A SPARQL query to list, for each seminar, the article presentations is shown below (using a closed‐world assumption):
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?presentation
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarIncludesPresentation ?presentation .
+  ?presentation a :Cl_Article .
+}
+ORDER BY ?seminar
+————————————————————————————
+
+If this query returns a non‐empty result for every seminar in your data, it confirms the CQ is fully supported by the ontology.

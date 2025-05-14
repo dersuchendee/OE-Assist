@@ -1,0 +1,23 @@
+Answer: **Yes**
+
+The competency question "What are the attributes of this weather service?" is answerable using the provided ontology. The ontology defines a `:Cl_WeatherService` class with properties such as `:hasURL`, `:hasLocation`, and `:hasPrognosis`. The specific instance `:YrNoWeatherService` is linked to instances of `:Cl_Location` and `:Cl_Prognosis`, which have their own attributes. We can construct a SPARQL query to retrieve all relevant attributes of `:YrNoWeatherService`.
+
+Here is the SPARQL query to extract the attributes:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?url ?cityName ?prognosisDuration
+WHERE {
+  :YrNoWeatherService :hasURL ?url .
+  
+  :YrNoWeatherService :hasLocation ?location .
+  ?location :hasCityName ?cityName .
+  
+  :YrNoWeatherService :hasPrognosis ?prognosis .
+  ?prognosis :hasDuration ?prognosisDuration .
+}
+```
+
+This query will return the URL, the city name associated with the location, and the duration of the prognosis for `:YrNoWeatherService`. It effectively retrieves the attributes defined in the ontology for the specified weather service.

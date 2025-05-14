@@ -1,0 +1,20 @@
+**No**
+
+Because in the ontology, there is no property that connects an `ActorRole` to an `Actor` (Person), so we cannot extract which roles a person has in a production at a certain point in time.
+
+Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?role ?roleName ?production ?productionName ?timePeriod ?timePeriodValue
+WHERE {
+  ?actorRole rdf:type :Cl_ActorRole .
+  ?actorRole :hasRole ?role .
+  ?role :roleName ?roleName .
+  
+  ?actorRole :roleInProduction ?production .
+  ?production :productionName ?productionName .
+  
+  ?actorRole :roleTimePeriod ?timePeriod .
+  ?timePeriod :timePeriod ?timePeriodValue .
+}
+```

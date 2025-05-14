@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?person ?role ?unionGroup ?startDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionRoleAssignment ?assignment .
+  ?assignment a :Cl_UnionRoleAssignment .
+  ?assignment :isAssignmentOfRole ?role .
+  ?assignment :isAssignmentInUnionGroup ?unionGroup .
+  ?assignment :startDate ?startDate .
+}
+```

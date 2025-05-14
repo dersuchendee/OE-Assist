@@ -1,0 +1,47 @@
+**Yes**
+
+The ontology models bands and their membership with start and end dates, enabling us to query for the members of a band at a specific point in time. The `Cl_BandMembership` class, along with properties like `membershipStartDate` and `membershipEndDate`, allows us to represent temporal band memberships.
+
+Here's a SPARQL query that retrieves the members of a specific band at a given date:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberName
+WHERE {
+  # Specify the band of interest
+  VALUES ?band { :SpecificBand }  # Replace :SpecificBand with the actual band URI
+  
+  # Specify the date of interest
+  VALUES (?queryDate) { ("YYYY-MM-DDTHH:MM:SSZ"^^xsd:dateTime) }  # Replace with the actual date
+  
+  ?band a :Cl_Band ;
+        :hasMember ?membership .
+        
+  ?membership a :Cl_BandMembership ;
+               :isMember ?member ;
+               :membershipStartDate ?startDate .
+               
+  OPTIONAL {
+    ?membership :membershipEndDate ?endDate .
+  }
+  
+  FILTER( ?startDate <= ?queryDate &&
+          ( !bound(?endDate) || ?endDate > ?queryDate ) )
+  
+  OPTIONAL { ?member rdfs:label ?memberName . }
+}
+```
+
+**Explanation:**
+
+- The query binds the specific band and the date of interest using `VALUES`.
+- It retrieves all `Cl_BandMembership` instances associated with the band.
+- For each membership, it checks if the `membershipStartDate` is on or before the query date.
+- It also checks if the `membershipEndDate` is after the query date or if it's not specified (meaning the membership is ongoing).
+- The `FILTER` ensures that only memberships active at the query date are considered.
+- It retrieves the members (`?member`) and optionally their names (`?memberName`).
+
+**Note:** Replace `:SpecificBand` with the actual URI of the band you're interested in, and `"YYYY-MM-DDTHH:MM:SSZ"` with the specific date and time in `xsd:dateTime` format.

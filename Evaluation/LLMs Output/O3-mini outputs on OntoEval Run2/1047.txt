@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the articles presented in a given seminar:
+
+-------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?article ?articleTitle
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?article :title ?articleTitle . }
+  # Optionally, you can filter for a particular seminar by its identifier:
+  # FILTER(?seminar = <http://example.org/ontology#YourSeminarID>)
+}
+-------------------------------------------------------------
+
+In this query, we assume that the property :hasPresentedArticle connects a Seminar to the Article(s) presented during that event.

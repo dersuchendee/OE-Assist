@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+SELECT ?meeting ?location ?time ?reason
+WHERE {
+  # Specify musician X and performer Y by their labels or URIs
+  ?musicianX a :Musician ;
+             rdfs:label "Musician X" .
+  ?performerY a :Performer ;
+              rdfs:label "Performer Y" .
+
+  # Find meetings where both participated
+  ?meeting a :Meeting ;
+           :hasParticipant ?musicianX ;
+           :hasParticipant ?performerY ;
+           :hasLocation ?location ;
+           :hasTime ?time ;
+           :hasReason ?reason .
+}
+```
+
+This query finds any meetings where both musician X and performer Y participated, retrieving the location, time, and reason for those meetings.

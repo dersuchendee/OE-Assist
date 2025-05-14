@@ -1,0 +1,42 @@
+**Answer: Yes**
+
+The competency question can be answered because the ontology includes classes and properties that represent band memberships with start and end dates. This allows us to determine the members of a particular band at a specific point in time.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?role
+WHERE {
+  # Find persons and their memberships
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership a :Cl_BandMembership .
+  ?membership :hasMembership ?band .
+  
+  # Band name filter (replace "BAND_NAME" with the desired band)
+  ?band :hasName ?bandName .
+  FILTER(STR(?bandName) = "BAND_NAME") .
+  
+  # Get membership start and end dates
+  ?membership :membershipStart ?startDate .
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+  
+  # Person's name and role (if available)
+  OPTIONAL { ?person :hasName ?personName . }
+  OPTIONAL { ?membership :hasRole ?role . }
+  
+  # Date filter (replace "TARGET_DATE" with the desired date)
+  FILTER(
+    xsd:date(?startDate) <= xsd:date("TARGET_DATE") &&
+    (
+      !bound(?endDate) || xsd:date(?endDate) >= xsd:date("TARGET_DATE")
+    )
+  )
+}
+```
+
+- Replace `"BAND_NAME"` with the name of the band you're interested in (e.g., `"Red Hot Chili Peppers"`).
+- Replace `"TARGET_DATE"` with the date you're querying (e.g., `"2006-05-05"`).
+
+This query retrieves all persons who were members of the specified band on the given date, along with their roles if available.

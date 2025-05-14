@@ -1,0 +1,30 @@
+**Yes**
+
+We can answer “What are the members of a certain band at a certain point in time?” by “walking” from a reified membership record (here modeled as an instance of :Cl_Membership) that connects a person (via, for example, a property like :bandMembership) with a band (via :memberOf) and that includes a starting date (and optionally an end date) for the membership. Under a closed‐world assumption, we assume that if no end date is known then the membership is considered to continue.
+
+For example, if we want to know which persons were members of the “RedHotChiliPeppers” at a given date (say, “2005-01-01”), we can write a query that finds all membership records for that band and then filter by the point in time falling between the membership’s start and (if existing) its end date.
+
+A possible SPARQL query is:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel ?membershipStart ?membershipEnd
+WHERE {
+  ?membership a :Cl_Membership ;
+              :memberOf :RedHotChiliPeppers ;
+              :bandMembership ?member ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  # Replace "2005-01-01" with the desired date.
+  FILTER(xsd:date("2005-01-01") >= ?membershipStart &&
+         ( !bound(?membershipEnd) || xsd:date("2005-01-01") <= ?membershipEnd ))
+}
+ORDER BY ?member
+------------------------------------------------------------
+
+This query finds all membership records for :RedHotChiliPeppers where the given date (here “2005-01-01”) is later than or equal to the membership start date and (if an end date is present) not later than the membership end date. Thus, the competency question is fully modeled in this ontology.

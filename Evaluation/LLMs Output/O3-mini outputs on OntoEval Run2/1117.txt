@@ -1,0 +1,17 @@
+**No**
+
+The CQ “What did the user do previously?” is not fully answerable using the current ontology because although a property (previousActivity) exists to relate one activity to another, there is no instance in the ontology that uses this property to link a current activity to a previous one. In a closed–world view, checking for a “previous activity” yields no result even though we have a user activity (brushing teeth). We can only partially answer the CQ by retrieving the activities performed by the user.
+
+A partial SPARQL query extracting all activities performed by the user is as follows:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?activity ?activityLabel
+WHERE {
+  ?activity a :Activity .
+  ?activity :performedBy :User .
+  OPTIONAL { ?activity rdfs:label ?activityLabel. }
+}
+
+This query retrieves all user activities but does not distinguish a “previous” activity since no explicit chain (via :previousActivity) is recorded in the ontology.

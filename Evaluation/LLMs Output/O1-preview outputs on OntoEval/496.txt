@@ -1,0 +1,14 @@
+Answer: **No**
+
+Under the closed world assumption, the ontology does not provide a way to identify a specific album (e.g., by name or identifier) because there is no data property for the album's name or a unique identifier. Therefore, we cannot retrieve the recording period for a certain album as requested by the competency question.
+
+However, we can extract a partial answer by retrieving the recording periods for all albums present in the ontology:
+
+```sparql
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasRecording ?recording .
+  ?recording :recordingPeriod ?recordingPeriod .
+}
+```

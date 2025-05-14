@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves for each album the number of tracks linked via the “containsTrack” property:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+--------------------------------------------------
+
+This query shows that the ontology provides a direct connection from an album (an instance of :Cl_Album) to its tracks (instances linked via :containsTrack), so the competency question is answerable.

@@ -1,0 +1,15 @@
+**Yes**
+
+The ontology enforces this CQ with a restriction on the record (i.e. an instance of :Cl_Album) stating that every album must have at least one associated track via the :containsTrack property. Thus, under a closed‐world assumption one can write the following SPARQL query to retrieve the track(s) contained in each record:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?album ?track
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :containsTrack ?track .
+}
+ORDER BY ?album
+
+This query will return each record (album) along with at least one associated track, ensuring that the competency question “A record always contains at least one track” is answered by the ontology.

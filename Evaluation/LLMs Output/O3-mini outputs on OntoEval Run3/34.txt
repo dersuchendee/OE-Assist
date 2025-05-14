@@ -1,0 +1,22 @@
+**Yes**
+
+The CQ is answerable because the ontology reifies actor participation in a CVN using the class actor:CVNParticipation and the property actorODP:participationIn (which here has, by restriction, cvn:CVN as a filler) and actorODP:participatingActor that links to the actor. Under the closed-world assumption, we assume that only participations explicitly captured are available.
+
+A SPARQL query that answers the CQ (i.e. “What CVN:s are the actor participating in?”) is provided below:
+
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?cvn ?cvnLabel
+WHERE {
+  ?participation a actor:CVNParticipation ;
+                 actorODP:participatingActor ?actor ;
+                 actorODP:participationIn ?cvn .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+}
+ORDER BY ?actor ?cvn
+
+This query retrieves each actor along with the CVN they participate in.

@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What songs were played in a certain performance?" can be answered using the given ontology. The ontology includes classes and properties that relate performances to songs, allowing us to query for songs associated with a specific performance.
+
+```sparql
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+
+  ?performance :hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```

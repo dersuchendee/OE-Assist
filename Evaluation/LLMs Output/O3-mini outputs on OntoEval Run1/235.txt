@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?play a :Play .
+  ?play :hasAuthor :WilliamShakespeare .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```

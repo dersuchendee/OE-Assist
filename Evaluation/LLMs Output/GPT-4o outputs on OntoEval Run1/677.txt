@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not contain any information about the location of performances. It only includes classes and properties related to bands, musicians, performances, and locations, but it does not specify where a particular performance took place. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?performance ?band ?location
+WHERE {
+  ?performance a :Performance .
+  ?performance :hasPerformer ?band .
+  OPTIONAL { ?performance :hasLocation ?location . }
+}
+```

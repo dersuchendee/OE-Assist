@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When did a certain theatre festival take place?" can be answered using the ontology provided. The ontology includes information about theatre festivals, specifically the start date of the festival and the city in which it took place. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?festival ?festivalLabel ?startDate ?city
+WHERE {
+  ?festival a ns1:TheatreFestival ;
+            rdfs:label ?festivalLabel ;
+            ns1:startDate ?startDate ;
+            ns1:tookPlaceIn ?city .
+}
+```

@@ -1,0 +1,22 @@
+**Yes**
+Below is a SPARQL query that retrieves media items (books or CDs) along with their publication dates. In the ontology the published publication is linked via the property :published to a publication (of type :Cl_Publication) that has a date given by :publicationDate.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?media ?mediaLabel ?publicationDate
+WHERE {
+  # Assume media items (books or CDs) are instances of Cl_Media.
+  ?media a :Cl_Media .
+  OPTIONAL { ?media rdfs:label ?mediaLabel . }
+  # Link to publication information.
+  ?media :published ?pub .
+  ?pub :publicationDate ?publicationDate .
+}
+ORDER BY ?mediaLabel
+--------------------------------------------------
+
+This query extracts, for each media item in the closed‐world ontology, its publication date (whether it is a book or an electronic CD) as defined by the ontology’s :published and :publicationDate properties.

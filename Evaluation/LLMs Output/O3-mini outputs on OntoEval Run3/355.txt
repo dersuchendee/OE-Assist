@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that, using the closed world assumption, retrieves the start date of employment for an actor at a particular theatre. (You can replace the FILTER values with the appropriate names to target a specific actor and a specific theatre.)
+
+------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?employment a :Employment .
+  ?employment :hasEmployee ?actor .
+  ?employment :hasEmployer ?theatre .
+  ?employment :hasStartDate ?startDate .
+
+  OPTIONAL { ?actor rdfs:label ?actorName . }
+  OPTIONAL { ?theatre rdfs:label ?theatreName . }
+  
+  # Replace the following filters with the desired actor/theatre names if needed:
+  FILTER(?actorName = "Fabio Bianchi")
+  FILTER(?theatreName = "The Grand Theatre")
+}
+------------------------------------------------
+
+This query extracts the time (start date) when “Fabio Bianchi” (the actor) began his employment with “The Grand Theatre”.

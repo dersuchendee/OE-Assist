@@ -1,0 +1,17 @@
+**No**
+
+The competency question "What does a certain critic say about a certain record?" is not fully supported by the ontology. The ontology contains information about critics, reviews, and albums, but it does not explicitly link critics to specific reviews or records in a way that allows us to directly query what a critic says about a record. We can extract partial information about reviews and critics, but not the specific statements made by critics about records.
+
+Here is a SPARQL query to extract partial information about reviews and critics:
+
+```sparql
+SELECT ?critic ?album ?reviewText
+WHERE {
+  ?review rdf:type :Cl_Review .
+  ?review :reviewedBy ?critic .
+  ?review :reviewedRecord ?album .
+  ?review :reviewText ?reviewText .
+}
+```
+
+This query retrieves the critic, album, and review text, but it does not directly answer the competency question about what a specific critic says about a specific record.

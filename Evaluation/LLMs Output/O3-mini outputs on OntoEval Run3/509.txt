@@ -1,0 +1,21 @@
+**Yes**
+
+One can retrieve the recording period of an album using the association between an album and its recording session. For example, under a closed world assumption the following SPARQL query “joins” a given album to its recording session and extracts the start and end times:
+
+───────────────────────────── 
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+  
+  ?album :hasRecordingSession ?session .
+  ?session :recordingStartDate ?recordingStart .
+  ?session :recordingEndDate ?recordingEnd .
+}
+───────────────────────────── 
+
+This query shows that the competency question “During what time period was a certain album recorded?” is fully answerable using the given ontology.

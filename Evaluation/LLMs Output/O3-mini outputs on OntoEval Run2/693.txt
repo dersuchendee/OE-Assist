@@ -1,0 +1,17 @@
+**Yes**
+
+A competency question “Where did a certain performance take place?” is answerable in this ontology because there is a reified representation for performances via Cl_PerformanceParticipation. In this reification, the property :performanceLocation relates a performance participation to a Cl_Location. Under the closed‐world assumption, one may extract the location associated with any given performance. For example, the following SPARQL query retrieves the performance and its location:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?location
+WHERE {
+  ?participation a :Cl_PerformanceParticipation .
+  ?participation :performance ?performance .
+  ?participation :performanceLocation ?location .
+}
+ORDER BY ?performance
+
+This query returns, for each participation instance (thus each performance instance), the associated location where the performance took place.

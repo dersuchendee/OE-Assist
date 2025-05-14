@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query to extract the city for a given hospital (e.g., OspedaleRiunitoDelleTreValli):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?city
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+  FILTER(?hospital = :OspedaleRiunitoDelleTreValli)
+}
+
+This query demonstrates that the ontology indeed supports the competency question "In what city is a certain hospital located?" under a closed-world assumption.

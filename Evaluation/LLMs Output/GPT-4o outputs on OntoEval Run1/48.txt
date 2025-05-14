@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly provide a way to extract the actors involved in a circular value network (CVN). The ontology defines classes and properties related to actors, roles, and participations, but it does not explicitly connect these to a CVN instance. Therefore, a SPARQL query can only provide a partial answer by listing actors and their roles without associating them with a specific CVN.
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole ?role .
+}
+```

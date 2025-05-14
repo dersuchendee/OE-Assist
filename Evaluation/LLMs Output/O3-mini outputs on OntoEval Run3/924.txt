@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that, given a particular person, union, and a specific date (the “point in time”), retrieves the role that person holds within that union. (In this example the URIs for the person and union are placeholders that should be replaced with the actual identifiers from your data, and the queried date should be provided as needed.)
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel ?startDate ?endDate
+WHERE {
+  ?roleAssignment a :Cl_UnionRoleAssignment ;
+                  :roleOf <http://www.example.org/test#Person_PasqualeDiGennaro> ;
+                  :roleInUnion <http://www.example.org/test#Union_MaleNurses> ;
+                  :hasRole ?role ;
+                  :roleStartDate ?startDate .
+  OPTIONAL { ?roleAssignment :roleEndDate ?endDate . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # Filter the assignments to those valid at the given date (e.g., "2002-06-15")
+  FILTER( xsd:date("2002-06-15") >= ?startDate &&
+         ( !bound(?endDate) || xsd:date("2002-06-15") <= ?endDate ) )
+}
+ORDER BY ?startDate
+----------------------------------------
+
+This query uses the union role reification (Cl_UnionRoleAssignment) with properties for the role (via :hasRole), the associated person (via :roleOf), and the union (via :roleInUnion), and it filters by a specified date falling between the roleStartDate and roleEndDate.

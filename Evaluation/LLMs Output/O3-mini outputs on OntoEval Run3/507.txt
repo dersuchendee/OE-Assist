@@ -1,0 +1,25 @@
+**Yes**
+
+Based on the ontology, we can answer the competency question “During what time period was a certain album recorded?” In the ontology, an album (an instance of :Cl_Album) is linked to a recording session (an instance of :Cl_RecordingSession) through the object property :recordedDuring; and the recording session is reified with date properties—using :membershipStart (for the start date) and :membershipEnd (for the end date). Under a closed world assumption, if an album has such properties asserted, we can extract the defined time period.
+
+Below is a SPARQL query that retrieves, for a given album (optionally by filter on label or URI), its recording session’s start and end dates:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?start ?end
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :recordedDuring ?session .
+  ?session :membershipStart ?start .
+  ?session :membershipEnd ?end .
+  # Optionally, filter on a specific album label:
+  # FILTER (lcase(str(?albumLabel)) = "stadium arcadium")
+}
+ORDER BY ?album
+--------------------------------------------------
+
+This query will extract each album’s recording session start and end date, thereby answering the CQ under the closed world assumption.

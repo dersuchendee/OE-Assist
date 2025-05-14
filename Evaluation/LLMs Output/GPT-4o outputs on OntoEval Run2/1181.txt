@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide enough information to directly answer the competency question about recordings involving a bell or set of bells. The ontology defines classes for Recording, Bell, and BellSet, and a property involvesBell, but it does not provide instances or specific data about recordings or their involvement with bells.
+
+A partial SPARQL query to extract information about recordings that involve bells or sets of bells could be:
+
+```sparql
+SELECT ?recording ?bell
+WHERE {
+  ?recording a :RecordingInvolvingBell .
+  ?recording :involvesBell ?bell .
+}
+```

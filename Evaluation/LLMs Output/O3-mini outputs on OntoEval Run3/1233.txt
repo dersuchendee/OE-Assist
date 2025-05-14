@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that instances are explicitly asserted under the closed world assumption, the following query retrieves beech forests that have a carbon sequestration process and shows how that process contributes (via the contributesTo relation) to the carbon cycle.
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?forest ?forestLabel ?process ?processLabel ?cycle ?cycleLabel
+WHERE {
+  ?forest a :BeechForest .
+  OPTIONAL { ?forest rdfs:label ?forestLabel . }
+  
+  ?forest :hasProcess ?process .
+  ?process a :CarbonSequestration .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  
+  ?process :contributesTo ?cycle .
+  ?cycle a :CarbonCycle .
+  OPTIONAL { ?cycle rdfs:label ?cycleLabel . }
+}
+ORDER BY ?forest
+----------------------------------------------------------------
+
+This query shows which beech forests (with their processes) contribute to the carbon cycle—thus supporting the competency question.

@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that individual theatre festivals in the ontology are represented as instances of Cl_TheatreFestival with a date provided via the property hasDate, you can answer the CQ “When did a certain theatre festival take place?” with a query such as:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasDate ?date .
+  # Optionally filter to a specific festival, e.g. by label
+  # ?festival rdfs:label ?label .
+  # FILTER (regex(?label, "Roma Loves Shakespeare", "i"))
+}
+------------------------------------------------------------
+
+Under a closed world assumption, if the festival instance exists and has a date assigned, this query will return the answer to the CQ.

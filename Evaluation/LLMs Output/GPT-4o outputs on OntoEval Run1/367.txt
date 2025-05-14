@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not contain any specific information about actors working for a theatre or the time they started working. The ontology primarily focuses on theatre festivals, plays, locations, and related entities. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying any actors and their employment details, if available.
+
+```sparql
+SELECT ?actor ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :employedAt ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```

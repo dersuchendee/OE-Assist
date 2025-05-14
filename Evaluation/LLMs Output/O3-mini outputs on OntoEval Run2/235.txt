@@ -1,0 +1,16 @@
+**Yes**
+Below is an example SPARQL query that retrieves the plays written by a given author (for instance, William Shakespeare):
+
+-------------------------------------------------
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?play a :Play ;
+        :hasAuthor :WilliamShakespeare .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+-------------------------------------------------
+
+This query answers the competency question “What plays did a certain author write?” by selecting all individuals of the class Play that are connected to the specified Author (here, William Shakespeare) via the :hasAuthor property.

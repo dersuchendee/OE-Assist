@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the production and the newspaper are specified (for example, the review in the ontology shows that “Il Gazzettino” published a review of the Merchant of Venice Production with its star rating), we can extract the “star rating” by retrieving the review(s) that link a production with the newspaper and then get the value of the property theatre:hasStarRating. In closed‐world reasoning we assume that only explicitly asserted facts apply. For instance, if we want the star rating for theatre:MerchantOfVeniceProduction as given by theatre:IlGazzettino, the following SPARQL query answers the CQ:
+
+-------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?review a theatre:Review ;
+          theatre:hasStarRating ?starRating ;
+          theatre:isReviewOf ?production ;
+          theatre:publishedIn ?newspaper .
+  FILTER(?newspaper = theatre:IlGazzettino)
+  FILTER(?production = theatre:MerchantOfVeniceProduction)
+}
+-------------------------------------------------
+
+This query shows that the ontology has the necessary classes and properties to relate a production, its review, the newspaper, and the star rating—thus the CQ is fully supported.

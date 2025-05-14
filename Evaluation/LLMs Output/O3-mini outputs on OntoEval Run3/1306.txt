@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+SELECT ?relatedTuneFamily ?tuneFamilyLabel
+WHERE {
+  :TuneFamilyX a :TuneFamily .       # Ensure X is an instance of TuneFamily
+  ?relationship a :TuneFamilyRelationship .
+  ?relationship :hasSource :TuneFamilyX .
+  ?relationship :hasTarget ?relatedTuneFamily .
+  ?relationship :usesSimilarityMeasure :SimilarityMeasureY .
+  OPTIONAL { ?relatedTuneFamily rdfs:label ?tuneFamilyLabel . }
+}
+```

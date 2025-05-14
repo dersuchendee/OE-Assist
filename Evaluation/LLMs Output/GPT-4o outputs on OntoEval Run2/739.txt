@@ -1,0 +1,15 @@
+**No**
+
+The competency question "In what country is a certain region located?" is not fully supported by the given ontology. The ontology defines classes and properties related to albums and tracks, but it does not include any geographical entities or relationships that would allow us to determine the country in which a region is located.
+
+However, a partial answer can be extracted if we assume that regions and countries are defined elsewhere in the ontology. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :isInCountry ?country .
+}
+```
+
+This query assumes the existence of `:Cl_Region` and `:isInCountry` properties, which are not present in the provided ontology.

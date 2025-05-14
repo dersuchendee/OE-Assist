@@ -1,0 +1,14 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the production along with the play on which it is based, using the :basedOnPlay property provided in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :basedOnPlay ?play .
+  ?play :playName ?playName .
+}

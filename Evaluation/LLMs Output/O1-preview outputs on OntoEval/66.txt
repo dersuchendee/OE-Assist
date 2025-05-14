@@ -1,0 +1,34 @@
+Answer: **Yes**
+
+Here, the Competency Question (CQ) "What are the components of this product?" can be answered using the ontology provided. The ontology defines a `Product` class, a `Component` class (which is a subclass of `Material`), and the `hasComponent` object property that relates a `Product` to its `Component`s. Additionally, example instances are provided, including `:Product123`, which has components `:ComponentA` and `:ComponentB`.
+
+Below is a SPARQL query that retrieves the components of each product in the ontology:
+
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?product ?productLabel ?component ?componentLabel
+WHERE {
+    ?product a :Product .
+    OPTIONAL { ?product rdfs:label ?productLabel . }
+
+    ?product :hasComponent ?component .
+    OPTIONAL { ?component rdfs:label ?componentLabel . }
+}
+```
+
+If you want to retrieve the components of a specific product, such as `:Product123`, you can modify the query accordingly:
+
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?component ?componentLabel
+WHERE {
+    :Product123 :hasComponent ?component .
+    OPTIONAL { ?component rdfs:label ?componentLabel . }
+}
+```
+
+This query will return the components of `Product123`, leveraging the `hasComponent` property defined in the ontology.

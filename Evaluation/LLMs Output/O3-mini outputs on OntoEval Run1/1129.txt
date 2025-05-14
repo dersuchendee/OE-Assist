@@ -1,0 +1,31 @@
+**Yes**
+Below is an example SPARQL query that retrieves the key attributes of the weather service (its associated location’s forecast, including time period, temperature, wind, and precipitation):
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology/weather#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?weatherService ?serviceLabel ?location ?locationLabel ?forecast ?forecastLabel ?timePeriod 
+       ?tempValue ?tempUnit ?windValue ?windUnit ?precipValue ?precipUnit
+WHERE {
+  ?weatherService a :WeatherService ;
+                  rdfs:label ?serviceLabel ;
+                  :providesForecastFor ?location .
+  ?location rdfs:label ?locationLabel ;
+            :hasForecast ?forecast .
+  ?forecast rdfs:label ?forecastLabel ;
+            :hasTimePeriod ?timePeriod ;
+            :hasTemperature ?temperature ;
+            :hasWind ?wind ;
+            :hasPrecipitation ?precipitation .
+  ?temperature :hasValue ?tempValue ;
+               :hasUnit ?tempUnit .
+  ?wind :hasValue ?windValue ;
+        :hasUnit ?windUnit .
+  ?precipitation :hasValue ?precipValue ;
+                 :hasUnit ?precipUnit .
+}
+ORDER BY ?weatherService ?location
+--------------------------------------------------
+
+Under the closed world assumption, this query directly extracts all declared attributes of the weather service individual (for example, :YrNoWeatherService) and its related forecast information as described in the ontology.

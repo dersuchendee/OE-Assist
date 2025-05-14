@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the closed‐world interpretation (i.e. what is not stated is considered false), the ontology provides a direct property (:playsInstrument) from persons to instruments. Therefore, the competency question “What instruments does a certain person play?” can be answered by simply retrieving the instruments related to a given individual of type :Cl_Person. For example:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+----------------------------------------------------
+
+This query extracts, for every person in the ontology, the instruments they play.

@@ -1,0 +1,27 @@
+**Yes**
+Below is an example SPARQL query that, given a specific person, a specific production, and a point in time, returns the roles assigned to that person in that production whose assignment time interval covers the given time. (Be sure to replace the example URIs and the sample time value with those needed in your case.)
+
+--------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?intervalStart ?intervalEnd
+WHERE {
+  ?assignment a :RoleAssignment .
+  ?assignment :assignedPerson ?person .
+  ?assignment :assignedRole ?role .
+  ?assignment :inProduction ?production .
+  ?assignment :during ?timeInterval .
+  ?timeInterval :hasStartDate ?intervalStart .
+  ?timeInterval :hasEndDate ?intervalEnd .
+
+  FILTER(
+    ?person = <http://example.org/theatreontology#SomePerson> &&
+    ?production = <http://example.org/theatreontology#SomeProduction> &&
+    "2009-09-10T00:00:00"^^xsd:dateTime >= ?intervalStart &&
+    "2009-09-10T00:00:00"^^xsd:dateTime <= ?intervalEnd
+  )
+}
+--------------------------------------------------
+
+This query extracts the roles (with their assignment time intervals) for a given person and production at a given point in time, thus demonstrating that the CQ is fully answerable by the ontology.

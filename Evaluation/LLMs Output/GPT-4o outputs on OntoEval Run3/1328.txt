@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "How does carbon sequestration in beech forests contribute to overall carbon cycling?" is supported by the ontology. The ontology includes classes and properties that connect BeechForest to CarbonSequestration and then to CarbonCycling, which allows us to write a SPARQL query to extract the answer.
+
+```sparql
+SELECT ?beechForest ?carbonSequestration ?carbonCycling
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :participatesIn ?carbonSequestration .
+  ?carbonSequestration :contributesTo ?carbonCycling .
+}
+```

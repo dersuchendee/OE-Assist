@@ -1,0 +1,16 @@
+**Yes**
+
+This ontology directly enforces that every record (i.e. every instance of the class :Cl_Album) must have at least one track by stating an equivalent class restriction with owl:minCardinality 1 on the property :containsTrack. Under the closed‐world assumption, a SPARQL query can verify that no album violates this constraint. For example, the following query returns any album that does NOT have at least one track. An empty result indicates that every record properly contains a track.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record 
+WHERE {
+  ?record a :Cl_Album .
+  FILTER NOT EXISTS { ?record :containsTrack ?track . }
+}
+------------------------------------------------
+
+If this query returns no results, it confirms that every record (album) contains at least one track, satisfying the CQ.

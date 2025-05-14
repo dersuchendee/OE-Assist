@@ -1,0 +1,12 @@
+**Yes**
+
+We can check that every seminar (an instance of Cl_Seminar) is required (via the minCardinality restriction on the property :presentedIn) to have at least one article presented. Thus, the competency question “At least one article is always presented at each seminar” is fully supported by the ontology. The following SPARQL query retrieves each seminar along with the article(s) that were presented in it:
+
+ 
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article :presentedIn ?seminar .
+}
+ 
+ORDER BY ?seminar ?article

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the recording period (i.e. the start and end dates) for a specific album (for example “Stadium Arcadium”) from the ontology.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  ?album rdfs:label ?albumLabel .
+  FILTER(LCASE(STR(?albumLabel)) = "stadium arcadium")
+  OPTIONAL { ?album :recordingStart ?recordingStart . }
+  OPTIONAL { ?album :recordingEnd ?recordingEnd . }
+}
+--------------------------------------------------
+
+With the closed world assumption, only those albums explicitly asserting a recordingStart and/or recordingEnd will appear in the results, thereby answering the competency question.

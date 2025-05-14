@@ -1,0 +1,18 @@
+**Yes**
+
+Here is the SPARQL query to find out when a certain album was released:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :albumReleaseDate ?releaseDate .
+  
+  # If album names are stored using rdfs:label or another property, you can filter for a specific album:
+  # OPTIONAL { ?album rdfs:label ?albumName . }
+  # FILTER ( ?albumName = "Stadium Arcadium" )
+}
+```
+
+This query retrieves all albums and their release dates from the ontology. If you want to find the release date of a specific album (e.g., "Stadium Arcadium"), you can uncomment the `OPTIONAL` and `FILTER` clauses and adjust them according to how album names are represented in your data.

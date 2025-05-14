@@ -1,0 +1,26 @@
+**Yes**
+
+The evaluation statement is represented as the string value of the property evaluation_text on an evaluation event, which in turn is linked via the conducts_evaluation_event property from the doctor and the undergoes_evaluation_event property from the employee. Using the closed world assumption (i.e. only explicitly stated facts are true) we can extract this information with the following SPARQL query. (Note: Replace the example URIs with the actual identifiers for the specific doctor and employee.) 
+
+-------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationText
+WHERE {
+  # Replace these example URIs with the actual individuals (the "certain doctor" and "certain employee")
+  BIND(<http://www.example.org/test#Doctor_John> AS ?doctor) .
+  BIND(<http://www.example.org/test#Employee_Jane> AS ?employee) .
+
+  ?doctor a :Cl_Doctor .
+  ?doctor :conducts_evaluation_event ?evaluationEvent .
+  
+  ?employee a :Cl_Employee .
+  ?employee :undergoes_evaluation_event ?evaluationEvent .
+  
+  ?evaluationEvent a :Cl_EvaluationEvent ;
+                   :evaluation_text ?evaluationText .
+}

@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?interaction ?fungi ?fungiLabel ?heterotroph ?heterotrophLabel ?aquifer ?aquiferLabel ?abundance ?activity
+WHERE {
+  ?interaction a :Interaction .
+
+  ?interaction :hasInfluencer ?fungi .
+  ?fungi a :AquaticFungi .
+  OPTIONAL { ?fungi rdfs:label ?fungiLabel . }
+
+  ?interaction :hasInfluenced ?heterotroph .
+  ?heterotroph a :Heterotroph .
+  OPTIONAL { ?heterotroph rdfs:label ?heterotrophLabel . }
+
+  ?interaction :occursIn ?aquifer .
+  ?aquifer a :Aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+
+  ?interaction :affectsAbundance ?abundance .
+  ?interaction :affectsActivity ?activity .
+}
+```

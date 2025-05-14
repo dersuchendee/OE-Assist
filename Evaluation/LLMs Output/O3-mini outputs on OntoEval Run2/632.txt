@@ -1,0 +1,16 @@
+**No**  
+The ontology does provide a relation between performance events and their dates through the :hasDate property, but the CQ “When did a certain performance take place?” is not modelled according to the reification pattern (i.e. all classes and datatypes connected via a reified class such as :Cl_Membership) seen in other cases. As such, while we can partially retrieve the performance date, the complete intended modelling is missing.
+
+Partial SPARQL query:
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :hasDate ?date .
+}
+------------------------------------------------
+
+This query extracts performance events and their dates but only returns a partial answer relative to the intended CQ reification pattern.

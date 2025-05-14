@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of a band at a specific point in time. The ontology includes classes and properties related to band membership and time periods, but it lacks a direct connection between these elements that would allow for querying the members of a band at a specific time.
+
+Partial answer:
+```sparql
+SELECT ?person ?band
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOfBand ?bandMembership .
+  ?bandMembership :bandMember ?band .
+}
+```

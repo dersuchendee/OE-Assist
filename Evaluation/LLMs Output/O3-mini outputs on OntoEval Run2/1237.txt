@@ -1,0 +1,22 @@
+**Yes**
+Below is an example SPARQL query that retrieves denitrifying bacteria along with the roles they are assigned—ensuring that the roles are connected to the denitrification process (using the closed world assumption):
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bacteria ?bacteriaLabel ?role ?roleLabel ?process ?processLabel
+WHERE {
+  ?bacteria a :DenitrifyingBacteria .
+  OPTIONAL { ?bacteria rdfs:label ?bacteriaLabel . }
+  
+  ?bacteria :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?role :roleInProcess ?process .
+  FILTER(?process = :DenitrificationProcess)
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+-------------------------------------------------------------
+
+This query shows that the ontology models the CQ by linking denitrifying bacteria to their role (Denitrifier Role) in the denitrification process.

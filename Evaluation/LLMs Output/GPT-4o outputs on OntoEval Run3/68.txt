@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide specific properties or classes that directly relate to the detailed information about a resource, such as its specific attributes or characteristics beyond its type and composition. The ontology primarily focuses on the classification of resources and their roles in process steps within a circular value network. Therefore, a SPARQL query can only extract partial information based on the available ontology structure.
+
+```sparql
+SELECT ?resource ?type ?composition
+WHERE {
+  ?resource a :Resource .
+  OPTIONAL { ?resource :hasType ?type . }
+  OPTIONAL { ?resource :hasComposition ?composition . }
+}
+```

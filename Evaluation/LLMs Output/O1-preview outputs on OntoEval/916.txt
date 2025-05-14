@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?person ?union ?roleTitle ?roleStartDate
+WHERE {
+  ?person :isMemberOf ?unionMembership .
+  ?unionMembership :memberOf ?union .
+  ?unionMembership :hasUnionRole ?unionRole .
+  ?unionRole :roleTitle ?roleTitle .
+  ?unionRole :roleStartDate ?roleStartDate .
+}
+```

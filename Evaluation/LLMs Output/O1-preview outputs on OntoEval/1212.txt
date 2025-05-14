@@ -1,0 +1,17 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?pathway ?pathwayLabel
+WHERE {
+  :BeechForest rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :hasCO2FixationPathway .
+  ?restriction owl:someValuesFrom ?pathway .
+  OPTIONAL { ?pathway rdfs:label ?pathwayLabel . }
+}
+```
+
+This SPARQL query retrieves the primary CO2 fixation pathways associated with beech forests by traversing the class restrictions in the ontology. It finds the `owl:Restriction` on `:BeechForest` that specifies the `:hasCO2FixationPathway` property and retrieves the `:PrimaryCO2FixationPathway` class, along with its label.

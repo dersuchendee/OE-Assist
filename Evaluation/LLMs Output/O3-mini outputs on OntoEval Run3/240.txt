@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming you have an individual (e.g., :SomeAuthor) representing the “certain author”, you can extract the plays written by that author with the following SPARQL query:
+
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?title
+WHERE {
+  ?play a :Play .
+  ?play :hasAuthor :SomeAuthor .
+  OPTIONAL { ?play :hasTitle ?title . }
+}
+
+Under the closed world assumption, if the ontology includes the fact that a play is related to an author by the property :hasAuthor (or its inverse :authorOf), then this query will return all the plays that the given author wrote.

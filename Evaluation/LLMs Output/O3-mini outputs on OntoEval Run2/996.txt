@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?publication ?publicationLabel ?pubDate
+WHERE {
+  {
+    ?publication a :Book .
+  } UNION {
+    ?publication a :CD .
+  }
+  ?publication :hasPublicationDate ?pubDate .
+  OPTIONAL { ?publication rdfs:label ?publicationLabel . }
+}
+ORDER BY ?pubDate
+```

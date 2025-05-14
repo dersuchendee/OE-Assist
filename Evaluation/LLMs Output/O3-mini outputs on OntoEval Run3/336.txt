@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that newspaper review instances are modelled as members of the class Cl_NewspaperReview (which is a subclass of Cl_Newspaper) and that a review relates a production via the property reviewsProduction and carries the star rating via hasStarRating, the following SPARQL query retrieves the star rating assigned by a given newspaper (here, filtered by its label) for a given production (filtered by its URI):
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?review ?starRating
+WHERE {
+  ?review a :Cl_NewspaperReview ;
+          :reviewsProduction ?production ;
+          :hasStarRating ?starRating ;
+          rdfs:label ?newspaperName .
+  FILTER(?production = <http://example.org/productionURI> && ?newspaperName = "Il Gazzettino")
+}
+---------------------------------------------------
+
+In a closed‐world setting this query will return the star rating for the specified production as reviewed by the given newspaper.

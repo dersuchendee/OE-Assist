@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves for a given person and degree the study period (start and end dates) during which the person studied for that degree:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedFor ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate ;
+               :studyEndDate ?studyEndDate ;
+               :degree ?degree .
+  ?degree :degreeName ?degreeName .
+  
+  # Optionally, if you need to restrict to a specific person or degree, include FILTERs. For example:
+  # FILTER(?person = <http://www.example.org/test#Pasquale_Di_Gennaro>)
+  # FILTER(?degreeName = "Certified Nurse")
+}
+----------------------------------------------------
+
+This query shows how the ontology models the study period (through :Cl_StudyPeriod along with its properties :studyStartDate, :studyEndDate, and the degree information connected via :degree and :degreeName), which makes the CQ answerable with a SPARQL query.

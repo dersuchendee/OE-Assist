@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each play and the number of acts it contains:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?acts
+WHERE {
+  ?play a :Cl_Play ;
+        :hasNumberOfActs ?acts .
+}
+ORDER BY ?play
+
+--------------------------------------------------
+
+This query uses the ontology’s class :Cl_Play and the data property :hasNumberOfActs to answer the competency question.

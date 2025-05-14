@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one SPARQL query that retrieves each production together with the play on which it is based (using the production–play reification in the ontology):
+
+───────────────────────────── 
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?playName
+WHERE {
+  ?prodPlay a :Cl_ProductionPlay ;
+            :hasProduction ?production ;
+            :hasPlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?production
+───────────────────────────── 
+
+This query leverages the ontology’s modeling of productions via the reified link (an instance of Cl_ProductionPlay) that connects a production with its underlying play.

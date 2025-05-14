@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that album instances are created in the ontology and that the album release date is stored using the :releaseDate property on instances of :Cl_Album, you can retrieve the release date(s) with a query such as:
+
+----------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}
+----------------------------
+
+This query extracts the release date for each album in the ontology under the closed world assumption.

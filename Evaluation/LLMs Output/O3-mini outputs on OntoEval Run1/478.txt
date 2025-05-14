@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology models band roles as reified entities (instances of :Cl_BandRole) that are linked to a person (via :roleOfPerson), to a band (via :roleInBand), and have an associated time (via :roleAtTime) as well as the specific role (via :hasRole). Therefore, we can answer the competency question “What role does a certain person have in a certain band at a certain point in time?” by querying for a band role instance that matches a given person and band and then filtering by time. Under a closed-world assumption, we assume that the data provided is complete.
+
+A SPARQL query to extract the answer is:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?time
+WHERE {
+  # Assuming you know the individual IRIs for the person and band, e.g., :Some_Person and :Some_Band
+  # Replace these with appropriate IRIs, or pass them as parameters.
+  :Some_Person a :Cl_Person .
+  :Some_Band a :Cl_Band .
+  
+  ?bandRole a :Cl_BandRole ;
+            :roleOfPerson :Some_Person ;
+            :roleInBand :Some_Band ;
+            :hasRole ?role ;
+            :roleAtTime ?time .
+}
+--------------------------------------------------------
+
+This query returns the role (?role) that the specified person (:Some_Person) has in the specified band (:Some_Band) at a given point in time (?time).

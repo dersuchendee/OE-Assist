@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each album, the time period (via its recorded album instance) during which it was recorded:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?timePeriod
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :recordedAlbum ?albumRecording .
+  ?albumRecording :recordingPeriod ?timePeriod .
+}
+
+ORDER BY ?album
+
+This query uses the ontology’s properties—specifically, the recordedAlbum property (whose range is Cl_AlbumRecording) and the recordingPeriod property (which links the album recording to a Cl_TimePeriod)—to answer the competency question under the closed world assumption.

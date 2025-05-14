@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that individual records and critics are identified by their URIs (for example, <http://www.example.org/test#Record1> for the record and <http://www.example.org/test#Critic1> for the critic), the following SPARQL query extracts the review text written by that critic about that record. In our ontology the reification class Cl_CriticReview (a subclass of Cl_Critic, Cl_Record, and Cl_ReviewText) is used to “reify” the review with its review text. Also the property :reviewedBy connects a record (of type Cl_Record) with the associated critic review (of type Cl_CriticReview). Thus, with the closed world assumption we can retrieve the desired information as follows:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?reviewText
+WHERE {
+  ?record a :Cl_Record ;
+          :reviewedBy ?critReview .
+          
+  ?critReview a :Cl_CriticReview ;
+              :reviewText ?reviewText .
+              
+  ?critReview a :Cl_Critic .  # Since Cl_CriticReview is also a Cl_Critic
+  
+  FILTER(?record = <http://www.example.org/test#Record1> &&
+         ?critReview = <http://www.example.org/test#Critic1>)
+}
+-------------------------------------------------------
+
+In this query we filter for the specific record and critic (the critic review is assumed to be instantiated as the same individual as the critic in the reification pattern). Hence, the competency question "What does a certain critic say about a certain record?" is completely answerable using the expressed ontology.

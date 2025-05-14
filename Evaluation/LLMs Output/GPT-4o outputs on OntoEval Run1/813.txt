@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When was a certain person first employed at a certain hospital?" can be answered using the ontology provided. The ontology includes classes and properties that relate a person to their employment event, which includes the start date of employment. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?hospital ?employmentStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employmentEvent .
+  ?employmentEvent :employmentInHospital ?hospital .
+  ?employmentEvent :employmentStartDate ?employmentStartDate .
+}
+```

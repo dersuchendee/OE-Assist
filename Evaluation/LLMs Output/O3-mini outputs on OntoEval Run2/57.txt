@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one way to write a SPARQL query (using a material URI as a parameter) that “reifies” composition via the material‐composition node. In this query, we retrieve the composition record(s) for a given material along with its associated property and provenance information:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?material ?materialName ?composition ?property ?propertyName ?provenance ?provenanceName
+WHERE {
+  # Find the composition information where the material is associated through :hasMaterial
+  ?composition a :Cl_MaterialComposition ;
+               :hasMaterial ?material ;
+               :hasProperty ?property ;
+               :hasProvenance ?provenance .
+  
+  OPTIONAL { ?material :hasName ?materialName. }
+  OPTIONAL { ?property :hasName ?propertyName. }
+  OPTIONAL { ?provenance :hasName ?provenanceName. }
+  
+  # Replace the URI below with the specific material you wish to query
+  FILTER(?material = <http://www.example.org/test#YourMaterialInstance>)
+}
+------------------------------------------------
+
+The query returns, for the provided material, its composition node along with the material’s name, property (and its name), and provenance (and its name). Under the ontology’s reified structure (where the material composition is modelled via Cl_MaterialComposition), this query fully answers the competency question “What is the composition of this material?” under closed‐world assumptions.

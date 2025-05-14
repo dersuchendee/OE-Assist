@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Song ;
+        :composedOn [ :hasCompositionDate ?compositionDate ] .
+}
+```
+
+In this query we assume the ontology’s structure models a song’s composition date via the reified property (:composedOn) pointing to an individual (a :CompositionDate) that has the data property (:hasCompositionDate) with an xsd:date value. This allows us to retrieve when a certain song was composed.

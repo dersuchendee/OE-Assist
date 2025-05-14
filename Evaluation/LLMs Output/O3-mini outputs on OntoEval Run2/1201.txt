@@ -1,0 +1,27 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?composer ?composerLabel ?patron ?patronLabel ?institution ?institutionLabel ?collaborator ?collaboratorLabel
+WHERE {
+  ?composer a :Composer .
+  OPTIONAL { ?composer rdfs:label ?composerLabel . }
+  
+  OPTIONAL { 
+    ?composer :hasPatron ?patron . 
+    OPTIONAL { ?patron rdfs:label ?patronLabel . }
+  }
+  
+  OPTIONAL { 
+    ?composer :worksForInstitution ?institution .
+    OPTIONAL { ?institution rdfs:label ?institutionLabel . }
+  }
+  
+  OPTIONAL { 
+    ?composer :collaboratedWith ?collaborator .
+    OPTIONAL { ?collaborator rdfs:label ?collaboratorLabel . }
+  }
+}
+ORDER BY ?composer
+```

@@ -1,0 +1,31 @@
+**No**
+
+The ontology provided does not include the necessary classes or properties to model the relationship between a composition and a tune family with an associated level of confidence. Specifically, there is no property linking compositions (mm:Composition) or tunes (:Tune) to tune families (:TuneFamily), nor a way to represent the "level of confidence" of such a relationship.
+
+Here's a SPARQL query that attempts to extract partial information available from the ontology:
+
+```sparql
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?tune ?tuneLabel ?tuneFamily ?tuneFamilyLabel
+WHERE {
+  # Attempt to find compositions (if they are defined in the imported ontology)
+  ?composition a mm:Composition .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+
+  # Tunes derived from the ontology
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+
+  # Tune families from the ontology
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel . }
+
+  # There is no property linking compositions or tunes to tune families,
+  # nor is there a way to represent the level of confidence.
+}
+```
+
+This query lists compositions, tunes, and tune families defined in the ontology but cannot relate them or provide any confidence levels, as the necessary relationships and properties are not present in the ontology.

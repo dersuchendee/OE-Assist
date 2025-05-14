@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming that specific individuals for composition X and tune family Y are identified (e.g., :CompositionX and :TuneFamilyY), the following SPARQL query will extract the confidence level that composition X is a variant in tune family Y:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?confidenceLevel
+WHERE {
+  ?va a :VariantAssertion ;
+      :relatesComposition :CompositionX ;
+      :relatesTuneFamily :TuneFamilyY ;
+      :hasConfidenceLevel ?confidenceLevel .
+}

@@ -1,0 +1,22 @@
+**No**
+
+Given the ontology, there are no instances of Aquifer fungi or Chemical parameters defined—we only have class definitions and property restrictions. Therefore, we cannot extract specific associations between individual aquifer fungi and chemical parameters. However, we can write a SPARQL query to retrieve the class-level relationships specified in the ontology.
+
+Here's a SPARQL query that extracts the chemical parameters associated with aquifer fungi at the class level:
+
+```sparql
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?aquiferFungusClass ?chemicalParameterClass
+WHERE {
+  ?aquiferFungusClass rdfs:subClassOf* :AquiferFungus .
+  ?aquiferFungusClass rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty :hasAssociatedChemicalParameter ;
+               owl:someValuesFrom ?chemicalParameterClass .
+}
+```
+
+This query retrieves all subclasses of `:AquiferFungus` and the `:ChemicalParameter` classes they're associated with through the `:hasAssociatedChemicalParameter` property. Although this doesn't provide specific instances, it gives us the structural information available in the ontology.

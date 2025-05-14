@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that union roles are captured via the reification class (e.g. Cl_UnionRoleMembership) along with its properties (roleMembershipIn, roleOfMembership, roleStartDate, and roleEndDate), we can answer the competency question “What role does a certain person have within a certain union group at a certain point in time?” by writing a SPARQL query that finds the union role membership record for that person and union group valid for the given date. For example, if we wish to check the role of PasqualeDiGennaro in the union representing male nurses (here assumed to be identified by :UnionMaleNurses) at a given date (e.g. "2003-01-01"), the query would be:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?startDate ?endDate
+WHERE {
+  :PasqualeDiGennaro :hasRoleMembership ?membership .
+  ?membership :roleMembershipIn :UnionMaleNurses .
+  ?membership :roleOfMembership ?role .
+  ?membership :roleStartDate ?startDate .
+  OPTIONAL { ?membership :roleEndDate ?endDate . }
+  FILTER (
+    "2003-01-01"^^xsd:date >= ?startDate &&
+    ( !bound(?endDate) || "2003-01-01"^^xsd:date <= ?endDate )
+  )
+}
+-----------------------------------------------------------
+
+This query selects the role (and its start/end dates) for a given person within a specific union group whose membership is valid at the queried point in time. Under the closed world assumption the absence of a valid membership record implies that the person does not hold any role in that group at that time.

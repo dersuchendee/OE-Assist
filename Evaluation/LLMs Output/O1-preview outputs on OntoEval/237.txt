@@ -1,0 +1,24 @@
+**Answer: Yes**
+
+The competency question "What plays did a certain author write?" is answerable using the given ontology. Despite the inconsistency in the directionality of the `ns1:wrotePlay` property between its definition and usage in the ontology, we can still retrieve the plays associated with an author.
+
+Here's a SPARQL query that retrieves the plays written by a specific author (e.g., William Shakespeare):
+
+```sparql
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ns1: <http://example.org/ontology/theatre#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?play a ns1:Play .
+  ?play ns1:wrotePlay ns1:WilliamShakespeare .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```
+
+This query does the following:
+- Selects all resources (`?play`) that are instances of `ns1:Play`.
+- Filters those plays that have the `ns1:wrotePlay` property pointing to `ns1:WilliamShakespeare`.
+- Optionally retrieves the label of the play for readability.
+
+**Note:** The ontology uses the `ns1:wrotePlay` property from the `Play` to the `Author`, despite its definition indicating the property should go from `Author` to `Play`. For the purpose of answering the CQ with the given data, we adapt the query to match the data usage.

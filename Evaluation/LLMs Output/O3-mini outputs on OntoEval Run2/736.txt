@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :regionInCountry ?country .
+}
+```
+
+This query retrieves the country associated with any region, thus fully answering the competency question under the closed world assumption.

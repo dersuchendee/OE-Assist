@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example of a SPARQL query that uses the evaluation‐reification pattern. In this query we assume that the doctor and employee are identified by their URIs (replace :SpecificDoctor and :SpecificEmployee with the actual individuals):
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationText
+WHERE {
+  ?employee a :Cl_Person .
+  ?employee :hasEvaluation ?evaluation .
+  ?evaluation :evaluationByDoctor ?doctor .
+  ?evaluation :evaluationText ?evaluationText .
+  
+  FILTER(?doctor = :SpecificDoctor && ?employee = :SpecificEmployee)
+}
+----------------------------------
+
+In a closed-world setting, we assume that if an evaluation statement exists linking a given employee to the evaluating doctor, then the query will return its evaluation text.

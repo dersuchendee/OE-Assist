@@ -1,0 +1,14 @@
+**No**
+
+The ontology contains a reified Festival Occurrence (class :Cl_FestivalOccurrence) that holds a date via the property :hasDate, but there is no explicit connection in the ontology linking a specific theatre festival (e.g. an instance of :Cl_TheatreFestival) to its occurrence. Under a closed world assumption, we can only partially answer the competency question by listing all occurrences with their dates. For example, one could use a query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalOccurrence ?date
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence .
+  ?festivalOccurrence :hasDate ?date .
+}
+
+This query extracts the dates recorded for festival occurrences, providing only a partial answer to the CQ.

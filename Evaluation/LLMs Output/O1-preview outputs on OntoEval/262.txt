@@ -1,0 +1,21 @@
+Answer: **Yes**
+
+The ontology provides the necessary classes and properties to retrieve the time period during which a play was written. Specifically, it models the relationships between a play, its writing event, and the associated time period with start and end years.
+
+Here is a SPARQL query to extract the writing time period for each play:
+
+```sparql
+SELECT ?play ?playLabel ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  
+  ?play :hasWritingEvent ?writingEvent .
+  ?writingEvent :hasTimePeriod ?timePeriod .
+  
+  ?timePeriod :startYear ?startYear .
+  ?timePeriod :endYear ?endYear .
+}
+```
+
+This query retrieves the plays and their corresponding writing periods by navigating through the `:hasWritingEvent` and `:hasTimePeriod` properties. It selects the start and end years (`:startYear` and `:endYear`) from the `:Cl_TimePeriod` class associated with each writing event.

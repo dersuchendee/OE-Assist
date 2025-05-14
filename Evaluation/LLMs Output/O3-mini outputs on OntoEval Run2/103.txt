@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that uses the location properties defined in the ontology to retrieve the theatre (and optionally its city) where a given festival took place. For example, to check for the festival “Roma Loves Shakespeare”, you can write:
+
+--------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalName ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :takesPlaceAt ?theatre .
+  OPTIONAL {
+    ?festival :hasLocation ?city .
+    OPTIONAL { ?city rdfs:label ?cityLabel . }
+  }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  
+  FILTER (lcase(?festivalName) = "roma loves shakespeare")
+}
+--------------------------------------
+
+This query shows how the festival is connected via the property :takesPlaceAt (and optionally :hasLocation) so that the answer to “Where did a certain festival take place?” is fully answerable from the ontology.

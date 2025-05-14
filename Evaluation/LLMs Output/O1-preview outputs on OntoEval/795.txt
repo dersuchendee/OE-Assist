@@ -1,0 +1,28 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology models the required concepts and relationships. Specifically, the ontology includes:
+
+- The class `:Cl_Person` to represent persons.
+- The class `:Cl_Degree`, subclass of `:Cl_Education`, to represent degrees.
+- The pivot class `:Cl_StudyingForDegree` (reification) to represent the study period of a person for a degree.
+- Object properties `:studiedFor`, `:hasDegree`, `:startedStudying`, and `:endedStudying` to connect persons, study periods, degrees, and time periods.
+- Data properties `:degreeName`, `:degreeDate` to capture degree details.
+
+Therefore, we can retrieve the time periods during which a person studied for a specific degree using the following SPARQL query:
+
+```sparql
+SELECT ?personName ?degreeName ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :personName ?personName .
+  ?person :studiedFor ?studyPeriod .
+  ?studyPeriod a :Cl_StudyingForDegree .
+  ?studyPeriod :hasDegree ?degreeInstance .
+  ?degreeInstance a :Cl_Degree .
+  ?degreeInstance :degreeName ?degreeName .
+  ?studyPeriod :startedStudying ?startDate .
+  ?studyPeriod :endedStudying ?endDate .
+}
+```
+
+This query retrieves the person's name, the degree name, and the start and end dates of the study period, satisfying the competency question.

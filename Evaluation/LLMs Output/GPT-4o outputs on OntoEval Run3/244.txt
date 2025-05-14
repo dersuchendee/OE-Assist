@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What plays did a certain author write?" can be answered using the ontology provided. The ontology includes the class `Cl_Author` and the object property `hasWritten` which connects an author to a play. Therefore, we can write a SPARQL query to extract the plays written by a specific author.
+
+```sparql
+SELECT ?author ?play
+WHERE {
+  ?author a :Cl_Author .
+  ?author :hasWritten ?play .
+}
+```

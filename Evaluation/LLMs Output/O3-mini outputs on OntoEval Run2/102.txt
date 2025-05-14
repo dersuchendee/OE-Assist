@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that the “certain festival” (for example, “Roma Loves Shakespeare”) is represented as a resource of type :TheatreFestival and that its location is captured via the property :takesPlaceIn, a SPARQL query extracting the festival’s name and location would be as follows:
+
+----------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?location ?locationName
+WHERE {
+  ?festival a :TheatreFestival ;
+            :hasName ?festivalName ;
+            :takesPlaceIn ?location .
+  OPTIONAL { ?location rdfs:label ?locationName . }
+  
+  # Closed-world assumption: filter for the specific festival.
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+----------------------------------
+
+This query shows that the ontology lets us retrieve the location where a given festival took place, thus the competency question is supported.

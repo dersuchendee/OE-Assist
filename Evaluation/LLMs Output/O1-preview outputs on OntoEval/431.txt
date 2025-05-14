@@ -1,0 +1,32 @@
+Answer: **Yes**
+
+The competency question "What instruments does a certain person play?" is supported by the ontology. This is because the ontology includes:
+
+- Individuals of type `:Cl_Person`, such as `:Anthony_Kiedis`, `:Flea`, `:John_Frusciante`, and `:Chad_Smith`.
+- Individuals of type `:Cl_Instrument`, such as `:Vocals`, `:Bass`, `:Trumpet`, `:Keyboards`, `:Guitar`, and `:Drums`.
+- An object property `:playsInstrument` that links persons to the instruments they play.
+
+Here is a SPARQL query to retrieve the instruments played by each person:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+```
+
+If you want to find the instruments played by a specific person, replace `?person` with the individual's URI. For example, to find the instruments played by `:Flea`:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?instrument
+WHERE {
+  :Flea :playsInstrument ?instrument .
+}
+```
+
+This query will return all instruments that `:Flea` plays, as defined in the ontology.

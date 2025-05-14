@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :isReviewedIn ?review .
+  
+  ?newspaper a :Cl_Newspaper .
+  ?newspaper :hasReview ?review .
+  
+  ?review :starRating ?starRating .
+}
+```

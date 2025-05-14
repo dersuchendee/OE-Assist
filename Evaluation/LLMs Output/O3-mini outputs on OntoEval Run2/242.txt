@@ -1,0 +1,18 @@
+**Yes**
+Below is an example SPARQL query that retrieves the plays written by a given author (using the properties :hasWritten and :hasWrittenPlay as defined in the ontology):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel. }
+  
+  ?author :hasWritten ?authorship .
+  ?authorship :hasWrittenPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+  
+  # Optionally, to restrict to a specific author, you could add a FILTER or BIND here.
+}
+ORDER BY ?authorLabel ?playLabel

@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/musical_instruments#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?instrument ?instrumentLabel ?year
+WHERE {
+  ?instrument a :MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  ?instrument :wasInventedDuring ?timePeriod .
+  ?timePeriod :hasInvention ?invention .
+  ?invention :hasYear ?year .
+}
+ORDER BY ?instrument
+```

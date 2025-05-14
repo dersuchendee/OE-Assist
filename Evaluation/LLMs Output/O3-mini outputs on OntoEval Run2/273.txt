@@ -1,0 +1,22 @@
+**No**
+
+The ontology does include many detailed classes and relationships (even for production premiers, reviews, actor employment and roles, etc.), but the provided modeling does not directly support a specific competency question – for example, one that would retrieve the complete set of production information along with all details about their premiers, actors, reviews, and so on. The modeling is very complex and, under a closed‐world assumption, only parts of what you might require (e.g. production names and their premier dates) can be directly queried.
+
+Below is a partial SPARQL query that extracts, for instance, the production name and its associated production premier date. This query gives a partial answer that helps in retrieving part of the intended information:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premierDate
+WHERE {
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :hasPremier ?premier .
+  ?premier :hasPremierDate ?premierDate .
+}
+----------------------------------------------------------------
+
+This query gives a partial answer (retrieving production names and their premier dates) but does not cover the full competency question that one might have expected from the narrative of theatre productions, actor roles, reviews, etc.

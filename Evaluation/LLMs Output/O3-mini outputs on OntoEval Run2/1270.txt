@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example SPARQL query. In this query we assume you have a given energy flow (using its IRI or binding it as a parameter) and a specific point in time (provided as a literal); the query retrieves the associated energy data whose timestamp matches that supplied value:
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?energyFlow ?energyData ?timestamp
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  ?energyFlow :hasData ?energyData .
+  ?energyData :hasTimestamp ?timestamp .
+  # Replace the following literal with the desired point in time:
+  FILTER(?timestamp = "2023-10-14T00:00:00Z"^^xsd:dateTime)
+  # Optionally, restrict to a particular energy flow by uncommenting and adjusting the next line:
+  # FILTER(?energyFlow = <http://www.example.org/test#YourEnergyFlowIRI>)
+}
+------------------------------------------------
+
+Under the closed world assumption, any energy flow not explicitly linked to an EnergyData with the specified timestamp will be ignored. This query reflects that the ontology models EnergyFlow having EnergyData with a timestamp, thus fully capturing the CQ's intent.

@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that relate rare species to the ecological functions they perform within microbial communities. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?rareSpecies ?function
+WHERE {
+  ?rareSpecies a :RareSpecies .
+  ?rareSpecies :performsFunction ?function .
+}
+```

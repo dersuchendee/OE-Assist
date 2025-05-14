@@ -1,0 +1,17 @@
+**No**
+
+The ontology provided does not have a direct way to associate a person with a specific role within a production at a specific point in time. The ontology includes classes and properties related to theatre festivals, plays, productions, ensembles, and roles, but it lacks a direct connection between a person, their role, and the specific production and time.
+
+Here's a SPARQL query to extract a partial answer, focusing on the roles assigned within a production:
+
+```sparql
+SELECT ?person ?roleName ?production
+WHERE {
+  ?roleAssignment a :Cl_RoleAssignment .
+  ?roleAssignment :roleOf ?person .
+  ?roleAssignment :roleName ?roleName .
+  ?production :assignedRole ?roleAssignment .
+}
+```
+
+This query retrieves the person, role name, and production, but it does not include the specific point in time, as that information is not available in the ontology.

@@ -1,0 +1,22 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the location of a seminar using the reified seminar event data modeled in the ontology:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?location ?locationLabel ?date
+WHERE {
+  ?seminarOccurrence a :Cl_SeminarEvent .
+  ?seminarOccurrence :P_isOccurrenceOf ?seminar .
+  ?seminarOccurrence :P_occursAt ?location .
+  ?seminarOccurrence :P_hasDate ?date .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  # Optionally, add FILTER clauses to select the “certain seminar” by date or other known characteristic
+}
+ORDER BY ?date
+------------------------------------------------
+
+In this query the competency question “Where did a certain seminar take place?” is answered by retrieving the location (?location) associated via the property :P_occursAt from the seminar event instance (?seminarOccurrence) that is linked to the seminar (?seminar) via the property :P_isOccurrenceOf. This shows that the ontology supports the CQ under a closed world assumption.

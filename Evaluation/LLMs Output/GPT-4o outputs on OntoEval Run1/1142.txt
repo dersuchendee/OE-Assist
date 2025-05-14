@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to connect a user to their preferences in specific situations. The ontology defines classes and properties related to user preferences, weather conditions, activities, and movie genres, but it lacks a direct representation of a user and their specific preferences in certain situations. Therefore, a partial answer can be extracted by querying the available data properties and object properties related to user preferences.
+
+```sparql
+SELECT ?activity ?weatherCondition ?movieGenre
+WHERE {
+  ?userPreference a :Cl_UserPreference .
+  OPTIONAL { ?userPreference :hasActivity ?activity . }
+  OPTIONAL { ?userPreference :hasWeatherCondition ?weatherCondition . }
+  OPTIONAL { ?userPreference :hasPreferredGenre ?movieGenre . }
+}
+```

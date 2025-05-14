@@ -1,0 +1,24 @@
+Answer: **Yes**
+
+The competency question "When was the premier of a certain production?" is answerable using the given ontology. The ontology includes classes and properties related to productions, premieres, and premier dates, allowing us to construct a SPARQL query to retrieve the premier date of a particular production.
+
+Here is the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+  
+  # If you want to specify a certain production, you can filter by its name or identifier
+  # OPTIONAL { ?production :productionName ?productionName . }
+  # FILTER(?productionName = "Specific Production Name")
+}
+```
+
+This query selects productions, their associated premieres, and the premier dates. If you have a specific production in mind, you can add a filter to the query to retrieve the premier date of that particular production.

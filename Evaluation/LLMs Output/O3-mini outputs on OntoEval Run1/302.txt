@@ -1,0 +1,12 @@
+**Yes**
+Below is one possible SPARQL query that retrieves, for each play instance modeled as a Cl_PlayStructure, its title and the number of acts it contains:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?playTitle ?numberOfActs
+WHERE {
+  ?play a :Cl_PlayStructure .
+  ?play :playTitle ?playTitle .
+  ?play :numberOfActs ?numberOfActs .
+}

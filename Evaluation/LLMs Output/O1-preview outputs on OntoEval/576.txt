@@ -1,0 +1,27 @@
+**Yes**
+
+The ontology supports the competency question because it includes the class `:Cl_Track` for tracks and `:Cl_Song` for songs, connected by the object property `:trackOf`. This property allows us to find out which song a specific track is a recording of.
+
+Here's the SPARQL query to retrieve the song that a specific track is a recording of:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?song
+WHERE {
+    :specifiedTrack :trackOf ?song .
+}
+```
+
+Replace `:specifiedTrack` with the URI of the specific track you're interested in, such as `:Track_HumpDeBump`. For example:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?song
+WHERE {
+    :Track_HumpDeBump :trackOf ?song .
+}
+```
+
+This query will return the song associated with the specified track.

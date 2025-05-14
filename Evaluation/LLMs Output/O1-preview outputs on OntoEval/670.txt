@@ -1,0 +1,25 @@
+**Yes**
+
+```sparql
+SELECT ?song
+WHERE {
+  ?songPerformance a :Cl_SongPerformance .
+  ?songPerformance :inPerformance :SpecificPerformance .
+  ?songPerformance :performedSong ?song .
+}
+```
+
+The competency question "What songs were played in a certain performance?" can be answered using the provided ontology. The ontology includes the classes and properties needed to represent songs, performances, and the relationships between them:
+
+- **Classes**:
+  - `:Cl_Song`: Represents songs.
+  - `:Cl_Performance`: Represents performances.
+  - `:Cl_SongPerformance`: Represents the event of a song being performed in a performance.
+
+- **Object Properties**:
+  - `:performedSong`: Links a `:Cl_SongPerformance` to a `:Cl_Song`.
+  - `:inPerformance`: Links a `:Cl_SongPerformance` to a `:Cl_Performance`.
+
+By querying the `:Cl_SongPerformance` instances that are associated with a specific performance (e.g., `:SpecificPerformance`), we can retrieve all the songs performed in that performance.
+
+**Note**: Replace `:SpecificPerformance` with the actual identifier of the performance you're interested in.

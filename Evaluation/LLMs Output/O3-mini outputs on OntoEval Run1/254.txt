@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology defines a class for authors (:Cl_Author) and an object property (:wrotePlay) whose domain is :Cl_Author and range is :Cl_Play. Thus, given a specific author, you can extract the plays they wrote using a SPARQL query. For example, if you want to retrieve the plays written by a particular author (say, with IRI <http://www.example.org/test#WilliamShakespeare>), you could write:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  <http://www.example.org/test#WilliamShakespeare> a :Cl_Author ;
+                                               :wrotePlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+--------------------------------
+
+This query returns the plays along with their labels (if available) for the given author, thereby answering the competency question under a closed world assumption.

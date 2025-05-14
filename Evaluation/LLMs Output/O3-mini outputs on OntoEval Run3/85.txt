@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :dp_date ?date .
+}
+```
+
+This query retrieves all theatre festival individuals (e.g. RomaLovesShakespeare) along with their associated festival date, which directly answers the CQ "When did a certain theatre festival take place?" under the closed world assumption.

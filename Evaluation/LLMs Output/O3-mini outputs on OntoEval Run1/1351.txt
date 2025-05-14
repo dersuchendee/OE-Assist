@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?chemicalMeasurement ?waterSource ?concentrationValue
+WHERE {
+  ?chemicalMeasurement a :ChemicalMeasurement ;
+                       :hasConcentrationValue ?concentrationValue ;
+                       :measuredIn ?waterSource .
+}
+ORDER BY ?chemicalMeasurement
+```

@@ -1,0 +1,30 @@
+**Yes**
+
+Assuming that a “role” relationship is reified by the class Cl_PersonRole—which is defined as a subclass of Cl_Person, Cl_Role, Cl_Production, and Cl_Date—we can answer the competency question “What roles does a certain person have within a certain production at a certain point in time?” by retrieving those reified role assignments. For example, if we expect that an individual representing a person is linked to one or more Cl_PersonRole instances via the property :hasRole and that each such instance carries a role name (via :roleName) and a timestamp (via :roleDate), then the following SPARQL query answers the CQ under the closed‐world assumption:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?roleName ?roleDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasRole ?personRole .
+  ?personRole a :Cl_PersonRole ;
+              :roleName ?roleName ;
+              :roleDate ?roleDate ;
+              a :Cl_Production .  # ensuring that this role is linked to a production
+  
+  # Optional filtering: you can filter by a specific person, production, or date.
+  # For example, to restrict to a given person and a given production and role date, include:
+  # FILTER(?person = <http://www.example.org/test#FabioBianchi>)
+  # FILTER(?personRole = <http://www.example.org/test#ProductionXYZ>)
+  # FILTER(?roleDate = "2009-09-07"^^xsd:date)
+}
+ORDER BY ?person ?roleDate
+-------------------------------------------------
+
+This query illustrates how every instance of a person’s role (which by reification also “is a” production instance, as required) is retrieved along with its role name and date, thus fully supporting the competency question.

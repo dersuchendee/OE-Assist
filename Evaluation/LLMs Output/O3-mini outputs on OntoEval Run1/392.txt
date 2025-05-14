@@ -1,0 +1,32 @@
+**Yes**
+
+Below is one example SPARQL query that—under the closed‐world assumption—retrieves for a given person and a given production the roles they held at a provided point in time. (In this example we assume that the production role is reified as an instance of the pivot class Cl_ProductionRole—which, by definition, is also a member of Cl_Production, Cl_Person and Cl_Role.) You can replace the VALUES with your target URIs and date as needed.
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?roleName ?roleDate
+WHERE {
+  # Given a specific person (for example Fabio Bianchi)
+  VALUES ?person { <http://www.example.org/test#FabioBianchi> }
+  # Given a specific production (for example a production of Merchant of Venice)
+  VALUES ?production { <http://www.example.org/test#MerchantOfVeniceProduction> }
+  # A production role is modelled as an instance of Cl_ProductionRole (which is also a Cl_Production)
+  ?person :hasRoleInProduction ?prodRole .
+  ?prodRole a :Cl_ProductionRole, :Cl_Production .
+  ?prodRole :roleName ?roleName .
+  ?prodRole :roleDate ?roleDate .
+  
+  # Ensure that the role instance (inferring its membership in Cl_Production) is identified with the given production
+  FILTER(?prodRole = ?production)
+  
+  # And that the role was assigned on the expected point in time.
+  # (Adjust the filter below to match exact date criteria.)
+  FILTER(?roleDate = "2009-09-07"^^xsd:date)
+}
+
+─────────────────────────────
+
+In this query the input parameters (the person URI, the production URI, and the date) allow us to extract exactly which role(s) that person held in that production at that point in time.

@@ -1,0 +1,18 @@
+**No**
+
+The provided ontology does not represent any information about travel or journeys (for instance, no classes or properties that capture that persons “travel” or “reach” a place). Under the closed world assumption we conclude that the CQ “Did they travel to reach the place?” cannot be fully answered with the given ontology. However, a partial answer can be provided by retrieving persons and their participations in events (which may indirectly be linked to locations even though no explicit travel information is modelled):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?event ?eventLabel
+WHERE {
+  ?participation a :Participation .
+  ?participation :involvesPerson ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?participation :involvesEvent ?event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+
+This query returns the persons involved in events along with the events they participated in, which provides only a partial view, as the ontology does not capture travel-related data.

@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer this CQ using the ontology because it includes the class Cl_Performance along with an object property :performanceLocation that connects a performance to a location (of type Cl_Location). Using the closed world assumption, we assume that every performance that took place has its location specified using the property.
+
+For example, a SPARQL query to retrieve a certain performance’s location could be:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  # You can narrow the query to a specific performance URI with a FILTER clause, e.g.,
+  # FILTER(?performance = <http://www.example.org/test#Performance123>)
+}
+---------------------------------
+
+This query extracts each performance along with the corresponding location where it took place.

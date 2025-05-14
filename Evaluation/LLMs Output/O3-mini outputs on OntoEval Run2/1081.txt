@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves for each seminar the location where it took place by following the links from the seminar to its seminar location and then to the hosting hospital (and even the city, if available):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalLocation ?cityName 
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+  
+  ?seminarLocation a :Cl_SeminarLocation ;
+                     :locationOfSeminar ?seminar ;
+                     :locatedAt ?hospitalLocation .
+  
+  ?hospitalLocation :locationOf ?hospital .
+  
+  OPTIONAL { ?hospital :cityName ?cityName . }
+}
+ORDER BY ?seminarDate
+--------------------------------------------------
+
+This query obtains the seminar and its date, then follows the property chain (seminarLocation → locatedAt → hospitalLocation → locationOf → hospital) to determine where the seminar took place.

@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+SELECT ?festival ?festivalName ?city ?cityName
+WHERE {
+  ?festival rdf:type :Cl_FestivalOccurrence .
+  OPTIONAL { ?festival :hasName ?festivalName . }
+  
+  ?festival :tookPlaceIn ?city .
+  OPTIONAL { ?city :hasName ?cityName . }
+}
+```

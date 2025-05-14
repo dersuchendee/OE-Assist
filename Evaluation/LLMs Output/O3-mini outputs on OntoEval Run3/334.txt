@@ -1,0 +1,16 @@
+**No**  
+The ontology does include a review class and a star rating property (via :hasReview and :hasStarRating) for productions, but it does not provide any explicit connection between a review and a newspaper. In other words, while you can extract a production’s star rating, you cannot filter or determine which newspaper provided that rating.  
+
+A partial answer (ignoring the newspaper linkage) can be obtained with a query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?review ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasReview ?review .
+  ?review :hasStarRating ?starRating .
+}
+
+This query retrieves the star rating associated with each production’s review, but it does not filter by a particular newspaper due to the missing modelling in the ontology.

@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology contains a class for cities (:Cl_City), a class for regions (:Cl_Region), and an object property (:locatedIn) with domain :Cl_City and range :Cl_Region. Thus, the competency question “In what region is a certain city located?” is answerable. Under a closed world assumption, if we assert that the only cities and regions are those described in the ontology and if the :locatedIn relation is fully populated, we can write a SPARQL query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city rdf:type :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  ?city :locatedIn ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+}
+
+This query retrieves each city and its region.

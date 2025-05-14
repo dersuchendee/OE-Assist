@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any individual instances of `:AvailableEnergyInfrastructure` or `:EnergyInfrastructure`. Therefore, we cannot fully answer the competency question "What is the energy infrastructure available?" since there are no specific energy infrastructures recorded in the ontology. However, we can write a SPARQL query to attempt to retrieve any available energy infrastructures, but it will return no results due to the lack of instances.
+
+```sparql
+SELECT ?infrastructure ?label
+WHERE {
+  ?infrastructure a :AvailableEnergyInfrastructure .
+  OPTIONAL { ?infrastructure rdfs:label ?label . }
+}
+```

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves for each city its country using the property linking a city to its country location:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?countryName
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedInCountry ?location .
+  ?location :countryName ?countryName .
+}
+------------------------------------------------
+
+This query answers the competency question “In what country is a certain city located?” because it retrieves cities (instances of :Cl_City) and, via the :isLocatedInCountry property (whose range is the reified country location class, :Cl_CityLocation, a subclass of :Cl_Country), obtains the country name defined by the :countryName datatype property.

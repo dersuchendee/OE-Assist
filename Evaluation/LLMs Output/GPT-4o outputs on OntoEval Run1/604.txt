@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not directly support querying what a certain critic says about a certain record. The ontology includes classes and properties related to critics and albums, but it lacks a direct connection between a critic and their specific review content about an album. The ontology uses a reification approach with `Cl_CriticReview`, but it does not provide a direct way to query the content of a review by a specific critic for a specific album.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?critic ?album ?review
+WHERE {
+  ?reviewInstance a :Cl_CriticReview .
+  ?reviewInstance :hasCritic ?critic .
+  ?reviewInstance :concernsAlbum ?album .
+  OPTIONAL { ?reviewInstance :hasReview ?review . }
+}
+```

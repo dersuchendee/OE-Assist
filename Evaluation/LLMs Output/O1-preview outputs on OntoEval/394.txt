@@ -1,0 +1,21 @@
+**Yes**
+
+```sparql
+SELECT ?roleName
+WHERE {
+  ?production a :Cl_Production .
+  FILTER(?production = :SpecificProduction)
+
+  ?production :assignedRole ?roleAssignment .
+
+  ?roleAssignment :roleOf ?person .
+  FILTER(?person = :SpecificPerson)
+
+  ?roleAssignment :roleDate ?roleDate .
+  FILTER(?roleDate = xsd:date("SpecificDate"))
+
+  ?roleAssignment :roleName ?roleName .
+}
+```
+
+This SPARQL query retrieves the roles (`?roleName`) that a specific person (`:SpecificPerson`) has within a specific production (`:SpecificProduction`) at a specific point in time (`"SpecificDate"`). The ontology provides all the necessary classes and properties to model this competency question. The `:assignedRole` property connects a `Cl_Production` to a `Cl_RoleAssignment`, which in turn connects to a `Cl_Person` via the `:roleOf` property. The `:roleDate` and `:roleName` data properties provide the date and name of the role, respectively.

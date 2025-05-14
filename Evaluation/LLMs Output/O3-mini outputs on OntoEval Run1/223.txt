@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that, given an ensemble (as ?ensemble) and a specific point in time (as a literal date, e.g., "2009-09-15"), returns the actors whose ensemble memberships cover that date:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?membership ?startDate ?endDate
+WHERE {
+  ?membership a :Cl_EnsembleMembership ;
+              :op_membershipIn ?ensemble ;
+              :dp_startDate ?startDate ;
+              :dp_endDate ?endDate .
+  # Filter memberships valid at the given point in time:
+  FILTER(xsd:date("2009-09-15") >= ?startDate && xsd:date("2009-09-15") <= ?endDate)
+  
+  ?actor :op_hasMembership ?membership .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?actor
+----------------------------------------------------------------
+
+This query extracts, for a specified ensemble, all actors (members) whose membership period (using the start and end dates) covers the queried point in time.

@@ -1,0 +1,26 @@
+**Yes**
+
+In this ontology the review class (with its starRating data property) is linked to a production through the :hasReview property, and each review is in turn linked to a newspaper via the :reviewedBy property. Therefore, the competency question “What is the ‘star rating’ given by a certain newspaper for a certain production?” is answerable assuming known identifiers for the newspaper and the production.
+
+Below is an example SPARQL query:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production :hasReview ?review .
+  ?review :starRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  
+  # Replace the following with the specific newspaper
+  FILTER(?newspaper = :IlGazzettino)
+}
+----------------------------------
+
+This query retrieves the production(s) along with their star ratings from the review made by the specified newspaper.

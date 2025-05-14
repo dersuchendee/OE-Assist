@@ -1,0 +1,13 @@
+Answer: **Yes**.
+
+The competency question is fully supported by the ontology. We can retrieve the units of measure of chemical measurements in water by traversing the relationships defined in the ontology: from `:Water` to `:ChemicalMeasurement` via `:hasChemicalMeasurement`, and from `:ChemicalMeasurement` to `:UnitOfMeasure` via `:hasUnitOfMeasure`.
+
+```sparql
+SELECT DISTINCT ?unitOfMeasure ?uomLabel
+WHERE {
+  ?water a :Water .
+  ?water :hasChemicalMeasurement ?chemMeasurement .
+  ?chemMeasurement :hasUnitOfMeasure ?unitOfMeasure .
+  OPTIONAL { ?unitOfMeasure rdfs:label ?uomLabel . }
+}
+```

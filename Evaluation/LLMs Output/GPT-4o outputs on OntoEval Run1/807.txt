@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific degree and the time period during which they studied for that degree. The ontology includes classes and properties related to persons, medical degrees, and study periods, but it lacks a direct connection between a person and a specific degree with associated study periods.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?degree ?studyPeriod ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?person :hasStudyPeriod ?studyPeriod .
+  OPTIONAL { ?studyPeriod :studyStartDate ?startDate . }
+  OPTIONAL { ?studyPeriod :studyEndDate ?endDate . }
+}
+```
+
+This query retrieves persons, their degrees, and any associated study periods with start and end dates, but it does not directly link a person to a specific degree with a defined study period.

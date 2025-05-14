@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "At what time did a certain actor start working for a specific theatre?" can be answered using the ontology provided. The ontology includes the class `Cl_ActorEmployment` which is a subclass of `Cl_Actor`, `Cl_Theatre`, and `Cl_Date`, and it has a data property `employmentStartDate` that can be used to determine when an actor started working for a theatre.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?actorName ?theatreName ?employmentStartDate
+WHERE {
+  ?employment a :Cl_ActorEmployment .
+  ?employment :actorName ?actorName .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?employment :theatreName ?theatreName .
+}
+```
+
+This query retrieves the actor's name, the theatre's name, and the employment start date, which answers the competency question.

@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+The ontology includes classes and properties that represent books, CDs, articles, and their composition relationships. Specifically, `:Book` and `:CD` are subclasses of `:ArticleCollection`, which in turn is a subclass of `:Collection`. The `:ArticleCollection` class has an object property `:hasMember` that relates it to its member articles (instances of `:Article`). Therefore, we can construct a SPARQL query to retrieve the articles that a specific book or CD is composed of.
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+
+SELECT ?bookOrCD ?bookOrCDTitle ?article ?articleTitle
+WHERE {
+  ?bookOrCD a ?collectionType .
+  VALUES ?collectionType { :Book :CD } .
+  
+  OPTIONAL { ?bookOrCD :title ?bookOrCDTitle . }
+  
+  ?bookOrCD :hasMember ?article .
+  OPTIONAL { ?article :title ?articleTitle . }
+}
+```
+
+This query selects all instances of `:Book` or `:CD` and retrieves the articles they contain via the `:hasMember` property. It also optionally retrieves titles for the books/CDs and articles if such information is available.

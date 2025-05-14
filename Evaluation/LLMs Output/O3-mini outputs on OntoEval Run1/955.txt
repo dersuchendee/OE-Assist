@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the articles that are members of a specific book or CD (i.e. an instance of either :Book or :CD):
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  # Select collections that are either a Book or a CD
+  ?collection a ?collectionType .
+  FILTER(?collectionType = :Book || ?collectionType = :CD) .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  
+  # Retrieve articles that are members of the specific collection
+  ?collection :hasMember ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?collection ?article
+
+This query answers the CQ “What articles is a specific book or CD composed of?” because it directly retrieves, for each book or CD, the articles (i.e. instances of :Article) that are connected via the property :hasMember.

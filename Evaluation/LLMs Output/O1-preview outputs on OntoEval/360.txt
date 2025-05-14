@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?theatreName ?startDate
+WHERE {
+    ?actor a :Cl_Individual ;
+           :employedBy ?theatre ;
+           :hasEmployment ?employment ;
+           :hasName ?actorName .
+    ?theatre a :Cl_Theatre .
+    # Assuming theatres have names via :hasName property; if not, use their URIs
+    OPTIONAL { ?theatre :hasName ?theatreName . }
+    ?employment a :Cl_Employment ;
+                :employmentStartDate ?startDate .
+}
+```

@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that returns all exchanges (both material and information) along with their success status, which answers the CQ "Was the (material, information) exchange successful?" under a closed world assumption.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?exchange ?exchangeType ?successStatus
+WHERE {
+  { ?exchange a :MaterialExchange }
+  UNION
+  { ?exchange a :InformationExchange } .
+
+  ?exchange a ?exchangeType .
+  FILTER(?exchangeType = :MaterialExchange || ?exchangeType = :InformationExchange) .
+
+  ?exchange :hasSuccessStatus ?successStatus .
+}
+------------------------------------------------
+
+This query fetches all instances of MaterialExchange or InformationExchange along with their hasSuccessStatus values, thus fully addressing the competency question.

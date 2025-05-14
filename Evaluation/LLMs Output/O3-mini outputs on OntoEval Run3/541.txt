@@ -1,0 +1,19 @@
+**Yes**
+
+A possible SPARQL query is as follows:
+
+────────────────────────────────────────────
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumTitle ?releaseDate
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :releaseDate ?releaseDate .
+  FILTER(?albumTitle = "Stadium Arcadium")
+}
+────────────────────────────────────────────
+
+This query retrieves the album, its title, and its release date (using the closed world assumption) for the specified album "Stadium Arcadium".

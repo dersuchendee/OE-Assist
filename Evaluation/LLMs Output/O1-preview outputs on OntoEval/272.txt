@@ -1,0 +1,31 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName ;
+        :writtenDuring ?timePeriodInstance .
+  ?timePeriodInstance :timePeriod ?timePeriod .
+}
+```
+
+This query retrieves all plays along with the time periods during which they were written, as specified in the ontology through the `:writtenDuring` property linking a `:Cl_Play` to a `:Cl_TimePeriod`.
+
+If you want to find the time period for a specific play, for example "The Merchant of Venice", you can modify the query as follows:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?timePeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :playName "The Merchant of Venice" ;
+        :writtenDuring ?timePeriodInstance .
+  ?timePeriodInstance :timePeriod ?timePeriod .
+}
+```
+
+This query filters the results to only include the specified play, returning the time period during which it was written.

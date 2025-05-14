@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine the number of acts in a play. However, we can extract partial information about plays and their associated productions.
+
+```sparql
+SELECT ?play ?playName ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  OPTIONAL { ?play :actCount ?actCount . }
+}
+```

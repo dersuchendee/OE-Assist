@@ -1,0 +1,19 @@
+**No**
+
+The ontology defines the classes and properties related to musical instruments and their parts but does not include any instances of specific instruments or their parts. Therefore, we cannot retrieve actual instrument parts as there is no instance data available. However, we can provide a partial answer that shows the class-level relationships defined in the ontology.
+
+```sparql
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/ontology/musical_instruments#>
+
+SELECT ?instrumentClass ?partClass
+WHERE {
+  ?instrumentClass rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty :hasPart ;
+               owl:someValuesFrom ?partClass .
+}
+```
+
+This query retrieves the instrument classes that have parts and the corresponding part classes based on the ontology's structural definitions. It shows the relationship between `:MusicalInstrument` and `:InstrumentPart` but cannot provide specific parts of specific instruments without instance data.

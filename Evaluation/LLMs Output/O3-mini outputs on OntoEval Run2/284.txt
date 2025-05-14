@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play a theatre:Play .
+  ?play theatre:hasNumberOfActs ?numberOfActs .
+  # To target a specific play uncomment the following line and replace with the desired play URI
+  # FILTER(?play = theatre:MerchantOfVenice)
+}
+```

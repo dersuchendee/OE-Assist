@@ -1,0 +1,14 @@
+**Yes**
+
+We can answer the CQ with the following SPARQL query. Assuming that a “certain city” is represented as an instance of :Cl_City and that the ontology relates it to its region by the property :isLocatedIn, the query would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region 
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedIn ?region .
+}
+
+This query retrieves each city and the region in which it is located, which answers the competency question under the closed world assumption.

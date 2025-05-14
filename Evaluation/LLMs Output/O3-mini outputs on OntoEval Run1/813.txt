@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming the ontology models employment events by linking a person to an employment event that carries a start date (and connects that event to a hospital), you can extract the first employment date (i.e. the earliest employmentStartDate) with the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentStartDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person ;
+          :employedAt ?empEvent .
+  ?empEvent :employmentInHospital ?hospital ;
+            :employmentStartDate ?employmentStartDate .
+  FILTER(?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+--------------------------------------------------
+
+This query answers the CQ "When was a certain person first employed at a certain hospital?" by selecting the minimal employment start date for the specified person and hospital under a closed world assumption.

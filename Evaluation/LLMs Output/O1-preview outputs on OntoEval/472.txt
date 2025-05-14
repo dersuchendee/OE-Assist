@@ -1,0 +1,31 @@
+Answer: **Yes**
+
+Here's a SPARQL query to retrieve the role(s) that a certain person has in a certain band at a certain point in time:
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName
+WHERE {
+  # Replace with the specific person, band, and date
+  BIND (<http://example.org/music#JohnFrusciante> AS ?person)
+  BIND (<http://example.org/music#RedHotChiliPeppers> AS ?band)
+  BIND ("2000-01-01"^^xsd:date AS ?givenDate)
+  
+  ?bandMembership a :BandMembership ;
+                  :involvesMember ?person ;
+                  :hasBand ?band ;
+                  :hasRole ?role ;
+                  :hasTimeInterval ?ti .
+                  
+  ?ti :startDate ?startDate .
+  ?ti :endDate ?endDate .
+  
+  FILTER (?givenDate >= ?startDate && ?givenDate <= ?endDate)
+  
+  ?role :roleName ?roleName .
+}
+```
+
+This query retrieves the role(s) that `?person` has in `?band` during the time interval that includes `?givenDate`. Make sure to replace `<http://example.org/music#JohnFrusciante>`, `<http://example.org/music#RedHotChiliPeppers>`, and `"2000-01-01"` with the specific person, band, and date you're interested in.

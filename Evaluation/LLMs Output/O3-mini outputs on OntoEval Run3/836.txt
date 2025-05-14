@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed world where the ontology explicitly links hospitals to cities via the “op_isLocatedIn” property and cities have a “dp_cityName” value, the following SPARQL query retrieves the city name for a given hospital (for example, OspedaleRiunitoDelleTreValli):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?cityName
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :op_isLocatedIn ?city .
+  ?city :dp_cityName ?cityName .
+  FILTER(?hospital = :OspedaleRiunitoDelleTreValli)
+}
+--------------------------------------------------
+
+This query extracts the hospital instance and its associated city name, thus fully addressing the competency question.

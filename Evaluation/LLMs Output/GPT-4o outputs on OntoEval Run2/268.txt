@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "During what time period was a certain play written?" can be answered using the ontology provided. The ontology includes the `:writtenDuring` data property, which is associated with the `:Cl_Play` class. This property can be used to retrieve the time period during which a play was written.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?play ?title ?writtenDuring
+WHERE {
+  ?play a :Cl_Play ;
+        :hasTitle ?title ;
+        :writtenDuring ?writtenDuring .
+}
+```
+
+This query retrieves the play, its title, and the time period during which it was written, which directly answers the competency question.

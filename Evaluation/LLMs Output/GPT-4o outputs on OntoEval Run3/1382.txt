@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What was the reason for this meeting?" can be answered using the ontology provided. The ontology includes the `mtps:Meetup` class and the `mtps:hasAPurpose` property, which links a meetup to its purpose. The purpose is represented by the `mtps:Purpose` class, which includes various individuals representing different reasons for a meetup.
+
+Here is a SPARQL query to extract the reason for each meeting:
+
+```sparql
+SELECT ?meetup ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose ?purpose .
+}
+```

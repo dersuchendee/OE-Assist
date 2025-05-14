@@ -1,0 +1,14 @@
+**No**
+
+The ontology lacks information about specific individuals, including who "she" refers to. Therefore, it cannot answer the question "Where did she perform?" under the closed world assumption.
+
+Here's a SPARQL query that extracts a partial answer by listing locations where any female musician has performed:
+
+```sparql
+SELECT DISTINCT ?musician ?location
+WHERE {
+  ?musician a :FemaleMusician .
+  ?musician :hasPerformed ?performance .
+  ?performance :takesPlaceAt ?location .
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/musical_instruments#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel ?inventor ?inventorLabel
+WHERE {
+  ?instrument a :MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  
+  ?instrument :inventedBy ?inventor .
+  OPTIONAL { ?inventor rdfs:label ?inventorLabel . }
+}
+```

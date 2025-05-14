@@ -1,0 +1,14 @@
+**Yes**
+
+The following SPARQL query retrieves all theatre productions for which exactly one premiere is recorded (using the closed world assumption):
+
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premiere) AS ?premiereCount)
+WHERE {
+  ?production a :TheatreProduction .
+  ?production :hasPremiere ?premiere .
+}
+GROUP BY ?production
+HAVING (COUNT(?premiere) = 1)

@@ -1,0 +1,31 @@
+**Yes**
+
+The competency question can be answered using the ontology provided, as it includes classes and properties that model evaluation statements given by doctors to employees.
+
+Here's the SPARQL query to retrieve evaluation statements given by doctors for employees:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?doctorName ?employeeName ?evaluationText ?evaluationDate
+WHERE {
+  ?evaluation a ns1:EvaluationStatement ;
+              ns1:providedBy ?doctor ;
+              ns1:evaluates ?employee ;
+              ns1:evaluationText ?evaluationText ;
+              ns1:evaluationDate ?evaluationDate .
+              
+  OPTIONAL { ?doctor rdfs:label ?doctorName . }
+  OPTIONAL { ?employee rdfs:label ?employeeName . }
+}
+```
+
+This query retrieves:
+
+- `?doctorName`: The name of the doctor who provided the evaluation.
+- `?employeeName`: The name of the employee who was evaluated.
+- `?evaluationText`: The content of the evaluation statement.
+- `?evaluationDate`: The date when the evaluation was made.
+
+The ontology includes the necessary classes (`ns1:EvaluationStatement`, `ns1:Doctor`, `ns1:Employee`) and properties (`ns1:providedBy`, `ns1:evaluates`, `ns1:evaluationText`, `ns1:evaluationDate`) to answer the competency question fully.

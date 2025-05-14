@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the members (actors) for a given ensemble and time period—using the reified membership structure provided by the ontology:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?actorName ?timePeriod
+WHERE {
+  ?ensemble a :Cl_Ensemble ;
+            :hasEnsembleMembership ?membership .
+  
+  ?membership :hasTimePeriod ?tp ;
+              :hasMember ?member .
+  
+  ?tp :timePeriod ?timePeriod .
+  ?member :actorName ?actorName .
+  
+  # Adjust the following FILTERs to specify a particular ensemble and time period:
+  FILTER(?ensemble = :Ensemble_GrandTheatre_MerchantOfVenice && ?timePeriod = "September 2009")
+}
+ORDER BY ?member
+———————————————————————————————
+
+This query shows that the ontology models ensemble memberships as reified entities (of type Cl_EnsembleMembership) linking ensembles, actors, and time periods. Hence, the CQ is answerable via the ontology under the closed world assumption.

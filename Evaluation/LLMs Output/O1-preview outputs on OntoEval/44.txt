@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?actorLabel ?capability ?capabilityLabel
+WHERE {
+  ?capability a actorODP:Capability .
+  ?capability actorODP:capabilityOf ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?capability rdfs:label ?capabilityLabel . }
+}
+```

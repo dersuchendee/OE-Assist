@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that the ontology contains instances of NitrogenLeaching that are linked to a ForestEcosystem (via the property occursIn) and a SoilType (via hasSoilType) along with an associated leaching rate (hasLeachingRate), we can write a SPARQL query to answer the CQ. For example, to see how nitrogen leaching (measured via its leaching rate) varies across different soil types in forest ecosystems, you can use the query below:
+
+—————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?soilType ?soilTypeLabel (AVG(?leachingRate) AS ?avgLeachingRate)
+       (MIN(?leachingRate) AS ?minLeachingRate)
+       (MAX(?leachingRate) AS ?maxLeachingRate)
+       (COUNT(?nl) AS ?numObservations)
+WHERE {
+  ?nl a :NitrogenLeaching .
+  ?nl :hasSoilType ?soilType .
+  OPTIONAL { ?soilType rdfs:label ?soilTypeLabel . }
+  ?nl :hasLeachingRate ?leachingRate .
+  ?nl :occursIn ?forest .
+  ?forest a :ForestEcosystem .
+}
+GROUP BY ?soilType ?soilTypeLabel
+ORDER BY ?soilType
+—————————————————————————
+
+This query extracts NitrogenLeaching individuals, ensures that they occur in a ForestEcosystem, retrieves the associated soil type, and computes statistical measures (average, minimum, maximum) of the leaching rate per soil type. Under a closed world assumption, if your ontology contains the necessary assertions (individuals and property assertions), this query fully answers the CQ.

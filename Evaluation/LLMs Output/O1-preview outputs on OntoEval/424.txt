@@ -1,0 +1,17 @@
+Answer: **Yes**
+
+The ontology includes the necessary classes and properties to answer the competency question. The `:Cl_Person` class represents persons, the `:Cl_Instrument` class represents instruments, and the `:playsInstrument` object property connects persons to the instruments they play.
+
+Here is the SPARQL query to retrieve the instruments that a certain person plays:
+
+```sparql
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentName . }
+}
+```
+
+This query selects all persons of type `:Cl_Person` and retrieves the instruments they play via the `:playsInstrument` property. It also attempts to get labels for the persons and instruments if available.

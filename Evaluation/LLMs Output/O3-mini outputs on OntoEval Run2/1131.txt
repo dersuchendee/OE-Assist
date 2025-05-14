@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology/weather#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?weatherService ?wsLabel ?preferredService ?preferredLocation ?preferredTimePeriod
+WHERE {
+  ?weatherService a :WeatherService ;
+                  rdfs:label ?wsLabel ;
+                  :hasUserPreference ?userPreference .
+  ?userPreference a :UserPreference ;
+                  :preferredService ?preferredService ;
+                  :preferredLocation ?preferredLocation ;
+                  :preferredTimePeriod ?preferredTimePeriod .
+}
+```

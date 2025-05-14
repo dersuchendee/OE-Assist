@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the composition date for a given song (for example, “HumpDeBump”) from the ontology:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song ;
+        :compositionDate ?compositionDate .
+  FILTER(?song = :HumpDeBump)
+}
+------------------------------------------------------------
+
+This query shows that the ontology contains the necessary classes (e.g. Cl_Song) and data property (:compositionDate) to answer the competency question “When was a certain song composed?” using a closed world assumption.

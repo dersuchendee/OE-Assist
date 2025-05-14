@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer this CQ using the ontology’s TBox restrictions. In our ontology, the class :ForestSoilComposition is defined with a restriction stating that it “playsRoleIn” some process of type :CO2FixationProcess. Under the closed world assumption, we can extract this relation with the following SPARQL query:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?process
+WHERE {
+  :ForestSoilComposition rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :playsRoleIn ;
+               owl:someValuesFrom ?process .
+}
+-----------------------------------------
+
+This query retrieves the role (process) that :ForestSoilComposition plays—in this case, extracting :CO2FixationProcess as specified in the ontology.

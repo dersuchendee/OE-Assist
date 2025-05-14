@@ -1,0 +1,22 @@
+**Yes**
+Below is one possible SPARQL query that retrieves cities along with the name of the country in which they are located. Notice that the ontology uses the property isLocatedInCountry with domain :Cl_City and range :Cl_CityLocation, and the country’s name is given by the data property :countryName.
+
+-----------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?countryName
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city :cityName ?cityName . }
+  ?city :isLocatedInCountry ?cityLocation .
+  ?cityLocation :countryName ?countryName .
+  # If you need to ask for a specific city, add a FILTER, e.g.
+  # FILTER (?cityName = "Rome")
+}
+ORDER BY ?city
+-----------------------------
+
+In this query, we assume the closed world: if a city is not connected via the property isLocatedInCountry, then it is not located in any country in this ontology.

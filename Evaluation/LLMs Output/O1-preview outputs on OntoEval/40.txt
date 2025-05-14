@@ -1,0 +1,15 @@
+**Answer: No**
+
+There is insufficient information in the ontology to fully answer the competency question "What is the type of this actor?" because there are no individuals of type `actorODP:Actor` or any associations between actors and their types defined in the ontology. Under the closed-world assumption, without any instances or data linking actors to their types, we cannot extract the required information.
+
+However, we can provide a partial SPARQL query that would retrieve actor types if such data were available:
+
+```sparql
+SELECT ?actor ?actorType
+WHERE {
+  ?actor rdf:type actorODP:Actor .
+  ?actor actorODP:actorType ?actorType .
+}
+```
+
+This query attempts to select all actors and their corresponding types by querying for instances of `actorODP:Actor` and their `actorODP:actorType`. If the ontology contained individuals of actors and their types, this query would retrieve that information.

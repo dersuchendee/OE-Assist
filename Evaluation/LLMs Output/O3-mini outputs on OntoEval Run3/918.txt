@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example of a SPARQL query that extracts the role a person holds within a union at a given time. (Here we assume the given time is provided as a literal — e.g. "2003-01-01"^^xsd:date – and membership records have start (and optionally end) dates so we can check the time validity.)
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOfUnion ?union ;
+              :hasUnionRole ?role ;
+              :membershipStartDate ?membershipStart .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEnd . }
+  # Filter to include only memberships active at the given time
+  FILTER (
+      "2003-01-01"^^xsd:date >= ?membershipStart &&
+      ( !BOUND(?membershipEnd) || "2003-01-01"^^xsd:date <= ?membershipEnd )
+  )
+}
+------------------------------------------------------
+
+This query shows that the ontology models the CQ by enabling retrieval of a person's union role (via the union membership instance) at a specific point in time under a closed world assumption.

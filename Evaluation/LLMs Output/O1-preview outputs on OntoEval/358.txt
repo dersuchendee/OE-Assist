@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actorName ?theatreName ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment .
+  ?employment :employedActor ?actor .
+  ?actor rdfs:label ?actorName .
+  ?employment :atTheatre ?theatre .
+  ?theatre rdfs:label ?theatreName .
+  ?employment :startDate ?startDate .
+}
+```
+
+This query retrieves the start dates when actors started working at specific theatres by leveraging the `:Cl_ActorEmployment` class, which connects `:Cl_Actor`, `:Cl_Theatre`, and the `:startDate`. The properties `:employedActor`, `:atTheatre`, and `:startDate` allow us to extract the required information directly, fulfilling the competency question.

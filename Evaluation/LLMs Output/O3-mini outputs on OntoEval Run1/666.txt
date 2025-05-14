@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example of a SPARQL query using the ontology’s classes and properties that retrieves the songs played during a specified performance (here the performance with date "2006-08-11"):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate "2006-08-11"^^xsd:date ;
+               :hasLocation ?location .
+  
+  # Link the performance to the songs that were performed.
+  ?perfSong a :Cl_PerformanceSong ;
+            :performedAt ?performance ;
+            :performedSong ?song .
+  
+  OPTIONAL { ?song rdfs:label ?songLabel }.
+}
+--------------------------------------------------
+
+This query shows that the competency question ("Which songs were played in a certain performance?") is answerable using the ontology.

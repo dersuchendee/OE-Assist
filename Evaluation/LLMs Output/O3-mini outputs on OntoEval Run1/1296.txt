@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, extracts each composer along with their network members (such as patrons, institutions, etc.) as specified in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composer ?composerLabel ?networkEntity ?networkEntityLabel
+WHERE {
+  ?composer a :Composer .
+  OPTIONAL { ?composer rdfs:label ?composerLabel. }
+  
+  ?composer :hasNetworkMember ?networkEntity .
+  OPTIONAL { ?networkEntity rdfs:label ?networkEntityLabel. }
+}
+ORDER BY ?composer ?networkEntity

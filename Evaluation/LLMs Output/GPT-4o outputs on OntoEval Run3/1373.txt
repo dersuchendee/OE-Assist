@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question is answerable using the ontology provided. The ontology includes classes for `Bell`, `SetOfBells`, and `BellTower`, and it defines relationships between these classes. Specifically, a `Bell` can be a component of a `SetOfBells`, and a `SetOfBells` can be associated with a `BellTower`. This allows us to determine if there is a single bell or a set of bells in a bell tower.
+
+Here is a SPARQL query to extract the information:
+
+```sparql
+SELECT ?bellTower ?bell ?setOfBells
+WHERE {
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+  OPTIONAL {
+    ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+    ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+    ?setOfBells a <https://w3id.org/polifonia/ontology/bell/SetOfBells> .
+  }
+}
+```
+
+This query retrieves bell towers and checks if there are any bells associated with a set of bells within each bell tower. If a bell is found without a set, it indicates a single bell; otherwise, it indicates a set of bells.

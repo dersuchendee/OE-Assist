@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties related to hospitals, disease categories, and observations of average length of stay. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?hospital ?hospitalLabel (AVG(?lengthOfStay) AS ?averageLengthOfStay)
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+
+  ?hospital :hasObservation ?observation .
+  ?observation a :AverageLengthOfStayObservation .
+
+  ?observation :isObservationOfDiseaseCategory ?diseaseCategory .
+  ?observation :hasAverageLengthOfStay ?lengthOfStay .
+}
+GROUP BY ?hospital ?hospitalLabel
+ORDER BY DESC(?averageLengthOfStay)
+LIMIT 1
+```

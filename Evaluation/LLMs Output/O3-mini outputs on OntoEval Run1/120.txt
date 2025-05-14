@@ -1,0 +1,12 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, extracts the plays performed at a specified theatre festival. (In this example the festival is specified by its IRI as :RomaLovesShakespeare; change it as needed.)
+
+PREFIX : <http://www.example.org/theatre-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?play a :Play ;
+        :performedAt :RomaLovesShakespeare .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}

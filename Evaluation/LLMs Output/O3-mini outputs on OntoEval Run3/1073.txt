@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that seminar events are represented as individuals of the class Cl_Seminar and that their hosting location is captured by a two‐step relation via a Cl_SeminarLocation (using the property takesPlaceIn, with the actual location specified via the property location on Cl_SeminarLocation), one can write a SPARQL query to retrieve the seminar’s date and its location. For example, if we know the seminar took place in December 2008, one query could be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?location ?locationLabel
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate ;
+           :takesPlaceIn ?seminarLocation .
+  ?seminarLocation :location ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+  FILTER(STRSTARTS(STR(?seminarDate), "2008-12"))
+}
+--------------------------------------------------
+
+This query retrieves seminars (here filtering for those held in December 2008), then follows the property chain from :Cl_Seminar via :takesPlaceIn (i.e. the reified seminar location) to the actual location individual (with optional label). With closed world assumption the missing information is assumed false, so only those seminars with the required time stamp and location will be returned.

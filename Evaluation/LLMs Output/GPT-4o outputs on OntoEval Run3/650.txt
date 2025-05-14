@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not directly support querying which songs were played in a certain performance because the relationship between performances and songs is not explicitly modeled in a way that allows for direct querying. The ontology includes a class `Cl_PerformanceSong` which is a subclass of `Cl_Performance`, but it does not provide a direct way to associate specific songs with specific performances.
+
+However, we can extract a partial answer by querying for performances and the songs included in them, but this will not specify which songs were played in a specific performance.
+
+```sparql
+SELECT ?performance ?performanceName ?song ?songName
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :includesSong ?song .
+  OPTIONAL { ?performance :hasName ?performanceName . }
+  OPTIONAL { ?song :hasName ?songName . }
+}
+```

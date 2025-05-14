@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that a “certain seminar” is identified (for example, by its title), the following SPARQL query makes use of the relations defined in the ontology (the :SeminarArticle class and the :presentedIn & :hasArticleTitle properties) to extract all articles presented in that seminar. Under the closed‐world assumption, any article not connected as specified is considered not presented in that seminar.
+
+For example, if the seminar is identified by its title "December 2008 Seminar", the query is:
+
+PREFIX : <http://example.org/seminararticles#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  ?article a :SeminarArticle .
+  ?article :presentedIn ?seminar .
+  ?seminar a :Seminar ;
+           :hasSeminarTitle "December 2008 Seminar" .
+  OPTIONAL { ?article :hasArticleTitle ?articleTitle . }
+}
+
+This query returns all articles (and optionally their titles) that were presented in the seminar titled "December 2008 Seminar".

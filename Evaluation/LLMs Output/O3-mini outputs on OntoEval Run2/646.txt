@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that “a certain performance” can be identified by its membership in the Cl_Performance class and that its performance date is recorded by the :performanceDate data property, you can answer the CQ with a query like this (under a closed world assumption):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+-------------------------------------------------
+
+This query extracts all instances of Cl_Performance along with the date when each performance took place, thus fully supporting the competency question.

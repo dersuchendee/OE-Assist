@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given album, the start and end date of its recording period by following the :recordedDuring relation to an album recording instance that provides the :recordingStart and :recordingEnd properties.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album ;
+         :recordedDuring ?recording .
+  ?recording :recordingStart ?recordingStart ;
+             :recordingEnd ?recordingEnd .
+  
+  # You can restrict to a certain album by uncommenting the next line
+  #FILTER(?album = :Stadium_Arcadium)
+}
+------------------------------------------------
+
+This query shows that the ontology models the competency question "During what time period was a certain album recorded?" by connecting an album (instance of Cl_Album) with its recording details.

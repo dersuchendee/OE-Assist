@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/geo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionName ?country ?countryName
+WHERE {
+  ?region a :Region ;
+          :placeName ?regionName ;
+          :isPartOf ?country .
+  ?country a :Country ;
+           :placeName ?countryName .
+}
+```

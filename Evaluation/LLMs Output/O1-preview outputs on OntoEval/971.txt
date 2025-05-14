@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookTitle ?article ?articleTitle
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book rdfs:label ?bookTitle . }
+  ?book :containsArticle ?content .
+  ?content a :Cl_Article .
+  OPTIONAL { ?content rdfs:label ?articleTitle . }
+}
+```
+
+This query retrieves all articles (`?article`) that are contained in each book (`?book`) by utilizing the `:containsArticle` object property. The ontology includes the necessary classes (`:Cl_Book`, `:Cl_Article`, `:Cl_Content`) and properties to model this relationship, allowing us to extract the required information.

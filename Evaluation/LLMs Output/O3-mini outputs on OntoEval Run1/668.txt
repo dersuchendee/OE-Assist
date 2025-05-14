@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a sample SPARQL query that uses the reified structure for performances and performed songs to list the songs played during a given performance (identified by its IRI, e.g., :Performance_1):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  # Select the target performance (adjust the IRI filter as needed)
+  ?performance a :Cl_Performance .
+  FILTER(?performance = :Performance_1) .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  # Get the performed songs during that performance via the reified relation
+  ?performance :includesSong ?performedSong .
+  ?performedSong :songPerformed ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}

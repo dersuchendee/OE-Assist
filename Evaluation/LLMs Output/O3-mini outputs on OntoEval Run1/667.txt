@@ -1,0 +1,14 @@
+**Yes**
+
+We can retrieve the songs played during a performance using the reified property that connects a Cl_Performance with one or more Cl_Song resources. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?song
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedSongs ?song .
+}
+
+This SPARQL query lists each performance and the songs that were performed, thereby fully answering the CQ under the closed-world assumption.

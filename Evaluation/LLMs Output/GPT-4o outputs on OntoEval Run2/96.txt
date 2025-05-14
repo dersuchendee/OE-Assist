@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a festival with a specific location through a property that connects a festival to a city. The `tookPlaceIn` property is associated with `Cl_FestivalOccurrence`, but there is no direct connection from `Cl_Festival` to `Cl_FestivalOccurrence` in the ontology. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?occurrence a :Cl_FestivalOccurrence ;
+              :tookPlaceIn ?city .
+}
+```

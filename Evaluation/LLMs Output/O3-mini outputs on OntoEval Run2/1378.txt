@@ -1,0 +1,37 @@
+**Yes**
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT DISTINCT ?meetup ?meetupLabel ?participant ?participantLabel ?place ?placeLabel ?timeExpression ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup rdfs:label ?meetupLabel . }
+  
+  # Retrieve participants (the people involved in the meetup)
+  OPTIONAL {
+    ?meetup mtps:hasParticipant ?participant .
+    OPTIONAL { ?participant rdfs:label ?participantLabel . }
+  }
+  
+  # Retrieve the meeting place (where the encounter took place)
+  OPTIONAL {
+    ?meetup mtps:hasPlace ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+  }
+  
+  # Retrieve time information (when the meetup happened)
+  OPTIONAL {
+    ?meetup mtps:happensAt ?timeExpression .
+  }
+  
+  # Retrieve the purpose (which reflects the type/reason/context of the meetup)
+  OPTIONAL {
+    ?meetup mtps:hasAPurpose ?purpose .
+    OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+  }
+}
+ORDER BY ?meetup
+```

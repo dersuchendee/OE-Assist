@@ -1,0 +1,34 @@
+**Yes**
+Below is one example of a SPARQL query that, under a closed‐world assumption, retrieves the bookings in a user’s calendar that fall within a specified time period (using the booking’s start and end times):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?calendar ?booking ?bookingLabel ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasCalendar ?calendar .
+
+  # We use the reification pivot class to link a calendar to a booking
+  ?calendar :hasBooking ?calBooking .
+  ?calBooking :refersToBooking ?booking .
+
+  # Optionally retrieve a label if available
+  OPTIONAL { ?booking rdfs:label ?bookingLabel . }
+
+  # Booking time information via datatype properties on Cl_Booking
+  ?booking :startTime ?startTime .
+  ?booking :endTime ?endTime .
+
+  # Filter by a given time period.
+  # Adjust these literal boundaries as needed.
+  FILTER(
+    (?startTime >= "2023-10-11T00:00:00"^^xsd:dateTime) &&
+    (?endTime <= "2023-10-11T23:59:59"^^xsd:dateTime)
+  )
+}
+ORDER BY ?startTime
+------------------------------------------------
+
+This query returns those bookings (linked via the reification class Cl_CalendarBooking) whose start and end times fall within the specified daily period, thus fully answering the CQ.

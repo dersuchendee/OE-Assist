@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that uses the band‐membership reification (including the role and the time stamp) to answer the CQ. In this example the query retrieves, for a given person and band at a specified date‐time, the role that person played in that band:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personName ?bandName ?role ?time
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :membershipOfPerson ?person ;
+              :membershipInBand ?band ;
+              :hasRole ?role ;
+              :atTime ?time .
+  ?person :hasName ?personName .
+  ?band :hasName ?bandName .
+  # Replace :SomePerson and :SomeBand with the actual individuals and adjust the time as needed:
+  FILTER(?person = :SomePerson &&
+         ?band = :SomeBand &&
+         ?time = "2005-01-01T00:00:00"^^xsd:dateTime)
+}
+---------------------------------
+
+This query shows that the ontology supports the competency question under the closed world assumption since the reification class for band membership connects a person, a band and includes a role at a particular point in time.

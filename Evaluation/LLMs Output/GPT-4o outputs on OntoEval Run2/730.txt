@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a region and a country. The `regionInCountry` property connects regions to countries, but there is no direct connection from a region to a specific country in the ontology. Therefore, the competency question cannot be fully answered. However, a partial answer can be extracted by identifying regions and their associated countries.
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :regionInCountry ?country .
+}
+```

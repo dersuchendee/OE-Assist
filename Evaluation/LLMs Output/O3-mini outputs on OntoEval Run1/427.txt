@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person, retrieves the instruments that person plays by following the reified pattern (via Cl_InstrumentPlaying):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  # Replace <personURI> with the specific person’s URI
+  FILTER(?person = <http://www.example.org/test#SpecificPersonURI>) .
+  
+  ?person :playsInstrument ?instPlaying .
+  ?instPlaying :instrumentPlayed ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+------------------------------------------------
+
+This query answers the CQ by extracting, for a given person, the instruments they play using the reified structure defined in the ontology.

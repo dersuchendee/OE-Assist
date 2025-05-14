@@ -1,0 +1,16 @@
+**No**
+
+The competency question "Were they invited? Was the meeting accidental?" is not fully supported by the ontology. The ontology provides information about whether a person is invited to an event and whether a meeting is accidental, but it does not directly link these two aspects in a way that allows us to answer the question for specific individuals and meetings. We can extract partial information about whether meetings are accidental and whether people are invited to events, but not in a combined manner.
+
+Partial SPARQL query to extract information about whether meetings are accidental and whether people are invited to events:
+
+```sparql
+SELECT ?person ?event ?isAccidental
+WHERE {
+  ?event a :Meeting .
+  ?event :isAccidental ?isAccidental .
+  OPTIONAL {
+    ?person :isInvitedTo ?event .
+  }
+}
+```

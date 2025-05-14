@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the specific doctor and employee are identified (for example, using :Doctor1 as the doctor and :PasqualeDiGennaro as the employee), the CQ is fully answerable via the reification of the evaluation statement in the ontology. For instance, the following SPARQL query extracts the evaluation statement (including its date and content) written by a given doctor for a given employee:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement ?evaluationDate ?evaluationContent
+WHERE {
+  ?evaluationStatement a :Cl_EvaluationStatement ;
+                       :hasWrittenStatement ?doctor ;
+                       :evaluatesEmployee ?employee ;
+                       :hasEvaluationDate ?evaluationDate ;
+                       :hasEvaluationContent ?evaluationContent .
+  FILTER(?doctor = :Doctor1 && ?employee = :PasqualeDiGennaro)
+}
+
+This query confirms that the ontology fully supports the competency question under the closed world assumption.

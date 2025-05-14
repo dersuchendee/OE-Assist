@@ -1,0 +1,20 @@
+**Yes**
+
+The following SPARQL query retrieves each seminar along with the articles presented in it. Under the closed‐world assumption, if every seminar has at least one article linked (through a presentation instance), then the query result will include only those seminars that meet the competency question requirement.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?seminar ?seminarLabel (COUNT(?article) AS ?articleCount)
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :seminar ?seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+}
+GROUP BY ?seminar ?seminarLabel
+HAVING (COUNT(?article) >= 1)
+--------------------------------------------------
+
+This query confirms that each seminar (instance of :Cl_Seminar reached via the :seminar property on a :Cl_SeminarPresentation) has at least one associated article, thus modeling the competency question.

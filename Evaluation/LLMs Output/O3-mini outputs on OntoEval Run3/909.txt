@@ -1,0 +1,32 @@
+**Yes**
+
+Below is a SPARQL query that, given a person, a union group, and a time point, retrieves the union role (using the UnionRoleAssignment class and its associated properties):
+
+--------------------------------------------------
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?union ?start ?end
+WHERE {
+  ?assignment a :UnionRoleAssignment ;
+              :hasAgent ?person ;
+              :hasRole ?role ;
+              :inUnion ?union ;
+              :atTime ?timeInterval .
+  ?timeInterval :startDate ?start ;
+                :endDate ?end .
+
+  # Replace with appropriate URIs and datetime literal values:
+  FILTER (
+    ?person = <http://example.org/ontology#PasqualeDiGennaro> &&
+    ?union  = <http://example.org/ontology#MaleNursesUnion> &&
+    xsd:dateTime("2003-06-15T00:00:00") >= ?start &&
+    xsd:dateTime("2003-06-15T00:00:00") <= ?end
+  )
+}
+ORDER BY ?start
+
+--------------------------------------------------
+
+This query shows that the ontology models union role assignments and thus fully supports answering the competency question.

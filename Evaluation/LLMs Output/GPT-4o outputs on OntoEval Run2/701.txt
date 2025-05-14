@@ -1,0 +1,13 @@
+**No**
+
+The competency question "In what region is a certain city located?" is not fully supported by the given ontology. The ontology provides classes and properties related to locations, cities, and regions, but it does not provide a direct way to query the region of a specific city. The ontology includes the `:isLocatedIn` property, which relates cities to regions, but without specific instances or data, we cannot extract a complete answer.
+
+Here is a SPARQL query to extract a partial answer, assuming instances of cities and regions were available:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedIn ?region .
+}
+```

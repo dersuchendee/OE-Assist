@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that returns, for every track in the ontology, the song that it is a recording of:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track ;
+         :recordingOf ?song .
+}
+--------------------------------------------------
+
+This query shows that the ontology explicitly asserts (via the “:recordingOf” property) which song a given track is a recording of, thereby supporting the competency question.

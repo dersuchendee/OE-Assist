@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide an explicit way to determine which actors "hold this information" because it doesn’t define a clear property or reification pattern linking actors to a particular piece of information. A partial answer can be obtained by retrieving all individuals of class Actor (with optional labels, if available):
+
+PREFIX : <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}

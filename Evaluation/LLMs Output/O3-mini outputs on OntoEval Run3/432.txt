@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person (for example, :AnthonyKiedis), returns the instruments that person plays:
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+  
+  # To focus on a certain person, change the below filter as needed:
+  FILTER(?person = :AnthonyKiedis)
+}
+──────────────────────────────
+
+This query shows that the ontology supports the competency question "What instruments does a certain person play?" under the closed world assumption.

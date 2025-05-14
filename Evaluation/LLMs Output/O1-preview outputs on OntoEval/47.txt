@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question "What actors hold this competency?" is answerable using the given ontology because it defines the necessary classes and properties to model this question. The ontology includes:
+
+- The class **`:Actor`**, representing individuals or organizations that perform work.
+- The class **`:Competency`**, representing skills or abilities.
+- The object property **`:hasCompetency`**, which relates actors to the competencies they hold.
+
+Therefore, we can write a SPARQL query to retrieve actors who hold a specific competency.
+
+```sparql
+PREFIX : <http://www.example.org/ontology/circular_value_network#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel
+WHERE {
+  ?actor a :Actor .
+  ?actor :hasCompetency :SpecificCompetency .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```
+
+In this query, replace `:SpecificCompetency` with the URI of the specific competency you're interested in. This query will return all actors who hold that competency, along with their labels if available.

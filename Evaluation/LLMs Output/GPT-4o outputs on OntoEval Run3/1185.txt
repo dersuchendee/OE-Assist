@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the specific locations where a female musician performed. The ontology includes classes and properties related to musicians, performances, and locations, but it does not explicitly connect female musicians to specific performance locations. Here's a SPARQL query to extract a partial answer, which would list performances by female musicians without specifying the location:
+
+```sparql
+SELECT ?femaleMusician ?performance
+WHERE {
+  ?femaleMusician a :FemaleMusician .
+  ?femaleMusician :hasPerformed ?performance .
+}
+```

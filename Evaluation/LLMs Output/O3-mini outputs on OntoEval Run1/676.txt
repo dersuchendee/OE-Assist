@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each performance along with its associated location based on the ns1:performedAt property:
+
+------------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?perfDate ?location ?locationLabel
+WHERE {
+  ?performance a ns1:Performance .
+  OPTIONAL { ?performance ns1:hasPerformanceDate ?perfDate . }
+  ?performance ns1:performedAt ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+ORDER BY ?performance
+------------------------------------------------------
+
+Under the closed world assumption, this query directly extracts the performance location(s) as defined in the ontology.

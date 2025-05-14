@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the relationship between beech forests, carbon sequestration, and the carbon cycle, which are all represented in the ontology. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?beechForest ?process ?cycle
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :hasProcess ?process .
+  ?process a :CarbonSequestration .
+  ?process :contributesTo ?cycle .
+  ?cycle a :CarbonCycle .
+}
+```

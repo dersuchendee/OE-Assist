@@ -1,0 +1,14 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves each album and counts the number of tracks contained in it:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album (COUNT(?track) AS ?numberOfTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album

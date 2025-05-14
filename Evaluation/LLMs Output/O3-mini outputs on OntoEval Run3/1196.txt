@@ -1,0 +1,25 @@
+**Yes**
+
+We can answer this CQ using the ontology since it defines the class Participant as having various relation properties (such as hasRelationWith, collaboratedWith, influencedBy, influenced, metAtEvent) that link one participant to another. Using these properties, the ontology enables us to extract and characterize the relations among participants. Under a closed world assumption, we assume that only these stated relations exist.
+
+Below is an example SPARQL query that retrieves pairs of related participants along with the relation property that connects them:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?participant1 ?participant1Label ?relation ?relationLabel ?participant2 ?participant2Label
+WHERE {
+  ?participant1 a :Participant .
+  OPTIONAL { ?participant1 rdfs:label ?participant1Label . }
+  
+  ?participant2 a :Participant .
+  OPTIONAL { ?participant2 rdfs:label ?participant2Label . }
+  
+  ?participant1 ?relation ?participant2 .
+  FILTER (?relation IN (:hasRelationWith, :collaboratedWith, :influencedBy, :influenced, :metAtEvent))
+  
+  OPTIONAL { ?relation rdfs:label ?relationLabel . }
+}
+ORDER BY ?participant1 ?relation ?participant2
+
+This query extracts all participant pairs that are connected by one of the defined relation properties, thereby characterizing how the participants relate among themselves.

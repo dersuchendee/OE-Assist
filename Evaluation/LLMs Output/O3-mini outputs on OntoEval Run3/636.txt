@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that extracts performance instances (using the reified class for band performance) along with the date the performance took place:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_BandPerformance .
+  ?performance :performanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+--------------------------------------------------
+
+Under the closed‐world assumption, this query retrieves the dates for all recorded performances modeled by the ontology, thus satisfying the competency question “When did a certain performance take place?”

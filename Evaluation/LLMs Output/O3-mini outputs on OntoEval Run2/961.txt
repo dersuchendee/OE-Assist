@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming a specific publication (book or CD) is identified by its type (e.g., "Book" or "CD") and that it is related to its articles by the property composedOfArticles, you can write a SPARQL query to retrieve the articles that comprise a given publication. For example, the following query retrieves the publication’s title and the titles of the articles it is composed of:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubTitle ?article ?articleTitle
+WHERE {
+  ?publication a :Cl_Publication ;
+               :publicationTitle ?pubTitle ;
+               :publicationType ?pubType ;
+               :composedOfArticles ?article .
+  FILTER(?pubType = "Book" || ?pubType = "CD")
+  ?article :articleTitle ?articleTitle .
+}
+ORDER BY ?publication ?articleTitle
+
+This query answers the competency question "What articles is a specific book or CD composed of?" by leveraging the ontology’s reification through the :composedOfArticles relationship.

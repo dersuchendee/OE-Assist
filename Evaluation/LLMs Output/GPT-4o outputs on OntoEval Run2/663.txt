@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about performances or the songs played during them. However, we can extract partial information about the tracks contained in an album, which might be related to performances.
+
+```sparql
+SELECT ?album ?track ?song
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+  ?track :isRecordingOf ?song .
+}
+```

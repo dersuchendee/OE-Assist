@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the critique content provided by a certain critic for a certain record. In this query you would substitute the specific IRIs for the critic and the record.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?critic ?record ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique ;
+            :criticOf ?critic ;
+            :critiqueOf ?record ;
+            :critiqueContent ?critiqueContent .
+  FILTER (?critic = <http://www.example.org/test#SpecificCriticIRI> &&
+          ?record = <http://www.example.org/test#SpecificRecordIRI>)
+}
+-----------------------------------------------------------
+
+This query shows that the ontology models the CQ “What does a certain critic say about a certain record?” because the relationships between a critique, its critic (using the object property :criticOf), the record being critiqued (using :critiqueOf), and the content of the critique (with the data property :critiqueContent) are available to answer the question.

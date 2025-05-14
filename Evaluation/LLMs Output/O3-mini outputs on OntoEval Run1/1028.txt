@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves seminar instances along with their scheduled dates, which answers the CQ “When did a certain seminar take place?” by extracting the seminar’s date (using the seminarDate property defined for :Cl_Seminar):
+
+-------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+-------------------------------
+
+Under the closed world assumption the query returns only those seminars with an explicitly stated date, fully supporting the competency question.

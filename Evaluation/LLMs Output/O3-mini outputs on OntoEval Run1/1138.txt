@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves, for each recorded user interaction, the user’s context (i.e. whether they were standing or walking), the weather instance presented, and the associated presentation outputs (graphics and/or audio). This query assumes that when the user is recorded as standing the weather is provided via graphics (through the :hasOutput property) and when the user is recorded as walking it is provided via audio (through the :hasAudioOutput property):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?interaction ?isStanding ?isWalking ?weather ?graphic ?loudspeaker
+WHERE {
+  ?interaction a :Cl_UserLocationInteraction ;
+               :interactsWith ?user ;
+               :interactionOutput ?weather ;
+               :isStanding ?isStanding ;
+               :isWalking ?isWalking .
+  OPTIONAL { ?weather :hasOutput ?graphic . }
+  OPTIONAL { ?weather :hasAudioOutput ?loudspeaker . }
+}
+--------------------------------------------------
+
+In a closed world view, if an interaction has isStanding true, then the presentation should use the graphic output from ?graphic; if isWalking is true, then it should use the audio output from ?loudspeaker. This query shows that the ontology has the requisite classes and properties to answer the competency question.

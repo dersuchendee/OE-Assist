@@ -1,0 +1,19 @@
+**Yes**
+
+We can retrieve the festival’s location because the ontology links a festival (via its occurrence) to a city using the property “takesPlaceIn.” For example, if we want to know where “RomaLovesShakespeare” took place, we could write a query like this:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?occurrence ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :takesPlaceIn ?city .
+}
+------------------------------------------------
+
+This query extracts every festival’s occurrence along with the city in which the occurrence takes place, thus answering the competency question "Where did a certain festival take place?" under the closed world assumption.

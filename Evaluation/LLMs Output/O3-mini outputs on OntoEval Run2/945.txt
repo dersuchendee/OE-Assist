@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a sample SPARQL query that makes use of the evaluation reification class along with its associated properties to retrieve the evaluation statement made by a specific doctor for a specific employee:
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluation ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_DoctorEmployeeEvaluation ;
+              :evaluatedBy ?doctor ;
+              :evaluates ?employee ;
+              :evaluationStatement ?evaluationStatement .
+  # Filter for the specific doctor and employee (replace the URIs below with the actual ones)
+  FILTER (?doctor = <http://www.example.org/test#DoctorXYZ> && ?employee = <http://www.example.org/test#EmployeeABC> )
+}
+──────────────────────────────
+
+This query uses the reification pattern defined in the ontology (using :Cl_DoctorEmployeeEvaluation) to connect a doctor (via :evaluatedBy) with an employee (via :evaluates) and provides the evaluation statement (via :evaluationStatement). Under the closed world assumption, only explicitly asserted evaluation events are returned.

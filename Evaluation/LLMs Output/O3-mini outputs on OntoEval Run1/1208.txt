@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that, given a particular composition X and a particular tune family Y, returns the level of confidence of the associated variant relationship:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?confidence
+WHERE {
+  ?composition a :Composition ;
+               :hasVariantRelationship ?vr .
+  ?vr :involvesTuneFamily ?tuneFamily ;
+      :hasLevelOfConfidence ?confidence .
+  FILTER (?composition = :CompositionX && ?tuneFamily = :TuneFamilyY)
+}
+-------------------------------------------------
+
+In this query, replace ":CompositionX" and ":TuneFamilyY" with the actual IRIs of the composition and the tune family of interest.

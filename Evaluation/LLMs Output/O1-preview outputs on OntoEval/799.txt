@@ -1,0 +1,14 @@
+**No**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?studyStartDate ?studyEndDate
+WHERE {
+    :PasqualeDiGennaro :hasMedicalDegree :CertifiedNurseDegree .
+    :CertifiedNurseDegree :hasStudyPeriod ?studyPeriod .
+    OPTIONAL { ?studyPeriod :studyStartDate ?studyStartDate . }
+    OPTIONAL { ?studyPeriod :studyEndDate ?studyEndDate . }
+}
+```

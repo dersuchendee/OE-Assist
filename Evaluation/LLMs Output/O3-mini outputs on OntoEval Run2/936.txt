@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that the intended modeling is that a Cl_Doctor gives an evaluation—which (by restriction on Cl_Evaluation) must relate to a Cl_Employee—and that the evaluation “statement” is stored as a literal via the property :evaluationStatement, we can answer the CQ. Under the closed‐world assumption (i.e. what is not stated is assumed false) we assume the only evaluations are those explicitly linked.
+
+For example, given an identified doctor and employee, the following query retrieves the evaluation statement:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  VALUES (?doctor ?employee) { 
+    (<http://www.example.org/test#SomeDoctor> <http://www.example.org/test#SomeEmployee>)
+  }
+  ?doctor :givesEvaluation ?evaluation .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  ?evaluation :givesEvaluation ?employee .
+}
+-------------------------------------------------------
+
+In this query the doctor resource (e.g. SomeDoctor) is linked via :givesEvaluation to an evaluation instance, which carries its textual evaluation statement and (via the same property in the reification pattern) is also linked to the employee (SomeEmployee) for whom the evaluation was given.

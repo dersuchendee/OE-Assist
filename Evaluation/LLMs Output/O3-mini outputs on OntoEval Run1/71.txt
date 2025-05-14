@@ -1,0 +1,17 @@
+**No**
+
+The CQ asks for “the materials of this component or product” but the ontology only models products (via :Cl_Product) together with their material composition. It does not represent “component” as a separate entity. Therefore, while we can extract the materials used in products through their material composition, we cannot answer the part concerning “components.” Under the closed world assumption, entities not explicitly represented (i.e. components) are assumed not to exist. Hence the CQ is only partially answerable.
+
+Below is a SPARQL query that extracts the materials for products:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?product ?material
+WHERE {
+  ?product a :Cl_Product .
+  ?product :op_hasMaterialComposition ?composition .
+  ?composition :op_composedOf ?material .
+}
+--------------------------------------------------

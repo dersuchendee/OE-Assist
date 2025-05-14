@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that retrieves each hospital’s city by following the defined object property:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?city ?cityName
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :op_isLocatedIn ?city .
+  ?city :dp_cityName ?cityName .
+}
+
+This query works under a closed world assumption by only returning cities that are explicitly linked to hospitals via :op_isLocatedIn, thus modelling the CQ “In what city is a certain hospital located?” correctly.

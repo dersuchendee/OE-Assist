@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed–world assumption (i.e. considering only asserted triples), retrieves each theatre and the city in which it is located:
+
+--------------------------------------------------
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a theatre:Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  
+  ?theatre theatre:locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+--------------------------------------------------
+
+This query answers the CQ "In what city is a certain theatre located?" by retrieving the theatre instances (with their labels, if available) together with the corresponding city (and its label) they are linked to via the theatre:locatedIn property.

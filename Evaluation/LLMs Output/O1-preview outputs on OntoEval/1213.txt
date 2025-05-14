@@ -1,0 +1,21 @@
+**Yes**
+
+The CQ can be answered using the ontology because the property `:hasAssociatedChemicalParameter` directly associates instances of `:AquiferFungus` with instances of `:ChemicalParameter`. This allows us to query for chemical parameters associated with specific aquifer fungi.
+
+Here is a SPARQL query to retrieve the chemical parameters associated with each aquifer fungus:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?aquiferFungus ?fungusLabel ?chemicalParameter ?parameterLabel
+WHERE {
+  ?aquiferFungus a :AquiferFungus .
+  OPTIONAL { ?aquiferFungus rdfs:label ?fungusLabel . }
+  
+  ?aquiferFungus :hasAssociatedChemicalParameter ?chemicalParameter .
+  OPTIONAL { ?chemicalParameter rdfs:label ?parameterLabel . }
+}
+```
+
+This query selects all aquifer fungi and the chemical parameters associated with them through the `:hasAssociatedChemicalParameter` property. It also optionally retrieves labels for better readability.

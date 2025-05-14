@@ -1,0 +1,29 @@
+**Yes**
+Below is a parameterized SPARQL query that retrieves the roles held by a given person (actor) in a given production on a specified date. This query relies on the fact that the ontology reifies the role information via the property :hasRole (with domain :Cl_Actor and range :Cl_ActorRole), along with the properties :hasRoleInProduction (associating the role with a production) and :hasRoleDate (indicating the time at which the role occurs).
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?role ?roleLabel ?production ?roleDate
+WHERE {
+  # Specify the particular person (actor) instance and production instance.
+  VALUES ?actor { <http://www.example.org/test#YourActorInstance> }
+  VALUES ?production { <http://www.example.org/test#YourProductionInstance> }
+  
+  # Retrieve the roles (reified via Cl_ActorRole) for the actor.
+  ?actor :hasRole ?role .
+  ?role :hasRoleInProduction ?production .
+  ?role :hasRoleDate ?roleDate .
+  
+  # Optionally get a textual label for the role.
+  OPTIONAL { ?role rdfs:label ?roleLabel. }
+  
+  # Filter for the specified point in time.
+  FILTER(?roleDate = "2021-09-15"^^xsd:date)   # Replace with the intended date, e.g., the point in time of interest.
+}
+ORDER BY ?actor ?roleDate
+----------------------------------------------------------------
+
+This query shows that, under a closed world assumption, all necessary links—from an actor to their role, to a production, and to the time the role is held—are present in the ontology, and so the competency question is fully answerable.

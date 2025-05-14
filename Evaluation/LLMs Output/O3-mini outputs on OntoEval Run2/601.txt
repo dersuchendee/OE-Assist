@@ -1,0 +1,18 @@
+**Yes**
+
+We can retrieve the composition date for a given song from the ontology. For instance, a SPARQL query to get the composition date for a specific song would be:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :compositionDate ?compositionDate .
+  # Replace <specific_song_IRI> with the IRI of the song of interest
+  FILTER(?song = <specific_song_IRI>)
+}
+————————————————————————————
+
+In a closed world assumption the ontology includes all songs and their associated composition dates, so the competency question “When was a certain song composed?” is answerable.

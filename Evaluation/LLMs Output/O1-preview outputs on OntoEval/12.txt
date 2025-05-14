@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+The competency question "Which are the parts of an instrument?" is answerable using the provided ontology. The ontology includes the class `:Cl_MusicalInstrument`, the class `:Cl_InstrumentPart`, and the object property `:hasPart` that connects a musical instrument to its parts.
+
+Here is a SPARQL query that retrieves musical instruments and their parts:
+
+```sparql
+SELECT ?instrument ?part
+WHERE {
+  ?instrument a :Cl_MusicalInstrument .
+  ?instrument :hasPart ?part .
+}
+```
+
+This query selects all instances of `:Cl_MusicalInstrument` and their associated parts via the `:hasPart` property, effectively answering the competency question.

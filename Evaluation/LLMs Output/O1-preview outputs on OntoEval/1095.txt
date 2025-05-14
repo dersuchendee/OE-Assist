@@ -1,0 +1,13 @@
+Answer: **No**
+
+```sparql
+SELECT ?seminar ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?seminar :hasPresentation ?presentation .
+    ?presentation :presentationOfArticle ?article .
+    ?article :articleTitle ?articleTitle .
+  }
+}
+```

@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the persons (members) of a given ensemble whose membership is recorded by a reified membership (Cl_EnsembleMembership) and filters by a specific point in time (using the membershipDate property):
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membershipDate
+WHERE {
+  # Assume the target ensemble is provided as a parameter.
+  BIND(<http://www.example.org/test#SomeEnsemble> AS ?ensemble)
+  
+  # Get the ensemble membership reification instance.
+  ?ensemble :hasMember ?membership .
+  
+  # Retrieve the actual person member.
+  ?membership :member ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  
+  # Each membership has an associated date.
+  ?membership :membershipDate ?membershipDate .
+  
+  # Filter for the specific point in time (e.g., "2009-09-14").
+  FILTER (?membershipDate = "2009-09-14"^^xsd:date)
+}
+ORDER BY ?person
+--------------------------------
+
+In this query, we assume that the specific ensemble is identified by <http://www.example.org/test#SomeEnsemble> and that the membershipDate property indicates when the membership is valid (under a closed world assumption). Adjust the ensemble IRI and date literal as needed for your application.

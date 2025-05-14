@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed world assumption, would retrieve the plays written by a given author by exploiting the writing event reification in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?writingEvent a :Cl_WritingEvent ;
+                :hasAuthor ?author ;
+                :hasPlay ?play .
+  FILTER(?author = <http://www.example.org/test#SpecificAuthor>) .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+--------------------------------------------------
+
+In this query, replace <http://www.example.org/test#SpecificAuthor> with the IRI of the author of interest. This query demonstrates that the competency question “What plays did a certain author write?” is fully answerable given the ontology modeling writing events that link authors to the plays they wrote.

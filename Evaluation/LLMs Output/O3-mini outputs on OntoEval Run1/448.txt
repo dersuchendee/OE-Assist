@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that, given a band (passed as a parameter) and a specific date, retrieves the members (with their roles) whose band membership’s time interval covers that date. This query relies on the reified “BandMembership” class and its relations (hasBand, involvesMember, hasTimeInterval, etc.) defined in the ontology.
+
+------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberName ?role ?startDate ?endDate
+WHERE {
+  # Find the band membership instance for a given band
+  ?membership a :BandMembership ;
+              :hasBand ?band ;
+              :involvesMember ?member ;
+              :hasRole ?role ;
+              :hasTimeInterval ?interval .
+  
+  # Assuming members have a property for name (e.g., personName)
+  OPTIONAL { ?member :personName ?memberName . }
+  
+  ?interval :startDate ?startDate ;
+            :endDate ?endDate .
+  
+  # Parameters: Replace :YourBand with the desired band IRI
+  FILTER(?band = :YourBand)
+  
+  # Replace "2005-06-15"^^xsd:date with the specific date of interest.
+  BIND("2005-06-15"^^xsd:date AS ?givenDate)
+  FILTER(?givenDate >= ?startDate && ?givenDate <= ?endDate)
+}
+ORDER BY ?member
+------------------------------------------------
+
+In this query you supply the specific band IRI in place of :YourBand and the date of interest. The FILTER ensures that only memberships active at that point in time are returned.

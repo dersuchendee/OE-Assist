@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the evaluation statement given by a doctor for an employee. Note that you can replace the URIs used in the FILTER clause with those referring to the specific doctor and employee of interest.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?doctor ?employee ?evaluationStatement
+WHERE {
+  ?eval a :Cl_DoctorEmployeeEvaluation .
+  ?eval :evaluationByDoctor ?doctor .
+  ?eval :evaluationOfEmployee ?employee .
+  ?eval :evaluationStatement ?evaluationStatement .
+  
+  # Replace the following with the specific doctor and employee IRIs
+  FILTER (?doctor = <http://www.example.org/test#SpecificDoctor> &&
+          ?employee = <http://www.example.org/test#SpecificEmployee>)
+}
+--------------------------------------------------
+
+In a closed-world view, this query retrieves the evaluation statement by explicitly linking the reified evaluation instance with its doctor and employee through the properties defined in the ontology.

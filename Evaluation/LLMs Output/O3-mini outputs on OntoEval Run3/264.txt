@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?play ?playName ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasPlayTimePeriod ?period .
+  OPTIONAL { ?play :playName ?playName . }
+  ?period :startYear ?startYear .
+  ?period :endYear ?endYear .
+  # Uncomment the following line to filter for a specific play by name, e.g.,
+  # FILTER(?playName = "The Merchant of Venice")
+}
+```

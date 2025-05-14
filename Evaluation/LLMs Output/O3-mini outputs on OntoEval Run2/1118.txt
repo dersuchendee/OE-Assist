@@ -1,0 +1,16 @@
+**Yes**
+Below is one SPARQL query that uses the reified event class (Cl_BathroomEvent) and its properties to extract the time interval (op_hasTime) and the day of week (op_hasDayOfWeek) for the event in question:
+
+—————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?event ?time ?dayOfWeek
+WHERE {
+  ?event a :Cl_BathroomEvent .
+  ?event :op_hasTime ?time .
+  ?event :op_hasDayOfWeek ?dayOfWeek .
+}
+—————————————————————————
+
+In a closed-world interpretation, this query will return the time and day-of-week for any instance of a bathroom event (which—in the story—represents the event of brushing teeth in the bathroom on Thursday morning).

@@ -1,0 +1,33 @@
+**Yes**
+Below is one example SPARQL query that, given a target time, retrieves for a given person in a given band the role they held at that time. (In the query below, replace :TargetPerson, :TargetBand, and the literal for ?targetTime with the desired values.)
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person ;
+          :bandMembership ?membership .
+  ?membership :memberOf ?band ;
+              :hasRole ?role ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Only include results for the given person and band,
+  # and such that the target time falls within the membership period.
+  FILTER (
+      ?person = :TargetPerson &&
+      ?band = :TargetBand &&
+      xsd:date("2004-01-01") >= ?membershipStart &&
+      (
+        !bound(?membershipEnd) ||
+        xsd:date("2004-01-01") <= ?membershipEnd
+      )
+  )
+}
+ORDER BY ?membershipStart
+----------------------------------------------------------------
+
+This query assumes a closed‐world view (i.e. if no membershipEnd is provided, the membership is still current) and directly “reifies” the membership information in a dedicated class (here :Cl_BandMembership or analogous reified membership instance) so that we can filter roles by a given point in time.

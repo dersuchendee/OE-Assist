@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the songs performed in a given performance (for example, “Performance1”) using the ontology’s modeling of Performance, PerformanceSong, and Song entities:
+
+------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?song ?songCompositionDate
+WHERE {
+  ?ps a :Cl_PerformanceSong ;
+      :performedIn ?performance ;
+      :performedSong ?song .
+  OPTIONAL { ?song :compositionDate ?songCompositionDate . }
+  FILTER(?performance = :Performance1)
+}
+------------------------------------------------------------------
+
+This query leverages the reified structure of performance songs to extract the songs played in a specific performance, thereby demonstrating that the competency question “What songs were played in a certain performance?” is modeled by the ontology.

@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that albums are connected via a reified release event (for example, using the property :hasReleaseDate which links an album to an album release event having a :releaseDate), you can extract the release date for a given album with the following SPARQL query:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumName ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :albumName ?albumName .
+  ?album :hasReleaseDate ?releaseEvent .
+  ?releaseEvent :releaseDate ?releaseDate .
+  FILTER(?albumName = "Stadium Arcadium")
+}
+---------------------------------
+
+This query demonstrates that the competency question “When was a certain album released?” is answerable using the ontology under the closed world assumption.

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?ecosystem ?ecosystemLabel ?process ?processLabel
+WHERE {
+  ?ecosystem a :BeechForestEcosystem .
+  ?ecosystem :hasMajorProcess ?process .
+  ?process :isPartOf :NitrogenCycle .
+  OPTIONAL { ?ecosystem rdfs:label ?ecosystemLabel . }
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+```

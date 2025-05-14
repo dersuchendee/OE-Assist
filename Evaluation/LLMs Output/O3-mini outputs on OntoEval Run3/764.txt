@@ -1,0 +1,16 @@
+**No**
+
+Although the ontology does include a class for records (:Cl_Record) along with a property (:hasTrack) linking a record to a reified “record track” (:Cl_RecordTrack), it does not enforce the constraint that every record must have at least one track (for example via a minimum cardinality restriction). Under a closed‐world assumption you can write a query to check for records that do not have any associated track. For instance, the following SPARQL query returns those records that violate the “always contains at least one track” expectation:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record
+WHERE {
+  ?record rdf:type :Cl_Record .
+  FILTER NOT EXISTS {
+    ?record :hasTrack ?recordTrack .
+  }
+}
+
+If this query returns any records, then the CQ is not fully satisfied by the ontology.

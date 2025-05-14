@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to relate a region to a country. In particular, regions (of type :Cl_Region) are connected by the property :regionCountry to an intermediate class (e.g. a region’s country wrapper, :Cl_RegionCountry) which in turn links via the property :countryOfRegion to a country (of type :Cl_Country). Under the closed‐world assumption, we can assume that these links present in the data are all we need to answer the question.
+
+A SPARQL query to extract the answer is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  
+  ?region :regionCountry ?regionCountry .
+  ?regionCountry :countryOfRegion ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+} 
+
+This query retrieves each region and its corresponding country by following the chain of properties defined in the ontology.

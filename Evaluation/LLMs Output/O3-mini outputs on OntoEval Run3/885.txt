@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific union (here represented as ?union, which you can replace with a concrete URI) and a specific point in time (e.g. "2002-01-01T00:00:00"^^xsd:dateTime), retrieves the employees (i.e. union members) associated in the union membership reification:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?employee ?employeeLabel
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion ?union ;
+              :hasEmployee ?employee ;
+              :hasTimePoint ?timePoint .
+  ?timePoint :timeValue ?time .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  FILTER(?union = <http://www.example.org/test#YourUnionURI>
+         && ?time = "2002-01-01T00:00:00"^^xsd:dateTime)
+}
+----------------------------------------------------
+
+In this query, replace <http://www.example.org/test#YourUnionURI> with the URI of the specific union you are interested in and adjust the time literal as needed. This demonstrates that the ontology models the CQ by reifying union membership (via :Cl_UnionMembership connecting a union, an employee, and a time point) so that the answer can be directly extracted under a closed world assumption.

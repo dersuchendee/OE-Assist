@@ -1,0 +1,36 @@
+**Yes**
+
+Below is an example SPARQL query that—given a band name and a time point—retrieves the persons who are members of that band at that time. (In this query we assume that the membership information is modelled via individuals of the reification class Cl_BandMembership that are linked to a band via :hasMember and to a time point via :memberOfDuring. Replace the band label and the time literal as needed.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipTime
+WHERE {
+  # Select the given band (e.g. “Red Hot Chili Peppers”)
+  ?band a :Cl_Band ;
+        rdfs:label "Red Hot Chili Peppers" .
+  
+  # Get the band membership reification instance from the band
+  ?band :hasMember ?membership .
+  ?membership a :Cl_BandMembership ;
+              :memberOfDuring ?membershipTime .
+
+  # Applying closed‐world assumption: assume the membershipTime equals the given time point;
+  # adjust the literal below as needed.
+  FILTER(?membershipTime = "2005-01-01"^^xsd:date)
+  
+  # Because Cl_BandMembership is also a subclass of Cl_Person, we can retrieve label info
+  ?membership rdfs:label ?personLabel .
+
+  # Optionally, bind the membership instance as the person individual.
+  BIND(?membership AS ?person)
+}
+ORDER BY ?personLabel
+
+Explanation:
+– The query starts by selecting the band (here identified by label "Red Hot Chili Peppers").
+– It then retrieves the associated membership instances via the property :hasMember.
+– Because each membership is modelled as an instance of Cl_BandMembership (which is also a Cl_Person and carries temporal information via :memberOfDuring), we can filter using a given time (here "2005-01-01").
+– Finally, it returns the person (i.e. the band membership instance) and its label.

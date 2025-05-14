@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that individual productions are linked via the ratedBy property to a reified rating instance (of type Cl_NewspaperRating) which carries the starRating as a data property—and that the newspaper in question is identified via its rdfs:label—you can write a query such as:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?prodLabel ?starRating
+WHERE {
+  ?production a :Cl_Production ;
+              :ratedBy ?rating .
+  ?rating a :Cl_NewspaperRating ;
+          :starRating ?starRating ;
+          rdfs:label ?newspaperLabel .
+  FILTER(?newspaperLabel = "Il Gazzettino")
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+}
+---------------------------------
+
+This query retrieves each production that has a rating provided by the newspaper “Il Gazzettino” (which you can replace with any specific newspaper name) and extracts the starRating associated with it.

@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the “song” is represented (for example as an instance of :Cl_Song) and its composition date is linked via a property (such as :hasCompositionDate or :dp_compositionDate), we can extract the information with a SPARQL query. For instance, if we assume that the song “Hump de Bump” has a label and a composition date provided in the ontology, one possible query is:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song ;
+        rdfs:label ?songName ;
+        :hasCompositionDate ?compositionDate .
+  FILTER(lcase(str(?songName)) = "hump de bump")
+}
+------------------------------------------------------------
+
+Under the closed world assumption, we consider only the explicitly stated facts. This query returns the composition date for the song “Hump de Bump” and thus shows that the competency question “When was a certain song composed?” is answerable based on the ontology design.

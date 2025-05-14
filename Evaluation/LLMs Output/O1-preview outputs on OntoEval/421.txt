@@ -1,0 +1,14 @@
+**No**
+
+```sparql
+SELECT ?person ?name ?bandName
+WHERE {
+  ?band a :Cl_MusicGroup ;
+        :hasMember ?person ;
+        :hasName ?bandName .
+  ?person a :Cl_Musician ;
+          :hasName ?name .
+}
+```
+
+The ontology does not include information about which instruments a person plays. The property connecting persons to instruments (`:playsInstrument`) or an instrument class (`:Cl_Instrument`) is not present in the ontology. Therefore, we cannot fully answer the competency question "What instruments does a certain person play?" However, we can extract partial information about musicians and the music groups they are members of.

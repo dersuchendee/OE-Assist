@@ -1,0 +1,16 @@
+**No**
+
+Since there are no individual instances of `:AquiferEcosystem` or `:MicrobialFunctionalGuild` in the ontology, we cannot retrieve specific microbial functional guilds present in a specific aquifer ecosystem. Under the closed world assumption, we lack the necessary data to fully answer the competency question.
+
+However, here's a SPARQL query that would retrieve the desired information if individual data were present:
+
+```sparql
+SELECT ?aquiferEcosystem ?guild ?guildLabel
+WHERE {
+  ?aquiferEcosystem a :AquiferEcosystem .
+  ?aquiferEcosystem :hasFunctionalGuild ?guild .
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+}
+```
+
+This query selects aquifer ecosystems and their associated microbial functional guilds. It would provide the answer if the ontology included instances of aquifer ecosystems and their functional guild associations.

@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+```

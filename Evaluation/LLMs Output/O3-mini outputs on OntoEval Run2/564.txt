@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific track (identified by its IRI), returns the song it is a recording of:
+
+───────────────────────────── 
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?track ?trackTitle ?song ?songTitle
+WHERE {
+  ?track a :Track ;
+         :trackTitle ?trackTitle ;
+         :isRecordingOf ?song .
+  ?song :songTitle ?songTitle .
+  # Replace <SPECIFIC_TRACK_IRI> with the IRI of the track you are interested in:
+  FILTER(?track = <SPECIFIC_TRACK_IRI>)
+}
+───────────────────────────── 
+
+This query is answerable because the ontology models the relationship between a Track and the Song it is a recording of using the property :isRecordingOf, and the closed world assumption allows us to assume only the explicitly stated triples exist.

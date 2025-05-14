@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example of a SPARQL query that extracts, for each play and its name, the time period (as a literal value) during which the play was written.
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  ?play :writtenDuring ?writtenPeriod .
+  ?writtenPeriod :timePeriod ?timePeriod .
+}
+ORDER BY ?playName
+---------------------------------
+
+This query shows that the competency question "During what time period was a certain play written?" is answerable using the provided ontology.

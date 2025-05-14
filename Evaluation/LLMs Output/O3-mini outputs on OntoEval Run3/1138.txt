@@ -1,0 +1,33 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves each user’s interaction context (whether they are standing or walking) along with the corresponding weather output channel (graphics if standing, audio if walking). This query leverages the reification class Cl_UserLocationInteraction to “pivot” between the user’s context and the weather’s presentation links.
+
+-----------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?interaction ?weather 
+       (IF(?isStanding, "Graphics", IF(?isWalking, "Audio", "Unknown")) AS ?presentationMethod)
+       (COALESCE(?graphicsOutput, ?audioOutput) AS ?presentationChannel)
+WHERE {
+  ?interaction a :Cl_UserLocationInteraction ;
+               :interactsWith ?user ;
+               :interactionOutput ?weather .
+  OPTIONAL { ?interaction :isStanding ?isStanding . FILTER(?isStanding = true) .
+             ?weather :hasOutput ?graphicsOutput }
+  OPTIONAL { ?interaction :isWalking ?isWalking . FILTER(?isWalking = true) .
+             ?weather :hasAudioOutput ?audioOutput }
+}
+ORDER BY ?user
+-----------------------------
+
+Explanation:
+• We start from instances of Cl_UserLocationInteraction.
+• For each interaction, we obtain the related user (?user) via :interactsWith and the associated weather instance via :interactionOutput.
+• If the interaction indicates “isStanding” true then we join to the graphics output (via :hasOutput) and label the presentation method "Graphics".
+• Likewise, if “isWalking” is true we join to the audio output (via :hasAudioOutput) and label it "Audio".
+• The IF and COALESCE functions determine which presentation method and channel are used based on the user’s context. 
+
+This query fully answers the competency question by extracting how the weather content should be presented based on the user's current context.

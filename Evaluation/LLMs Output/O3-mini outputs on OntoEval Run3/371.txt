@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that finds the employment start date (the time the actor started working for the theatre) by using the reified employment event. In this pattern the actor has an employment event via the property :isEmployedAt and the employment event is also (by reification) an instance of the theatre. (Replace <ActorIRI> and <TheatreIRI> with the actual IRIs.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :isEmployedAt ?employment .
+  ?employment a :Cl_Employment ;
+              :employmentStartDate ?employmentStartDate ;
+              a :Cl_Theatre .  # using reification: the employment is also a theatre instance.
+  ?theatre a :Cl_Theatre .
+  FILTER(?actor = <ActorIRI> && ?theatre = <TheatreIRI>)
+}
+
+This query demonstrates that the competency question “At what time did a certain actor start working for a specific theatre?” is answerable with the provided ontology under a closed‐world assumption.

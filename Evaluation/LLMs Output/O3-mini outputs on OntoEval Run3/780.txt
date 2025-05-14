@@ -1,0 +1,16 @@
+**Yes**
+Below is an example SPARQL query that retrieves the medical degrees (along with their names and dates) for a given person (here using Pasquale_Di_Gennaro as an example):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeName ?degreeDate
+WHERE {
+  :Pasquale_Di_Gennaro :hasMedicalDegree ?personMedicalDegree .
+  ?personMedicalDegree :degreeOf ?degree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+  OPTIONAL { ?degree :degreeDate ?degreeDate . }
+}
+
+This query uses the closed world assumption on the ontology (i.e. only explicitly asserted facts are returned) and extracts the answer to the CQ "Which medical degrees does a certain person have?"

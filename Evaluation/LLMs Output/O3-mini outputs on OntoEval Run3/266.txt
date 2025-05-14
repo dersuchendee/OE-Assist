@@ -1,0 +1,15 @@
+**Yes**
+Below is one possible SPARQL query that answers the question by returning, for a given play (e.g., “The Merchant of Venice”), the time period during which it was written:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?writtenPeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :writtenDuring ?writtenPeriod .
+  # Optionally restrict to a specific play (e.g., The Merchant of Venice)
+  FILTER(regex(str(?play), "Merchant", "i"))
+}
+
+This query extracts the play along with its associated value for the property “writtenDuring” using the closed world assumption.

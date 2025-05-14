@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the performances along with their locations (using the classes and properties defined in the ontology):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?location ?locationName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :tookPlaceAt ?location .
+  ?location :locationName ?locationName .
+}
+ORDER BY ?performance
+--------------------------------------------------
+
+This query shows that one can extract, for each performance defined in the ontology, the date of the performance and the name of the location where it took place. Hence the competency question (as implied by the provided story and ontology) is answerable by the ontology.

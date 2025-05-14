@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that extracts the premier date for productions as modelled in the ontology. In this query we assume a production premier individual is related to its production by :hasProduction and its premier date by :hasPremierDate, while the name of the production is given by the data property :productionName.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premierDate
+WHERE {
+  ?productionPremier a :Cl_ProductionPremier ;
+                      :hasProduction ?production ;
+                      :hasPremierDate ?premierDate .
+  ?production :productionName ?productionName .
+}
+ORDER BY ?productionName
+-----------------------------------------------------------
+
+This query shows that the competency question “When was the premier of a certain production?” is answerable from the ontology under a closed‐world assumption.

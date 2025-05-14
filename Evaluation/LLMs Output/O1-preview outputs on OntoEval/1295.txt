@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+SELECT ?musician1 ?m1StartYear ?m1EndYear ?musician2 ?m2StartYear ?m2EndYear
+WHERE {
+  ?musician1 a :Musician ;
+    :hasTimePeriod ?timePeriod1 .
+  ?timePeriod1 :startYear ?m1StartYear ;
+    :endYear ?m1EndYear .
+
+  ?musician2 a :Musician ;
+    :hasTimePeriod ?timePeriod2 .
+  ?timePeriod2 :startYear ?m2StartYear ;
+    :endYear ?m2EndYear .
+
+  FILTER (?musician1 != ?musician2)
+  FILTER (?m1StartYear <= ?m2EndYear && ?m2StartYear <= ?m1EndYear)
+}
+```

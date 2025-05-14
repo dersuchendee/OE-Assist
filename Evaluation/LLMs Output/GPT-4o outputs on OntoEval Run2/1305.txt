@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to compare or analyze similarities/differences between compositions within a tune family based on a specific measure. The ontology defines classes and properties for compositions, tune families, measures, and measure types, but it lacks the necessary structure or properties to perform comparative analysis directly.
+
+Partial answer:
+```sparql
+SELECT ?composition ?measure ?measureValue
+WHERE {
+  ?composition a :Composition .
+  ?composition :belongsToTuneFamily :TuneFamilyX .
+  ?composition :hasMeasure ?measure .
+  ?measure :measureType :MeasureY .
+  ?measure :measureValue ?measureValue .
+}
+```

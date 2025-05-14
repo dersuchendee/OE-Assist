@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What is the user doing now?" can be answered by the ontology as it provides the necessary classes and properties to determine the user's current activity. The ontology includes the `:isPerforming` property that links a `:Person` to a `:ToothbrushingActivity`, which is the activity the user is currently engaged in.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?activity ?activityLabel
+WHERE {
+  :User :isPerforming ?activity .
+  OPTIONAL { ?activity rdfs:label ?activityLabel . }
+}
+```

@@ -1,0 +1,18 @@
+**Answer: No**
+
+The ontology does not associate roles with time periods, so we cannot determine a person's role in a band at a specific point in time. We can extract the person, their role, and the band, but without temporal information.
+
+**Partial SPARQL Query:**
+
+```sparql
+SELECT ?person ?personName ?band ?bandName ?role ?roleName
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :hasRole ?role .
+  ?role :roleInBand ?band .
+  
+  OPTIONAL { ?person rdfs:label ?personName . }
+  OPTIONAL { ?band rdfs:label ?bandName . }
+  OPTIONAL { ?role rdfs:label ?roleName . }
+}
+```

@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+SELECT ?person ?personName ?union ?unionName ?role ?roleTitle ?roleStartDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName. }
+  
+  ?person :hasUnionMembership ?membership .
+  ?membership :memberOf ?union .
+  OPTIONAL { ?union :unionName ?unionName . }
+  
+  ?membership :hasUnionRole ?role .
+  ?role :roleTitle ?roleTitle .
+  ?role :roleStartDate ?roleStartDate .
+
+  # Assuming a specific time is provided as "?time"
+  FILTER( xsd:date(?roleStartDate) <= xsd:date(?time) )
+}
+```
+
+This query retrieves the role (`?roleTitle`) that a particular person (`?person`) has within a certain union (`?union`) at a specified point in time (`?time`). It checks that the role's start date (`?roleStartDate`) is before or equal to the given time. The ontology contains the necessary classes (`Cl_Person`, `Cl_UnionMembership`, `Cl_UnionRole`) and properties (`hasUnionMembership`, `memberOf`, `hasUnionRole`, `roleStartDate`) to support this query.

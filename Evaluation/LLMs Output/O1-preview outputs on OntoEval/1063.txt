@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?article ?articleTitle ?seminar ?seminarTitle
+WHERE {
+  ?article rdf:type :Cl_Article .
+  ?article :presentedIn ?seminarPresentation .
+  ?seminarPresentation rdf:type :Cl_SeminarPresentation .
+  OPTIONAL { ?article rdfs:label ?articleTitle . }
+  OPTIONAL { ?seminarPresentation rdfs:label ?seminarTitle . }
+}
+```
+
+In this query, we retrieve all articles and their titles that were presented in seminars. The `:presentedIn` property connects `:Cl_Article` to `:Cl_SeminarPresentation`, which is a reified class combining both `:Cl_Seminar` and `:Cl_Article`. This allows us to answer the competency question by navigating through the ontology's structure.

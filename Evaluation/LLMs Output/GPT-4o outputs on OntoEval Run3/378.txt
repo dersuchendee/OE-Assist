@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not include any classes or properties that directly relate to roles, persons, or specific points in time within a theatre production. The ontology primarily focuses on events, locations, plays, theatre productions, and related concepts, but it lacks the necessary structure to model roles and their assignments to persons within a production at a specific time.
+
+Here's a SPARQL query to extract a partial answer, focusing on theatre productions and their related plays:
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :TheatreProduction .
+  ?production :productionOf ?play .
+}
+```
+
+This query retrieves theatre productions and the plays they are productions of, but it does not address roles, persons, or specific time points within the production.

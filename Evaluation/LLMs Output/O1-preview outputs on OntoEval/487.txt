@@ -1,0 +1,24 @@
+**Yes**
+
+The competency question is answerable because the ontology models the role of a person in a band at a specific point in time through the `:Cl_Membership` class. This class connects a person (`:Cl_Person`), a band (`:Cl_Band`), a role (`:Cl_Role`), and includes start and end dates (`:membershipStart`, `:membershipEnd`), allowing us to query for their role at a particular time.
+
+Here's the SPARQL query:
+
+```sparql
+SELECT ?roleName
+WHERE {
+  # Replace :Person1, :Band1, and "YYYY-MM-DD"^^xsd:date with the specific person, band, and date
+  VALUES (?person ?band ?queryDate) { (:Person1 :Band1 "YYYY-MM-DD"^^xsd:date) }
+  
+  ?person :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :membershipStart ?startDate .
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+  ?membership :hasRole ?role .
+  ?role :roleName ?roleName .
+  
+  FILTER ( ?queryDate >= ?startDate && ( !bound(?endDate) || ?queryDate <= ?endDate ) )
+}
+```
+
+Replace `:Person1`, `:Band1`, and `"YYYY-MM-DD"^^xsd:date` with the specific person, band, and date you're interested in. This query retrieves the role name that the person had in the band at the specified date by checking if the date falls within the membership's start and end dates.

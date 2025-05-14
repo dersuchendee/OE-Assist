@@ -1,0 +1,16 @@
+**Yes**
+
+The following SPARQL query extracts each city (of type :Cl_City) and the country in which it is located (using the :isLocatedIn property):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?country
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :isLocatedIn ?country .
+}
+--------------------------------------------------
+
+This query works under the closed world assumption since only explicitly stated facts (e.g. :Rome :isLocatedIn :Italy) will be returned as answers.

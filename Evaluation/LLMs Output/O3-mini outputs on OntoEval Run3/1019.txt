@@ -1,0 +1,14 @@
+**Yes**
+Below is a SPARQL query that retrieves the date for seminar events by selecting individuals of type Seminar and their associated date. In a closed‐world setting (i.e. considering only what is explicitly asserted), if a “certain seminar” is identified in the data you can add additional filters (e.g. by its identifier or properties), but in general this query extracts the seminar dates:
+
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/semanticscenario.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasDate ?date .
+  # Optionally, add filters here to select the intended seminar, for example:
+  # ?seminar rdfs:label "Specific Seminar Name" .
+}
+ORDER BY ?date

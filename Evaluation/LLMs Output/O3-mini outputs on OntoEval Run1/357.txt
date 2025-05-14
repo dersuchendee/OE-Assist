@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, given an actor and a theatre, retrieves the employment (start) date from the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?employmentDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :hasEmployment ?employment .
+  ?employment :hasEmploymentDate ?employmentDate .
+  ?employment :isEmployedIn ?theatre .
+  
+  # Replace the following IRIs with the actual actor and theatre IRIs of interest:
+  FILTER (?actor = <http://www.example.org/test#FabioBianchi> &&
+          ?theatre = <http://www.example.org/test#SpecificTheatre>)
+}
+ORDER BY ?employmentDate
+--------------------------------------------------
+
+This query is based on the ontology where the employment of an actor is modelled via the property :hasEmployment (with range :Cl_ActorEmployment), from which the start date can be extracted using :hasEmploymentDate, and the associated theatre is given by :isEmployedIn.

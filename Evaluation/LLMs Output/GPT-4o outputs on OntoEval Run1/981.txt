@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the number of pages of a particular book. The ontology includes classes and properties related to books, articles, and publications, but it lacks a direct connection between a book and its number of pages. The `numberOfPages` property is associated with `Cl_BookDetails`, but there is no direct link from a book to its details in the ontology.
+
+Partial SPARQL query to extract available information about books:
+
+```sparql
+SELECT ?book ?details
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book :hasDetails ?details . }
+}
+```

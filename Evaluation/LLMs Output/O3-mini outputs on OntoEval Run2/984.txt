@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming the closed‐world interpretation (i.e. only the explicitly asserted page count is taken into account) and that our ontology includes a publication representing the book version (with a publicationType "Book" and a pageCount data property), the CQ "How many pages does a particular book contain?" can be directly answered.
+
+For example, if we want to retrieve the title and the page count of the book with a known title (such as the one in the story), you can use the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publicationTitle ?pageCount
+WHERE {
+  ?pub a :Cl_Publication ;
+       :publicationType "Book" ;
+       :publicationTitle ?publicationTitle ;
+       :pageCount ?pageCount .
+  FILTER(CONTAINS(LCASE(?publicationTitle), "nurse practices in cancer patient care"))
+}
+--------------------------------------------------
+
+This query looks for individuals of type Cl_Publication that are annotated as a "Book", retrieves their title and page count, and filters for the publication whose title (in lowercase) contains "nurse practices in cancer patient care" (as described in the story).

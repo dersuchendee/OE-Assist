@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology includes a class Cl_Seminar along with a restriction stating that every seminar must have at least one value for the property “presentedIn” whose value is an instance of Cl_Article. For example, the restriction
+
+  Cl_Seminar owl:equivalentClass [
+    owl:onProperty :presentedIn ;
+    owl:someValuesFrom :Cl_Article
+  ]
+
+ensures that every seminar is connected via :presentedIn to at least one article. Under the closed world assumption we consider that only explicitly stated triples hold.
+
+A SPARQL query to retrieve seminars and their presented articles is:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :presentedIn ?article .
+  ?article a :Cl_Article .
+}
+------------------------------------------------------------
+
+This query returns only those seminar instances that indeed have at least one article presented according to the ontology.

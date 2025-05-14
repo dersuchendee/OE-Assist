@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that uses the reified membership information (via Cl_EnsembleMembership along with its membershipStartDate and membershipEndDate data properties) to return the actors (members) of a given ensemble that were active at a specified point in time. (Replace :TargetEnsemble with the IRI of the ensemble you are querying, and adjust "2020-01-01" with the desired date.) 
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_EnsembleMembership ;
+              :membershipOf :TargetEnsemble ;
+              :member ?member ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  ?member :hasName ?memberName .
+  
+  # Filter: Only include membership valid at the given point in time
+  FILTER(
+    xsd:date("2020-01-01") >= ?membershipStartDate &&
+    ( !bound(?membershipEndDate) || xsd:date("2020-01-01") <= ?membershipEndDate )
+  )
+}
+ORDER BY ?memberName
+--------------------------------------------------
+
+This query answers the competency question “Who are the members of a certain ensemble at a certain point in time?” by selecting ensemble memberships for a given ensemble and filtering them based on the membership validity dates.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the name and time period (start and end dates) for a festival (e.g. "Roma Loves Shakespeare"):
+
+-------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?name ?startDate ?endDate
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :hasName ?name .
+  ?festival :takesPlaceDuring ?period .
+  ?period :hasStartDate ?startDate .
+  ?period :hasEndDate ?endDate .
+  FILTER(?name = "Roma Loves Shakespeare")  # adjust filter as needed
+}
+-------------------------------------------------
+
+This query demonstrates that the ontology models the temporal information for a theatre festival, making the competency question answerable.

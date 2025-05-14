@@ -1,0 +1,30 @@
+**Yes**
+
+Assuming that the membership information is reified via a band‐membership class (here :Cl_BandMembership) that links a band, a person, and a time period (with properties such as :membershipPeriod referring to a reified time period that has start/end data), you can answer the CQ “What are the members of a certain band at a certain point in time?” with a query such as the following. (Here the band is given by its URI and the time point is provided as the parameter ?givenTime – note that the query assumes that the time period instances have properties (for example, :hasStart and :hasEnd) that mark the validity period of the membership.)
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel ?band ?bandLabel ?membership ?timePeriod ?start ?end
+WHERE {
+  ?band a :Cl_Band ;
+        rdfs:label ?bandLabel ;
+        :hasMember ?membership .
+  ?membership a :Cl_BandMembership ;
+              :memberOf ?member ;
+              :membershipPeriod ?timePeriod .
+  ?member rdfs:label ?memberLabel .
+  ?timePeriod :hasStart ?start ;
+              :hasEnd ?end .
+
+  # Replace the band URI and givenTime below with the desired values:
+  FILTER(?band = <http://www.example.org/test#RedHotChiliPeppers>)
+  FILTER(xsd:dateTime(?start) <= xsd:dateTime("2004-09-01T00:00:00") &&
+         xsd:dateTime("2004-09-01T00:00:00") <= xsd:dateTime(?end))
+}
+ORDER BY ?memberLabel
+----------------------------------------------------------
+
+Under the closed‐world assumption this query returns the members of the given band that were recorded as being in its membership at the specified point in time.

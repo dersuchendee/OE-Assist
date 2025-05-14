@@ -1,0 +1,29 @@
+**Yes**
+
+The CQ is answerable with the ontology. The ontology models band membership with temporal information via the reified membership (using ns1:hasMembership and ns1:memberDuring) while linking a person (who has a role via ns1:hasRole) to a band (via ns1:membershipInBand). Hence, given a person, a band, and a specific date, we can check if that date lies within the membership’s time interval and then retrieve the role of that person.
+
+For example, assuming we supply the IRI for the person, the band, and a date (here “?inputTime”), the following SPARQL query returns the person’s role provided that the input time falls within the membership’s begin and end dates:
+
+———————————————————————————————
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?membership ?beginDate ?endDate
+WHERE {
+  ?person a ns1:Person ;
+          ns1:hasRole ?role ;
+          ns1:hasMembership ?membership .
+  ?membership ns1:membershipInBand ?band ;
+              ns1:memberDuring ?interval .
+  ?interval ns1:hasBeginDate ?beginDate ;
+            ns1:hasEndDate ?endDate .
+  
+  # Replace the following IRIs and date literal with input parameters:
+  FILTER(?person = <http://www.example.org/ontology/music#AnthonyKiedis>)
+  FILTER(?band = <http://www.example.org/ontology/music#RedHotChiliPeppers>)
+  FILTER("2005-01-01"^^xsd:date >= ?beginDate && "2005-01-01"^^xsd:date <= ?endDate)
+}
+ORDER BY ?person
+———————————————————————————————
+
+This query uses the closed world assumption (i.e. only the stated knowledge is assumed) and retrieves the role of the given person in the specified band at the specified date.

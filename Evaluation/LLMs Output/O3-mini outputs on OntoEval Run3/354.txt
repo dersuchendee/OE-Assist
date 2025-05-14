@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :employment_actor ?actor ;
+              :employment_theatre ?theatre ;
+              :employment_start_date ?startDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  # To target a specific actor and theatre, you can add FILTER clauses, e.g.:
+  # FILTER(?actor = :FabioBianchi && ?theatre = :SpecificTheatre)
+}
+ORDER BY ?startDate
+```

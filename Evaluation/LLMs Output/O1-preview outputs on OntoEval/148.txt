@@ -1,0 +1,14 @@
+Answer: **Yes**
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreName ?city ?cityName
+WHERE {
+  ?theatre rdf:type :Theatre .
+  OPTIONAL { ?theatre :hasName ?theatreName . }
+  ?theatre :hasLocation ?city .
+  OPTIONAL { ?city :hasName ?cityName . }
+}
+```

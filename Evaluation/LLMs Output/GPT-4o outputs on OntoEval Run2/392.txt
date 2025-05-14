@@ -1,0 +1,18 @@
+**No**
+
+The ontology provided does not contain any direct classes or properties that relate to roles, persons, productions, or time in a way that would allow us to directly query for the roles a person has within a production at a certain point in time. The ontology seems to be more focused on theatre festivals, locations, plays, and other related concepts, but not specifically on roles within productions.
+
+However, we can attempt to extract partial information related to productions and roles, but it will not be complete or directly answer the competency question.
+
+```sparql
+SELECT ?person ?role ?production
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRoleInProduction ?roleInProduction .
+  ?roleInProduction :roleName ?role .
+  ?roleInProduction a :Cl_ProductionRole .
+  ?roleInProduction a :Cl_Production .
+}
+```
+
+This query attempts to find persons and their roles in productions, but it does not include the time aspect or specific productions due to the lack of such information in the ontology.

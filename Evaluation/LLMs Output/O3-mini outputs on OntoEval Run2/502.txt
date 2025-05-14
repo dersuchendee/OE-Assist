@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?album ?recordingStartDate ?recordingEndDate
+WHERE {
+  ?album a :Cl_Album ;
+         :recordedDuring ?session .
+  ?session :recordingStartDate ?recordingStartDate ;
+           :recordingEndDate ?recordingEndDate .
+  # Optionally restrict to a specific album, e.g., StadiumArcadium:
+  FILTER(?album = :StadiumArcadium)
+}
+```

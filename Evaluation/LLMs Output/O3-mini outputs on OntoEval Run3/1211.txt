@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that answers the CQ. It retrieves, for a given tune family X and a given similarity measure Y, the target tune families that are related:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?targetTuneFamily ?targetLabel
+WHERE {
+  # Given instances for tune family X and similarity measure Y
+  :tuneFamilyX a :TuneFamily .
+  :similarityMeasureY a :SimilarityMeasure .
+  
+  # Find SimilarityRelation where tuneFamilyX is the source and the relation uses similarityMeasureY
+  ?relation a :SimilarityRelation ;
+            :hasSourceTuneFamily :tuneFamilyX ;
+            :hasSimilarityMeasure :similarityMeasureY ;
+            :hasTargetTuneFamily ?targetTuneFamily .
+  
+  OPTIONAL { ?targetTuneFamily rdfs:label ?targetLabel . }
+}
+------------------------------------------------
+
+In a closed world setting (i.e. assuming no unstated facts), this query correctly extracts the answer to the CQ "To what tune families is tune family X related, given similarity measure Y?"

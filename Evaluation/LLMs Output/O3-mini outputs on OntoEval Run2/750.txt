@@ -1,0 +1,15 @@
+**Yes**
+Below is one possible SPARQL query. Under the closed‐world assumption, if every record (an instance of Cl_Album) has at least one track (via the property :containsTrack), then the query below should return no “violating” album. (An empty result set confirms that each record contains at least one track.)
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album 
+WHERE {
+  ?album rdf:type :Cl_Album .
+  FILTER NOT EXISTS { ?album :containsTrack ?track . }
+}
+—————————————————————————————
+
+If this query returns no results, it confirms that every record (album) has at least one track, thus modeling the competency question.

@@ -1,0 +1,19 @@
+**No**
+
+Although the ontology describes a CO2Fixation process that is constrained to be “influenced by” some Environmental Condition, it does not provide instance‐level assertions (or further axiomatisation) linking specific environmental conditions such as SoilMoisture or pH to CO2Fixation events in groundwater ecosystems. Under the closed world assumption, we cannot infer that the subclasses of EnvironmentalCondition (e.g., SoilMoisture, pH) are indeed the ones influencing CO2Fixation. Therefore, we can only partially answer the competency question by retrieving the EnvironmentalCondition that appears in the restriction on CO2Fixation.
+
+A SPARQL query to extract this partial information is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?condition ?conditionLabel
+WHERE {
+  :CO2Fixation rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :influencedBy ;
+               owl:someValuesFrom ?condition .
+  OPTIONAL { ?condition rdfs:label ?conditionLabel . }
+}
+
+This query returns the Environmental Condition referenced in the owl:Restriction for CO2Fixation but does not resolve which specific environmental conditions (like SoilMoisture or pH) are actually used, hence only a partial answer to the CQ.

@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology includes a restriction on the `:Production` class that ensures each production is associated with exactly one premiere. This can be verified using the following SPARQL query:
+
+```sparql
+SELECT ?production ?premiere
+WHERE {
+  ?production a :Production .
+  ?production :hasPremiere ?premiere .
+}
+```

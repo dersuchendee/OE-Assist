@@ -1,0 +1,27 @@
+**Yes**
+
+The competency question is answerable because the ontology contains the necessary classes and properties to retrieve nitrogen leaching observations in forest ecosystems, along with their associated soil types and leaching rates. Specifically, the ontology defines:
+
+- `:NitrogenLeachingObservation` instances that occur in `:ForestEcosystem` (by class restriction).
+- Each observation is associated with a `:SoilType` via `:hasSoilType`.
+- Each observation has a nitrogen leaching rate via `:hasNitrogenLeachingRate`.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?soilType ?soilTypeLabel ?leachingRate
+WHERE {
+  ?observation a :NitrogenLeachingObservation .
+  
+  ?observation :hasSoilType ?soilType .
+  OPTIONAL { ?soilType rdfs:label ?soilTypeLabel . }
+  
+  ?observation :hasNitrogenLeachingRate ?leachingRate .
+}
+ORDER BY ?soilType
+```
+
+This query retrieves the soil types and corresponding nitrogen leaching rates from the observations, allowing analysis of how nitrogen leaching varies across different soil types in forest ecosystems.

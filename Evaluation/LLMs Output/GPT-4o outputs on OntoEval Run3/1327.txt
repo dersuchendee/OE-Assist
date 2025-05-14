@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes the necessary classes and properties to model the concept of carbon fixation forms occurring in forest soils and being part of the carbon cycling process. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?carbonFixationForm
+WHERE {
+  ?carbonFixationForm a :CarbonFixationForm .
+  ?carbonFixationForm :occursIn :ForestSoil .
+  ?carbonFixationForm :partOfProcess :CarbonCycling .
+}
+```

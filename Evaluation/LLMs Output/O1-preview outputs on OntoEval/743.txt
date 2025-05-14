@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "A record always contains at least one track" is supported by the ontology. The ontology defines an `Album` as having a minimum cardinality of 1 on the property `:hasTrack`, which means every instance of `Album` must have at least one associated `Track`. Under the closed-world assumption, this ensures that all albums contain at least one track.
+
+Here's a SPARQL query to retrieve all albums and their tracks, confirming that each album has at least one track:
+
+```sparql
+PREFIX : <http://www.example.org/ontology/musicproduction#>
+
+SELECT ?album ?albumLabel ?track ?trackLabel
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+
+  ?album :hasTrack ?track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+}
+```
+
+This query selects all instances of `Album` and their associated `Track` instances, along with any labels if available. Since the ontology specifies that every album must have at least one track, this query will retrieve all albums with their tracks, demonstrating that the competency question is satisfied by the ontology.

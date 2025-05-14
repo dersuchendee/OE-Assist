@@ -1,0 +1,21 @@
+**No**
+
+The ontology provides classes for books, CDs, article collections, and articles, and it defines the property “containsArticle” on article collections, but it does not include an explicit relationship linking a book or CD directly to an article collection. In other words, we cannot automatically “compose” a book or CD from articles because the intended connection (e.g. that a specific book or CD “hasArticleCollection” or is itself the article collection) is missing. Under the closed world assumption this means the CQ is only partially answerable.
+
+A partial SPARQL query that extracts the available article collections and their articles is shown below:
+
+────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection a :Cl_ArticleCollection .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  ?collection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?collection ?article
+────────────────────────────────────────────
+
+This query returns article collections and the articles they contain, but it does not link them to a specific book or CD because such a relation is not present in the ontology.

@@ -1,0 +1,13 @@
+**No**
+```sparql
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Since the ontology does not define any property to indicate which foundry cast a bell,
+# we can only retrieve the bells (a partial answer).
+SELECT ?bell ?label
+WHERE {
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?label . }
+}
+```

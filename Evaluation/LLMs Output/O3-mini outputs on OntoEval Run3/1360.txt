@@ -1,0 +1,12 @@
+**No**
+
+The current ontology does not explicitly model “sources” of the project that an organ is involved in. We can retrieve the projects describing the organ (using the isDescribedBy relation defined as a restriction on the Organ class), but we cannot extract any further “source” information from the ontology. A partial SPARQL query that answers part of the competency question is shown below:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?project
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+}

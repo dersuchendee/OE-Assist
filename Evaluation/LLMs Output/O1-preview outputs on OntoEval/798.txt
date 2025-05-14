@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide sufficient information to retrieve the time period during which a person studied for a specific degree. Specifically, there is no direct property connecting the `:Cl_PersonDegreeStudy` to a specific `:Cl_MedicalDegree`, which is necessary to answer the competency question fully.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?studyPeriod
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedFor ?study .
+  ?study a :Cl_PersonDegreeStudy .
+  ?study :studyPeriod ?studyPeriod .
+}
+```
+
+This query retrieves persons and their study periods, but it does not associate the study period with a specific degree due to the missing linkage in the ontology.

@@ -1,0 +1,27 @@
+**No**
+
+The CQ asks: "Which is the context of production of a source?" However, the provided ontology does not define any property linking the class :Source to the class :ContextOfProduction (or any similar construct). Although there is a relation between :Organ and :ContextOfProduction via :hasContextOfProduction, there is no modeled connection between a source and its context of production. Therefore, we can only produce a partial answer by retrieving sources (and, where available, any connection via a non‐existing property).
+
+Below is a SPARQL query that retrieves all :Source instances and, if by chance any triple exists using a property (e.g. :hasContextOfProduction) even though it is not defined in the ontology for :Source, it will show the context details. This query thus provides a partial answer under a closed-world assumption:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?context ?location ?time ?builder
+WHERE {
+  ?source a :Source .
+  OPTIONAL {
+    ?source :hasContextOfProduction ?context .
+    OPTIONAL { ?context :hasProductionLocation ?location . }
+    OPTIONAL { ?context :hasProductionTime ?time . }
+    OPTIONAL { ?context :producedBy ?builder . }
+  }
+}
+
+--------------------------------------------------
+
+Since the ontology lacks the necessary connection, the CQ cannot be fully answered using the current model.

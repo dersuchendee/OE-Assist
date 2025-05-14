@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate specific data with a particular point in time for an energy flow. The ontology defines the classes and properties but does not include instances or specific data points that can be queried. Therefore, a partial answer can be extracted by identifying energy flows and their associated data and time points, but not the specific data at a given time.
+
+```sparql
+SELECT ?energyFlow ?data ?timePoint
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  ?energyFlow :hasData ?data .
+  ?energyFlow :atTime ?timePoint .
+}
+```

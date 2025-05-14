@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, extracts for each person the study period (start and end dates) during which they studied for a particular degree:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeTitle ?studyStart ?studyEnd
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+  
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStart .
+  ?studyPeriod :studyEndDate ?studyEnd .
+}
+ORDER BY ?person ?degree
+--------------------------------------------------
+
+This query retrieves, for each person and each of their medical degrees, the associated study period including the start and end dates.

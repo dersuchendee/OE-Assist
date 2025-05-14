@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ using the ontology. Under the closed world assumption the ontology explicitly states that cities (instances of Cl_City) are linked to regions (instances of Cl_Region) via the property locatedIn. For instance, in our ontology we have that :Portland (a Cl_City) is located in :Oregon (a Cl_Region).
+
+A SPARQL query to extract the region for a particular city (or all cities) could be:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedIn ?region .
+}
+-------------------------------------------------
+
+This query returns, for each city in the ontology, the region where it is located.

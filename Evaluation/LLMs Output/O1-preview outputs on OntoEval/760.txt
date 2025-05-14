@@ -1,0 +1,10 @@
+**No**
+
+```sparql
+SELECT ?record (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?record a :Cl_Record .
+  OPTIONAL { ?record :containsTrack ?track . }
+}
+GROUP BY ?record
+```

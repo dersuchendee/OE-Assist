@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the publication date of a book (or CD) by retrieving the publication date from a publication that is linked (via the property “publishedAs”) to a book (or CD):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?pubDate
+WHERE {
+  ?publication a :Cl_Publication ;
+               :publicationDate ?pubDate ;
+               :publishedAs ?book .
+  ?book a :Cl_Book .
+  # Optionally, if you want to restrict to a specific title, uncomment the next line:
+  # ?book :bookTitle "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" .
+}
+
+This query extracts the answer to the competency question “When was a certain book or CD published?” from the ontology (under closed world assumption).

@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that uses the reified track‐count information on an album:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumName ?trackCount
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  OPTIONAL { ?album :hasName ?albumName . }
+
+  ?album :hasTrackCount ?trackInfo .
+  ?trackInfo :hasTrackCount ?trackCount .
+}
+--------------------------------------------------
+
+Under the closed world assumption, this query extracts the declared number of tracks for each album (such as “Stadium Arcadium” having 28 tracks), which answers the competency question.

@@ -1,0 +1,21 @@
+**Yes**
+  
+Below is a SPARQL query that, under the closed‐world assumption, extracts the link between a ForestSoilComposition and the CO2FixationProcess (and, when available, the associated Role):
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?forestSoil ?process ?role
+WHERE {
+  ?forestSoil a :ForestSoilComposition .
+  ?forestSoil :playsRoleIn ?process .
+  ?process a :CO2FixationProcess .
+  OPTIONAL {
+    ?process :associatedWithRole ?role .
+  }
+}
+---------------------------------------------------------
+
+This query shows that an instance of ForestSoilComposition is connected via :playsRoleIn to a CO2FixationProcess, and (optionally) that process is linked to a Role via :associatedWithRole, thereby answering the competency question "What role does forest soil composition play in the CO2 fixation process?"

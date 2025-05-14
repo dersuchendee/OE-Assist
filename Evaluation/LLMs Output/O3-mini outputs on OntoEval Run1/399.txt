@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, returns productions that have exactly one associated premier:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production a ns1:Production .
+  ?production ns1:hasPremier ?premier .
+}
+GROUP BY ?production ?premier
+HAVING (COUNT(?premier) = 1)
+
+This query shows that for each production there is exactly one associated premier (i.e. the cardinality constraint is satisfied), so the competency question is fully answerable by the ontology.

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide information about the units of measure for chemical measurements in water. The ontology defines a class `UnitOfMeasure` and a property `hasUnitOfMeasure`, but there is no instance data or further specification of what these units are. Therefore, a partial answer can be extracted by identifying chemical measurements and their associated units, if any, but the specific units themselves are not defined in the ontology.
+
+```sparql
+SELECT ?chemicalMeasurement ?unitOfMeasure
+WHERE {
+  ?chemicalMeasurement a :ChemicalMeasurement .
+  OPTIONAL { ?chemicalMeasurement :hasUnitOfMeasure ?unitOfMeasure . }
+}
+```

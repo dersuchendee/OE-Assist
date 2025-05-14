@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one example SPARQL query that returns the persons who are members of a given union at a specified time. (Here, you would replace the parameter values – the union URI and the target date – with the ones you are interested in.)
+
+---------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasMember ?person ;
+              :memberOf ?union ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Replace the union URI and the time parameter below with desired values
+  FILTER (?union = <http://www.example.org/test#SomeUnion>)
+  FILTER (
+    xsd:date("2003-10-15") >= ?start &&
+    ( !BOUND(?end) || xsd:date("2003-10-15") <= ?end )
+  )
+}
+---------------------------------------------
+
+In this query, we assume that a union membership is valid if the target date falls on or after the membership start date and either there is no set membership end date or the target date is before (or equal to) the end date. This adheres to a closed world view within the ontology.

@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?organ ?atTime ?from ?to
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasMovementEvent ?event .
+  ?event :atTime ?atTime .
+  ?event :fromLocation ?from .
+  ?event :toLocation ?to .
+  FILTER(?from != ?to)
+}
+ORDER BY ?organ ?atTime
+```

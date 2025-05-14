@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that describe microbial functional guilds, interactions, and aquifers. The SPARQL query to extract the answer is as follows:
+
+```sparql
+SELECT ?guild1 ?guild2 ?interaction ?aquifer
+WHERE {
+  ?interaction a :Interaction .
+  ?interaction :hasParticipant ?guild1 .
+  ?interaction :hasParticipant ?guild2 .
+  ?interaction :occursIn ?aquifer .
+  ?guild1 a :MicrobialFunctionalGuild .
+  ?guild2 a :MicrobialFunctionalGuild .
+  ?aquifer a :NutrientPoorAquifer .
+  FILTER(?guild1 != ?guild2)
+}
+```

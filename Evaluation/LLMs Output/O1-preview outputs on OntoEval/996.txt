@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?publication ?publicationDate
+WHERE {
+  {
+    ?publication a :Book .
+  }
+  UNION
+  {
+    ?publication a :CD .
+  }
+  ?publication :hasPublicationDate ?publicationDate .
+}
+```

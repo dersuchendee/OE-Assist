@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that productions and their newspaper‐ratings are modelled via the reified class :Cl_NewspaperRating (which is linked to productions using the property :ratedBy and carries a numeric value via the data property :starRating), you can extract the “star rating” given by a certain newspaper for a certain production. Under a closed‐world assumption, the following SPARQL query returns the production along with its associated star rating (optionally filtering by a given newspaper name if that information is available):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionName ?rating ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionName . }
+  
+  ?production :ratedBy ?rating .
+  ?rating a :Cl_NewspaperRating .
+  ?rating :starRating ?starRating .
+  
+  # If you want to filter for a certain newspaper (when a property such as newspaperName is present):
+  # ?rating :newspaperName "Il Gazzettino"^^xsd:string .
+}
+ORDER BY ?production
+
+This query shows that the ontology supports the competency question by allowing extraction of the star rating for productions as modelled by the reified class.

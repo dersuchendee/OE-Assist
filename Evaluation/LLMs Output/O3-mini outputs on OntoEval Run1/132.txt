@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves the plays featured in a given theatre festival. For example, assuming the festival of interest is represented by the individual :RomaLovesShakespeare2007, the query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :featuresPlay ?play .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+  
+  # Filter by a specific festival if needed (e.g., :RomaLovesShakespeare2007)
+  FILTER(?festival = :RomaLovesShakespeare2007)
+}
+
+This query is answerable from the ontology because the property :featuresPlay connects a theatre festival (or its reified subclass :Cl_FestivalPlay) to the plays shown at that festival.

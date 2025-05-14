@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?doctorName ?employeeName ?evaluationContent ?evaluationDate
+WHERE {
+  ?evaluationStatement rdf:type :Cl_EvaluationStatement .
+  ?evaluationStatement :hasWrittenStatement ?doctor .
+  ?evaluationStatement :evaluatesEmployee ?employee .
+  ?evaluationStatement :hasEvaluationContent ?evaluationContent .
+  ?evaluationStatement :hasEvaluationDate ?evaluationDate .
+  ?doctor rdf:type :Cl_Doctor .
+  ?employee rdf:type :Cl_Employee .
+  OPTIONAL { ?doctor :hasName ?doctorName . }
+  OPTIONAL { ?employee :hasName ?employeeName . }
+}
+```

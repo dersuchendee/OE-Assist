@@ -1,0 +1,30 @@
+**Yes**
+
+Assuming that the “specific person” and “specific degree” are identified (for example, via their URI or by filtering on a data property such as “degreeTitle”), you can retrieve the study period by leveraging the reified class Cl_PersonDegree (which carries the properties studyStartDate and studyEndDate). Here is an example SPARQL query that, under the closed‐world assumption (i.e. only considering explicitly asserted facts), retrieves the study period for a specific person and degree:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasDegree ?personDegree .
+  ?personDegree :degreeType ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?personDegree :studyStartDate ?studyStartDate .
+  ?personDegree :studyEndDate ?studyEndDate .
+
+  # Adjust the filters below for the specific person and degree of interest:
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  FILTER(str(?degreeTitle) = "Certified Nurse")
+}
+--------------------------------------------------
+
+In this query the assumption is that:
+– The individual representing the specific person (here, Pasquale Di Gennaro) is identified by a URI.
+– The degree’s title (e.g. "Certified Nurse") is used to filter the reified degree event.
+– The studyStartDate and studyEndDate properties are attached to the reification instance (?personDegree).
+
+This query fully answers the competency question by extracting the time period during which the person studied for that degree.

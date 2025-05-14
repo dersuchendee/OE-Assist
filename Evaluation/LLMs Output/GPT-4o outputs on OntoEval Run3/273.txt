@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a play was written. The ontology includes information about plays, authors, and time periods related to festivals and productions, but it does not explicitly link a play to the time period it was written. Here's a SPARQL query to extract a partial answer, focusing on the available time periods related to plays:
+
+```sparql
+SELECT ?play ?playName ?startDate ?endDate
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :playName ?playName .
+  OPTIONAL {
+    ?playTimePeriod rdf:type :Cl_PlayTimePeriod ;
+                    :hasPlay ?play ;
+                    :hasTimePeriod ?date .
+    ?date :festivalDate ?startDate, ?endDate .
+  }
+}
+```

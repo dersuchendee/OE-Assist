@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ because the ontology contains a reified employment record: an actor (of type Cl_Actor) is linked via the property hasEmployment to an employment instance (of type Cl_ActorEmployment) that carries an employment date (via the property hasEmploymentDate) and is linked to a theatre (via the property isEmployedIn). Assuming that “a certain actor” and “a specific theatre” are provided (or can be filtered later), the following SPARQL query extracts the employment start date for the actor in that theatre:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?employmentDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :hasEmployment ?employment .
+  ?employment :hasEmploymentDate ?employmentDate .
+  ?employment :isEmployedIn ?theatre .
+  # Optional filter: uncomment and adjust if you want to specify a particular actor or theatre
+  # FILTER(?actor = <http://www.example.org/test#SpecificActorURI>)
+  # FILTER(?theatre = <http://www.example.org/test#SpecificTheatreURI>)
+}
+ORDER BY ?actor ?employmentDate

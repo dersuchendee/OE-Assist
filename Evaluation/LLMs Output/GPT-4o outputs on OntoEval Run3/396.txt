@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology includes a class `Cl_Production` with a restriction that specifies it has exactly one `hasPremierEvent`. This aligns with the competency question.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?production
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierEvent ?premierEvent .
+}
+```

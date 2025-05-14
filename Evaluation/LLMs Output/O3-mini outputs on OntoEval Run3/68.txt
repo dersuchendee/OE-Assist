@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that “this resource” refers to any instance of the :Resource class, we can retrieve its descriptive information along with its properties (such as its type, material composition, and any process steps in which it is involved) using the following SPARQL query under the closed‐world assumption:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/ontology/circular_value_network#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?label ?comment ?resourceType ?composition ?processStep ?input ?output
+WHERE {
+  ?resource a :Resource .
+  OPTIONAL { ?resource rdfs:label ?label . }
+  OPTIONAL { ?resource rdfs:comment ?comment . }
+  OPTIONAL { ?resource :hasType ?resourceType . }
+  OPTIONAL { ?resource :hasComposition ?composition . }
+  OPTIONAL { ?resource :isUsedIn ?processStep . }
+  # If the resource is used within a process step, additionally return the input/output associations
+  OPTIONAL { ?processStep :hasInput ?input . }
+  OPTIONAL { ?processStep :hasOutput ?output . }
+}
+ORDER BY ?resource
+------------------------------------------------------------
+
+This query extracts the available information about each resource according to the given ontology, fulfilling the competency question "Give me information about this resource."

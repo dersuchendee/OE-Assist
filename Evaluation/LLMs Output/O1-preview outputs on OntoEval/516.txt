@@ -1,0 +1,24 @@
+**No**
+
+The ontology does not contain sufficient information to fully answer the competency question "How many tracks does a particular album contain?" Under the closed world assumption, the ontology only specifies one track (`Hump de Bump`) for the album `Stadium Arcadium`, and it does not specify that the album contains 28 tracks as mentioned in the story.
+
+Here is a SPARQL query to extract a partial answer based on the available data:
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel (COUNT(DISTINCT ?track) AS ?numberOfTracks)
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  OPTIONAL {
+    { ?album :containsTrack ?track . }
+    UNION
+    { ?album :hasMusicTrack ?track . }
+  }
+}
+GROUP BY ?album ?albumLabel
+```
+
+This query attempts to count the number of tracks associated with each album using the `:containsTrack` and `:hasMusicTrack` properties. Given the ontology, it will return the album `Stadium Arcadium` with one track (`Hump de Bump`), which is a partial answer to the competency question.

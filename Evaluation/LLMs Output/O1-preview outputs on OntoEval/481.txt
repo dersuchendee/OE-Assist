@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  ?personRole a :Cl_PersonRole ;
+              :roleOf :GivenPerson ;
+              :roleInBand :GivenBand ;
+              :hasRole ?role ;
+              :roleTime ?roleTime .
+
+  FILTER (?roleTime = xsd:dateTime("GivenTime"))
+}
+```
+Replace `:GivenPerson`, `:GivenBand`, and `"GivenTime"` with the specific person, band, and time you're interested in. This query retrieves the role(s) that the specified person had in the specified band at the given time.

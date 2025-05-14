@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves persons (members) who belong to a specific union (for example, “UnionOfMaleNurses”) and whose union membership started on or before a specified point in time (e.g. "2003-01-01"). You can change the union individual and the time parameter as needed.
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStart
+WHERE {
+  ?person a :Cl_Person .
+  ?person :isMemberOf ?membership .
+  ?membership :memberOf :UnionOfMaleNurses .
+  ?membership :membershipStartDate ?membershipStart .
+  FILTER (xsd:date(?membershipStart) <= xsd:date("2003-01-01"))
+}
+-------------------------
+
+In this query, we assume that a membership is considered active at the given point in time if its membership start date is before or equal to that time. This meets the competency question “Who are the members of a certain union at a certain point in time?” under the closed world assumption.

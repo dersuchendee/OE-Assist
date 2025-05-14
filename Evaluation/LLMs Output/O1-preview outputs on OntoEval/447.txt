@@ -1,0 +1,34 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?artist ?artistName
+WHERE {
+  # Find the membership involving the band of interest
+  ?membership a :Cl_Membership .
+  ?membership :membership_band ?band .
+  ?band rdfs:label ?bandName .
+  FILTER (?bandName = "Band_Name")  # Replace "Band_Name" with the actual band name
+  
+  # Get the artist involved in this membership
+  ?membership :membership_artist ?artist .
+  OPTIONAL { ?artist rdfs:label ?artistName . }
+  
+  # Get the start and end dates of the membership
+  ?membership :membership_startDate ?startDate .
+  OPTIONAL { ?membership :membership_endDate ?endDate . }
+  
+  # Filter memberships active at the given date
+  FILTER (
+    xsd:date(?startDate) <= xsd:date("Date") &&  # Replace "Date" with the date of interest
+    (
+      !bound(?endDate) || xsd:date(?endDate) >= xsd:date("Date")
+    )
+  )
+}
+```
+
+This query retrieves the artists who were members of a specific band at a certain point in time. It uses the `:Cl_Membership` class to link artists to bands with start and end dates, allowing us to determine membership at any given date.

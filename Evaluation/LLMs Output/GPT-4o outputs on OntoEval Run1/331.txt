@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "What is the 'star rating' given by a certain newspaper for a certain production?" can be answered using the ontology provided. The ontology includes classes and properties related to productions, reviews, newspapers, and star ratings, which are necessary to construct a SPARQL query to retrieve the desired information.
+
+Here is the SPARQL query:
+
+```sparql
+SELECT ?newspaper ?production ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper .
+  ?newspaper :hasReview ?review .
+  
+  ?production a :Cl_Production .
+  ?production :isReviewedIn ?review .
+  
+  ?review :starRating ?starRating .
+}
+```
+
+This query retrieves the newspaper, production, and star rating by linking the newspaper to its reviews and the production to the reviews, and then extracting the star rating from the review.

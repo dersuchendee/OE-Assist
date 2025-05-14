@@ -1,0 +1,17 @@
+**No**
+
+The ontology lacks sufficient properties to fully answer the competency question "Where did a certain performance take place?". Specifically, while it connects performances to locations via the `:tookPlaceAt` property, it does not provide detailed information about the location such as city, region, or country. Therefore, under the closed world assumption, we cannot fully specify the place where a performance took place.
+
+However, we can extract partial information about performances and their associated locations using the following SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?performance ?performanceLocation
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :tookPlaceAt ?performanceLocation .
+  ?performanceLocation a :Cl_Location .
+}
+```
+
+This query retrieves performances and their associated locations but cannot provide more detailed location information.

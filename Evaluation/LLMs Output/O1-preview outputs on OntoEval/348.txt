@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not properly model the relationship between newspapers, productions, and reviews necessary to answer the competency question fully. Specifically, while it defines classes and properties related to newspapers and reviews, it lacks a proper link between the reviews and the productions they evaluate.
+
+Here's a SPARQL query to extract a partial answer, retrieving newspapers and their associated star ratings but without the ability to associate these ratings with specific productions:
+
+```sparql
+SELECT ?newspaper ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper .
+  ?newspaper :hasReview ?review .
+  ?review a :Cl_NewspaperReview .
+  ?review :starRating ?starRating .
+}
+```
+
+This query retrieves the newspapers and the star ratings from their reviews but cannot link these reviews to specific productions due to the missing relationships in the ontology.

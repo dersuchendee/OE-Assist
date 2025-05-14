@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate a festival with a specific location, such as a city, using a property like `tookPlaceIn`. While the ontology does have the `tookPlaceIn` property, it is not used in the provided data to link festivals to cities. Therefore, a partial answer can be extracted by identifying festivals, but not their locations.
+
+```sparql
+SELECT ?festival ?festivalLabel
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+}
+```

@@ -1,0 +1,19 @@
+**Yes**
+
+One can extract the location of a festival using the property that connects a theatre festival to its location. For example, assuming the festival instance is of type :Cl_TheatreFestival with a property :hasLocation linking it to an instance of :Cl_Location that carries the location name (via :locationName), the CQ “Where did a certain festival take place?” can be answered by the following SPARQL:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasLocation ?loc .
+  ?loc :locationName ?locationName .
+}
+------------------------------------------------
+
+Under a closed-world assumption the absence of location details (if not explicitly asserted) would be interpreted as “no location”, but here the reified modelling enables us to extract the complete answer for the CQ.

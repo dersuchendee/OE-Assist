@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the ontology contains individuals of forest ecosystems (in particular, instances of BeechForest) with associated CO₂ fixation pathways, you can answer the competency question by querying for those instances and, for each, retrieving the associated primary CO₂ fixation pathway. Under the closed world assumption (i.e. only considering explicitly stated individuals), the following SPARQL query will extract the relevant answer:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?beechForestLabel ?primaryPathway ?pathwayLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?beechForestLabel . }
+  
+  ?beechForest :hasCO2FixationPathway ?primaryPathway .
+  ?primaryPathway a :PrimaryCO2FixationPathway .
+  OPTIONAL { ?primaryPathway rdfs:label ?pathwayLabel . }
+}

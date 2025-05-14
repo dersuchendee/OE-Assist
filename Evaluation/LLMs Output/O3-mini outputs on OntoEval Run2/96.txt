@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming we know which festival occurrence to inspect (for example, the occurrence corresponding to “Roma Loves Shakespeare”), you can write a SPARQL query to extract the city where that festival occurrence took place. Under the closed‐world assumption, only explicitly asserted triples are available in the ontology. For instance, the following query returns the location (city) for the specified festival occurrence:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalOccurrence ?city
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence .
+  ?festivalOccurrence :tookPlaceIn ?city .
+  
+  # Assuming we are interested in the “Roma Loves Shakespeare” festival occurrence:
+  FILTER(?festivalOccurrence = :RomaLovesShakespeareOccurrence)
+}
+
+This query shows that the ontology models the relation (via the reified class Cl_FestivalOccurrence, with the property :tookPlaceIn) needed to answer the competency question "Where did a certain festival take place?"

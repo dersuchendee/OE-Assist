@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the instruments that a given person (for example, :AnthonyKiedis) plays:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentName
+WHERE {
+  :AnthonyKiedis a :Cl_Person .
+  :AnthonyKiedis :playsInstrument ?instrument .
+  OPTIONAL { ?instrument :hasName ?instrumentName . }
+}
+
+This query works because the ontology explicitly models the connection between persons and instruments via the property :playsInstrument (and by reification via :Cl_InstrumentPlaying if needed), allowing us to answer the competency question.

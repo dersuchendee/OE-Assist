@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to relate a person to the specific time period during which they studied for a specific degree. The ontology includes classes and properties related to study periods, degrees, and persons, but it lacks a direct connection between a person and the specific time period for a degree they studied for. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?degree ?studyPeriod ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  ?person :studiesFor ?degree .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  OPTIONAL { ?studyPeriod :hasStartDate ?startDate . }
+  OPTIONAL { ?studyPeriod :hasEndDate ?endDate . }
+}
+```
+
+This query retrieves the person, degree, study period, and optional start and end dates, but it does not directly answer the competency question as the ontology does not fully support it.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that selects the articles (and their titles) that were presented in a given seminar (here, for example, "SeminarInDecember2008"):
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  ?presentation a :Cl_SeminarPresentation ;
+                :presentationOf ?article ;
+                :presentedIn :SeminarInDecember2008 .
+  ?article :articleTitle ?articleTitle .
+}
+-----------------------------------------------------
+
+This query retrieves each article (and its title) that is linked via a seminar presentation to the specified seminar.

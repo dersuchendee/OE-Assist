@@ -1,0 +1,32 @@
+**Yes**
+
+Assuming the ontology captures band memberships via a reified Cl_Membership (with properties for membershipStart, membershipEnd, and the link to a band through membershipInBand), we can answer this CQ. In a closed‐world perspective, we only consider stated membership start/end dates. For example, you could parameterize the query with a specific band (as ?band) and a specific point in time (as ?checkTime) as follows:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd. }
+  
+  # Here we filter for memberships active at the given point in time (?checkTime)
+  FILTER(
+      xsd:date(?membershipStart) <= ?checkTime &&
+      ( !bound(?membershipEnd) || xsd:date(?membershipEnd) >= ?checkTime )
+  )
+  
+  # You can restrict to a specific band by binding ?band to a given band IRI:
+  # FILTER(?band = <http://www.example.org/test#RedHotChiliPeppers>)
+}
+ORDER BY ?person
+---------------------------------
+
+In this query you supply the value for ?checkTime (e.g., "2005-06-01"^^xsd:date) and optionally restrict ?band to the band of interest.

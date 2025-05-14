@@ -1,0 +1,67 @@
+**Yes**
+
+The Competency Question (CQ) asks: *"What are the attributes of this event category (e.g., a movie has a genre and a set of actors)?"*
+
+The ontology provided models the event category `:FilmEvent` and defines several attributes (properties) associated with it, such as `:hasTitle`, `:hasGenre`, `:hasStartTime`, `:hasLocation`, and `:featuresActor`. Therefore, the CQ is supported by the ontology.
+
+Here is a SPARQL query to retrieve the attributes (properties) of the `:FilmEvent` class along with their labels and ranges:
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?property ?propertyLabel ?range ?rangeLabel
+WHERE {
+  ?property rdfs:domain :FilmEvent .
+  OPTIONAL { ?property rdfs:label ?propertyLabel . }
+  OPTIONAL { 
+    ?property rdfs:range ?range .
+    OPTIONAL { ?range rdfs:label ?rangeLabel . }
+  }
+}
+```
+
+**Explanation:**
+
+- The query selects all properties where `:FilmEvent` is the domain, meaning they are attributes of the `:FilmEvent` class.
+- It retrieves the property IRIs (`?property`), their labels (`?propertyLabel`), their ranges (`?range`), and the range labels (`?rangeLabel`).
+- The `OPTIONAL` clauses ensure that labels and range labels are included if available.
+
+**Sample Result:**
+
+| property             | propertyLabel   | range             | rangeLabel     |
+|----------------------|-----------------|-------------------|----------------|
+| :hasTitle            | has title       | xsd:string        |                |
+| :hasGenre            | has genre       | xsd:string        |                |
+| :hasStartTime        | has start time  | xsd:dateTime      |                |
+| :hasLocation         | has location    | :Location         | Location       |
+| :featuresActor       | features actor  | :Actor            | Actor          |
+
+This result shows the attributes of the `:FilmEvent` category, matching the example given in the CQ (e.g., a movie has a genre and a set of actors).
+
+**Note:** If you also want to list the attributes of specific instances of `:FilmEvent`, such as `:XMenPreview`, you can modify the query to retrieve the properties and their values for that instance.
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?propertyLabel ?value
+WHERE {
+  :XMenPreview a :FilmEvent .
+  ?property rdfs:domain :FilmEvent .
+  OPTIONAL { ?property rdfs:label ?propertyLabel . }
+  OPTIONAL { :XMenPreview ?property ?value . }
+}
+```
+
+**Sample Result for Instance `:XMenPreview`:**
+
+| propertyLabel   | value                           |
+|-----------------|---------------------------------|
+| has title       | "X-men"                         |
+| has genre       | "Action"                        |
+| has start time  | "2023-04-01T20:00:00Z"^^xsd:dateTime |
+| has location    | :CinemaOne                      |
+| features actor  | _(No value provided)_           |
+
+This instance does not have a value for `:featuresActor`, but the property is defined in the ontology, aligning with the attributes mentioned in the CQ.

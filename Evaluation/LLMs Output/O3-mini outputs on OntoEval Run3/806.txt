@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology includes the reification class :Cl_PersonDegreeStudy that connects a person, a degree, and a study period (with associated data properties :studyStart and :studyEnd). This lets us write a SPARQL query to determine during what time period a given person studied for a specific degree.
+
+For example, the following query retrieves the study period (start and end dates) for each study instance:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?studyStart ?studyEnd
+WHERE {
+  ?study a :Cl_PersonDegreeStudy .
+  ?study :personHasStudy ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?study :studyInvolvesDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  
+  ?study :studyDuringPeriod ?period .
+  ?period :studyStart ?studyStart .
+  ?period :studyEnd ?studyEnd .
+}
+---------------------------------
+
+This query extracts the answer to the CQ "During what time period did a certain person study for a specific degree?" under the closed world assumption.

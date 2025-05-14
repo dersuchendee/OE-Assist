@@ -1,0 +1,21 @@
+Answer: **Yes**.
+
+The competency question "When was a certain book or CD published?" can be answered using the provided ontology. Both `ns1:Book` and `ns1:CD` are subclasses of `ns1:Publication`, and instances of these classes have the `ns1:hasPublicationDate` property, which contains the publication date.
+
+Here's a SPARQL query that retrieves books or CDs and their publication dates:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?pubLabel ?publicationDate
+WHERE {
+  ?publication a ?pubType .
+  VALUES ?pubType { ns1:Book ns1:CD }
+  OPTIONAL { ?publication rdfs:label ?pubLabel . }
+  ?publication ns1:hasPublicationDate ?publicationDate .
+}
+```
+
+This query selects all instances of `ns1:Book` or `ns1:CD`, retrieves their labels (if available), and their publication dates.

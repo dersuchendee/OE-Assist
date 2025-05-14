@@ -1,0 +1,15 @@
+Answer: **No**
+
+```sparql
+PREFIX : <http://example.org/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?startDate
+WHERE {
+    ?person a :Person .
+    ?person :hasFirstEmployment ?firstEmployment .
+    ?firstEmployment :hasStartDate ?startDate .
+}
+```
+
+This query provides the first employment start date for a person but does not connect the employment to a specific hospital due to missing links in the ontology. Therefore, we cannot fully answer the competency question with the given ontology.

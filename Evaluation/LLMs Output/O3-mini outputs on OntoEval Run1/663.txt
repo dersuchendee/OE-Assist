@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that answers the CQ by retrieving the songs (and their labels, if available) that are included in the performance’s setlist:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  ?setlist :performedIn :PortlandPerformance .
+  ?setlist :includesSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+--------------------------------------------------
+
+In this query we assume that the performance in question is represented by the individual :PortlandPerformance. First, we locate the performance setlist that “performedIn” that performance. Then we retrieve the songs that the setlist “includesSong”. Under the closed world assumption, this query extracts the songs played during that performance as modelled by the ontology.

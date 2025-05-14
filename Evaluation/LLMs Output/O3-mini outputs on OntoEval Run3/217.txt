@@ -1,0 +1,24 @@
+**Yes**
+Below is one possible SPARQL query that – under the closed‐world assumption – finds all actors who are members of a given ensemble at a specific point in time. (In this query the ensemble URI and the query time are given as parameters.)
+
+-------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberName
+WHERE {
+  ?membership a :EnsembleMembership ;
+              :ensemble <http://example.org/theatreontology#YourEnsemble> ;
+              :member ?member ;
+              :during ?timeInterval .
+  ?timeInterval :hasStartDate ?start ;
+                :hasEndDate ?end .
+  # Bind a specific point in time (adjust as needed)
+  BIND(xsd:dateTime("2007-01-01T00:00:00") AS ?queryTime)
+  FILTER(?queryTime >= ?start && ?queryTime <= ?end)
+  OPTIONAL { ?member rdfs:label ?memberName. }
+}
+-------------------------------------------------
+
+In this query, replace <http://example.org/theatreontology#YourEnsemble> with the URI of the ensemble of interest and adjust the bound query time as required.

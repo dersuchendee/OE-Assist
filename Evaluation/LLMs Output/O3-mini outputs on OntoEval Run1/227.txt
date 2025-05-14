@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example SPARQL query that “reifies” the participation of actors in theatrical productions by retrieving the actor’s name, the role they played, the production name, and (if available) the time period for that actor role (as modeled via the reified association class Cl_ActorRole):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?productionName ?actorName ?role ?timePeriod
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+             :hasActor ?actor ;
+             :hasProduction ?production ;
+             :hasRole ?role .
+  OPTIONAL { ?actorRole :hasTimePeriod ?timePeriod . }
+  
+  ?actor :actorName ?actorName .
+  ?production :productionName ?productionName .
+}
+ORDER BY ?productionName ?actorName
+—————————————————————————————
+
+This query uses the reification provided by the Cl_ActorRole class (which is connected via the object properties :hasActor, :hasProduction, :hasRole and optionally :hasTimePeriod) to answer the competency question.

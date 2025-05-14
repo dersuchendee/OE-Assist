@@ -1,0 +1,13 @@
+**No**
+
+```sparql
+SELECT ?production (COUNT(?premierDate) as ?numberOfPremiers)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL {
+    ?production a :Cl_ProductionPremier .
+    ?production :hasPremierDate ?premierDate .
+  }
+}
+GROUP BY ?production
+```

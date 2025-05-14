@@ -1,0 +1,18 @@
+**Yes**
+Below is an example SPARQL query that extracts information about resources – their type (e.g. product, component, or material), composition details, composition level, and relationships to circular value networks and process steps:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?resource ?resourceType ?composition ?compositionLevel ?network ?processStep ?mainFocus
+WHERE {
+  ?resource a :Cl_Resource .
+  
+  OPTIONAL { ?resource :isTypeOf ?resourceType. }
+  OPTIONAL { ?resource :hasComposition ?composition. }
+  OPTIONAL { ?resource :hasCompositionLevel ?compositionLevel. }
+  OPTIONAL { ?resource :isPartOf ?network. }
+  OPTIONAL { ?resource :usedIn ?processStep. }
+  OPTIONAL { ?resource :mainFocusOf ?mainFocus. }
+}

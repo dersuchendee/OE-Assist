@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to extract the places where musicians played. The ontology only specifies that events have locations and participants, but it does not provide a direct link between musicians and places. A partial answer can be extracted by querying the events and their locations, but it will not directly answer the CQ about where musicians played.
+
+```sparql
+SELECT ?event ?place
+WHERE {
+  ?event a :Event .
+  ?event :hasLocation ?place .
+}
+```

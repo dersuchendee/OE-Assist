@@ -1,0 +1,24 @@
+**Yes**
+
+The CQ "What instruments does a certain person play?" is answerable since the ontology includes the `:playsInstrument` property linking individuals of class `:Cl_Person` to individuals of class `:Cl_Instrument`. The ontology contains data about people and the instruments they play.
+
+Here's the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+```
+
+If you want to find the instruments played by a specific person, you can specify the person, for example:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?instrument
+WHERE {
+  :John_Frusciante :playsInstrument ?instrument .
+}
+```

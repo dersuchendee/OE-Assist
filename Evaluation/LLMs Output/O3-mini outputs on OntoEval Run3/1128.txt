@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?weatherService ?url ?cityName ?prognosisDuration
+WHERE {
+  ?weatherService a :Cl_WeatherService ;
+                  :hasURL ?url ;
+                  :hasLocation ?location ;
+                  :hasPrognosis ?prognosis .
+  ?location :hasCityName ?cityName .
+  ?prognosis :hasDuration ?prognosisDuration .
+  
+  # Closed world assumption: filtering for the weather service preferred in the story
+  FILTER(?url = <http://www.yr.no>)
+}
+```

@@ -1,0 +1,19 @@
+**No**
+
+```sparql
+SELECT ?material ?origin ?process ?consumedMaterial ?consumedOrigin
+WHERE {
+  # Start with the material of interest
+  ?material a :Material .
+  OPTIONAL { ?material :hasOrigin ?origin . }
+
+  # Find the process that produced this material
+  OPTIONAL { 
+    ?material :producedByProcess ?process .
+
+    # Find materials consumed by this process
+    ?process :consumesMaterial ?consumedMaterial .
+    OPTIONAL { ?consumedMaterial :hasOrigin ?consumedOrigin . }
+  }
+}
+```

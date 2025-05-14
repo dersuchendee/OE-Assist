@@ -1,0 +1,26 @@
+**Answer: Yes**
+
+The competency question "Where did a certain seminar take place?" is answerable using the provided ontology. We can construct a SPARQL query to extract the location where seminars took place. Here's the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?city ?country
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  ?seminar :takesPlaceAt ?hospital .
+  OPTIONAL { ?hospital :locatedIn ?city . }
+  OPTIONAL { ?city :isLocatedIn ?country . }
+}
+```
+
+This query retrieves seminars and their locations by navigating through the relationships defined in the ontology:
+
+- `?seminar a :Cl_Seminar`: Finds individuals of type `Cl_Seminar`.
+- `?seminar :takesPlaceAt ?hospital`: Retrieves the hospital where the seminar took place.
+- `?hospital :locatedIn ?city`: Retrieves the city where the hospital is located.
+- `?city :isLocatedIn ?country`: Retrieves the country where the city is located.
+
+By executing this query on the ontology, we can obtain the location details of the seminars, thus answering the competency question.

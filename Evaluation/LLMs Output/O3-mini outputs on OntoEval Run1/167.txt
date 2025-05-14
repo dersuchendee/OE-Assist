@@ -1,0 +1,13 @@
+**Yes**
+Below is a SPARQL query that retrieves each city along with the country in which it is located:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_City .
+  ?city :op_isLocatedIn ?country .
+  OPTIONAL { ?city :hasName ?cityName . } 
+  OPTIONAL { ?country :hasName ?countryName . }
+}

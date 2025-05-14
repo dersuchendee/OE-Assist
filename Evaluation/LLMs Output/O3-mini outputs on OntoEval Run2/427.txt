@@ -1,0 +1,19 @@
+**Yes**
+Below is one example SPARQL query that retrieves, for a given person, the instruments they play via the reified relation in the ontology:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?ip .
+  ?ip :instrumentPlayed ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  # Replace <personURI> with the URI of the person of interest
+  FILTER (?person = <personURI>)
+}
+------------------------------------------------
+
+This query makes use of the reified relation (via :playsInstrument and :instrumentPlayed) to answer the competency question "What instruments does a certain person play?" under the closed world assumption.

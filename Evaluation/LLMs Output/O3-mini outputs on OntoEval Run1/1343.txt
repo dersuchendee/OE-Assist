@@ -1,0 +1,19 @@
+**Yes**  
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?diagnosis ?diagnosisLabel ?avgAdmissions
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  ?hospital :hasAdmissionSummary ?summary .
+  ?summary :reportedByHospital ?hospital .
+  
+  ?summary :appliesToDiagnosisCode ?diagnosis .
+  OPTIONAL { ?diagnosis rdfs:label ?diagnosisLabel . }
+  
+  ?summary :averageAdmissions ?avgAdmissions .
+}
+```

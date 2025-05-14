@@ -1,0 +1,21 @@
+**Yes**
+Below is one SPARQL query that returns the earliest employment date for a given person at a given hospital using the employment reification in the ontology:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?date) AS ?firstEmployment)
+WHERE {
+  ?person a :Cl_Employee ;
+          :hasEmployment ?employment ;
+          :employedAt ?hospital .
+  ?employment :employmentDate ?date .
+  # Replace the IRIs below for the specific person and hospital, e.g.,:
+  FILTER(?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+------------------------------------------------------------
+
+This query answers the CQ – “When was a certain person first employed at a certain hospital?” – by extracting the minimum (i.e. earliest) employment date from the available employment events in the ontology under closed world assumptions.

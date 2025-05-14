@@ -1,0 +1,12 @@
+**Yes**
+Below is a sample SPARQL query that retrieves the number of tracks for a given album (in this example, “StadiumArcadium”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?numTracks
+WHERE {
+  ?album a :Cl_Album .
+  ?album :numberOfTracks ?numTracks .
+  FILTER(?album = :StadiumArcadium)
+}

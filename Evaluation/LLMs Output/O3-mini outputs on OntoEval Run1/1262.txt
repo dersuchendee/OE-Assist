@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not directly link the concept of a “material flow” (i.e. instances of :Flow) with rebound effects and added energy requirements. Instead, the properties for energy requirements (via :hasEnergyRequirement) and rebound effects (via :hasReboundEffect) are defined on the class :Process. Although a process produces flows (via :hasOutput), there isn’t an explicit connection from a material flow to its energy requirements or rebound effects. Thus, under the closed world assumption, the competency question can only be answered partially by joining a process (which has the properties of interest) with its output flow.
+
+A partial answer can be extracted with the following SPARQL query:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?flow ?flowLabel ?energyRequirement ?reboundEffect 
+WHERE {
+  ?proc a :Process .
+  ?proc :hasOutput ?flow .
+  OPTIONAL { ?flow rdfs:label ?flowLabel . }
+  OPTIONAL { ?proc :hasEnergyRequirement ?energyRequirement . }
+  OPTIONAL { ?proc :hasReboundEffect ?reboundEffect . }
+}
+-----------------------------------------------------------
+
+This query returns flows produced by processes along with any associated energy requirements and rebound effects—even though the answer remains partial with respect to directly modeling a “material flow.”

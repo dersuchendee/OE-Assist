@@ -1,0 +1,12 @@
+**No**  
+The ontology does allow query‐access to the parts of an organ via the core:hasPart relation, but it does not provide an explicit distinction (or reified relation) that indicates which parts are “original” versus later restorations. Under the closed world assumption, we can extract all parts of each organ and later try to infer originality by checking for additional properties (if they existed), but the ontology currently does not fully support the CQ.  
+
+A partial SPARQL query to extract all parts of an organ is given below:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+SELECT ?organ ?part
+WHERE {
+  ?organ a organs:Organ .
+  ?organ core:hasPart ?part .
+}

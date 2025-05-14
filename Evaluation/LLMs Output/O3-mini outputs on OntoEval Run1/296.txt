@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the number of acts that a given play contains. In this ontology, plays (instances of :Cl_Play) are linked to a reified play acts entity (of type :Cl_PlayActs) that holds the integer value via the property :hasNumberOfActs.
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playName ?acts
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName .
+  ?playActs a :Cl_PlayActs ;
+            :hasPlay ?play ;
+            :hasNumberOfActs ?acts .
+}
+ORDER BY ?playName
+---------------------------------------------------------
+
+This query answers the competency question "How many acts does a particular play contain?" by linking each play to its associated acts value.

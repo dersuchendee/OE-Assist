@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that, given a particular person and a degree name, retrieves the study period (start and end dates) during which the person studied for that degree:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedFor ?studyPeriod .
+  
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+  ?studyPeriod :degree ?degree .
+  ?degree :degreeName ?degreeName .
+
+  # Replace the following filter values with the specific person IRI and degree name of interest:
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  FILTER(?degreeName = "Certified Nurse")
+}
+ORDER BY ?studyStartDate

@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question "When was the premier of a certain production?" can be answered using the ontology provided. The ontology includes the class `Cl_Production` and the data property `hasPremierDate`, which allows us to query for the premiere date of a production.
+
+Here is a SPARQL query to extract the premiere date of a specific production:
+
+```sparql
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierDate ?premiereDate .
+}
+```
+
+This query retrieves the premiere date for each production in the ontology. If you have a specific production in mind, you can add a filter to the query to get the premiere date for that particular production. For example, to get the premiere date for "The Merchant of Venice - Grand Theatre", you can modify the query as follows:
+
+```sparql
+SELECT ?premiereDate
+WHERE {
+  :TheMerchantOfVenice_GrandTheatre a :Cl_Production .
+  :TheMerchantOfVenice_GrandTheatre :hasPremierDate ?premiereDate .
+}
+```

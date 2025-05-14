@@ -1,0 +1,15 @@
+**No**
+
+The competency question asks about the role of a person in a band at a specific point in time. The ontology provided includes classes and properties related to people, bands, roles, and time periods, but it does not explicitly connect these elements in a way that allows for querying a person's role in a band at a specific time. Specifically, the ontology lacks a direct connection between a person's role and the time period during which they held that role.
+
+Here's a SPARQL query to extract a partial answer, which would list the roles a person has had in a band, without the time component:
+
+```sparql
+SELECT ?person ?band ?role
+WHERE {
+  ?roleAssignment a :Cl_BandRoleAssignment .
+  ?roleAssignment :isRoleAssignmentOf ?person .
+  ?roleAssignment :roleInBand ?band .
+  ?roleAssignment :hasRole ?role .
+}
+```

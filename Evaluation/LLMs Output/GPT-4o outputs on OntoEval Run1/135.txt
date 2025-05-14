@@ -1,0 +1,19 @@
+**No**
+
+The ontology provided does not contain any direct information about the plays that can be seen during a specific theatre festival. The ontology includes classes and properties related to theatre festivals, dates, locations, plays, productions, and other related entities, but it does not explicitly link plays to specific theatre festivals in a way that can be queried directly.
+
+However, we can extract partial information about the plays associated with a theatre festival using the available data. Here's a SPARQL query to extract the plays associated with the "Roma Loves Shakespeare" festival:
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival ;
+            :festivalName "Roma Loves Shakespeare" .
+  ?festivalPlay rdf:type :Cl_FestivalPlay ;
+                :hasFestival ?festival ;
+                :hasPlay ?play .
+  ?play :playName ?playName .
+}
+```
+
+This query retrieves the plays associated with the "Roma Loves Shakespeare" festival, but it does not specify the exact theatre festival during which these plays can be seen, as the ontology does not provide this level of detail.

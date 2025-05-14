@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the plays associated with each theatre festival by following the chains from a theatre festival to its festival occurrence and then to its play participation:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+
+  ?festival :hasFestivalOccurrence ?occurrence .
+  ?occurrence :hasPlayParticipation ?participation .
+  ?participation :participatedPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+ORDER BY ?festival ?play

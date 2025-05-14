@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each actor, the roles they hold in the network:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/ontology/construction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?role ?roleLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  
+  ?actor :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+ORDER BY ?actor
+--------------------------------------------------
+
+This query extracts, under the closed world assumption, the roles connected to each actor via the :hasRole property, thus fully addressing the CQ "What are the roles of this actor in this network?"

@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/music#>
+
+SELECT ?albumTitle ?numTracks WHERE {
+  ?album a :Album ;
+          :albumTitle ?albumTitle ;
+          :numberOfTracks ?numTracks .
+}
+```
+
+This query retrieves the number of tracks for each album by accessing the `:numberOfTracks` data property. For a specific album, you can filter by the album title:
+
+```sparql
+PREFIX : <http://example.org/music#>
+
+SELECT ?numTracks WHERE {
+  ?album a :Album ;
+          :albumTitle "Stadium Arcadium" ;
+          :numberOfTracks ?numTracks .
+}
+```

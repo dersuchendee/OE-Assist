@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What are the actors involved in the process?" can be answered using the given ontology. The ontology defines classes and properties that relate actors to processes through the class `Cl_ActorInProcess`. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT DISTINCT ?actor
+WHERE {
+  ?actorInProcess a :Cl_ActorInProcess .
+  ?actorInProcess :op_hasActor ?actor .
+  ?actorInProcess :op_partOfProcess ?process .
+}
+```

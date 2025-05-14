@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+SELECT ?person ?personName ?degree ?degreeName ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?person :participatesIn ?studyEvent .
+  ?studyEvent a :StudyEvent ;
+              :hasDegree ?degree ;
+              :hasTimeInterval ?timeInterval .
+  OPTIONAL { ?degree rdfs:label ?degreeName . }
+  
+  ?timeInterval :startDate ?startDate ;
+                :endDate ?endDate .
+}
+ORDER BY ?person ?startDate
+```

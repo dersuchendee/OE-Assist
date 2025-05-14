@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the time relationship between different musicians, such as who was working at the same time. The ontology includes classes and properties related to musicians, events, and time periods, but it lacks explicit connections or properties that would allow for a direct comparison of time periods between different musicians.
+
+However, a partial answer can be extracted by identifying musicians and their associated time periods, which could then be manually compared to determine overlaps.
+
+```sparql
+SELECT ?musician ?startYear ?endYear
+WHERE {
+  ?musician a :Musician .
+  ?musician :hasTimePeriod ?timePeriod .
+  ?timePeriod :startYear ?startYear .
+  ?timePeriod :endYear ?endYear .
+}
+```

@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What CVN:s are this process used in?" can be answered using the ontology provided. The ontology includes the necessary classes and properties to relate a process to a Circular Value Network (CVN) through the `:isProcessOf` property. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?process ?processLabel ?cvn ?cvnLabel
+WHERE {
+  ?process a :Process .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+
+  ?process :isProcessOf ?cvn .
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role within a theatre production at a specific point in time. The ontology includes classes and properties related to roles, role assignments, and time intervals, but it lacks a direct connection between a person, a role, and a production at a specific time. Therefore, a partial answer can be extracted by querying the available data, but it will not fully satisfy the competency question.
+
+```sparql
+SELECT ?person ?role ?production
+WHERE {
+  ?roleAssignment a :RoleAssignment .
+  ?roleAssignment :assignedPerson ?person .
+  ?roleAssignment :assignedRole ?role .
+  ?roleAssignment :inProduction ?production .
+}
+```

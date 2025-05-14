@@ -1,0 +1,46 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each CollaborationProcess individual along with the types of information required (i.e. InfrastructureInfo, ProcessInfo, EnergyRecoveryInfo, StakeholderInfo, EnergyDemandSurplusInfo, and ValueInfo):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collaborationProcess (GROUP_CONCAT(DISTINCT ?requiredInfo; separator=", ") AS ?informationNeeded)
+WHERE {
+  ?collaborationProcess a :CollaborationProcess .
+  
+  {
+    ?collaborationProcess :requiresInfrastructureInfo ?info .
+    BIND("InfrastructureInfo" AS ?requiredInfo)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresProcessInfo ?info .
+    BIND("ProcessInfo" AS ?requiredInfo)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresEnergyRecoveryInfo ?info .
+    BIND("EnergyRecoveryInfo" AS ?requiredInfo)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresStakeholderInfo ?info .
+    BIND("StakeholderInfo" AS ?requiredInfo)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresEnergyDemandSurplusInfo ?info .
+    BIND("EnergyDemandSurplusInfo" AS ?requiredInfo)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresValueInfo ?info .
+    BIND("ValueInfo" AS ?requiredInfo)
+  }
+}
+GROUP BY ?collaborationProcess
+--------------------------------------------------
+
+This query uses the closed world assumption by considering only the explicitly stated triples in the ontology and gathers the information required for collaboration and alignment of processes as modelled by the ontology.

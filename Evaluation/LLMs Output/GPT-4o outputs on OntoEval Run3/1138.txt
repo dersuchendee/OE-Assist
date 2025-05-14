@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide sufficient information to determine how content should be presented based on the user's context. The ontology includes classes and properties related to user location, interaction, and output devices, but it lacks specific rules or conditions that define how content should be presented in different contexts.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?user ?location ?interaction ?weather ?output
+WHERE {
+  ?interaction a :Cl_UserLocationInteraction .
+  ?interaction :interactsWith ?user .
+  ?interaction :interactionLocation ?location .
+  ?interaction :interactionOutput ?weather .
+  OPTIONAL { ?weather :hasOutput ?output . }
+  OPTIONAL { ?weather :hasAudioOutput ?audioOutput . }
+}
+```

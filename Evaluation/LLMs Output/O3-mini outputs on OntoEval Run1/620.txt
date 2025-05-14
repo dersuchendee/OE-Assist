@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the critic’s review text for a given record. In this query we assume that the critic and the record are provided (here using the individuals :CrianHiatt and :StadiumArcadium):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?reviewText 
+WHERE {
+  ?review rdf:type :Cl_CriticReview .
+  ?review :reviewedBy ?critic .
+  ?review :reviews ?record .
+  ?review :reviewText ?reviewText .
+  
+  # If parameters are provided, e.g., for a specific critic and record:
+  FILTER(?critic = :CrianHiatt && ?record = :StadiumArcadium)
+}
+------------------------------------------------------------
+
+This query shows that the ontology supports the competency question by reifying the review as an instance of :Cl_CriticReview that links a critic (:CrianHiatt) and a record (:StadiumArcadium) with the property :reviewText.

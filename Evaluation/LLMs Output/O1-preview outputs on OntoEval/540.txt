@@ -1,0 +1,14 @@
+**No**
+
+Under the closed world assumption, the ontology does not contain any instances of `:Cl_Album` or any data about release dates. Therefore, we cannot answer the competency question "When was a certain album released?" because there's no way to identify a specific album or retrieve its release date.
+
+However, we can write a SPARQL query that would retrieve the release dates of albums if such data were present:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?album ?releaseDate WHERE {
+  ?album a :Cl_Album .
+  ?album :release_date ?releaseDate .
+}
+```

@@ -1,0 +1,33 @@
+**Yes**
+
+Below is one example of a SPARQL query that—under the closed‐world assumption—extracts for a given person, band and time the band role (i.e. the function or role the person has with that band at that time):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?bandRole ?role ?roleLabel ?period
+WHERE {
+  # Identify the specific person (e.g., using a known label or IRI)
+  ?person a :Cl_Person .
+  ?person rdfs:label "John Doe" .
+
+  # The person’s reified band role relation
+  ?person :hasRoleInBand ?bandRole .
+
+  # The band role reification carries information on the role,
+  # the time period, and (by inheritance) the band.
+  ?bandRole a :Cl_BandRole ;
+            :roleInBand ?role ;
+            :rolePeriod ?period ;
+            rdfs:label ?bandLabel .  # the band (as an instance of Cl_Band, since Cl_BandRole is also a subclass of Cl_Band)
+
+  # We restrict the query to the band of interest.
+  FILTER(?bandLabel = "Red Hot Chili Peppers")
+
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+------------------------------------------------
+
+In this query the competency question “What role does a certain person have in a certain band at a certain point in time?” is answered by retrieving the role (via :roleInBand) together with its valid time interval (via :rolePeriod) for the person’s related band role instance—further filtered by the band (using the inherited label). This shows that the ontology supports addressing the CQ.

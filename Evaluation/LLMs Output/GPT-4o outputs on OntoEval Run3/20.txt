@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between an instrument realization and the person who built it. The ontology includes a class `Cl_InstrumentRealization` and a property `Op_realizedBy` that connects an instrument realization to a person, but there is no property that directly connects an instrument realization to the person who built it. The `Op_builtBy` property connects a musical instrument to a person, but not an instrument realization.
+
+Partial SPARQL query to extract information about instrument realizations and the people who realized them:
+
+```sparql
+SELECT ?instrumentRealization ?person
+WHERE {
+  ?instrumentRealization a :Cl_InstrumentRealization .
+  ?instrumentRealization :Op_realizedBy ?person .
+}
+```

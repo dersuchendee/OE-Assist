@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "A record always contains at least one track" is supported by the ontology. The ontology includes a reification class `Cl_RecordContainsTrack` that connects an album to a track, ensuring that an album always contains at least one track. This is modeled through the `containsTrack` and `trackContained` object properties.
+
+Here is a SPARQL query to verify that every album contains at least one track:
+
+```sparql
+SELECT ?album ?albumTitle ?track ?trackTitle
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :containsTrack ?recordContainsTrack .
+  ?recordContainsTrack :trackContained ?track .
+  
+  OPTIONAL { ?album :hasTitle ?albumTitle . }
+  OPTIONAL { ?track :hasTitle ?trackTitle . }
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, retrieves the employment start date for the given person at the given hospital:
+
+--------------------------------------------------
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/hospitalemployment.owl#>
+PREFIX agentrole: <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employmentStartDate
+WHERE {
+  ?person a :Person ;
+          rdfs:label "Pasquale Di Gennaro"@en ;
+          :hasEmploymentRecord ?employmentRecord .
+          
+  ?employmentRecord :employmentStartDate ?employmentStartDate ;
+                    :employedAt ?hospital .
+                    
+  ?hospital rdfs:label "Ospedale Riunito delle Tre Valli"@en .
+}
+ORDER BY ?employmentStartDate
+LIMIT 1
+--------------------------------------------------

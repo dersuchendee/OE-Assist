@@ -1,0 +1,17 @@
+**Yes**
+
+A SPARQL query that returns, for a given album, its label and the number of tracks it contains can be written as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?trackCount
+WHERE {
+  ?album a :Cl_Album .
+  ?album rdfs:label ?albumLabel .
+  ?album :containsTracks ?trackCount .
+  # Optionally, restrict to a particular album by its label. For example:
+  FILTER(?albumLabel = "Stadium Arcadium")
+}
+
+This query shows that the ontology provides a direct connection from an album (instance of :Cl_Album) to a track count via the property :containsTracks. Hence, the competency question is answerable by the ontology.

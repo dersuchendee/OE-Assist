@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that retrieves the release date for a given album (e.g. "Stadium Arcadium") by following the re‐ification structure defined in the ontology:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releasedOn ?albumRelease .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?albumRelease :releaseDate ?releaseDate .
+  
+  # Filter for a specific album (adjust the literal as needed)
+  FILTER (?albumLabel = "Stadium Arcadium")
+}
+----------------------------------------------------------------
+
+This query answers the competency question “When was a certain album released?” using the reified relationship between an album and its release (Cl_AlbumRelease), in the context of the closed world assumption.

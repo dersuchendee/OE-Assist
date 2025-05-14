@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not model the temporal aspect of the role assignment. In other words, while you can extract which role a person has in a band via the static properties (ex:hasRole and ex:hasMember), there is no connection of this role assignment to a specific point in time. Therefore, only a partial answer can be extracted.
+
+Below is a SPARQL query that retrieves the person, their name, their role, and the associated band (ignoring the time constraint):
+
+PREFIX ex: <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?band ?bandName ?role ?roleName
+WHERE {
+  ?person ex:hasName ?personName .
+  ?person ex:hasRole ?role .
+  ?band ex:hasMember ?person .
+  OPTIONAL { ?band rdfs:label ?bandName . }
+  OPTIONAL { ?role rdfs:label ?roleName . }
+}

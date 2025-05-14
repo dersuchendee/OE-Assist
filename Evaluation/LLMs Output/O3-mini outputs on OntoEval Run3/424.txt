@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that individual persons and the instruments they play are asserted using the playsInstrument property (with domain :Cl_Person and range :Cl_Instrument), you can answer the competency question “What instruments does a certain person play?” by retrieving (for a given person) all the instruments they play. For example, if the person’s IRI is provided (here using a placeholder IRI), the SPARQL query could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person ;
+          :playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+  FILTER(?person = <http://www.example.org/test#JohnFrusciante>)
+}
+
+This query retrieves the instruments (and their labels) played by the specific person. The ontology supports the CQ under the closed world assumption, and so the answer is **Yes**.

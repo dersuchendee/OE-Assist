@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves each play’s writing period (its start and end dates) by following the :hasWritingPeriod relation from a :Cl_Play to a :Cl_PlayWritingPeriod, and then extracting its :writingStartDate and :writingEndDate:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?writingStartDate ?writingEndDate
+WHERE {
+  ?play a :Cl_Play ;
+        rdfs:label ?playLabel ;
+        :hasWritingPeriod ?period .
+  ?period :writingStartDate ?writingStartDate ;
+          :writingEndDate ?writingEndDate .
+}
+ORDER BY ?play
+-------------------------------------------------------
+
+This query fully answers the competency question "During what time period was a certain play written?" according to the ontology.

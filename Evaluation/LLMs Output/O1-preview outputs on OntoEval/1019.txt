@@ -1,0 +1,21 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to model the competency question. The class `:Seminar` represents seminars, and the datatype property `:hasDate` associates a seminar with its date. Therefore, we can write a SPARQL query to retrieve the date when a seminar took place.
+
+```sparql
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasDate ?date .
+}
+```
+
+This query will return all seminars and the dates when they took place. If you want to find out when a specific seminar took place, you can modify the query by specifying the seminar of interest. For example, if the seminar is identified by `:Seminar_1`:
+
+```sparql
+SELECT ?date
+WHERE {
+  :Seminar_1 a :Seminar .
+  :Seminar_1 :hasDate ?date .
+}
+```

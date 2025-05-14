@@ -1,0 +1,35 @@
+Answer: **Yes**
+
+The competency question "When was a certain album released?" can be answered using the given ontology. The ontology contains instances of `:Cl_Album` with associated release dates through the `:releaseDate` data property. Here is a SPARQL query that retrieves albums and their release dates:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}
+```
+
+If you want to find the release date of a specific album, such as "Stadium Arcadium," you can modify the query as follows:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?releaseDate
+WHERE {
+  :Stadium_Arcadium rdf:type :Cl_Album .
+  :Stadium_Arcadium :releaseDate ?releaseDate .
+}
+```
+
+This query will retrieve the release date of the album `:Stadium_Arcadium`, which is specified in the ontology as:
+
+```turtle
+:Stadium_Arcadium :releaseDate "2006-05-05"^^xsd:date .
+```
+
+Thus, the ontology supports the competency question, and the release date can be extracted using the provided SPARQL query.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves a particular album’s title and counts its associated tracks:
+
+-----------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumTitle (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :hasTrack ?track .
+  FILTER(?albumTitle = "Stadium Arcadium")
+}
+GROUP BY ?album ?albumTitle
+-----------------------------------------------------
+
+This query assumes that the album’s tracks are linked via the property :hasTrack. Alternatively, if the ontology directly provides the data property :numberOfTracks for an album, the query could simply retrieve that value.

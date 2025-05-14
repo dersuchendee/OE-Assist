@@ -1,0 +1,26 @@
+**Yes**
+Below is an example SPARQL query that retrieves the role of a given person in a given band at a specified point in time by using the membership reification (with start and end dates):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :membership_artist ?person .
+  ?membership :membership_band ?band .
+  ?membership :hasRole ?role .
+  ?membership :membership_startDate ?start .
+  ?membership :membership_endDate ?end .
+  
+  # Assuming the given person, band, and time are passed as parameters:
+  FILTER(?person = <http://www.example.org/test#Person_ID>)
+  FILTER(?band = <http://www.example.org/test#Band_ID>)
+  FILTER("2005-01-01"^^xsd:date >= ?start && "2005-01-01"^^xsd:date <= ?end)
+}
+--------------------------------------------------
+
+In this query the URI <http://www.example.org/test#Person_ID> should be replaced with the specific person’s identifier, 
+<http://www.example.org/test#Band_ID> should be replaced with the band’s identifier, and the date "2005-01-01" is the point in time of interest.
+Under the closed world assumption, if a membership exists that satisfies these conditions, the role is returned.

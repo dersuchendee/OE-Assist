@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the country associated with each region (or a specific region):
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :locatedInCountry ?country .
+}
+-----------------------------------------
+
+This query extracts each instance of a region (i.e. those with a type of :Cl_Region) and returns the country linked via the :locatedInCountry property.

@@ -1,0 +1,26 @@
+**Yes**
+Below is one way to write a SPARQL query that retrieves the publication date (and optionally the title) for any resource that is either a book or a CD:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?title ?pubDate
+WHERE {
+  {
+    ?publication rdf:type :Cl_Book ;
+                 :publication_date ?pubDate .
+    OPTIONAL { ?publication :title ?title . }
+  }
+  UNION
+  {
+    ?publication rdf:type :Cl_CD ;
+                 :publication_date ?pubDate .
+    OPTIONAL { ?publication :title ?title . }
+  }
+}
+-----------------------------------------------------
+
+This query checks for instances of either :Cl_Book or :Cl_CD that have a :publication_date property – thus modeling the competency question "When was a certain book or CD published?" under a closed-world assumption, since only explicitly asserted publication dates (with their corresponding types) are retrieved.

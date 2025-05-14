@@ -1,0 +1,40 @@
+**Yes**
+
+Here is a SPARQL query that retrieves the members of a specific union at a certain point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :union :SpecificUnion .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  FILTER ( xsd:date("YYYY-MM-DD") >= ?startDate ) .
+  FILTER ( !BOUND(?endDate) || xsd:date("YYYY-MM-DD") <= ?endDate ) .
+}
+```
+
+**Explanation:**
+
+- **Namespaces:**
+  - We define the necessary prefixes for the ontology.
+- **Variables:**
+  - `?person`: Individuals of type `:Cl_Person`.
+- **Triple Patterns:**
+  - `?person a :Cl_Person`: Selects all persons.
+  - `?person :memberOf ?membership`: Retrieves the union memberships of each person.
+  - `?membership :union :SpecificUnion`: Filters memberships to the specific union of interest (replace `:SpecificUnion` with the actual union URI).
+  - `?membership :membershipStartDate ?startDate`: Retrieves the start date of the membership.
+  - `OPTIONAL { ?membership :membershipEndDate ?endDate }`: Optionally retrieves the end date if it exists.
+- **Filters:**
+  - `FILTER ( xsd:date("YYYY-MM-DD") >= ?startDate )`: Ensures the point in time (replace `"YYYY-MM-DD"` with the specific date) is after the membership started.
+  - `FILTER ( !BOUND(?endDate) || xsd:date("YYYY-MM-DD") <= ?endDate )`: Includes memberships that are still active or ended after the point in time.
+  
+**Note:** Replace `:SpecificUnion` with the actual URI of the union in question, and `"YYYY-MM-DD"` with the specific date you are interested in.
+
+This query utilizes the classes and properties defined in the ontology to answer the competency question by finding all persons who are members of a particular union at a specified point in time.

@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the entity “she” is represented by an instance of :Musician (for example one labelled "Sophia"), the following SPARQL query retrieves the locations where that musician performed by linking the PerformanceEvent (which has time, location, and documentation restrictions) through the :performedBy and :performedAt properties:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?performance ?location ?locationLabel
+WHERE {
+  ?performance a :PerformanceEvent ;
+               :performedBy ?musician ;
+               :performedAt ?location .
+  ?musician rdfs:label "Sophia" .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+------------------------------------------------------------
+
+Under the closed world assumption, this query explicitly returns only those performance events and their associated locations that have been asserted in the ontology for the musician "Sophia" (i.e. “she”).

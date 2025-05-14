@@ -1,0 +1,37 @@
+**Yes**
+
+The competency question "How can we characterize the relation among the participants?" can be answered using the ontology provided. The ontology includes classes and properties that define relationships among participants, such as "hasRelationWith", "collaboratedWith", "influencedBy", "influenced", and "metAtEvent". These properties allow us to characterize the relations among participants.
+
+Here is a SPARQL query to extract the relations among participants:
+
+```sparql
+SELECT ?participant1 ?relation ?participant2
+WHERE {
+  ?participant1 a :Participant .
+  ?participant2 a :Participant .
+  {
+    ?participant1 :hasRelationWith ?participant2 .
+    BIND("hasRelationWith" AS ?relation)
+  }
+  UNION
+  {
+    ?participant1 :collaboratedWith ?participant2 .
+    BIND("collaboratedWith" AS ?relation)
+  }
+  UNION
+  {
+    ?participant1 :influencedBy ?participant2 .
+    BIND("influencedBy" AS ?relation)
+  }
+  UNION
+  {
+    ?participant1 :influenced ?participant2 .
+    BIND("influenced" AS ?relation)
+  }
+  UNION
+  {
+    ?participant1 :metAtEvent ?participant2 .
+    BIND("metAtEvent" AS ?relation)
+  }
+}
+```

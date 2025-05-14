@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the date and location of a specific performance (for example, Performance1): 
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceDate ?locationName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :tookPlaceAt ?location .
+  ?location :locationName ?locationName .
+  
+  # Closed-world: if you are interested in a particular performance, e.g., Performance1:
+  FILTER(?performance = :Performance1)
+}
+──────────────────────────────
+
+This query shows that—with the classes, properties, and individuals defined—the ontology supports answering the competency question “When did a certain performance take place?” The query extracts the performance’s date (via :performanceDate) along with its associated location name, using the closed-world assumption by filtering to a specific individual.

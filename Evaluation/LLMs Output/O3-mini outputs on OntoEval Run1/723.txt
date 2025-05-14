@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption of the ontology, retrieves for each region the country that the region is directly connected to via the property “isPartOf” (ensuring the retrieved country is an instance of Country):
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  ?region :isPartOf ?country .
+  ?country a :Country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}

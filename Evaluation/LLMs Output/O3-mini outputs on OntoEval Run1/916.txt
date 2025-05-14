@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person, union group and a time point, retrieves the union role (its title and when it started) that is in effect (i.e. the role start date is earlier than or equal to the given time):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleTitle ?roleStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :isMemberOf ?membership .
+  ?membership :memberOf ?union .
+  ?membership :hasUnionRole ?role .
+  ?role :roleTitle ?roleTitle .
+  ?role :roleStartDate ?roleStartDate .
+
+  # Replace these values with the desired person, union and time point.
+  FILTER(?person = :PasqualeDiGennaro && ?union = :UnionOfMaleNurses && xsd:date("2005-01-01") >= ?roleStartDate)
+}
+------------------------------------------------
+
+This query shows that the competencies in the CQ are connected via the reified union membership construct in the ontology.

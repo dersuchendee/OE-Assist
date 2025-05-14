@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?information ?informationLabel
+WHERE {
+  :CollaborateAndAlignProcesses rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty :requiresInformation ;
+               owl:someValuesFrom ?information .
+  OPTIONAL { ?information rdfs:label ?informationLabel . }
+}
+```
+
+This query retrieves the information needed to collaborate and align processes by exploring the ontology's class hierarchy and restrictions. It starts from the `:CollaborateAndAlignProcesses` class, finds any restrictions on the `:requiresInformation` property, and retrieves the `:Information` classes that are required.

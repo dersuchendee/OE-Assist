@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any information about the plays that can be seen during a theatre festival. It only contains information about theatre festivals, festival occurrences, cities, plays, festival play participation, theatres, countries, productions, play bases, ensembles, ensemble memberships, actors, authors, author plays, play writing periods, play acts, production premieres, production reviews, newspapers, actor employment, actor roles, and actor role assignments. However, it does not specify which plays are part of a specific theatre festival.
+
+To extract a partial answer, we can query for the plays that have participated in any festival occurrence, but this will not be specific to a certain theatre festival.
+
+```sparql
+SELECT ?festivalOccurrence ?play ?playLabel
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence .
+  ?festivalOccurrence :hasPlayParticipation ?participation .
+  ?participation :participatedPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```

@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?activity ?activityLabel
+WHERE {
+  :User :isPerforming ?activity .
+  OPTIONAL { ?activity rdfs:label ?activityLabel . }
+}
+```

@@ -1,0 +1,24 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?implementationAction ?actionLabel ?effect ?effectLabel ?externalFactor ?factorLabel
+WHERE {
+  ?implementationAction a :ImplementationAction .
+  OPTIONAL { ?implementationAction rdfs:label ?actionLabel . }
+  
+  ?implementationAction :hasEffect ?effect .
+  OPTIONAL { ?effect rdfs:label ?effectLabel . }
+  
+  ?effect :affectsFactor ?externalFactor .
+  {
+    ?externalFactor a :SocialFactor .
+  }
+  UNION
+  {
+    ?externalFactor a :EnvironmentalFactor .
+  }
+  OPTIONAL { ?externalFactor rdfs:label ?factorLabel . }
+}
+```

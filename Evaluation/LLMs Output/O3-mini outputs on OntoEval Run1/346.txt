@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that the production and the newspaper in question are correctly identified in the ontology (using, for example, rdfs:label or known URIs), the CQ can be answered using the following SPARQL query under the closed‐world assumption:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?newspaper ?production ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper .
+  ?newspaper rdfs:label "Il Gazzettino" .        # adjust label/filter as needed
+  
+  ?newspaper :publishedReview ?review .
+  
+  ?review :reviews ?production .
+  ?review :starRating ?starRating .
+  
+  ?production rdfs:label "Merchant of Venice" .    # adjust to the specific production if required
+}
+------------------------------------------------------------
+
+This query retrieves the star rating given by the specified newspaper for the specified production; thus, the CQ is fully covered by the ontology.

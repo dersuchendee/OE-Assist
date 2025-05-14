@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?user ?role ?sensor ?sensorData
+WHERE {
+  ?user a :User ;
+        :hasRole ?role .
+  ?sensor a :Sensor ;
+          :hasSensorData ?sensorData .
+  ?sensorData :detectedActivity ?activity .
+  FILTER(?activity = ?role)
+}
+```

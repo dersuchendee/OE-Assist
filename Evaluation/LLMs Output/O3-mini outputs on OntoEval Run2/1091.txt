@@ -1,0 +1,12 @@
+**Yes**
+Below is a SPARQL query that retrieves each seminar along with at least one article it presents (which should be non‐empty given the ontology’s minCardinality restriction):
+
+PREFIX : <http://example.org/seminararticles#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :presents ?article .
+}
+ORDER BY ?seminar

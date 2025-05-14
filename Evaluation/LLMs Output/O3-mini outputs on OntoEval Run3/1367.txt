@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not explicitly model the “weight” of a bell (i.e. there is no property defined for weight), so we cannot fully answer the CQ. Under a closed world assumption we assume weight data is absent unless explicitly asserted. However, a partial answer can be attempted with a query that retrieves bells and (if available) a weight property.
+
+Below is a SPARQL query that extracts bells and an optional weight (using a hypothetical property bells:hasWeight):
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bell ?bellLabel ?weight
+WHERE {
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel . }
+  OPTIONAL { ?bell bells:hasWeight ?weight . }
+}
+
+This query returns all instances of bells and, if available, their weight. Since the ontology does not model weight, the weight column will likely remain unpopulated.

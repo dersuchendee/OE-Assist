@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology includes the class `theatre:ProductionWithOnePremier`, which is defined as a subclass of `theatre:Production` with a restriction that it has exactly one `theatre:Premier`. This allows us to query for productions that have exactly one premier.
+
+Here is a SPARQL query to extract productions with exactly one premier:
+
+```sparql
+SELECT ?production ?productionLabel ?premier ?premierDate
+WHERE {
+  ?production a theatre:ProductionWithOnePremier .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production theatre:hasPremier ?premier .
+  ?premier theatre:hasPremierDate ?premierDate .
+}
+```

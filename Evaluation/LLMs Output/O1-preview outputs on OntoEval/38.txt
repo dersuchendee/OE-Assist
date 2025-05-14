@@ -1,0 +1,19 @@
+Answer: **Yes**
+
+```sparql
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX resourceODP: <http://w3id.org/CEON/ontology/resourceODP/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?actor
+WHERE {
+  ?participation rdf:type actorODP:ResourceRelation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole actor:owner .
+  ?participation actorODP:participatingResource ?resource .
+  ?resource rdf:type resourceODP:Information .
+}
+```
+
+The competency question "What actors hold this information?" is answerable using the ontology because it models the relationships between actors and information resources. Specifically, the ontology defines `actorODP:ResourceRelation` to represent the participation of an actor (`actorODP:participatingActor`) with a certain role (`actorODP:participantRole`) in relation to a resource (`actorODP:participatingResource`). By querying for actors who have the role of `actor:owner` and are related to resources of type `resourceODP:Information`, we can retrieve the actors that hold (own) the information.

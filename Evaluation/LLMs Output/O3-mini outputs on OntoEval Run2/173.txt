@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that extracts, for each city in the ontology, the country in which it is located (by using the explicitly stated property :isLocatedInCountry):
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isLocatedInCountry ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+--------------------------------
+
+Under the closed world assumption, only explicitly asserted relationships (i.e. the :isLocatedInCountry triple) are returned, ensuring that every country extracted is directly linked to its city in the data.

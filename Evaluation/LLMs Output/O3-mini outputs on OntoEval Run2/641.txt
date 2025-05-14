@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves the performance instance(s) along with the date on which the performance took place (and optionally its location):
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?location
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+  OPTIONAL { ?performance :performanceLocation ?location. }
+}
+---------------------------------------------------------------
+
+This query shows that the ontology models performances (via the class Cl_Performance) and includes a data property for performanceDate. Thus, the competency question “When did a certain performance take place?” is answerable from the ontology.

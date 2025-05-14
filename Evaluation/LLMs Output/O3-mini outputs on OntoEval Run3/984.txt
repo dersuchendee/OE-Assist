@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer this CQ using the ontology’s representation of a book as an instance of Cl_Publication that has a data property :pageCount. For example, assuming a particular book is identified by its title, we could write the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?title ?pageCount
+WHERE {
+  ?book a :Cl_Publication ;
+        :publicationType "Book" ;
+        :publicationTitle ?title ;
+        :pageCount ?pageCount .
+  FILTER(?title = "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals")
+}
+
+This query extracts the number of pages (pageCount) for the book with the given title.

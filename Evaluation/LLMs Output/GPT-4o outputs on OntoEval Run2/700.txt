@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide information about the region in which a city is located. It only provides information about cities, regions, and countries, but lacks the necessary relationships to determine the specific region a city is part of.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :City .
+  OPTIONAL {
+    ?city :isPartOf ?region .
+    ?region a :Region .
+  }
+}
+```

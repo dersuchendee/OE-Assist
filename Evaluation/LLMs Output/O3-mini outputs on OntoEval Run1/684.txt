@@ -1,0 +1,15 @@
+**Yes**
+
+We can retrieve the venue where a performance took place using the property :performedIn. For example, a SPARQL query that uses the closed world view to answer “Where did a certain performance take place?” could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?venue
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performedIn ?venue .
+  OPTIONAL { ?performance :performanceDate ?performanceDate . }
+}
+
+This query returns any individual of type :Cl_Performance (including, for instance, :PerformanceStadiumArcadiumPortland) along with its performance date (if available) and the corresponding venue (e.g. :Portland_Oregon).

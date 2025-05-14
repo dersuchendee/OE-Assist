@@ -1,0 +1,16 @@
+**Answer: Yes**
+
+The ontology provides the necessary classes and properties to determine the time period during which a play was written. The relationship between a play and its time period is modeled using the `:writtenDuring` object property linking a `:Cl_Play` to a `:Cl_PlayCreation`, which has the `:timePeriod` data property.
+
+Here is a SPARQL query to retrieve the time period during which each play was written:
+
+```sparql
+SELECT ?play ?timePeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :writtenDuring ?playCreation .
+  ?playCreation :timePeriod ?timePeriod .
+}
+```
+
+This query retrieves all plays and their associated time periods by traversing the `:writtenDuring` property from the play to its creation time period.

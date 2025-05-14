@@ -1,0 +1,19 @@
+**No**  
+The ontology does not explicitly model measurement properties (such as weight, dimensions, mounting system, or material) for bells, so the CQ "Which are the measures of the bell?" cannot be fully answered. However, one may try to extract any properties attached to bells that might indirectly contain such information. For example, a partial answer can be obtained with a query that retrieves all non‐structural properties of bells:
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX bells: <https://w3id.org/polifonia/ontology/bells-ontology/>
+
+SELECT ?bell ?property ?value
+WHERE {
+  ?bell a bells:Bell .
+  ?bell ?property ?value .
+  FILTER (
+    !regex(str(?property), "isComponentOf", "i") &&
+    !regex(str(?property), "rdf:type", "i") &&
+    !regex(str(?property), "rdfs:label", "i")
+  )
+}
+
+Because the ontology does not declare any specific properties for the “measures” of a bell, the query only gives a partial view of any attached data.  

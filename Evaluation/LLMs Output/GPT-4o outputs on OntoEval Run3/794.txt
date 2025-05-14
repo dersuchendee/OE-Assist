@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to extract the time period during which a person studied for a specific degree. The ontology includes classes and properties related to persons, degrees, and study events, but it lacks a direct connection between a person and the time interval of their study for a specific degree. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?studyEvent a :StudyEvent .
+  ?studyEvent :hasParticipant ?person .
+  ?studyEvent :hasDegree ?degree .
+  ?studyEvent :hasTimeInterval ?timeInterval .
+  ?timeInterval :startDate ?startDate .
+  ?timeInterval :endDate ?endDate .
+}
+```
+
+This query retrieves the study events, participants, degrees, and time intervals, but it does not directly link a specific person to a specific degree with a time period.

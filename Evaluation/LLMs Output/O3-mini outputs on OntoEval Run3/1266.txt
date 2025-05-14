@@ -1,0 +1,37 @@
+**Yes**
+
+The ontology contains the EnergyInfrastructure class and its associated properties (hasLevel, governedBy, hasBarrier, influencedBy). Thus, under the closed world assumption, we can retrieve all the energy infrastructures (and their related properties) declared in the ontology. Here is a SPARQL query that extracts the available energy infrastructures along with levels, legislature, system barriers, and external factors:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyInfrastructure ?eiLabel 
+       ?level ?levelLabel 
+       ?legislature ?legislatureLabel 
+       ?barrier ?barrierLabel 
+       ?externalFactor ?externalFactorLabel
+WHERE {
+  ?energyInfrastructure a :EnergyInfrastructure .
+  OPTIONAL { ?energyInfrastructure rdfs:label ?eiLabel . }
+  
+  OPTIONAL {
+    ?energyInfrastructure :hasLevel ?level .
+    OPTIONAL { ?level rdfs:label ?levelLabel . }
+  }
+  OPTIONAL {
+    ?energyInfrastructure :governedBy ?legislature .
+    OPTIONAL { ?legislature rdfs:label ?legislatureLabel . }
+  }
+  OPTIONAL {
+    ?energyInfrastructure :hasBarrier ?barrier .
+    OPTIONAL { ?barrier rdfs:label ?barrierLabel . }
+  }
+  OPTIONAL {
+    ?energyInfrastructure :influencedBy ?externalFactor .
+    OPTIONAL { ?externalFactor rdfs:label ?externalFactorLabel . }
+  }
+}
+------------------------------------------------
+
+This query answers the competency question by fetching instances of energy infrastructure and their associated properties as defined in the ontology.

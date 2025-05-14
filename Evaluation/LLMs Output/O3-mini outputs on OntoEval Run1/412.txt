@@ -1,0 +1,19 @@
+**Yes**
+
+One way to check that every production (instances of :Cl_Production) has exactly one premier is to query for, for each production, its associated premier (an instance of :Cl_ProductionPremier) via the property :hasPremier (whose range has been restricted to exactly one in the ontology) and retrieve its premier date. For example:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier a :Cl_ProductionPremier .
+  ?premier :hasPremierDate ?premierDate .
+}
+---------------------------------
+
+Under the closed‐world assumption, if the data is complete then every production has exactly one premier and this query will return, for each production, its unique premier date.

@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+PREFIX : <http://www.semanticweb.org/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookLabel ?pages
+WHERE {
+  ?book a :Book .
+  OPTIONAL { ?book rdfs:label ?bookLabel. }
+  ?book :hasNumberOfPages ?pages.
+}
+```

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for the primary CO2 fixation pathways specifically in beech forests. The ontology defines a class `BeechForest` as a subclass of `ForestEcosystem`, which can have a primary CO2 fixation pathway, but there is no direct property or data linking `BeechForest` to specific CO2 fixation pathways.
+
+Partial answer:
+```sparql
+SELECT ?beechForest ?pathway
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :hasPrimaryCO2FixationPathway ?pathway .
+}
+```

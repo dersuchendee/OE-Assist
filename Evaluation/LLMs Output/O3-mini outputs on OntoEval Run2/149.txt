@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer the competency question using the ontology’s modelling of theatres and their locations. In the ontology the class Cl_Theatre is connected to the class Cl_City via the object property located_in. Under the closed world assumption, we assume that if a theatre is not explicitly linked to a city there is no such link, so we can reliably extract the city for a given theatre.
+
+For example, the following SPARQL query retrieves each theatre and its associated city:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre.
+  ?theatre :located_in ?city.
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+--------------------------------------------------
+
+This query returns all theatres (individuals of type Cl_Theatre) along with the cities (individuals of type Cl_City) they are located in as specified by the property :located_in.

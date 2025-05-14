@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the dates on which theatre festivals took place, using the fact that each festival has an occurrence (via :hasOccurrence) with an associated date (via :hasDate):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival rdf:type :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :hasDate ?date .
+}
+--------------------------------------------------
+
+This query is answerable under the closed world assumption given the ontology, and it extracts the date information for each festival occurrence (including “Roma Loves Shakespeare”).

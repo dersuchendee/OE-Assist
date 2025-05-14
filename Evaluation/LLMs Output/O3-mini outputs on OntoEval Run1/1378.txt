@@ -1,0 +1,41 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each meetup, its context by returning its associated participants, location, time expression (when it happened) and purpose:
+
+----------------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?meetup ?meetupLabel ?participant ?participantLabel ?place ?placeLabel ?timeExpression ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup rdfs:label ?meetupLabel . }
+  
+  # Retrieve participants
+  OPTIONAL {
+    ?meetup mtps:hasParticipant ?participant .
+    OPTIONAL { ?participant rdfs:label ?participantLabel . }
+  }
+  
+  # Retrieve the location where the meetup happened.
+  OPTIONAL {
+    ?meetup mtps:hasPlace ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+  }
+  
+  # Retrieve the time information of the meetup.
+  OPTIONAL { 
+    ?meetup mtps:happensAt ?timeExpression .
+  }
+  
+  # Retrieve the purpose (i.e., aspect that describes the "reason" or type of the meetup)
+  OPTIONAL {
+    ?meetup mtps:hasAPurpose ?purpose .
+    OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+  }
+}
+ORDER BY ?meetup
+----------------------------------------------------------
+
+Using this query under the closed-world assumption the ontology provides enough links (via mtps:hasParticipant, mtps:hasPlace, mtps:happensAt, and mtps:hasAPurpose) for answering “In what context the meeting happened?”

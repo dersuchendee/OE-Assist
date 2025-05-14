@@ -1,0 +1,22 @@
+**Yes**
+
+The competency question "When is an organ moved to another location?" is answerable using the provided ontology. The ontology models organs (`:Organ`) that have movement events (`:MovementEvent`) associated with them via the property `:hasMovementEvent`. Each movement event includes the date of movement (`:movementDate`), the origin location (`:movedFrom`), and the destination location (`:movedTo`). Therefore, we can query for organs and their associated movement events to find out when they were moved to another location.
+
+Here is a SPARQL query to extract the required information:
+
+```sparql
+SELECT ?organ ?organLabel ?movementEvent ?date ?fromLocation ?fromLocationLabel ?toLocation ?toLocationLabel
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  ?organ :hasMovementEvent ?movementEvent .
+  ?movementEvent :movementDate ?date .
+  ?movementEvent :movedFrom ?fromLocation .
+  OPTIONAL { ?fromLocation rdfs:label ?fromLocationLabel . }
+  ?movementEvent :movedTo ?toLocation .
+  OPTIONAL { ?toLocation rdfs:label ?toLocationLabel . }
+}
+ORDER BY ?organ ?date
+```
+
+This query retrieves all organs along with their movement events, including the date of movement and the locations they were moved from and to. It orders the results by organ and date for better readability.

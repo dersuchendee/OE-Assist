@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?materialFlow ?flowLabel ?rebEffect ?rebEffectLabel ?energyRequirement
+WHERE {
+  ?materialFlow a :MaterialFlow .
+  OPTIONAL { ?materialFlow rdfs:label ?flowLabel . }
+  OPTIONAL { 
+    ?materialFlow :hasReboundEffect ?rebEffect .
+    OPTIONAL { ?rebEffect rdfs:label ?rebEffectLabel . }
+  }
+  OPTIONAL { ?materialFlow :hasAddedEnergyRequirement ?energyRequirement . }
+}
+```

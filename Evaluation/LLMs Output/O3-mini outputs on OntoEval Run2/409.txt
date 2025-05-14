@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed‐world view (i.e. the data available is complete), we can “verify” that each production has exactly one premier by counting the associated premier events. For example, the following SPARQL query selects productions that have exactly one premier event:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premier) AS ?numPremiers)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremier ?premier . }
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+--------------------------------------------------
+
+This query extracts exactly those productions that have one premier event, which aligns with the competency question “A production has exactly one premier.”

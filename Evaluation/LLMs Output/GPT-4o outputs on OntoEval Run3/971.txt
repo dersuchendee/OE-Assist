@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine which articles a specific book or CD is composed of. The ontology includes a `containsArticle` property that relates books and CDs to content, but it does not specify how to query for specific articles within a book or CD. Here's a SPARQL query to extract a partial answer, listing books or CDs and their associated content:
+
+```sparql
+SELECT ?bookOrCD ?content
+WHERE {
+  ?bookOrCD a :Cl_Book, :Cl_CD .
+  ?bookOrCD :containsArticle ?content .
+}
+```

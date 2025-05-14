@@ -1,0 +1,32 @@
+**Yes**
+
+Assuming a closed‐world interpretation, the ontology models study events as reified entities that connect a Person, the Degree they pursued, and the TimeInterval during which the study occurred. Thus, we can answer the CQ “During what time period did a certain person study for a specific degree?” by retrieving the study event for that person and degree and then extracting its start and end dates. For example, the following SPARQL query returns the study event’s time interval:
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  
+  ?person :participatesIn ?studyEvent .
+  ?studyEvent a :StudyEvent .
+  
+  ?studyEvent :hasDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel. }
+
+  ?studyEvent :hasTimeInterval ?timeInterval .
+  ?timeInterval :startDate ?startDate .
+  ?timeInterval :endDate ?endDate .
+
+  # Optionally, filter for a given person or degree, for instance:
+  # FILTER(?person = <http://example.org/ontology#PasqualeDiGennaro>)
+  # FILTER(?degree = <http://example.org/ontology#SpecificDegreeID>)
+}
+ORDER BY ?startDate
+------------------------------------------------
+
+This query demonstrates that the competency question is fully supported by the ontology.

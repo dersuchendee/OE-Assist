@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the bookings contained in a user’s calendar during a given time period (using the reified class Cl_CalendarBooking):
+
+---------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?booking ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasCalendar ?calendar .
+
+  ?calendar :hasBooking ?calBooking .
+  ?calBooking :refersToBooking ?booking .
+
+  ?booking :startTime ?startTime ;
+           :endTime ?endTime .
+
+  ?calBooking :bookingDuring ?timePeriod .
+
+  # Assume the desired time period is provided as parameters:
+  # e.g., ?timePeriodStart = "2023-07-01T00:00:00Z"^^xsd:dateTime
+  #       ?timePeriodEnd   = "2023-07-01T23:59:59Z"^^xsd:dateTime
+  BIND("2023-07-01T00:00:00Z"^^xsd:dateTime AS ?timePeriodStart)
+  BIND("2023-07-01T23:59:59Z"^^xsd:dateTime AS ?timePeriodEnd)
+
+  # Filter for bookings that fall entirely within the given time period.
+  FILTER(?startTime >= ?timePeriodStart && ?endTime <= ?timePeriodEnd)
+}
+ORDER BY ?startTime
+---------------------------
+
+This query uses the reified connection (via Cl_CalendarBooking) between a calendar and its booking (referring to Cl_Booking with start and end times) to answer the competency question.

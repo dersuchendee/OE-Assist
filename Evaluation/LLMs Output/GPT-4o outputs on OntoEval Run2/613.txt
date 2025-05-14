@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to link a critic to a specific record and their review about it. The ontology includes classes and properties related to critics, reviews, and albums, but it does not explicitly connect critics to specific records. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?critic ?reviewText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?review a :Cl_CriticReview .
+  ?review :reviews ?critic .
+  ?review :reviewText ?reviewText .
+}
+```
+
+This query retrieves critics and their review texts, but it does not link them to specific records.

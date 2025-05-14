@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any information about performances or venues, which are necessary to answer the competency question about where a certain performance took place. However, we can extract partial information about performances that are recorded in the ontology.
+
+```sparql
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+```

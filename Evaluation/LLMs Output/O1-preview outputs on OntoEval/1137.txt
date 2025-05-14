@@ -1,0 +1,23 @@
+**No**
+
+Because the ontology does not include instances of devices or functionalities, we cannot retrieve specific devices and functionalities to answer the CQ fully. However, we can retrieve the classes of devices and their associated functionalities as defined in the ontology schema.
+
+```sparql
+PREFIX : <http://example.org/onto#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?deviceType ?functionalityType
+WHERE {
+  ?deviceType a owl:Class ;
+              rdfs:subClassOf :SmartBathroomDevice ;
+              rdfs:subClassOf ?restriction .
+  
+  ?restriction a owl:Restriction ;
+               owl:onProperty ?property ;
+               owl:someValuesFrom ?functionalityType .
+  
+  FILTER(?property IN (:displaysWeather, :announcesWeather))
+}
+```
+
+This query retrieves the **device types** and their associated **functionality types** that are connected via the properties `:displaysWeather` and `:announcesWeather`. It gives a partial answer by showing which classes of devices have functionalities for displaying or announcing weather content, but without specific instances, it doesn't fully answer the CQ.

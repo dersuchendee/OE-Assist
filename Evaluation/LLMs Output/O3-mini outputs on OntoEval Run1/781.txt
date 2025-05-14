@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the medical degrees held by a given person (here using Pasquale Di Gennaro as an example):
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName ?degreeDate 
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?personMedicalDegree .
+  ?personMedicalDegree :degreeOf ?degree .
+  ?degree :degreeName ?degreeName .
+  ?degree :degreeDate ?degreeDate .
+  FILTER(?person = :Pasquale_Di_Gennaro)
+}
+
+─────────────────────────────
+
+In this query the reified relation via the class Cl_PersonMedicalDegree is used to connect a person to their medical degree (which provides attributes such as name and date). Thus the competency question is fully supported by the ontology.

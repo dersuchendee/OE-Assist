@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

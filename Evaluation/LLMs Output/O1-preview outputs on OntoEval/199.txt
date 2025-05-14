@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology includes the `:isBasedOn` property linking a `:Cl_Production` to the `:Cl_Play` it is based on. Therefore, the competency question "What play is the basis of this production?" is supported by the ontology.
+
+Here is a SPARQL query that retrieves the plays that are the basis of each production:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?play ?playTitle
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :isBasedOn ?play .
+  OPTIONAL { ?play :hasTitle ?playTitle . }
+}
+```
+
+This query selects all productions and their corresponding plays, including the titles of the plays if available.

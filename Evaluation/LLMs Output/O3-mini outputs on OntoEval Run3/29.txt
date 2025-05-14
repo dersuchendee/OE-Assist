@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each actor’s assigned roles according to the ontology:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/ontology/construction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?role ?roleLabel
+WHERE {
+  ?actor a :Actor ;
+         :hasRole ?role .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+-------------------------------------------------------------
+
+This query answers the competency question “What are the roles of this actor in this network?” by extracting actors (from :Actor) and their roles (via the :hasRole property) from the ontology under the closed world assumption.

@@ -1,0 +1,11 @@
+**No**  
+While we can list all actors declared in the ontology, there is no direct modelling of “information” that an actor holds (i.e. no reification or property that explicitly links actors to “information”) which is needed to fully answer the CQ. Under a closed world assumption this CQ is only partially answerable. A partial answer can be extracted with the following SPARQL query:
+
+PREFIX : <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}

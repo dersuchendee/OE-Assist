@@ -1,0 +1,18 @@
+**No**
+
+The ontology provides information about the parts of organs (using the property core:hasPart) but does not attach to these parts any explicit temporal qualification that would let us filter “at a specific point in time”. Under the closed world assumption (i.e. only using what is explicitly stated), we can only extract which parts an organ has without a time constraint. The following SPARQL query retrieves the parts of each organ, but it does not handle the “specific point in time” requirement since no such temporal information is asserted for the part relationships.
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?part ?partLabel
+WHERE {
+  ?organ a organs:Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  
+  ?organ core:hasPart ?part .
+  OPTIONAL { ?part rdfs:label ?partLabel . }
+}
+
+This answer is partial because it does not filter part relationships by time; hence, the CQ is not fully supported by the ontology.

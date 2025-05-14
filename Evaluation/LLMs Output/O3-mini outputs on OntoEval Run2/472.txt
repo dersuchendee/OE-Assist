@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one example SPARQL query that, given a person, a band, and a specific date, retrieves the role(s) the person played in that band at that point in time. (Replace the example IRIs :JohnFrusciante, :RedHotChiliPeppers and the date value with the desired values.)
+
+---------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?membership ?role ?roleLabel ?interval ?start ?end
+WHERE {
+  ?membership a :BandMembership .
+  ?membership :involvesMember :JohnFrusciante .
+  ?membership :hasBand :RedHotChiliPeppers .
+  ?membership :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?membership :hasTimeInterval ?interval .
+  ?interval :startDate ?start .
+  ?interval :endDate ?end .
+  
+  # Filter to ensure the given point in time falls within the band membership time interval.
+  FILTER(xsd:date("1990-01-01") >= ?start && xsd:date("1990-01-01") <= ?end)
+}
+ORDER BY ?membership
+---------------------------------------
+
+In this query the FILTER clause uses a date (here "1990-01-01") as the “certain point in time” and returns the matching band membership instance and its associated role.

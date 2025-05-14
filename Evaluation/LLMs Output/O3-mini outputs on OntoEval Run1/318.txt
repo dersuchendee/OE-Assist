@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that answers the CQ “When was the premier of a certain production?” by retrieving each production along with its premier date:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premierDateValue
+WHERE {
+  ?production a :Cl_Production .
+  ?production :productionName ?productionName .
+  ?production :hasPremier ?premier .
+  ?premier :premierDateValue ?premierDateValue .
+}
+----------------------------------
+
+This query assumes a closed world where each production has exactly one associated premier event (as required by the ontology restriction) and that premier dates are explicitly recorded using the data property :premierDateValue.

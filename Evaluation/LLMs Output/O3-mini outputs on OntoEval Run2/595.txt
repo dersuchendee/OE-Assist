@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves performances along with their linked geographic location (city), and (optionally) the region and country in which they are located:
+
+─────────────────────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceLocation ?city .
+  ?city a :Cl_City ;
+        :locatedInRegion ?region .
+  ?region a :Cl_Region ;
+          :locatedInCountry ?country .
+}
+ORDER BY ?performance
+
+─────────────────────────────────────────────
+
+This query assumes that every performance has a location (of type Cl_City) and that the city is linked via the property :locatedInRegion to a region which, in turn, is linked via :locatedInCountry to a country. Under the closed‐world assumption (i.e. no “unknown” facts exist beyond what is specified in the ontology), this query extracts a complete answer to the question “What is the geographic location of each performance?”

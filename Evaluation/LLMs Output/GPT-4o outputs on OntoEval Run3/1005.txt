@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query the publication date of a book or CD. The ontology includes a `:publicationDate` property, but it is associated with a `:Cl_Publication` class, which is not directly linked to `:Cl_BookOrCD`. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD a :Cl_BookOrCD .
+  ?bookOrCD :published ?publication .
+  ?publication :publicationDate ?publicationDate .
+}
+```

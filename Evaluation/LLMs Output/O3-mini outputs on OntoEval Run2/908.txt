@@ -1,0 +1,25 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the role held by a given person within a given union group at a specific time. (In this query, replace the example URIs and time literal with the desired person, union group, and time point.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?unionGroup ?role ?startDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasUnionRoleAssignment ?assignment .
+  ?assignment :isAssignmentInUnionGroup ?unionGroup ;
+              :isAssignmentOfRole ?role ;
+              :startDate ?startDate .
+
+  # Restrict to the specific person and union group of interest
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>) .
+  FILTER(?unionGroup = <http://www.example.org/test#MaleNursesUnionGroup>) .
+
+  # Check that the assignment was active at the given time
+  FILTER(xsd:dateTime(?startDate) <= xsd:dateTime("2002-01-01T00:00:00"^^xsd:dateTime))
+}
+------------------------------------------------
+
+This query shows that the ontology reifies union role assignments (via the class Cl_UnionRoleAssignment) and connects a person, a union group, and a role with a start date, thus fully supporting the competency question.

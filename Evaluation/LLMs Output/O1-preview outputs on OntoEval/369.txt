@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question is answerable because the ontology includes the necessary classes and properties to represent the relationships between actors (`:Cl_Person`), theatres (`:Cl_Theatre`), and the employment start date (`:employmentStartDate`). Specifically:
+
+- `:employedAt` is an object property that connects a person to a theatre (`rdfs:domain :Cl_Person ; rdfs:range :Cl_Theatre`).
+- `:employmentStartDate` is a datatype property that captures the date when the person started working (`rdfs:domain :Cl_Person ; rdfs:range xsd:date`).
+
+Here's the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?theatre ?startDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?theatre .
+  ?person :employmentStartDate ?startDate .
+}
+```
+
+This query retrieves all persons who are employed at a theatre and their corresponding employment start dates, thus answering the competency question: "At what time did a certain actor start working for a specific theatre?"

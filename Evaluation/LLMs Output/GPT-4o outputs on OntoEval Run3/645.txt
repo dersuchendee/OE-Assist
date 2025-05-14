@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine when a specific performance took place. The ontology includes a class `Cl_Performance` with a property `performedDuring` that links to a `xsd:dateTime`, but there is no direct connection to a specific performance instance or a way to query for a specific performance date.
+
+Partial SPARQL query to extract available performance dates:
+
+```sparql
+SELECT ?performance ?dateTime
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedDuring ?dateTime .
+}
+```

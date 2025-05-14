@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that, for a given ensemble (here we use the example ensemble :MerchantOfVeniceEnsemble) and a chosen point in time (e.g. “2009-09-10”), returns the actors whose membership period covers that time:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?ensemble ?actor ?dp_startDate ?dp_endDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  # For example, restrict to a specific ensemble:
+  FILTER(?ensemble = :MerchantOfVeniceEnsemble) .
+  
+  ?membership a :Cl_EnsembleMembership ;
+              :op_membershipIn ?ensemble ;
+              :dp_startDate ?dp_startDate ;
+              :dp_endDate ?dp_endDate .
+  ?actor :op_hasMembership ?membership .
+  
+  # Check that the given point in time falls within the membership period.
+  FILTER ("2009-09-10"^^xsd:date >= ?dp_startDate && "2009-09-10"^^xsd:date <= ?dp_endDate)
+}
+ORDER BY ?actor
+----------------------------------------------------------------
+
+This query shows that the ontology models the concepts required by the CQ—that is, ensembles, membership (with start/end dates), and actors—and answers “Who are the members of a certain ensemble at a certain point in time?” under a closed world assumption.

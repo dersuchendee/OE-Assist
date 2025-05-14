@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves—for a given person and production—the actor’s roles along with the associated time period. In the query below the class Cl_ActorRole (and its object properties :hasActor, :hasProduction, :hasRole, and :hasTimePeriod) is used to capture the reified association between an actor and a production at a given time.
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?production ?productionName ?role ?time
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+             :hasActor ?actor ;
+             :hasProduction ?production ;
+             :hasRole ?role ;
+             :hasTimePeriod ?time .
+  ?actor :actorName ?actorName .
+  ?production :productionName ?productionName .
+}
+ORDER BY ?actorName ?productionName ?time
+--------------------------------------------------------------
+
+This query demonstrates that the ontology supports the competency question "What roles does a certain person have within a certain production at a certain point in time?" under a closed‐world assumption, since it is possible to extract the complete answer from the ontology's reified structure.

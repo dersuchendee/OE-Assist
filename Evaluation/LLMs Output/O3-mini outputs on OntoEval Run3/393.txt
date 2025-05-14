@@ -1,0 +1,26 @@
+**Yes**
+Below is one possible SPARQL query that retrieves, for a given person, production and point in time, the roles that satisfy the competency question.
+
+Assuming you know the URI for the person, the production, and the date of interest, you could write:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleName ?roleAtTime
+WHERE {
+  # The person of interest; replace <personURI> with the desired URI
+  <personURI> a :Cl_Person ;
+              :hasRole ?role .
+              
+  # The role must be in the given production; replace <productionURI> with the desired URI
+  ?role :roleInProduction <productionURI> ;
+        :roleAtTime ?roleAtTime .
+        
+  # Filter for the desired time; replace "YYYY-MM-DD" with the specific date value
+  FILTER(?roleAtTime = "YYYY-MM-DD"^^xsd:date)
+  
+  # Optionally, get the role name if available
+  OPTIONAL { ?role :roleName ?roleName . }
+}
+
+This query leverages the ontology’s classes and object properties (:Cl_Person, :hasRole, :roleInProduction, :roleAtTime) to extract the roles that a specific person holds within a specific production at a specified point in time, thereby answering the CQ.

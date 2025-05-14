@@ -1,0 +1,13 @@
+**No**
+
+Because the ontology lacks information distinguishing doctors from other personnel, and there are no evaluations by doctors of other employees. The only evaluation present is from Pasquale Di Gennaro to himself, which does not fully answer the competency question.
+
+```sparql
+SELECT ?doctor ?employee ?evaluationStatement
+WHERE {
+  ?evaluation rdf:type :Cl_Evaluation .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  ?evaluation :evaluatedBy ?doctor .
+  ?evaluation :evaluationOf ?employee .
+}
+```

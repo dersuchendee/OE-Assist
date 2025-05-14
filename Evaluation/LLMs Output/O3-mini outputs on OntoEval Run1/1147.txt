@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that “today” is known (for example, "2023-04-01") and that free time periods are explicitly asserted in the ontology, you can retrieve today’s free time periods with a query like:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?calendar ?freeTimePeriod ?label ?startTime ?endTime
+WHERE {
+  ?calendar a :Calendar ;
+            :hasFreeTimePeriod ?freeTimePeriod .
+  OPTIONAL { ?freeTimePeriod rdfs:label ?label . }
+  ?freeTimePeriod :startTime ?startTime ;
+                  :endTime ?endTime .
+  
+  # assuming "today" is 2023-04-01. Adjust these literals as needed.
+  FILTER (
+      ?startTime >= "2023-04-01T00:00:00Z"^^xsd:dateTime &&
+      ?endTime   <= "2023-04-01T23:59:59Z"^^xsd:dateTime
+  )
+}
+ORDER BY ?startTime

@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the ontology defines theatres using class :Cl_Theatre and specifies their city using the property :isLocatedIn (whose range is :Cl_City), we can extract the city where a theatre is located. Under a closed world assumption the absence of a triple is interpreted as “not located in” so only explicitly asserted locations will be returned. A sample SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre :isLocatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+
+This query retrieves all instances of theatres along with their optionally available labels and the cities they are located in.

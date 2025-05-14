@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?play ?playName ?numberOfActs
+WHERE {
+  ?play a :Cl_Play ;
+        :containsActs ?act .
+  ?act :numberOfActs ?numberOfActs .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

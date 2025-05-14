@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the evaluation statement (its content and date) from the reified evaluation record. In this query the doctor and employee are specified by their IRIs (here represented as :DoctorID and :EmployeeID). Under the closed world assumption, only those evaluation records actually present in the ontology are returned.
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationRecord ?evaluationContent ?evaluationDate
+WHERE {
+  ?evaluationRecord a :Cl_EvaluationRecord .
+  ?evaluationRecord :hasDoctor ?doctor .
+  ?evaluationRecord :hasEmployee ?employee .
+  ?evaluationRecord :hasEvaluationStatement ?evaluationStatement .
+  ?evaluationStatement :evaluationContent ?evaluationContent .
+  ?evaluationRecord :evaluationDate ?evaluationDate .
+  
+  FILTER(?doctor = :DoctorID && ?employee = :EmployeeID)
+}
+
+--------------------------------------------------
+
+In this query:
+• ?evaluationRecord represents the reified evaluation record.
+• The properties :hasDoctor and :hasEmployee link the record to the doctor and employee respectively.
+• The property :hasEvaluationStatement relates the record to the evaluation statement from which the evaluation content is retrieved.
+• The FILTER clause restricts results to the given doctor and employee.
+
+This demonstrates that the ontology fully supports the competency question under a reification approach.

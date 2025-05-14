@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :performsActivity ?activity .
+  ?activity :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

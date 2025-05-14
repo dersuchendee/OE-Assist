@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT ?person ?degree ?degreeLabel
+WHERE {
+  ?person a ns1:Person .
+  ?person ns1:hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  # To answer for a specific person, uncomment the next line and adjust the URI
+  # FILTER(?person = ns1:PasqualeDiGennaro)
+}
+```

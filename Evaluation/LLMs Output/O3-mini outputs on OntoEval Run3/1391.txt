@@ -1,0 +1,15 @@
+**No**  
+The ontology does not explicitly model a relationship between tune families based on a similarity measure Y. Therefore, you cannot exactly extract “tune families related to tune family X given similarity measure Y”. However, you can list all tune families (excluding tune family X) as a partial answer.
+
+```sparql
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tuneFamily ?label
+WHERE {
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?label . }
+  FILTER(?tuneFamily != :TuneFamilyX)
+}
+ORDER BY ?label
+```

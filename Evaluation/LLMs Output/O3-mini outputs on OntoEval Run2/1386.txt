@@ -1,0 +1,16 @@
+**No**
+The current ontology defines the classes for tunes and tune families (i.e. :Tune and :TuneFamily) but does not include an explicit property or axiom linking a tune (composition) to a tune family. Therefore, within the closed world assumption, the CQ “Which tune family does composition X belong to?” cannot be fully answered by a SPARQL query against this ontology. However, we can extract a partial answer by retrieving the details of the composition (tune) X.
+
+For example, a SPARQL query to extract information about composition X could be:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel
+WHERE {
+  BIND(<http://example.org/compositionX> AS ?composition) .
+  ?composition a :Tune .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+}
+
+This query retrieves the composition X (assumed to be identified by <http://example.org/compositionX>) and its label, but it does not return its tune family due to the missing linkage in the ontology.

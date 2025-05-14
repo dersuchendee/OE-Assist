@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that returns the evaluation statement (its text and date) for a given doctor and employee (in this example, using ns1:DrSmith and ns1:PasqualeDiGennaro):
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement ?evaluationText ?evaluationDate
+WHERE {
+  ?evaluationStatement a ns1:EvaluationStatement .
+  ?evaluationStatement ns1:providedBy ns1:DrSmith .
+  ?evaluationStatement ns1:evaluates ns1:PasqualeDiGennaro .
+  OPTIONAL { ?evaluationStatement ns1:evaluationText ?evaluationText . }
+  OPTIONAL { ?evaluationStatement ns1:evaluationDate ?evaluationDate . }
+}

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that extracts, for a given seminar, the articles that were presented:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :presentedArticle ?article .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  # To restrict to a particular seminar, add a FILTER or VALUES.
+}
+------------------------------------------------
+
+This query shows that the CQ "What articles were presented in a certain seminar?" can be answered by this ontology under the closed world assumption.

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the articles (along with their titles) that were presented in a given seminar (here, we use the individual :SeminarOnNursePractices as an example):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  ?article a :Cl_Article ;
+           :articleTitle ?articleTitle ;
+           :presentedIn ?presentation .
+  ?presentation :presentationOf :SeminarOnNursePractices .
+}
+
+This query is answerable under the closed world assumption for the ontology provided and correctly models the competency question: “What articles were presented in a certain seminar?”

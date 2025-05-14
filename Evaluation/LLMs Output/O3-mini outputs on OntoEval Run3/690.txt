@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming the ontology follows the closed world assumption and that every performance is associated—when available—with its location, we can write a SPARQL query to directly retrieve the location for each performance. For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceLocation ?location .
+}
+--------------------------------------------------
+
+This query returns each performance and its corresponding location, directly answering the CQ “Where did a certain performance take place?”

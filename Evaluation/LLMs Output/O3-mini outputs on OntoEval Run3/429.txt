@@ -1,0 +1,15 @@
+**Yes**
+Below is one SPARQL query that retrieves the instruments played by a given person (replace the placeholder URI with the specific person’s URI):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person ;
+          :playsInstrument ?instrumentPlaying .
+  ?instrumentPlaying :playedBy ?instrument .
+  FILTER(?person = <http://www.example.org/test#SomePersonURI>) 
+} 
+
+This query leverages the reification pattern in the ontology—in which the association between a person and an instrument is represented by an instance of Cl_InstrumentPlaying—and under the closed world assumption this formulation fully answers the competency question.

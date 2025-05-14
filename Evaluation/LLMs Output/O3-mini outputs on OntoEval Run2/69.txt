@@ -1,0 +1,14 @@
+**Yes**
+Below is one possible SPARQL query that, given a specific resource IRI (here <http://www.example.org/test#Resource123> used as an example), retrieves its composition:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?composition
+WHERE {
+  <http://www.example.org/test#Resource123> a :Cl_Resource ;
+                                             :op_hasComposition ?composition .
+}
+--------------------------------------------------
+
+If you wish to allow the resource IRI to be specified at query time, you could use a variable for the resource and add a FILTER for the desired IRI.

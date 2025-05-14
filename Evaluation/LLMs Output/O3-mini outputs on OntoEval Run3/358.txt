@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :employedActor ?actor ;
+              :atTheatre ?theatre ;
+              :startDate ?startDate .
+  # Optionally, to get the start date for a specific actor and theatre, 
+  # add a FILTER clause such as:
+  # FILTER(?actor = <http://www.example.org/test#FabioBianchi> && ?theatre = <http://www.example.org/test#TheGrandTheatre>)
+}
+```

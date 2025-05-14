@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query the specific dates when a theatre festival took place. The `hasDate` property is associated with `TheatreFestival`, but there is no direct connection to specific instances of theatre festivals with their respective dates in the ontology. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?festivalName ?date
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :hasName ?festivalName .
+  OPTIONAL { ?festival :hasDate ?date . }
+}
+```

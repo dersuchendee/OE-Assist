@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves each production together with its unique premier (by counting so that only productions having exactly one premier are returned):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  {
+    SELECT ?production (COUNT(?premier) AS ?premierCount) (MIN(?pd) AS ?premierDate)
+    WHERE {
+      ?production a :Cl_Production .
+      ?production :hasPremier ?premier .
+      ?premier :premierDate ?pd .
+    }
+    GROUP BY ?production
+    HAVING (?premierCount = 1)
+  }
+}

@@ -1,0 +1,16 @@
+**No**
+
+The given ontology does not explicitly capture the classification of resources into types such as “product”, “component” or “material” as expected in the CQ’s story. Although you can retrieve the rdf:type of a resource (for example, :GlassBottle is typed as :Resource or :RecyclableResource), the ontology does not provide additional semantics to answer “What is the type of a specific resource?” in the intended sense. Therefore, a SPARQL query can only partially answer the CQ by returning the rdf:type assertions that are explicitly present.
+
+A partial SPARQL query would be:
+
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?resource ?type
+WHERE {
+  ?resource rdf:type ?type .
+  FILTER(?resource = :GlassBottle)
+}
+
+This query returns the explicit rdf:type(s) of the specific resource :GlassBottle, but it does not capture the intended classification into product/component/material as described in the story.

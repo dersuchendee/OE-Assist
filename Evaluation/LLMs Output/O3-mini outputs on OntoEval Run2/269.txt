@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the ontology’s plays have the data properties :dp_writtenStartDate and :dp_writtenEndDate to record when they were written, you can answer the CQ “During what time period was a certain play written?” by retrieving these values. For example, to retrieve the writing period for a given play (here parameterized as ?play, which could be, e.g., :TheMerchantOfVenice), you could use the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?writtenStartDate ?writtenEndDate
+WHERE {
+  ?play a :Cl_Play ;
+        :dp_writtenStartDate ?writtenStartDate ;
+        :dp_writtenEndDate ?writtenEndDate .
+  FILTER(?play = :TheMerchantOfVenice)
+}
+
+This query finds the play (e.g., TheMerchantOfVenice) and returns its writing start and end years, thereby supporting the competency question under a closed world assumption.

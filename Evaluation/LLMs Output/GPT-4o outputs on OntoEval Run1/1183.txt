@@ -1,0 +1,18 @@
+**No**
+
+The ontology provided does not include any information about the measures of the bell, such as sound practices or the context in which the bells are used. The ontology only provides information about the physical characteristics of the bell, such as weight, height, diameter, thickness, material, and mounting system. Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted regarding the physical characteristics of the bell:
+
+```sparql
+SELECT ?bell ?weight ?height ?diameter ?thickness ?material ?mountingSystem
+WHERE {
+  ?bell a :Bell .
+  OPTIONAL { ?bell :hasWeight ?weight . }
+  OPTIONAL { ?bell :hasHeight ?height . }
+  OPTIONAL { ?bell :hasDiameter ?diameter . }
+  OPTIONAL { ?bell :hasThickness ?thickness . }
+  OPTIONAL { ?bell :madeOfMaterial ?material . }
+  OPTIONAL { ?bell :hasMountingSystem ?mountingSystem . }
+}
+```

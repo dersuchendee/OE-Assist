@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not include a direct connection between a newspaper instance and its rating for a production. The `Cl_NewspaperRating` class is modeled as a subclass of both `Cl_Newspaper` and `Cl_Production`, but there are no data properties or object properties linking this class to a specific newspaper's name or identifier. As a result, while we can retrieve the star rating for a production, we cannot determine which newspaper gave that rating.
+
+Here is a SPARQL query to extract a partial answer (the production and its star rating):
+
+```sparql
+SELECT ?production ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :ratedBy ?rating .
+  ?rating a :Cl_NewspaperRating .
+  ?rating :starRating ?starRating .
+}
+```

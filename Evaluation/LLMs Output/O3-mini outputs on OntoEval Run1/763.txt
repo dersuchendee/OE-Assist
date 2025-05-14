@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming a closed‐world interpretation, we can test the CQ “A record always contains at least one track” by writing a query that looks for any record (here modelled as an instance of :Cl_Album) which does not have any associated track via the property :containsTrack. Under the assumption that the ontology enforces the restriction (using owl:someValuesFrom :Cl_Track on :Cl_Album), no instances should be found that violate this condition.
+
+For example, the following SPARQL query retrieves any album that does not have at least one track:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album
+WHERE {
+  ?album rdf:type :Cl_Album .
+  MINUS { ?album :containsTrack ?track . }
+}
+
+If the ontology is correctly modelled (as indicated by the restriction in the OWL code), this query will return no results, thereby supporting the competency question.

@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine the country in which a region is located. However, we can extract partial information about regions and their associated countries if such data were available.
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL {
+    ?region :locatedInCountry ?regionCountry .
+    ?regionCountry :countryOf ?country .
+  }
+}
+```

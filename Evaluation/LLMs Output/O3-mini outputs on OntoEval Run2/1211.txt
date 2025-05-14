@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given tune family X (provided as parameter :X) and a similarity measure Y (provided as parameter :Y), the tune families related to X via a SimilarityRelation in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?relatedTuneFamily ?relatedLabel
+WHERE {
+  ?simRel a :SimilarityRelation ;
+          :hasSourceTuneFamily :X ;
+          :hasTargetTuneFamily ?relatedTuneFamily ;
+          :hasSimilarityMeasure :Y .
+  OPTIONAL { ?relatedTuneFamily rdfs:label ?relatedLabel . }
+}
+--------------------------------------------------
+
+This query uses the reified class SimilarityRelation to connect the source tune family, the target tune families, and the associated similarity measure, thereby answering the competency question under the closed-world assumption.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, extracts for each theatre its city using the property “located_in”:
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  
+  ?theatre :located_in ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+--------------------------------------------------------------
+
+This query retrieves the theatre (and its label, if available) along with the city in which it is located (plus the city’s label, if available).

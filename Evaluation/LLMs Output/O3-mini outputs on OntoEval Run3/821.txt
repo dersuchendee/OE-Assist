@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that employment information is fully modeled by the reified employment record connecting a person to a hospital via the property :employedAt and that the employment date is given by the property :employmentDate, the following SPARQL query returns the earliest (first) employment date for a given person at a given hospital (under a closed‐world assumption):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?date) AS ?firstEmploymentDate)
+WHERE {
+  # ?person is the individual in question.
+  ?person a :Cl_Person ;
+          :employedAt ?employmentRecord .
+          
+  # Each employment record includes the employment date and connects to a hospital.
+  ?employmentRecord :employmentDate ?date ;
+                    :employedAt ?hospital .
+                    
+  # Filter for the given person and hospital (replace IRIs accordingly)
+  FILTER (?person = <http://www.example.org/test#PasqualeDiGennaro> &&
+          ?hospital = <http://www.example.org/test#OspedaleRiunitoDelleTreValli>)
+}
+--------------------------------------------------
+
+This query extracts the set of employment dates available for the employment records of the targeted person at the specified hospital and returns the minimum date, corresponding to the first employment date.

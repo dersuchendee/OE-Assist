@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to count the number of tracks in an album. However, we can extract partial information about the tracks that are part of an album.
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album a :Album .
+  ?track a :MusicTrack .
+  ?track :partOfAlbum ?album .
+}
+```

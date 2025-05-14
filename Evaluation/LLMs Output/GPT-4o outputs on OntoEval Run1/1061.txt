@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate articles with specific seminars. While there is a `hasPresentedArticle` property linking seminars to articles, there is no explicit connection between seminars and specific articles presented in them. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract seminars and articles:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+```

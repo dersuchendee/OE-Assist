@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves an evaluation statement given by a specific doctor for a specific employee. (In this query the two individuals are represented by placeholder IRIs – in an actual query replace these with the appropriate URIs.)
+
+–––––––––––––––––––––––––––––––––––––––––––
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?doctor ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee .
+  ?employee :evaluatedBy ?evaluation .
+  ?evaluation a :Cl_Evaluation .
+  ?evaluation :doctor ?doctor .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  
+  # Filter to a certain employee and a certain doctor (replace these IRIs as needed)
+  FILTER(?employee = <http://www.example.org/test#Employee123> &&
+         ?doctor   = <http://www.example.org/test#DoctorXYZ>)
+}
+–––––––––––––––––––––––––––––––––––––––––––
+
+This query extracts the evaluation statement from the evaluation instance for the specified employee and doctor, thereby fully answering the competency question under the closed world assumption.

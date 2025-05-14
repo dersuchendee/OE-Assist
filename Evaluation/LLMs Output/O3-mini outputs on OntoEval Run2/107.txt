@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?festival ?occurrence ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :takesPlaceIn ?city .
+  FILTER(?festival = :RomaLovesShakespeare)
+}
+```

@@ -1,0 +1,33 @@
+**No**
+
+The current ontology does not connect churches or bell towers directly with a bell (or a set of bells) in such a way that the competency question “Is there a single bell or a poliorganic instrument (a set of bells) in a church/bell tower?” can be fully answered. In our closed‐world interpretation we cannot establish the link between, for example, a Church/BellTower and its sound instrument(s) (whether a single bell or a set of bells). We can only partially extract data by listing bell towers and any components they might have (assuming the imported property from the ArCo ontology is used), but the full intended query – distinguishing between a single bell and a poliorganic set – is not answerable from the provided axioms.
+
+A partial SPARQL query might be:
+
+---------------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?bellTower ?btLabel ?instrument ?instrumentType
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?btLabel . }
+  
+  OPTIONAL {
+    ?bellTower arco:hasComponent ?instrument .
+    BIND (
+      IF(
+         ?instrument = bells:SetOfBells,
+         "SetOfBells", 
+         IF(
+           ?instrument = bells:Bell,
+           "Bell", 
+           "Unknown")
+      ) AS ?instrumentType
+    )
+  }
+}
+---------------------------------------------------------
+
+This query retrieves the bell towers and, if available, any components linked via the property arco:hasComponent. Due to the missing explicit modelling of (church) location and the distinction between a single bell versus a set of bells, only a partial answer is provided.

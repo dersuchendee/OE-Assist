@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer the CQ “In what city is a certain hospital located?” using the ontology because the hospital class (:Cl_Hospital) is connected to the city class (:Cl_City) via the object property :locatedIn. Under a closed world assumption, if an individual hospital is known and the associated triple exists, then its location (city) can be retrieved. For example, the following SPARQL query returns each hospital together with its city:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel. }
+  
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+
+This query will list the hospital(s) along with the city (and city label) where it is located, thus fully answering the competency question according to the ontology.

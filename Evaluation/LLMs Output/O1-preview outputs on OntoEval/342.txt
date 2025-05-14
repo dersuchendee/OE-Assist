@@ -1,0 +1,13 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?productionName ?newspaperName ?starRating
+WHERE {
+  ?review rdf:type :Cl_Review ;
+          :hasProduction ?production ;
+          :hasNewspaper ?newspaper ;
+          :hasStarRating ?starRating .
+  ?production :productionName ?productionName .
+  ?newspaper :newspaperName ?newspaperName .
+}
+```

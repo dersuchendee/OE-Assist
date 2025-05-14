@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any information about performances or setlists that would allow us to determine which songs were played in a specific performance. However, we can extract partial information about songs and albums.
+
+```sparql
+SELECT ?song ?album
+WHERE {
+  ?track :isRecordingOf ?song .
+  ?album :containsTrack ?track .
+}
+```

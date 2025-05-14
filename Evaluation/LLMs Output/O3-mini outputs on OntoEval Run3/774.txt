@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that a “certain person” (for example, Pasquale Di Gennaro) is represented as an individual of class Cl_Person and that his medical degrees are linked via the property hasMedicalDegree (with degreeName providing the degree’s name), the following SPARQL query will return the medical degrees for that person:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degreeName
+WHERE {
+  ?person a :Cl_Person ;
+          :hasMedicalDegree ?md .
+  ?md :degreeName ?degreeName .
+  
+  # Uncomment and adjust the FILTER below to target a specific individual.
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+}
+————————————————————————————
+
+Under the closed world assumption, if no additional degree records exist for the person then the query will return nothing. This query fully models the competency question within the provided ontology.

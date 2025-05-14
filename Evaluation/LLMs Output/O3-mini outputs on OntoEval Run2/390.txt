@@ -1,0 +1,35 @@
+**Yes**
+Below is an example SPARQL query that – under a closed‐world reading – retrieves the roles held by a given actor in a given production at a given time. In our ontology the reified class :Cl_ActorRole (which is a subclass of :Cl_Actor, :Cl_Role, :Cl_Production and :Cl_Date) is attached to an actor via the property :hasRole. This lets us “query by reification” for a given person, check that the role is also (by inference) an instance of the production (e.g. via its production label) and that the role was held at the time of interest.
+
+Assuming that we know (or provide as parameters) the actor’s name, the production’s label, and a particular date (or time‐point), a query may be written as follows:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?roleName ?roleDate
+WHERE {
+  # Select the actor by name (e.g., "Fabio Bianchi")
+  ?actor a :Cl_Actor ;
+         :actorName "Fabio Bianchi" ;
+         :hasRole ?actorRole .
+  
+  # The actor role instance must be an instance of our reified role class
+  ?actorRole a :Cl_ActorRole ;
+             :roleName ?roleName ;
+             :roleDate ?roleDate .
+  
+  # Since an actor role is also a production (via subclassing) we assume it is linked (e.g., via its label)
+  ?actorRole rdfs:label ?productionLabel .
+  FILTER(?productionLabel = "Merchant of Venice")
+  
+  # Filter to a given time of interest 
+  FILTER(?roleDate = "2009-09-14"^^xsd:date)
+  
+  # Optionally return the actor’s name too
+  BIND("Fabio Bianchi" AS ?actorName)
+}
+---------------------------------------------------------
+
+This query demonstrates that the competency question “What roles does a certain person have within a certain production at a certain point in time?” is fully answerable using the ontology.

@@ -1,0 +1,34 @@
+Answer: **Yes**
+
+The competency question asks: "What is the quantity of a flow at a specific time?". 
+
+This CQ can be answered using the provided ontology because it models the necessary concepts and relationships. The ontology includes the classes `:Flow` and `:FlowMeasurement`, with properties connecting them, such as `:hasMeasurement`, `:hasQuantityValue`, `:hasUnit`, and `:hasTime`. This allows us to retrieve the quantity value of a flow at a specific time.
+
+Here is a SPARQL query that extracts the required information:
+
+```sparql
+SELECT ?flow ?quantityValue ?unit ?time
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasMeasurement ?measurement .
+  ?measurement :hasQuantityValue ?quantityValue .
+  ?measurement :hasUnit ?unit .
+  ?measurement :hasTime ?time .
+}
+```
+
+This query selects all flows and, for each flow, retrieves its associated measurement quantity value, unit, and time. If you're interested in a specific time, you can add a `FILTER` clause to specify the time of interest, for example:
+
+```sparql
+SELECT ?flow ?quantityValue ?unit
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasMeasurement ?measurement .
+  ?measurement :hasQuantityValue ?quantityValue .
+  ?measurement :hasUnit ?unit .
+  ?measurement :hasTime ?time .
+  FILTER (?time = "2023-10-17T00:00:00"^^xsd:dateTime)
+}
+```
+
+This modified query retrieves the quantity of flows specifically at the time "2023-10-17T00:00:00".

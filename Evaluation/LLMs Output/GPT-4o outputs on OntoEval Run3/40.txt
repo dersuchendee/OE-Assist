@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What is the type of this actor?" can be answered using the ontology provided. The ontology includes the `actorODP:actorType` property, which relates an `actorODP:Actor` to an `actorODP:ActorType`. Therefore, we can write a SPARQL query to extract the type of an actor.
+
+```sparql
+SELECT ?actor ?actorType
+WHERE {
+  ?actor a actorODP:Actor .
+  ?actor actorODP:actorType ?actorType .
+}
+```

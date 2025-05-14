@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of a certain ensemble at a certain point in time. The ontology includes classes and properties related to ensembles, actors, and time periods, but it lacks a direct connection between a specific ensemble and its members at a specific time. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?ensemble ?actor ?actorName ?timePeriod
+WHERE {
+  ?membership a :Cl_EnsembleMembership ;
+              :hasEnsemble ?ensemble ;
+              :hasMember ?actor ;
+              :hasTimePeriod ?timePeriod .
+  ?actor :actorName ?actorName .
+}
+```

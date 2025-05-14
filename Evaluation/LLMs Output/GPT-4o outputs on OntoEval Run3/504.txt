@@ -1,0 +1,15 @@
+**No**
+
+The competency question "During what time period was a certain album recorded?" is not fully supported by the ontology. The ontology provides information about recording periods and albums, but it does not directly link a specific album to its recording period. Therefore, a partial answer can be extracted by querying the recording periods and their associated albums, but it won't directly answer the CQ without additional information.
+
+Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?recordingPeriod a :Cl_RecordingPeriod .
+  ?recordingPeriod :recordedAlbum ?album .
+  ?recordingPeriod :recordingStart ?recordingStart .
+  ?recordingPeriod :recordingEnd ?recordingEnd .
+}
+```

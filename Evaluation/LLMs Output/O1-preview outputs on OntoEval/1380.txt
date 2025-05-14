@@ -1,0 +1,19 @@
+**No**.
+
+Given the provided ontology, the Competency Question (CQ) "Was it a celebration, a festival, a private event?" cannot be fully answered as not all the event types mentioned in the CQ are modeled in the ontology. Specifically, "festival" and "private event" are not explicitly represented as instances or subclasses of `mtps:Purpose`. The ontology defines several specific purposes for a meetup, such as `mtps:PublicCelebration` and `mtps:PersonalLife`, but lacks others like "festival".
+
+However, we can retrieve the purposes that are modeled in the ontology for any meetup instances. Here's a SPARQL query that obtains the purposes of meetups, which can provide a partial answer:
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+}
+```
+
+This query selects all meetups and their associated purposes, including any labels available for the purposes. By examining the returned purposes, one can determine if any meetups were for `mtps:PublicCelebration` (which can correspond to "celebration" in the CQ) or `mtps:PersonalLife` (which might align with "private event"). However, since "festival" is not modeled, and the term "private event" may not directly correspond to any purpose in the ontology, the CQ is not fully answerable based on the provided ontology.

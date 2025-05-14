@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not include any information about execution techniques or mounting systems for bells. Therefore, the competency question cannot be fully answered using the given ontology. However, a partial answer can be extracted by identifying the bells and their associated bell towers.
+
+```sparql
+SELECT ?bell ?bellTower
+WHERE {
+  ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+  ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+  ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+}
+```

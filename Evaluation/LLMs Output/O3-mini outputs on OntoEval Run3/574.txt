@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves, for each monitoring point, the physical parameter that was measured and the corresponding measurement’s time and value:
+
+------------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+
+  ?monitoringPoint :hasMeasurement ?measurement .
+
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+------------------------------------------------------------------------------

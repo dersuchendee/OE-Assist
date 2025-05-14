@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?envCondition ?envConditionLabel
+WHERE {
+  ?envCondition a :EnvironmentalCondition .
+  OPTIONAL { ?envCondition rdfs:label ?envConditionLabel . }
+  ?envCondition :influences ?fixation .
+  ?fixation a :CO2Fixation .
+  ?fixation :occursIn ?ecosystem .
+  ?ecosystem a :GroundwaterEcosystem .
+}
+```

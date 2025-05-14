@@ -1,0 +1,18 @@
+```sparql
+Answer: **Yes**
+
+Here's a SPARQL query that answers the competency question:
+
+```sparql
+SELECT ?countryLabel
+WHERE {
+    ?city rdf:type :Cl_City ;
+          rdfs:label "Rome" ;
+          :cityInCountry ?country .
+    ?country rdfs:label ?countryLabel .
+}
+```
+
+This query finds the country in which the city "Rome" is located by traversing the `:cityInCountry` relationship from the city instance to the country instance, and retrieving the country's label.
+
+```

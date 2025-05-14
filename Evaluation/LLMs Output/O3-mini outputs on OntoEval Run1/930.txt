@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the evaluation (i.e. the evaluation statement resource) for a given doctor and a given employee. (Replace <givenDoctorIRI> and <givenEmployeeIRI> with the IRIs of the specific doctor and employee.)
+
+--------------------------------------------------
+PREFIX : <http://example.org/hospital#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluation
+WHERE {
+  ?evaluation rdf:type :Evaluation ;
+              :givenBy <givenDoctorIRI> ;
+              :givenFor <givenEmployeeIRI> .
+}
+--------------------------------------------------
+
+Because the ontology defines an Evaluation with restrictions (that it must be linked to a doctor via :givenBy and to an employee via :givenFor), this competency question is answerable under the closed world assumption.

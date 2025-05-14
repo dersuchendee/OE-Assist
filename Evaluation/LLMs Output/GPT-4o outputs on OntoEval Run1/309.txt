@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When was the premier of a certain production?" can be answered using the ontology provided. The ontology includes the class `TheatreProduction` with a restriction on the property `hasPremiere`, which relates a theatre production to its premiere event. The `Premiere` class is a subclass of `Event`, which can have a date associated with it. Therefore, we can write a SPARQL query to extract the premiere date of a theatre production.
+
+```sparql
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :TheatreProduction .
+  ?production :hasPremiere ?premiere .
+  ?premiere a :Premiere .
+  ?premiere :hasPremiereDate ?premiereDate .
+}
+```

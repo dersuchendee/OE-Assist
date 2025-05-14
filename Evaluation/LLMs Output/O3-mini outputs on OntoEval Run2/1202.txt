@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?organ ?organLabel ?person ?personLabel ?relation
+WHERE {
+  {
+    ?organ a :Organ .
+    ?organ :builtBy ?person .
+    BIND("built" AS ?relation) .
+    OPTIONAL { ?organ rdfs:label ?organLabel . }
+    OPTIONAL { ?person rdfs:label ?personLabel . }
+  }
+  UNION
+  {
+    ?organ a :Organ .
+    ?organ :renovatedBy ?person .
+    BIND("renovated" AS ?relation) .
+    OPTIONAL { ?organ rdfs:label ?organLabel . }
+    OPTIONAL { ?person rdfs:label ?personLabel . }
+  }
+}
+```

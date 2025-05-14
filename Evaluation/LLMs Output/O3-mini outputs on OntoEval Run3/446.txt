@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer this CQ because the ontology uses a reification pattern via the class LineUp (which has properties to associate a band, its members, and an active time period). Under a closed‐world assumption, we can retrieve the members of a band at a given time by retrieving the :LineUp instance that links the band (via :partOfBand) and the time period (via :activeDuring) with the associated members (via :hasMember).
+
+For example, if we want the members of the band “Red Hot Chili Peppers” for a specific time period (say the one represented by the individual :Time2004), we can write a query such as:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?lineup ?member ?memberLabel ?timePeriodLabel
+WHERE {
+  ?lineup a :LineUp ;
+          :partOfBand :RedHotChiliPeppers ;
+          :hasMember ?member ;
+          :activeDuring ?timePeriod .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  OPTIONAL { ?timePeriod rdfs:label ?timePeriodLabel . }
+  FILTER(?timePeriod = :Time2004)
+}
+ORDER BY ?member
+--------------------------------------------------
+
+This query extracts the :LineUp that corresponds to the specified band at the given time period, and returns the members along with their labels.

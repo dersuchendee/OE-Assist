@@ -1,0 +1,16 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the region for a given city (here represented by the placeholder :SomeCity):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityRegion ?cityRegion .
+  ?cityRegion :regionOfCity ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  FILTER(?city = :SomeCity)
+}
+
+This query shows that the competency question “In what region is a certain city located?” is answerable using the ontology.

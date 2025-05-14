@@ -1,0 +1,24 @@
+**Yes**
+
+A query can be written over the reified relationship instances in the ontology that capture a person’s role in a band at a given time. For example, the following SPARQL query retrieves the role held by a given person in a given band at a specified time (using the reification class Cl_PersonRoleBandTime and its properties):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  ?relation a :Cl_PersonRoleBandTime ;
+            :hasPerson ?person ;
+            :hasBand ?band ;
+            :hasRole ?role ;
+            :hasTime ?time .
+  
+  # Replace the following with the desired person, band and time:
+  FILTER(?person = :JohnFrusciante &&
+         ?band   = :RedHotChiliPeppers &&
+         ?time   = "1988-01-01T00:00:00"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+This query demonstrates that the ontology supports answering the competency question "What role does a certain person have in a certain band at a certain point in time?" under the closed world assumption.

@@ -1,0 +1,30 @@
+Answer: **Yes**
+
+The competency question can be answered using the ontology. We can verify that every seminar has at least one article presented using the following SPARQL query:
+
+```sparql
+SELECT ?seminar
+WHERE {
+  ?seminar a :Cl_Seminar .
+  FILTER NOT EXISTS {
+    ?sap a :Cl_SeminarArticlePresentation ;
+         :presentedIn ?seminar ;
+         :articlePresented ?article .
+  }
+}
+```
+
+If this query returns no results, it means there are no seminars without articles presented, confirming that at least one article is always presented at each seminar.
+
+Alternatively, to retrieve all seminars along with the articles presented in them, you can use:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?sap a :Cl_SeminarArticlePresentation ;
+       :presentedIn ?seminar ;
+       :articlePresented ?article .
+}
+```
+
+This query lists all seminars and the articles presented at each, demonstrating that each seminar has at least one article.

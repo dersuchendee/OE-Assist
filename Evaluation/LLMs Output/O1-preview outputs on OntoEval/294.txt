@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?playLabel (COUNT(?act) AS ?numActs)
+WHERE {
+  ?play a :Cl_Play ;
+        rdfs:label ?playLabel ;
+        :hasAct ?act .
+}
+GROUP BY ?playLabel
+```

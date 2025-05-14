@@ -1,0 +1,16 @@
+**Yes**
+Below is one SPARQL query that retrieves the locations where a female musician (i.e. “she”) has performed:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?musician ?performance ?location
+WHERE {
+  ?musician a :FemaleMusician .
+  ?musician :hasPerformed ?performance .
+  ?performance :takesPlaceAt ?location .
+}
+---------------------------------
+
+Under the closed‐world assumption, this query uses the ontology’s properties (and property chain axiom between hasPerformed and takesPlaceAt) to extract the answer to “Where did she perform?” assuming that the individual(s) representing “she” are instances of the class FemaleMusician.

@@ -1,0 +1,31 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves for each material its chemical composition, including the constituent chemical element(s) or compound(s) and their respective percentages:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?material ?materialLabel ?composition ?component ?componentLabel ?percentage
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material rdfs:label ?materialLabel. }
+  
+  ?material :hasChemicalComposition ?composition .
+
+  {
+    ?composition :consistsOfElement ?component .
+  }
+  UNION
+  {
+    ?composition :consistsOfCompound ?component .
+  }
+  
+  OPTIONAL { ?component rdfs:label ?componentLabel. }
+  ?component :hasPercentage ?percentage .
+}
+ORDER BY ?material ?component
+--------------------------------------------------
+
+This query extracts the answer to the competency question "What is the chemical composition of this material?" by returning each material along with its associated chemical composition and details of each constituent component, which matches the ontology’s structure.

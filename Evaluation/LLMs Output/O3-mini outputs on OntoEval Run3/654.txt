@@ -1,0 +1,22 @@
+**Yes**
+
+We can answer the CQ using the provided classes and properties. The ontology defines a :Performance class and a property :hasSong (with inverse :isSongOf) that relates a performance to the songs played during it. Assuming that the user supplies a performance (or you can filter for a specific performance), the following SPARQL query extracts the songs played (with labels if available):
+
+-------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Performance ;
+               :hasSong ?song .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel. }
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+
+  # Uncomment the following line to restrict to a specific performance:
+  # FILTER(?performance = :performance1)
+}
+-------------------------------------------
+
+Under the closed world assumption, we assume that the ontology contains all the needed information about the performances and songs, so this query returns the songs that were performed in the specified performance.

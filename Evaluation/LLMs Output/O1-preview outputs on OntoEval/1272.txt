@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?informationNeeded
+WHERE {
+  :CollaborationProcess rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty ?requiresProperty ;
+               owl:someValuesFrom ?infoType .
+  BIND(REPLACE(STR(?infoType), "^.*#", "") AS ?informationNeeded)
+}
+```
+
+This query retrieves the types of information needed for collaboration processes as specified in the ontology. The ontology defines a `:CollaborationProcess` class that must be associated with several types of information through various `:requires*` properties. The query accesses these restrictions on the `:CollaborationProcess` class and extracts the names of the information types required, answering the competency question "What information is needed to collaborate and align processes?" based on the provided ontology.

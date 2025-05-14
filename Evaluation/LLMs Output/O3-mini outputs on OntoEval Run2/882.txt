@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the ontology models union membership via a reification class (here, :Cl_UnionMembership) that ties together a union, its member, and the date at which the membership starts (and optionally ends), we can answer the CQ “Who are the members of a certain union at a certain point in time?” with a SPARQL query. For example, if we want to find the members of union :UnionOfMaleNurses that were active on a given date (say, "2003-01-01"), the query would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?startDate ?endDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion ?union ;
+              :hasMember ?member ;
+              :hasStartDate ?startDate .
+  FILTER(?union = :UnionOfMaleNurses && ?startDate <= "2003-01-01"^^xsd:date)
+  OPTIONAL { ?membership :hasEndDate ?endDate. }
+  FILTER(!bound(?endDate) || ?endDate >= "2003-01-01"^^xsd:date)
+  OPTIONAL { ?member :hasName ?memberName. }
+}
+
+In a closed-world setting, if no end date is present we assume the membership remains active. This query extracts members whose membership started on or before the target date and either do not have an end date or have an end date later than the target date.

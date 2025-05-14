@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that answers the CQ “What are the roles of this actor in this network?” by retrieving, for a given actor and a given network, the roles attached to the actor’s participation in that network via the circular value network participation class.
+
+(You may supply the specific actor and network IRIs via VALUES, FILTER or by binding them using variables.)
+
+─────────────────────────────
+
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX cvn:    <http://w3id.org/CEON/ontology/cvn/>
+
+SELECT ?actor ?network ?role
+WHERE {
+  # participation instances that capture an actor’s role in a CVN
+  ?participation a actor:CVNParticipation .
+  
+  # the actor taking part in the network
+  ?participation actorODP:participatingActor ?actor .
+  
+  # the specific role of the actor in the network (an instance of ActorCVNRole)
+  ?participation actorODP:participantRole ?role .
+  
+  # the network (a CVN) in which the actor participates
+  ?participation actorODP:participationIn ?network .
+  
+  # (Optional) Filter to a specific actor and network if desired:
+  # FILTER(?actor = <http://example.org/yourSpecificActorIRI>)
+  # FILTER(?network = cvn:YourSpecificCVNIRI)
+}
+ORDER BY ?actor ?network ?role

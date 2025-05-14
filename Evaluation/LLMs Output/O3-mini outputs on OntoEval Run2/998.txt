@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationDate
+WHERE {
+  { ?publication a ns1:Book . }
+  UNION
+  { ?publication a ns1:CD . }
+  ?publication ns1:hasPublicationDate ?publicationDate .
+}
+ORDER BY ?publication
+```

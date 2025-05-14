@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that “a certain theatre festival” is represented by an instance of the class Cl_TheatreFestival and its associated plays are linked via the property :hasPlay, the following SPARQL query retrieves the plays for each theatre festival:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?festival ?play
+
+This query answers the competency question by extracting the plays that are part of (or “seen at”) each theatre festival in the ontology under a closed world assumption.

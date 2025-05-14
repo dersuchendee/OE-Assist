@@ -1,0 +1,13 @@
+**No**
+
+We cannot directly link performances to the "Red Hot Chili Peppers" band using the given ontology, as there is no object property connecting `:Cl_Performance` to `:Cl_Band`. Therefore, we cannot fully answer the competency question. However, we can extract a partial answer listing performances with their dates and locations.
+
+```sparql
+SELECT ?performance ?date ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedOn ?date .
+  ?performance :performanceLocation ?location .
+}
+ORDER BY ?date
+```

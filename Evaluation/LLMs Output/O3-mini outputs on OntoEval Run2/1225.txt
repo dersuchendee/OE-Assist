@@ -1,0 +1,41 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves aquatic fungi (as individuals of :AquaticFungus), the heterotrophs they influence (via the properties :influencesAbundanceOf and :influencesActivityOf) that live in an aquifer, and any available abundance and activity level information:
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?fungus ?fungusLabel ?heterotroph ?heterotrophLabel ?aquifer ?aquiferLabel ?abundance ?activityLevel
+WHERE {
+  # Select aquatic fungi
+  ?fungus a :AquaticFungus .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel. }
+  
+  # Select heterotrophs influenced by the fungus by abundance or activity, possibly on different individuals
+  ?heterotroph a :Heterotroph .
+  OPTIONAL { ?heterotroph rdfs:label ?heterotrophLabel. }
+  
+  # Only consider heterotrophs living in an aquifer
+  ?heterotroph :livesIn ?aquifer .
+  ?aquifer a :Aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel. }
+  
+  # Connect fungus to heterotroph via influencesAbundanceOf and capture abundance value if available
+  OPTIONAL {
+    ?fungus :influencesAbundanceOf ?heterotroph .
+    OPTIONAL { ?heterotroph :hasAbundance ?abundance. }
+  }
+  
+  # Connect fungus to heterotroph via influencesActivityOf and capture activity level value if available
+  OPTIONAL {
+    ?fungus :influencesActivityOf ?heterotroph .
+    OPTIONAL { ?heterotroph :hasActivityLevel ?activityLevel. }
+  }
+}
+ORDER BY ?fungus ?heterotroph
+----------------------------------------
+
+This query under the closed-world assumption extracts the relationships defined in the ontology that allow one to assess how aquatic fungi (instances of :AquaticFungus) influence both the abundance and activity of heterotrophs in aquifers.

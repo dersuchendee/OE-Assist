@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to determine when a person was first employed at a specific hospital. The ontology includes classes and properties related to employment, hospitals, and people, but it lacks a direct connection between a person and their first employment date at a specific hospital. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?hospital ?startDate
+WHERE {
+  ?employment a :Employment .
+  ?employment :employs ?person .
+  ?employment :hasStartDate ?startDate .
+  ?hospital a :Hospital .
+  ?hospital :employs ?person .
+}
+ORDER BY ?person ?startDate
+```
+
+This query retrieves the start date of employment for each person at a hospital, but it does not specifically identify the first employment or the specific hospital.

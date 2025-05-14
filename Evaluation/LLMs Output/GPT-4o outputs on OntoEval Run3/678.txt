@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to link a performance to a specific location. The ontology includes classes and properties related to performances and locations, but there is no explicit connection between them that would allow us to determine where a specific performance took place.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  OPTIONAL {
+    ?location a :Cl_Place .
+    ?location :isLocationOfPerformance ?performance .
+  }
+}
+```
+
+This query attempts to find any available connections between performances and locations, but given the ontology, it is unlikely to return meaningful results without additional data or properties linking performances to specific locations.

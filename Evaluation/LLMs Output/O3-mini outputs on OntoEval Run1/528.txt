@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves, for every album in the ontology, the total number of tracks (using the declared :trackCount data property):
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?trackCount
+WHERE {
+  ?album a :Cl_Album ;
+         :trackCount ?trackCount .
+}
+----------------------------------------
+
+This query shows that the competency question “How many tracks does a particular album contain?” is answerable using the ontology provided.

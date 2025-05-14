@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming closed‐world semantics, the CQ “In what city is a certain theatre located?” can be answered with the ontology because there is an object property (:isLocatedIn) whose domain is :Cl_Theatre and whose range is :Cl_City. In a closed world we expect that every theatre instance will have a city specified using :isLocatedIn. Here’s a SPARQL query that returns the theatre and the associated city:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  
+  ?theatre :isLocatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+
+This query directly extracts the city for each theatre using the :isLocatedIn property, thereby fully supporting the CQ.

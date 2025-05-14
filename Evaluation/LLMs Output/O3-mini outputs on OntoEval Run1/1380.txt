@@ -1,0 +1,17 @@
+**No**  
+Because the ontology does not explicitly model “festival” as a type of meetup reason nor establish a clear mapping from the CQ’s natural language terms (celebration, festival, private event) to the reified purpose class, the competency question cannot be fully answered. However, a partial answer can be extracted by retrieving meetups along with their recorded purpose, from which one might infer if a meetup is a celebration (e.g. if its purpose is mtps:PublicCelebration) or a private event (e.g. if its purpose is mtps:PersonalLife). For example:
+
+------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+  FILTER(?purpose IN (mtps:PublicCelebration, mtps:PersonalLife))
+}
+------------------------------
+
+This query returns meetups whose purpose is either PublicCelebration (which may indicate a celebration) or PersonalLife (which may indicate a private event). The concept “festival” is not represented in the ontology, so the CQ is only partially answerable under the closed world assumption.

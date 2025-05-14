@@ -1,0 +1,13 @@
+**No**
+
+Because the ontology does not provide explicit properties that connect articles directly to seminars in a way that allows us to extract which articles were presented in which seminars. The restrictions defined in the ontology are not sufficient under the closed world assumption to answer the competency question.
+
+Here is a SPARQL query that extracts a partial answer by retrieving articles and their presentations:
+
+```sparql
+SELECT ?article ?presentation
+WHERE {
+  ?article a :Cl_Article .
+  OPTIONAL { ?article :presentedIn ?presentation . }
+}
+```

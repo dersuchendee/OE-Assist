@@ -1,0 +1,11 @@
+**No**  
+The ontology does not explicitly model "information" as something held by actors. However, we can partially answer by extracting all actors known in the ontology (assuming that, by the closed world assumption, these actors are the only ones that could hold information in the network). For example, the following SPARQL query returns all actors defined in the ontology:
+
+PREFIX : <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}

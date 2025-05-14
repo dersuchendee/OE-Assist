@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer this competency question because the ontology represents performance events along with a location via the data property “hasLocation”. Assuming that performances are modelled (for example, as instances of :Cl_PerformanceEvent or a subclass like :Cl_LivePerformance) and that their location is provided by the property “:hasLocation”, we can write a SPARQL query to extract the locations for performance events.
+
+For example, under the closed‐world assumption the following query retrieves the performance along with its performance date (if available) and its location:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?location
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :hasLocation ?location .
+  OPTIONAL { ?performance :hasPerformanceDate ?performanceDate . }
+}
+
+This query extracts all performances that have a location defined.

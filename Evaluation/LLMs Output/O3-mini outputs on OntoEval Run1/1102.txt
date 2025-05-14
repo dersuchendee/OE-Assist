@@ -1,0 +1,22 @@
+**Yes**
+
+The ontology includes a cardinality restriction on the :presentedIn property for the :Cl_Seminar class (i.e. every seminar must have at least one associated :Cl_SeminarArticlePresentation that in turn reports an article via :articlePresented). Under the closed‐world assumption we can query for seminars that satisfy this condition. For example, the following SPARQL query returns all seminars along with the count of presented articles (and by filtering with HAVING (?articleCount >= 1) we enforce that each seminar has at least one article presentation):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel (COUNT(?article) AS ?articleCount)
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel. }
+  OPTIONAL {
+    ?presentation a :Cl_SeminarArticlePresentation ;
+                  :presentedIn ?seminar ;
+                  :articlePresented ?article .
+  }
+}
+GROUP BY ?seminar ?seminarLabel
+HAVING (?articleCount >= 1)
+
+If this query returns all seminars (with each having at least one article presentation), then the competency question – "At least one article is always presented at each seminar" – is modeled by the ontology.

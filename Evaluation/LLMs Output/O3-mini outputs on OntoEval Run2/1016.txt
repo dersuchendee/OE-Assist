@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves items of type Book or CD together with their publication date:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  ?item a ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD)) .
+  ?item :publicationDate ?publicationDate .
+}
+-----------------------------------------------------
+
+This query assumes the closed world: only individuals declared as :Cl_Book or :Cl_CD have a :publicationDate.

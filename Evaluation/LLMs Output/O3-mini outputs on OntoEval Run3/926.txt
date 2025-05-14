@@ -1,0 +1,22 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement ?evaluationDate ?evaluationContent ?doctor ?doctorName ?employee ?employeeName
+WHERE {
+  ?evaluationStatement a :Cl_EvaluationStatement ;
+                       :hasWrittenStatement ?doctor ;
+                       :evaluatesEmployee ?employee ;
+                       :hasEvaluationDate ?evaluationDate ;
+                       :hasEvaluationContent ?evaluationContent .
+
+  OPTIONAL { ?doctor :hasName ?doctorName . }
+  OPTIONAL { ?employee :hasName ?employeeName . }
+
+  # Replace these with the specific doctor and employee IRIs if desired.
+  FILTER(?doctor = :Doctor1 && ?employee = :PasqualeDiGennaro)
+}
+```

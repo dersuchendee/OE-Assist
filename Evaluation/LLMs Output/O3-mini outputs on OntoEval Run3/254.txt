@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer this CQ using the ontology because it includes classes for authors (Cl_Author) and plays (Cl_Play) with an object property (:wrotePlay) linking an author to the plays they wrote. Under a closed world assumption, no additional unsaid relationships are assumed. Here’s a SPARQL query that retrieves the plays written by a given author (with the author provided via a filter or as a parameter):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?play
+WHERE {
+  ?author a :Cl_Author ;
+          :wrotePlay ?play .
+  # Optionally, filter by a specific author, e.g.,
+  # FILTER(?author = <http://www.example.org/test#SomeAuthor>)
+}
+--------------------------------------------------
+
+This query extracts all plays (instances of :Cl_Play) that are linked by the :wrotePlay property to an author (instance of :Cl_Author), thus fully modelling the competency question "What plays did a certain author write?"

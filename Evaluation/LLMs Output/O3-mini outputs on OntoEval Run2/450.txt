@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not fully capture the temporal aspect of a person’s role within the context of a band. Although the ontology provides connections between persons, bands, and their roles (via ex:hasRole and ex:hasMember), there is no modeling of a time dimension that would allow us to filter or pinpoint the role “at a certain point in time.” Under a closed world assumption, we cannot infer additional time-related role information that isn’t explicitly present. Here is a SPARQL query that extracts a partial answer by linking persons with their roles in bands, but note that the time aspect is missing:
+
+PREFIX ex: <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?band ?bandName ?role ?roleName
+WHERE {
+  ?person a ex:Person ;
+          ex:hasName ?personName ;
+          ex:hasRole ?role .
+  ?band a ex:Band ;
+        ex:hasMember ?person ;
+        rdfs:label ?bandName .
+  OPTIONAL { ?role rdfs:label ?roleName . }
+  # You can add filters to specify a certain person or band if desired, e.g.:
+  # FILTER(?personName = "John Frusciante" && ?bandName = "Red Hot Chili Peppers")
+}

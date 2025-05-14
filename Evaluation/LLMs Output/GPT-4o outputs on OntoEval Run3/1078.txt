@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "Where did a certain seminar take place?" can be answered using the ontology provided. The ontology includes the class `Cl_Seminar` and the property `:seminarLocation` which links a seminar to a hospital. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?seminar ?seminarLabel ?location ?locationLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :seminarLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

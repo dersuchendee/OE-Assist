@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a person studied for a specific degree. The ontology includes classes and properties related to persons, degrees, and studying, but it lacks the necessary connections to specify the start and end dates of studying for a degree. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?degree ?degreeName
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedFor ?studyingForDegree .
+  ?studyingForDegree :hasDegree ?degree .
+  ?degree :degreeName ?degreeName .
+}
+```

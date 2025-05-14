@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?agent ?agentLabel ?hospitalization ?disease ?diseaseLabel ?area ?areaLabel
+WHERE {
+  ?agent a :Agent ;
+         :monitors ?hospitalization .
+  ?hospitalization :hasDisease ?disease ;
+                   :occursIn ?area .
+  OPTIONAL { ?agent rdfs:label ?agentLabel. }
+  OPTIONAL { ?disease rdfs:label ?diseaseLabel. }
+  OPTIONAL { ?area rdfs:label ?areaLabel. }
+}
+ORDER BY ?agent
+```

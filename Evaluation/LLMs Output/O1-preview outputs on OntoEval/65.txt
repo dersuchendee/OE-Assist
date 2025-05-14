@@ -1,0 +1,25 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?component ?material
+WHERE {
+  :productX a :Cl_Product .
+  :productX :hasComponent ?component .
+  ?component :isComposedOf ?material .
+}
+```
+
+This query retrieves the components of a specific product (`:productX`) by traversing the `:hasComponent` property from the product to its components and then using the `:isComposedOf` property to find the materials that each component is composed of.
+
+If you want to retrieve components for all products, you can modify the query as follows:
+
+```sparql
+SELECT ?product ?component ?material
+WHERE {
+  ?product a :Cl_Product .
+  ?product :hasComponent ?component .
+  ?component :isComposedOf ?material .
+}
+```
+
+This will list all products along with their components and the materials those components are composed of.

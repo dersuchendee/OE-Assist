@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that “holding this information” is modelled by a resource relation where an actor (via actorODP:participatingActor) is linked to a resource of type resourceODP:Information (via actorODP:participatingResource), a complete SPARQL query under the closed world assumption can be written as follows:
+
+-------------------------
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX resourceODP: <http://w3id.org/CEON/ontology/resourceODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  ?rr a actorODP:ResourceRelation .
+  ?rr actorODP:participatingActor ?actor .
+  ?rr actorODP:participatingResource ?info .
+  ?info a resourceODP:Information .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+-------------------------
+
+This query extracts all actors who, via a resource relation instance, are connected with a resource that is of type Information, thereby answering the CQ "What actors hold this information?"

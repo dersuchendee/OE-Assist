@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?parameter ?parameterLabel
+WHERE {
+  ?parameter rdfs:subClassOf* :Parameter .
+  ?parameter rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :representsQualityOf ;
+    owl:someValuesFrom :WaterBody
+  ] .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+}
+```

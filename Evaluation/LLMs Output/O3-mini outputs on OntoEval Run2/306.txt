@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves, for each theatre production, the associated premier and its date:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?prodLabel ?premier ?premierDate
+WHERE {
+  ?production a ns1:TheatreProduction .
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+  
+  ?production ns1:hasPremier ?premier .
+  ?premier ns1:premierDate ?premierDate .
+}
+ORDER BY ?production
+
+This query answers the competency question "When was the premier of a certain production?" by extracting the production’s premier date from the ontology under a closed world assumption.

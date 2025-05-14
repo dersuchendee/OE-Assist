@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question "When was a certain person first employed at a certain hospital?" can be fully answered using the given ontology. The ontology includes classes and properties that represent persons, employments, hospitals, and the employment start dates, allowing us to query for the first employment date of a person at a hospital.
+
+Here is a SPARQL query that retrieves the earliest employment start date for each person at each hospital:
+
+```sparql
+SELECT ?person ?hospital (MIN(?employmentStartDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :employmentHospital ?hospital .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+GROUP BY ?person ?hospital
+```
+
+This query works as follows:
+
+- It selects all individuals of type `:Cl_Person`.
+- For each person, it retrieves their employments via the `:employedAt` property.
+- It obtains the hospital associated with each employment using the `:employmentHospital` property.
+- It retrieves the employment start dates using the `:employmentStartDate` property.
+- It groups the results by person and hospital, calculating the minimum (earliest) employment start date for each combination.
+
+This fully answers the competency question by providing the earliest date a person started working at a specific hospital.

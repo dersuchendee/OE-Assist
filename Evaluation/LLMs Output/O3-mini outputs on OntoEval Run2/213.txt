@@ -1,0 +1,37 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, returns the actors (members) of a given ensemble at a given point in time. In this query the ensemble is identified by its name (?ensembleName) and the time of interest is provided as a date literal (?pointTime). (You could also parameterize these depending on your application.) 
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName
+WHERE {
+  # Find a membership instance that reifies membership in an ensemble
+  ?membership a :Cl_EnsembleMembership ;
+              :membershipOf ?ensemble ;
+              :member ?actor ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  
+  # Filter the ensemble by a given name
+  ?ensemble :hasName ?ensembleName .
+  FILTER(?ensembleName = "Your Ensemble Name")
+
+  # Optionally retrieve the actor name if available
+  OPTIONAL { ?actor :hasName ?actorName . }
+  
+  # The point in time for which we want members;
+  # Only include those memberships that started on or before ?pointTime
+  # and have no end date or ended on or after ?pointTime.
+  FILTER(
+    xsd:date("2020-01-01") >= ?start &&
+    ( !bound(?end) || xsd:date("2020-01-01") <= ?end )
+  )
+}
+
+--------------------------------------------------
+
+In this query the literal "2020-01-01" represents the point in time of interest and "Your Ensemble Name" is the ensemble you are filtering on. Adjust these as needed.

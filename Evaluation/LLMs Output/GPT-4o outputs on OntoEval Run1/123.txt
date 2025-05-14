@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "What plays could be seen during a certain theatre festival?" can be answered using the given ontology. The ontology provides information about theatre festivals, theatre productions, and plays. We can use a SPARQL query to extract the plays associated with a specific theatre festival.
+
+```sparql
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+
+  ?festival theatre:hasProduction ?production .
+  ?production theatre:hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?festival ?play
+```
+
+This query retrieves the plays associated with each theatre festival by following the property chain from `TheatreFestival` to `TheatreProduction` to `Play`.

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to identify a parameter that specifically represents the quality of water bodies. The ontology defines a class `WaterQualityParameter` as a subclass of `Parameter`, but there is no instance data or further specification to identify a specific parameter that represents water quality. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?parameter ?parameterLabel
+WHERE {
+  ?parameter a :WaterQualityParameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+}
+```

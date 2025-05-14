@@ -1,0 +1,35 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves the members of a given ensemble who are “active” at a specified time point. This query assumes that an individual’s membership is recorded by linking the ensemble (via ns1:hasMember or its inverse ns1:memberOf) to an individual that carries a time interval (via ns1:hasTimeInterval) during which the membership holds. Under a closed‐world assumption, if an individual does not state a valid time interval, it is not considered a member at that point.
+
+For example, if you want to check membership for a given ensemble (?ensemble) at a specified time (?time), you can use:
+
+-----------------------------------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?memberName ?start ?end
+WHERE {
+  # Bind the ensemble of interest and the point in time
+  VALUES ?ensemble { ns1:YourChosenEnsemble }   # replace with the actual ensemble URI
+  BIND("2009-09-07T00:00:00Z"^^xsd:dateTime AS ?time)   # replace with the desired time point
+  
+  # Find individuals that are members of the ensemble
+  ?ensemble ns1:hasMember ?member .
+  # Alternatively, if membership is recorded via ns1:memberOf:
+  # ?member ns1:memberOf ?ensemble .
+  
+  # Check the time interval during which the individual is a member
+  ?member ns1:hasTimeInterval ?interval .
+  ?interval ns1:startTime ?start ;
+            ns1:endTime ?end .
+  
+  # Filter those members whose membership interval covers the given time point
+  FILTER(?time >= ?start && ?time <= ?end)
+  
+  OPTIONAL { ?member rdfs:label ?memberName . }
+}
+-----------------------------------------------------------
+
+This query shows that the ontology models the CQ’s requirement—by connecting ensembles with their members and using time interval properties, we can retrieve the members active at a particular point in time.

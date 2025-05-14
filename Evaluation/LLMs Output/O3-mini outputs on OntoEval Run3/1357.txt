@@ -1,0 +1,14 @@
+**No**  
+The ontology does not explicitly state an “original location” for an organ. However, one can partially answer by retrieving any linked project (which may provide location information through the hasPlace property) that describes the organ. For example, one could run the following SPARQL query:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?project ?place
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+  ?project arco:hasPlace ?place .
+}
+
+This query extracts the organs that are linked to a project (via isDescribedBy) and retrieves the associated place (via hasPlace). Note that under the closed world assumption, if an organ’s original location was not modelled (or distinguished from current locations) in the ontology, this represents a partial answer.

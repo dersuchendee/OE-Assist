@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology includes the class `:Cl_Album` with data properties `:recordingStart` and `:recordingEnd`, which represent the start and end dates of an album's recording period. Therefore, we can write a SPARQL query to extract the recording time period of each album.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :recordingStart ?recordingStart . }
+  OPTIONAL { ?album :recordingEnd ?recordingEnd . }
+}
+```

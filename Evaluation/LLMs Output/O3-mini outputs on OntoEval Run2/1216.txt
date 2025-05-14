@@ -1,0 +1,26 @@
+**Yes**
+
+We can fully answer this CQ using the ontology. The following SPARQL query retrieves the subclasses of the major classes AquaticMicrobe and AquaticFungus:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?major ?majorLabel ?subClass ?subClassLabel
+WHERE {
+  { 
+    ?subClass rdfs:subClassOf :AquaticMicrobe .
+    BIND(:AquaticMicrobe AS ?major) 
+  }
+  UNION
+  { 
+    ?subClass rdfs:subClassOf :AquaticFungus .
+    BIND(:AquaticFungus AS ?major)
+  }
+  OPTIONAL { ?major rdfs:label ?majorLabel . }
+  OPTIONAL { ?subClass rdfs:label ?subClassLabel . }
+}
+ORDER BY ?major ?subClass
+------------------------------------------------
+
+Assuming a closed world where only the asserted subclasses exist, this query extracts the complete answer to the CQ.

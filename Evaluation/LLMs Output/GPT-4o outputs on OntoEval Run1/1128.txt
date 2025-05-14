@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "What are the attributes of this weather service?" can be answered using the given ontology. The attributes of the weather service include its URL, location, and prognosis. Here is a SPARQL query to extract these attributes:
+
+```sparql
+SELECT ?weatherService ?url ?cityName ?prognosisDuration
+WHERE {
+  ?weatherService a :Cl_WeatherService .
+  OPTIONAL { ?weatherService :hasURL ?url . }
+  
+  ?weatherService :hasLocation ?location .
+  OPTIONAL { ?location :hasCityName ?cityName . }
+  
+  ?weatherService :hasPrognosis ?prognosis .
+  OPTIONAL { ?prognosis :hasDuration ?prognosisDuration . }
+}
+```

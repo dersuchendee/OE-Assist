@@ -1,0 +1,13 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the region in which a given city is located (assuming the city is identified by its URI):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City ;
+        :locatedIn ?region .
+  # Optionally, to target a specific city, e.g., Portland:
+  # FILTER(?city = <http://www.example.org/test#Portland>)
+}

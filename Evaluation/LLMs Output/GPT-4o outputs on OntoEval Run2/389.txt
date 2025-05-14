@@ -1,0 +1,19 @@
+**No**
+
+The ontology provided does not include any information about roles that a person might have within a production. The ontology includes classes and properties related to theatre festivals, plays, productions, ensembles, actors, and their memberships, but it lacks specific details about roles within a production.
+
+To extract a partial answer, we can query for the ensemble memberships and the productions they are associated with, but this will not provide specific roles.
+
+```sparql
+SELECT ?actorName ?productionName ?timePeriod
+WHERE {
+  ?ensembleMembership a :Cl_EnsembleMembership ;
+                      :hasMember ?actor ;
+                      :hasEnsemble ?ensemble ;
+                      :hasTimePeriod ?timePeriod .
+  ?actor :actorName ?actorName .
+  ?productionPlay :hasEnsemble ?ensemble ;
+                  :hasProduction ?production .
+  ?production :productionName ?productionName .
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for members of an ensemble at a specific point in time. The ontology includes classes and properties related to ensembles and members, but it lacks a direct temporal aspect to associate members with ensembles at specific times.
+
+Partial SPARQL query to extract ensemble members without the temporal aspect:
+
+```sparql
+SELECT ?ensemble ?member
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?member .
+}
+```

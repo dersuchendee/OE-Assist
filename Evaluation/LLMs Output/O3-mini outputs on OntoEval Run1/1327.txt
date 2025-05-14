@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?carbonFixationForm ?soil ?process
+WHERE {
+  ?carbonFixationForm a :CarbonFixationForm .
+  ?carbonFixationForm :occursIn ?soil .
+  ?soil a :ForestSoil .
+
+  ?carbonFixationForm :partOfProcess ?process .
+  ?process a :CarbonCycling .
+}
+```

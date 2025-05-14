@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that region instances are linked via the property “locatedInCountry” to a country (or to an instance that is also declared as a country), you can run a SPARQL query like:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?region ?country
+WHERE {
+  ?region a :Cl_Region ;
+          :locatedInCountry ?country .
+  # Optional: to be explicit that ?country is a country
+  ?country a :Cl_Country .
+}
+-----------------------------------------------------------
+
+This query extracts, for each region (?region), the associated country (?country) as modelled by the ontology.

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the publication date of all individuals that are either a book or a CD:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?media ?publicationDate
+WHERE {
+  ?media a ?class .
+  FILTER(?class IN (:Cl_Book, :Cl_CD))
+  ?media :publicationDate ?publicationDate .
+}
+ORDER BY ?media
+--------------------------------------------------
+
+This query works under the closed world assumption by only returning those media that explicitly state a publication date via the :publicationDate property.

@@ -1,0 +1,12 @@
+**Yes**
+
+The ontology supports this CQ because it explicitly models performances with the class Cl_Performance and tracks when a performance took place using the performedDuring property (with range xsd:dateTime). Under the closed world assumption, you can extract the relevant information directly. For example, you can use the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performedDuring ?performanceDate .
+}

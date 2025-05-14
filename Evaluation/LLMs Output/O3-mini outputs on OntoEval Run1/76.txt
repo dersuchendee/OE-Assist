@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?startDate
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival ns1:startDate ?startDate .
+}
+ORDER BY ?festival
+```

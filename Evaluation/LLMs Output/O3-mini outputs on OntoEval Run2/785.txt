@@ -1,0 +1,19 @@
+**Yes**
+
+We can extract the answer to the CQ “What medical degrees does a certain person have?” from the ontology using the reified class Cl_PersonMedicalDegree that connects a person (via :hasPerson) and a medical degree (via :hasMedicalDegree). Under the closed world assumption, if we know the individual (say, :PasqualeDiGennaro), the following query returns the degrees along with, optionally, the date they were obtained:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeLabel ?dateObtained
+WHERE {
+  ?pmd a :Cl_PersonMedicalDegree ;
+       :hasPerson :PasqualeDiGennaro ;
+       :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  OPTIONAL { ?pmd :dateObtained ?dateObtained . }
+} 
+
+This query models the CQ by retrieving the medical degrees associated with the specified person.

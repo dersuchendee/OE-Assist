@@ -1,0 +1,29 @@
+Answer: **Yes**
+
+Here's a SPARQL query to retrieve the premier date of each production:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premiereDate
+WHERE {
+  ?production rdf:type :Cl_Production .
+  OPTIONAL { ?production :productionName ?productionName . }
+  
+  ?production :hasPremier ?premiere .
+  ?premiere :hasPremierDate ?dateNode .
+  ?dateNode :festivalDate ?premiereDate .
+}
+```
+
+This query works as follows:
+
+- It selects all instances of `:Cl_Production`.
+- It optionally retrieves the production's name using the `:productionName` data property.
+- It follows the `:hasPremier` object property to reach the associated `:Cl_ProductionPremier` instance.
+- From the `:Cl_ProductionPremier`, it follows the `:hasPremierDate` property to get the `:Cl_Date` instance that represents the premiere date.
+- Finally, it retrieves the actual date value using the `:festivalDate` data property of the `:Cl_Date` instance.
+
+This query will return the premiere dates of productions as modeled in the ontology, satisfying the competency question.

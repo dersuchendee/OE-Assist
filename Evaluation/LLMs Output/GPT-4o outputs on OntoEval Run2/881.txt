@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of a union at a specific point in time. The ontology includes classes and properties related to employees, unions, and union memberships, but it lacks temporal information about union memberships. The `unionRepresentativeSince` property provides temporal information for union representatives, but there is no equivalent for general union membership.
+
+Partial answer:
+```sparql
+SELECT ?employee ?union
+WHERE {
+  ?employee a :Employee .
+  ?employee :hasUnionMembership ?unionMembership .
+  ?unionMembership collectionentity:hasMember ?employee .
+  ?employee :representsUnion ?union .
+}
+```

@@ -1,0 +1,14 @@
+**Yes**
+Below is one SPARQL query that, under a closed world assumption, returns the instruments played by a given person (replace :thePerson with the individual’s IRI):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?instrument ?instrumentLabel
+WHERE {
+  BIND(:thePerson AS ?person) .
+  
+  ?person :playsInstrument ?ip .
+  ?instrument :playedBy ?ip .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel }
+}

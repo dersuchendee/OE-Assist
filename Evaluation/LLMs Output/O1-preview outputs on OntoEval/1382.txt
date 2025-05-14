@@ -1,0 +1,33 @@
+**Yes**
+
+The competency question "What was the reason for this meeting?" can be answered using the given ontology. The ontology includes the class `mtps:Meetup` representing meetings and the property `mtps:hasAPurpose` that links a meetup to its purpose (`mtps:Purpose`). The purpose is an enumerated set of predefined individuals such as `mtps:BusinessCareer`, `mtps:Education`, etc.
+
+Here's a SPARQL query that retrieves the purpose of a specific meeting. You would replace `mtps:SpecificMeeting` with the actual identifier of the meeting you're interested in.
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?purposeLabel
+WHERE {
+  mtps:SpecificMeeting a mtps:Meetup .
+  mtps:SpecificMeeting mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+}
+```
+
+If you want to retrieve the reasons for all meetings in the dataset, you can modify the query as follows:
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meeting ?purposeLabel
+WHERE {
+  ?meeting a mtps:Meetup .
+  ?meeting mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+}
+```
+
+This query will provide the purpose of each meeting by linking `mtps:Meetup` instances to their associated `mtps:Purpose` via the `mtps:hasAPurpose` property.

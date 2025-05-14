@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that “she” refers to a known musician in the ontology (for example, an instance of :Musician or :FemaleMusician), the ontology supports this competency question via the property chain defined for :performedAt. Under the closed world assumption, only explicitly asserted facts are returned. For instance, if there is an individual representing “she,” you can retrieve the locations where she performed using the following SPARQL query:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?musician ?location
+WHERE {
+  ?musician a :Musician .
+  # If you know the individual’s IRI, you can filter by that. E.g.:
+  # FILTER(?musician = :SomeMusicianIndividual)
+  
+  # Using the property chain :performedAt to get the location of her performance
+  ?musician :performedAt ?location .
+  
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+}
+-------------------------------------------------
+
+This query answers the CQ by extracting the location(s) at which the musician (i.e. “she”) performed.

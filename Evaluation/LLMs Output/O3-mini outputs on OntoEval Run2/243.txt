@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer the CQ using the ontology because a certain author (an instance of Cl_Author) is linked to plays (instances of Cl_Play) via the property :wrote. For example, if we want to retrieve the plays written by a specific author (say, William Shakespeare), we could write a query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  ?author :wrote ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  FILTER(?author = :WilliamShakespeare)
+}
+
+This query extracts the plays written by the specified author assuming the individual representing William Shakespeare is available as :WilliamShakespeare in the ontology.

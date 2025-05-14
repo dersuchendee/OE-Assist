@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example of a SPARQL query that, given a person (by name or URI), retrieves the instruments they play:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Person .
+  ?person :personName ?personName .
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument :instrumentName ?instrumentName. }
+  # Optionally, to restrict the query to a specific person (e.g., "John Frusciante"):
+  # FILTER(?personName = "John Frusciante")
+}
+--------------------------------------------------
+
+This query leverages the :playsInstrument property defined in the ontology to link a Person to his/her MusicalInstrument, and it is answerable under a closed world assumption when the necessary assertions (individuals and properties) are present.

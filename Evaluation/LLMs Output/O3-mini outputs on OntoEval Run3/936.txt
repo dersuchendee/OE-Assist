@@ -1,0 +1,21 @@
+**Yes**
+
+We can assume that the ontology “reifies” the evaluation relationship by having a class Cl_Evaluation such that a doctor (an instance of Cl_Doctor) “givesEvaluation” some evaluation, and that evaluation (an instance of Cl_Evaluation) has an evaluationStatement (a literal string) and—via its restriction specifying someValuesFrom Cl_Employee—a link to the evaluated employee. Under the closed‐world assumption we can write a SPARQL query that retrieves the evaluation statement given by a specific doctor for a specific employee. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?employee ?evaluationStatement
+WHERE {
+  ?doctor a :Cl_Doctor .
+  ?doctor :givesEvaluation ?evaluation .
+  ?evaluation a :Cl_Evaluation .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  ?evaluation :givesEvaluation ?employee .
+  
+  # Restrict to a specific doctor and employee 
+  FILTER (?doctor = <http://www.example.org/test#specificDoctor> &&
+          ?employee = <http://www.example.org/test#specificEmployee>)
+}
+
+This query extracts the evaluation statement by joining the doctor, evaluation, and employee entities, which demonstrates that the competency question is fully answerable by the ontology.

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that retrieves albums with their release date (under a closed‐world assumption all such assertions are explicitly stated):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate 
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}
+--------------------------------------------------
+
+This query shows that the competency question “When was a certain album released?” is answerable by the ontology.

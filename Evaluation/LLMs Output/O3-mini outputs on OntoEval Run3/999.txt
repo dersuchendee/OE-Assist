@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves a book or CD along with its publication date:
+
+----------------------------------------
+PREFIX ac: <http://example.org/articlecollection#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?publicationDate
+WHERE {
+  {
+    ?collection a ac:Book .
+  }
+  UNION
+  {
+    ?collection a ac:CD .
+  }
+  ?collection ac:hasPublicationDate ?publicationDate .
+}
+----------------------------------------
+
+This query assumes a closed world such that if a resource is explicitly stated to be a Book or a CD and has a publication date (using the property ac:hasPublicationDate), then the answer to “When was a certain book or CD published?” is extractable from the ontology.

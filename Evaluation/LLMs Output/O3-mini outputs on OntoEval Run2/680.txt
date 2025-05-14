@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves each performance event (the reified representation of a performance) along with its associated location. (Replace the FILTER value with the identifier of the “certain performance” if you wish to inspect a specific one.) 
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performanceEvent ?location ?locationName
+WHERE {
+  ?performanceEvent a :Cl_PerformanceEvent .
+  ?performanceEvent :performedAt ?location .
+  OPTIONAL { ?location :locationName ?locationName . }
+  # Uncomment and edit the following filter to restrict to a specific performance:
+  # FILTER(?performanceEvent = <http://www.example.org/test#SpecificPerformanceID>)
+}
+-------------------------------------------------
+
+Explanation:
+• The ontology models performances using the reified class :Cl_PerformanceEvent.
+• The object property :performedAt (with domain :Cl_PerformanceEvent and range :Cl_Location) associates a performance event with its location.
+• The OPTIONAL clause attempts to retrieve a human‐readable name (using the data property :locationName) if available.
+• Under the closed-world assumption, only those performance events that have an explicitly stated location are returned.

@@ -1,0 +1,20 @@
+**Yes**
+Below is one possible SPARQL query that answers the CQ “Who are the members of a certain union at a certain point in time?” using the reified union membership structure found in the ontology. In this query you can replace the URI for the target union (<targetUnionIRI>) and the target date “2022-01-01T00:00:00”^^xsd:dateTime with the actual values for your query.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion ?union ;
+              :hasEmployee ?employee ;
+              :hasTimePoint ?timePoint .
+  ?timePoint :timeValue ?time .
+  FILTER(?union = <targetUnionIRI>)
+  FILTER(?time = "2022-01-01T00:00:00"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+In a closed world context we assume that only the explicitly asserted union memberships exist; thus this query will extract all the members (employees) of the given union at the specified time.

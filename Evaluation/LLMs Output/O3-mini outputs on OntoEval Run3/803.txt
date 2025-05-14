@@ -1,0 +1,22 @@
+**Yes**
+
+One can answer this CQ by retrieving, for a given person and degree, the corresponding study period by following the :hasStudyPeriod relation from the reified degree instance. For example, assuming we want to get the study period for a specific person and degree, one SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName ?studyStartDate ?studyEndDate
+WHERE {
+  ?pmDegree a :Cl_PersonMedicalDegree ;
+            :personWithDegree ?person ;
+            :degreeOf ?degree ;
+            :hasStudyPeriod ?studyPeriod .
+  ?degree :degreeName ?degreeName .
+  ?studyPeriod :studyStartDate ?studyStartDate ;
+               :studyEndDate ?studyEndDate .
+  # Filter to a certain person and degree, e.g., Pasquale Di Gennaro and "Certified Nurse"
+  FILTER(?person = :Pasquale_Di_Gennaro && ?degreeName = "Certified Nurse")
+}
+
+This query returns the study period (start and end dates) during which the person studied for the specific degree.

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that, using a closed‐world view of the ontology, retrieves the premier date for the production based on “The Merchant of Venice”. (The production is linked to the play by the property :isBasedOn and its premier date is stored via the data property :premierDate.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production ;
+              :premierDate ?premierDate ;
+              :isBasedOn ?play .
+  ?play :hasTitle "The Merchant of Venice" .
+}
+--------------------------------------------------
+
+In this query, we first select all individuals of type :Cl_Production that have a premier date. We further restrict to those productions that are based on the play with the title “The Merchant of Venice”.

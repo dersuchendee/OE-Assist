@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for each actor and theatre, the employment record’s starting date (i.e. when the actor started working at that theatre):
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :op_employmentOf ?employment .
+  ?employment a :Cl_Employment .
+  ?employment :op_employedAt ?theatre .
+  ?employment :dp_startDate ?startDate .
+}
+ORDER BY ?actor ?startDate
+---------------------------------------------------------------
+
+This query answers the competency question “At what time did a certain actor start working for a specific theatre?” by using the employment relationship (between an actor, an employment instance, and a theatre) and retrieving the start date (dp_startDate).

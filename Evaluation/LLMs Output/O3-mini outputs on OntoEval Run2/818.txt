@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, using the closed‐world assumption and the modelling provided, retrieves the first employment date for a given person at a given hospital:
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?empDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Employee .
+  ?person :hasEmployment ?employment .
+  ?employment :employmentDate ?empDate .
+  ?person :employedAt ?hospital .
+  # Replace the following values with the target individual and hospital IRIs:
+  FILTER (?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+----------------------------------------
+
+This query uses the given ontology elements—namely, the employment record via :hasEmployment and the employment date via :employmentDate along with the relationship :employedAt—to extract the earliest (i.e. first) employment date for the specified person at the specified hospital.

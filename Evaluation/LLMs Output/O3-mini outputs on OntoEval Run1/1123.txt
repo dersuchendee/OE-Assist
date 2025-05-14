@@ -1,0 +1,16 @@
+**No**
+
+The ontology only explicitly relates a User to a Location via the property :hasLocation, while there is no property linking a System to a Location. Therefore, we can only partially answer the query by retrieving the User’s location. Here’s a SPARQL query that extracts the available (partial) information:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?userLocation ?system ?systemLocation
+WHERE {
+  ?user a :User ;
+        :hasLocation ?userLocation .
+  OPTIONAL {
+    ?system a :System ;
+            :hasLocation ?systemLocation .
+  }
+}

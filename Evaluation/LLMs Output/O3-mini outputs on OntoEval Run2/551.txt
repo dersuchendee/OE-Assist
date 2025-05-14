@@ -1,0 +1,18 @@
+**Yes**
+Below is one example SPARQL query that, under the closed‐world assumption, retrieves albums together with their release dates (thus answering “When was a certain album released?”):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album rdf:type :Cl_Album ;
+         :releaseDate ?releaseDate .
+  # Optionally, restrict to a specific album by name or IRI:
+  # FILTER(STR(?album) = "StadiumArcadium")
+}
+----------------------------------------------------------------
+
+This query shows that the ontology supports the competency question by providing the necessary release date information for albums.

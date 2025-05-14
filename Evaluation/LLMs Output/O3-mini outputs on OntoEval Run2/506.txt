@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the ontology is interpreted under a closed‐world assumption, the album recording period is available via the two datatype properties defined for Cl_Album (i.e. albumRecordingStartDate and albumRecordingEndDate). For example, you can write a SPARQL query like this to extract the recording period of a (certain) album:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :albumRecordingStartDate ?recordingStart .
+  ?album :albumRecordingEndDate ?recordingEnd .
+}
+----------------------------------------------------------------
+
+This query returns, for each album, its recording start date and end date. If you wish to focus on a particular album (e.g. “Stadium Arcadium”), you can add an appropriate FILTER or bind the constant URI representing that album.

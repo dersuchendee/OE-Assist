@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?organ ?organLabel ?originalPart ?partLabel
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasOriginalPart ?originalPart .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  OPTIONAL { ?originalPart rdfs:label ?partLabel . }
+}
+ORDER BY ?organ
+```

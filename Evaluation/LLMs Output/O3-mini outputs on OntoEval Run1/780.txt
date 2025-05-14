@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming we want to retrieve, for a given person (e.g., Pasquale_Di_Gennaro), the names and dates of their medical degrees, one can extract the answer from the ontology. For example:
+
+SPARQL Query:
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName ?degreeDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasMedicalDegree ?personMedicalDegree .
+  ?personMedicalDegree :degreeOf ?degree .
+  ?degree :degreeName ?degreeName ;
+          :degreeDate ?degreeDate .
+  FILTER(?person = :Pasquale_Di_Gennaro)
+}
+------------------------------------------------
+
+This query retrieves the medical degree information for the specified person under a closed world assumption.

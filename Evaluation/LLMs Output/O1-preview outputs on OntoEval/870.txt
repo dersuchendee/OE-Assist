@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology includes the classes `:Cl_City` and `:Cl_Country`, and the object property `:isLocatedIn` which relates a city to the country it is located in. Therefore, we can write the following SPARQL query to extract the information:
+
+```sparql
+SELECT ?city ?country
+WHERE {
+    ?city rdf:type :Cl_City .
+    ?city :isLocatedIn ?country .
+}
+```

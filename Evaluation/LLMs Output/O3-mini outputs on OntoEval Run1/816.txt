@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that specific employment events (including their start dates) are explicitly asserted in the ontology, we can retrieve the first employment date for a given person at a given hospital. For example, using placeholders for the person and the hospital, a SPARQL query under the closed world assumption could be:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentStartDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Employee .
+  ?person :hasEmploymentEvent ?event .
+  ?event :employmentStartDate ?employmentStartDate .
+  
+  ?hospital a :Cl_Hospital .
+  ?hospital :hasEmploymentEventAtHospital ?event .
+  
+  # Replace these IRIs with the actual individuals of interest:
+  FILTER(?person = <http://www.example.org/test#Pasquale_Di_Gennaro> &&
+         ?hospital = <http://www.example.org/test#Ospedale_Riunito_delle_Tre_Valli>)
+}
+GROUP BY ?person ?hospital
+------------------------------------------------------------
+
+This query finds all employment events linking the given employee and hospital, computes the minimum (i.e. the earliest) employment start date, and returns it as the first employment date.

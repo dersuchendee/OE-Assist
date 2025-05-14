@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer this CQ by retrieving for each album its recording period via the recording instance that links to the album (using the :recorded property), and the data properties :recordingStart and :recordingEnd. Assuming the closed world (i.e. only the facts explicitly stated in the ontology hold), the following SPARQL query extracts the recording period for any album:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  ?recording a :Cl_Recording ;
+             :recorded ?album ;
+             :recordingStart ?recordingStart ;
+             :recordingEnd ?recordingEnd .
+}
+------------------------------------------------
+
+This query returns each album along with the start and end dates of its recording period, thus fully supporting the competency question.

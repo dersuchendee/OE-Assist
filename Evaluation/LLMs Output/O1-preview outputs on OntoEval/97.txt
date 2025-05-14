@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival :tookPlaceIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

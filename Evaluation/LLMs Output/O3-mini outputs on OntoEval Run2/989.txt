@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed‐world interpretation, the CQ “How many pages does a particular book contain?” is answerable from the ontology. For example, if we are interested in the book with title “Nurse practices in cancer patient care – longitudinal studies at Italian hospitals”, you can run the following SPARQL query:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?bookTitle ?numberOfPages
+WHERE {
+  ?book a :Cl_Book ;
+        :bookTitle ?bookTitle ;
+        :numberOfPages ?numberOfPages .
+  FILTER(?bookTitle = "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals")
+}
+----------------------------------------------------------------
+
+This query retrieves the book (its URI), its title, and the number of pages as recorded in the ontology, thereby modeling the competency question.

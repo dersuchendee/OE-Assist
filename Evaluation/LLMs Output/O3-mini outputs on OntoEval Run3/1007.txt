@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves publications (books or CDs) along with their publication dates. In this query we assume that books or CDs are modelled as instances of the class Cl_Publication and that the publication date is recorded via the data property publicationDate, with the type of the publication available through publicationType (e.g. "Book" or "CD"):
+
+--------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?publicationDate
+WHERE {
+  ?publication a :Cl_Publication .
+  ?publication :publicationType ?type .
+  FILTER(?type = "Book" || ?type = "CD")
+  OPTIONAL { ?publication :publicationTitle ?publicationTitle . }
+  OPTIONAL { ?publication :publicationDate ?publicationDate . }
+}
+--------------------------------------
+
+This query answers the CQ "When was a certain book or CD published?" by extracting publication dates for publications that are either books or CDs.

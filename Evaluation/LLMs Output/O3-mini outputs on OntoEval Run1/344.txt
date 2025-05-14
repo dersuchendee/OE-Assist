@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that productions are linked to newspaper ratings using the property :ratedBy and that the rating value is stored via the data property :starRating on instances of :Cl_NewspaperRating, you can answer the CQ by writing a query such as:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production :ratedBy ?rating .
+  ?rating a :Cl_NewspaperRating .
+  ?rating :starRating ?starRating .
+
+  # To restrict to a certain newspaper, assume the rating resource carries
+  # a label that identifies the newspaper. Uncomment and set the value below if needed:
+  # ?rating rdfs:label "Il Gazzettino" .
+}
+--------------------------------------------------
+
+This query extracts for each production the star rating given by a newspaper rating (from the reified class :Cl_NewspaperRating), so the CQ is modelled by the ontology under a closed‐world assumption.

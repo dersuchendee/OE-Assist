@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Did they travel to reach the place?" can be answered using the ontology provided. The ontology includes classes for `Person`, `Travel`, and `Place`, and properties that connect them, such as `participatedInTravel` and `hasDestination`. This allows us to query whether a person has participated in travel to a specific place.
+
+```sparql
+SELECT ?person ?place
+WHERE {
+  ?person a :Person .
+  ?person :participatedInTravel ?travel .
+  ?travel :hasDestination ?place .
+}
+```

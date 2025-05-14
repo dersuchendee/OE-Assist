@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for the attributes of a weather service. The ontology defines classes and properties related to weather services, locations, forecasts, and specific weather parameters like temperature, wind, and precipitation. However, it does not define a specific set of attributes for a weather service itself. The closest we can get is to query for the locations and forecasts provided by a weather service.
+
+Here is a SPARQL query to extract a partial answer, focusing on the locations and forecasts provided by a weather service:
+
+```sparql
+SELECT ?weatherService ?location ?forecast
+WHERE {
+  ?weatherService a :WeatherService .
+  ?weatherService :providesForecastFor ?location .
+  ?location :hasForecast ?forecast .
+}
+```

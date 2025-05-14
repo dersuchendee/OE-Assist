@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer this CQ by querying for all participants that are linked through the properties that relate them (such as hasRelationWith and its sub‐properties). Assuming the closed world (i.e. if a relation is not asserted in the data then it does not hold), one may use a query like:
+
+------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?participant1 ?participant1Label ?relation ?participant2 ?participant2Label
+WHERE {
+  ?participant1 a :Participant .
+  ?participant2 a :Participant .
+  ?participant1 ?relation ?participant2 .
+  FILTER(?relation IN (:hasRelationWith, :collaboratedWith, :influencedBy, :influenced, :metAtEvent))
+  OPTIONAL { ?participant1 rdfs:label ?participant1Label . }
+  OPTIONAL { ?participant2 rdfs:label ?participant2Label . }
+}
+------------------------------
+
+This query retrieves all pairs of participants along with the specific relation type that connects them, thereby characterizing the relations among all participants as required by the CQ.

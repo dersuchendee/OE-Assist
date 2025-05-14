@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that the “certain person” (e.g., Pasquale Di Gennaro) is identified by an individual in the ontology and using the reification pattern via the Cl_PersonMedicalDegree class, the following SPARQL query retrieves the medical degrees for that person (under the closed‐world assumption):
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?medicalDegree ?degreeLabel ?dateObtained
+WHERE {
+  ?record a :Cl_PersonMedicalDegree .
+  ?record :hasPerson ?person .
+  ?record :hasMedicalDegree ?medicalDegree .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?medicalDegree rdfs:label ?degreeLabel. }
+  OPTIONAL { ?record :dateObtained ?dateObtained. }
+  FILTER(?person = :PasqualeDiGennaro)
+}
+---------------------------------------
+
+This query “models” the competency question since it retrieves which medical degrees (and optionally when the degree was obtained) are associated with the specific person.

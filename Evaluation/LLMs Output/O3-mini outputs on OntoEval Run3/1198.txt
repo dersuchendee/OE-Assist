@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?musician ?musicianLabel ?place ?placeLabel
+WHERE {
+  ?musician a :Musician .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  
+  ?musician :performedIn ?performance .
+  ?performance :tookPlaceAt ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+ORDER BY ?musician ?place
+```

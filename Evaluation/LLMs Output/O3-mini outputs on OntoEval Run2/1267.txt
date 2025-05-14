@@ -1,0 +1,27 @@
+**Yes**
+
+The following SPARQL query retrieves all exchanges that are either material or information exchanges (as defined in the ontology) along with their associated evaluation (specifically the isSuccessful property), which directly answers the CQ “Was the (material, information) exchange successful?” under a closed world assumption.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?exchange ?exchangeType ?isSuccessful
+WHERE {
+  {
+    ?exchange a :MaterialExchange .
+    BIND("MaterialExchange" AS ?exchangeType)
+  }
+  UNION
+  {
+    ?exchange a :InformationExchange .
+    BIND("InformationExchange" AS ?exchangeType)
+  }
+  
+  ?exchange :hasEvaluation ?evaluation .
+  ?evaluation :isSuccessful ?isSuccessful .
+}
+ORDER BY ?exchangeType
+------------------------------------------------
+
+This query confirms that the ontology provides a connection between the exchange instances and their evaluation (indicated by the cardinality restrictions on isSuccessful in ExchangeEvaluation), thereby fully modelling the competency question.

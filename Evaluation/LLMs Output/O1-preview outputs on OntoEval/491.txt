@@ -1,0 +1,17 @@
+**No**
+
+```sparql
+SELECT ?album ?albumLabel ?startDate ?endDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  OPTIONAL { ?album :dp_recordStartDate ?startDate . }
+  OPTIONAL { ?album :dp_recordingEndDate ?endDate . }
+}
+```
+
+**Explanation:**
+
+The competency question "During what time period was a certain album recorded?" cannot be fully answered by the given ontology because there is no direct connection between the album and the recording end date. While the ontology provides the `:dp_recordStartDate` property associated with `:Cl_Album`, it lacks a corresponding `:dp_recordEndDate` (or `:dp_recordingEndDate`) property connected to the album. The `:dp_releaseDate` might not accurately represent the recording end date. Therefore, we can only partially answer the question by retrieving the recording start dates of albums.
+
+The provided SPARQL query extracts albums along with their labels, recording start dates, and (if available) recording end dates. This offers a partial answer based on the available data in the ontology.

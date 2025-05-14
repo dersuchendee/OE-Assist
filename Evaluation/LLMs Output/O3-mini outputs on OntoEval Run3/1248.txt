@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming complete (closed‐world) data, we can answer the CQ by aggregating admissions per hospital and diagnosis code. The following SPARQL query computes, for each hospital and for each diagnosis code, the number of admissions (which in this case is the average since each hospital’s count for a given diagnosis code is uniquely determined):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?diagnosisCode (COUNT(?admission) AS ?admissionCount)
+WHERE {
+  ?hospital a :Hospital .
+  ?hospital :hasAdmission ?admission .
+  ?admission :hasDiagnosisCode ?diagnosisCode .
+}
+GROUP BY ?hospital ?diagnosisCode
+
+This query returns, for each hospital and diagnosis code, the total number of admissions recorded. Under the closed world assumption, this answer is complete and thus the CQ is supported by the ontology.

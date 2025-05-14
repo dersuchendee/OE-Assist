@@ -1,0 +1,10 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?album ?albumLabel ?numTracks
+WHERE {
+  ?album a ns1:Album ;
+         ns1:numberOfTracks ?numTracks .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+}
+```

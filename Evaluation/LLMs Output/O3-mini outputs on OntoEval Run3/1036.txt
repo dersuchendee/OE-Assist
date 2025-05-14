@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that seminars (instances of :Cl_Seminar) in the ontology have an associated date via the data property :seminarDate, the following SPARQL query extracts the date when each seminar took place (under the closed world assumption that only explicitly stated data is available):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+—————————————————————————————
+
+This query will return the seminar(s) along with the date recorded in the ontology, thus supporting the competency question "When did a certain seminar take place?"

@@ -1,0 +1,11 @@
+**No**
+
+The competency question "In what country is a certain region located?" is not fully supported by the ontology. The ontology provides classes and properties related to cities, regions, and countries, but it does not directly provide a way to query the country of a specific region. However, we can extract a partial answer by querying the regions and their associated countries.
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :partOf ?country .
+}
+```

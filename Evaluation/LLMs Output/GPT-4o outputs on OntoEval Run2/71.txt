@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a component or product with its materials. The ontology defines a class for products, materials, and material compositions, but there is no direct link between a product and its materials. The `op_hasMaterialComposition` property links a product to a material composition, and `op_composedOf` links a material composition to materials, but without instances or further details, we cannot directly answer the CQ.
+
+Partial answer:
+```sparql
+SELECT ?product ?material
+WHERE {
+  ?product a :Cl_Product .
+  ?product :op_hasMaterialComposition ?composition .
+  ?composition :op_composedOf ?material .
+}
+```

@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedIn ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+```

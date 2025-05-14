@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :performanceLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```
+
+This query retrieves each performance (and its optional label) along with its associated location (and its optional label), thus fully answering the competency question "Where did a certain performance take place?" under a closed world assumption.

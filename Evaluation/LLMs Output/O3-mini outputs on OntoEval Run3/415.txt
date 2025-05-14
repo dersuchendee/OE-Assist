@@ -1,0 +1,17 @@
+**Yes**
+Below is one SPARQL query that, under a closed‐world assumption, returns each production whose hasPremier property occurs exactly once:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production (SAMPLE(?premier) AS ?onlyPremier)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+GROUP BY ?production
+HAVING(COUNT(?premier)=1)
+--------------------------------------------------
+
+This query retrieves productions for which exactly one premier is recorded, thereby answering the competency question.

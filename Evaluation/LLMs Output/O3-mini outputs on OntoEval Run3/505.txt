@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world interpretation, answers the CQ “During what time period was a certain album recorded?” by retrieving the recording time for a given album (here, for example, the album StadiumArcadium):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordedTime
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasRecording ?recording .
+  ?recording :recordedDuring ?recordedTime .
+  FILTER(?album = :StadiumArcadium)
+}
+--------------------------------------------------
+
+This query extracts the album’s identifier along with the time period during which it was recorded.

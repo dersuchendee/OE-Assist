@@ -1,0 +1,35 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  # Given inputs: ?personURI, ?bandURI, ?inputTime
+  # Ensure the person has a role assignment
+  ?personURI :hasRoleAssignment ?roleAssignment .
+
+  # The role assignment is for the specified band
+  ?roleAssignment :roleInBand ?bandURI .
+
+  # Get the role associated with the assignment
+  ?roleAssignment :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  # Get the start and end dates of the role assignment
+  ?roleAssignment :roleStartDate ?startDate .
+  OPTIONAL { ?roleAssignment :roleEndDate ?endDate . }
+
+  # Filter to ensure the role assignment is valid at the input time
+  FILTER (
+    xsd:dateTime(?startDate) <= xsd:dateTime(?inputTime) &&
+    (
+      !BOUND(?endDate) || xsd:dateTime(?inputTime) <= xsd:dateTime(?endDate)
+    )
+  )
+}
+```

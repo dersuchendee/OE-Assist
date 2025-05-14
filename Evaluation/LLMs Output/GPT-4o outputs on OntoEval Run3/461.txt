@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to track band membership over time, specifically through the `Cl_Membership` class and its associated properties like `membershipStart` and `membershipEnd`.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?band ?role ?start ?end
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :memberOf ?band .
+  ?membership :membershipStart ?start .
+  ?membership :membershipEnd ?end .
+  ?membership :hasRole ?role .
+  ?person :hasMembership ?membership .
+}
+ORDER BY ?band ?start
+```
+
+This query retrieves the members of a band, their roles, and the time period during which they were members.

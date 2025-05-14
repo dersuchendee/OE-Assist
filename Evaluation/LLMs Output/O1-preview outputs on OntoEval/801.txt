@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?person ?degreeTitle ?startDate ?endDate
+WHERE {
+    ?person a :Cl_Person ;
+            :hasMedicalDegree ?degree .
+    ?degree :degreeTitle ?degreeTitle ;
+            :hasStudyPeriod ?studyPeriod .
+    OPTIONAL { ?studyPeriod :studyStartDate ?startDate . }
+    OPTIONAL { ?studyPeriod :studyEndDate ?endDate . }
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, working under the closed‐world assumption, retrieves productions that have exactly one premier:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionName (COUNT(?premier) AS ?premierCount)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionName. }
+  OPTIONAL { ?production :hasPremier ?premier. }
+}
+GROUP BY ?production ?productionName
+HAVING (COUNT(?premier) = 1)
+----------------------------------------------------------------
+
+This query confirms that each production in the ontology has exactly one premier as required by the competency question.

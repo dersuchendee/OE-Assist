@@ -1,0 +1,22 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, extracts for each disease category the hospital (or hospitals) with the longest average length of stay:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?disease ?hospital ?maxValue
+WHERE {
+  {
+    SELECT ?disease (MAX(?value) AS ?maxValue)
+    WHERE {
+      ?hs a :HospitalStatistic .
+      ?hs :forDiseaseCategory ?disease .
+      ?hs :hasAverageLengthOfStay ?value .
+    }
+    GROUP BY ?disease
+  }
+  ?hs2 a :HospitalStatistic .
+  ?hs2 :forDiseaseCategory ?disease .
+  ?hs2 :hasAverageLengthOfStay ?maxValue .
+  ?hs2 :recordedBy ?hospital .
+}

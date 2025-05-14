@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that productions are represented as instances of the class :Cl_Production and that the premier information is reified via the :hasPremier property linking a production to an instance of :Cl_ProductionPremier (which carries the premier date via the :premierDate data property), you can extract the premier date for a production with a query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premierInstance .
+  ?premierInstance :premierDate ?premierDate .
+}
+
+This query retrieves each production and its premier date, thus answering the competency question "When was the premier of a certain production?" under the closed world assumption.

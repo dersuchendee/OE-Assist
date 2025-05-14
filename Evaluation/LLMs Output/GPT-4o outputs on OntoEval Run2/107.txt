@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about the specific location of a festival, such as a venue or address. It only contains information about the city where the festival takes place. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying the city where the festival took place.
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :takesPlaceIn ?city .
+}
+```

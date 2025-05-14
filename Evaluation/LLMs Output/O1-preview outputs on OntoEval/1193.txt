@@ -1,0 +1,14 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question. We can retrieve the provenance of event attendees and understand how and why they attended the events by querying the relationships between `Event`, `Attendance`, `Person`, `Provenance`, and `Reason`.
+
+```sparql
+SELECT ?event ?person ?provenance ?reason
+WHERE {
+  ?event a :Event .
+  ?event :hasAttendance ?attendance .
+  ?attendance :attendedBy ?person .
+  ?person :hasProvenance ?provenance .
+  OPTIONAL { ?attendance :hasReason ?reason . }
+}
+```

@@ -1,0 +1,12 @@
+**No**  
+The ontology does include a class for organs (and related concepts), but it does not model a specific relation (or reification) that “mentions” an organ in a way that directly answers the CQ. Under a closed‐world assumption we have no explicit assertion linking a resource to “mentioning” an organ. However, a partial answer can be obtained by “mining” literal labels for the string “organ”. For instance, one might run the query below to list the resources whose rdfs:label contains the word “organ”: 
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?resource ?label
+WHERE {
+  ?resource rdfs:label ?label .
+  FILTER(CONTAINS(LCASE(?label), "organ"))
+}
+
+This query gives a partial answer by extracting resources whose labels include the string “organ” even though the ontology does not explicitly reify or relate resources with “mentions an organ.”

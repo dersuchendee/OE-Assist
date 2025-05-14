@@ -1,0 +1,19 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, retrieves the number of acts for a given play (for instance, “The Merchant of Venice”). In this ontology the play is connected through a reified class (Cl_PlayActInformation) via the property :hasActInformation, and the act count is recorded using the data property :actCount.
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasActInformation ?actInfo .
+  ?actInfo :actCount ?actCount .
+  # For a specific play, e.g., The Merchant of Venice:
+  FILTER(?play = :TheMerchantOfVenice)
+} 
+----------------------------------------------------------------
+
+This query fully addresses the competency question “How many acts does a particular play contain?” by extracting the act count associated with the reified information for the play.

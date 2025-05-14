@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that (with the closed‐world assumption) every union’s membership at a given time is explicitly asserted using the reified relation via the properties “hasMemberAt” (and its inverse “memberOfAt”) together with the time annotation (via “atTime”), we can answer the CQ “Who are the members of a certain union at a certain point in time?” by writing a SPARQL query. For example, if we want to know the members of a union (identified by its label “UnionName”) at a specific time (e.g. “2002-01-01T00:00:00”^^xsd:dateTime), we could use a query like this:
+
+-------------------------------------------------
+PREFIX : <http://example.org/union#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel
+WHERE {
+  ?union a :Union ;
+         rdfs:label "UnionName" .
+  ?union :hasMemberAt ?member .
+  ?member :atTime ?time .
+  FILTER(?time = "2002-01-01T00:00:00"^^xsd:dateTime)
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+}
+-------------------------------------------------
+
+In this query the assumption is that the ontology asserts, for each union membership relation, a triple using the property :hasMemberAt (or its inverse :memberOfAt) and that the related time value is attached via the subproperty chain involving :atTime. Under a closed‐world view, only those individuals explicitly asserted as members under these conditions will be returned, thus fully addressing the CQ.

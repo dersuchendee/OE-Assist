@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the roles (i.e. the Cl_ActorRole instances) a given person has in a given production at a specific date. (In this query the variables ?person, ?production, and ?pointInTime represent the given person, production, and the time of interest. You can bind these to the appropriate IRIs and literal as needed.) 
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorRole ?roleLabel ?date
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+             :playedBy ?person ;
+             :inProduction ?production ;
+             :date ?date .
+  OPTIONAL { ?actorRole rdfs:label ?roleLabel . }
+  
+  # Bind the specific person, production and time values (update these IRIs and literal as needed)
+  FILTER (?person = <http://www.example.org/test#GivenPerson> &&
+          ?production = <http://www.example.org/test#GivenProduction> &&
+          ?date = "2009-09-14"^^xsd:date)
+}
+---------------------------------------------------------
+
+This query uses the information provided by the ontology (the actor role reification via Cl_ActorRole, with its properties :playedBy, :inProduction, and :date) to extract the complete answer to the competency question.

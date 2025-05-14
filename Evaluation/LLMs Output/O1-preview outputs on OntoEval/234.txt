@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :op_writtenBy ?author .
+  ?author :dp_authorName ?authorName .
+  ?play :dp_title ?playTitle .
+  FILTER(?authorName = "William Shakespeare")
+}
+```
+
+This query retrieves all plays (`?play`) and their titles (`?playTitle`) that were written by a specific author—in this case, "William Shakespeare". The ontology provides the necessary classes (`:Cl_Play`, `:Cl_Author`), properties (`:op_writtenBy`, `:dp_title`, `:dp_authorName`), and individuals to answer the competency question.

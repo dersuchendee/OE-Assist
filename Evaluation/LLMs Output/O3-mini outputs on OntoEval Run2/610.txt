@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one SPARQL query that answers the competency question “What does a certain critic say about a certain record?” by retrieving the review content written by the given critic about the given record (in this ontology, a “record” is modelled as an Album that is the subject of a Review):
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?criticName ?albumTitle ?reviewContent
+WHERE {
+  ?review a :Review ;
+          :writtenBy ?critic ;
+          :isReviewOf ?record ;
+          :reviewContent ?reviewContent .
+  ?critic :criticName ?criticName .
+  ?record :albumTitle ?albumTitle .
+  # You can replace the following IRIs with the specific critic and record you want to query.
+  FILTER(?critic = :CrianHiatt && ?record = :StadiumArcadium)
+}
+--------------------------------------------------
+
+This query is answerable under a closed‐world assumption, since it directly matches the individuals and properties defined in the ontology.

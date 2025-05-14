@@ -1,0 +1,18 @@
+**Yes**  
+Below is one suitable SPARQL query that retrieves, for each theatre festival, the plays that could be seen:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival :hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?festival ?play
+-----------------------------------------------------------
+
+This query demonstrates that the ontology models the CQ because the property :hasPlay (with domain :Cl_TheatreFestival and range :Cl_Play) allows us to extract the plays associated with a given theatre festival.

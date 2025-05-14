@@ -1,0 +1,25 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology/ticketing#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventLabel ?ticketOption ?ticketOptionLabel ?seat ?seatLabel ?showTime ?showTimeLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasTicketOption ?ticketOption .
+  OPTIONAL { ?ticketOption rdfs:label ?ticketOptionLabel . }
+  
+  OPTIONAL {
+    ?ticketOption :hasSeat ?seat .
+    OPTIONAL { ?seat rdfs:label ?seatLabel . }
+  }
+  OPTIONAL {
+    ?ticketOption :hasShowTime ?showTime .
+    OPTIONAL { ?showTime rdfs:label ?showTimeLabel . }
+  }
+}
+ORDER BY ?event
+```

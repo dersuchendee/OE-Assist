@@ -1,0 +1,29 @@
+**Yes**
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves for a given person the role assignments (reified as instances of Cl_RoleAssignment, which “mixes” a person, a production and a date) including the role’s name and the date at which it applies. (In this query the person and the production are given as input parameters.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?roleName ?roleDate
+WHERE {
+  # The given person is linked to role assignments via :hasRoleInProduction
+  ?person :hasRoleInProduction ?roleAssignment .
+  ?roleAssignment a :Cl_RoleAssignment ;      # reification: also a Cl_Person, Cl_Production & Cl_Date 
+                  :roleName ?roleName ;
+                  :roleDate ?roleDate .
+  # In this model the role assignment is also an instance of a production.
+  ?roleAssignment a :Cl_Production .
+
+  # Parameterized filters for a specific person and production.
+  FILTER(?person = <http://www.example.org/test#FabioBianchi>)
+  FILTER(?roleAssignment = <http://www.example.org/test#TheMerchantOfVeniceProduction>)
+}
+ORDER BY ?roleDate
+
+/* 
+In this query we assume that:
+- Individuals such as <http://www.example.org/test#FabioBianchi> represent the person of interest.
+- <http://www.example.org/test#TheMerchantOfVeniceProduction> is the identifier of the production in which we want to know the roles.
+If needed you can replace these IRIs by the appropriate ones from your data set.
+*/

@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to extract the specific location where a person lived. The ontology includes a `ResidenceEvent` class, which is a subclass of `Event`, and events can have locations. However, there is no direct connection between a `Person` and a `Location` through a `ResidenceEvent`. The ontology would need to explicitly model the relationship between a person and their residence location to fully answer the CQ.
+
+Partial answer:
+```sparql
+SELECT ?person ?location
+WHERE {
+  ?person a :Person .
+  ?person :hasEvent ?event .
+  ?event a :ResidenceEvent .
+  ?event :atLocation ?location .
+}
+```

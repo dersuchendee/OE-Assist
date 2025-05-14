@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What instruments does a certain person play?" can be answered using the ontology provided. The ontology includes the `:PlaysInstrument` property, which connects individuals of type `:Person` to the instruments they play. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Person .
+  ?person :PlaysInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+```

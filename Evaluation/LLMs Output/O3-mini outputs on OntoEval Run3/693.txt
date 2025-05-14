@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology includes the property :performanceLocation (with domain :Cl_PerformanceParticipation) which allows us to link a performance participation (reifying a performance event) to the location where the performance took place. This enables us to write a SPARQL query to answer the competency question "Where did a certain performance take place?" under a closed world assumption.
+
+An example SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?location
+WHERE {
+  ?participation a :Cl_PerformanceParticipation .
+  ?participation :performance ?performance .
+  ?participation :performanceLocation ?location .
+}
+ORDER BY ?performance
+
+This query retrieves each performance and its corresponding location according to the ontology’s definitions.

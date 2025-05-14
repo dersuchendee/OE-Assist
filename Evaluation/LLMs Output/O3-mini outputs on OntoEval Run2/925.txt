@@ -1,0 +1,39 @@
+**No**  
+The ontology does allow us to retrieve a person’s union role (via the reified union position and its time‐bounded properties) and to check a person’s union membership—but it does not directly link the person’s union role with a specific union group. Under the closed‐world assumption a query can filter for a person’s role and its valid time period and also for the union memberships the person holds, yet the union identifier is dissociated from the union role details. Thus we can only extract a partial answer.
+
+For example, the following SPARQL query retrieves, for a given person and a given union (passed as parameters), the union role that is active at a given date. (Note that the query joins the person’s union memberships with the role data via the person, but it does not join the role record directly with a union group.) 
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel ?roleStartDate ?roleEndDate ?membershipStartDate ?membershipEndDate
+WHERE {
+  # Parameters: Replace these with the URIs/dates of interest
+  BIND(<http://www.example.org/test#PasqualeDiGennaro> AS ?person)
+  BIND(<http://www.example.org/test#MaleNursesUnion> AS ?union)
+  BIND("2002-06-15"^^xsd:date AS ?checkDate)
+
+  # Retrieve the person's union role details
+  ?person :hasUnionRole ?ur .
+  ?ur :roleInUnion ?role .
+  ?ur :roleStartDate ?roleStartDate .
+  ?ur :roleEndDate ?roleEndDate .
+  
+  # Retrieve the person's union membership to link with a particular union group.
+  ?person :memberOf ?um .
+  ?um :membershipUnion ?union .
+  ?um :membershipStartDate ?membershipStartDate .
+  ?um :membershipEndDate ?membershipEndDate .
+
+  # Ensure the role and membership are valid for the check date.
+  FILTER(?checkDate >= ?roleStartDate && ?checkDate <= ?roleEndDate)
+  FILTER(?checkDate >= ?membershipStartDate && ?checkDate <= ?membershipEndDate)
+
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+ORDER BY ?roleStartDate
+------------------------------------------------
+
+Because the role instance isn’t explicitly connected to the union group in the ontology, the query above retrieves a partial answer by filtering over separate union membership data.

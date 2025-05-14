@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology includes classes for productions and production premieres, along with properties that relate a production to its premiere (via :hasPremiere) and the premiere to its date (via :premiereDate). Therefore, we can answer the CQ "When was the premier of a certain production?" by writing a SPARQL query that retrieves the premiere date for productions.
+
+For example:
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremiere ?premiere .
+  ?premiere :premiereDate ?premiereDate .
+}
+----------------------------------------
+
+This query, under the closed world assumption, extracts the premiere date of each production defined in the ontology.

@@ -1,0 +1,22 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each composition in the specified tune family “X”, the value associated with the specified measure “Y”. (In a real scenario, you would replace the filter literals "X" and "Y" with the appropriate identifiers or labels):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compLabel ?value
+WHERE {
+  ?composition a :Composition .
+  ?composition :isInTuneFamily ?tuneFamily .
+  ?tuneFamily rdfs:label ?tuneFamilyLabel .
+  FILTER(?tuneFamilyLabel = "X")
+  
+  ?composition :hasMeasureValue ?measureValue .
+  ?measureValue :isMeasureOf ?measure .
+  ?measure rdfs:label ?measureLabel .
+  FILTER(?measureLabel = "Y")
+  
+  ?measureValue :hasValue ?value .
+  OPTIONAL { ?composition rdfs:label ?compLabel }
+}
+ORDER BY ?composition

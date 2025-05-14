@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+
+SELECT ?play ?playLabel ?numActs
+WHERE {
+  ?play a ns1:Play .
+  ?play ns1:numberOfActs ?numActs .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```

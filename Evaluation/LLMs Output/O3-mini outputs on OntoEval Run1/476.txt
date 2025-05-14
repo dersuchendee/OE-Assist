@@ -1,0 +1,30 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?role ?roleLabel ?time
+WHERE {
+  # The reified role assignment is modelled as an instance of Cl_BandRole,
+  # which, by design, connects a person, a band, a role, and a time period.
+  ?bandRole a :Cl_BandRole .
+  ?bandRole :hasRole ?role .
+  ?bandRole :duringTimePeriod ?time .
+  
+  ?person :hasRoleInBand ?bandRole .
+  ?band   :hasMemberWithRole ?bandRole .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?band   rdfs:label ?bandLabel . }
+  OPTIONAL { ?role   rdfs:label ?roleLabel . }
+  
+  # The following filter specifies the "certain person", "certain band",
+  # and "certain point in time" based on known URIs or literal values.
+  FILTER(
+    ?person = <http://www.example.org/test#SpecificPerson> &&
+    ?band   = <http://www.example.org/test#SpecificBand> &&
+    ?time   = "2004-09-01T00:00:00"^^xsd:dateTime
+  )
+}
+```

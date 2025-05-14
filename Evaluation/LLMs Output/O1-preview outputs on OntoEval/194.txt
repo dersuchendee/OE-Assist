@@ -1,0 +1,21 @@
+**Yes**
+
+Based on the provided ontology, the competency question "What play is the basis of this production?" can be answered. The ontology includes classes `:TheatreProduction` and `:Play`, with an object property `:productionOf` that relates a theatre production to the play it is a production of.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?production a :TheatreProduction .
+  OPTIONAL { ?production :hasName ?productionName . }
+
+  ?production :productionOf ?play .
+  OPTIONAL { ?play :hasName ?playName . }
+}
+```
+
+This query retrieves all instances of `:TheatreProduction`, the plays they are productions of via the `:productionOf` property, and optionally their names using the `:hasName` property.

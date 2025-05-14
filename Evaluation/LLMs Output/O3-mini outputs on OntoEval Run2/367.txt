@@ -1,0 +1,32 @@
+**Yes**
+
+Below is one way to “answer” this CQ. In our ontology the career‐entry of an actor is reified as an instance of :Cl_ActorEmployment (which is defined as a subclass of both :Cl_Actor and :Cl_Theatre as well as carrying the employment date via the data property :employmentStartDate). Therefore, given that an actor “employed at” a theatre is recorded via the object property :employedAt and that the employment instance carries the start date, we can answer the CQ “At what time did a certain actor start working for a specific theatre?” by selecting the employment start date for the given actor and theatre. (Under a closed‐world assumption we assume no other unknown employment relationships exist.) 
+
+A sample SPARQL query (with filtering by name for the actor and the theatre) is as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?employmentStartDate
+WHERE {
+  # Select the actor of interest, e.g. “Fabio Bianchi”
+  ?actor a :Cl_Actor ;
+         :employedAt ?employment ;
+         :actorName ?actorName .
+  FILTER(?actorName = "Fabio Bianchi")
+  
+  # The employment instance is reified as an actor employment
+  ?employment a :Cl_ActorEmployment ;
+              :employmentStartDate ?employmentStartDate ;
+              :atTheatre ?theatre .
+              
+  # Select the specific theatre, e.g. “The Grand Theatre”
+  ?theatre a :Cl_Theatre ;
+           :theatreName ?theatreName .
+  FILTER(?theatreName = "The Grand Theatre")
+}
+------------------------------------------------
+
+In this query the property :atTheatre is assumed to link an employment occurrence (the reified event) to the theatre at which the actor is employed. With the closed‐world assumption the returned result gives the unique start date for the employment relationship, fully satisfying the CQ.

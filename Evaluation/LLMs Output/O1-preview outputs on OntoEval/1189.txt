@@ -1,0 +1,17 @@
+**Yes**
+
+The Competency Question "What is the nature of the event?" is answerable using the given ontology. The ontology defines an `:Event` class with a property `:hasNature` that relates each event to a `:Nature`. This means we can query for events and retrieve their associated nature.
+
+Here is a SPARQL query that retrieves each event and its nature:
+
+```sparql
+SELECT ?event ?eventLabel ?nature ?natureLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  ?event :hasNature ?nature .
+  OPTIONAL { ?nature rdfs:label ?natureLabel . }
+}
+```
+
+This query selects all instances of `:Event` and their corresponding `:Nature`, including any labels if available, thus fully answering the competency question based on the ontology's model.

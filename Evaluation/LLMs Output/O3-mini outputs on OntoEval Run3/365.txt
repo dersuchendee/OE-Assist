@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the actor, the theatre, and the start date when the actor began working at that theatre. This query assumes the ontology models an employment record using the class Cl_ActorEmployment with properties :hasActor, :hasTheatre, and :hasStartDate, along with data properties for actors’ and theatres’ names.
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :hasActor ?actor ;
+              :hasTheatre ?theatre ;
+              :hasStartDate ?startDate .
+  OPTIONAL { ?actor :actorName ?actorName . }
+  OPTIONAL { ?theatre :theatreName ?theatreName . }
+}
+---------------------------------------------------
+
+Under the closed world assumption, only those actor employment instances explicitly stated in the ontology (for example, the employment record for Fabio Bianchi at The Grand Theatre with a start date in May 2004) will be returned by the query.

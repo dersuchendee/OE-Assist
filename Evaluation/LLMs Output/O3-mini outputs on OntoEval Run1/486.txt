@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person, a specific band, and a time point, retrieves the role that the person had in that band at that time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?roleStartDate ?roleEndDate
+WHERE {
+  # Bind the specific person, band and time point (adjust these URIs and time as needed)
+  BIND(<http://www.example.org/test#Person1> AS ?person) .
+  BIND(<http://www.example.org/test#Band1> AS ?band) .
+  BIND(xsd:dateTime("2005-01-01T00:00:00Z") AS ?pointInTime) .
+  
+  ?roleAssignment a :Cl_BandRoleAssignment ;
+                  :isRoleAssignmentOf ?person ;
+                  :roleInBand ?band ;
+                  :hasRole ?role ;
+                  :roleStartDate ?roleStartDate .
+  OPTIONAL { ?roleAssignment :roleEndDate ?roleEndDate. }
+  
+  # Filter for role assignments valid at the given point in time.
+  FILTER(
+    ?pointInTime >= ?roleStartDate &&
+    ( !bound(?roleEndDate) || ?pointInTime <= ?roleEndDate )
+  )
+}
+--------------------------------------------------
+
+This query answers the competency question by finding the role(s) that connect a specified person with a specified band during a given time interval (using the role assignment’s start and optional end dates), under a closed world assumption.

@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the evaluation statement provided by a given doctor for a given employee. (Replace :SpecificDoctor and :SpecificEmployee with the actual individuals in your dataset.)
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluationStatement
+WHERE {
+  :SpecificDoctor a :Cl_Doctor .
+  :SpecificEmployee a :Cl_Employee .
+  
+  :SpecificDoctor :evaluates ?evaluation .
+  ?evaluation :evaluationStatementFor :SpecificEmployee .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+
+--------------------------------------------------
+
+This query is possible since the ontology models an evaluation as an instance of :Cl_DoctorEmployeeEvaluation that links a doctor and an employee via the object properties :evaluates and :evaluationStatementFor and stores the statement using the data property :evaluationStatement.

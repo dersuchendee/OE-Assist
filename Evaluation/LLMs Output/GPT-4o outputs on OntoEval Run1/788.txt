@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question can be answered using the ontology provided. The ontology includes classes and properties that allow us to determine the study period for a specific person and the degree they studied for. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_studiedDuring ?studyPeriod .
+  ?studyPeriod :op_forDegree ?degree .
+  ?studyPeriod :dp_studyStartDate ?startDate .
+  ?studyPeriod :dp_studyEndDate ?endDate .
+}
+```

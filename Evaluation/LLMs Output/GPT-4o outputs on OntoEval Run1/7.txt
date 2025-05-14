@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question "Which is the context of production of a source?" can be answered using the ontology provided. The ontology includes the class `ContextOfProduction` and the object property `hasContextOfProduction` which links an organ to its context of production. Although the CQ mentions "source," the ontology does not directly link sources to contexts of production. However, the context of production can be inferred through the organ's production context, which is indirectly related to sources through organ components and unreliable information.
+
+Here is a SPARQL query to extract the context of production for organs:
+
+```sparql
+SELECT ?organ ?context ?productionTime ?productionLocation ?builder
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasContextOfProduction ?context .
+  
+  OPTIONAL { ?context :hasProductionTime ?productionTime . }
+  OPTIONAL { ?context :hasProductionLocation ?productionLocation . }
+  OPTIONAL { ?context :ProducedBy ?builder . }
+}
+```
+
+This query retrieves the context of production for each organ, including the production time, location, and builder, which can be considered as part of the context of production.

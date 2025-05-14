@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "How do aquatic fungi influence the abundance and activity of heterotrophs in aquifers?" can be answered using the ontology provided. The ontology includes classes and properties that describe interactions between aquatic fungi and heterotrophs within aquifers, specifically through the `Interaction` class and its associated properties.
+
+Here is a SPARQL query to extract the relevant information:
+
+```sparql
+SELECT ?aquaticFungi ?heterotroph ?aquifer ?abundanceEffect ?activityEffect
+WHERE {
+  ?interaction a :Interaction .
+  ?interaction :hasInfluencer ?aquaticFungi .
+  ?interaction :hasInfluenced ?heterotroph .
+  ?interaction :occursIn ?aquifer .
+  ?interaction :affectsAbundance ?abundanceEffect .
+  ?interaction :affectsActivity ?activityEffect .
+}
+```

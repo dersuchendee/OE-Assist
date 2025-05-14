@@ -1,0 +1,16 @@
+**Yes**
+Below is one example SPARQL query that, under a closed‐world assumption, extracts for a given person (here “:PasqualeDiGennaro”) the medical degrees they have registered in the ontology:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?degree ?degreeLabel
+WHERE {
+  :PasqualeDiGennaro a :Cl_Person ;
+                        :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+}
+---------------------------------------------------
+
+In this query we assume that the reification (via the class :Cl_PersonDegreeStudy) correctly models the “hasMedicalDegree” relation so that we can directly retrieve the degrees held by the person.

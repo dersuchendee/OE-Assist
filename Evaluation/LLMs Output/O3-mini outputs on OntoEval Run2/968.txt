@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the articles contained in a specific book or CD:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookOrCD ?bookOrCDLabel ?article ?articleLabel
+WHERE {
+  {
+    ?bookOrCD a :Cl_Book .
+  }
+  UNION
+  {
+    ?bookOrCD a :Cl_CD .
+  }
+  OPTIONAL { ?bookOrCD rdfs:label ?bookOrCDLabel . }
+  ?bookOrCD :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?bookOrCD ?article

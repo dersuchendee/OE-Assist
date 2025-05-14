@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves the musical work (song) for which a specific track (a track recording) is a recording:
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  :ind_HumpDeBumpTrack :op_isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+----------------------------------------
+
+In this query we assume the specific track is the individual :ind_HumpDeBumpTrack. The query uses the object property :op_isRecordingOf (whose domain is the reified class :Cl_TrackRecording) to extract the song (a musical work) that the track is a recording of. Under the closed world assumption all asserted information is considered complete.

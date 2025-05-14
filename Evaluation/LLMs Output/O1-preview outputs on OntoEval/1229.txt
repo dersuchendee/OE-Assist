@@ -1,0 +1,22 @@
+Answer: **Yes**.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?roleLabel ?processLabel
+WHERE {
+   :Rubisco rdfs:subClassOf ?restriction1 .
+   ?restriction1 owl:onProperty :hasRole ;
+                 owl:someValuesFrom ?role .
+   ?role rdfs:label ?roleLabel .
+
+   :Rubisco rdfs:subClassOf ?restriction2 .
+   ?restriction2 owl:onProperty :catalyzesProcess ;
+                 owl:someValuesFrom ?process .
+   ?process rdfs:label ?processLabel .
+}
+```
+
+This query retrieves the role that Rubisco plays (e.g., "Catalyst Role") and the process it catalyzes (e.g., "CO2 Fixation Process") by exploring the `rdfs:subClassOf` restrictions on `:Rubisco`. It connects `:Rubisco` to its role and the biological process, providing the answer to the competency question.

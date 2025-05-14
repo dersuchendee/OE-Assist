@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?theatreName ?cityName
+WHERE {
+  ?theatreLocation rdf:type :Cl_TheatreLocation ;
+                   :hasTheatre ?theatre ;
+                   :hasCity ?city .
+  ?theatre :theatreName ?theatreName .
+  ?city :cityName ?cityName .
+}
+```

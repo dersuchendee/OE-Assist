@@ -1,0 +1,38 @@
+**No**
+
+While the ontology defines organs, their parts, and the time intervals during which parts are included in organs (via the `Parthood` class and related properties), it does not explicitly specify the locations of the parts. Therefore, we cannot fully answer the CQ "Where are the original parts of an organ?" based on the ontology provided.
+
+However, we can extract partial information about the parts of an organ, whether they are current parts, and the time intervals during which they have been part of the organ.
+
+Here's a SPARQL query to retrieve this partial information:
+
+```sparql
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?organ ?organLabel ?part ?partLabel ?isCurrentParthood ?startTime ?endTime
+WHERE {
+  ?parthood a arco:Parthood .
+  ?parthood arco:includesWhole ?organ .
+  ?parthood arco:includesPart ?part .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  OPTIONAL { ?part rdfs:label ?partLabel . }
+  OPTIONAL { ?parthood arco:isCurrentParthood ?isCurrentParthood . }
+  OPTIONAL { 
+    ?parthood core:hasTimeInterval ?timeInterval .
+    OPTIONAL { ?timeInterval core:hasStartTime ?startTime . }
+    OPTIONAL { ?timeInterval core:hasEndTime ?endTime . }
+  }
+}
+```
+
+This query retrieves:
+
+- `?organ`: The organ in question.
+- `?part`: Parts included in the organ.
+- `?isCurrentParthood`: Whether the part is currently part of the organ (`true` or `false`).
+- `?startTime` and `?endTime`: The time interval during which the part has been part of the organ.
+
+Note that without location data for the parts, we cannot fully answer where the original parts are located.

@@ -1,0 +1,22 @@
+**Yes**
+
+Here's a SPARQL query to retrieve the songs played in a certain performance, specifically the `:PortlandPerformance`:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?song ?songTitle
+WHERE {
+  # Find the performance setlist associated with the specific performance
+  ?setlist :performedIn :PortlandPerformance .
+  
+  # Get the songs included in the setlist
+  ?setlist :includesSong ?song .
+  
+  # Optionally retrieve the song's title if available
+  OPTIONAL { ?song rdfs:label ?songTitle . }
+}
+```
+
+This query uses the ontology's classes and properties to navigate from a specific performance to the songs played during that performance. Under the closed world assumption, the ontology provides the necessary classes (`:Cl_Performance`, `:Cl_PerformanceSetlist`, `:Cl_Song`) and properties (`:performedIn`, `:includesSong`) to retrieve the required information.

@@ -1,0 +1,21 @@
+**Yes**
+Below is a SPARQL query that retrieves a user's preference – the activity the user likes to do when a given weather condition (in this case, raining) is in effect – optionally including the preferred movie genre:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?user ?activity ?weather ?genre
+WHERE {
+  ?user rdf:type :Cl_User ;
+        :prefers ?preference .
+  ?preference :hasActivity ?activity ;
+              :hasWeatherCondition ?weather .
+  OPTIONAL { ?preference :hasPreferredGenre ?genre . }
+  ?weather :isRaining true .
+}
+ORDER BY ?user ?activity
+
+This query answers the CQ under the closed world assumption by retrieving only the explicitly stated facts in the ontology.

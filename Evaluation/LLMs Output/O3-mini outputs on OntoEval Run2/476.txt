@@ -1,0 +1,33 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the role a given person has in a particular band during a specified time period using the ontology’s reified structure.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?role ?roleLabel ?timePeriod
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasRoleInBand ?bandRole .
+  ?bandRole :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?bandRole :duringTimePeriod ?timePeriod .
+  
+  ?band a :Cl_Band .
+  ?band :hasMemberWithRole ?bandRole .
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+  
+  # If a specific person, band, or time are under investigation, you may filter:
+  # FILTER(?person = <http://www.example.org/test#SpecificPersonIRI> && 
+  #        ?band = <http://www.example.org/test#SpecificBandIRI> && 
+  #        ?timePeriod = <http://www.example.org/test#SpecificTimePeriodIRI>)
+}
+--------------------------------------------------
+
+Under the closed world assumption, only the explicitly stated roles, band memberships, and time associations will be returned, ensuring that our answer precisely reflects the ontology’s modeled knowledge.

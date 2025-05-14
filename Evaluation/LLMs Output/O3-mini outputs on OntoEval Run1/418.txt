@@ -1,0 +1,24 @@
+**Yes**
+Below is one possible SPARQL query that, under the closed‐world assumption, returns productions that have exactly one premier along with its premier date:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production (SAMPLE(?premierDate) AS ?premierDate)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+ORDER BY ?production
+----------------------------------------------------
+
+Explanation:
+• The query selects all instances of :Cl_Production.
+• It retrieves the associated production premier via the :hasPremier property and its premier date.
+• Grouping by ?production and using HAVING (COUNT(?premier) = 1) ensures that only productions with exactly one premier are returned.
+• Under the closed-world assumption, we assume that the available data is complete, so this query fully answers the CQ.

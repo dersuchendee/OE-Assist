@@ -1,0 +1,24 @@
+Answer: **No**
+
+The CQ cannot be fully answered with the given ontology because it lacks the necessary information to determine whether a member is part of an ensemble at a specific point in time. The ontology provides a `:membershipDate`, which likely represents the start date of membership, but there is no information about the end date or duration of membership. Therefore, we cannot ascertain if a person was a member during the specified time.
+
+However, we can extract partial information about ensemble members and their membership start dates:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?memberName ?membershipDate
+WHERE {
+    ?ensemble a :Cl_Ensemble .
+    ?ensemble :hasMember ?membership .
+    ?membership :memberName ?memberName .
+    ?membership :membershipDate ?membershipDate .
+    # Filter for a specific ensemble if known
+    # FILTER (?ensemble = <http://www.example.org/test#SpecificEnsembleURI>)
+    # Filter for members who joined on or before the specified date
+    # FILTER (?membershipDate <= xsd:date("YYYY-MM-DD"))
+}
+```
+
+This query retrieves members of an ensemble along with their membership start dates. Without information about when or if the membership ended, we cannot determine membership at a specific point in time.

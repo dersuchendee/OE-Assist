@@ -1,0 +1,13 @@
+**Yes**
+
+The following SPARQL query retrieves instances of energy infrastructure that are available (i.e. those that have an Availability Status of Available), which directly models the competency question "What is the energy infrastructure available?" under the closed world assumption:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?energyInfrastructure ?label
+WHERE {
+  ?energyInfrastructure a :EnergyInfrastructure .
+  ?energyInfrastructure :hasAvailabilityStatus :Available .
+  OPTIONAL { ?energyInfrastructure rdfs:label ?label . }
+}

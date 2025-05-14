@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :featuresPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```

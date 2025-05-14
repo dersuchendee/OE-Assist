@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves seminars together with at least one presented article by following the chain from a seminar to a seminar presentation and finally to an article:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?presentation ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentation ?presentation .
+  ?presentation :presentationOfArticle ?article .
+}
+ORDER BY ?seminar
+---------------------------------
+
+This query is answerable by the ontology under a closed world assumption, since the chain of properties (:hasPresentation and :presentationOfArticle) connects each instance of a seminar to at least one article (if present).

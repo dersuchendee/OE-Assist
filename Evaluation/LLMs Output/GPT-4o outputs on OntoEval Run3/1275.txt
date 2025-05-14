@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide specific information about whether the sound in a place is performed by hand or by electric means. The ontology includes a class `SoundMethod`, but it does not specify the types of methods (e.g., manual or electric) that are used. Therefore, the competency question cannot be fully answered with the given ontology. However, we can extract partial information about the sound practices associated with each bell tower.
+
+```sparql
+SELECT ?bellTower ?soundPractice ?soundMethod
+WHERE {
+  ?bellTower a :BellTower .
+  ?bellTower :currentSoundPractice ?soundPractice .
+  ?soundPractice :hasMethod ?soundMethod .
+}
+```

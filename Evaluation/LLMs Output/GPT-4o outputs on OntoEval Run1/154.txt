@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between a theatre and a city. The ontology includes classes for theatres and cities, but there is no object property that directly links a theatre to a city. The `dp_location` data property is used to specify the location of a theatre, but it is a string and not a direct link to a `Cl_City` individual. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?theatre ?location
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :dp_location ?location .
+}
+```

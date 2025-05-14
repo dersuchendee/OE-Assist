@@ -1,0 +1,10 @@
+**Yes**
+
+The competency question "How many distinct disease categories are there?" can be answered using the ontology provided. The ontology defines several subclasses of the `DiseaseCategory` class, which can be queried to determine the number of distinct disease categories.
+
+```sparql
+SELECT (COUNT(DISTINCT ?diseaseCategory) AS ?numDiseaseCategories)
+WHERE {
+  ?diseaseCategory a :DiseaseCategory .
+}
+```

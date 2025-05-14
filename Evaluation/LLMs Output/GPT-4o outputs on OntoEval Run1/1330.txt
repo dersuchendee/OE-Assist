@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that allow us to model the transportation of dissolved carbon between different environmental compartments. The ontology defines `EnvironmentalCompartment`, `Soil`, `Groundwater`, `DissolvedCarbon`, and `TransportProcess`, along with properties like `hasSource`, `hasDestination`, and `transportsSubstance`, which are sufficient to answer the CQ.
+
+```sparql
+SELECT ?source ?destination
+WHERE {
+  ?transportProcess a :TransportProcess .
+  ?transportProcess :hasSource ?source .
+  ?transportProcess :hasDestination ?destination .
+  ?transportProcess :transportsSubstance :DissolvedCarbon .
+}
+```

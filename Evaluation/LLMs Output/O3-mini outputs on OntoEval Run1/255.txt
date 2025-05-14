@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific author (identified by its URI or label), retrieves all the plays written by that author:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  
+  ?author :wrotePlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  
+  # To focus on a specific author, you can filter either by URI or by label.
+  # Example filtering by a given author URI:
+  # FILTER(?author = <http://www.example.org/test#GivenAuthor>)
+
+  # Alternatively, filtering by a known author label:
+  # FILTER(CONTAINS(LCASE(?authorLabel), "shakespeare"))
+}
+-------------------------------------------------------------
+
+Under the closed world assumption, we assume that the set of triples in the ontology fully describe the relationships. Thus, if an author is not asserted to have a :wrotePlay relationship with any play, then the query will correctly return no results.

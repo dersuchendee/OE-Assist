@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine when a specific theatre festival took place. The ontology includes classes and properties related to theatre festivals, occurrences, and dates, but it does not explicitly connect a specific festival to its occurrence date. Therefore, a partial answer can be extracted by querying for festival occurrences and their dates, but it will not specify which festival took place on which date.
+
+```sparql
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+}
+```

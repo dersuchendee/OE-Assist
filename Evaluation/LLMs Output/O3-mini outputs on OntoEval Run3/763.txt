@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that “record” is represented by the class for albums (i.e. :Cl_Album) and that the property :containsTrack relates a record to one or more tracks, the ontology is modeled to ensure that every album (record) has at least one associated track. Under the closed world assumption, you can verify the competency question by writing a query that checks for any record that does not have an associated track. If the query returns no record, then every record indeed contains at least one track.
+
+For example, the following SPARQL query extracts any records (albums) that lack a track:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record
+WHERE {
+  ?record a :Cl_Album .
+  FILTER NOT EXISTS {
+    ?record :containsTrack ?track .
+  }
+}
+
+If this query returns an empty result set, then the competency question “A record always contains at least one track” is fully supported by the ontology.

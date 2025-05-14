@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the employment start date for an actor (e.g. Fabio Bianchi) working for a specific theatre (e.g. The Grand Theatre):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?startDate ?theatre
+WHERE {
+  ?actor a :Cl_Individual ;
+         :hasEmployment ?employment ;
+         :employedBy ?theatre .
+  ?employment :employmentStartDate ?startDate .
+  
+  # Example filter for a given actor and theatre:
+  FILTER(?actor = :FabioBianchi && ?theatre = :TheGrandTheatre)
+}
+---------------------------------
+
+This query works under the closed world assumption since only explicitly asserted employment relations are returned.

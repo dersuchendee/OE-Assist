@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a musician with the instruments they play. The ontology defines a `plays` property, but it is not used in the data provided. Therefore, we cannot directly answer the competency question with the given ontology.
+
+Partial SPARQL query to extract musicians and their roles (if any):
+
+```sparql
+SELECT ?musician ?musicianLabel ?instrument
+WHERE {
+  ?musician a :Musician .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  OPTIONAL { ?musician :plays ?instrument . }
+}
+```

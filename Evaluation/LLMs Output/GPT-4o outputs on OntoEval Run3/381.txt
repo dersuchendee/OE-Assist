@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What roles does a certain person have within a certain production at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that relate actors to productions and roles, as well as the dates associated with these roles. Here is a SPARQL query that can be used to extract the answer:
+
+```sparql
+SELECT ?actor ?role ?production ?roleDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :hasRole ?actorRole .
+  ?actorRole a :Cl_ActorRole .
+  ?actorRole :hasRoleInProduction ?production .
+  ?actorRole :hasRoleDate ?roleDate .
+}
+```
+
+This query retrieves the actor, their role, the production they are involved in, and the date associated with the role, which aligns with the competency question.

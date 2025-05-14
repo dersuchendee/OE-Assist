@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide information about the number of admissions or any quantitative data related to admissions. It only defines the relationships between hospitals, admissions, and diagnosis codes. Therefore, we cannot calculate the average number of admissions for a given diagnosis code.
+
+Partial answer:
+```sparql
+SELECT ?hospital ?diagnosisCode
+WHERE {
+  ?hospital a :Hospital .
+  ?hospital :hasAdmission ?admission .
+  ?admission :hasDiagnosisCode ?diagnosisCode .
+}
+```

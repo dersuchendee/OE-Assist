@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about the employment of a person at a hospital, such as the start date of employment. Therefore, the competency question cannot be fully answered using the given ontology. However, a partial answer can be extracted by identifying the person and the hospital they are associated with.
+
+```sparql
+SELECT ?person ?hospital
+WHERE {
+  ?employment a :Cl_Employment .
+  ?employment :employmentOf ?person .
+  ?employment :employedAt ?hospital .
+}
+```

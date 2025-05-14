@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to query the context of usage of a source. The ontology includes classes and properties related to sources, their contexts, creators, events, and historical periods, but it does not explicitly define a "context of usage" for a source. Therefore, a partial answer can be extracted by querying the available information related to a source's context.
+
+```sparql
+SELECT ?source ?context ?creator ?event ?productionDate ?productionLocation ?productionGoal
+WHERE {
+  ?source a :Cl_Source .
+  OPTIONAL {
+    ?source :Op_hasSourceContext ?context .
+    OPTIONAL { ?context :Op_createdBy ?creator . }
+    OPTIONAL { ?context :Op_relatedToEvent ?event . }
+    OPTIONAL { ?context :Dp_hasProductionDate ?productionDate . }
+    OPTIONAL { ?context :Dp_hasProductionLocation ?productionLocation . }
+    OPTIONAL { ?context :Dp_hasProductionGoal ?productionGoal . }
+  }
+}
+```

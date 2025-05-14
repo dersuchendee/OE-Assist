@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide properties to retrieve the sources of projects that an organ is involved in. Under the closed world assumption, we cannot infer information not explicitly provided in the ontology. However, we can extract partial information about organs and the projects they are involved in.
+
+```sparql
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?organ ?organLabel ?project
+WHERE {
+    ?organ a organs:Organ .
+    OPTIONAL { ?organ rdfs:label ?organLabel . }
+    ?organ arco:isDescribedBy ?project .
+}
+```
+
+This query retrieves organs and the projects they are described by, but it cannot fetch the sources of the projects since such properties are not defined in the provided ontology.

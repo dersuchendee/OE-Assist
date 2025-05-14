@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties related to material flows, rebound effects, and added energy requirements. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?materialFlow ?reboundEffect ?energyRequirement
+WHERE {
+  ?materialFlow a :MaterialFlow .
+  OPTIONAL {
+    ?materialFlow :hasReboundEffect ?reboundEffect .
+  }
+  OPTIONAL {
+    ?materialFlow :hasAddedEnergyRequirement ?energyRequirement .
+  }
+}
+```

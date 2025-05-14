@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the festival and its location using the property modeled in the ontology:
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?location ?locationLabel
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival theatre:hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}

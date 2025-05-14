@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the articles presented in a specific seminar (e.g. based on the individual :SeminarOnNursePractices):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle 
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :presentationOf :SeminarOnNursePractices .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}

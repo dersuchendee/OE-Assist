@@ -1,0 +1,23 @@
+**Yes**
+Below is a SPARQL query that returns each event together with its classification as either Religious or Secular:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?event (IF(BOUND(?religious), "Religious", "Secular") AS ?eventType)
+WHERE {
+  ?event rdf:type :Event .
+  {
+    ?event rdf:type :ReligiousEvent .
+    BIND(?event AS ?religious)
+  }
+  UNION
+  {
+    ?event rdf:type :SecularEvent .
+  }
+}
+ORDER BY ?event
+---------------------------------------
+
+This query works under the closed world assumption because it only returns events explicitly classified as either a ReligiousEvent or a SecularEvent according to the ontology.

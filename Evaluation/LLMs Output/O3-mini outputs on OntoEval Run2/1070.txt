@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the CQ by retrieving the seminar (an instance of :Seminar) and its associated location via the property :takesPlaceAt. Under the closed‐world assumption (i.e. only explicitly asserted facts are assumed true), the following SPARQL query extracts the place where a seminar took place:
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?place ?placeLabel
+WHERE {
+  ?seminar a :Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel. }
+  
+  ?seminar :takesPlaceAt ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel. }
+}
+------------------------------------------------
+
+This query returns all seminars along with their labels and the places (and their labels) where they took place.

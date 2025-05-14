@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that “answers” the CQ by retrieving all seminars along with at least one article presented (using the reified article presentation that links a seminar to an article):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?article ?title
+WHERE {
+  ?ap a :Cl_ArticlePresentation ;
+      :hasSeminar ?seminar ;
+      :hasArticle ?article .
+  OPTIONAL { ?article :hasTitle ?title . }
+}
+ORDER BY ?seminar
+
+This query extracts every instance of a seminar that is connected (through an article presentation instance) to at least one article, thereby supporting the competency question “At least one article is always presented at each seminar” under the closed‐world assumption.

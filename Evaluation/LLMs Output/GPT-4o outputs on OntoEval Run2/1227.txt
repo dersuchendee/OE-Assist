@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties related to CO2 fixation pathways and their association with forest ecosystems, specifically beech forests. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?beechForest ?pathway
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :hasCO2FixationPathway ?pathway .
+  ?pathway a :PrimaryCO2FixationPathway .
+}
+```

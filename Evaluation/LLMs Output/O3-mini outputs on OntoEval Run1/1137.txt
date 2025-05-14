@@ -1,0 +1,30 @@
+**Yes**
+
+Assuming individuals of smart devices exist in our data (even if only implied by the ontology’s restrictions) and applying a closed‐world view, we can answer the competency question. In our ontology the intended answer is that weather content can be displayed by a Smart Mirror (which displays weather via its DisplayFunctionality) or read aloud by a Smart Speaker (which announces weather via its AudioFunctionality).
+
+Below is a SPARQL query that retrieves, for each smart bathroom device of interest, the device along with the specific weather‐related functionality it provides:
+
+---------------------------------------------------------
+PREFIX : <http://example.org/onto#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?device ?deviceLabel ?functionality ?funcLabel
+WHERE {
+  {
+    ?device a :SmartMirror ;
+            :displaysWeather ?functionality .
+    OPTIONAL { ?device rdfs:label ?deviceLabel . }
+    OPTIONAL { ?functionality rdfs:label ?funcLabel . }
+  }
+  UNION
+  {
+    ?device a :SmartSpeaker ;
+            :announcesWeather ?functionality .
+    OPTIONAL { ?device rdfs:label ?deviceLabel . }
+    OPTIONAL { ?functionality rdfs:label ?funcLabel . }
+  }
+}
+---------------------------------------------------------
+
+This query selects devices that are either Smart Mirrors (displaying weather) or Smart Speakers (announcing weather), and returns each device along with the functionality (and any available labels).

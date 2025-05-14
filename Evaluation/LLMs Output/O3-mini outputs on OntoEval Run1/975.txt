@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the number of pages for the particular book (here, the book instance ns1:NursePracticesInCancerPatientCare):
+
+--------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookLabel ?totalPages
+WHERE {
+  ?book a ns1:Book ;
+        ns1:hasTotalPages ?totalPages .
+  OPTIONAL { ?book rdfs:label ?bookLabel . }
+  FILTER(?book = ns1:NursePracticesInCancerPatientCare)
+}
+--------------------------------
+
+This query answers the competency question under the closed world assumption by extracting the total number of pages contained in the specified book.

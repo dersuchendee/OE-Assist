@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?starRating
+WHERE {
+  ?review rdf:type theatre:Review ;
+          theatre:isReviewOf ?production ;
+          theatre:publishedIn ?newspaper ;
+          theatre:hasStarRating ?starRating .
+          
+  FILTER(?production = theatre:MerchantOfVeniceProduction) .
+  FILTER(?newspaper = theatre:IlGazzettino) .
+}
+```
+
+This SPARQL query retrieves the star rating given by the newspaper *Il Gazzettino* for the production *The Merchant of Venice Production*. The ontology provides the necessary classes and properties to model reviews, star ratings, productions, and newspapers, allowing us to formulate this query and extract the desired information.

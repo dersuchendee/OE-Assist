@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not have a direct connection between a production and the play it is based on. The `basedOnPlay` property connects a `Cl_Production` to a `Cl_ProductionPlay`, but there is no direct way to retrieve the play that is the basis of a production. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?productionPlay .
+}
+```

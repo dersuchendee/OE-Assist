@@ -1,0 +1,33 @@
+**Yes**
+
+Assuming we know which performance we are interested in (for example, by its label), a SPARQL query under the closed world assumption can directly extract the date of the performance. For instance, if we want the date for the performance with label "Performance 1", we could use:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?date
+WHERE {
+  ?performance a :Performance .
+  ?performance rdfs:label "Performance 1" .
+  ?performance :hasDate ?date .
+}
+--------------------------------------------------
+
+If the goal is to obtain the dates for all performances (or later filter by an externally provided performance identifier), the query could be modified as:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceLabel ?date
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :hasDate ?date .
+}
+--------------------------------------------------
+
+This query shows that the competency question "When did a certain performance take place?" is answerable because the ontology explicitly models performances and their dates via the :hasDate property.

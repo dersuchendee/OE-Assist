@@ -1,0 +1,22 @@
+**Yes**
+Below is one example of a SPARQL query that, under a closed‐world assumption, retrieves the employment start date for a given person at a given hospital:
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employmentEvent .
+  ?employmentEvent :employmentStartDate ?startDate .
+  ?employmentEvent :employmentInHospital ?hospital .
+  FILTER(?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+----------------------------------------------------------
+
+Explanation:
+• This query looks for an individual of type Cl_Person (here PasqualeDiGennaro) linked via the property “employedAt” to an employment event.
+• It retrieves the employmentStartDate from that event and ensures the event is connected to the hospital using “employmentInHospital”.
+• The MIN aggregation is used in case there are multiple employment events so that the “first” (earliest) employment date is returned.

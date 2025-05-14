@@ -1,0 +1,23 @@
+Answer: **Yes**
+
+The ontology includes the classes `:Play` and `:Author`, and the object property `:hasAuthor` which relates a play to its author. It also includes the datatype property `:hasName` for naming authors and plays. Therefore, the competency question "What plays did a certain author write?" can be answered using the ontology.
+
+Here's a SPARQL query to retrieve the plays written by a specific author:
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?play ?playTitle
+WHERE {
+  ?play a :Play .
+  ?play :hasAuthor ?author .
+  ?author :hasName "Desired Author Name" .
+  ?play :hasTitle ?playTitle .
+}
+```
+
+Replace `"Desired Author Name"` with the name of the author you're interested in, for example, `"William Shakespeare"`.

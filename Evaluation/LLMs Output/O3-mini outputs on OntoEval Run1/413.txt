@@ -1,0 +1,17 @@
+**Yes**  
+Below is one suitable SPARQL query that, under the closed‐world assumption, retrieves every production that has exactly one premier:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+----------------------------------------------------------------
+
+This query checks that for each production there is one—and only one—premier recorded, thus supporting the competency question "A production has exactly one premier."

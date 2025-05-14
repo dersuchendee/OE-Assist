@@ -1,0 +1,16 @@
+**Yes**
+
+You can answer the CQ “What song is a specific track a recording of?” using the ontology’s property “:isRecordingOf”. For example, to retrieve the song associated with each track (or a specific track), you could use a query such as:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_Track .
+  ?track :isRecordingOf ?song .
+}
+------------------------------------------------------------
+
+Under the closed world assumption, the ontology explicitly lists that, for instance, :Track_Hump_de_Bump is recording of :Hump_de_Bump. This query fully supports the CQ.

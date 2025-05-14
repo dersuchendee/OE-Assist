@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?song ?songLabel ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  ?song :composedOn ?composition .
+  ?composition :compositionDate ?compositionDate .
+}
+```

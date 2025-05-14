@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology supports this competency question via the reification of evaluation events. You can write a SPARQL query that retrieves the evaluation statement by a given doctor for a given employee using the reification class and its properties. For example, if you know the specific URIs of the doctor and employee, the query could be written as follows:
+
+--------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation rdf:type :Cl_DoctorEmployeeEvaluation .
+  ?evaluation :evaluationByDoctor <http://www.example.org/test#Doctor_X> .
+  ?evaluation :evaluationOfEmployee <http://www.example.org/test#Employee_Y> .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+--------------------------------------
+
+This query extracts the evaluation statement provided by the specified doctor for the specified employee, thereby fully answering the competency question under the closed world assumption.

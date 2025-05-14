@@ -1,0 +1,24 @@
+**Yes**
+Below is one SPARQL query that retrieves an evaluation statement authored by a given doctor about a given employee:
+
+————————————————————————————
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluation ?statementText ?statementDate
+WHERE {
+  ?evaluation a :EvaluationStatement .
+  ?evaluation :authoredBy ?doctor .
+  ?evaluation :aboutEmployee ?employee .
+  
+  # Use FILTERs or specify the particular doctor and employee identifiers here:
+  FILTER(?doctor = <http://example.org/ontology#Doctor_Identifier> &&
+         ?employee = <http://example.org/ontology#Employee_Identifier>)
+         
+  OPTIONAL { ?evaluation :statementText ?statementText . }
+  OPTIONAL { ?evaluation :statementDate ?statementDate . }
+}
+————————————————————————————
+
+In this query the doctor and employee are identified via their known IRIs (placeholders <http://example.org/ontology#Doctor_Identifier> and <http://example.org/ontology#Employee_Identifier>). The ontology properly models evaluation statements with the restrictions that an EvaluationStatement is written by a Doctor and is about an Employee. Hence, the competency question is fully answerable.

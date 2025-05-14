@@ -1,0 +1,21 @@
+**Yes**.
+
+The competency question "What articles were presented in a certain seminar?" can be answered using the ontology provided. The ontology includes classes and properties that model seminars, articles, and the relationship between them through seminar presentations. Specifically:
+
+- `:Cl_Article` represents articles.
+- `:Cl_Seminar` represents seminars.
+- `:Cl_SeminarPresentation` is a subclass of both `:Cl_Seminar` and `:Cl_Article`, representing the presentation of an article at a seminar.
+- The property `:seminarIncludesPresentation` links a seminar to the seminar presentation (which is an article).
+
+Here is a SPARQL query that retrieves the articles presented at each seminar:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarIncludesPresentation ?article .
+  ?article rdf:type :Cl_SeminarPresentation .
+}
+```
+
+This query selects seminars and the corresponding articles (seminar presentations) included in them. Since `:Cl_SeminarPresentation` is a subclass of `:Cl_Article`, the `?article` variable represents articles that were presented in the seminars.

@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves the role of a given person in a given band at a specified time using the reified relationship class (:Cl_PersonRoleBandTime):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?time ?role
+WHERE {
+  ?assignment a :Cl_PersonRoleBandTime ;
+              :hasPerson ?person ;
+              :hasBand ?band ;
+              :hasTime ?time ;
+              :hasRole ?role .
+
+  # For a specific query, you might add filters like:
+  FILTER(?person = :AnthonyKiedis &&
+         ?band = :RedHotChiliPeppers &&
+         ?time = "1983-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?person ?band ?time
+------------------------------------------------
+
+This query demonstrates that the ontology supports answering the competency question by reifying the relationship between a person, their role, the band they belong to, and the time period in which that role is held.

@@ -1,0 +1,38 @@
+**Yes**
+
+The competency question "What articles were presented in a certain seminar?" can be answered using the provided ontology. The ontology includes classes and properties that connect seminars to presentations and presentations to articles. Specifically, the properties `ns1:hasPresentation` and `ns1:presentedArticle` allow us to traverse from a seminar to the articles presented within it.
+
+Here is a SPARQL query that retrieves the articles presented in each seminar:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  
+  ?seminar ns1:hasPresentation ?presentation .
+  
+  ?presentation ns1:presentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+If you want to retrieve articles presented in a specific seminar, for example, `ns1:SeminarOnNewArticles`, you can modify the query as follows:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  ns1:SeminarOnNewArticles ns1:hasPresentation ?presentation .
+  
+  ?presentation ns1:presentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+These queries utilize the relationships defined in the ontology to extract the articles associated with seminars.

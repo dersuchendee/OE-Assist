@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the employment start date for a given actor and a given theatre:
+
+----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :employmentActor ?actor ;
+              :employedAt ?theatre ;
+              :employmentStartDate ?employmentStartDate .
+  # Here you can filter for a specific actor and theatre:
+  FILTER(?actor = :Actor_FabioBianchi && ?theatre = :Theatre_GrandTheatre)
+}
+----------------------------------------------
+
+This query shows that the ontology supports the competency question by providing a way to extract “at what time did a certain actor start working for a specific theatre?” through the employment details recorded in the ontology.

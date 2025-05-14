@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide a concrete property (or reified structure) that directly links a bell tower (or church/building) to its geographical location or address. Under the closed world assumption, without explicit location/address properties available in the ontology, we can only partially answer the CQ by listing the bell towers (or buildings) for which location information might exist if such a property were added.
+
+A partial SPARQL query that retrieves bell towers and attempts to get an address if available is as follows:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX ns: <http://www.w3.org/2006/vcard/ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?label ?address
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label . }
+  OPTIONAL { ?bellTower ns:hasAddress ?address . }
+}
+ORDER BY ?label
+
+Because the ontology does not explicitly model “location” information for bell towers, the above query can only provide a partial answer.

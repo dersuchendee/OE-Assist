@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" is supported by the ontology. The ontology includes a restriction on the `Seminar` class that ensures each seminar must have at least one article presented. This is represented by the `owl:someValuesFrom` restriction on the `hasArticle` property. Therefore, we can write a SPARQL query to verify that each seminar has at least one article presented.
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasArticle ?article .
+}
+```
+
+This query will return all seminars and their associated articles, confirming that each seminar has at least one article presented.

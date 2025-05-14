@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves theatre festivals along with the date(s) on which they occurred:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+}
+ORDER BY ?festival ?occurrenceDate
+----------------------------------------------------
+
+This query extracts each theatre festival (of type Cl_TheatreFestival) and its associated occurrence date from the reified occurrence class (Cl_FestivalOccurrence) via the property :occurrenceDate.

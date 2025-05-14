@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that counts how many tracks a particular album (for example, one identified by its label "Stadium Arcadium") contains:
+
+------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_Album ;
+         rdfs:label "Stadium Arcadium" ;
+         :hasTrack ?track .
+}
+------------------------------------------------------------------
+
+This query answers the competency question under the closed world assumption since it retrieves and counts all tracks explicitly linked to the indicated album.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the composition of a material. The ontology defines classes and properties related to products, components, materials, properties, and provenance, but it does not explicitly define a way to query the composition of a material. The closest we can get is to query the materials that make up a component, but this does not directly answer the CQ about the composition of a material.
+
+Here is a SPARQL query to extract a partial answer, which lists the materials that make up components:
+
+```sparql
+SELECT ?component ?material
+WHERE {
+  ?component a :Component .
+  ?component :isMadeOf ?material .
+}
+```

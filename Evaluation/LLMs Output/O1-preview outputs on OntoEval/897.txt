@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?person
+WHERE {
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :memberOf :GivenUnion .
+  ?membership :membershipOf ?person .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  FILTER ( ?startDate <= ?givenDate && ( !BOUND(?endDate) || ?givenDate <= ?endDate ) )
+}
+```
+*Replace `:GivenUnion` with the specific union you're interested in (e.g., `:MaleNursesUnion`), and `?givenDate` with the date of interest (e.g., `"2003-01-01"^^xsd:date`).*
+
+This query retrieves all persons who are members of a specified union at a certain point in time by checking their membership start and end dates.

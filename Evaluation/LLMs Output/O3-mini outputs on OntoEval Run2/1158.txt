@@ -1,0 +1,29 @@
+**Yes**
+
+Below is an example SPARQL query that uses the ontology’s classes and properties to list, for each event, its associated ticket options and the available customizations (e.g. showtime and seat):
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?eventLabel ?ticketOption ?ticketOptionLabel ?showTime ?seat ?seatNumber
+WHERE {
+  ?event a :Cl_Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasTicketOption ?ticketOption .
+  OPTIONAL { ?ticketOption rdfs:label ?ticketOptionLabel . }
+  
+  OPTIONAL { ?ticketOption :hasShowTime ?showTime . }
+  
+  OPTIONAL { 
+    ?ticketOption :hasSeat ?seat .
+    OPTIONAL { ?seat :seatNumber ?seatNumber . }
+  }
+}
+ORDER BY ?event ?ticketOption
+----------------------------------------------------------
+
+Under the Closed World Assumption, if some properties (e.g. showTime or seat) are absent for a ticket option then they are taken to be not available, which answers the CQ in full.

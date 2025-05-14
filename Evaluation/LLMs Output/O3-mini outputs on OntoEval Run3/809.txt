@@ -1,0 +1,19 @@
+**Yes**  
+Below is an example SPARQL query that retrieves the study start and end dates for a given person and degree by using the reified class (Cl_StudyForDegree):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?studyStartDate ?studyEndDate
+WHERE {
+  ?study a :Cl_StudyForDegree ;
+         :hasStudent ?person ;
+         :hasDegree ?degree ;
+         :studyStartDate ?studyStartDate ;
+         :studyEndDate ?studyEndDate .
+  # Optionally, filter by a specific person and degree:
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro> && ?degree = <http://www.example.org/test#CertifiedNurse>)
+}  
+ORDER BY ?person ?studyStartDate
+
+This query shows that the ontology supports the competency question “During what time period did a certain person study for a specific degree?” by retrieving the associated study period information from the reified class Cl_StudyForDegree under a closed world assumption.

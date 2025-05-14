@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel 
+WHERE {
+  ?collection a ?type .
+  FILTER(?type IN (:Book, :CD))
+  ?collection :hasArticle ?article .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the publication date for books and CDs from the ontology:
+
+-----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?title ?pubDate
+WHERE {
+  { ?publication a :Cl_Book ;
+                  :publicationDate ?pubDate .
+    OPTIONAL { ?publication :publicationTitle ?title . }
+  }
+  UNION
+  { ?publication a :Cl_CD ;
+                  :publicationDate ?pubDate .
+    OPTIONAL { ?publication :publicationTitle ?title . }
+  }
+}
+-----------------------------------
+
+By retrieving the publication date for any individual that is modeled as a book or CD, this query answers the competency question "When was a certain book or CD published?" under the closed world assumption.

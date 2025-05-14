@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not contain any direct relationships or properties that link a product to its manufacturer. Therefore, the competency question "Who is the manufacturer of a certain product?" cannot be fully answered using the given ontology. However, we can attempt to extract partial information related to actors and their roles, which might indirectly relate to manufacturing.
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?actor rdf:type :ActorCVNRole .
+  ?actor rdf:type ?role .
+  FILTER(?role = :manufacturer)
+}
+```
+
+This query attempts to find actors with the role of a manufacturer, but it does not directly link them to specific products.

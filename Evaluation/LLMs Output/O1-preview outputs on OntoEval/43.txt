@@ -1,0 +1,22 @@
+Answer: **Yes**
+
+The competency question "What is the type of this actor?" can be answered using the ontology provided. The ontology includes the `:hasActorType` property, which associates an `:Actor` with its `:ActorType`. Since each actor is modeled to have at least one actor type (as specified by the cardinality restriction in the ontology), we can retrieve the actor's type using a SPARQL query.
+
+Here's the SPARQL query to extract the actor's type:
+
+```sparql
+PREFIX : <http://www.example.org/circular_value_network.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actorType ?actorTypeLabel
+WHERE {
+  :thisActor a :Actor ;
+      :hasActorType ?actorType .
+  OPTIONAL { ?actorType rdfs:label ?actorTypeLabel . }
+}
+```
+
+In this query:
+- Replace `:thisActor` with the actual URI of the actor you're inquiring about.
+- The query retrieves the `?actorType` associated with the actor via the `:hasActorType` property.
+- The optional `?actorTypeLabel` provides a human-readable label if available.

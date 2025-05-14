@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer the CQ using the Cl_ActorEmployment class defined in the ontology. In this ontology a work relationship is reified by instances of Cl_ActorEmployment that link an actor (via the employedActor property) to a theatre (via the atTheatre property) and record the start date (via the startDate datatype property). In a closed world scenario we assume that if an actor’s employment is not asserted then it doesn’t exist.
+
+Below is an example SPARQL query extracting, for each employment instance, the actor, the theatre, and the start date:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :employedActor ?actor ;
+              :atTheatre ?theatre ;
+              :startDate ?startDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+}
+ORDER BY ?startDate
+-------------------------------------------------
+
+This query returns all employment records with their associated start dates, answering the CQ "At what time did a certain actor start working for a specific theatre?"

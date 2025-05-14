@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?performance ?performanceLabel ?venue ?venueLabel
+WHERE {
+  ?performance a :Performance .
+  ?performance :performedAt ?venue .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?venue rdfs:label ?venueLabel . }
+}
+```

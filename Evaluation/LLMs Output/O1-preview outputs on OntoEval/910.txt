@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?person ?roleName ?unionGroup ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionMembership ?unionMembership .
+  ?unionMembership a :Cl_UnionMembership .
+  ?unionMembership :hasUnionRole ?unionRole .
+  ?unionRole :roleName ?roleName .
+  ?unionMembership :partOfUnionGroup ?unionGroup .
+  ?unionMembership :unionMembershipDuring ?timePeriod .
+  ?timePeriod :startTime ?startDate .
+  ?timePeriod :endTime ?endDate .
+  FILTER (?membershipDate >= ?startDate && ?membershipDate <= ?endDate)
+}
+```

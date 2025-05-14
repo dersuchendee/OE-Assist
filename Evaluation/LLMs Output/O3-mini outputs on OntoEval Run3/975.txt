@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the total number of pages for a given book (in this case, “Nurse practices in cancer patient care – longitudinal studies at Italian hospitals”, represented by ns1:NursePracticesInCancerPatientCare):
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?label ?totalPages
+WHERE {
+  ?book a ns1:Book ;
+        ns1:hasTotalPages ?totalPages ;
+        rdfs:label ?label .
+  FILTER(?book = ns1:NursePracticesInCancerPatientCare)
+}
+
+This query is answerable by the ontology under a closed world assumption since the Book class and the data property ns1:hasTotalPages are explicitly defined, enabling retrieval of the required information for the specified book instance.

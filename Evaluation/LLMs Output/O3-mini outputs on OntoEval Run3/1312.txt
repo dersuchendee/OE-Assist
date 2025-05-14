@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that returns pairs of habitats whose compositions are “equivalent” in that their associated microbial and fungal communities are the same. Under the closed world assumption, we treat the available information as complete, so two habitats sharing the same individuals for both their microbial and fungal communities are considered equivalent.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?habitat1 ?habitat2
+WHERE {
+  ?habitat1 a :Habitat .
+  ?habitat1 :hasComposition ?comp1 .
+  ?habitat2 a :Habitat .
+  ?habitat2 :hasComposition ?comp2 .
+  
+  ?comp1 :hasMicrobialCommunity ?microbial .
+  ?comp2 :hasMicrobialCommunity ?microbial .
+  
+  ?comp1 :hasFungalCommunity ?fungal .
+  ?comp2 :hasFungalCommunity ?fungal .
+  
+  FILTER(?habitat1 < ?habitat2)
+}
+ORDER BY ?habitat1 ?habitat2
+--------------------------------------------------
+
+This query finds all habitat pairs (each pair returned once, thanks to the FILTER condition) where both habitats have compositions that include the same microbial community (via :hasMicrobialCommunity) and the same fungal community (via :hasFungalCommunity).

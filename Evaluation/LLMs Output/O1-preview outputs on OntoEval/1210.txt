@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?composition ?compositionLabel ?value
+WHERE {
+  # Get compositions in tune family X
+  ?composition a :Composition ;
+               :isInTuneFamily :tuneFamilyX ;
+               :hasMeasureValue ?measureValue .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+  
+  # Get measure values for measure Y
+  ?measureValue :isMeasureOf :measureY ;
+                 :hasValue ?value .
+}
+ORDER BY ?composition
+```
+
+This query retrieves all compositions that belong to a specific tune family `:tuneFamilyX`, and for each composition, it retrieves the value of the specified measure `:measureY`. By running this query, you can obtain the measure values for each composition in the tune family, allowing you to analyze their similarities and differences according to that measure.

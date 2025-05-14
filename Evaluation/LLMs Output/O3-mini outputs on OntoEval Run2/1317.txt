@@ -1,0 +1,22 @@
+**No**
+
+The ontology does not provide any explicit way to determine whether a species is "rare" (for example, via an explicit property or criterion attached to species or their conservation status). Therefore, while we can extract characteristics of species from a specific aquifer (through :SpeciesAquiferCharacteristic), we cannot fully answer the CQ "What are the characteristics of rare species found in a specific aquifer?" under the closed world assumption. We can only return a partial answer that lists the species characteristics observed for that aquifer.
+
+Below is a SPARQL query that extracts the available characteristics for observations associated with a given aquifer (replace <SPECIFIC_AQUIFER> with the aquifer identifier):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?characteristic ?species ?conservationStatus ?habitatType ?populationTrend
+WHERE {
+  ?characteristic a :SpeciesAquiferCharacteristic ;
+                  :locatedInAquifer <SPECIFIC_AQUIFER> ;
+                  :hasSpecies ?species .
+  OPTIONAL { ?characteristic :hasConservationStatus ?conservationStatus . }
+  OPTIONAL { ?characteristic :hasHabitatType ?habitatType . }
+  OPTIONAL { ?characteristic :hasPopulationTrend ?populationTrend . }
+}
+-------------------------------------------------
+
+This query provides a partial answer by retrieving the observations linking species and aquifer along with optional details on conservation status, habitat type, and population trend—but it does not filter for "rare" species because that aspect is not modelled in the ontology.

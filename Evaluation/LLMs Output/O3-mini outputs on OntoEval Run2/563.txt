@@ -1,0 +1,22 @@
+**Yes**
+
+We can answer this CQ using the ontology’s property :isRecordingOf that connects a track (of type :Cl_Track) to the song (of type :Cl_Song) that it is a recording of. Under a closed‐world assumption, if the relationship is not explicitly asserted, then it does not exist.
+
+Below is a SPARQL query that extracts the song for a given track:
+
+─────────────────────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track ;
+         :isRecordingOf ?song .
+  OPTIONAL { ?track rdfs:label ?trackLabel. }
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+}
+
+─────────────────────────────────────────────
+
+This query will return each track along with the song it is a recording of.

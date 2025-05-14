@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentationEvent ?presentationEvent .
+  ?presentationEvent :presentationOfArticle ?article .
+}
+```
+
+Explanation:
+Every seminar (instance of :Cl_Seminar) is defined (via an equivalent class restriction) to have at least one presentation event, and every presentation event is defined to present at least one article. Therefore, this SPARQL query extracts, for each seminar, the articles that are presented – showing that each seminar always has at least one article presented based on the reified relations in the ontology under the closed world assumption.

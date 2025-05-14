@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming we have individuals of type Cl_City and the property :locatedInRegion is explicitly asserted between a city and a region, you can answer the competency question with the following SPARQL query under the closed world assumption:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedInRegion ?region .
+}
+---------------------------------
+
+This query returns each city and the region it is located in, thus fully answering the CQ "In what region is a certain city located?"

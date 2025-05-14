@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?predator ?predatorLabel ?prey ?preyLabel
+WHERE {
+  ?predator a :AquiferMicrobeSpecies .
+  ?prey a :AquiferMicrobeSpecies .
+  
+  ?predator :eats ?prey .
+  FILTER(?predator != ?prey)
+  
+  OPTIONAL { ?predator rdfs:label ?predatorLabel . }
+  OPTIONAL { ?prey rdfs:label ?preyLabel . }
+}
+```

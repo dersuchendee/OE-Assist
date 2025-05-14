@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?article ?articleTitle
+WHERE {
+  ?article :presentedIn ?presentation .
+  ?presentation :presentationOf :SeminarOnNursePractices .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+```

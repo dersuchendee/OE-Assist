@@ -1,0 +1,15 @@
+Answer: **No**
+
+Because the ontology only defines the classes `Celebration`, `Festival`, and `PrivateEvent` as subclasses of `Event` without any instances or properties to associate with specific events. Therefore, we cannot determine for a given event whether it is a celebration, a festival, or a private event.
+
+Here's a SPARQL query to extract the types of events defined in the ontology:
+
+```sparql
+SELECT ?eventType ?label
+WHERE {
+  ?eventType rdfs:subClassOf :Event .
+  OPTIONAL { ?eventType rdfs:label ?label . }
+}
+```
+
+This query retrieves all subclasses of `:Event` along with their labels, providing a partial answer by listing the possible event types.

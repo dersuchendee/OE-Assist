@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves a person, their corresponding degree, and the study period (start and end dates) using the reified pattern (Cl_PersonDegreeStudy):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?degree ?studyStart ?studyEnd
+WHERE {
+  ?studyRecord a :Cl_PersonDegreeStudy .
+  ?studyRecord :personHasStudy ?person .
+  ?studyRecord :studyInvolvesDegree ?degree .
+  ?studyRecord :studyDuringPeriod ?period .
+  ?period :studyStart ?studyStart .
+  ?period :studyEnd ?studyEnd .
+}
+ORDER BY ?person ?studyStart
+
+This query shows that the ontology supports the competency question "During what time period did a certain person study for a specific degree?" by connecting the person, degree, and study period through the reified class.

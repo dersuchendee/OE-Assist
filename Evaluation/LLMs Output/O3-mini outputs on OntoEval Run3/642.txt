@@ -1,0 +1,49 @@
+**Yes**
+
+Below is one example SPARQL query that – under a closed‐world assumption – retrieves key aspects of the modeled information (the album with its required track(s), its review(s), and details about associated performances and locations):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate ?track ?reviewText ?performanceDate ?locationName
+WHERE {
+  # Get the album
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate ;
+         :containsTrack ?track .
+  
+  # Optionally, get a review on the album 
+  OPTIONAL {
+    ?review a :Cl_Review ;
+            :reviewedRecord ?album ;
+            :reviewText ?reviewText .
+  }
+  
+  # Optionally, retrieve a performance in which a song from the album was performed.
+  # (Assuming a PerformanceSong connects a performance with a song
+  # related to an album via the recording information.)
+  OPTIONAL {
+    ?performanceSong a :Cl_PerformanceSong ;
+                     :performedSong ?song .
+    ?performanceSong :performedIn ?performance .
+    ?performance :performanceDate ?performanceDate ;
+                 :tookPlaceAt ?location .
+    ?location :locationName ?locationName .
+    
+    # Link the song to the album by checking that the album contains a track
+    # whose recorded (or associated) song is ?song.
+    ?album :containsTrack ?someTrack .
+    # (In many ontologies, a track may be an instance of a song or link to it;
+    # adjust as needed based on modeling.)
+    FILTER(?song = ?someTrack)
+  }
+}
+ORDER BY ?album ?track ?performanceDate
+------------------------------------------------------------
+
+This query uses the constructs present in the ontology (for albums, tracks, reviews, performances, and locations) to extract a full answer to the competency question–for example, “What are the details of the album (its tracks, reviews, and associated performances with location information)?” 
+
+Under the closed‐world assumption (we consider only what is explicitly asserted), the query returns only those albums that are known to have at least one track (as enforced by the minCardinality restriction), along with any review text and performance location/date data that appear in the data.

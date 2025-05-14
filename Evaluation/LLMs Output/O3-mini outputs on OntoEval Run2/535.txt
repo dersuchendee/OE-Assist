@@ -1,0 +1,15 @@
+**Yes**
+
+We can extract the release date for an album based on its “release event” information. For example, if we want to know when an album (e.g., StadiumArcadium) was released, the following SPARQL query answers the CQ:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releaseEvent ?releaseEvent .
+  ?releaseEvent :releaseDate ?releaseDate .
+  # Optionally, filter for a specific album:
+  FILTER(?album = :StadiumArcadium)
+}

@@ -1,0 +1,13 @@
+**Yes**
+
+You can retrieve the number of acts for each play using the following SPARQL query:
+
+```sparql
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasNumberOfActs ?numberOfActs .
+}
+```
+
+This query selects all instances of `:Cl_Play` and retrieves their associated `:hasNumberOfActs` values, thus answering the competency question: "How many acts does a particular play contain?"

@@ -1,0 +1,18 @@
+**No**
+
+Although the ontology defines the class Cl_EvaluationStatement and the properties :givenBy and :givenTo (with appropriate domains and ranges), there are no individuals explicitly asserted as evaluation statements, doctors, or employees that would provide a complete answer to “What is the evaluation statement given by a certain doctor for a certain employee?” Under the closed world assumption, we must conclude that the ontology only partially supports this CQ. Below is a SPARQL query that attempts to extract any evaluation statements along with their associated doctor and employee, if such data exists:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement ?doctor ?employee ?evaluationText
+WHERE {
+  ?evaluationStatement a :Cl_EvaluationStatement ;
+                       :givenBy ?doctor ;
+                       :givenTo ?employee .
+  OPTIONAL { ?evaluationStatement :evaluationText ?evaluationText . }
+}
+
+This query shows that while the necessary structure exists, the absence of concrete evaluation statement individuals means the CQ is only partially answerable.

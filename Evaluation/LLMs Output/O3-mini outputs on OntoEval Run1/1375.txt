@@ -1,0 +1,23 @@
+**No**
+
+The ontology does not explicitly model the concept “musician” or associate participants with roles such as “musician.” Although meetups include participants and places, without further axioms or properties relating a participant’s identity or role (for example via a property or a specific class asserting “musician”) to a person, we cannot fully answer “What places did musician Z visited?” However, we can provide a partial answer by retrieving places linked to meetups where a participant’s label matches "musician Z."
+
+Below is a SPARQL query for a partial answer:
+
+---------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?meetup ?place ?placeLabel
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasParticipant ?participant ;
+          mtps:hasPlace ?place .
+  ?participant rdfs:label ?participantLabel .
+  FILTER(CONTAINS(LCASE(?participantLabel), "musician z"))
+  OPTIONAL { ?place rdfs:label ?placeLabel. }
+}
+---------------------------------------
+
+This query returns meetups with their associated places for any participant whose label contains "musician Z."

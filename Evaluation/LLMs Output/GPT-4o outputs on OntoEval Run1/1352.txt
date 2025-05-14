@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between chemical measurements and their units of measure. The ontology defines a `ChemicalMeasurement` class and a `UnitOfMeasure` class, but there is no instance data or further specification to extract the units of measure for chemical measurements in water. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?chemicalMeasurement ?unit
+WHERE {
+  ?chemicalMeasurement a :ChemicalMeasurement .
+  ?chemicalMeasurement :hasUnit ?unit .
+}
+```

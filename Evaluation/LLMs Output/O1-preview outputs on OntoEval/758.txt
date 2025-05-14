@@ -1,0 +1,19 @@
+Answer: **Yes**
+
+The ontology models that a record (album) always contains at least one track by defining `:Cl_Album` as equivalent to having at least one `:containsTrack` relationship with `:Cl_AlbumTrack`. This is specified using an `owl:equivalentClass` with a `owl:minCardinality` restriction of 1 on the `:containsTrack` property.
+
+Here is a SPARQL query to retrieve this constraint from the ontology:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?property ?cardinality
+WHERE {
+  :Cl_Album owl:equivalentClass ?restriction .
+  ?restriction owl:onProperty ?property .
+  ?restriction owl:minCardinality ?cardinality .
+}
+```
+
+This query will return the property (`:containsTrack`) and the minimum cardinality (`1`), confirming that every album must contain at least one track according to the ontology.

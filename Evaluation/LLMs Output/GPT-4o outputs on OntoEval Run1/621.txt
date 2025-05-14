@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain any properties or classes related to critics or records that would allow us to directly answer the competency question about what a certain critic says about a certain record. However, we can extract partial information about critiques and records.
+
+```sparql
+SELECT ?critic ?record ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique .
+  ?critique :critiqueMadeBy ?critic .
+  ?critique :critiqueOfRecord ?record .
+  OPTIONAL { ?critique :critiqueContent ?critiqueContent . }
+}
+```

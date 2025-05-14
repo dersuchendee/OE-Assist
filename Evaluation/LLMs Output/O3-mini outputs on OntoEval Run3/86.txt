@@ -1,0 +1,16 @@
+**No**
+
+The ontology provides a reified date (through instances of :Cl_FestivalOccurrence with a :hasDate value), but it does not include an explicit link (e.g. a property connecting a :Cl_TheatreFestival individual directly to its occurrence instance). Therefore, while one can extract dates for festival occurrences, the CQ “When did a certain theatre festival take place?” cannot be fully answered (i.e. we cannot automatically associate a given theatre festival with its occurrence date). Under the closed‐world assumption, we can only provide a partial answer by retrieving the available occurrence dates.
+
+A partial SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?occurrence ?date
+WHERE {
+  ?occurrence a :Cl_FestivalOccurrence .
+  ?occurrence :hasDate ?date .
+}
+
+This query returns the dates recorded for festival occurrences, but note that there is no explicit join between a festival and its occurrence in the current ontology.

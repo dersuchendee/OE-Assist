@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to link a critic to a specific record and their critique about it. The ontology includes classes and properties related to critics, critiques, and records, but it lacks a direct connection between a specific critic and their opinion on a specific record. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?critic ?critiqueText ?record
+WHERE {
+  ?critic a :Cl_Critic .
+  ?critic :criticizes ?critique .
+  ?critique :critiqueText ?critiqueText .
+  ?critique :critiqueOf ?record .
+}
+```

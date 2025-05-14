@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that individual books are modelled as instances of :Cl_Book and that their page counts are provided via the data property :hasPageCount, the competency question is fully answerable in the ontology under a closed world assumption. For example, to get the page count of a particular book you could run the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :hasPageCount ?pageCount .
+  # Optionally restrict to a specific book by URI, e.g.,
+  # FILTER(?book = <http://www.example.org/test#SpecificBook>)
+}
+
+This query retrieves each book's page count, which directly answers “How many pages does a particular book contain?”

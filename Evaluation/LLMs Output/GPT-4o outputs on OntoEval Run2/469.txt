@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role in a band at a specific point in time. The ontology includes information about band memberships and roles, but it does not explicitly connect these roles to specific time intervals. Therefore, a partial answer can be extracted by querying the roles and memberships without the temporal aspect.
+
+```sparql
+SELECT ?person ?personLabel ?band ?role
+WHERE {
+  ?person a ns1:Person ;
+          rdfs:label ?personLabel ;
+          ns1:memberOf ?band ;
+          ns1:hasRole ?role .
+}
+```

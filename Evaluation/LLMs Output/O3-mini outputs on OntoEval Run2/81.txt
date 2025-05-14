@@ -1,0 +1,16 @@
+**No**
+
+The ontology allows us to retrieve the dates associated with instances of :Cl_TheatreFestival (via the property :hasDate). However, because it lacks any property that uniquely identifies or names "a certain" festival (e.g. a title or label linking the OS’s “Roma Loves Shakespeare” to an instance of :Cl_TheatreFestival), we can only extract a partial answer by listing all theatre festival instances together with their dates.
+
+For example, a partial SPARQL query would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date 
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasDate ?date .
+}
+
+This query returns the dates when theatre festival events took place, but does not allow us to uniquely select “a certain” festival due to a lack of identifying properties in the ontology.

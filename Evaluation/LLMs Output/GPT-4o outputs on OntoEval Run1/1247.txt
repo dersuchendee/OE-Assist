@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology, as it involves querying the time when the level of a chemical substance is recorded in a water body. The ontology provides the necessary classes and properties to construct such a query.
+
+```sparql
+SELECT ?waterBody ?chemicalSubstance ?measurementTime
+WHERE {
+  ?observation a :ChemicalSubstanceObservation .
+  ?observation :isObservationOfWaterBody ?waterBody .
+  ?observation :isObservationOfChemicalSubstance ?chemicalSubstance .
+  ?observation :hasMeasurementTime ?measurementTime .
+}
+ORDER BY ?measurementTime
+```

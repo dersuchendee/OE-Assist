@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?musician1 ?m1Start ?m1End ?musician2 ?m2Start ?m2End
+WHERE {
+  ?musician1 a :Musician ;
+              :hasWorkingPeriod ?wp1 .
+  ?wp1 :startYear ?m1Start ;
+       :endYear ?m1End .
+
+  ?musician2 a :Musician ;
+              :hasWorkingPeriod ?wp2 .
+  ?wp2 :startYear ?m2Start ;
+       :endYear ?m2End .
+
+  FILTER(?musician1 != ?musician2)
+
+  # Check if the working periods overlap:
+  FILTER( xsd:integer(?m1Start) <= xsd:integer(?m2End) &&
+          xsd:integer(?m2Start) <= xsd:integer(?m1End) )
+}
+ORDER BY ?musician1 ?musician2
+```

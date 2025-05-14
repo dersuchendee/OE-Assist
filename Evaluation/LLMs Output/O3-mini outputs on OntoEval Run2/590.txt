@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each song, the date on which it was composed:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song ;
+        :composedOn ?songComposition .
+  ?songComposition :compositionDate ?compositionDate .
+}
+ORDER BY ?song
+----------------------------------
+
+This query works under the closed world assumption and extracts the answer to the competency question "When was a certain song composed?" by utilizing the ontology’s classes (Cl_Song, Cl_SongComposition) and properties (composedOn, compositionDate).

@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide sufficient information to determine whether at least one article is always presented at each seminar. Specifically, there is no relationship defined between seminars and articles in the ontology. Therefore, the competency question cannot be fully answered.
+
+However, we can extract partial information about seminars held by hospitals:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?seminar ?seminarDate ?hospital ?hospitalName
+WHERE {
+  ?hospital rdf:type :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalName . }
+
+  ?hospital :holdsSeminar ?seminar .
+  OPTIONAL { ?seminar :heldOnDate ?seminarDate . }
+}
+```
+
+This query retrieves seminars held by hospitals along with their dates, but it does not provide information about articles presented at these seminars.

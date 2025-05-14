@@ -1,0 +1,23 @@
+**Yes**
+
+A possible SPARQL query to extract the star rating given by a newspaper for a theatre production is:
+
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?ratingValue
+WHERE {
+  ?production a :TheatreProduction ;
+              rdfs:label ?productionLabel ;
+              :hasStarRating ?starRating .
+  
+  ?starRating :hasRatingValue ?ratingValue ;
+              :givenBy ?newspaper .
+  
+  ?newspaper rdfs:label ?newspaperLabel .
+  
+  # Optionally, if you want to restrict to a particular production or newspaper, you could add a FILTER clause, e.g.:
+  # FILTER(?productionLabel = "The Merchant of Venice at The Grand Theatre" && ?newspaperLabel = "Il Gazzettino")
+}
+ORDER BY ?production ?newspaper ?ratingValue

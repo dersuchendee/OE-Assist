@@ -1,0 +1,33 @@
+**Yes**
+
+Below is one example of a SPARQL query that uses the reified membership information to return the members of a given band (here, for example, "Red_Hot_Chili_Peppers") who were active at a given point in time (for instance, "2005-01-01"). The query assumes that each membership instance (of type Cl_Membership) has a property :memberOf linking it to a band, a property (like :membershipStart) indicating when it began, and optionally a :membershipEnd to indicate when it ended. In addition, the band is linked to its members by the property :hasMember.
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel ?membershipStart ?membershipEnd
+WHERE {
+  # Find a membership instance for a given band with proper time information.
+  ?membership a :Cl_Membership ;
+              :memberOf ?band ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # The CQ asks for the members of a certain band.
+  ?band :hasMember ?member .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  # Filter for a given band and a specific point in time.
+  # Here we use :Red_Hot_Chili_Peppers as an example band, and a point in time “2005-01-01”.
+  FILTER (
+    ?band = :Red_Hot_Chili_Peppers &&
+    ?membershipStart <= "2005-01-01"^^xsd:date &&
+    ( !BOUND(?membershipEnd) || ?membershipEnd >= "2005-01-01"^^xsd:date )
+  )
+}
+ORDER BY ?member
+──────────────────────────────
+
+In this query you can replace :Red_Hot_Chili_Peppers with any band of interest and use a different date in the FILTER clause to represent the point in time you want to check. Under the closed world assumption the absence of a :membershipEnd is interpreted as an ongoing membership.

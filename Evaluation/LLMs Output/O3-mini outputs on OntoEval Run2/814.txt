@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that returns the employment start date for a given person at a given hospital, using the ontology’s properties (ns1:hasEmployment, ns1:employmentStartDate, ns1:employedAt):
+
+--------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?hospital ?employmentStartDate
+WHERE {
+  ?person a ns1:Person ;
+          ns1:hasEmployment ?employment ;
+          ns1:employedAt ?hospital .
+  ?employment ns1:employmentStartDate ?employmentStartDate .
+  
+  # If you want to restrict to a particular person and hospital, e.g., Pasquale Di Gennaro and Ospedale Riunito delle Tre Valli:
+  FILTER(?person = ns1:PasqualeDiGennaro && ?hospital = ns1:OspedaleRiunitoDelleTreValli)
+}
+--------------------------------
+
+This CQ is fully answerable by the ontology and, under the closed world assumption, the query returns when the person was first employed at the hospital.

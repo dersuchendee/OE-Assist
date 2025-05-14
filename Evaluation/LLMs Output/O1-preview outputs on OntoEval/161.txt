@@ -1,0 +1,17 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology models the relationship between theatres and cities through the object property `:isLocatedIn`, which connects instances of `:Cl_Theatre` to instances of `:Cl_TheatreLocation`. The class `:Cl_TheatreLocation` is a pivot class that is a subclass of both `:Cl_Theatre` and `:Cl_City`. The city information is captured using the data property `:cityName`.
+
+Here is the SPARQL query to extract the theatres and the cities they are located in:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :isLocatedIn ?theatreLocation .
+  ?theatreLocation a :Cl_TheatreLocation .
+  ?theatreLocation :cityName ?city .
+}
+```
+
+This query retrieves all instances of theatres and their associated city names by traversing the relationships defined in the ontology.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific musician with the places they visited. The ontology only allows us to know that musicians participate in events, and events have locations. However, there is no direct link between a specific musician and the places they visited. We can only extract partial information about the events and their locations.
+
+```sparql
+SELECT ?musician ?event ?place
+WHERE {
+  ?musician a :Musician .
+  ?musician :participatesIn ?event .
+  ?event :hasLocation ?place .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+Below is a SPARQL query that retrieves each performance along with the location(s) where it was performed:
+
+-------------------------------------------------
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a ns1:Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?performance ns1:performedAt ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+
+-------------------------------------------------
+
+This query extracts the answer according to the ontology’s structure, using a closed-world assumption (only explicitly asserted properties are considered).

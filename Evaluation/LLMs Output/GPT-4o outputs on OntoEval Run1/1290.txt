@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "Were they invited? Was the meeting accidental?" can be answered using the ontology provided. The ontology includes properties `:hasInvited` and `:isAccidental` which can be used to determine if a person was invited to a meeting and if the meeting was accidental.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?event ?invited ?accidental
+WHERE {
+  ?participation a :Participation .
+  ?participation :involvesPerson ?person .
+  ?participation :involvesEvent ?event .
+  ?participation :hasInvited ?invited .
+
+  ?event a :MeetingEvent .
+  ?event :isAccidental ?accidental .
+}
+```

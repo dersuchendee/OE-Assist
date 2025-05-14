@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that membership information is modelled by the reified class Cl_EnsembleMembership—with a property “membershipDate” indicating when a person became a member, and “hasMember” and “member” linking an ensemble to its membership and person respectively—you can answer the CQ by filtering those memberships whose start date is on or before the queried point in time (under the closed‐world assumption, only explicitly stated memberships are considered). For example, with the ensemble identified as ?ensemble and a given point in time (e.g. "2009-09-15"^^xsd:date), you can use the following SPARQL query:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  # Here, filter on a specific ensemble – replace <ensembleURI> with the actual URI
+  FILTER(?ensemble = <http://www.example.org/test#SomeEnsemble>) .
+  
+  ?ensemble :hasMember ?membership .
+  ?membership :member ?person .
+  ?membership :membershipDate ?membershipDate .
+  
+  # Return memberships that started on or before the given point in time
+  FILTER(?membershipDate <= "2009-09-15"^^xsd:date) .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+}
+----------------------------------------------------------------
+
+This query extracts the persons (with optional labels) who are members of a specified ensemble and whose membership date qualifies them as members at the given time.

@@ -1,0 +1,20 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for each book or CD, the articles it is composed of:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection a ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD)) .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel. }
+  
+  ?collection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+ORDER BY ?collection
+------------------------------------------------
+
+In this query the property “:containsArticle” links a book or CD (instance of :Cl_Book or :Cl_CD) to its articles (instances of :Cl_Article), thus answering the CQ as modelled by the ontology under the closed world assumption.

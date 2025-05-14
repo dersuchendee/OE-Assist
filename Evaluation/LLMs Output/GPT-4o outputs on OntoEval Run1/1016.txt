@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the publication date of a specific book or CD. The ontology includes a `publicationDate` property, but it is not directly linked to a specific book or CD instance. Therefore, a partial answer can be extracted by querying for all books and CDs with their publication dates, but it cannot specify a certain book or CD.
+
+```sparql
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD a [owl:unionOf(:Cl_Book :Cl_CD)] .
+  ?bookOrCD :publicationDate ?publicationDate .
+}
+```

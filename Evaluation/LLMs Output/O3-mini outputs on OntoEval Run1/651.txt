@@ -1,0 +1,20 @@
+**Yes**
+Below is one SPARQL query that extracts, for a given performance, all the songs (with their labels, when available) played in that performance:
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Performance ;
+               rdfs:label ?performanceLabel ;
+               :hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  # Uncomment the FILTER below to restrict to a specific performance if desired:
+  # FILTER(STR(?performanceLabel) = "Live performance in Portland, Oregon on August 11, 2006")
+}
+------------------------------------------------
+
+Under the closed world assumption, this query retrieves the songs played during each performance (or a specified one), demonstrating that the ontology models the competency question.

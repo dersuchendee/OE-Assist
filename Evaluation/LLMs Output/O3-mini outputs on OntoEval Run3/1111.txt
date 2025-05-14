@@ -1,0 +1,22 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  { 
+    ?person :isLocatedIn ?location .
+  }
+  UNION
+  { 
+    ?activity :hasAgent ?person .
+    ?activity :hasLocation ?location .
+  }
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+```
+
+Explanation:
+The ontology supports the competency question "Who is where in this indoor location?" by providing properties that connect persons to bathrooms either directly via the property :isLocatedIn or indirectly via a ToothbrushingActivity (through :hasAgent and :hasLocation, with :hasLocation inverse to :isLocatedIn). Thus, we can extract the full answer using the SPARQL query above.

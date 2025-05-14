@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?person ?degreeName ?start ?end
+WHERE {
+  ?person a :Cl_Person ;
+          :studiedFor ?study .
+  ?study :hasDegree ?degree ;
+         :startedStudying ?start ;
+         :endedStudying ?end .
+  ?degree :degreeName ?degreeName .
+}
+ORDER BY ?person ?start
+```

@@ -1,0 +1,14 @@
+**Yes**
+
+We can retrieve the date when a seminar took place from the ontology using the :Cl_Seminar class and its associated data property :seminarDate. A suitable SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+
+This query collects all individuals of type :Cl_Seminar along with their associated seminar dates, thereby answering the CQ "When did a certain seminar take place?" under the closed world assumption.

@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming a closed‐world interpretation and that the reification class “Cl_InstrumentPlaying” connects a musician (an instance of Cl_Person) with the instrument they play (via the property “playedBy”), one can “answer” the competency question with a SPARQL query such as:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :playsInstrument ?ip .
+  ?ip :playedBy ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+
+─────────────────────────────
+
+This query retrieves each person (with optional label) along with the instruments they play.

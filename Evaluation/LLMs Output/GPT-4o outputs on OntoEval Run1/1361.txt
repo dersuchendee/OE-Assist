@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain any specific mention of an "organ builder" or a related concept that could be used to identify resources mentioning an organ builder. However, we can attempt to extract a partial answer by querying for any agents or roles that might be related to organs, as these could potentially include organ builders.
+
+```sparql
+SELECT ?resource ?agent ?role
+WHERE {
+  ?resource a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  ?resource <https://w3id.org/arco/ontology/core/isDescribedBy> ?project .
+  ?project <https://w3id.org/polifonia/ontology/core/hasAgentRole> ?agentRole .
+  ?agentRole <https://w3id.org/arco/ontology/core/hasAgent> ?agent .
+  ?agentRole <https://w3id.org/arco/ontology/core/hasRole> ?role .
+}
+```
+
+This query attempts to find resources related to organs and their associated agents and roles, which might include organ builders, but without explicit information in the ontology, it cannot definitively answer the competency question.

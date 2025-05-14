@@ -1,0 +1,39 @@
+**Yes**
+
+Below is one possible SPARQL query that answers the CQ under a closed‐world assumption. In this query we assume that union role information is modeled via the reification class :Cl_PersonUnionRole – which combines the person’s union membership with the role details (the role’s name, start date, and end date). A time parameter (?givenTime) is used to check that the role is active at the specified point in time.
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?union ?unionLabel ?role ?roleName ?roleStart ?roleEnd
+WHERE {
+  # Identify the person of interest
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Get the person’s union membership that has an associated union role
+  ?person :personMemberOfUnion ?membership .
+  ?membership a :Cl_PersonUnionRole .
+  
+  # Connect to the union group (membership’s corresponding union)
+  ?membership :unionHasMember ?union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  
+  # Get the union role information (via the reified role)
+  ?membership :hasUnionRole ?role .
+  ?role :roleName ?roleName ;
+        :roleStart ?roleStart ;
+        :roleEnd ?roleEnd .
+        
+  # Time filtering: the queried time (as xsd:date) must fall within the role’s period.
+  # Replace "2002-01-01"^^xsd:date with the desired point in time.
+  BIND("2002-01-01"^^xsd:date AS ?givenTime)
+  FILTER (?givenTime >= ?roleStart && ?givenTime <= ?roleEnd)
+}
+ORDER BY ?person
+----------------------------------------------------------------
+
+This query retrieves, for each person (and optionally their label) the union they belong to (with its label), along with the role (its identifier and role name) and the start/end dates for the role. The FILTER ensures that only roles active at the given time (?givenTime) are returned.

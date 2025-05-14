@@ -1,0 +1,19 @@
+**Yes**
+
+The given CQ is "What articles were presented in a certain seminar?"
+
+This CQ is answerable by the ontology using the classes and properties provided. Specifically, the ontology connects seminars to articles through the `:Cl_ArticlePresentation` class, which links `:Cl_Seminar` and `:Cl_Article` via the `:hasSeminar` and `:hasArticle` object properties, respectively.
+
+Here's the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+    ?presentation a :Cl_ArticlePresentation .
+    ?presentation :hasSeminar :SpecificSeminar .
+    ?presentation :hasArticle ?article .
+    OPTIONAL { ?article :hasTitle ?articleTitle . }
+}
+```
+
+Replace `:SpecificSeminar` with the actual seminar URI you're interested in. This query retrieves all articles (`?article`) that are associated with the given seminar via presentations, along with their titles (`?articleTitle`) if available.

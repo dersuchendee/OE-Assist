@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves a particular album (e.g., “Stadium Arcadium”) along with the number of tracks it contains. Under the closed‐world assumption, we assume that the number of tracks is asserted via the data property :numberOfTracks on instances of :Cl_Album.
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?numberOfTracks
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :numberOfTracks ?numberOfTracks .
+  
+  # If you want to filter to a specific album, for example Stadium Arcadium:
+  FILTER (regex(str(?albumLabel), "Stadium Arcadium", "i"))
+}
+-----------------------------------------------------
+
+This query returns the album URI, its human‐readable label, and the number of tracks recorded, thereby fully answering the competency question.

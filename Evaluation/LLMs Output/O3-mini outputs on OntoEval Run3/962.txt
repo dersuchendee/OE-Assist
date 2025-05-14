@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that returns, for any publication that is a book or CD, the articles it is composed of:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubTitle ?article ?articleTitle
+WHERE {
+  ?publication a ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD) .
+  OPTIONAL { ?publication :publicationTitle ?pubTitle . }
+  
+  ?publication :composedOf ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+
+--------------------------------------------------
+
+This query retrieves all publications of type Cl_Book or Cl_CD and extracts the articles each publication is composed of.

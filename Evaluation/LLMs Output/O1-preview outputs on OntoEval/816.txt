@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?person ?hospital ?employmentStartDate
+WHERE {
+  ?person a :Cl_Employee .
+  ?person :hasEmploymentEvent ?employmentEvent .
+  ?hospital a :Cl_Hospital .
+  ?hospital :hasEmploymentEventAtHospital ?employmentEvent .
+  ?employmentEvent :employmentStartDate ?employmentStartDate .
+}
+```
+
+This query retrieves the employment start dates for employees at hospitals. It leverages the ontology's classes and properties to connect a person (who is an employee) to their employment event, and then to the hospital where the employment event took place, finally extracting the start date of that employment. This directly answers the competency question "When was a certain person first employed at a certain hospital?" by providing the relevant data paths in the ontology.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the festival’s name along with its date by following the reified structure (Festival → Festival Event → Festival Date):
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?eventDate
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasFestivalEvent ?event .
+  ?event :hasDate ?date .
+  ?date :eventDate ?eventDate .
+  # Filter to focus on the specific festival (adjust the string as needed)
+  FILTER(CONTAINS(LCASE(?festivalName), "roma loves shakespeare"))
+}
+---------------------------------------------------
+
+This query shows that the date information for a given theatre festival can be extracted from the ontology, hence the CQ is fully supported.

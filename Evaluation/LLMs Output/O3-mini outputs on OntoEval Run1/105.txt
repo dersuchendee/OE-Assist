@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the city (location) where a given theatre festival took place. In this example the query returns all festivals along with their heldIn city. (If you want to filter on a “certain festival” by its label or URI you can add an appropriate FILTER clause.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :heldIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+--------------------------------------------------
+
+This query extracts the instances of Cl_TheatreFestival along with the associated city (via the property heldIn), demonstrating that the CQ “Where did a certain festival take place?” is answerable using the ontology.

@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+The competency question "What are the actors involved in the process?" can be answered using the ontology provided. The ontology defines the classes `:Process` and `:Actor`, and the object property `:involvesActor` that relates a process to the actors involved in it. Therefore, we can write a SPARQL query to extract the processes and their associated actors.
+
+Here is the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/circular_value_network#>
+
+SELECT ?process ?processLabel ?actor ?actorLabel
+WHERE {
+  ?process a :Process .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  ?process :involvesActor ?actor .
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```
+
+This query retrieves all instances of `:Process` and their associated `:Actor` instances through the `:involvesActor` property. It also optionally retrieves any labels associated with the processes and actors for more informative results.

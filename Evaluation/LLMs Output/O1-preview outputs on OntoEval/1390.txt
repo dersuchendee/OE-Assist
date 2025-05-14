@@ -1,0 +1,19 @@
+**No**
+
+```sparql
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+
+SELECT ?tune
+WHERE {
+  ?tune a :Tune .
+}
+```
+
+Given the provided ontology and under the closed world assumption, we cannot answer the competency question "What are the similarities/differences of all compositions in tune family X according to measure Y?" because the ontology lacks the necessary properties and classes to represent:
+
+- The association between tunes and tune families (there is no property connecting `:Tune` instances to `:TuneFamily` instances).
+- Any measures (`Y`) that could be used to compare tunes (no properties or data relating to characteristics or features of tunes).
+
+The SPARQL query above extracts all instances of `:Tune`, but without the ability to associate them with tune families or measures, we cannot provide even a partial answer to the competency question.

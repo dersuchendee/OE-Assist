@@ -1,0 +1,31 @@
+**Yes**
+
+Assuming that the given union membership is represented by individuals of class Cl_UnionMembership and that each membership specifies its period using the data properties :membershipStartDate and :membershipEndDate, the following SPARQL query shows how to retrieve the persons who are members of a specified union at a given point in time (here represented by a fixed date). This query uses a closed world assumption so that missing :membershipEndDate values are not interpreted as “still active” unless explicitly provided.
+
+Replace <http://www.example.org/test#YourUnionURI> with the specific union’s URI and adjust the fixed date ("2002-01-01"^^xsd:date) to the point in time of interest.
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membership ?startDate ?endDate
+WHERE {
+  ?membership a :Cl_UnionMembership .
+  ?membership :hasPerson ?person .
+  ?membership :hasUnion ?union .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate } .
+  
+  FILTER(?union = <http://www.example.org/test#YourUnionURI>) .
+  FILTER(
+    xsd:date("2002-01-01") >= ?startDate &&
+    ( !bound(?endDate) || xsd:date("2002-01-01") <= ?endDate )
+  ) .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel } .
+}
+ORDER BY ?person
+---------------------------------------------------
+
+This query returns the persons (and optionally their labels) whose union memberships in the specified union cover the given date.

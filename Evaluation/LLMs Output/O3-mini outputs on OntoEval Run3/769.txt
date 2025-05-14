@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that retrieves—for a given person—the medical degrees they have (including any nursing degrees, which are a subclass of MedicalDegree):
+
+----------------------------------------------------------
+PREFIX : <http://example.org/medical_degrees#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?medicalDegree ?degreeLabel
+WHERE {
+  ?person a :Person .
+  ?person :hasMedicalDegree ?medicalDegree .
+  OPTIONAL { ?medicalDegree rdfs:label ?degreeLabel . }
+}
+----------------------------------------------------------
+
+This query works under the closed world assumption by only returning the degrees explicitly linked to a person via the property :hasMedicalDegree.

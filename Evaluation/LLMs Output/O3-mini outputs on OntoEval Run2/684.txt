@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming the closed‐world view (i.e. only the explicitly stated relationships exist), the performance where the live event took place can be retrieved using the property that connects a performance individual (of type Cl_Performance) to the venue (of type Cl_Venue) via the :performedIn relation.
+
+For example, the following SPARQL query retrieves the performance, its performance date (if available), and the venue where it took place:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?venue
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performedIn ?venue .
+  OPTIONAL { ?performance :performanceDate ?performanceDate . }
+}
+-------------------------------------------------
+
+This query demonstrates that the ontology supports the competency question "Where did a certain performance take place?" by explicitly linking a performance (e.g. :PerformanceStadiumArcadiumPortland) to its venue (e.g. :Portland_Oregon).

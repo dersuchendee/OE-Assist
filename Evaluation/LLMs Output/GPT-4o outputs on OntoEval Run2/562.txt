@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What song is a specific track a recording of?" can be answered using the provided ontology. The ontology includes classes and properties that relate music tracks to recordings and songs. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :MusicTrack .
+  ?track rdfs:label ?trackLabel .
+  ?track :isMusicTrackOf ?recording .
+  ?recording :isRecordingOf ?song .
+  ?song rdfs:label ?songLabel .
+}
+```

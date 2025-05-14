@@ -1,0 +1,30 @@
+**Yes**
+
+In our ontology the union membership is reified: a union membership is an instance of Cl_UnionMembership that links a person (via :unionMember) to a union (via :memberOfUnion) and also specifies the role (via :hasUnionRole) along with the date properties (e.g. :membershipStartDate and optionally :membershipEndDate). That is enough to answer the question “What role does a certain person have within a certain union group at a certain point in time?” Here is an example SPARQL query (using parameters for a given person, union and point in time) to retrieve the union role for, say, Pasquale Di Gennaro as a member of the “Union for Male Nurses” at a specified date:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOfUnion ?union ;
+              :hasUnionRole ?role ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  # Parameters: change these as needed
+  FILTER (
+         ?person = :Pasquale_Di_Gennaro &&
+         ?union = :Union_Male_Nurses &&
+         xsd:date("2005-01-01") >= ?membershipStartDate &&
+         (
+           !bound(?membershipEndDate) || 
+           xsd:date("2005-01-01") <= ?membershipEndDate
+         )
+  )
+}
+------------------------------------------------------------
+
+This query returns the role of the given person in the given union if the specified date (here “2005-01-01”) falls within the membership period.

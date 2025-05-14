@@ -1,0 +1,26 @@
+Answer: **No**
+
+The competency question is "What are the members of a certain band at a certain point in time?"
+
+In the given ontology, we have information about when each person joined the band (using `:hasTime`), but we do not have explicit end dates or durations for their memberships. Without end dates, we cannot determine if a person was still a member at a specific point in time. Under the closed world assumption, we cannot infer that a person remained a member indefinitely after their start date.
+
+Therefore, while we can retrieve the start dates of band members, we cannot conclusively answer whether they were members at any arbitrary point in time.
+
+Here is a SPARQL query that extracts available information about band members and their start dates:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?startDate
+WHERE {
+  ?membership a :Cl_PersonRoleBandTime ;
+              :hasPerson ?person ;
+              :hasBand :RedHotChiliPeppers ;
+              :hasTime ?startDate .
+  OPTIONAL { ?membership :hasRole ?role . }
+}
+ORDER BY ?startDate
+```
+
+This query will list the members of the Red Hot Chili Peppers along with their roles and start dates, but it cannot determine membership at a specific point in time due to missing end date information.

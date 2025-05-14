@@ -1,0 +1,25 @@
+Answer: **No**
+
+The ontology provided does not enforce or guarantee that every seminar has at least one article presented at it. There is no axiom or restriction in the ontology that specifies that each instance of `:Cl_Seminar` must be associated with at least one `:Cl_Article` through the properties defined. Therefore, under the closed world assumption, we cannot affirm that the competency question is fully supported by the ontology.
+
+Here is a SPARQL query that attempts to extract seminars and any articles presented at them, providing a partial answer:
+
+```sparql
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?sp a :Cl_SeminarPresentation .
+    ?sp :seminar ?seminar .
+    ?article :presentedIn ?sp .
+  }
+  OPTIONAL {
+    ?sa a :Cl_SeminarArticle .
+    ?sa :seminar ?seminar .
+    ?article :presentedAt ?sa .
+  }
+  FILTER (BOUND(?article))
+}
+```
+
+This query retrieves all seminars and any associated articles that are presented in them, if such associations exist in the data. However, since the ontology doesn't ensure that every seminar has at least one presented article, the competency question cannot be fully answered based on the ontology alone.

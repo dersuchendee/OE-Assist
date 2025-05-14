@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?hospital ?hospitalName ?diagnosisCode ?diagnosisCodeLabel ?averageAdmissions
+WHERE {
+  ?hospitalSummary a :HospitalAdmissionSummary .
+  ?hospitalSummary :reportedByHospital ?hospital .
+  ?hospitalSummary :appliesToDiagnosisCode ?diagnosisCode .
+  ?hospitalSummary :averageAdmissions ?averageAdmissions .
+  
+  OPTIONAL { ?hospital rdfs:label ?hospitalName . }
+  OPTIONAL { ?diagnosisCode rdfs:label ?diagnosisCodeLabel . }
+}
+```

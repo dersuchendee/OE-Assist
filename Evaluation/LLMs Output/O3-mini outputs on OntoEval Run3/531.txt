@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed world view, the ontology contains an explicit data property (:numberOfTracks) for albums (class :Cl_Album). Thus, we can directly extract how many tracks a particular album contains using the following SPARQL query (here parameterized for an album labeled “Stadium Arcadium”):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?numTracks
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :numberOfTracks ?numTracks .
+  FILTER(?albumLabel = "Stadium Arcadium")
+}
+--------------------------------------------------
+
+This query retrieves the album instance, its label, and the number of tracks recorded in the album, thereby fully modeling the competency question.

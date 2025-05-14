@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query (using a parameterized city name) that extracts the country in which a given city is located from the ontology:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?cityName ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName ;
+        :isLocatedIn ?country .
+  ?country :countryName ?countryName .
+  FILTER(LCASE(?cityName) = LCASE("YourCityName"))  # Replace "YourCityName" with the actual city name
+}
+-----------------------------------------------------------
+
+This query checks for individuals of type Cl_City, retrieves their city name and follows the :isLocatedIn property to find the corresponding country along with its country name. Therefore, the competency question is fully supported by the ontology under the closed world assumption.

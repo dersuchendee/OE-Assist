@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that retrieves instances of festivals (represented in the ontology as Cl_FestivalEvent, a subclass of Cl_TheatreFestival) along with their names and their start/end dates. Under the closed‐world assumption we assume that any missing start or end date means that the information is not available.
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?startDate ?endDate
+WHERE {
+  ?festival a :Cl_FestivalEvent .
+  OPTIONAL { ?festival :festivalName ?festivalName . }
+  OPTIONAL { ?festival :startDate  ?startDate . }
+  OPTIONAL { ?festival :endDate    ?endDate . }
+  # To restrict results to a specific festival, you might use a FILTER:
+  # FILTER(STR(?festivalName)="Roma Loves Shakespeare")
+}
+--------------------------------------------------------------
+
+This query answers the competency question “When did a certain theatre festival take place?” by extracting the temporal data (startDate and endDate) associated with the festival event using the reified class in the ontology.

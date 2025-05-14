@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?person ?degreeTitle ?degreeDate
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeDate . }
+}
+```

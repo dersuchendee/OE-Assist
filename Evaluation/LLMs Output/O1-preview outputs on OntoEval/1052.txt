@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+  ?article rdf:type :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :presentationOf ?seminar .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+  FILTER(?seminar = :SeminarOnNursePractices)
+}
+```
+
+This query retrieves all articles that were presented in a specific seminar (in this case, `:SeminarOnNursePractices`). It uses the ontology's classes and properties to navigate from articles to their presentations and the seminars where they were presented.

@@ -1,0 +1,13 @@
+**Yes**
+
+Below is one SPARQL query using the reified relation (via Cl_WaterBodyInBasin) to extract the water bodies that belong to a specific water basin. (Replace <SPECIFIC_WATER_BASIN_URI> with the desired water basin’s URI.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?waterBody
+WHERE {
+  ?reif a :Cl_WaterBodyInBasin ;
+        :op_isPartOfBasin <SPECIFIC_WATER_BASIN_URI> ;
+        :op_isWaterBodyOf ?waterBody .
+}

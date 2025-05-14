@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly support querying which water bodies belong to a specific water basin. The ontology provides a reification class `Cl_WaterBodyInBasin` with properties `op_isWaterBodyOf` and `op_isPartOfBasin`, but it does not directly connect `Cl_WaterBody` to `Cl_WaterBasin` through a simple property like `op_belongsTo`. Therefore, a partial answer can be extracted using the reification pattern.
+
+```sparql
+SELECT ?waterBody ?waterBasin
+WHERE {
+  ?waterBodyInBasin a :Cl_WaterBodyInBasin .
+  ?waterBodyInBasin :op_isWaterBodyOf ?waterBody .
+  ?waterBodyInBasin :op_isPartOfBasin ?waterBasin .
+}
+```

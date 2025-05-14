@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific evaluation statement with a specific doctor and employee. The ontology defines the relationships between doctors, employees, and evaluation statements, but it does not specify how to query for a particular evaluation statement given by a certain doctor for a certain employee. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?doctor ?employee ?evaluationStatement
+WHERE {
+  ?doctor a :Doctor .
+  ?doctor :hasEvaluation ?evaluationStatement .
+  ?evaluationStatement :evaluationOf ?employee .
+}
+```

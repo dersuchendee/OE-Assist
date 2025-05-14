@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?process ?cvn ?cvnLabel
+WHERE {
+  ?process a :Process .
+  ?process :isProcessOf ?cvn .
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+}
+ORDER BY ?process
+```

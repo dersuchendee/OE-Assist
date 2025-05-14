@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not contain any information about the employment of a person at a hospital, specifically the start date of employment. The ontology only contains information about medical degrees, study periods, and other related data. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :degreeObtainedDate ?degreeObtainedDate .
+}
+```

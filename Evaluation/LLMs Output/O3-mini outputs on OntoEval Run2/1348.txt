@@ -1,0 +1,22 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each measurement instance (whether it is a ChemicalMeasurement or a PhysicalMeasurement), its spatial distribution and the area in which it is located:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?measurement ?measurementType ?spatialDistribution ?area
+WHERE {
+  {
+    ?measurement a :ChemicalMeasurement .
+    BIND("ChemicalMeasurement" AS ?measurementType)
+  } UNION {
+    ?measurement a :PhysicalMeasurement .
+    BIND("PhysicalMeasurement" AS ?measurementType)
+  }
+  ?measurement :hasSpatialDistribution ?spatialDistribution .
+  ?measurement :locatedInArea ?area .
+}
+--------------------------------------------------
+
+This query shows how the ontology models the distribution of chemical and physical measurements across different areas by linking each measurement to its spatial distribution and the area in which it is located.

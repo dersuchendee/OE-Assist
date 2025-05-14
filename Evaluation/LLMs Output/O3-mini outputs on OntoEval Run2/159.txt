@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the city name for a given theatre using the ontology’s reification of location:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?theatre ?theatreLabel ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  
+  ?theatre :locatedIn ?location .
+  ?location :cityName ?cityName .
+}
+-----------------------------------------------------------
+
+Under the closed world assumption, if a theatre does not have a linked location (and thus no recorded cityName) it will not be returned. This correctly reflects the CQ “In what city is a certain theatre located?” since only theatres with an explicitly modeled location are answerable.

@@ -1,0 +1,19 @@
+**Yes**
+
+We can retrieve the writing time period of a play through the property :writtenDuring that links a play (instance of :Cl_Play) to its time period (instance of :Cl_TimePeriod). For example:
+
+----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?timePeriodValue
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName ;
+        :writtenDuring ?timePeriod .
+  ?timePeriod :timePeriod ?timePeriodValue .
+}
+ORDER BY ?play
+----------------------------------------------
+
+This query returns each play, its name, and the time period value during which it was written (e.g. “1596-1598” for The Merchant of Venice).

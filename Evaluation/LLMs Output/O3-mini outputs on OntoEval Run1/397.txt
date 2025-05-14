@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premiere) AS ?premiereCount)
+WHERE {
+  ?production a :Production .
+  ?production :hasPremiere ?premiere .
+}
+GROUP BY ?production
+HAVING (?premiereCount = 1)
+```

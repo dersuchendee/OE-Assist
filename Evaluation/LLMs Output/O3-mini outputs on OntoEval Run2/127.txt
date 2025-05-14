@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, returns the plays associated with each theatre festival (i.e. “what plays could be seen during a certain theatre festival”). Notice that the query assumes that a theatre festival individual is connected to its plays via the property “hasPlay” and that the necessary labels (or other distinguishing properties) are available.
+
+----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasPlay ?play .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+ORDER BY ?festival ?play
+----------------
+
+In this query the “closed‐world” assumption is enforced by assuming that the ontology contains all the necessary facts about a theatre festival’s plays.

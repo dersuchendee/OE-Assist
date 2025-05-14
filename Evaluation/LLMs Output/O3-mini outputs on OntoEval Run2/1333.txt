@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not explicitly capture a “role” for forest soil composition beyond the connection via the playsRoleIn property (which relates ForestSoilComposition to CO2FixationProcess and is only indirectly tied to Role through a subproperty axiom). Under the closed world assumption, we cannot fully answer “What role does forest soil composition play in the CO2 fixation process?” because there is no explicit link from ForestSoilComposition (or CO2FixationProcess) to an instance of Role. However, we can partially answer the CQ by retrieving forest soil composition instances that are linked to a CO2FixationProcess.
+
+Below is a SPARQL query that extracts the available information:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?forestSoilComposition ?process
+WHERE {
+  ?forestSoilComposition a :ForestSoilComposition .
+  ?forestSoilComposition :playsRoleIn ?process .
+  ?process a :CO2FixationProcess .
+} 
+
+This query returns the ForestSoilComposition instances and the corresponding CO2FixationProcess they are linked to, which is only a partial answer to the CQ.

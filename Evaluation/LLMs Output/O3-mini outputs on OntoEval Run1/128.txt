@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each theatre festival, the plays that are featured (i.e. the plays that “could be seen”):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :features ?play .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+ORDER BY ?festival ?playLabel
+--------------------------------------------------
+
+This query assumes the closed world, meaning only explicitly stated triples (such as a festival having a :features relationship with a play) are taken into account, which matches the ontology’s model.

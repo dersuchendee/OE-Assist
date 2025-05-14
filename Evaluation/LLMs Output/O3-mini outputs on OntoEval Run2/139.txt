@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for each theatre festival, the plays featured:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :featuresPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?festival ?play
+------------------------------------------------------------
+
+This query is answerable under the closed world assumption since the ontology explicitly relates theatre festivals and plays through the property :featuresPlay.

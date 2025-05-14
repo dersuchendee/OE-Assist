@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel. }
+  
+  ?seminar ns1:takesPlaceAt ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel. }
+  
+  OPTIONAL {
+    ?hospital ns1:locatedIn ?city .
+    OPTIONAL { ?city rdfs:label ?cityLabel. }
+  }
+  
+  # Assuming the "certain seminar" is identified by its URI, e.g.,
+  FILTER(?seminar = ns1:SeminarOnNewArticles)
+}
+```

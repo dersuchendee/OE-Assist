@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbialCommunity ?mcLabel ?process ?ecosystem ?ecosystemLabel
+WHERE {
+  ?microbialCommunity a :MicrobialCommunity .
+  OPTIONAL { ?microbialCommunity rdfs:label ?mcLabel . }
+  
+  ?microbialCommunity :involvedIn ?process .
+  ?process a :CO2Fixation .
+  
+  ?process :occursIn ?ecosystem .
+  ?ecosystem a :GroundwaterEcosystem .
+  OPTIONAL { ?ecosystem rdfs:label ?ecosystemLabel . }
+}
+ORDER BY ?microbialCommunity
+```

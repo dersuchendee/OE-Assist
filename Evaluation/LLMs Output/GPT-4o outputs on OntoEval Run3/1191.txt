@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine if an event is religious or secular based on the given competency question. The ontology defines classes for ReligiousEvent and SecularEvent, but there is no property or data that allows us to distinguish between the two for a given event instance. Therefore, a partial answer can be extracted by listing all events without specifying if they are religious or secular.
+
+```sparql
+SELECT ?event ?eventType
+WHERE {
+  ?event a :Event .
+  OPTIONAL {
+    ?event a ?eventType .
+    FILTER(?eventType IN (:ReligiousEvent, :SecularEvent))
+  }
+}
+```

@@ -1,0 +1,45 @@
+**Answer:** **Yes**
+
+**Explanation:**
+
+The Competency Question (CQ) is "Where did a certain festival take place?" We need to determine if this CQ can be answered using the provided ontology.
+
+**Analysis:**
+
+- The ontology includes the class `:Cl_TheatreFestival` representing festivals.
+- There is a class `:Cl_City` representing cities.
+- The object property `:tookPlaceIn` connects festivals to cities, with domain `:Cl_TheatreFestival` and range `:Cl_City`.
+- An individual festival `:RomaLovesShakespeare` is defined, which is an instance of `:Cl_TheatreFestival` and is connected via `:tookPlaceIn` to the city `:Rome`.
+
+Since the ontology contains the necessary classes, properties, and individuals to answer the question, the CQ is supported.
+
+**SPARQL Query:**
+
+To retrieve the city where a specific festival took place, you can use the following SPARQL query. Replace `:RomaLovesShakespeare` with the URI of the festival you're interested in.
+
+```sparql
+SELECT ?city
+WHERE {
+    :RomaLovesShakespeare :tookPlaceIn ?city .
+}
+```
+
+To retrieve all festivals and their locations, you can use:
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+    ?festival rdf:type :Cl_TheatreFestival .
+    ?festival :tookPlaceIn ?city .
+}
+```
+
+**Yes**
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+    ?festival rdf:type :Cl_TheatreFestival .
+    ?festival :tookPlaceIn ?city .
+}
+```

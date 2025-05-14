@@ -1,0 +1,41 @@
+**Yes**
+
+The competency question "What information is needed to collaborate and align processes?" can be answered using the ontology provided. The ontology defines a `CollaborationProcess` class that requires various types of information, such as `InfrastructureInfo`, `ProcessInfo`, `EnergyRecoveryInfo`, `StakeholderInfo`, `EnergyDemandSurplusInfo`, and `ValueInfo`. These are all the types of information needed for collaboration and process alignment.
+
+Here is a SPARQL query to extract the required information types for collaboration processes:
+
+```sparql
+SELECT ?infoType
+WHERE {
+  ?collaborationProcess a :CollaborationProcess .
+  {
+    ?collaborationProcess :requiresInfrastructureInfo ?info .
+    BIND("InfrastructureInfo" AS ?infoType)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresProcessInfo ?info .
+    BIND("ProcessInfo" AS ?infoType)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresEnergyRecoveryInfo ?info .
+    BIND("EnergyRecoveryInfo" AS ?infoType)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresStakeholderInfo ?info .
+    BIND("StakeholderInfo" AS ?infoType)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresEnergyDemandSurplusInfo ?info .
+    BIND("EnergyDemandSurplusInfo" AS ?infoType)
+  }
+  UNION
+  {
+    ?collaborationProcess :requiresValueInfo ?info .
+    BIND("ValueInfo" AS ?infoType)
+  }
+}
+```

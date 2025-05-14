@@ -1,0 +1,28 @@
+**Yes**
+
+Assuming the ontology “reifies” band membership (via the class Cl_BandMembership) with properties that connect a person to a band (using :memberOf and :hasMembership), record their role (via :hasRole) and indicate the period of the membership (using :membershipStart and, optionally, :membershipEnd), you can extract the role a given person has in a given band at a given time. For example, to query for the role of a specific person in a specific band at a given point in time, you could use a query like this:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person ;
+          :memberOf ?membership .
+  ?membership :hasMembership ?band ;
+              :hasRole ?role ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Bind the input parameters (adjust these IRIs and date as needed)
+  FILTER (?person = :AnthonyKiedis && ?band = :RedHotChiliPeppers)
+  
+  # Check that the membership period covers the target time.
+  # For example, if we want to know the role on "2005-01-01":
+  FILTER ( xsd:date("2005-01-01") >= ?membershipStart &&
+          ( !BOUND(?membershipEnd) || xsd:date("2005-01-01") <= ?membershipEnd ) )
+}
+------------------------------------------------------------
+
+This query retrieves the role (and the membership start/end dates) for a given person (here :AnthonyKiedis) in a given band (here :RedHotChiliPeppers) at a specified date (here "2005-01-01"). Thus, under the closed world assumption the CQ is fully answerable by the ontology.

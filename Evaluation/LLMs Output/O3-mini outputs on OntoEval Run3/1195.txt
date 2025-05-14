@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the CQ because the ontology explicitly models invitation (through the property isInvitedTo / hasInvitee) and the meeting’s accidental nature (through the isAccidental property on Meeting). Under the closed world assumption, we assume that if these properties are not explicitly stated, then the information is not available. The following SPARQL query retrieves all Meeting events along with whether each meeting was accidental and lists the persons who were invited to the meeting:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meeting ?isAccidental (GROUP_CONCAT(DISTINCT ?inviteeLabel; separator=", ") AS ?invitedPersons)
+WHERE {
+  ?meeting a :Meeting .
+  ?meeting :isAccidental ?isAccidental .
+  OPTIONAL {
+    ?meeting :hasInvitee ?invitee .
+    OPTIONAL { ?invitee rdfs:label ?inviteeLabel . }
+  }
+}
+GROUP BY ?meeting ?isAccidental
+
+This query extracts for each meeting whether it was accidental and which persons have been explicitly invited to it, thus fully addressing the CQ "Were they invited? Was the meeting accidental?"

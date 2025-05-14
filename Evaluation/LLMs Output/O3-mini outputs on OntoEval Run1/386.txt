@@ -1,0 +1,24 @@
+**Yes**  
+Below is an example SPARQL query that retrieves the role assignments for a given person in a given production at a specified point in time:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?roleName ?atTime ?production
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :hasRole ?roleAssignment .
+  ?roleAssignment :roleName ?roleName .
+  ?roleAssignment :roleInProduction ?production .
+  ?roleAssignment :atTime ?atTime .
+  
+  # Apply filters (closed world assumption: only explicitly asserted facts matter)
+  FILTER(?actor = :FabioBianchi &&
+         ?production = :MerchantOfVeniceProduction &&
+         ?atTime = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?atTime
+———————————————————————————————
+
+This query extracts the roles (their names) that a specified actor has in a specified production at the specified point in time, thus fully addressing the competency question.

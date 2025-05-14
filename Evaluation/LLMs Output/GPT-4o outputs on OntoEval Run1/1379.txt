@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct class or property that describes the "nature" of an event. The ontology includes classes and properties related to participants, locations, purposes, and time expressions of meetups, but it does not explicitly define a property or class for the "nature" of an event.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?meetup ?participant ?place ?purpose ?time
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup mtps:hasParticipant ?participant . }
+  OPTIONAL { ?meetup mtps:hasPlace ?place . }
+  OPTIONAL { ?meetup mtps:hasAPurpose ?purpose . }
+  OPTIONAL { ?meetup mtps:happensAt ?time . }
+}
+```

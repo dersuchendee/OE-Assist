@@ -1,0 +1,15 @@
+**Yes**
+Below is one example SPARQL query that retrieves the location at which a chosen seminar took place. In this query we assume that a seminar is connected to a seminar event using the property P_isOccurrenceOf and that the event is linked to a location using the property P_occursAt.
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?seminar ?location
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminarEvent :P_isOccurrenceOf ?seminar .
+  ?seminarEvent :P_occursAt ?location .
+}
+------------------------------------------------------
+
+This query returns, for each seminar, the corresponding location where its seminar event occurred, thereby answering the CQ under the closed world assumption.

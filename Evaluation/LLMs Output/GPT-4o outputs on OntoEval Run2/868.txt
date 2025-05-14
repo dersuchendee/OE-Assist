@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "In what country is a certain city located?" can be answered using the given ontology. The ontology provides the necessary classes and properties to determine the country in which a city is located. Specifically, the `:isInCountry` object property connects a `:Cl_Location` (which can represent a city) to a `:Cl_Country`.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?cityName ?countryName
+WHERE {
+  ?city a :Cl_Location ;
+        :cityName ?cityName ;
+        :isInCountry ?country .
+  ?country :countryName ?countryName .
+}
+```

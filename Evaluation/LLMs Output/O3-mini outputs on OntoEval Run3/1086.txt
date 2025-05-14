@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the location for seminars from the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?seminarLocation
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarLocation ?seminarLocation .
+}
+--------------------------------------------------
+
+Under the closed world assumption, this query returns the location (as stored in the :seminarLocation data property) for any instance of :Cl_Seminar, thereby answering the CQ "Where did a certain seminar take place?"

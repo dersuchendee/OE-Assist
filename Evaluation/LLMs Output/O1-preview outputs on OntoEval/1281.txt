@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  ?person a :Person .
+  ?person :hasEvent ?event .
+  ?event a :ResidenceEvent .
+  ?event :atLocation ?location .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

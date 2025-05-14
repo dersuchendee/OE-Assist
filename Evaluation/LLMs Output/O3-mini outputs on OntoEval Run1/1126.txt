@@ -1,0 +1,15 @@
+**No**
+
+The ontology only defines the property :providesService with a domain of :Cl_WeatherService and a range of :Cl_PersonalizedWeatherInformation, but it does not define individuals or assertions that would let us fully answer which weather service (for instance, "www.yr.no" or the configuration "for Berlin with the current 3-day prognosis") provides the personalized weather information. Under the closed world assumption, we assume that no further information is available beyond what is explicitly stated. Therefore, while we can extract any available instances of a weather service providing personalized information, the full answer required by the competency question is not modelled in the ontology.
+
+A SPARQL query to extract a partial answer would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?weatherService ?personalizedInfo
+WHERE {
+  ?weatherService a :Cl_WeatherService .
+  ?weatherService :providesService ?personalizedInfo .
+}

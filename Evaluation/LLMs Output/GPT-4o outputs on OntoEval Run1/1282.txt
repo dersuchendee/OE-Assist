@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question "Did musician X and performer Y ever meet? Where, when, and why?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to determine if a meeting occurred between a musician and a performer, as well as the location, time, and reason for the meeting.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?meeting ?location ?time ?reason
+WHERE {
+  ?meeting a :Meeting .
+  ?meeting :hasParticipant ?musician .
+  ?meeting :hasParticipant ?performer .
+  ?musician a :Musician .
+  ?performer a :Performer .
+  ?meeting :hasLocation ?location .
+  ?meeting :hasTime ?time .
+  ?meeting :hasReason ?reason .
+}
+```

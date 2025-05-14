@@ -1,0 +1,26 @@
+**No**
+
+The ontology only records ensemble membership via the property :hasMember and does not tie the membership directly to a specific time. Although there is time information in the ontology (through roles with the property :roleAtTime), this time stamp is attached to a person’s role (via :hasRole and :roleAtTime) in a production—not directly to the ensemble membership. Under a closed‐world assumption the ontology does not support the full temporal aspect of “membership at a certain point in time.” Therefore, we can only partially answer the CQ (by listing ensemble members regardless of time, and optionally including any role instance with time, if available).
+
+A partial SPARQL query is given below:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?ensemble ?member ?roleTime
+WHERE {
+  ?ensemble a :Cl_Ensemble.
+  ?ensemble :hasMember ?member.
+  
+  OPTIONAL {
+    ?member :hasRole ?role.
+    ?role :roleAtTime ?roleTime.
+    FILTER(?roleTime = "2009-09-15"^^xsd:date)  # Example specific date
+  }
+  # You can filter for a specific ensemble if desired:
+  # FILTER(?ensemble = <http://www.example.org/test#Ensemble_X>)
+}
+---------------------------------
+
+This query returns the members of each ensemble along with any role-based date information (if available) that might match the given point in time.

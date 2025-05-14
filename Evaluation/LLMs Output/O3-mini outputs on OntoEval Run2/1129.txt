@@ -1,0 +1,46 @@
+**Yes**
+Below is a SPARQL query that retrieves the weather service’s attributes – its provided location, associated forecast with its time period, along with its temperature, wind, and precipitation details:
+
+--------------------------------------------------
+
+PREFIX : <http://example.org/ontology/weather#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?weatherService ?serviceLabel ?location ?locLabel ?forecast ?forecastLabel ?timePeriod 
+       ?temperature ?tempValue ?tempUnit 
+       ?wind ?windValue ?windUnit 
+       ?precipitation ?precipValue ?precipUnit
+WHERE {
+  ?weatherService a :WeatherService .
+  OPTIONAL { ?weatherService rdfs:label ?serviceLabel . }
+  
+  ?weatherService :providesForecastFor ?location .
+  OPTIONAL { ?location rdfs:label ?locLabel . }
+  
+  ?location :hasForecast ?forecast .
+  OPTIONAL { ?forecast rdfs:label ?forecastLabel . }
+  ?forecast :hasTimePeriod ?timePeriod .
+  
+  OPTIONAL {
+    ?forecast :hasTemperature ?temperature .
+    ?temperature :hasValue ?tempValue .
+    ?temperature :hasUnit ?tempUnit .
+  }
+  
+  OPTIONAL {
+    ?forecast :hasWind ?wind .
+    ?wind :hasValue ?windValue .
+    ?wind :hasUnit ?windUnit .
+  }
+  
+  OPTIONAL {
+    ?forecast :hasPrecipitation ?precipitation .
+    ?precipitation :hasValue ?precipValue .
+    ?precipitation :hasUnit ?precipUnit .
+  }
+}
+ORDER BY ?weatherService
+
+--------------------------------------------------
+
+This query extracts all the attributes of the weather service as specified in the ontology and supported by the operational story.

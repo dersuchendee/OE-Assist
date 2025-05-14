@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not model the temporal dimension (i.e. the point in time) or time-qualified role assignments within a band membership. Therefore, while it is possible to retrieve the roles that persons have when associated with bands, there is no information that allows us to answer the CQ “What role does a certain person have in a certain band at a certain point in time?” in full. Under the closed world assumption, the missing temporal modeling prevents a complete answer.
+
+Below is a partial SPARQL query that retrieves the band membership and role information:
+
+PREFIX ex: <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?band ?bandName ?role ?roleName
+WHERE {
+  ?band a ex:Band ;
+        ex:hasMember ?person ;
+        rdfs:label ?bandName .
+  ?person ex:hasName ?personName ;
+          ex:hasRole ?role .
+  ?role rdfs:label ?roleName .
+}
+
+This query answers which role a person has in a band, but it does not capture any temporal aspect because the ontology lacks any time-related properties for role assignments.

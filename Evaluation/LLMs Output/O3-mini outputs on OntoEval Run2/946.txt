@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming you can bind the specific doctor and employee of interest (e.g., via their URIs), you can write a SPARQL query to retrieve the evaluation statement as follows:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement ?evaluationDate
+WHERE {
+  ?record a :Cl_EvaluationRecord ;
+          :hasDoctor ?doctor ;
+          :hasEmployee ?employee ;
+          :hasEvaluationStatement ?evaluationStatement .
+  OPTIONAL { ?record :evaluationDate ?evaluationDate . }
+  # Replace the placeholders with the specific URIs for the doctor and the employee:
+  FILTER(?doctor = <http://www.example.org/test#DoctorURI> && ?employee = <http://www.example.org/test#EmployeeURI>)
+}
+--------------------------------
+
+This query shows that the ontology models the CQ under a closed world assumption since evaluation records link a doctor, an employee, and their evaluation statement.

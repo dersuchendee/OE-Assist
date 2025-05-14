@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that the “certain festival” is identified by its URI (or can be filtered by a literal representing its name), the following SPARQL query shows how to extract the location of a theatre festival using the ontology’s :hasLocation property (with the closed world assumption):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasLocation ?location .
+  # Optionally, restrict to the specific festival, e.g.:
+  # FILTER(?festival = <http://www.example.org/test#RomaLovesShakespeare>)
+}
+
+This query retrieves the URI of the festival along with its associated location, thereby fully supporting the competency question: “Where did a certain festival take place?”

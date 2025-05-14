@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT ?book ?numPages
+WHERE {
+  ?book rdf:type :Cl_Book .
+  ?book :hasBookDetails ?details .
+  ?details :hasNumberOfPages ?numPages .
+}
+```
+
+The given ontology contains all the necessary information to answer the competency question. We can retrieve the number of pages for a particular book by following the relationships defined:
+
+- **:Cl_Book** represents books in the ontology.
+- Each book has a **:hasBookDetails** property linking it to its details.
+- The book details have a **:hasNumberOfPages** property that specifies the number of pages.
+
+By querying for instances of **:Cl_Book** and navigating through **:hasBookDetails** to **:hasNumberOfPages**, we can obtain the number of pages for each book present in the ontology.

@@ -1,0 +1,28 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology includes information about the user's preferences, including preferred activities, genres, and weather conditions. This allows us to query what the user prefers to do in specific situations.
+
+```sparql
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?activityLabel ?weatherLabel ?genreLabel
+WHERE {
+  :user123 :hasPreference ?preference .
+  
+  OPTIONAL {
+    ?preference :prefersActivity ?activity .
+    ?activity rdfs:label ?activityLabel .
+  }
+  
+  OPTIONAL {
+    ?preference :prefersWeather ?weather .
+    ?weather rdfs:label ?weatherLabel .
+  }
+  
+  OPTIONAL {
+    ?preference :prefersGenre ?genre .
+    ?genre rdfs:label ?genreLabel .
+  }
+}
+```

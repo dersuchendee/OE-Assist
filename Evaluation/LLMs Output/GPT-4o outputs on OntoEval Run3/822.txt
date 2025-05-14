@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about the employment start date of a person at a hospital. The closest information available is the employment start date of an employment instance, but it is not directly linked to a specific person and hospital in a way that answers the competency question. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?employment ?employmentStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasEmployment ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```

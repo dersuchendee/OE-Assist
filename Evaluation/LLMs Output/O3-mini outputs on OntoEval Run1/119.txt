@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, will extract the plays featured in a given theatre festival (e.g., "Roma Loves Shakespeare"):
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasName ?festivalName ;
+            :hasProduction ?appearance .
+  ?appearance :featuresPlay ?play .
+  ?play :hasName ?playName .
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+--------------------------------------------------------------
+
+This query uses the reified relationship (through the :hasProduction and :featuresPlay properties) to retrieve the plays available during the selected festival.

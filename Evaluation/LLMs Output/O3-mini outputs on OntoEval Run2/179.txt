@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that returns the country for a given city (in this example, filtering for “Rome”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?cityLabel ?countryLabel
+WHERE {
+  ?city a :Cl_City ;
+        rdfs:label ?cityLabel ;
+        :cityInCountry ?country .
+  ?country rdfs:label ?countryLabel .
+  FILTER(lcase(?cityLabel) = "rome")
+}
+
+This query shows that the ontology models the relationship using the property “:cityInCountry”, making the CQ answerable.

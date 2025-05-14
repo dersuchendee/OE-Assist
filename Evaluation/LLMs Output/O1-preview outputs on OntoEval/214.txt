@@ -1,0 +1,26 @@
+**No**
+
+The ontology does not provide sufficient data to answer the CQ fully. Specifically, there are no instances of `ns1:Ensemble`, and therefore we cannot directly retrieve members of a certain ensemble at a specific point in time. However, we can extract a partial answer by finding individuals who have roles in a production at a given time, which may indirectly represent ensemble membership.
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?individual ?individualLabel ?roleLabel ?productionLabel ?time
+WHERE {
+  ?individual a ns1:Person ;
+              ns1:hasTimeIndexedRole ?timeIndexedRole .
+  ?timeIndexedRole ns1:hasRole ?role ;
+                   ns1:atTime ?time .
+  ?role ns1:inProduction ?production .
+  
+  OPTIONAL { ?individual rdfs:label ?individualLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  FILTER (?time = "2009-09-07T00:00:00+00:00"^^xsd:dateTime)
+}
+```
+
+This query retrieves individuals (actors) who have a role in a production at a specific time. While it does not directly reference ensembles, it provides information about the actors involved in a production at a given time, which may be helpful for partially answering the CQ.

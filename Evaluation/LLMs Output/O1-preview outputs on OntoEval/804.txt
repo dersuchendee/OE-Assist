@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?person ?degreeName ?startDate ?endDate
+WHERE {
+  ?person rdf:type :Cl_Person .
+
+  ?personMedicalDegree rdf:type :Cl_PersonMedicalDegree ;
+                       :heldBy ?person ;
+                       :degreeOf ?degree ;
+                       :studiedDuring ?studyPeriod .
+
+  ?degree rdf:type :Cl_MedicalDegree ;
+          :degreeName ?degreeName .
+
+  ?studyPeriod rdf:type :Cl_StudyPeriod ;
+               :startDate ?startDate ;
+               :endDate ?endDate .
+}
+```

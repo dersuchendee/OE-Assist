@@ -1,0 +1,40 @@
+**Yes**
+
+Below is a SPARQL query that, given a person, a production, and a point in time, retrieves the roles that the person has in that production when the point in time falls between the assignment’s start and end dates.
+
+For example, you could write:
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?production ?role ?roleLabel ?start ?end
+WHERE {
+  # Bind a specific point in time (this can be changed as needed)
+  BIND(xsd:date("2009-09-15") AS ?checkDate)
+  
+  # Identify the actor (replace :FabioBianchi with the desired individual IRI)
+  ?person a :Cl_Actor .
+  FILTER(?person = :FabioBianchi) .
+  
+  # Link the actor to his role assignments
+  ?person :op_roleOf ?roleAssignment .
+  
+  # Ensure the assignment refers to a role and a production
+  ?roleAssignment :op_hasRole ?role .
+  ?roleAssignment :op_roleInProduction ?production .
+  
+  # Get the start and end dates of the role assignment
+  ?roleAssignment :dp_startDate ?start .
+  ?roleAssignment :dp_endDate ?end .
+  
+  # Check if the given point in time falls within the role’s duration
+  FILTER(?checkDate >= ?start && ?checkDate <= ?end) .
+  
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+ORDER BY ?person ?production ?start
+----------------------------------------
+
+This query demonstrates that the CQ "What roles does a certain person have within a certain production at a certain point in time?" is fully answerable by the ontology under a closed world assumption, as all required classes and properties (Cl_Actor, Cl_RoleAssignment, Cl_Role, Cl_TheatreProduction, and the time qualifiers dp_startDate and dp_endDate) are present and connected.

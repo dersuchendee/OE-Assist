@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct class or property that describes the "nature" of an event. The ontology focuses on meetups, participants, locations, purposes, and time expressions, but it does not explicitly define what constitutes the "nature" of an event. Therefore, a SPARQL query can only extract partial information related to meetups, such as participants, locations, and purposes.
+
+```sparql
+SELECT ?meetup ?participant ?place ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup mtps:hasParticipant ?participant . }
+  OPTIONAL { ?meetup mtps:hasPlace ?place . }
+  OPTIONAL { ?meetup mtps:hasAPurpose ?purpose . }
+}
+```

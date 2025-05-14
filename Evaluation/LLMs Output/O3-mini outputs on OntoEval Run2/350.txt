@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorLabel ?theatreLabel ?employmentStartDate
+WHERE {
+  ?employment a :Employment ;
+              :hasActor ?actor ;
+              :employedAt ?theatre ;
+              :employmentStartDate ?employmentStartDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  FILTER(?actor = :FabioBianchi && ?theatre = :GrandTheatre)
+}
+```

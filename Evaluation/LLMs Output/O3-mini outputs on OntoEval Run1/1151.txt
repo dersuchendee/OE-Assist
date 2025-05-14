@@ -1,0 +1,26 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?user ?userLabel ?event ?eventLabel ?freeTimeSlot ?weatherCondition ?weatherLabel
+WHERE {
+  # Select a user (e.g., JohnDoe)
+  ?user a :User .
+  OPTIONAL { ?user rdfs:label ?userLabel . }
+  
+  # Retrieve the user's calendar free time slot
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasFreeTimeSlot ?freeTimeSlot .
+
+  # Retrieve the weather condition associated with the free time slot
+  ?freeTimeSlot :hasWeatherCondition ?weatherCondition .
+  OPTIONAL { ?weatherCondition rdfs:label ?weatherLabel . }
+  
+  # Find an event that occurs during the free time slot and is marked as suitable for the user
+  ?event a :Event ;
+         :occursDuring ?freeTimeSlot ;
+         :isSuitableFor ?user .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+```

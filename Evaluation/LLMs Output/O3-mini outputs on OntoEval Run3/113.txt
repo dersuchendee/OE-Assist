@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that “a certain festival” is represented as an instance of Cl_TheatreFestival that is connected via the object property :hasLocation to an instance of Cl_FestivalLocation (which in turn provides the information through the :locationName data property), you can extract “where” information with the following query under a closed world assumption:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasLocation ?loc .
+  ?loc :locationName ?locationName .
+}
+
+This query finds all the festivals together with the names of their associated locations.

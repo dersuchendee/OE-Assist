@@ -1,0 +1,18 @@
+**Yes**
+Below is one possible SPARQL query that retrieves a given city’s country by following the declared object property (:locatedIn) from a city (an instance of :Cl_City) to its country, and then extracting its name via the data property (:countryName):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?countryName
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?country .
+  ?country :countryName ?countryName .
+  # Optionally restrict to a particular city (e.g., Roman "Rome") 
+  # FILTER(?city = :Rome)
+}  
+
+In a closed‐world interpretation the ontology provides enough axioms (via the reification and property declarations) so that the answer to “In what country is a certain city located?” can be fully extracted using the query above.

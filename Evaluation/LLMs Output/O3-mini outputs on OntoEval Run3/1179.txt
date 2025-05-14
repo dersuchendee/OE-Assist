@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one SPARQL query that distinguishes a set of bells by whether they are played manually, electrically, or both, by checking the ontology’s defined classes:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?setOfBells ?playType
+WHERE {
+  {
+    ?setOfBells a :SetOfBellsPlayedManuallyAndElectrically .
+    BIND("Manually and Electrically" AS ?playType)
+  }
+  UNION
+  {
+    ?setOfBells a :SetOfBellsPlayedManually .
+    BIND("Manually" AS ?playType)
+  }
+  UNION
+  {
+    ?setOfBells a :SetOfBellsPlayedElectrically .
+    BIND("Electrically" AS ?playType)
+  }
+}
+ORDER BY ?setOfBells
+
+In this query we assume a closed world where only the explicitly asserted types exist. This retrieves the set of bells classified by the play method used, thereby answering the CQ.

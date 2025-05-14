@@ -1,0 +1,17 @@
+**No**
+
+The given ontology defines that an album (`:Cl_Album`) has tracks (`:Cl_Track`) via the `:hasTrack` property, and it specifies that an album must have at least one track using a minimum cardinality restriction. However, the ontology does not include any instances (individual albums or tracks) or specific cardinalities indicating how many tracks a particular album contains.
+
+Under the closed world assumption, we cannot infer the exact number of tracks for a particular album because this information is not present in the ontology. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Here is a SPARQL query that attempts to extract partial information by listing albums and their associated tracks, but it will not yield the specific number of tracks per album without instance data:
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasTrack ?track .
+}
+```
+
+If there were instances of albums and tracks in the ontology, this query would list each album and its tracks, allowing us to count the number of tracks per album. However, since the ontology lacks this data, the competency question remains unsupported.

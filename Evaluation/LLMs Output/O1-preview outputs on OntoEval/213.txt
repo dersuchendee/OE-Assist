@@ -1,0 +1,27 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName
+WHERE {
+  # Replace :Ensemble1 with the specific ensemble of interest
+  # Replace "YYYY-MM-DD" with the specific date of interest
+  BIND (:Ensemble1 AS ?ensemble)
+  BIND ("YYYY-MM-DD"^^xsd:date AS ?date)
+
+  ?ensembleMembership a :Cl_EnsembleMembership ;
+                      :membershipOf ?ensemble ;
+                      :member ?actor ;
+                      :membershipStartDate ?startDate .
+
+  OPTIONAL { ?ensembleMembership :membershipEndDate ?endDate . }
+
+  ?actor :hasName ?actorName .
+
+  FILTER (?startDate <= ?date && (!bound(?endDate) || ?endDate >= ?date))
+}
+```
+
+This query retrieves all actors who are members of a specific ensemble at a given point in time. It checks if the membership start date is on or before the specified date and that the membership end date is either not specified or on or after the specified date.

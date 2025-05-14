@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to connect hospitalisation rates to specific diseases or to determine when these rates are registered. The ontology includes classes for `HospitalizationRate`, `Disease`, and `EnvironmentalFactor`, but it lacks a direct connection to specific instances or events that would allow us to answer the competency question fully. However, we can extract partial information about hospitalisation rates and their registration dates.
+
+```sparql
+SELECT ?hospitalizationRate ?registrationDate
+WHERE {
+  ?hospitalizationRate a :HospitalizationRate .
+  ?hospitalizationRate :hasRegistrationDate ?registrationDate .
+}
+```

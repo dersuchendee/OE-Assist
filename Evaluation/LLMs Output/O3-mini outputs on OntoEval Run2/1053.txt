@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for a given seminar, the articles presented in that seminar. In this query the seminar is specified as a parameter (here given as :SeminarOnNursePractices):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle ?seminar ?seminarDate
+WHERE {
+  ?article a :Cl_Article ;
+           :articleTitle ?articleTitle ;
+           :presentedIn ?presentation .
+  ?presentation :presentationOf ?seminar .
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+  
+  FILTER(?seminar = :SeminarOnNursePractices)
+}

@@ -1,0 +1,19 @@
+**No**
+
+The provided ontology does not include any property or information regarding the weight of a bell. Therefore, while we can retrieve bells and their labels (if available), we cannot directly extract the bell’s weight from the ontology. Here’s a SPARQL query that returns the available bells and attempts to retrieve a weight value if one were explicitly provided (using a property such as bells:hasWeight). Under the closed world assumption, only explicitly stated information would be returned.
+
+--------------------------------------------------
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bell ?bellLabel ?weight
+WHERE {
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel . }
+  OPTIONAL { ?bell bells:hasWeight ?weight . }
+}
+
+--------------------------------------------------
+
+Since no weight property is defined in the ontology, the query will only provide partial answers (i.e. details about the bells without their weight).

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate plays with specific theatre festivals. The ontology includes classes and properties related to theatre festivals, plays, and productions, but it lacks a direct connection between a specific festival and the plays that can be seen during that festival. Therefore, a partial answer can be extracted by listing the plays associated with the festival, but it does not confirm if they were seen during the festival.
+
+```sparql
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasPlay ?play .
+  ?play :playName ?playName .
+}
+```

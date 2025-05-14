@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the roles a given person has in a given production at a given point in time. In this query the individual URIs for a specific person, production, and time point are bound as parameters (e.g. using VALUES or FILTER) so that the reified role assignment (via the class Cl_RoleAssignment) can be used to answer the competency question.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+ 
+SELECT ?role ?roleLabel
+WHERE {
+  # Bind the individual of interest (replace the URIs with the actual ones)
+  VALUES ?person { :PersonXYZ }  
+  VALUES ?production { :ProductionXYZ }  
+  VALUES ?timePoint { :TimePointXYZ }  
+
+  ?person a :Cl_Person ;
+          :assignedRoleAssignment ?roleAssignment .
+
+  ?roleAssignment :roleAssignmentOfRole ?role ;
+                  :roleAssignmentInProduction ?production ;
+                  :roleAssignmentAtTimePoint ?timePoint .
+
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+--------------------------------------------------
+
+This query traverses the reification structure as modeled by the ontology, connecting a Cl_Person with a Cl_RoleAssignment, and from there retrieving the associated Cl_Role (and its optional label) that the person performs in the specified production at the given time point.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the city in which a theatre is located. The ontology includes a property `:isLocatedIn` that relates a theatre to a city, but there is no direct connection between a specific theatre and a city instance in the provided ontology. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre :isLocatedIn ?city . }
+}
+```

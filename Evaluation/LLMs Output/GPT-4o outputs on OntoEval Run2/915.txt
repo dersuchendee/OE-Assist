@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "What role does a certain person have within a certain union group at a certain point in time?" can be answered using the given ontology. The ontology provides the necessary classes and properties to model the relationship between a person, their union membership, and the role they hold within the union, including the time period for which they hold the role.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?union ?role ?roleTitle ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :isMemberOf ?unionMembership .
+  ?unionMembership :membershipInUnion ?union .
+  ?unionMembership :hasUnionRole ?role .
+  ?role :unionRoleTitle ?roleTitle .
+  ?role :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+}
+```

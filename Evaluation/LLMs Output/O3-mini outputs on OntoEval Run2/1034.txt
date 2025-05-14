@@ -1,0 +1,12 @@
+**Yes**
+
+The following SPARQL query extracts the date for the seminar(s) by using the seminarDate data property on instances of Cl_Seminar:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}

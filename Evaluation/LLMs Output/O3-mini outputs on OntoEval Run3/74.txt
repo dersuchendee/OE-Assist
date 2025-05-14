@@ -1,0 +1,16 @@
+**Yes**
+Below is one SPARQL query that extracts the date for a specified theatre festival (in this example, “Roma Loves Shakespeare”):
+
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?name ?date
+WHERE {
+  ?festival a :TheatreFestival ;
+            :hasName ?name ;
+            :hasDate ?date .
+  FILTER(?name = "Roma Loves Shakespeare"@en)
+}
+
+This query works under the closed world assumption of the ontology and retrieves the date on which the chosen theatre festival took place.

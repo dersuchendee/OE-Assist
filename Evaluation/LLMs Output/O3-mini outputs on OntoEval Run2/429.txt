@@ -1,0 +1,23 @@
+**Yes**
+
+We assume that instrument playing is reified in the ontology via the class Cl_InstrumentPlaying. In this pattern a person (instance of Cl_Person) has a playsInstrument property whose value is an instance of Cl_InstrumentPlaying. Because Cl_InstrumentPlaying is defined as a subclass of both Cl_Person and Cl_Instrument, any instance of it carries the dual role of indicating both the person’s participation and the instrument involved. Under a closed world assumption, we expect that all instrument–playing information is made explicit by the playsInstrument property.
+
+An example SPARQL query to extract the instruments that a particular person (identified by a URI, here represented as ?person) plays would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :playsInstrument ?instPlaying .
+  ?instPlaying a :Cl_InstrumentPlaying .
+  # Since Cl_InstrumentPlaying is also a subclass of Cl_Instrument,
+  # it represents the instrument played:
+  BIND(?instPlaying AS ?instrument) 
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+  
+This query retrieves the given person’s URI and label, along with the corresponding instrument (from the reified InstrumentPlaying instance) and its label.

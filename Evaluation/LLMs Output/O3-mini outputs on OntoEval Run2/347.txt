@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves the star rating given by a newspaper for a production. In this query we assume that the production review (an instance of Cl_ProductionReview) links a production (an instance of Cl_Production) with a newspaper (an instance of Cl_Newspaper) through the properties :reviews and :reviewedBy, and that the review has a star rating via the data property :starRating.
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :reviews ?review .
+  ?review :starRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  
+  # Optionally, filter by a specific production or newspaper using their labels or IDs
+  # e.g., FILTER(CONTAINS(LCASE(STR(?productionLabel)), "merchant of venice"))
+  #       ?production rdfs:label ?productionLabel .
+  #       ?newspaper rdfs:label ?newspaperLabel .
+  #       FILTER(CONTAINS(LCASE(STR(?newspaperLabel)), "il gazzettino"))
+}
+
+─────────────────────────────
+
+This query answers the competency question under the closed world assumption—the ontology contains all necessary assertions to extract the star rating for a production review linked to a newspaper.

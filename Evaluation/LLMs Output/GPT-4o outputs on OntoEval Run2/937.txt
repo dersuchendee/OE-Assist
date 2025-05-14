@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to retrieve evaluation statements given by a doctor for a specific employee. The ontology includes classes and properties related to people, medical degrees, employment, and union memberships, but it lacks the necessary connections between doctors, employees, and evaluation statements.
+
+However, a partial answer can be extracted by identifying employees and evaluation statements, but without the specific connection to doctors:
+
+```sparql
+SELECT ?employee ?evaluationText
+WHERE {
+  ?employee a :Cl_Employee .
+  ?evaluationStatement a :Cl_EvaluationStatement .
+  ?evaluationStatement :givenTo ?employee .
+  OPTIONAL { ?evaluationStatement :evaluationText ?evaluationText . }
+}
+```

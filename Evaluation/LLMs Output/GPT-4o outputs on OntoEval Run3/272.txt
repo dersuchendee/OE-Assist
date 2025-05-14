@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide explicit information about the time period during which a play was written. However, it does include a property `:writtenDuring` that links a play to a time period. We can extract this partial information using the following SPARQL query:
+
+```sparql
+SELECT ?play ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play .
+  ?play :playName ?playName .
+  ?play :writtenDuring ?timePeriodResource .
+  ?timePeriodResource :timePeriod ?timePeriod .
+}
+```

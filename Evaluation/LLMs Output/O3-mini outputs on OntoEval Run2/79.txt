@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming we have an individual representing the target festival (e.g. with the name "Roma Loves Shakespeare"), we can write a SPARQL query that retrieves its associated time period (start and end dates) via the property :takesPlaceDuring used in the ontology. Under the closed‐world assumption only explicit information is returned, so if the festival individual has explicit date properties then the query will return an answer.
+
+Below is an example query:
+
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?name ?startDate ?endDate
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :hasName ?name .
+  FILTER(?name = "Roma Loves Shakespeare") .
+  ?festival :takesPlaceDuring ?timePeriod .
+  ?timePeriod :hasStartDate ?startDate .
+  ?timePeriod :hasEndDate ?endDate .
+}
+
+This query extracts the festival (by filtering for its name), then finds its associated time period by following the :takesPlaceDuring relation and retrieving the start and end dates defined via the :hasStartDate and :hasEndDate data properties.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any direct information about actors, theatres, or employment start dates. Therefore, the competency question cannot be fully answered using the given ontology. However, a partial answer can be extracted by querying for any employment-related data that might exist, even though it is not explicitly modeled in the ontology.
+
+```sparql
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?theatre a :Cl_Theatre .
+  ?actor :isEmployedAt ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```

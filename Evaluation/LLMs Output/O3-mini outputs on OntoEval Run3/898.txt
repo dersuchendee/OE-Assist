@@ -1,0 +1,33 @@
+**Yes**
+
+Assuming that union membership is reified using the class Cl_PersonUnionMembership and that the period during which the membership holds is captured by a reified “membership period” (with, for example, properties :membershipStart and :membershipEnd), one can answer “Who are the members of a certain union at a certain point in time?” with a SPARQL query such as:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?union ?unionLabel ?member ?memberLabel ?membershipStart ?membershipEnd
+WHERE {
+  ?membership a :Cl_PersonUnionMembership .
+  
+  ?membership :personMemberOfUnion ?member .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  ?membership :unionHasMember ?union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  
+  ?membership :membershipDuring ?period .
+  ?period :membershipStart ?membershipStart .
+  ?period :membershipEnd ?membershipEnd .
+  
+  # Restrict to a given union (e.g., MaleNursesUnion)
+  FILTER (?union = <http://www.example.org/test#MaleNursesUnion>) .
+  
+  # Restrict to memberships active at a given point of time (e.g., June 1, 2002)
+  FILTER ( xsd:date("2002-06-01") >= ?membershipStart && xsd:date("2002-06-01") <= ?membershipEnd )
+}
+ORDER BY ?member
+--------------------------------------------------
+
+This query extracts the union, its label, the member and their label, and the start/end dates of the membership period. By supplying the appropriate union IRI and date filters, the CQ is fully answerable via the ontology.

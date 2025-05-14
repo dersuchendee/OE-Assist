@@ -1,0 +1,34 @@
+Answer: **Yes**
+
+Here is a SPARQL query that retrieves the members of a specified band at a certain point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?membershipTime
+WHERE {
+  ?membership rdf:type :Cl_BandMembership ;
+              :memberOf :RedHotChiliPeppers ;
+              :hasMember ?member ;
+              :membershipTime ?membershipTime .
+  
+  FILTER (?membershipTime <= "YOUR_DATETIME_HERE"^^xsd:dateTime)
+  
+  OPTIONAL { ?member rdfs:label ?memberName . }
+}
+ORDER BY ?membershipTime
+```
+
+Replace `"YOUR_DATETIME_HERE"` with the specific date and time you're interested in, formatted according to `xsd:dateTime`. For example, to find the members as of January 1, 1990, use `"1990-01-01T00:00:00"`.
+
+This query works under the **closed world assumption**, meaning it assumes that if there is no information indicating a member has left the band, they are still considered a member after their `:membershipTime`. Since the ontology does not contain information about membership end dates, we select all members who joined on or before the specified date.
+
+**Explanation:**
+
+- The query looks for instances of `:Cl_BandMembership` where:
+  - The band is `:RedHotChiliPeppers`.
+  - The membership started on or before the specified date.
+- It retrieves the member (`?member`), their name (`?memberName`), and the membership start time (`?membershipTime`).
+- The `OPTIONAL` clause attempts to get the member's label if it exists.
+- The `ORDER BY` clause sorts the results by the membership start time.

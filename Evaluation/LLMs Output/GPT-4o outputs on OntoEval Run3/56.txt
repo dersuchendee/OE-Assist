@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What materials does a product consist of?" can be answered using the ontology provided. The ontology includes a `:consistsOf` object property that relates a `:Product` to the `:Material` it consists of. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?product ?productLabel ?material ?materialLabel
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+
+  ?product :consistsOf ?material .
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+}
+```

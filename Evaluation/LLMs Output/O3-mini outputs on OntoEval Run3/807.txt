@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that the ontology uses a reification pattern for linking a person and a degree via a study‐period (see the classes Cl_PersonDegreeStudy and Cl_StudyPeriod, along with the properties hasStudyPeriod, studyStartDate, and studyEndDate), one can write a SPARQL query that “joins” the person–degree reified instance with its study period and extracts the start and end dates. Under the closed‐world assumption (i.e. anything not stated is false), the relevant information will be explicitly asserted.
+
+For example, the following query retrieves for each such study record the individual (which in the reification pattern is simultaneously a Cl_Person and a Cl_MedicalDegree), plus its associated study start and end dates. (In practice you may filter on a specific person and/or degree by adding a FILTER clause.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?studyStartDate ?studyEndDate
+WHERE {
+  ?studyRecord a :Cl_PersonDegreeStudy ;
+               :hasStudyPeriod ?period .
+  ?period :studyStartDate ?studyStartDate ;
+          :studyEndDate ?studyEndDate .
+  # In the reification pattern, the study record is an instance of both Cl_Person and Cl_MedicalDegree,
+  # and can serve as the link to the studied degree for that person.
+  ?studyRecord a :Cl_Person ;
+               a :Cl_MedicalDegree .
+  BIND(?studyRecord AS ?person)
+}
+ORDER BY ?person ?studyStartDate
+------------------------------------------------
+
+This query shows that the competency question “During what time period did a certain person study for a specific degree?” is answerable by the ontology.

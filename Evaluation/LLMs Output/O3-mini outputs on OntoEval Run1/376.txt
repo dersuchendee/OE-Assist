@@ -1,0 +1,35 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given actor and production (which you can later parameterize), the roles played by that actor as well as the time (if available) at which the role is played. In this ontology the actor’s involvement in a production is “reified” via the RoleInProduction construct (using the property theatre:atTime).
+
+For example, the query below is written for actor theatre:FabioBianchi in production theatre:MerchantOfVeniceProduction:
+
+------------------------------------------------------------
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+
+SELECT ?actor ?actorLabel ?role ?roleLabel ?time
+WHERE {
+  # Select an actor with a given role and production involvement
+  ?actor rdf:type theatre:Actor ;
+         rdfs:label ?actorLabel ;
+         theatre:participatesIn theatre:MerchantOfVeniceProduction ;
+         theatre:hasRole ?role .
+  ?role rdfs:label ?roleLabel .
+  
+  # Optionally, if there is a reified RoleInProduction instance including time information
+  OPTIONAL {
+    ?roleInProd rdf:type theatre:RoleInProduction ;
+                theatre:isRoleOf ?actor ;
+                theatre:hasRoleInProduction theatre:MerchantOfVeniceProduction ;
+                theatre:atTime ?time .
+  }
+  
+  FILTER(?actor = theatre:FabioBianchi)
+}
+ORDER BY ?time
+------------------------------------------------------------
+
+In this query the filter restricts the answer to a specific person and production. (In an actual deployment you might replace the fixed IRIs with variables or use SPARQL parameters.)

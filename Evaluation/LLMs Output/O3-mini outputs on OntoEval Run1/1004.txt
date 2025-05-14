@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming we know which book or CD we wish to inspect (or else retrieving all such publications), a SPARQL query that answers “when was a certain book or CD published?” might be written as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?publication ?publicationDate
+WHERE {
+  ?publication a ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD)) .
+  ?publication :published ?pubObj .
+  ?pubObj :publicationDate ?publicationDate .
+}
+ORDER BY ?publication
+
+This query uses the ontology’s model for publications by retrieving instances of :Cl_Book or :Cl_CD, following the published relation to a publication object and then extracting its publicationDate.

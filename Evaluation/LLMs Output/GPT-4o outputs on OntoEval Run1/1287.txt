@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Who paid to support the event?" can be answered using the ontology provided. The ontology includes classes and properties that relate payments to events and identify the payer, which can be a person or an organization. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?event ?payer
+WHERE {
+  ?payment a :Payment .
+  ?payment :supportsEvent ?event .
+  ?payment :hasPayer ?payer .
+}
+```

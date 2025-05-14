@@ -1,0 +1,25 @@
+**Yes**
+
+Based on the second modelling of study events, we can retrieve the time period in which a person studied for a given degree. Under the closed‐world assumption, we assume that only explicitly asserted connections hold. For instance, if a study event exists linking the person with the degree and a time period (with its start and end dates), the CQ is answerable. An example SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person ;
+          :participatedInStudyEvent ?studyEvent .
+  ?degree a :Cl_Degree ;
+          :isDegreeOfStudyEvent ?studyEvent .
+  ?timePeriod a :Cl_TimePeriod ;
+              :isPeriodOfStudyEvent ?studyEvent ;
+              :hasStartDate ?startDate ;
+              :hasEndDate ?endDate .
+  # Optionally filter for a specific person and/or degree, e.g.,
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  # FILTER(?degree = <http://www.example.org/test#CertifiedNurseDegree>)
+}
+ORDER BY ?person ?startDate
+
+This query extracts the person, the degree they obtained (or studied for), and the associated study period (start and end dates) as modelled by the reified study event.

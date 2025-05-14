@@ -1,0 +1,45 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, extracts many of the features modeled in the ontology—for example, information about an album (here “StadiumArcadium”) including its release date, its tracks, its associated recording period, any reviews, and even the performance details (such as where a performance took place):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate ?track ?recordingStart ?recordingEnd ?reviewText ?performanceDate ?locationName
+WHERE {
+  # Select the album of interest
+  ?album rdf:type :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+  
+  # Optionally retrieve its tracks (each album must have at least one track but we allow multiple)
+  OPTIONAL { ?album :containsTrack ?track . }
+  
+  # Optionally retrieve details about its recording period
+  OPTIONAL {
+    ?recordingPeriod rdf:type :Cl_RecordingPeriod .
+    ?recordingPeriod :recordedAlbum ?album .
+    ?recordingPeriod :recordingStart ?recordingStart .
+    ?recordingPeriod :recordingEnd ?recordingEnd .
+  }
+  
+  # Optionally retrieve any review details for the album
+  OPTIONAL {
+    ?review rdf:type :Cl_Review .
+    ?review :reviewedRecord ?album .
+    ?review :reviewText ?reviewText .
+  }
+  
+  # Optionally retrieve performance information related to the album (via song performance)
+  OPTIONAL {
+    ?performance rdf:type :Cl_Performance .
+    ?performance :performanceDate ?performanceDate .
+    ?performance :tookPlaceAt ?location .
+    ?location :locationName ?locationName .
+  }
+}
+ORDER BY ?album
+------------------------------------------------------------
+
+In this query the ontology’s structure allows us to “navigate” from an album (e.g. StadiumArcadium) to its tracks, the associated recording period (with start and end times), any album review and even performance location details. This demonstrates that the competency question (in this case, “What are the details of an album including its tracks, recording period, any reviews, and performance location?”) is indeed modeled by the ontology.

@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?reviewContent
+WHERE {
+  ?critic a :Critic ;
+          :criticName "Crian Hiatt" .
+  ?album a :Album ;
+         :albumTitle "Stadium Arcadium" .
+  ?review a :Review ;
+           :writtenBy ?critic ;
+           :isReviewOf ?album ;
+           :reviewContent ?reviewContent .
+}
+```

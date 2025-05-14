@@ -1,0 +1,17 @@
+**Yes**
+
+We can verify the CQ “A production has exactly one premier” using the ontology’s restriction on :Cl_Production that enforces a single value for the property :hasPremiere. For example, the following SPARQL query returns each production along with its premiere date:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremiere ?premiere .
+  ?premiere :premiereDate ?premiereDate .
+}
+------------------------------------------------
+
+Under the closed world assumption, every production in the dataset must have exactly one associated premiere.

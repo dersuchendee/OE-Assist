@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the type of a given resource (replace <SPECIFIC_RESOURCE_IRI> with the actual IRI of the resource of interest):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?type ?typeLabel
+WHERE {
+  VALUES ?resource { <SPECIFIC_RESOURCE_IRI> }
+  ?resource a :Cl_Resource .
+  ?resource :hasType ?type .
+  OPTIONAL { ?type rdfs:label ?typeLabel. }
+}
+---------------------------------
+
+In this query we assume that resources are linked to their type via the property :hasType. Under the closed world assumption, we retrieve the type information directly available in the ontology.

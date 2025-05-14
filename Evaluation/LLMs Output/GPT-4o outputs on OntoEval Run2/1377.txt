@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to query for specific musicians or performers by name, nor does it provide a direct link between individuals and meetups. The ontology defines classes and properties related to meetups, participants, locations, and purposes, but it lacks specific instances or properties to identify individual musicians or performers by name.
+
+However, a partial answer can be extracted by querying for meetups, their participants, locations, times, and purposes:
+
+```sparql
+SELECT ?meetup ?participant ?place ?time ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  ?meetup mtps:hasPlace ?place .
+  ?meetup mtps:happensAt ?time .
+  ?meetup mtps:hasAPurpose ?purpose .
+}
+```
+
+This query retrieves all meetups along with their participants, places, times, and purposes, but it does not specify individual musicians or performers by name.

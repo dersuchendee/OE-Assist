@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not include a reified “Song” concept or an explicit property linking a track to a separate “song” entity. In this ontology the track itself is modeled as a musical work (and implicitly represents the song), but there is no specific relation that tells us “a specific track is a recording of [a song]”. Therefore, using a closed world interpretation we can only partially answer by retrieving the track’s details (e.g. its label) and optionally its album. For example:
+
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?album ?albumLabel
+WHERE {
+  ?track a :Track ;
+         rdfs:label ?trackLabel .
+  OPTIONAL { ?track :isTrackOf ?album .
+             OPTIONAL { ?album rdfs:label ?albumLabel . } }
+  FILTER(?track = :HumpDeBump)
+}
+
+This query gives a partial answer by extracting the details of the specified track (and its associated album, if any), rather than directly linking it to a separate “song” concept.

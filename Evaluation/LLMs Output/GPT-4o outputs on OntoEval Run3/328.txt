@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for the "star rating" given by a certain newspaper for a certain production. However, we can extract partial information about reviews and productions.
+
+```sparql
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?review a :Cl_ReviewRating .
+  ?review :concerns ?production .
+  ?review :reviews ?newspaper .
+  ?review :hasStarRating ?starRating .
+}
+```

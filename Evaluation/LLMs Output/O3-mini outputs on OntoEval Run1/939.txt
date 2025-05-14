@@ -1,0 +1,24 @@
+**Yes**
+
+We can retrieve an evaluation statement between a given doctor and a given employee because the ontology provides a reified evaluation statement (an instance of Cl_EvaluationStatement) that is linked from a doctor (via :hasEvaluationStatement) and further related to an employee (via :evaluates). Under the closed‐world assumption we assume that if no such statement is present then the answer is empty. For a specific doctor and employee the following SPARQL query will extract the answer:
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?evaluationText ?evaluationDate ?employee
+WHERE {
+  ?doctor a :Cl_Doctor ;
+          :hasEvaluationStatement ?eval .
+  ?eval :evaluationText ?evaluationText ;
+        :evaluationDate ?evaluationDate ;
+        :evaluates ?employee .
+  # You can restrict to specific individuals if needed:
+  FILTER(?doctor = <http://www.example.org/test#SpecificDoctorIRI> &&
+         ?employee = <http://www.example.org/test#SpecificEmployeeIRI>)
+}
+------------------------------------
+
+This query answers the CQ “What is the evaluation statement given by a certain doctor for a certain employee?” by extracting the evaluation text and date (i.e. the evaluation statement) for that pair.

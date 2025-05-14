@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When was the premier of a certain production?" can be answered using the ontology provided. The ontology includes the class `Cl_TheatreProduction` with a data property `dp_premierDate` that specifies the premier date of a production. Here's a SPARQL query to extract the premier date of a specific production:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :dp_premierDate ?premierDate .
+}
+```
+
+This query retrieves the premier date for each theatre production in the ontology. If you want to find the premier date for a specific production, you can add a filter or specify the production URI directly in the query.

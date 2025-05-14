@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to associate an actor with a specific theatre and the start date of their employment. The ontology includes classes and properties related to actors, theatres, and employment, but it lacks a direct connection between an actor, a specific theatre, and the start date of employment. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?employment a :Cl_ActorEmployment .
+  ?employment :employedActor ?actor .
+  ?employment :atTheatre ?theatre .
+  ?employment :startDate ?startDate .
+}
+```
+
+This query retrieves actors, theatres, and start dates of employment, but it does not specify the theatre for which the actor started working, as the ontology does not provide a direct link between an actor and a specific theatre.

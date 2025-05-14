@@ -1,0 +1,18 @@
+**No**
+
+The ontology provided does not contain any direct or indirect relationships between ensembles and their members at a specific point in time. The ontology does have classes and properties related to theatre festivals, plays, productions, and roles, but it lacks the necessary structure to directly answer the competency question regarding ensemble membership at a specific time.
+
+Here is a SPARQL query to extract a partial answer, focusing on the available data related to ensembles and their members:
+
+```sparql
+SELECT ?ensemble ?member ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :memberName ?member .
+  OPTIONAL { ?membership :membershipDate ?membershipDate . }
+}
+```
+
+This query retrieves ensemble memberships and their associated members, but it does not provide information about the specific point in time for the membership, as the ontology does not support this aspect.

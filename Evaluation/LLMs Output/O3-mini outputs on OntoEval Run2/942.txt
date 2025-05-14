@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the evaluation statement provided by a specific doctor (e.g. Dr_Smith) for a specific employee (e.g. Pasquale_Di_Gennaro):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_Evaluation ;
+              :evaluatedBy :Dr_Smith ;
+              :evaluates :Pasquale_Di_Gennaro ;
+              :evaluationStatement ?evaluationStatement .
+}
+------------------------------------------------
+
+This query shows that the ontology links evaluations (of type Cl_Evaluation) to a doctor who gives the evaluation and an employee who is evaluated—with the actual statement stored in the :evaluationStatement property.

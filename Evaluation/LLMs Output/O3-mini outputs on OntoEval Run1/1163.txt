@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific time (provided as a parameter), retrieves flows along with their quality based on the quality observation recorded at that time:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?flowLabel ?quality ?qualityLabel ?observedTime
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasQualityObservation ?obs .
+  ?obs :observedAtTime ?observedTime .
+  ?obs :hasQuality ?quality .
+  OPTIONAL { ?flow rdfs:label ?flowLabel . }
+  OPTIONAL { ?quality rdfs:label ?qualityLabel . }
+  
+  # Replace the value below with the specific time you are interested in.
+  FILTER(?observedTime = "2023-10-24T00:00:00"^^xsd:dateTime)
+}
+---------------------------------------
+
+This query uses the reified class FlowQualityObservation to connect a Flow, its Quality and the time of observation. Under the closed world assumption, only those observations explicitly recorded in the ontology will be returned, ensuring the CQ is fully supported by the ontology.

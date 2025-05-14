@@ -1,0 +1,11 @@
+**No**
+The ontology does not appear to model location details (such as addresses or geographic coordinates) for buildings, churches, or bell towers. Therefore, while we can extract the bell towers from the ontology, we cannot fully answer “Where is the building/church/bell tower?” using the current ontology. A partial SPARQL query might be:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX ns: <http://www.w3.org/2006/vcard/ns#>
+
+SELECT ?bellTower ?address
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower ns:hasAddress ?address . }
+}

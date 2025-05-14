@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific timestamp (replace POINT_IN_TIME_VALUE with the desired xsd:dateTime value), retrieves the energy data associated with a given energy flow at that point in time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyFlow ?energyData ?hasTimestamp 
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  ?energyFlow :hasData ?energyData .
+  ?energyData :hasTimestamp ?hasTimestamp .
+  FILTER(?hasTimestamp = "POINT_IN_TIME_VALUE"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+Under the closed world assumption, this query retrieves the energy data (and its timestamp) for each energy flow where the timestamp equals the specified “point in time”, thereby fully modeling the competency question.

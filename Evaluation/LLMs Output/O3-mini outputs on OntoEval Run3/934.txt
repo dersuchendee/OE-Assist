@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that, under closed‐world assumptions, retrieves the evaluation statement given by a specified doctor for a specified employee. (Replace the placeholders <DoctorURI> and <EmployeeURI> with the actual URIs for the doctor and employee in your dataset.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee ;
+            :evaluatedBy ?evaluation .
+  ?evaluation :evaluationStatement ?evaluationStatement ;
+              :evaluator ?doctor .
+  FILTER(?employee = <EmployeeURI> && ?doctor = <DoctorURI>)
+}

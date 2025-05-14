@@ -1,0 +1,14 @@
+**Yes**
+
+Here the competency question is answerable because the ontology includes classes and properties that connect performances to their locations. Specifically, the ontology defines the `:Cl_Performance` and `:Cl_Location` classes, and the properties `:takesPlaceAt` and `:locationOf` link performances to locations.
+
+```sparql
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :takesPlaceAt ?performanceLocation .
+  ?performanceLocation :locationOf ?location .
+}
+```
+
+This SPARQL query retrieves performances and their associated locations by navigating through the `:takesPlaceAt` and `:locationOf` properties as defined in the ontology. It starts from instances of `:Cl_Performance`, follows the `:takesPlaceAt` property to reach `:Cl_PerformanceLocation`, and then uses the `:locationOf` property to find the corresponding `:Cl_Location`.

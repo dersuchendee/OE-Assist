@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the complete number of tracks for the album “Stadium Arcadium”:
+
+-------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (COUNT(?track) AS ?numTracks)
+WHERE {
+  :Stadium_Arcadium a :Cl_Album .
+  :Stadium_Arcadium :containsTrack ?track .
+}
+-------------------------------------------------------------------------
+
+This query works because the ontology explicitly states that “Stadium Arcadium” (an instance of Cl_Album) is connected via the property “containsTrack” to a set of track individuals (instances of Cl_Track). Under the closed‐world assumption the absence of other track assertions means that the count returned is the complete answer.

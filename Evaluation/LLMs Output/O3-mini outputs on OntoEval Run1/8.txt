@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that, under the closed‐world assumption, retrieves for each source its associated context (including production date, location, goal, creator, and related events):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?sourceLabel ?sourceContext ?productionDate ?productionLocation ?productionGoal ?creator ?event
+WHERE {
+  ?source a :Cl_Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  ?source :Op_hasSourceContext ?sourceContext .
+  OPTIONAL { ?sourceContext :Dp_hasProductionDate ?productionDate . }
+  OPTIONAL { ?sourceContext :Dp_hasProductionLocation ?productionLocation . }
+  OPTIONAL { ?sourceContext :Dp_hasProductionGoal ?productionGoal . }
+  OPTIONAL { ?sourceContext :Op_createdBy ?creator . }
+  OPTIONAL { ?sourceContext :Op_relatedToEvent ?event . }
+}

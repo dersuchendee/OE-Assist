@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the role of a person within a union group at a specific point in time. The ontology includes classes and properties related to union role assignments, but it lacks a direct connection to a specific point in time for these roles. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?role ?unionGroup
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionRoleAssignment ?roleAssignment .
+  ?roleAssignment :isAssignmentOfRole ?role .
+  ?roleAssignment :isAssignmentInUnionGroup ?unionGroup .
+}
+```

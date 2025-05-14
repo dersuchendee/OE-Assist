@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the evaluation statement (its text and date), the doctor who gave it, and the employee who was evaluated:
+
+------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?employee ?evaluationText ?evaluationDate
+WHERE {
+  ?doctor a :Cl_Doctor ;
+          :hasEvaluationStatement ?evaluation .
+  ?evaluation :evaluationText ?evaluationText ;
+              :evaluationDate ?evaluationDate ;
+              :evaluates ?employee .
+  ?employee a :Cl_Employee .
+}
+------------------------------------------------------------------
+
+This query assumes a closed-world view for the ontology and that evaluation statements are reified using the property :hasEvaluationStatement (from a doctor) and the property :evaluates (linking the evaluation to an employee).

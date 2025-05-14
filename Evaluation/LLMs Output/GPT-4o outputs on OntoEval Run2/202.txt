@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not contain any direct relationships or properties that link a production to its basis play. The ontology includes classes and properties related to theatre festivals, plays, productions, and other related concepts, but it lacks a direct connection between a production and the play it is based on.
+
+To extract a partial answer, we can query for productions and their associated play basis, but this will not directly answer the competency question as it requires additional information not present in the ontology.
+
+```sparql
+SELECT ?production ?playBasis
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPlayBasis ?playBasisInstance .
+  ?playBasisInstance :playBasis ?playBasis .
+}
+```

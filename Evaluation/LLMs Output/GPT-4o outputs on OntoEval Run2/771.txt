@@ -1,0 +1,16 @@
+**No**
+
+The competency question "What medical degrees does a certain person have?" is not fully supported by the given ontology. The ontology provides classes and properties related to degrees, fields of study, and medical fields, but it does not explicitly connect a person to a specific medical degree they have obtained. The ontology includes the `:hasDegree` property, which relates a person to a degree, but it does not specify how to filter or identify medical degrees specifically for a person.
+
+Here is a SPARQL query to extract a partial answer, which retrieves degrees associated with a person, but it does not specifically filter for medical degrees:
+
+```sparql
+SELECT ?person ?degree ?degreeName
+WHERE {
+  ?person a :Person .
+  ?person :hasDegree ?degree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+}
+```
+
+This query will return all degrees associated with a person, but it does not distinguish between medical and non-medical degrees. To fully answer the competency question, additional information or properties would be needed to specifically identify medical degrees.

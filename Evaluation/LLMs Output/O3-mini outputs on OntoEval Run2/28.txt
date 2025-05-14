@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example of a SPARQL query that, given a specific actor and network, retrieves the roles that actor holds in that network via the reified class Cl_ActorRole:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+             :actorInNetwork ?actor ;
+             :roleInNetwork ?role ;
+             :materialFlowOfNetwork ?network .
+  # Replace the IRI below with the specific actor’s IRI
+  FILTER(?actor = <http://www.example.org/test#SpecificActor>)
+  # Replace the IRI below with the specific network’s IRI if needed
+  FILTER(?network = <http://www.example.org/test#SpecificNetwork>)
+  
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}

@@ -1,0 +1,17 @@
+**No**
+
+Partial answer:
+```sparql
+PREFIX : <http://example.org/union#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?union ?member
+WHERE {
+  ?union a :Union .
+  ?union :hasMember ?member .
+}
+```
+This query retrieves the members of each union but does not include time-specific membership information, as the ontology does not sufficiently model the temporal aspect of union membership to answer the competency question fully.

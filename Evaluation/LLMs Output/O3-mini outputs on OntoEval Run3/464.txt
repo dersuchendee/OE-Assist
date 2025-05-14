@@ -1,0 +1,33 @@
+**Yes**
+
+Below is a SPARQL query that exploits the membership reification in the ontology. In this example the query returns the members of a given band (here assumed to be :Red_Hot_Chili_Peppers) that were members at a given point in time (here using the date "2004-09-01"). Adjust the band IRI and time literal as needed.
+
+---------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipStart ?membershipEnd
+WHERE {
+  # Select the band of interest.
+  BIND(:Red_Hot_Chili_Peppers AS ?band) .
+  
+  # Find the reified membership record linking a person to the band.
+  ?membership a :Cl_Membership ;
+              :membershipInBand ?band ;
+              :hasMembership ?person ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Define the time point for which membership is investigated.
+  BIND(xsd:date("2004-09-01") AS ?pointInTime) .
+  
+  # A valid membership at the given time must have started on or before
+  # the pointInTime, and either not have an end date (ongoing) or have ended on/after that time.
+  FILTER (?membershipStart <= ?pointInTime && (!bound(?membershipEnd) || ?pointInTime <= ?membershipEnd))
+}
+ORDER BY ?person
+---------------------------------------------
+
+This query shows that the ontology fully supports the competency question by connecting bands, persons, and their membership intervals.

@@ -1,0 +1,12 @@
+**Yes**
+Below is a SPARQL query that retrieves the water bodies (including CoastalWaterBody, since it is a subclass of WaterBody) that belong to a given water basin. In this query you’ll need to replace <SPECIFIC_BASIN_URI> with the URI of the water basin of interest.
+
+PREFIX : <http://www.example.org/ontology/water#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?waterBody ?waterBodyLabel
+WHERE {
+  ?waterBody a :WaterBody .
+  ?waterBody :belongsToBasin <SPECIFIC_BASIN_URI> .
+  OPTIONAL { ?waterBody rdfs:label ?waterBodyLabel . }
+}

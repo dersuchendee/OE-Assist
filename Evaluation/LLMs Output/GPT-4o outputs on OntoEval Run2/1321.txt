@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it asks for specific annotation properties used to document rare species, which are defined in the ontology. The following SPARQL query can be used to extract the answer:
+
+```sparql
+SELECT ?annotationProperty ?label
+WHERE {
+  ?annotationProperty a owl:AnnotationProperty .
+  ?annotationProperty rdfs:domain :RareSpecies .
+  OPTIONAL { ?annotationProperty rdfs:label ?label . }
+}
+```

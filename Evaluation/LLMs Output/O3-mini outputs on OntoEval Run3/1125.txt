@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, retrieves the preferred system action for the given user (here represented by the instance :UserJohn):
+
+----------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?action ?actionLabel ?time ?system ?systemLabel
+WHERE {
+  # Identify the user (e.g., UserJohn) and the display action they prefer
+  :UserJohn :prefers ?action .
+  ?user a :User .
+  FILTER(?user = :UserJohn)
+
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+  OPTIONAL { ?action :atTime ?time . }
+  
+  # Find which system performs the preferred display action
+  OPTIONAL { 
+    ?action :performedBy ?system .
+    OPTIONAL { ?system rdfs:label ?systemLabel . }
+  }
+}
+----------------------------------------------------------
+
+This query extracts the preferred action (including its label and time) and the system that performs it, fulfilling the CQ: "What is the system action preferred by this user in this particular context?"

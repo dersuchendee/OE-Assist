@@ -1,0 +1,22 @@
+**Yes**
+
+A competency question asking “During what time period did a certain person study for a specific degree?” is answerable using the reified study period class (Cl_PersonDegreeStudyPeriod) from the ontology. This class is connected to a person (via :hasPerson), to a degree (via :hasDegree) and has data properties capturing the start and end dates of the study period (via :studyStartDate and :studyEndDate). Under a closed world assumption, we assume that if no study period is asserted for a given person and degree then it does not exist.
+
+For example, the following SPARQL query extracts the study period (start and end date) for each person–degree combination:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?studyStartDate ?studyEndDate
+WHERE {
+  ?studyPeriod a :Cl_PersonDegreeStudyPeriod ;
+               :hasPerson ?person ;
+               :hasDegree ?degree ;
+               :studyStartDate ?studyStartDate ;
+               :studyEndDate ?studyEndDate .
+}
+ORDER BY ?person ?studyStartDate
+-------------------------------------------------------
+
+This query answers the CQ by recognizing the reified study period that binds a person, a degree, and the corresponding dates.

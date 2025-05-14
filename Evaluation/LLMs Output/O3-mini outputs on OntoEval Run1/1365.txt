@@ -1,0 +1,14 @@
+**No**
+
+The current ontology does not explicitly model how the sound is produced (i.e. manually or electrically). Under a closed world assumption, we cannot assume the existence of a property or class indicating a sound production method. However, we can partially retrieve the bell towers (or churches, if they were modelled) that are part of the ontology. For example, the following SPARQL query lists all entities classified as a BellTower:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?label
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label . }
+}
+
+This partial answer retrieves the bell towers but does not address the crucial aspect of the sound production method (manual vs. electric) because that information is not modelled in the ontology.

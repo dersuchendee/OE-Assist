@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a specific album was recorded. The ontology includes classes and properties related to albums, tracks, and recording periods, but it lacks specific instances or data that would allow us to extract the recording time period for a particular album. Here's a SPARQL query to extract a partial answer, which would list albums and their associated recording periods if such data were available:
+
+```sparql
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album .
+  ?album :recordedDuring ?albumRecording .
+  ?albumRecording :recordingPeriod ?recordingPeriod .
+}
+```

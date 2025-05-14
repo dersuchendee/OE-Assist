@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the earliest employment start date for a given person at a given hospital. (Replace the placeholders for ?person and ?hospital with the appropriate IRIs.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?employment a :Cl_PersonHospitalEmployment ;
+              :hasPerson ?person ;
+              :hasHospital ?hospital ;
+              :employmentStartDate ?startDate .
+  FILTER(?person = <http://www.example.org/test#YourPersonIRI>)
+  FILTER(?hospital = <http://www.example.org/test#YourHospitalIRI>)
+}

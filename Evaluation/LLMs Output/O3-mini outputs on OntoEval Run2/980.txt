@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the number of pages for books (including a particular book if you bind it):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :numberOfPages ?numberOfPages .
+  # To restrict the query to a particular book, you can add a FILTER or bind ?book to the specific resource.
+}
+--------------------------------------------------
+
+Under the closed world assumption, only those instances with an asserted :numberOfPages for a :Cl_Book would be returned.

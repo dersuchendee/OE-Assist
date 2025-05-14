@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology supports the competency question regarding power relations, specifically through the properties `hasPowerOver` and its sub-properties like `patronOf` and `supervises`. These properties establish power relations between individuals, such as between patrons and musicians or supervisors and their supervisees.
+
+Here is a SPARQL query to extract power relations:
+
+```sparql
+SELECT ?person1 ?person1Label ?relation ?person2 ?person2Label
+WHERE {
+  ?person1 a :Person .
+  OPTIONAL { ?person1 rdfs:label ?person1Label . }
+
+  ?person1 ?relation ?person2 .
+  ?relation rdfs:subPropertyOf :hasPowerOver .
+
+  ?person2 a :Person .
+  OPTIONAL { ?person2 rdfs:label ?person2Label . }
+}
+```

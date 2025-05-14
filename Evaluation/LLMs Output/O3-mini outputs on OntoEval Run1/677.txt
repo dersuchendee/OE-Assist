@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the location at which a given performance occurred:
+
+---------------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+---------------------------------------------------------
+
+This query makes use of the modeled property :hasLocation on a :Performance instance to extract the corresponding location, thereby fully answering the CQ "Where did a certain performance take place?"

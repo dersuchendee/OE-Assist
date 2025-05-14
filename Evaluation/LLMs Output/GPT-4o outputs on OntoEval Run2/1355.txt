@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not explicitly define a property or class that represents "original parts" of an organ. The ontology includes classes and properties related to parts of an organ, such as `Case`, `Console`, `Division`, `WindSystem`, and their respective components, but it does not specify which of these parts are original. Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted by listing all parts of an organ, as follows:
+
+```sparql
+SELECT ?organ ?part
+WHERE {
+  ?organ a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  ?organ <https://w3id.org/arco/ontology/core/includesPart> ?part .
+}
+```
+
+This query retrieves all parts included in an organ, but it does not distinguish between original and non-original parts.

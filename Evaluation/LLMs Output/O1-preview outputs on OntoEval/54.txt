@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?actorLabel ?role ?roleLabel ?materialFlow ?materialFlowLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+
+  OPTIONAL {
+    ?actor :hasRole ?role .
+    OPTIONAL { ?role rdfs:label ?roleLabel . }
+  }
+
+  OPTIONAL {
+    ?actor :involvedInMaterialFlow ?materialFlow .
+    OPTIONAL { ?materialFlow rdfs:label ?materialFlowLabel . }
+  }
+}
+```

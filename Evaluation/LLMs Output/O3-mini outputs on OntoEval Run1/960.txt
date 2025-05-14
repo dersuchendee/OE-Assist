@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given book or CD, the articles that compose it:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?article ?articleTitle
+WHERE {
+  # Restrict to publications that are either books or CDs
+  ?publication a ?pubType .
+  FILTER (?pubType IN (:Cl_Book, :Cl_CD)) .
+
+  ?publication :publicationTitle ?publicationTitle .
+
+  # Retrieve articles that compose the publication
+  ?publication :composedOf ?article .
+  ?article :articleTitle ?articleTitle .
+}
+ORDER BY ?publicationTitle
+---------------------------------
+
+This query shows that for any publication of type Book or CD it is possible to extract the articles it is composed of, supporting the competency question.

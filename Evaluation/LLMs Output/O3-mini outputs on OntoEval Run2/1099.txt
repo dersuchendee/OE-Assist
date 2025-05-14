@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves for each seminar at least one article that was presented:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+  ?presentation :presentationOf ?seminar .
+  ?article :presentedIn ?presentation ;
+           :articleTitle ?articleTitle .
+}
+ORDER BY ?seminar ?seminarDate ?article
+—————————————————————————————
+
+Explanation:
+1. The ontology models seminars as instances of :Cl_Seminar and imposes via OWL restrictions that each seminar must have at least one associated seminar presentation (using the property :presentationOf).
+2. Articles (instances of :Cl_Article) that are presented are linked to a seminar presentation via the property :presentedIn.
+3. The query thereby retrieves, for every seminar, at least one article that was presented – which answers the CQ “At least one article is always presented at each seminar.”
+
+Under the closed world assumption, if a seminar has no article linked through this chain, it would be considered missing information. Hence, this SPARQL query demonstrates that the ontology is indeed modeling the competency question.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide specific instances of events or their occurrences on specific days or times. It only defines the classes and properties related to events, days of the week, and times of day. Therefore, we cannot extract specific events and their times or days from the ontology.
+
+Partial answer:
+```sparql
+SELECT ?event ?day ?time
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event :occursOn ?day . }
+  OPTIONAL { ?event :hasTime ?time . }
+}
+```

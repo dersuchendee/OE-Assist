@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?beechForest ?cyclingType ?groundwaterSystem
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :affectsCycling ?cyclingProcess .
+  ?cyclingProcess a ?cyclingType .
+  FILTER(?cyclingType = :CarbonCycling || ?cyclingType = :NitrogenCycling) .
+  ?cyclingProcess :occursIn ?groundwaterSystem .
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for a given person, band, and time point, the role that person had in the band. (Under the closed‐world assumption the query only “sees” those role assertions explicitly asserted in the ontology.) You could adapt the FILTER to restrict to the time period of interest.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?roleTime
+WHERE {
+  ?roleInstance a :Cl_BandRole ;
+                :hasRole ?role ;
+                :roleOf ?person ;
+                :roleInBand ?band ;
+                :roleTime ?roleTime .
+  # Example: restrict to a given person, band, and a time point, e.g. 2006-08-11
+  FILTER(?person = :Flea &&
+         ?band = :Red_Hot_Chili_Peppers &&
+         ?roleTime = "1983-01-01T00:00:00"^^xsd:dateTime)
+}
+------------------------------------------------------------
+
+This query makes use of the reified BandRole class (Cl_BandRole) to obtain the role that a person (e.g. :Flea) has in a band (e.g. :Red_Hot_Chili_Peppers) at a specified time. (You can replace the FILTER values with the person, band and time point of interest.)

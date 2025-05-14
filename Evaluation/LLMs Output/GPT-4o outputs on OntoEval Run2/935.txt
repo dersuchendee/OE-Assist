@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "What is the evaluation statement given by a certain doctor for a certain employee?" can be answered using the ontology provided. The ontology includes classes and properties that relate doctors, employees, and evaluation statements. Here's a SPARQL query to extract the evaluation statement given by a specific doctor for a specific employee:
+
+```sparql
+SELECT ?employee ?doctor ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee .
+  ?employee :evaluatedBy ?evaluation .
+  ?evaluation :doctor ?doctor .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+```
+
+This query retrieves the employee, doctor, and the evaluation statement associated with the evaluation.

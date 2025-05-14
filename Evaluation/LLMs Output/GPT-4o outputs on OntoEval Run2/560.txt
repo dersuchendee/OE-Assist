@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to link a specific track to the song it is a recording of. The ontology includes classes and properties related to albums, tracks, and musicians, but it lacks a specific property or class that directly connects a track to the song it is a recording of. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?track ?trackName ?album ?albumName
+WHERE {
+  ?track a :Cl_MusicTrack .
+  ?track :hasTitle ?trackName .
+  ?album :hasTrack ?track .
+  ?album :hasTitle ?albumName .
+}
+```

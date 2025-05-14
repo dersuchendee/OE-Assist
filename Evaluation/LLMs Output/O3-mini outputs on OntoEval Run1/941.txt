@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the evaluation statement along with the doctor and employee involved (using the example individuals as parameters):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?employee ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_Evaluation ;
+              :evaluatedBy ?doctor ;
+              :evaluates ?employee ;
+              :evaluationStatement ?evaluationStatement .
+  
+  # Optionally, filter for a particular doctor and employee if known
+  # FILTER(?doctor = :Dr_Smith && ?employee = :Pasquale_Di_Gennaro)
+}
+—————————————————————————————
+
+This query shows how the ontology models the competency question, allowing one to extract the evaluation statement given by a particular doctor for a specified employee.

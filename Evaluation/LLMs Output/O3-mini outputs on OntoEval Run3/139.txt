@@ -1,0 +1,28 @@
+**Yes**
+
+The following SPARQL query retrieves the plays (instances of Cl_Play) that are featured by a given theatre festival (an instance of Cl_TheatreFestival), along with some optional information about the festival (such as the city where it takes place and the date):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel ?city ?dateValue
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :featuresPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  
+  OPTIONAL { 
+    ?festival :takesPlaceIn ?city .
+  }
+  
+  OPTIONAL {
+    ?festival :hasDate ?date .
+    ?date :dateValue ?dateValue .
+  }
+}
+ORDER BY ?festival ?play
+
+In a closed world (i.e. assuming available facts cover the scenario), this query allows one to extract the answer for the competency question “What plays could be seen during a certain theatre festival?” directly from the ontology.

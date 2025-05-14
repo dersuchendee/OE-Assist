@@ -1,0 +1,10 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?seminar ?location ?locationLabel
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

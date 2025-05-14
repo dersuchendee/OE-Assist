@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?title ?publicationDate
+WHERE {
+  ?publication a ?type ;
+               :publicationDate ?publicationDate ;
+               :title ?title .
+  VALUES ?type { :Book :CD }
+}
+```
+
+This query retrieves all publications that are either books or CDs and selects their titles and publication dates. The ontology defines both `:Book` and `:CD` classes as subclasses of `:Publication` and associates them with the `:publicationDate` property. Therefore, the competency question "When was a certain book or CD published?" is supported by the ontology, and we can extract the answer using this SPARQL query.

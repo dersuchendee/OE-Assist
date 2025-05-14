@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the review content a given critic has written about a given record (here modeled as an album):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?record ?reviewContent
+WHERE {
+  ?record a :Cl_Album .
+  ?record :hasReview ?review .
+  ?review :writtenBy ?critic .
+  ?review :reviewContent ?reviewContent .
+  
+  # Replace the following IRIs with the actual IDs of the record and critic of interest:
+  FILTER (?record = <http://www.example.org/test#TargetRecord> &&
+          ?critic = <http://www.example.org/test#TargetCritic>)
+}
+------------------------------------------------
+
+This query answers the competency question “What does a certain critic say about a certain record?” since it directly retrieves the review content (i.e. what the critic says) by connecting the album (record) to its review and then to the critic.

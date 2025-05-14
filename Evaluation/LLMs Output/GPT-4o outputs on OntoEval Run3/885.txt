@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to query for union members at a specific point in time. The ontology includes classes and properties related to union membership, employees, and time points, but it lacks a direct connection between these elements to answer the competency question fully. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?employee ?union ?timePoint
+WHERE {
+  ?membership a :Cl_UnionMembership .
+  ?membership :hasEmployee ?employee .
+  ?membership :hasUnion ?union .
+  ?membership :hasTimePoint ?timePoint .
+}
+```
+
+This query retrieves employees, unions, and time points associated with union memberships, but it does not filter for a specific union or time point as required by the competency question.

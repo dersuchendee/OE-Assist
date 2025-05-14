@@ -1,0 +1,14 @@
+**Yes**
+
+The ontology makes every record be defined (via an equivalent class restriction) as having at least one track. Under a closed world assumption, we can verify that every instance of the record class indeed has at least one associated track. For example, the query below returns any record that violates the constraint (i.e. records that do not have at least one track). If the query returns no results, then the CQ “A record always contains at least one track” is fully met.
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record
+WHERE {
+  ?record rdf:type :Cl_Record .
+  FILTER NOT EXISTS { ?record :containsTrack ?track . }
+}
+------------------------------------

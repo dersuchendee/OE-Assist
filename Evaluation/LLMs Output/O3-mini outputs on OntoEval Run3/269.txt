@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that “a certain play” is represented as an instance of Cl_Play that has its writing time period described via the data properties dp_writtenStartDate and dp_writtenEndDate, the following SPARQL query retrieves the play along with its writing period. (Under the closed world assumption, only plays that explicitly state these dates will be returned.)
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?writtenStartDate ?writtenEndDate
+WHERE {
+  ?play a :Cl_Play ;
+        :dp_writtenStartDate ?writtenStartDate ;
+        :dp_writtenEndDate ?writtenEndDate .
+}
+ORDER BY ?play
+
+--------------------------------------------------
+
+This query shows that the ontology models the CQ “During what time period was a certain play written?” by providing explicit written start and end dates for plays.

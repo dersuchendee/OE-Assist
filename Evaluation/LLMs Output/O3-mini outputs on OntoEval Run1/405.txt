@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, retrieves productions that have exactly one associated production premier:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premier) AS ?numPremiers)
+WHERE {
+  ?premier a :Cl_ProductionPremier .
+  ?premier :premierOf ?production .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+
+This query identifies each instance of a production (linked as the object of the property :premierOf from a production premier event) that has exactly one premier event.

@@ -1,0 +1,30 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName
+WHERE {
+  # Assume :GivenUnion is the union of interest
+  # Assume ?givenDate is the date of interest, e.g., "2005-01-01"^^xsd:date
+  BIND (:UnionOfMaleNurses AS ?union)
+  BIND ("2005-01-01"^^xsd:date AS ?givenDate)
+
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :hasUnion ?union .
+  ?membership :hasMember ?member .
+  ?membership :hasStartDate ?startDate .
+  OPTIONAL { ?membership :hasEndDate ?endDate . }
+
+  FILTER (
+    ?givenDate >= ?startDate &&
+    (!BOUND(?endDate) || ?givenDate <= ?endDate)
+  )
+
+  OPTIONAL { ?member :hasName ?memberName . }
+}
+```
+
+This query retrieves all members (`?member`) of a specific union (`:UnionOfMaleNurses`) who were members at a given date (`?givenDate`). It checks if the given date is after the membership's start date (`?startDate`) and before the end date (`?endDate`), if an end date exists. The `:Cl_UnionMembership` class connects members to unions with associated dates, allowing us to answer the competency question using the provided ontology.

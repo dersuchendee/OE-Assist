@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the star rating that a given newspaper assigned to a specific production:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?rating
+WHERE {
+  ?production a :Cl_Production ;
+              rdfs:label ?productionLabel ;
+              :hasReview ?review .
+  ?review :starRating ?rating ;
+          :reviewedBy ?newspaper .
+  ?newspaper rdfs:label ?newspaperLabel .
+  # Optionally restrict to a specific production and newspaper:
+  # FILTER(?production = :Production_GrandTheatre_MerchantOfVenice && ?newspaper = :Newspaper_IlGazzettino)
+}
+
+This query extracts, for each production that has an associated review, the star rating given by the reviewing newspaper.

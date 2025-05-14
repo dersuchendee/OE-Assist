@@ -1,0 +1,20 @@
+**Yes**
+Below is a SPARQL query that retrieves, for a given point in time, the energy data associated with an energy flow:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyFlow ?energyData ?timestamp
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  ?energyFlow :hasData ?energyData .
+  ?energyData :hasTimestamp ?timestamp .
+  
+  # Replace the value below with the desired point in time
+  FILTER(?timestamp = "2023-10-10T00:00:00Z"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+This query answers the CQ "What is the data of this energy flow at this point in time?" by extracting the energy flows (and their associated energy data) that have the specified timestamp.

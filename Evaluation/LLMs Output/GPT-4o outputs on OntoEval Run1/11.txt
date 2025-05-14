@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "Which is the physical realization of an instrument?" is supported by the ontology. The ontology includes the `hasPhysicalRealization` object property that associates a musical instrument with its physical embodiment, which directly answers the CQ.
+
+Here is the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?instrument ?instrumentLabel ?physicalRealization ?physicalRealizationLabel
+WHERE {
+  ?instrument a :MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+
+  ?instrument :hasPhysicalRealization ?physicalRealization .
+  OPTIONAL { ?physicalRealization rdfs:label ?physicalRealizationLabel . }
+}
+```

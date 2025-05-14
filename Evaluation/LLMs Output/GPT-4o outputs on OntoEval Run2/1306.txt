@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves relationships between tune families and similarity measures, which are modeled in the ontology. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?relatedTuneFamily ?similarityMeasure
+WHERE {
+  ?relationship a :TuneFamilyRelationship .
+  ?relationship :hasSource :TuneFamilyX .
+  ?relationship :hasTarget ?relatedTuneFamily .
+  ?relationship :usesSimilarityMeasure ?similarityMeasure .
+}
+```

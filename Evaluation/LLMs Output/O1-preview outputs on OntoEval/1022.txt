@@ -1,0 +1,37 @@
+**Yes**
+
+The competency question "When did a certain seminar take place?" is answerable using the given ontology. The ontology includes the `:Seminar` class and the `:hasDate` datatype property, which allows us to retrieve the date on which a seminar took place. Additionally, we can use properties like `:hasSeminarTitle` or `:takesPlaceAt` to specify the particular seminar we are interested in.
+
+Here is a SPARQL query that retrieves the date of a specific seminar based on its title:
+
+```sparql
+PREFIX : <http://example.org/seminararticles#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?date
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasDate ?date .
+  ?seminar :hasSeminarTitle "Seminar on New Articles at Ospedale Riunito delle Tre Valli" .
+}
+```
+
+If you want to find the date of the seminar based on its location, you can use the following query:
+
+```sparql
+PREFIX : <http://example.org/seminar#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?date
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasDate ?date .
+  ?seminar :takesPlaceAt ?location .
+  ?location a :Hospital .
+  ?location rdfs:label "Ospedale Riunito delle Tre Valli" .
+}
+```
+
+These queries utilize the ontology's classes and properties to retrieve the date of a specific seminar, thereby confirming that the competency question is supported by the ontology.

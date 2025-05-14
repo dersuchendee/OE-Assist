@@ -1,0 +1,17 @@
+**Yes**
+Below is one possible SPARQL query that, under the closed world assumption, retrieves the songs played in a given performance (replace :Performance_example with the actual performance individual):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songName
+WHERE {
+  ?performance a :Cl_Performance .
+  FILTER(?performance = :Performance_example) .
+
+  ?ps a :Cl_PerformanceSong ;
+      :performanceOf ?performance ;
+      :songPlayed ?song .
+  OPTIONAL { ?song :hasName ?songName . }
+}

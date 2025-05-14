@@ -1,0 +1,18 @@
+**No**
+
+The ontology lacks properties that associate `Cl_TimePeriod` with specific dates or durations. Therefore, we cannot fully answer the competency question "During what time period was a certain album recorded?" because we cannot retrieve the actual time periods or dates associated with album recordings.
+
+However, we can extract partial information about which albums were recorded and their associated time periods (without specific dates):
+
+```sparql
+SELECT ?album ?albumRecording ?timePeriod
+WHERE {
+    ?album a :Cl_Album .
+    ?album :recordedDuring ?albumRecording .
+    ?albumRecording a :Cl_AlbumRecording .
+    ?albumRecording :hasRecording ?timePeriod .
+    ?timePeriod a :Cl_TimePeriod .
+}
+```
+
+This query retrieves albums and their related time periods but does not provide specific start or end dates for when the albums were recorded.

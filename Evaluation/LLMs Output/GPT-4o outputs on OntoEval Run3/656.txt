@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not contain any information about performances or the songs played during them. However, we can extract partial information about the tracks on the album "Stadium Arcadium" which might have been played during a performance.
+
+```sparql
+SELECT ?track ?trackTitle
+WHERE {
+  ?track a :Track .
+  ?track :trackTitle ?trackTitle .
+  ?track :isTrackOf :StadiumArcadium .
+}
+```

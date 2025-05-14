@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to associate ensembles with specific points in time. While there are time-indexed roles and productions, the concept of an ensemble at a specific time is not explicitly modeled. Here's a SPARQL query to extract a partial answer, focusing on roles and productions:
+
+```sparql
+SELECT ?ensemble ?member ?role ?production ?time
+WHERE {
+  ?member ns1:memberOf ?ensemble .
+  ?member ns1:performsRole ?role .
+  ?role ns1:inProduction ?production .
+  OPTIONAL {
+    ?member ns1:hasTimeInterval ?interval .
+    ?interval ns1:startTime ?startTime .
+    ?interval ns1:endTime ?endTime .
+  }
+}
+```

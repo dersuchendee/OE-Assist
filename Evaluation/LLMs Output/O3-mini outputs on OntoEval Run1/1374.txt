@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not model any information about the casting process or any related foundry; hence, under the closed world assumption we cannot fully answer which foundry cast a bell. However, a partial query to list the bells available in the ontology can be written as follows:
+
+PREFIX bell: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bell ?label
+WHERE {
+  ?bell a bell:Bell .
+  OPTIONAL { ?bell rdfs:label ?label . }
+}

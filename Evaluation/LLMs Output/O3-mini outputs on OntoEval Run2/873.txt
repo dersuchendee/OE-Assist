@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer this CQ using the ontology: the ontology models cities as instances of Cl_City and relates them to a country using the property cityInCountry. Under a closed‐world assumption we assume that if a city was not explicitly linked to a country then it is not located in any country. A SPARQL query to return the country for each city could be written as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?country
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :cityInCountry ?country .
+}
+
+This query retrieves each city (instance of Cl_City) and its associated country as modelled by the property :cityInCountry.

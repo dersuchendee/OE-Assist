@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific track of type Cl_Track, retrieves the song it is a recording of by following the reification properties:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track ;
+         :isRecordingOf ?trackRecording .
+  ?trackRecording :recordedSong ?song .
+  # Optionally, filter for a specific track by its identifier or label:
+  # FILTER(?track = <http://www.example.org/test#specificTrackURI>)
+}
+
+This query shows that the CQ “What song is a specific track a recording of?” is answerable using the ontology's reification pattern.

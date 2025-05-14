@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves for each performance its date and its associated geographic location (city, region, and country):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?city ?region ?country 
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :performanceLocation ?city .
+  ?city a :Cl_City .
+  OPTIONAL { ?city :locatedInRegion ?region . }
+  OPTIONAL { ?region :locatedInCountry ?country . }
+}
+ORDER BY ?performanceDate
+—————————————————————————————
+
+In this query the ontology’s classes and properties (such as :Cl_Performance, :performanceDate, :performanceLocation, :Cl_City, :locatedInRegion, and :locatedInCountry) are used to extract the geographic information for each performance. This demonstrates that the competency question (i.e. “What is/are the geographic location(s) of each performance?”) is modeled by the ontology.

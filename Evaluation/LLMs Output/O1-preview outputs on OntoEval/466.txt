@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+SELECT ?roleLabel
+WHERE {
+  # Bind the specific person, band, and time you're interested in
+  BIND(:SpecificPersonURI AS ?person)
+  BIND(:SpecificBandURI AS ?band)
+  BIND("2023-10-15T00:00:00"^^xsd:dateTime AS ?desiredTime)  # Replace with the specific date and time
+
+  # Find the band membership that matches the person, band, and time
+  ?bandMembership a :Cl_BandMembership ;
+                  :membershipOfPerson ?person ;
+                  :membershipInBand ?band ;
+                  :playsRole ?role ;
+                  :atTime ?time .
+  
+  # Ensure the time matches
+  FILTER (?time = ?desiredTime)
+
+  # Optionally get labels for readability
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+```
+
+This query retrieves the role (`?roleLabel`) that a specific person (`?person`) has in a specific band (`?band`) at a specific point in time (`?desiredTime`). Replace `:SpecificPersonURI`, `:SpecificBandURI`, and `"2023-10-15T00:00:00"` with the actual URIs and datetime value you're interested in.

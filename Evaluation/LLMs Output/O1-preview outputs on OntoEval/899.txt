@@ -1,0 +1,32 @@
+Answer: **Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question: "Who are the members of a certain union at a certain point in time?"
+
+Here is a SPARQL query that retrieves the persons who are members of a specific union during a given date:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person
+WHERE {
+  ?person a :Cl_PersonUnionMembership ;
+          :memberOf :SpecificUnion ;
+          :membershipStartDate ?startDate ;
+          :membershipEndDate ?endDate .
+  FILTER ( xsd:date("2021-01-01") >= ?startDate && xsd:date("2021-01-01") <= ?endDate )
+}
+```
+
+**Notes:**
+
+- Replace `:SpecificUnion` with the URI of the union you're interested in.
+- Replace `"2021-01-01"` with the date for which you want to check the membership.
+
+This query works because:
+
+- `:Cl_PersonUnionMembership` is a reification class that represents the membership of a person in a union.
+- Each membership instance is associated with a `:memberOf` property linking it to the union.
+- The membership period is captured using `:membershipStartDate` and `:membershipEndDate`.
+- Since `:Cl_PersonUnionMembership` is a subclass of `:Cl_Person`, each instance also represents a person.
+- The `FILTER` ensures that only memberships active on the specified date are retrieved.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for a given ensemble (here, for example, :MerchantOfVeniceEnsemble) and a specified point in time, the individuals (actors) that have a membership at that time:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?membershipTime
+WHERE {
+  :MerchantOfVeniceEnsemble a :Cl_Ensemble .
+  :MerchantOfVeniceEnsemble :hasMember ?member .
+  ?member :hasEnsembleMembership ?membership .
+  ?membership :atTime ?membershipTime .
+  FILTER(?membershipTime = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+  OPTIONAL { ?member :hasName ?memberName . }
+}
+-------------------------------------------------------
+
+In this query the closed world assumption is in effect (only explicitly stated membership at the given time is returned), and the CQ “Who are the members of a certain ensemble at a certain point in time?” is answerable.

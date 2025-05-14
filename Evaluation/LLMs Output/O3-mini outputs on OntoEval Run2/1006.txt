@@ -1,0 +1,24 @@
+**Yes**
+Below is an example SPARQL query that retrieves the publication date for publications that are either a book or a CD:
+
+-----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?publicationDate
+WHERE {
+  {
+    ?publication a :Cl_Book .
+    ?publication :publicationTitle ?publicationTitle .
+    ?publication :publicationDate ?publicationDate .
+  }
+  UNION
+  {
+    ?publication a :Cl_CD .
+    ?publication :publicationTitle ?publicationTitle .
+    ?publication :publicationDate ?publicationDate .
+  }
+}
+-----------------
+
+This query shows that the ontology provides a reified structure for publications—with classes for books and CDs, and an associated data property (:publicationDate)—which supports answering the competency question "When was a certain book or CD published?" under a closed world assumption.

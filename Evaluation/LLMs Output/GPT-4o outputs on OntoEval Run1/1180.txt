@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine if the sound in a place is performed by hand or by electric means. The ontology defines classes for manual and electric performance, but it does not specify how to associate a specific sound with either manual or electric performance. Therefore, a partial answer can be extracted by identifying the means of performance associated with sounds in places.
+
+```sparql
+SELECT ?place ?means
+WHERE {
+  ?place a :Place .
+  ?place :hasSound ?sound .
+  ?sound :hasMeans ?means .
+}
+```

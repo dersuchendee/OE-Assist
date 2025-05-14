@@ -1,0 +1,30 @@
+**Yes**
+Below is one SPARQL query that, under a closed‐world assumption, retrieves for each device (mirror or loudspeaker) the associated weather display functionality:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?device ?deviceType ?displayMethod ?graphic ?audio
+WHERE {
+  {  # For mirrors that provide weather graphics
+     ?device a :Cl_Mirror .
+     BIND("Mirror" AS ?deviceType) .
+     ?device :providesWeatherGraphics ?weatherDisplay .
+     ?weatherDisplay :hasDisplayMethod ?displayMethod .
+     OPTIONAL { ?displayMethod :isGraphicDisplay ?graphic . }
+     BIND(false AS ?audio)
+  }
+  UNION
+  {  # For loudspeakers that provide weather audio
+     ?device a :Cl_Loudspeaker .
+     BIND("Loudspeaker" AS ?deviceType) .
+     ?device :providesWeatherAudio ?weatherDisplay .
+     ?weatherDisplay :hasDisplayMethod ?displayMethod .
+     OPTIONAL { ?displayMethod :isAudioDisplay ?audio . }
+     BIND(false AS ?graphic)
+  }
+}
+-----------------------------------------------------------
+
+This query returns each device (either a mirror or a loudspeaker), its type, the reified display method, and any boolean indications for graphic or audio functionality.

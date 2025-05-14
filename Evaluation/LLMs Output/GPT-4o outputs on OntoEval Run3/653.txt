@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate specific songs with specific performances beyond the example of "Hump de Bump" in the Portland performance. Therefore, a partial answer can be extracted by identifying performances and their associated songs, but it may not cover all songs played in a performance.
+
+```sparql
+SELECT ?performance ?song ?songLabel
+WHERE {
+  ?performance a ns1:Performance .
+  ?performance ns1:hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```

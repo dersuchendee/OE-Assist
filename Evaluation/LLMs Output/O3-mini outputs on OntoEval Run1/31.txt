@@ -1,0 +1,12 @@
+**Yes**
+Below is a SPARQL query that retrieves the actor (viewer) and the product (resource) from the ViewingResource relation:
+
+PREFIX : <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+
+SELECT DISTINCT ?viewer ?product
+WHERE {
+  ?viewing a :ViewingResource .
+  ?viewing actorODP:participatingActor ?viewer .
+  ?viewing actorODP:participatingResource ?product .
+}

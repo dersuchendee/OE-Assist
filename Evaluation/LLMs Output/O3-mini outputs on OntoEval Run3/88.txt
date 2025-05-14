@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that answers the CQ:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?eventDate
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName "Roma Loves Shakespeare" ;
+            :hasFestivalEvent ?event .
+  ?event :hasDate ?date .
+  ?date :eventDate ?eventDate .
+}
+
+This query retrieves the festival name along with the date on which its event took place (using the reified date information via the :hasDate property).

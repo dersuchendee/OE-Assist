@@ -1,0 +1,39 @@
+**Yes**
+
+Assuming that the ontology is populated with the relevant individuals (e.g. a person such as Pasquale Di Gennaro, and his associated medical degree(s)), we can answer the CQ “What medical degrees does a certain person have?” by checking either the direct property :hasMedicalDegree (if available) or the reified link via the study‐period class (i.e. :Cl_StudyForDegree) that connects a person to a medical degree. Under a closed‐world assumption, we require that if a medical degree relation is not stated then it does not hold.
+
+Below is a SPARQL query that, given a person, retrieves his/her medical degree information. (You can add a FILTER on the person IRI if you want to restrict it to a “certain person.”)
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  {
+    # Direct relation: person has an explicitly stated medical degree
+    ?person :hasMedicalDegree ?degree .
+    OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  }
+  UNION
+  {
+    # Reified relation: the study period instance links a person and a degree
+    ?study a :Cl_StudyForDegree ;
+           :hasStudent ?person ;
+           :hasDegree ?degree ;
+           :studyStartDate ?studyStartDate ;
+           :studyEndDate ?studyEndDate .
+    OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  }
+}
+ORDER BY ?person ?degree
+------------------------------------------------------------
+
+This query first finds all individuals of type :Cl_Person. Then, it uses a UNION to cover two cases:
+1. The person directly has the property :hasMedicalDegree linking to a degree.
+2. The person is related indirectly by a :Cl_StudyForDegree instance (i.e. reification) where the properties :hasStudent (linking to the person), :hasDegree (linking to the degree) and optionally the study start/end dates are filled.
+
+Thus, the competency question is fully modelled by the ontology.

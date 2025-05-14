@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves all the articles contained in a specific book or CD (here, using the individual :Book_Nurse_Practices as an example):
+
+-------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  :Book_Nurse_Practices :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel .}
+}
+-------------------------------------------
+
+This query answers the CQ “What articles is a specific book or CD composed of?” by extracting the articles via the property :containsArticle from the specified book.

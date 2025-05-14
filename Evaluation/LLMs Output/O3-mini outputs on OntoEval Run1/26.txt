@@ -1,0 +1,15 @@
+**No**  
+The ontology does not model a connection between products and their manufacturers. In other words, while the ontology lists an individual (or role) for a manufacturer, there is no property or relation linking a product (or resource) to the manufacturer. Under the closed‐world assumption, we must assume that if no such relation is asserted then the information is absent. The following SPARQL query provides a partial answer by listing available products (modeled as resources) and, if available, any asserted manufacturer (using a (non‐existing) :hasManufacturer property):
+
+------------------------------------------------
+PREFIX : <http://w3id.org/CEON/ontology/actor/>
+PREFIX res: <http://w3id.org/CEON/ontology/resourceODP/>
+
+SELECT ?product ?manufacturer
+WHERE {
+  ?product a res:Resource .
+  OPTIONAL { ?product :hasManufacturer ?manufacturer . }
+}
+------------------------------------------------
+
+Since the ontology does not define the property :hasManufacturer or link products to their manufacturer, this query may return products without the manufacturer information.

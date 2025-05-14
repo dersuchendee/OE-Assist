@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide explicit information about the study period for a specific degree. The ontology includes a `Cl_StudyPeriod` class and properties like `studyStartDate` and `studyEndDate`, but the start date for the study period is marked as "UNKNOWN". Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?degree ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed world assumption, retrieves each person’s travel instance together with the destination (i.e. the place they reached):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?travel ?destination ?destinationLabel
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :participatedInTravel ?travel .
+  ?travel :hasDestination ?destination .
+  OPTIONAL { ?destination rdfs:label ?destinationLabel . }
+}
+
+This query shows for each person if they traveled (via the involvement in a :Travel instance) and what the destination (:Place) was.

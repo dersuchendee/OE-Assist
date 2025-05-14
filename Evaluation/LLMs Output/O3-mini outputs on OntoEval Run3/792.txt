@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each person and the degree they are studying for, the study period (start and end dates):
+
+PREFIX : <http://example.org/medical_degrees#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Person ;
+          :studiesFor ?degree .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :hasStartDate ?startDate ;
+               :hasEndDate ?endDate .
+} 
+ORDER BY ?person ?startDate
+
+This query shows that the competency question – "During what time period did a certain person study for a specific degree?" – is answerable from the ontology by following the reified relations between Person, Degree, and StudyPeriod under the closed-world assumption.

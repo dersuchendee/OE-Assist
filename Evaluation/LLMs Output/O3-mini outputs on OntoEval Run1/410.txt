@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, checks that every production has exactly one premier by grouping each production’s premiership entries and ensuring the count equals 1:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premiere) AS ?premiereCount)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremiere ?premiere .
+}
+GROUP BY ?production
+HAVING (COUNT(?premiere) = 1)
+
+This query will return only those productions that have exactly one associated premier, which models the competency question “A production has exactly one premier.”

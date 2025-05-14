@@ -1,0 +1,18 @@
+**No**
+
+The current ontology does not model any property that represents whether sound is performed manually (by hand) or electrically. We can extract some related information (for example, bell towers, sets of bells, and their bells) but not the specific sound performance method. Here is a SPARQL query that retrieves bell towers, the set of bells they host, and the individual bells, which is a partial answer that does not cover the CQ’s request about the mode of sound production:
+
+------------------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?bellTower ?setOfBells ?bell
+WHERE {
+  ?bellTower a bells:BellTower .
+  ?bellTower arco:hasComponent ?setOfBells .
+  ?setOfBells arco:hasComponent ?bell .
+}
+ORDER BY ?bellTower
+------------------------------------------------------------
+
+This query returns the bell towers along with their sets of bells and the bells themselves, but it cannot determine if the sound is produced by hand or by electric means since that aspect is not modeled in the ontology.

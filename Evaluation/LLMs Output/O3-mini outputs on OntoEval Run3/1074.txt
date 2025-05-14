@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalLabel ?city ?country
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate ;
+           :takesPlaceAt ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL {
+    ?hospital :locatedIn ?city .
+    OPTIONAL {
+      ?city :locatedIn ?country .
+    }
+  }
+}
+ORDER BY ?seminarDate
+```

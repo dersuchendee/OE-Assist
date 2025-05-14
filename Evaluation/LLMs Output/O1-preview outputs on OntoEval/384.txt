@@ -1,0 +1,17 @@
+**No**
+
+```sparql
+SELECT ?personName ?roleName ?assignmentDate
+WHERE {
+  ?person rdf:type :Cl_Individual ;
+          :hasName ?personName ;
+          :hasRole ?role ;
+          :hasRoleAssignment ?roleAssignment .
+  
+  ?role rdf:type :Cl_Role ;
+        :roleName ?roleName .
+  
+  ?roleAssignment :roleOf ?role ;
+                   :assignmentDate ?assignmentDate .
+}
+```

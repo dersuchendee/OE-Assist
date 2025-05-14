@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world view, retrieves the star rating provided by a designated newspaper (e.g. ns1:IlGazzettino) for a specified production (e.g. ns1:MerchantOfVenice_GrandTheatre):
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?starRating
+WHERE {
+  ?review a ns1:Review ;
+          ns1:starRating ?starRating ;
+          ns1:publishedBy ?newspaper ;
+          ns1:reviewOf ?production .
+  
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+  
+  FILTER(?newspaper = ns1:IlGazzettino && ?production = ns1:MerchantOfVenice_GrandTheatre)
+}

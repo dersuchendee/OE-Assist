@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that retrieves the country in which a given city is located:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedIn ?country .
+  # Optionally filter for a specific city by label
+  # ?city rdfs:label "NameOfCity" .
+}
+
+─────────────────────────────
+
+This query takes into account the closed world assumption and uses the property :isLocatedIn (with domain Cl_City and range Cl_Country) to extract the country where a city (or a certain city, when further filtered) is located.

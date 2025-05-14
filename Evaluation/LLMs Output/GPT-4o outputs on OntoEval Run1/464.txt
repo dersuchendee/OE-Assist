@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a band with its members at a specific point in time. The ontology includes classes and properties for bands, people, and memberships, but it lacks a mechanism to query the members of a band at a specific time. The ontology would need a temporal aspect to the membership or a way to query historical data to answer this competency question fully.
+
+Partial SPARQL query to extract some information about band members:
+
+```sparql
+SELECT ?band ?person
+WHERE {
+  ?person :memberOf ?band .
+}
+```
+
+This query retrieves the current members of a band but does not account for the temporal aspect of membership.

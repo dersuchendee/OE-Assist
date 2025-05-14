@@ -1,0 +1,68 @@
+Answer: **Yes**.
+
+You can retrieve the members of a certain union at a specific point in time using the following SPARQL query:
+
+```sparql
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName
+WHERE {
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :memberOfUnion :SpecifiedUnion .
+  ?membership :unionMember ?member .
+  OPTIONAL { ?member rdfs:label ?memberName . }
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  FILTER (
+    xsd:date(?startDate) <= "SpecifiedDate"^^xsd:date &&
+    (
+      !BOUND(?endDate) ||
+      xsd:date(?endDate) >= "SpecifiedDate"^^xsd:date
+    )
+  )
+}
+```
+
+**Instructions:**
+
+- Replace `:SpecifiedUnion` with the URI of the union you're interested in (e.g., `:Union_Male_Nurses`).
+- Replace `"SpecifiedDate"` with the date of interest in the format `"YYYY-MM-DD"` (e.g., `"2008-01-01"`).
+
+**Example:**
+
+To find members of the union `:Union_Male_Nurses` on `"2008-01-01"`, the query becomes:
+
+```sparql
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName
+WHERE {
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :memberOfUnion :Union_Male_Nurses .
+  ?membership :unionMember ?member .
+  OPTIONAL { ?member rdfs:label ?memberName . }
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  FILTER (
+    xsd:date(?startDate) <= "2008-01-01"^^xsd:date &&
+    (
+      !BOUND(?endDate) ||
+      xsd:date(?endDate) >= "2008-01-01"^^xsd:date
+    )
+  )
+}
+```
+
+**Explanation:**
+
+- The query searches for all union memberships (`:Cl_UnionMembership`) where:
+  - The membership is associated with the specified union (`:memberOfUnion`).
+  - The membership includes a union member (`:unionMember`).
+  - The membership start date is on or before the specified date.
+  - The membership end date is either not specified or is on or after the specified date.
+
+- The `FILTER` clause ensures that only members who were active in the union at the specified point in time are returned.
+
+- `OPTIONAL` clauses are used to retrieve labels (`rdfs:label`) if available.

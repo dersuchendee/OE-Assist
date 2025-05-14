@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.org/test#>
+
+SELECT DISTINCT ?participant1 ?participant1Label ?relation ?relationLabel ?participant2 ?participant2Label
+WHERE {
+  ?participant1 a :Participant .
+  ?participant2 a :Participant .
+  ?participant1 ?relation ?participant2 .
+  ?relation rdfs:subPropertyOf* :hasRelationWith .
+  
+  OPTIONAL { ?participant1 rdfs:label ?participant1Label . }
+  OPTIONAL { ?relation rdfs:label ?relationLabel . }
+  OPTIONAL { ?participant2 rdfs:label ?participant2Label . }
+}
+```

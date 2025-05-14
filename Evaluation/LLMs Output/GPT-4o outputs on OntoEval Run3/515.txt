@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "How many tracks does a particular album contain?" can be answered using the ontology provided. The ontology includes the `ns1:numberOfTracks` property, which indicates the total number of tracks on an album. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?album ?albumLabel ?numberOfTracks
+WHERE {
+  ?album a ns1:Album .
+  ?album rdfs:label ?albumLabel .
+  ?album ns1:numberOfTracks ?numberOfTracks .
+}
+```

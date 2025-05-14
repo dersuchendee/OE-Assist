@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that a “certain theatre festival” is identified as an instance of Cl_TheatreFestival and that its occurrence date is captured by the data property :hasDate, you can retrieve its date with a query like the one below (under a closed world assumption):
+
+------------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasDate ?date .
+}
+------------------------------------------------------------------------------
+
+This query retrieves all instances of Cl_TheatreFestival along with their associated dates, thus answering the competency question “When did a certain theatre festival take place?”

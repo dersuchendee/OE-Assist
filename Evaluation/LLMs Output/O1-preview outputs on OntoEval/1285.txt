@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question is supported by the ontology because events have event types via the `:hasEventType` property, and the possible event types include `:Celebration`, `:Festival`, and `:PrivateEvent`, which are subclasses of `:EventType`. We can retrieve events that have an event type of Celebration, Festival, or PrivateEvent by querying the events and their associated event types.
+
+```sparql
+SELECT ?event ?eventLabel ?eventType ?eventTypeLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasEventType ?eventTypeInstance .
+  ?eventTypeInstance a ?eventType .
+  OPTIONAL { ?eventType rdfs:label ?eventTypeLabel . }
+  
+  FILTER (?eventType IN (:Celebration, :Festival, :PrivateEvent))
+}
+```

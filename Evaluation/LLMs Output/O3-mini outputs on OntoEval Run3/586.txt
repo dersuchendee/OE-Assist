@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that a “certain song” is linked to an instance of Cl_Composition (via the object property composition_song) and that the composition event date is stored via the datatype property composition_date, we can extract the composition date with a SPARQL query. For example, a parameterized query may be written as follows:
+
+---------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?comp a :Cl_Composition .
+  ?comp :composition_song ?song .
+  ?comp :composition_date ?compositionDate .
+  # Optionally, filter on a specific song label:
+  # ?song rdfs:label "Song Title" .
+}
+---------------------------------------------
+
+This query is answerable under the closed world assumption as all necessary classes and properties (Cl_Composition, composition_song, and composition_date) are available in the ontology.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to link articles to seminars. The ontology includes classes for articles, article collections, and seminars, but it lacks a direct relationship between articles and the seminars in which they are presented. Therefore, a partial answer can be extracted by identifying the seminars held at a hospital, but not the specific articles presented in those seminars.
+
+```sparql
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :holdsSeminar ?seminar .
+  ?seminar :hasDate ?seminarDate .
+}
+```

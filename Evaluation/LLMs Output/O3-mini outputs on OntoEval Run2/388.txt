@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the roles that a given actor (e.g., “Fabio Bianchi”) has in a given production (e.g., “The Merchant of Venice at The Grand Theatre”) during a specified time period (e.g., “September 2009”). You can adjust the FILTER values to target a different person, production, or time period:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorName ?production ?productionName ?role ?roleName ?timePeriod ?timeValue
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName .
+         
+  ?actorRole a :Cl_ActorRole ;
+             :roleInProduction ?production ;
+             :hasRole ?role ;
+             :roleTimePeriod ?timePeriod .
+  
+  ?production :productionName ?productionName .
+  ?role :roleName ?roleName .
+  ?timePeriod :timePeriod ?timeValue .
+
+  # Parameter filters – change these as needed:
+  FILTER(?actorName = "Fabio Bianchi")
+  FILTER(?productionName = "The Merchant of Venice at The Grand Theatre")
+  FILTER(?timeValue = "September 2009")
+}
+ORDER BY ?actorName ?productionName ?timeValue ?roleName

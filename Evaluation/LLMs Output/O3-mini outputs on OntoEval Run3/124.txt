@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves the plays seen during a given theatre festival by linking the festival’s participation assertions to productions and then to plays:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?theatreFestival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?theatreFestival a :Cl_TheatreFestival .
+  OPTIONAL { ?theatreFestival rdfs:label ?festivalLabel. }
+  
+  ?theatreFestival :hasFestivalParticipation ?part .
+  ?production :hasProductionParticipation ?part .
+  ?production :isProductionOf ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+-------------------------------------------------
+
+This query answers the CQ by extracting the plays associated with the festival through the intermediate reified participation resource.

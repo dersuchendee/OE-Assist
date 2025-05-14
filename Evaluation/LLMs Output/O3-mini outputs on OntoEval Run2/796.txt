@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?fromDate ?toDate
+WHERE {
+  ?person a :Cl_Person ;
+          :studiedDuring ?studyPeriod .
+  ?studyPeriod :forDegree ?degree ;
+               :fromDate ?fromDate ;
+               :toDate ?toDate .
+}
+```

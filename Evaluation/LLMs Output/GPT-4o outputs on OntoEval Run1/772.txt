@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with their medical degrees. The ontology includes classes for `Cl_Person`, `Cl_MedicalDegree`, and `Cl_PersonMedicalDegree`, but there is no direct object property linking a person to their medical degrees. The ontology does not support the competency question as it stands.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?person ?degree
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+}
+```
+
+This query attempts to find any person and their associated medical degrees, but it relies on the assumption that such a relationship exists in the ontology, which is not explicitly defined.

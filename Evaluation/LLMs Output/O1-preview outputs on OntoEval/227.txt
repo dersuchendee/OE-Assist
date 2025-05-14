@@ -1,0 +1,36 @@
+**Yes**
+
+The competency question is answerable because the ontology models ensembles, their members, and the time periods of their membership through the classes `:Cl_EnsembleMembership`, `:Cl_Ensemble`, `:Cl_Actor`, and `:Cl_Date`. The `:Cl_EnsembleMembership` class connects an ensemble to its members and associates them with specific time periods using the properties `:hasEnsemble`, `:hasMember`, and `:hasTimePeriod`.
+
+Here is a SPARQL query that retrieves the members of a certain ensemble at a certain point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?ensembleName ?memberName ?date
+WHERE {
+  ?membership rdf:type :Cl_EnsembleMembership .
+  ?membership :hasEnsemble ?ensemble .
+  ?ensemble :productionName ?ensembleName .
+
+  ?membership :hasMember ?member .
+  ?member :actorName ?memberName .
+
+  ?membership :hasTimePeriod ?timePeriod .
+  ?timePeriod :festivalDate ?date .
+
+  # Optional filters to specify a certain ensemble and date
+  # FILTER(?ensemble = :Ensemble_GrandTheatre_MerchantOfVenice) .
+  # FILTER(?date = "2009-09-08"^^xsd:date) .
+}
+```
+
+This query retrieves the names of ensemble members and the corresponding dates for each membership. You can uncomment and adjust the `FILTER` clauses to target a specific ensemble or date, like so:
+
+```sparql
+FILTER(?ensemble = :Ensemble_GrandTheatre_MerchantOfVenice) .
+FILTER(?date = "2009-09-08"^^xsd:date) .
+```
+
+By using this query, you can extract the information about who were the members of a particular ensemble at a specific point in time, as required by the competency question.

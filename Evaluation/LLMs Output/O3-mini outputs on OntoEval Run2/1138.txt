@@ -1,0 +1,25 @@
+**Yes**
+Below is one SPARQL query that, under the closed‐world interpretation of the ontology, retrieves for each user (via their recorded location interaction) whether the content should be displayed as graphics on a mirror (when the user is standing) or read out through loudspeakers (when the user is walking):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user 
+       (IF(?standing = true, "Display as graphics on mirror", "Read out through loudspeakers") AS ?presentationMethod)
+WHERE {
+  ?interaction a :Cl_UserLocationInteraction ;
+               :interactsWith ?user .
+  # For this example we assume that the interaction records either standing or walking.
+  # You may have both properties; here we check for standing first.
+  OPTIONAL { ?interaction :isStanding ?standing . }
+  OPTIONAL { ?interaction :isWalking ?walking . }
+  
+  # Under the closed world, if isStanding is true then we select the mirror/graphics case.
+  # Otherwise, if isWalking is true (and isStanding is false or absent), we choose the loudspeaker option.
+  FILTER(?standing = true || ?walking = true)
+}
+------------------------------------------------------------
+
+In this query, we use the data properties recorded on Cl_UserLocationInteraction (i.e. :isStanding and :isWalking) to determine the appropriate presentation of weather information according to the user’s context.

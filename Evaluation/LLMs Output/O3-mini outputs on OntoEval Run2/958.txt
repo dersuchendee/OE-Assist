@@ -1,0 +1,22 @@
+**Yes**
+
+We can answer this CQ because the ontology models article collections as compositions of books or CDs. In the ontology the property :composedOf links a :Cl_Book or :Cl_CD to a :Cl_ArticleCollection, and then the property :article retrieves the actual :Cl_Article instances from that collection.
+
+A SPARQL query could be:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?publicationLabel ?article ?articleLabel
+WHERE {
+  ?publication a ?pubType .
+  VALUES ?pubType { :Cl_Book :Cl_CD }
+  ?publication :composedOf ?collection .
+  ?collection :article ?article .
+  OPTIONAL { ?publication rdfs:label ?publicationLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+-------------------------------------------------------
+
+This query retrieves for a specific publication (a book or CD) the associated article collection and the articles composing that collection.

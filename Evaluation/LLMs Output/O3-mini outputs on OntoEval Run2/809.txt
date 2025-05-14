@@ -1,0 +1,21 @@
+**Yes**
+
+One can retrieve the study periods (with start and end dates) for a given person and degree via the reification class Cl_StudyForDegree. For example, assuming that a particular person and degree are identified by IRI (e.g. :PasqualeDiGennaro and :NursingAssistantDegree), one may write a query such as:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?studyStartDate ?studyEndDate
+WHERE {
+  ?study a :Cl_StudyForDegree ;
+         :hasStudent ?person ;
+         :hasDegree ?degree ;
+         :studyStartDate ?studyStartDate ;
+         :studyEndDate ?studyEndDate .
+  
+  FILTER(?person = :PasqualeDiGennaro && ?degree = :NursingAssistantDegree)
+}
+---------------------------------
+
+This query extracts, for the given person and degree, the start and end dates of the study period as modelled in the ontology under the closed world assumption.

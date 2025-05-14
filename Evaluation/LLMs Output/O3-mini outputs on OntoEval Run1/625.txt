@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the critique text provided by a given critic about a given record:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critiqueText
+WHERE {
+  ?critique a :Cl_Critique .
+  ?critique :madeBy ?critic .
+  ?critique :aboutRecord ?record .
+  ?critique :critiqueText ?critiqueText .
+  # Replace the IRIs below with the specific critic and record of interest:
+  FILTER(?critic = <http://www.example.org/test#SpecificCritic> &&
+         ?record = <http://www.example.org/test#SpecificRecord>)
+}
+---------------------------------------
+
+This query uses the reification class Cl_Critique and its associated object properties (madeBy and aboutRecord) and data property (critiqueText) to return the answer for the CQ "What does a certain critic say about a certain record?" under a closed world assumption.

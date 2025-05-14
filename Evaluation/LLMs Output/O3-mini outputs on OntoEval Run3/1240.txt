@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyMetabolism ?energyMetabolismLabel ?cnRatio ?cnRatioLabel ?community ?communityLabel
+WHERE {
+  ?energyMetabolism a :EnergyMetabolism .
+  OPTIONAL { ?energyMetabolism rdfs:label ?energyMetabolismLabel . }
+  
+  ?energyMetabolism :affectedBy ?cnRatio .
+  ?cnRatio a :CarbonNitrogenRatio .
+  OPTIONAL { ?cnRatio rdfs:label ?cnRatioLabel . }
+  
+  ?energyMetabolism :occursIn ?community .
+  ?community a :MicrobialCommunityInCNCycling .
+  OPTIONAL { ?community rdfs:label ?communityLabel . }
+}
+ORDER BY ?energyMetabolism ?community
+```

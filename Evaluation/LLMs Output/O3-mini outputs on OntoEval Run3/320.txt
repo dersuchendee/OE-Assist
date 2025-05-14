@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves productions along with the premier date (assuming that productions have a premier reification through the property :hasPremier and that the premier date is stored via the data property :premierDate):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premierOccurrence .
+  ?premierOccurrence :premierDate ?premierDate .
+}
+------------------------------------------------
+
+This query answers the competency question “When was the premier of a certain production?” by extracting, for each production in the ontology, the associated premier’s date.

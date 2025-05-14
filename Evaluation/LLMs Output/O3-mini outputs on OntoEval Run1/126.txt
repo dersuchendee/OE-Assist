@@ -1,0 +1,20 @@
+**Yes**
+Below is one possible SPARQL query that retrieves, for a given theatre festival, the plays that participated in that festival (via the reified participation in the festival):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :festivalName ?festivalName .
+  
+  ?play a :Cl_Play .
+  ?play :participatedInFestival ?participation .
+  ?participation :partOfFestival ?festival .
+  
+  OPTIONAL { ?play :playName ?playName . }
+} 
+
+This query follows the reification pattern in the ontology where a Cl_Play is connected to a Cl_TheatreFestival through a Cl_FestivalProductionParticipation (via the properties participatedInFestival and partOfFestival). Under the closed world assumption the answer is complete in that only the plays whose participation in the festival is explicitly recorded will be returned.

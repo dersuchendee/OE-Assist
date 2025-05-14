@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question "What is the system action preferred by this user in this particular context?" can be answered using the given ontology. The ontology provides the necessary classes and properties to model user preferences, display actions, and the context in which these actions are performed. Here's a SPARQL query to extract the preferred system action for a user in a specific context:
+
+```sparql
+SELECT ?user ?userLabel ?preferredAction ?actionLabel ?system ?systemLabel ?location ?locationLabel ?time
+WHERE {
+  ?user a :User ;
+        rdfs:label ?userLabel ;
+        :prefers ?preferredAction .
+
+  ?preferredAction a :DisplayAction ;
+                   rdfs:label ?actionLabel ;
+                   :performedBy ?system ;
+                   :atTime ?time .
+
+  ?system a :WeatherDisplaySystem ;
+          rdfs:label ?systemLabel ;
+          :hasLocation ?location .
+
+  ?location rdfs:label ?locationLabel .
+}
+```

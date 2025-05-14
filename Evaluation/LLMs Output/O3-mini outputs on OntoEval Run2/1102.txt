@@ -1,0 +1,21 @@
+**Yes**
+
+The ontology explicitly enforces (via an OWL restriction) that every seminar (instances of Cl_Seminar) must be linked via the property “presentedIn” to at least one seminar article presentation. Under the closed‐world assumption we can extract, for each seminar, the articles presented. For instance, the following SPARQL query returns every seminar with its presented articles, which shows that each seminar indeed has at least one article presentation:
+
+---------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?presentation a :Cl_SeminarArticlePresentation ;
+                :presentedIn ?seminar ;
+                :articlePresented ?article .
+}
+ORDER BY ?seminar
+---------------------
+
+This query confirms that each seminar has at least one article presented, so the CQ is fully modelled by the ontology.

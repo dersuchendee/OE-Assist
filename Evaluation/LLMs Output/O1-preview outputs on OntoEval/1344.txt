@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+The competency question asks: "When is the rate of hospitalisation related to a disease registered?"
+
+This question can be answered by querying `HospitalisationRateObservation` instances that are related to a `Disease` and have a `hasRegistrationDate`. Since the ontology defines the necessary classes and properties (`HospitalisationRateObservation`, `Disease`, `isRelatedToDisease`, and `hasRegistrationDate`), we can construct a SPARQL query to retrieve the required information.
+
+```sparql
+SELECT ?observation ?disease ?registrationDate
+WHERE {
+  ?observation a :HospitalisationRateObservation .
+  ?observation :hasRegistrationDate ?registrationDate .
+  ?observation :isRelatedToDisease ?disease .
+}
+```

@@ -1,0 +1,23 @@
+Answer: **Yes**
+
+Here's a SPARQL query to extract the spatial distribution of chemical and physical measurements across different areas:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?measurement ?measurementType ?area ?spatialDistribution
+WHERE {
+  {
+    ?measurement a :ChemicalMeasurement .
+    BIND("ChemicalMeasurement" AS ?measurementType)
+  }
+  UNION
+  {
+    ?measurement a :PhysicalMeasurement .
+    BIND("PhysicalMeasurement" AS ?measurementType)
+  }
+  OPTIONAL { ?measurement :locatedInArea ?area . }
+  OPTIONAL { ?measurement :hasSpatialDistribution ?spatialDistribution . }
+}
+```
+
+This query retrieves all instances of `ChemicalMeasurement` and `PhysicalMeasurement`, along with their associated areas and spatial distributions. It leverages the `locatedInArea` and `hasSpatialDistribution` properties defined in the ontology to link measurements to areas and spatial distributions, thereby answering the competency question using the provided ontology.

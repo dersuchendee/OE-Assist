@@ -1,0 +1,25 @@
+**Yes**
+Below is a SPARQL query that, given a specified water quality parameter (here represented by the variable ?specifiedParam or a hard-coded URI), retrieves the monitoring sites that registered the observation along with the time the measurement was recorded.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringSite ?recordedTime
+WHERE {
+  ?obs a :WaterQualityObservation ;
+       :observesParameter ?param ;
+       :isObservationOf ?monitoringSite ;
+       :recordedAtTime ?recordedTime .
+  FILTER (?param = ?specifiedParam)  # Replace ?specifiedParam with the desired parameter URI or value.
+}
+ORDER BY ?monitoringSite ?recordedTime
+```
+
+In a concrete query, you might replace the filter with a specific URI as follows:
+
+```sparql
+FILTER (?param = <http://www.example.org/test#SomeWaterQualityParameter>)
+``` 
+
+This query demonstrates that the ontology supports the CQ under a closed world assumption, as every WaterQualityObservation is connected to a MonitoringSite, a WaterQualityParameter, and a recorded time.

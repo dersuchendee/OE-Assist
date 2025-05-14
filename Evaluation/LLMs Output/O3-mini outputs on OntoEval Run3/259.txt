@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves a play along with its writing period (start and end years):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :dp_title ?playTitle . }
+  ?play :op_hasWritingPeriod ?writingPeriod .
+  ?writingPeriod :dp_startYear ?startYear .
+  ?writingPeriod :dp_endYear ?endYear .
+}
+-------------------------------------------------
+
+In this query the ontology connects a Cl_Play to its writing period via the reified property :op_hasWritingPeriod (with associated data properties :dp_startYear and :dp_endYear). Under the closed world assumption, only plays with an explicitly asserted writing period are returned.

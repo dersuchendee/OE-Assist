@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?startDate ?endDate
+WHERE {
+  ?album a ns1:Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album ns1:hasRecordingSession ?recordingSession .
+  ?recordingSession ns1:hasTimeInterval ?timeInterval .
+  ?timeInterval ns1:hasStartDate ?startDate .
+  ?timeInterval ns1:hasEndDate ?endDate .
+  
+  # Uncomment the following line to filter by a specific album, e.g., Stadium Arcadium
+  # FILTER(?album = ns1:StadiumArcadium)
+}
+```

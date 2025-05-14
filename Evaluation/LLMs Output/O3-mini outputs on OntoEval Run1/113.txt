@@ -1,0 +1,18 @@
+**Yes**  
+Below is an example SPARQL query to retrieve, for each theatre festival, its associated location name:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasLocation ?loc .
+  ?loc :locationName ?locationName .
+}
+------------------------------------------------
+
+This query assumes that each instance of a theatre festival is linked via the property :hasLocation to an instance of :Cl_FestivalLocation and that the latter carries the literal value for its name using the :locationName data property. Under the closed world assumption the absence of any triple implies that the festival does not have an associated location, meaning only those with an explicitly asserted location will appear in the result.

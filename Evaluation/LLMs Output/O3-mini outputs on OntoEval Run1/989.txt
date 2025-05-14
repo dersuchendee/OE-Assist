@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves a particular book’s number of pages (here, using the book instance related to nurse practices in cancer patient care):
+
+———————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?bookTitle ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book :bookTitle ?bookTitle . }
+  ?book :numberOfPages ?numberOfPages .
+  # Assuming we are interested in the specific book,
+  # e.g., NursePracticesInCancerPatientCareBook:
+  FILTER(?book = :NursePracticesInCancerPatientCareBook)
+}
+———————————————
+
+This query extracts the book title and the number of pages stored in the ontology, showing that the CQ “How many pages does a particular book contain?” is fully answerable.

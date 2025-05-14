@@ -1,0 +1,16 @@
+**No**  
+The ontology does not fully capture all the details required to answer “Where did she live?” because while it includes the concept of a ResidenceEvent (a subclass of Event) and the property atLocation for events, it does not reify the residence information in a way that explicitly connects all the CQ’s aspects (e.g. specifying which person “she” is, or a distinct residence relation). However, we can extract a partial answer with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasEvent ?event .
+  ?event a :ResidenceEvent .
+  ?event :atLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}

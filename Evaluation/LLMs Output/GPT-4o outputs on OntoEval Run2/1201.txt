@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to extract the composer's network, including patrons and institutions, as a single query. However, we can extract partial information about the composer's patrons and institutions separately.
+
+```sparql
+SELECT ?composer ?patron ?institution
+WHERE {
+  ?composer a :Composer .
+  OPTIONAL { ?composer :hasPatron ?patron . }
+  OPTIONAL { ?composer :worksForInstitution ?institution . }
+}
+```

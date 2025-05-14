@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?bellSet ?playingMethods
+WHERE {
+  ?bellSet a :BellSet .
+  ?bellSet :hasPlayingMethod ?method .
+  ?method a ?methodType .
+  FILTER(?methodType IN (:Manual, :Electric))
+  BIND(STRAFTER(STR(?methodType), "#") AS ?playingMethods)
+}
+GROUP BY ?bellSet
+```
+
+This query retrieves each `BellSet` and determines whether it can be played manually, electrically, or both by checking the associated `PlayingMethod` instances. The `FILTER` ensures we're only considering `:Manual` and `:Electric` methods. The `BIND` with `STRAFTER` is used to extract the local name of the method type for readability.

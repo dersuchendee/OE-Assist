@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the event date of a specific theatre festival (for example, the “Roma Loves Shakespeare” festival) by following the reified structure in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?eventDate
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasFestivalEvent ?event .
+  ?event :hasDate ?date .
+  ?date :eventDate ?eventDate .
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+
+In a closed world scenario, this query returns the date when the specified festival took place from the available data in the ontology.

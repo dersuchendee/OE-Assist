@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not capture any travel-related information (e.g. details about traveling or movement to reach a place), so we cannot fully answer “Did they travel to reach the place?” under a closed-world assumption. However, you can at least extract related information (e.g. which persons participated in meeting events) as a partial answer:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?event ?eventLabel
+WHERE {
+  ?event a :MeetingEvent .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasParticipation ?participation .
+  ?participation :involvesPerson ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?person ?event
+
+This query retrieves persons and the meeting events they participate in, but note that as the travel concept is not modelled in the ontology, the query only provides a partial answer.

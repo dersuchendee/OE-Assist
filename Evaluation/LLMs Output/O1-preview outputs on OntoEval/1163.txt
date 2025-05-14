@@ -1,0 +1,15 @@
+**Yes**
+
+The ontology models the competency question because it includes classes and properties that link a `Flow` to its `Quality` at specific times through `FlowQualityObservation`. This allows us to query for the quality of a flow at a specific time.
+
+Here's a SPARQL query to extract the quality of a flow at a specific time:
+
+```sparql
+SELECT ?flow ?quality ?time
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasQualityObservation ?observation .
+  ?observation :hasQuality ?quality .
+  ?observation :observedAtTime ?time .
+}
+```

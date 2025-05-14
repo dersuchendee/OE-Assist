@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?source ?sourceLabel ?subject ?subjectLabel
+WHERE {
+  ?source a :Source .
+  ?source :hasSubject ?subject .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  OPTIONAL { ?subject rdfs:label ?subjectLabel . }
+}
+```

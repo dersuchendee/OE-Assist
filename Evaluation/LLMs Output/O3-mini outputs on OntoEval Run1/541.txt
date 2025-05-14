@@ -1,0 +1,18 @@
+**Yes**
+
+We can retrieve the release date of an album using the ontology’s :Album class and its associated :releaseDate and :albumTitle properties. For example, if we want the release date of “Stadium Arcadium,” a suitable SPARQL query is:
+
+------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumTitle ?releaseDate
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :releaseDate ?releaseDate .
+  FILTER(LCASE(?albumTitle) = "stadium arcadium")
+}
+------------------------------------------------
+
+Under the closed world assumption the ontology contains the necessary assertions so this CQ is fully answerable.

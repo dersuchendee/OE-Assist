@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not directly provide a property or class that links an actor to its type. The ontology includes a class `Cl_ActorType` and an object property `actorHasTypeRole` that links an actor to `Cl_ActorTypeRole`, which in turn is linked to `Cl_ActorType` through `hasActorType`. However, there is no direct link from `Cl_Actor` to `Cl_ActorType`.
+
+Partial answer:
+```sparql
+SELECT ?actor ?actorType
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :actorHasTypeRole ?actorTypeRole .
+  ?actorTypeRole :hasActorType ?actorType .
+}
+```

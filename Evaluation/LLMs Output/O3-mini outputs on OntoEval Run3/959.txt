@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves for a given book or CD (of type Cl_BookOrCD) the articles it is composed of by following the :composedOf relations—from the book/CD to its “composition” and then from the composition to the article.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookLabel ?article ?articleLabel
+WHERE {
+  # Select the specific book or CD (modify the FILTER or VALUE as needed)
+  ?book a :Cl_BookOrCD .
+  OPTIONAL { ?book rdfs:label ?bookLabel. }
+  
+  # Get the associated composition entity from the book/CD
+  ?book :composedOf ?composition .
+  
+  # From the composition, obtain the article (given the restriction that
+  # every Cl_Composition must have a composedOf relation to some Cl_Article)
+  ?composition :composedOf ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+------------------------------------------------------------
+
+This query shows that the competency question “What articles is a specific book or CD composed of?” is answerable by the ontology.

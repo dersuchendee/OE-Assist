@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves for each album the number of tracks it contains:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+
+This query shows that the ontology supports modeling the competency question “How many tracks does a particular album contain?” by relating an album (:Cl_Album) to its tracks (via the :containsTrack property) and aggregating them.

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves every record along with at least one track it is linked to via the property “:containsTrack”:
+
+─────────────────────────────  
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a :Cl_Record .
+  ?record :containsTrack ?track .
+}
+─────────────────────────────  
+
+This query shows that every instance of “:Cl_Record” in the ontology is required to have at least one track, thereby answering the competency question “A record always contains at least one track.”

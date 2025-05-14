@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific doctor with an evaluation statement for a specific employee. The ontology includes classes and properties related to evaluation statements and doctors, but it lacks the necessary connections to answer the competency question directly. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?employee ?evaluationText
+WHERE {
+  ?employee a :Cl_Person .
+  ?employee :hasEvaluation ?evaluation .
+  ?evaluation a :Cl_EvaluationStatement .
+  OPTIONAL { ?evaluation :evaluationText ?evaluationText . }
+}
+```
+
+This query retrieves evaluation statements associated with employees, but it does not specify which doctor provided the evaluation.

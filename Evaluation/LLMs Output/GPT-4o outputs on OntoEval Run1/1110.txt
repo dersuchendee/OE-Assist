@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "Who is where in this indoor location?" can be answered using the ontology provided. The ontology includes classes and properties that relate a person to a location and an activity, which allows us to determine who is in a specific location.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?location
+WHERE {
+  ?activity rdf:type :Cl_PersonLocationActivity .
+  ?activity :op_hasPerson ?person .
+  ?activity :op_hasActivityLocation ?location .
+}
+```

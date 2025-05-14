@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming we want to know when a given actor (e.g. :FabioBianchi) started working for a specific theatre (e.g. :GrandTheatre), you can extract this information via the employment relationship modeled in the ontology. For example, the following query retrieves the start date of the employment:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :op_employmentOf ?employment .
+  ?employment :dp_startDate ?startDate ;
+              :op_employedAt ?theatre .
+  FILTER (?actor = :FabioBianchi && ?theatre = :GrandTheatre)
+}
+------------------------------------------------
+
+This query illustrates that the CQ is fully supported by the ontology since all relevant classes (Cl_Actor, Cl_Employment, Cl_Theatre) and properties (op_employmentOf, op_employedAt, dp_startDate) to answer “At what time did a certain actor start working for a specific theatre?” are provided.

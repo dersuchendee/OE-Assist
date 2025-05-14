@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for each theatre festival, the plays shown (using the property :hasPlay and class :Cl_Play):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasPlay ?play .
+  ?play a :Cl_Play ;
+        :playName ?playName .
+}
+ORDER BY ?festivalName ?playName
+---------------------------------
+
+This query demonstrates that the ontology supports the competency question "What plays could be seen during a certain theatre festival?" under the closed world assumption.

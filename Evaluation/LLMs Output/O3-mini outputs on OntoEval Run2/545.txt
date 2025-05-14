@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that album release information is reified in the ontology via the Cl_AlbumRelease class and its associated properties (releasedOn and releaseDate), the CQ “When was a certain album released?” can be answered. For example, the following SPARQL query extracts the release date for albums (optionally filtering to a specific album via its label):
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :releasedOn ?albumRelease .
+  ?albumRelease :releaseDate ?releaseDate .
+  
+  # Uncomment the following line to restrict results to a specific album:
+  # FILTER(?albumLabel = "Stadium Arcadium")
+}
+ORDER BY ?albumLabel
+--------------------------------
+
+This query uses the closed-world assumption on the ontology and retrieves, for each album, any reified release information along with its corresponding release date.

@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology supports this CQ because it models an actor’s participation in a circular value network through reified participation relations (e.g. instances of actorODP:CollaborationParticipation) that link an actor (via actorODP:participatingActor) to a role (via actorODP:participantRole) in a network (via actorODP:participationIn). Under the closed world assumption, we assume that only those participation relations explicitly asserted exist. A suitable SPARQL query (with a parameter for the actor of interest) is provided below:
+
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX cvn:      <http://w3id.org/CEON/ontology/cvn/>
+PREFIX actor:    <http://w3id.org/CEON/ontology/actor/>
+
+SELECT DISTINCT ?role ?network
+WHERE {
+  ?participation a actorODP:CollaborationParticipation .
+  ?participation actorODP:participatingActor <http://w3id.org/CEON/ontology/actor/yourActor> .
+  ?participation actorODP:participantRole ?role .
+  ?participation actorODP:participationIn ?network .
+} 
+
+Replace <http://w3id.org/CEON/ontology/actor/yourActor> with the IRI of the actor you are querying about.

@@ -1,0 +1,17 @@
+**No**
+The ontology does not provide explicit constructs to compare similarities and differences among compositions beyond retrieving each composition’s measure information. However, a partial answer can be obtained by listing, for a given tune family (X) and measure type (Y), each composition’s recorded measure value. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?measureValue
+WHERE {
+  ?composition a :Composition ;
+               :belongsToTuneFamily :TuneFamilyX ;  # assuming :TuneFamilyX represents tune family X
+               :hasMeasure ?measure .
+  ?measure :measureType :MeasureTypeY ;             # assuming :MeasureTypeY represents measure Y
+           :measureValue ?measureValue .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+}
+
+This query retrieves, for the specified tune family X and measure type Y, the measure values for each composition. Although it doesn’t directly compute “similarities” or “differences”, it provides the basis for further analysis under the closed world assumption.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each ensemble, its members along with the time period during which they are members. (For instance, you could further filter for a specific time period if needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleLabel ?actor ?actorName ?timePeriod
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  
+  ?ensemble :hasEnsembleMembership ?membership .
+  ?membership :hasMember ?actor .
+  ?membership :hasTimePeriod ?timePeriod .
+  ?actor :actorName ?actorName .
+}
+ORDER BY ?ensemble ?timePeriod
+--------------------------------------------------
+
+This query confirms that the ontology does model the competency question "Who are the members of a certain ensemble at a certain point in time?" via the reified class for ensemble membership.

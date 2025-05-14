@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for each product, its components along with the materials and production processes linked to each component:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?product ?component ?material ?productionProcess
+WHERE {
+  ?product a :Cl_Product .
+  ?product :hasComponent ?component .
+  OPTIONAL { ?component :isComposedOf ?material . }
+  OPTIONAL { ?component :hasProductionProcess ?productionProcess . }
+}
+-------------------------------------------------
+
+This query answers the CQ "What are the components of this product?" by extracting the components connected via the :hasComponent property, along with their associated material (:isComposedOf) and production process (:hasProductionProcess), thus fully supporting the competency question under the closed world assumption.

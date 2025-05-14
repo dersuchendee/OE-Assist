@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine which specific articles a book or CD is composed of. The ontology includes a class `Cl_ArticleCollection` that can contain articles, but it does not distinguish between books and CDs in terms of their composition. Therefore, a partial answer can be extracted by identifying articles contained in any `Cl_ArticleCollection`.
+
+```sparql
+SELECT ?articleCollection ?article
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  ?articleCollection :containsArticle ?article .
+}
+```

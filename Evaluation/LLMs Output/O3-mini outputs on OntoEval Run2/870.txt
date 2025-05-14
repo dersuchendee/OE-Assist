@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that returns the country for a given city (replace :YourCity with the URI of the city you want to query):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedIn ?country .
+  FILTER(?city = :YourCity)
+}
+--------------------------------------------------
+
+For example, to get the country of the city NoceraInferiore, you can replace :YourCity with :NoceraInferiore.

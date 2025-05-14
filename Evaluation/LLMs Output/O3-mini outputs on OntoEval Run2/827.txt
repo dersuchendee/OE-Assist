@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the earliest employment date for a given person at a given hospital. Under the closed‐world assumption we assume that all employment events are recorded in the ontology. (In this example the individual is Pasquale_Di_Gennaro and the hospital is Ospedale_Riunito_delle_Tre_Valli.)
+
+--------------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentDate) AS ?firstEmployed)
+WHERE {
+  ?employment a :Cl_Employment ;
+              :employee ?person ;
+              :employedAt ?hospital ;
+              :employmentDate ?employmentDate .
+  
+  FILTER(?person = :Pasquale_Di_Gennaro && ?hospital = :Ospedale_Riunito_delle_Tre_Valli)
+}
+GROUP BY ?person ?hospital
+
+--------------------------------------------------------
+
+This query answers the competency question “When was a certain person first employed at a certain hospital?” by extracting the minimum employment date for that person at that hospital.

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the ontology is used under a closed‐world assumption (i.e. only explicitly stated facts hold), we can extract the current activity of a user with the following SPARQL query. In this ontology the reification pattern (using the pivot class Cl_BrushingTeeth as a subclass of Cl_BathroomActivity) supports the CQ "What is the user doing now?" by linking a person (Cl_Person) to a bathroom activity (via op_isDoing). For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?activity ?activityLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_isDoing ?activity .
+  OPTIONAL { ?activity rdfs:label ?activityLabel. }
+}
+--------------------------------------------------
+
+This query returns the persons and the bathroom activities (e.g., brushing teeth) they are currently doing.

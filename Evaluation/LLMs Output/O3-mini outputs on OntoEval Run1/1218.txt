@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?fungi ?fungiLabel ?role ?roleLabel
+WHERE {
+  ?fungi a :Fungi .
+  OPTIONAL { ?fungi rdfs:label ?fungiLabel . }
+  
+  ?fungi :occupiesHabitat ?habitat .
+  ?habitat a :Aquifer .
+  
+  ?fungi :playsRoleIn ?role .
+  ?role a :BiogeochemicalCycleInAquifer .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?indoorLocation ?device ?deviceType
+WHERE {
+  ?indoorLocation a :Cl_IndoorLocation .
+  ?indoorLocation :hasDevice ?device .
+  ?device a ?deviceType .
+  
+  # Optionally filter the device types to Cl_Mirror and Cl_Loudspeaker or any subtype of Cl_Device
+  FILTER(?deviceType = :Cl_Mirror || ?deviceType = :Cl_Loudspeaker || ?deviceType = :Cl_Device)
+}
+```

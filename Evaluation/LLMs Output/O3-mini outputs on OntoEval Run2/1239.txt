@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology encodes that BeechForest is a subclass of ForestEcosystem and restricts its effect (via the :affects property) to a union of :CarbonCycling and :NitrogenCycling processes, as well as linking BeechForest to a nearby groundwater system (via :hasNearbyGroundwaterSystem). Under the closed world assumption, we can retrieve the answer by querying for instances of BeechForest, the biogeochemical processes (restricted to CarbonCycling or NitrogenCycling) they affect, and the associated GroundwaterSystem. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?process ?groundwaterSystem
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :affects ?process .
+  ?beechForest :hasNearbyGroundwaterSystem ?groundwaterSystem .
+  FILTER(?process = :CarbonCycling || ?process = :NitrogenCycling)
+}
+
+This query extracts, for each beech forest, the associated affected process (either CarbonCycling or NitrogenCycling) and the nearby groundwater system, thereby answering the competency question.

@@ -1,0 +1,16 @@
+**Yes**
+  
+```sparql
+PREFIX : <http://example.org/articlecollection#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection a ?type .
+  FILTER(?type = :Book || ?type = :CD)
+  OPTIONAL { ?collection rdfs:label ?collectionLabel. }
+  
+  ?collection :contains ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+```

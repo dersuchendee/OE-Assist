@@ -1,0 +1,23 @@
+**No**
+
+The ontology does not provide a direct connection to retrieve sensor data related to a user's context. The ontology is focused on user brushing activity and sensor data related to location and objects, but it does not explicitly define a class or property for general sensor data about a user's context.
+
+Partial answer:
+```sparql
+SELECT ?userBrushingActivity ?sensorData ?location ?object
+WHERE {
+  ?userBrushingActivity a :Cl_UserBrushingActivity .
+  ?userBrushingActivity :hasSensorData ?sensorData .
+
+  OPTIONAL {
+    ?sensorData :hasLocation ?location .
+    ?location :isAlone ?isAlone .
+    ?location :isFacing ?isFacing .
+  }
+
+  OPTIONAL {
+    ?sensorData :hasObject ?object .
+    ?object :isHolding ?isHolding .
+  }
+}
+```

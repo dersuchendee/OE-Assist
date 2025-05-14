@@ -1,0 +1,21 @@
+**Yes**
+
+A query can be written that uses the properties defined in the ontology (namely, the relationships between Cl_Critic, Cl_Critique, and Cl_Record) to extract the critique text a given critic has provided on a given record. For instance, if you want to find what “Crian Hiatt” (assumed to be a Cl_Critic individual) said about a record (with a given label), you could write a query such as:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?critiqueText
+WHERE {
+  ?critic a :Cl_Critic ;
+          rdfs:label "Crian Hiatt" ;
+          :criticizes ?critique .
+  ?critique :critiqueText ?critiqueText ;
+            :critiqueOf ?record .
+  ?record a :Cl_Record ;
+          rdfs:label "Record Name" .
+}
+-------------------------------------------------------
+
+This query, assuming the provided labels correctly identify the targeted critic and record, returns the text of the critique (what the critic said about the record). Under the closed world assumption the absence of a value (i.e. no instance found for the query) implies that no such critique exists in the ontology.

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, will return the instruments played by a given musician (you can bind the musician of interest via ?person):
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Musician .
+  ?person :plays ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+  
+  # Replace the IRI below with the specific musician’s IRI.
+  FILTER(?person = :SomeMusician)
+}
+

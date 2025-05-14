@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, retrieves each Material’s origin (via :hasOrigin) and follows the chain of processes (using :undergoesProcess and the transitive property path on :hasNextProcess) to provide its complete trace.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?material ?source ?process
+WHERE {
+  ?material a :Material ;
+            :hasOrigin ?source .
+  OPTIONAL { 
+    ?material :undergoesProcess ?firstProcess .
+    # Follow the chain of processes via hasNextProcess (including the first process itself)
+    ?firstProcess (:hasNextProcess)* ?process .
+  }
+}
+ORDER BY ?material ?process
+--------------------------------------------------
+
+In this query:
+• We select each Material and its associated Source (origin).
+• We optionally traverse the process chain starting with the process the Material undergoes (if any) and following all subsequent :hasNextProcess links.
+• The use of the SPARQL 1.1 property path (:hasNextProcess)* allows us to obtain the complete trace of processes linked together.

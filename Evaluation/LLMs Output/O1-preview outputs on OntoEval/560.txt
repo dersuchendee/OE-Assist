@@ -1,0 +1,35 @@
+**Yes**
+
+Here, the competency question (CQ) "What song is a specific track a recording of?" is answerable using the ontology provided. The ontology defines `Cl_TrackRecording` as the class representing tracks that are recordings of songs (`Cl_MusicalWork`). Each `Cl_TrackRecording` instance is connected to a `Cl_MusicalWork` instance via the `:op_isRecordingOf` object property.
+
+Therefore, we can construct a SPARQL query that retrieves, for each track recording, the song it is a recording of.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track rdf:type :Cl_TrackRecording .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+  ?track :op_isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```
+
+This query selects all instances of `Cl_TrackRecording` and retrieves the associated `Cl_MusicalWork` (song) they are recordings of via the `:op_isRecordingOf` property. The `OPTIONAL` clauses include labels if they are available, making the query results more readable.
+
+**Explanation:**
+
+- **Classes Involved:**
+  - `:Cl_TrackRecording`: Represents track recordings.
+  - `:Cl_MusicalWork`: Represents songs.
+
+- **Object Property:**
+  - `:op_isRecordingOf`: Connects a `Cl_TrackRecording` to the `Cl_MusicalWork` it records.
+
+- **Reasoning:**
+  - Since each `Cl_TrackRecording` is associated with a `Cl_MusicalWork` via `:op_isRecordingOf`, we can retrieve the song for any specific track recording.
+  - The ontology provides all the necessary classes and properties to answer the CQ.
+
+**Therefore, the competency question is supported by the ontology and answerable via the provided SPARQL query.**

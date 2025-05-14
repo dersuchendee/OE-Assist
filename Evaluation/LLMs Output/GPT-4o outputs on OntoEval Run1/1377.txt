@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for specific musicians or performers by name, nor does it provide a way to directly query for the reason for a meetup. However, we can extract partial information about meetups, including participants, places, and times.
+
+```sparql
+SELECT ?meetup ?participant ?place ?time ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  ?meetup mtps:hasPlace ?place .
+  ?meetup mtps:happensAt ?time .
+  OPTIONAL { ?meetup mtps:hasAPurpose ?purpose . }
+}
+```

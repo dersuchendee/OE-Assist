@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, returns each record along with at least one track it contains (thus verifying that every record in the ontology has at least one track):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?record ?track
+WHERE {
+  ?record a :Cl_Record .
+  ?record :containsTrack ?track .
+}
+----------------------------------------------------------------
+
+This query confirms that every instance of :Cl_Record (in the restricted world defined by the ontology) is linked via the property :containsTrack to at least one instance of :Cl_Track.

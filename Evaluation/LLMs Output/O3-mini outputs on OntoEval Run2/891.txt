@@ -1,0 +1,23 @@
+**Yes**
+
+We can answer this CQ using the ontology. In the ontology, persons (of type :Cl_Person) have union memberships (via the property :hasUnionMembership) whose role – and especially the union they belong to (via :memberOf) – is captured. Their membership start date is recorded through the data property :membershipStartDate. Under a closed‐world assumption, if no membership stop date is provided we assume that the membership holds indefinitely. Thus, to “find the members of a certain union at a certain point in time” you can select persons that have a membership to that union with a :membershipStartDate on or before that point (and if present, membership end dates after that point). For example, for union :UnionOfMaleNurses and a given date (e.g., "2002-12-31"^^xsd:date), the query would be:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?membershipStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasUnionMembership ?membership .
+  ?membership :memberOf :UnionOfMaleNurses .
+  ?membership :membershipStartDate ?membershipStartDate .
+  # Under the closed world assumption: if a membership end date were provided 
+  # it should be after the reference date, but since none is provided here we assume 
+  # that a membership without an end date is active.
+  FILTER (?membershipStartDate <= "2002-12-31"^^xsd:date)
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+---------------------------------
+
+This query returns all persons who have been members of the specified union as of the chosen date.

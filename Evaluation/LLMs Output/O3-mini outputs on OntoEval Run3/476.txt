@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the role a specified person has in a specified band during a given time period. (You may replace the URI placeholders with the actual URIs for the person, band, and, if applicable, the time point or period.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?timePeriod
+WHERE {
+  ?bandRole a :Cl_BandRole ;
+            :hasRoleInBand ?person ;
+            :hasMemberWithRole ?band ;
+            :hasRole ?role ;
+            :duringTimePeriod ?timePeriod .
+  
+  # Replace with the specific person and band URIs as needed.
+  FILTER(?person = <http://www.example.org/test#SpecificPerson>)
+  FILTER(?band = <http://www.example.org/test#SpecificBand>)
+  
+  # Optionally: if the time period is represented by a time interval or point,
+  # you can further restrict by comparing against a given time value.
+  # For example, if ?timePeriod has properties like :startDate and :endDate:
+  # ?timePeriod :startDate ?startDate.
+  # ?timePeriod :endDate ?endDate.
+  # FILTER("2006-08-11T00:00:00"^^xsd:dateTime >= ?startDate && "2006-08-11T00:00:00"^^xsd:dateTime <= ?endDate)
+}
+
+This query illustrates how the ontology’s reified class :Cl_BandRole is used to link a person, a band, a role, and the time period during which the role applies, thus fully supporting the competency question.

@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the “certain person” is identified (e.g., by a URI such as :PasqualeDiGennaro) and using a closed‐world interpretation, you can extract the medical degrees (and their names) with a query like:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?degreeName 
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeName ?degreeName .
+  FILTER(?person = :PasqualeDiGennaro)
+}
+---------------------------------
+
+This query retrieves the specific person’s medical degrees (via the property :hasMedicalDegree) and obtains their names (using :degreeName), so the CQ is fully answerable by the ontology.

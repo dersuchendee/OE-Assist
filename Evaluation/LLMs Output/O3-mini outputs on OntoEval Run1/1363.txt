@@ -1,0 +1,26 @@
+**No**
+
+The current ontology does not provide properties or classes directly related to “execution techniques” or “mounting systems” that would allow us to answer the question fully. Under a closed world assumption, we have no information about execution techniques (e.g. “hand‐played” vs “electrically played”) or about mounting system details, so we cannot completely answer which execution techniques are possible for a given mounting system. However, we can partially extract data about the bell objects and how they are structurally connected (e.g. retrieving bells within a bell tower), which might serve as a partial answer.
+
+Below is a SPARQL query that retrieves, for each Bell Tower, the Bells that are part of their set of bells. This query provides a partial view of the domain by showing the composition relationships even though it does not return any execution techniques or mounting system data (since such information is not modelled):
+
+-----------------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX l0: <https://w3id.org/italia/onto/l0/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?towerLabel ?bell ?bellLabel
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?towerLabel. }
+  
+  ?bellTower arco:hasComponent ?setOfBells .
+  ?setOfBells a bells:SetOfBells .
+  
+  ?setOfBells arco:hasComponent ?bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel. }
+}
+-----------------------------------------------------------
+
+This query provides a partial answer by showing the component structure (Bell Towers → SetOfBells → Bells) but does not resolve the CQ regarding execution techniques by mounting system, because that part of the domain is not represented in the ontology.

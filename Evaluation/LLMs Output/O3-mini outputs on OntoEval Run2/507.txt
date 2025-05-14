@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that an album’s recording session is reified as an instance of Cl_RecordingSession—with properties (here re‐using membershipStart and membershipEnd) specifying the recording start and end dates and that an album is connected to its recording session via the recordedDuring property—you can write a SPARQL query to retrieve the time period during which a given album was recorded. For example, if you want to extract the recording period of a particular album (say, using its label "Stadium Arcadium"), the following query uses a closed world assumption to return the album’s recording start and end dates:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  ?album rdfs:label ?albumLabel .
+  ?album :recordedDuring ?session .
+  ?session :membershipStart ?recordingStart .
+  ?session :membershipEnd ?recordingEnd .
+  FILTER(?albumLabel = "Stadium Arcadium")
+}
+
+This query answers the competency question by extracting the recording time boundaries (the time period) for the specified album.

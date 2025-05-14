@@ -1,0 +1,27 @@
+**Yes**
+Below is one example SPARQL query that uses the reified “Role in production” construct and the time property to answer the CQ. In this example the query is parameterized by a given person and a given production (replace the VALUES with the desired individuals):
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel ?time
+WHERE {
+  # Restrict to a certain person and production 
+  VALUES ?person { theatre:FabioBianchi }
+  VALUES ?production { theatre:MerchantOfVeniceProduction }
+  
+  ?person theatre:participatesIn ?production .
+  ?person theatre:hasRole ?role .
+  ?role rdfs:label ?roleLabel .
+  
+  # The reified association “Role in production” carries the time info
+  ?roleInProd a theatre:RoleInProduction .
+  ?roleInProd theatre:hasRoleInProduction ?production .
+  ?roleInProd theatre:atTime ?time .
+  
+  # Optionally, if desired, ensure that the actor’s role relates to the reified role instance
+  # (depending on how the link between the simple role and the reified instance is modeled)
+}
+ORDER BY ?time
+
+The above query retrieves, for a specific actor (here FabioBianchi) in a specific production (here MerchantOfVeniceProduction), the roles they play along with the associated time (point in time) at which that role is recorded. This demonstrates that the ontology models the intended competency question.

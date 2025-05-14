@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "What does a certain critic say about a certain record?" can be answered using the ontology provided. The ontology includes classes and properties that relate critics to their reviews of records, including the critic's statement.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?critic ?record ?statement
+WHERE {
+  ?review rdf:type :Cl_CriticReview .
+  ?review :madeByCritic ?critic .
+  ?review :reviewOf ?record .
+  ?review :criticStatement ?statement .
+}
+```

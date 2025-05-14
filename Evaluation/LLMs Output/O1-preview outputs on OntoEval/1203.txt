@@ -1,0 +1,27 @@
+Answer: **Yes**
+
+Because the ontology provides the necessary classes and properties to retrieve the disposition of an organ at a specific point in time. Specifically, the ontology includes the `:Organ` class, the `:Disposition` class, and the `:DispositionAtTime` class, along with properties that link them (`:hasDispositionAtTime`, `:hasDisposition`, and `:atTime`). This allows us to query for the disposition of an organ based on a given time.
+
+Here's a SPARQL query that answers the competency question:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?organ ?organLabel ?disposition ?dispositionLabel
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  
+  ?organ :hasDispositionAtTime ?dispositionAtTime .
+  ?dispositionAtTime :hasDisposition ?disposition .
+  OPTIONAL { ?disposition rdfs:label ?dispositionLabel . }
+  
+  ?dispositionAtTime :atTime ?time .
+  
+  # Specify the specific point in time you're interested in
+  FILTER (?time = "SPECIFIC_DATETIME"^^xsd:dateTime)
+}
+```
+
+Replace `"SPECIFIC_DATETIME"` with the specific date and time you're interested in (e.g., `"2023-10-12T00:00:00Z"`). This query retrieves the organ and its disposition at the specified point in time.

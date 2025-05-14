@@ -1,0 +1,32 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?product ?filmTitle ?place ?cinemaName ?time ?startTime
+WHERE {
+  # Select the event (here using the XMenPreview individual for the action film preview)
+  ?event a event:Event .
+  FILTER(?event = :XMenPreview) .
+  
+  # Get the featured product (film) and its title
+  OPTIONAL {
+    ?event event:product ?product .
+    OPTIONAL { ?product :hasTitle ?filmTitle . }
+  }
+  
+  # Get the place (cinema) and its location name
+  OPTIONAL {
+    ?event event:place ?place .
+    OPTIONAL { ?place :hasLocationName ?cinemaName . }
+  }
+  
+  # Get the time resource and its start time
+  OPTIONAL {
+    ?event event:time ?time .
+    OPTIONAL { ?time :hasStartTime ?startTime . }
+  }
+}
+```

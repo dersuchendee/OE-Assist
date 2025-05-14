@@ -1,0 +1,21 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compLabel ?measureValue ?value
+WHERE {
+  ?composition a :Composition ;
+               :isInTuneFamily ?tuneFamily ;
+               :hasMeasureValue ?mv .
+  OPTIONAL { ?composition rdfs:label ?compLabel . }
+  
+  ?mv :isMeasureOf ?measure ;
+      :hasValue ?value .
+  
+  # Assuming X and Y are provided as specific instances for the tune family and measure.
+  FILTER (?tuneFamily = :X && ?measure = :Y)
+}
+ORDER BY ?composition
+```

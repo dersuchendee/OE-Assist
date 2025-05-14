@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?theatre ?employmentDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :hasEmployment ?employment .
+  ?employment a :Cl_ActorEmployment .
+  ?employment :hasEmploymentDate ?employmentDate .
+  ?employment :isEmployedIn ?theatre .
+  ?theatre a :Cl_Theatre .
+}
+```

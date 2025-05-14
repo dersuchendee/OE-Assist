@@ -1,0 +1,20 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for a given Book or CD, the articles (members) that compose the collection:
+
+-------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  { ?collection a :Book . }
+  UNION
+  { ?collection a :CD . }
+  
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  ?collection :hasMember ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+-------------------------------------------------
+
+This query answers the question “What articles is a specific book or CD composed of?” by retrieving any resource that is a Book or CD (both being ArticleCollections) and following the :hasMember property to list its articles.

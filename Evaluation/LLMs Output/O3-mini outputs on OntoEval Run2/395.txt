@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one example of a SPARQL query extracting the roles a given person has in a specified production at a certain time. (In the query, we assume that the person, production and time are provided as parameter filters.) 
+
+For instance, assuming that:
+ • The person is identified by a label (e.g. "Fabio Bianchi")
+ • The production is identified by a label (e.g. "The Merchant of Venice")
+ • And you want to check for role assignments on a given date
+
+You could use the following query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?roleName ?roleDate
+WHERE {
+  ?person a :Cl_Person ;
+          rdfs:label ?personName ;
+          :hasRoleInProduction ?role .
+  ?role a :Cl_RoleAssignment ;
+         :roleName ?roleName ;
+         :roleDate ?roleDate ;
+         a :Cl_Production .  # role assignment instance also plays the role of a production
+
+  # Filter for a specific person, production and point in time:
+  FILTER(?personName = "Fabio Bianchi")
+  ?role rdfs:label ?productionName .
+  FILTER(?productionName = "The Merchant of Venice")
+  FILTER(?roleDate = "2009-09-07"^^xsd:date)
+}
+ORDER BY ?roleDate
+
+In this query, by using the reification class Cl_RoleAssignment (which is modelled as a subclass of Cl_Person, Cl_Production, and Cl_Date) and the property :hasRoleInProduction, the competency question is fully supported under the closed world assumption.

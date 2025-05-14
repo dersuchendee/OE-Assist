@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question is answerable using the ontology provided. The ontology includes classes for `Bell`, `SetOfBells`, and `BellTower`, and the relationships between them. We can write a SPARQL query to determine if there is a single bell or a set of bells in a church/bell tower.
+
+```sparql
+SELECT ?bellTower ?bell ?setOfBells
+WHERE {
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+  OPTIONAL {
+    ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+    ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+    ?setOfBells a <https://w3id.org/polifonia/ontology/bell/SetOfBells> .
+  }
+}
+```
+
+This query retrieves bell towers and checks if there are any bells or sets of bells associated with them.

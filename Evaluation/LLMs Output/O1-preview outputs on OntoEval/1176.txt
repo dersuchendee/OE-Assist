@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "How efficient is this process?" can be answered using the ontology because the class `:Process` has a datatype property `:hasEfficiency` which represents the efficiency of the process as a float value. Additionally, processes are related to capacities through the `:hasCapacity` object property, and the specific capacity in question is `:CapacityToDevelopNewConfigurations`.
+
+Here is a SPARQL query that retrieves the efficiency of processes that have the capacity to develop new configurations:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?process ?efficiency
+WHERE {
+  ?process a :Process .
+  ?process :hasEfficiency ?efficiency .
+  ?process :hasCapacity ?capacity .
+  ?capacity a :CapacityToDevelopNewConfigurations .
+}
+```
+
+This query selects all instances of `:Process` that have an associated efficiency (`:hasEfficiency`) and are linked to a capacity of type `:CapacityToDevelopNewConfigurations` via the `:hasCapacity` property. The result will provide the efficiency value for each such process, effectively answering the competency question.

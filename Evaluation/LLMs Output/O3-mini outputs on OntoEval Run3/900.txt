@@ -1,0 +1,36 @@
+**Yes**
+
+Below is one example SPARQL query that answers the CQ “Who are the members of a certain union at a certain point in time?” under a closed‐world assumption. In this query we assume that the union of interest is given by its IRI (here, for example purposes, we use <http://www.example.org/test#Union_X>) and that we want to check membership validity at a given date (in this example, “2002-01-01”). Adjust the union IRI and the date as needed.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership .
+  ?membership :hasPerson ?person .
+  ?membership :hasUnion ?union .
+  ?membership :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # Filter for the particular union of interest
+  FILTER (?union = <http://www.example.org/test#Union_X>)
+  
+  # Closed world: verify that the given date falls within the membership period.
+  BIND("2002-01-01"^^xsd:date AS ?givenDate) .
+  FILTER ( ?givenDate >= ?membershipStartDate &&
+          ( !BOUND(?membershipEndDate) || ?givenDate <= ?membershipEndDate ) )
+          
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?person
+--------------------------------------------------
+
+In this query:
+• We select the union membership individuals (of type :Cl_UnionMembership) that connect a person (via :hasPerson) to a union (via :hasUnion).
+• We assume that each membership has a start date (membershipStartDate) and may have an end date (membershipEndDate); using a FILTER we return those memberships that are active at the given point in time.
+• The closed world assumption is applied explicitly by filtering for the given date.
+
+This demonstrates that the ontology models the required information so that the competency question is answerable with a suitable SPARQL query.

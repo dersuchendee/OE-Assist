@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate members of an ensemble with a specific point in time. The ontology includes classes and properties for ensembles, members, and performances, but it lacks a temporal component to specify when a person was a member of an ensemble. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract ensemble members without temporal information:
+
+```sparql
+SELECT ?ensemble ?member ?memberName
+WHERE {
+  ?ensemble a :Ensemble .
+  ?ensemble :hasMember ?member .
+  ?member :hasName ?memberName .
+}
+```

@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+
+SELECT ?actor ?cvn
+WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participationIn ?cvn .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer the query “When was a certain book or CD published?” by retrieving the publication date of any individual that is declared as a Book or a CD (i.e. an instance of :Cl_Book or :Cl_CD). Under the closed world assumption, only those individuals explicitly typed as one of these classes are considered.
+
+Below is a sample SPARQL query that extracts the title and publication date of such publications:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publicationTitle ?publicationDate
+WHERE {
+  ?pub a ?type .
+  FILTER(?type = :Cl_Book || ?type = :Cl_CD) .
+  ?pub :publicationTitle ?publicationTitle ;
+       :publicationDate ?publicationDate .
+}
+---------------------------------------------------
+
+This query shows that the ontology models the competency question.

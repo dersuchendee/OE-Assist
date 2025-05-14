@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?process ?processLabel ?actor ?actorLabel
+WHERE {
+  ?process a :Process .
+  ?process :involvesActor ?actor .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?process ?actor
+```

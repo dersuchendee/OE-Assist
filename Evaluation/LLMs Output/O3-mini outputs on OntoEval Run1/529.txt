@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the number of tracks for a particular album (e.g., “Stadium Arcadium”) by counting the tracks that are explicitly linked to the album via the property :albumContainsTrack:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album ;
+         rdfs:label "Stadium Arcadium" ;
+         :albumContainsTrack ?track .
+}
+GROUP BY ?album
+--------------------------------------------------
+
+This query confirms that the competency question “How many tracks does a particular album contain?” is answerable by the ontology.

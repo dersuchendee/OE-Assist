@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each play, its writing period defined by the associated TimeInterval (using its start and end dates):
+
+———————————————
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title ?start ?end
+WHERE {
+  ?play a :Play .
+  OPTIONAL { ?play :hasTitle ?title . }
+  ?play :wasWrittenDuring ?time .
+  ?time :hasStartDate ?start .
+  ?time :hasEndDate ?end .
+}
+ORDER BY ?title
+———————————————
+
+In a closed-world view, if a play lacks an associated writing period (i.e. the property :wasWrittenDuring), it is assumed that no such information exists. This query shows that the competency question “During what time period was a certain play written?” is answerable using the given ontology.

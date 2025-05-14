@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed world (i.e. anything not explicitly stated does not exist), we can answer the CQ because the ontology defines a class for theatres (e.g. :Cl_Theatre) and provides a data property (:isLocatedInCity) whose domain is :Cl_Theatre. Therefore, we can write a SPARQL query that retrieves, for each theatre, the city in which it is located.
+
+For example:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :isLocatedInCity ?city .
+}
+-----------------------------------------
+
+This query returns all theatres and their associated cities, thus fully supporting the CQ “In what city is a certain theatre located?” under the closed world assumption.

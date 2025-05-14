@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each source’s credibility from the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?credibilityLevel ?assessedBy
+WHERE {
+  ?source a :Cl_Source ;
+          :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityLevel ?credibilityLevel .
+  OPTIONAL { ?assessment :assessedBy ?assessedBy . }
+}
+--------------------------------------------------
+
+This query answers the competency question "Which is the credibility of a source?" by extracting, for every source (:Cl_Source), its associated credibility level (via :hasCredibilityAssessment and :hasCredibilityLevel) and optionally the person who assessed it (via :assessedBy).

@@ -1,0 +1,26 @@
+**Yes**
+
+The available ontology has classes for critics (Cl_Critic), critiques (Cl_Critique), and records/albums (Cl_Album) together with properties linking them. For instance, a critic is linked to a critique via the property :madeCritique, and a critique is linked to the reviewed record via the property :critiqueOf. Also, the text of the critique is available via the datatype property :critiqueText. This allows us to write a SPARQL query that retrieves what a given critic said about a specific record.
+
+Below is an example SPARQL query that (under the closed‐world assumption) retrieves the critique text given particular individuals for the critic and the record:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critiqueText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?record a :Cl_Album .
+  ?critic :madeCritique ?critique .
+  ?critique :critiqueOf ?record .
+  ?critique :critiqueText ?critiqueText .
+  
+  # For a specific critic and record, e.g., Critic Crian_Hiatt and record Stadium_Arcadium:
+  FILTER(?critic = :Crian_Hiatt && ?record = :Stadium_Arcadium)
+}
+--------------------------------------------------
+
+This query answers the CQ by extracting the exact words (the critique text) that the specific critic wrote about the given record.

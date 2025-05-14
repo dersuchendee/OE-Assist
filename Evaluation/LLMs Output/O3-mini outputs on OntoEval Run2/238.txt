@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a theatre:Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  
+  ?author theatre:wrote ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?author ?play
+```

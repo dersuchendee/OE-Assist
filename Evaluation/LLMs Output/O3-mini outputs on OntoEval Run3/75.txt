@@ -1,0 +1,17 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the date of a given theatre festival (in this example, one named “Roma Loves Shakespeare”):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_FestivalOccurrence ;
+            :hasName ?name ;
+            :hasDate ?date .
+  FILTER(str(?name) = "Roma Loves Shakespeare")
+}
+---------------------------------
+
+This query uses the ontology’s modelling of festival occurrences (with class Cl_FestivalOccurrence and data property :hasDate) to answer the competency question under a closed‐world assumption.

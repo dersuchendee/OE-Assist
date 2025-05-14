@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What play is the basis of this production?" can be answered using the ontology provided. The ontology includes the `ns1:hasPlay` property, which associates a theatre production with the play it is based on. Therefore, we can write a SPARQL query to extract the answer.
+
+```sparql
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a ns1:TheatreProduction .
+  ?production ns1:hasPlay ?play .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```

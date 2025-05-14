@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?process ?processLabel
+WHERE {
+  ?actorInProcess a :Cl_ActorInProcess ;
+                   :op_hasActor ?actor ;
+                   :op_partOfProcess ?process .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+ORDER BY ?actor ?process
+```

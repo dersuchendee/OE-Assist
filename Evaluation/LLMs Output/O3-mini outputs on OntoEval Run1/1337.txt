@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?monitor ?monitorLabel ?hospitalization ?disease ?geographicalArea
+WHERE {
+  ?monitor a :Monitor .
+  OPTIONAL { ?monitor rdfs:label ?monitorLabel . }
+  
+  ?monitor :monitors ?hospitalization .
+  ?hospitalization a :Hospitalization .
+  ?hospitalization :forDisease ?disease .
+  ?hospitalization :inGeographicalArea ?geographicalArea .
+}
+ORDER BY ?monitor
+```

@@ -1,0 +1,39 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to relate a production to the play it is based on. Specifically, it includes:
+
+- **Classes**:
+  - `:Cl_Production` - Represents a production.
+  - `:Cl_Play` - Represents a play.
+  - `:Cl_ProductionBasedOnPlay` - Represents productions that are based on plays.
+
+- **Object Properties**:
+  - `:hasBasis` - Relates a `:Cl_Production` to a `:Cl_ProductionBasedOnPlay`.
+  - `:basedOn` - Relates a `:Cl_ProductionBasedOnPlay` to a `:Cl_Play`.
+
+- **Restrictions and Equivalences**:
+  - `:Cl_ProductionBasedOnPlay` is defined such that any instance is equivalent to a production that is based on some play.
+
+Using these, we can write a SPARQL query to find the play that is the basis of each production.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasBasis ?productionBasedOnPlay .
+  ?productionBasedOnPlay :basedOn ?play .
+
+  OPTIONAL { ?production :hasName ?productionName . }
+  OPTIONAL { ?play :hasName ?playName . }
+}
+```
+
+This query retrieves all productions and their corresponding plays by traversing the relationships defined in the ontology:
+
+- It selects instances of `:Cl_Production`.
+- Uses `:hasBasis` to find the associated `:Cl_ProductionBasedOnPlay`.
+- From there, uses `:basedOn` to find the `:Cl_Play` the production is based on.
+- `OPTIONAL` clauses are used to retrieve names if available.
+
+**Therefore, the competency question "What play is the basis of this production?" is supported by the ontology.**

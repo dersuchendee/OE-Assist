@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that returns the persons who are members of a specified union (here, for instance, “Union for Male Nurses”) at a given point in time (replace the date as needed). The query uses the membership start and end dates—assuming that if no end date is given the membership is considered ongoing (closed‐world assumption):
+
+---------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :memberOfUnion :Union_Male_Nurses ;  # Change this to the desired union
+              :unionMember ?person ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # The target date; adjust as necessary
+  FILTER(xsd:date("2002-06-01") >= ?membershipStartDate &&
+         (!BOUND(?membershipEndDate) || xsd:date("2002-06-01") <= ?membershipEndDate))
+         
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+---------------------------------------------
+
+This query successfully extracts the members of a given union at the desired point in time as modelled in the ontology, so the CQ is answerable.

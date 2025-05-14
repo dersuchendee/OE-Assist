@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the seminars along with the hospital (i.e. the location) where each seminar took place. In this ontology the property :seminarLocation (with domain :Cl_Seminar and range :Cl_Hospital) directly links a seminar to its venue.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?location ?locationLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :seminarLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+--------------------------------------------------
+
+This query extracts all individuals of type :Cl_Seminar and retrieves their associated location via the :seminarLocation property. This fully supports the competency question “Where did a certain seminar take place?” under the closed world assumption.

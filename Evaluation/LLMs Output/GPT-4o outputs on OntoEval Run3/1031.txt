@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "When did a certain seminar take place?" can be answered using the ontology provided. The ontology includes information about seminars, including their dates, which allows us to construct a SPARQL query to retrieve the date of a specific seminar.
+
+```sparql
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+```

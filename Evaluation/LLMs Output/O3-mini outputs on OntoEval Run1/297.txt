@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the number of acts for a given play (here, “The Merchant of Venice” is used as an example):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playName ?numberOfActs
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName ;
+        :containsActs ?playActs .
+  ?playActs :numberOfActs ?numberOfActs .
+  FILTER(?playName = "The Merchant of Venice")
+}
+
+This query is answerable under a closed world assumption as all relevant classes (Cl_Play, Cl_PlayActs) and data property (:numberOfActs) that reify the number of acts for a play are modeled in the ontology.

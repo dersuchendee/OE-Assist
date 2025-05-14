@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for the publication date of a specific book or CD. The ontology includes a class `Cl_ArticleCollection` which can be a book or a CD, but it does not have a direct property for publication date for individual books or CDs. The `publicationDate` property is associated with `Cl_ArticleCollection`, but the competency question asks for a specific book or CD, which is not directly modeled in the ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?articleCollection ?publicationDate
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  OPTIONAL { ?articleCollection :publicationDate ?publicationDate . }
+}
+```

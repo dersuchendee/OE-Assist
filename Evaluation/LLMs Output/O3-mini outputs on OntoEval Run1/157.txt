@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that retrieves each theatre together with its city (using the property “locatedIn” from a theatre to its city and the city’s name from the data property “cityName”):
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?theatre ?theatreName ?city ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre ;
+           :theatreName ?theatreName ;
+           :locatedIn ?city .
+  ?city :cityName ?cityName .
+}
+ORDER BY ?theatreName
+---------------------------------------
+
+This query shows how the competency question "In what city is a certain theatre located?" can be answered using the provided ontology.

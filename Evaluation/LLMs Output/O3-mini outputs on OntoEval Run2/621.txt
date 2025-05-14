@@ -1,0 +1,19 @@
+**Yes**
+Below is a SPARQL query that retrieves the critique text (what the critic says) about a given record. (Here we assume that the critic and record are identified by known URIs via parameters.)
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique ;
+            :critiqueMadeBy ?critic ;
+            :critiqueOfRecord ?record ;
+            :critiqueContent ?critiqueContent .
+  FILTER(?critic = <http://www.example.org/test#SomeCritic> &&
+         ?record = <http://www.example.org/test#SomeRecord>)
+}
+-------------------------------------------------
+
+In this query the assumption is that instances of Cl_Critique are used to reify the critic’s commentary, linking a Cl_Critic (via :critiqueMadeBy) to a Cl_Record (via :critiqueOfRecord) and providing the actual critique text with :critiqueContent. This design supports answering the CQ under the closed‐world assumption.

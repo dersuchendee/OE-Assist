@@ -1,0 +1,38 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the roles an actor (person) plays in a given production at a specified time. (Note that you may replace the sample URIs and literal values with your actual resources and parameter values.)
+
+-------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel ?atTime
+WHERE {
+  # Select the actor of interest
+  ?person a theatre:Actor ;
+          rdfs:label "Fabio Bianchi" .    # change this literal to the specific person
+
+  # The actor must participate in the production of interest
+  ?person theatre:participatesIn ?production .
+  FILTER(?production = theatre:MerchantOfVeniceProduction)   # update as needed
+
+  # Via the chain, the actor has a role that is (reified to be) played in the production.
+  ?person theatre:hasRole ?role .
+  ?role theatre:isRoleOf ?production ;
+        rdfs:label ?roleLabel ;
+        theatre:atTime ?atTime .
+
+  # Only retrieve roles that are assigned at the specific time (adjust the time literal as needed)
+  FILTER(?atTime = "2009-09-07T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?roleLabel
+-------------------------------------------------
+
+In this query:
+– We start by selecting the individual actor (here “Fabio Bianchi”).
+– We require that the actor participates in a given production (e.g. MerchantOfVeniceProduction).
+– We then follow the asserted role (via theatre:hasRole and theatre:isRoleOf) and retrieve the associated time using the property theatre:atTime.
+– Finally, we filter by the desired point in time. 
+
+Because all the classes and properties needed to answer the CQ are modelled in the ontology, the CQ is answerable under the closed‐world assumption.

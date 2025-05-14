@@ -1,0 +1,45 @@
+**Yes**
+
+Assuming the ontology contains individuals representing both the person and the hospital, the following SPARQL query retrieves the first employment date of a given person at a given hospital. (Under the closed‐world assumption the available data is assumed complete.)
+
+For example, if we assume Pasquale Di Gennaro is represented as :Pasquale_Di_Gennaro and the hospital as :Ospedale_Riunito_delle_Tre_Valli, you can use:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person ;
+          :employedAt ?employment .
+  ?employment :hospital ?hospital ;
+              :employmentStartDate ?startDate .
+  
+  FILTER(?person = :Pasquale_Di_Gennaro && ?hospital = :Ospedale_Riunito_delle_Tre_Valli)
+}
+GROUP BY ?person ?hospital
+ORDER BY ?firstEmploymentDate
+
+─────────────────────────────
+
+If no specific individuals are provided in the data, you may remove the FILTER clause to list the first employment date for every person–hospital combination:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person ;
+          :employedAt ?employment .
+  ?employment :hospital ?hospital ;
+              :employmentStartDate ?startDate .
+}
+GROUP BY ?person ?hospital
+ORDER BY ?firstEmploymentDate
+
+─────────────────────────────
+
+This query answers the CQ “When was a certain person first employed at a certain hospital?” by exploiting the relationships modeled in the ontology.

@@ -1,0 +1,30 @@
+**Yes**
+
+The competency question is answerable because the ontology defines that a BeechForest has a CO2 fixation pathway, specifically a PrimaryCO2FixationPathway. This relationship is expressed through the `owl:Restriction` on the `:hasCO2FixationPathway` property. Even though there are no specific instances (individuals) of CO2 fixation pathways, the ontology's class hierarchy and property restrictions allow us to retrieve the required information at the class level.
+
+Here is the SPARQL query to extract the primary CO2 fixation pathways in beech forests:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?pathway ?pathwayLabel
+WHERE {
+  :BeechForest rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty :hasCO2FixationPathway ;
+               owl:someValuesFrom ?pathway .
+  OPTIONAL {
+    ?pathway rdfs:label ?pathwayLabel .
+  }
+}
+```
+
+This query works as follows:
+
+1. It starts by finding all the restrictions (`owl:Restriction`) on the `:BeechForest` class that involve the `:hasCO2FixationPathway` property.
+2. It retrieves the classes (`?pathway`) that are the `owl:someValuesFrom` in these restrictions.
+3. Optionally, it gets the labels (`?pathwayLabel`) of these pathways for readability.
+
+When executed, this query will return the `:PrimaryCO2FixationPathway` class and its label "Primary CO2 Fixation Pathway", effectively answering the competency question.

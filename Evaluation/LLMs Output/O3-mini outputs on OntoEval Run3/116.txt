@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer “Where did a certain festival take place?” by extracting the link between a festival (an instance of Cl_TheatreFestival) and the city in which it takes place using the property :takesPlaceIn. Under the closed‐world assumption, we assume all required information is explicitly given in the data. Here’s a SPARQL query that retrieves festivals along with their associated city:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :takesPlaceIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+ORDER BY ?festival
+
+This query answers the CQ because it directly extracts the city (location) in which each theatre festival takes place as modelled in the ontology.

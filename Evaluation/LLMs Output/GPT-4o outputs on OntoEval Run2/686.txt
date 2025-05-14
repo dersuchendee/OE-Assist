@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide information about the specific location where a performance took place. It includes classes and properties related to performances, venues, and cities, but it does not explicitly connect a performance to a specific venue or city in a way that answers the competency question directly.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?performance ?venue ?city
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance :takesPlaceIn ?venue . }
+  OPTIONAL { ?venue :locatedIn ?city . }
+}
+```

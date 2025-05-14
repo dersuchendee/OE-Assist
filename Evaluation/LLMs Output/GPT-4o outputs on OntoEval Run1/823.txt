@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain information about the specific date when a person was first employed at a hospital. The ontology includes classes and properties related to employment, but it does not specify the exact date of employment for individuals. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying the employment relationships.
+
+```sparql
+SELECT ?person ?hospital ?employmentStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :employmentInHospital ?hospital .
+  OPTIONAL { ?employment :employmentStartDate ?employmentStartDate . }
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the microbial functional guilds observed in a specific aquifer ecosystem (here represented by a placeholder individual :SpecificAquifer; replace it with the actual aquifer’s URI as needed):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?guild ?guildLabel
+WHERE {
+  :SpecificAquifer a :AquiferEcosystem .
+  
+  ?obs a :MicrobialPresenceObservation ;
+       :isObservationOf :SpecificAquifer ;
+       :hasObservedGuild ?guild .
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+}
+--------------------------------------------------
+
+This query is supported by the ontology since the MicrobialPresenceObservation class connects an observation (which must relate to an AquiferEcosystem via the property :isObservationOf) to one or more MicrobialFunctionalGuild instances through the property :hasObservedGuild.

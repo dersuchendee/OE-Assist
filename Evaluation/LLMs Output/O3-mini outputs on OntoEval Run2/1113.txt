@@ -1,0 +1,28 @@
+**Yes**
+
+The following SPARQL query joins the sensor data with the user’s current role—derived from the sensor data’s detected activity—to answer the competency question (“What sensor data is known about this user’s context?”). Note that under a closed world assumption, only explicitly asserted links (such as the user’s role and the sensor data’s detected activity) are considered true.
+
+---------------------------------------------------------------
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?sensor ?sensorData ?detectedActivity
+WHERE {
+  # Select the user and their role
+  ?user a :User ;
+        :hasRole ?role .
+        
+  # Select sensor data that indicates an activity matching the user’s role
+  ?sensorData a :SensorData ;
+              :detectedActivity ?role .
+              
+  # Link the sensor that produced the sensor data
+  ?sensor a :Sensor ;
+          :hasSensorData ?sensorData .
+          
+  # Restrict to a specific user if needed (e.g., :User123)
+  FILTER(?user = :User123)
+}
+---------------------------------------------------------------
+
+This query extracts the sensor, its sensor data, and the detected activity (which is the role) that corresponds with the user's context.

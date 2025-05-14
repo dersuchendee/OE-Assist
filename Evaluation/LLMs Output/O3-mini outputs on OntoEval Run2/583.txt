@@ -1,0 +1,15 @@
+**Yes**
+Below is an example SPARQL query that answers the CQ by extracting the composition date of a song (e.g., “Hump de Bump”), which is connected through the reified class structure in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songName ?compositionDate
+WHERE {
+  ?song a :Cl_Song ;
+        :hasCompositionDate ?compositionDate ;
+        :hasName ?songName .
+  FILTER(LCASE(STR(?songName)) = LCASE("Hump de Bump"))
+}
+
+This query shows that the ontology supports the CQ “When was a certain song composed?” under the closed world assumption, making it fully answerable.

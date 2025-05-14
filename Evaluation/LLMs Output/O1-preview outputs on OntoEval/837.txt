@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+The competency question "In what city is a certain hospital located?" can be answered using the given ontology. The ontology includes the class `ns1:Hospital` and the object property `ns1:locatedIn` which associates a hospital with the city it is located in. Therefore, we can write a SPARQL query to retrieve each hospital along with the city where it is located.
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a ns1:Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  ?hospital ns1:locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

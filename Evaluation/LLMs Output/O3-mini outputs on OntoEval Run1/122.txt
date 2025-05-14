@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the plays shown at each theatre festival. It assumes that a theatre festival has a property ns1:featuredProduction that links to a theatre production, and that each production has a property ns1:hasPlay linking to the performed play:
+
+---------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a ns1:TheatreFestival ;
+            rdfs:label ?festivalLabel ;
+            ns1:featuredProduction ?production .
+  ?production ns1:hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?festival ?play
+---------------------------------
+
+Using the closed world assumption, this query returns the plays (and their labels) that are known (explicitly stated in the ontology) to be associated via productions with a theatre festival.

@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/circular_value_network.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?valueNetwork ?networkLabel ?actor ?actorLabel
+WHERE {
+  ?valueNetwork a :ValueNetwork .
+  OPTIONAL { ?valueNetwork rdfs:label ?networkLabel . }
+  
+  ?valueNetwork :hasActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?valueNetwork ?actor
+```

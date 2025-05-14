@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example of a SPARQL query that returns the persons (and their optional labels) who are members of a specified union (given by its IRI) at a given point in time (provided as the parameter ?pointInTime). The query checks that the membership’s start date is on or before the point in time and that the membership either has no declared end date or its end date is after the point in time.
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :union <http://www.example.org/test#YourUnionIRI> .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  
+  # Replace the literal below with your point in time (e.g. "2003-01-01T00:00:00"^^xsd:dateTime)
+  FILTER(
+    xsd:dateTime("2003-01-01T00:00:00") >= ?startDate &&
+    ( !bound(?endDate) || xsd:dateTime("2003-01-01T00:00:00") <= ?endDate )
+  )
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+────────────────────────────
+
+In this query, replace <http://www.example.org/test#YourUnionIRI> with the appropriate IRI of the union under investigation and "2003-01-01T00:00:00" with the desired point in time.

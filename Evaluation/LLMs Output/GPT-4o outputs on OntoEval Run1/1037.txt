@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the date of a specific seminar. The ontology includes a class for seminars and a data property for seminar dates, but it lacks a mechanism to identify a specific seminar by name or other attributes that would allow us to query for its date. Here's a SPARQL query to extract partial information about seminars and their dates:
+
+```sparql
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?date .
+}
+```

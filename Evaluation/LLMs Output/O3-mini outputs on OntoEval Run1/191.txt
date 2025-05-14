@@ -1,0 +1,14 @@
+**Yes**
+
+The following SPARQL query extracts, for each production, the play that forms its basis:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a ns1:Production .
+  ?production ns1:hasPlay ?play .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}

@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?dayLabel ?timeLabel
+WHERE {
+  ?event a :Event ;
+         :occursOn ?day ;
+         :hasTime ?time .
+  OPTIONAL { ?day rdfs:label ?dayLabel . }
+  OPTIONAL { ?time rdfs:label ?timeLabel . }
+}
+```
+
+In this query we retrieve each event along with the associated day (via the property :occursOn) and time (via the property :hasTime). This shows that the ontology models the needed information to answer the competency question under a closed-world assumption.

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that productions, premiers, and their dates are modelled as in the ontology (with productions linked via theatre:hasPremier to a theatre:Premier that in turn has a theatre:hasPremierDate), you can answer the CQ “When was the premier of a certain production?” with a query such as:
+
+--------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?premierDate
+WHERE {
+  ?production a theatre:Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production theatre:hasPremier ?premier .
+  ?premier theatre:hasPremierDate ?premierDate .
+}
+--------------------------------------------------
+
+This query extracts, for each production, its label (if available) and the date of its premier, which directly answers the competency question.

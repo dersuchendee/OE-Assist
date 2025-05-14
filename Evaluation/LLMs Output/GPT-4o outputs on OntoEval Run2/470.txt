@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate a musician with a specific role in a band at a certain point in time. The ontology includes classes and properties for musicians, bands, line-ups, and time periods, but it lacks a direct connection between a musician's role and the time period within a specific band. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?musician ?band ?lineup ?timePeriod
+WHERE {
+  ?lineup a :LineUp ;
+          :hasMember ?musician ;
+          :partOfBand ?band ;
+          :activeDuring ?timePeriod .
+}
+```

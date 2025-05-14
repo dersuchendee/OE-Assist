@@ -1,0 +1,27 @@
+**Yes**
+
+The competency question "Where are the original parts of an organ?" can be answered using the provided ontology. The ontology includes the necessary classes and properties:
+
+- **Organ**: Represents organs.
+- **OrganPart**: Represents parts of organs.
+- **hasOriginalPart**: Relates an organ to its original parts.
+- **isLocatedIn**: Relates an organ part to its location.
+- **Location**: Represents locations where organ parts are located.
+
+Here's a SPARQL query that retrieves the original parts of organs and their locations:
+
+```sparql
+SELECT ?organ ?organLabel ?organPart ?organPartLabel ?location ?locationLabel
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  
+  ?organ :hasOriginalPart ?organPart .
+  OPTIONAL { ?organPart rdfs:label ?organPartLabel . }
+  
+  ?organPart :isLocatedIn ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```
+
+This query selects all organs and, for each organ, retrieves its original parts and the locations of those parts. The `OPTIONAL` clauses are used to include labels if they are available in the data.

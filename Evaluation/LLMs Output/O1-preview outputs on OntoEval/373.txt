@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?role
+WHERE {
+  ?person :hasName "Fabio Bianchi"@en .
+  ?person :hasTimeIndexedRole ?tRole .
+  ?tRole :hasTime ?timeNode .
+  ?timeNode time:inXSDDateTime "2009-09-07T20:00:00Z"^^xsd:dateTime .
+  ?tRole :hasRole ?role .
+  ?role :performedIn ?production .
+  ?production :hasTitle "The Merchant of Venice"@en .
+}
+```
+
+This query retrieves the roles that a certain person (`?person` with name "Fabio Bianchi") has within a certain production (`?production` with title "The Merchant of Venice") at a certain point in time (`"2009-09-07T20:00:00Z"`). The ontology provides the necessary classes and properties to represent persons, roles, productions, and time-indexed roles, enabling us to answer the competency question.

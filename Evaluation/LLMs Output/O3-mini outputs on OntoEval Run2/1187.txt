@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one SPARQL query that retrieves MeetingEvent instances where a given musician (e.g. :MusicianX) and a given performer (e.g. :PerformerY) both participated, and returns the event’s time, place, and (optionally) reason:
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?time ?place ?reason
+WHERE {
+  ?event a :MeetingEvent .
+  ?event :hasParticipant :MusicianX .
+  ?event :hasParticipant :PerformerY .
+  ?event :atTime ?time .
+  ?event :atPlace ?place .
+  OPTIONAL { ?event :hasReason ?reason }
+}
+------------------------------------
+
+Using the closed-world assumption (i.e. assuming that if a meeting event isn’t recorded it never happened), this query verifies whether musician X and performer Y ever met and, if so, returns where, when, and (if available) why.

@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed–world reading of the ontology, retrieves the first employment date for a given person at a given hospital. (Here the CQ “When was a certain person first employed at a certain hospital?” is answered by selecting the minimum employmentDate from all employment records connecting the person to that hospital.)
+
+For example, if the individual representing the person is :PasqualeDiGennaro and the hospital is :OspedaleRiunitoDelleTreValli, you could run the query:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person ;
+          :employedAt ?employment .
+  ?employment a :Cl_Employment ;
+              :atHospital ?hospital ;
+              :employmentDate ?employmentDate .
+  FILTER(?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+ORDER BY ?firstEmploymentDate
+-----------------------------------------
+
+This query returns the earliest (i.e. first) employment date for the specified person at the specified hospital, thus fully modeling the competency question in the ontology.

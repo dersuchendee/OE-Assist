@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What is the energy components in this system, e.g. exergy and energy?" can be answered using the ontology provided. The ontology defines a `System` class that has a property `hasEnergyComponent` which relates to the `EnergyComponent` class. The `EnergyComponent` class has subclasses `Exergy` and `Anergy`, which are specific types of energy components. Therefore, we can write a SPARQL query to extract the energy components of a system.
+
+```sparql
+SELECT ?system ?energyComponent
+WHERE {
+  ?system a :System .
+  ?system :hasEnergyComponent ?energyComponent .
+}
+```

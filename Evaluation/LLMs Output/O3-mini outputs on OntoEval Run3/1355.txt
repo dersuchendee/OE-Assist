@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not explicitly distinguish “original” parts from later modifications. In this model, parts are connected to an organ via the property core:includesPart, and while a parthood reification exists (with the property arco:isCurrentParthood on instances of Parthood), there is no explicit convention stating that “isCurrentParthood true” means “original”. (Under a closed world assumption, only explicitly asserted facts are taken as true.) Therefore, we can only partially answer the CQ by retrieving those parts that are explicitly marked as current. For example:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?part ?isCurrentParthood
+WHERE {
+  ?organ a organs:Organ .
+  ?organ core:includesPart ?part .
+  OPTIONAL {
+    ?parthood arco:hasPart ?part ;
+               arco:isCurrentParthood ?isCurrentParthood .
+  }
+  FILTER(BOUND(?isCurrentParthood) && ?isCurrentParthood = true)
+}
+
+This query returns only those parts of an organ that are explicitly asserted as “current” (which may be interpreted as “original” only if that is the modeling convention, but here it is not unambiguously defined).

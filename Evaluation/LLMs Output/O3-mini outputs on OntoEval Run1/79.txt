@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the festival to be investigated has a name (e.g., “Roma Loves Shakespeare”) and that its time information is stored by associating it with a TimePeriod (via :takesPlaceDuring) that has start and end dates (via :hasStartDate and :hasEndDate), a SPARQL query to retrieve when that theatre festival took place is for example:
+
+--------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?startDate ?endDate
+WHERE {
+  ?festival a :TheatreFestival ;
+            :hasName "Roma Loves Shakespeare" ;
+            :takesPlaceDuring ?period .
+  ?period :hasStartDate ?startDate ;
+          :hasEndDate ?endDate .
+}
+--------------------------------------------------
+
+This query extracts the start and end dates of the festival “Roma Loves Shakespeare.”

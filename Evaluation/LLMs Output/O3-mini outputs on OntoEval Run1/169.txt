@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves cities together with the countries in which they are located:
+
+PREFIX geo: <http://www.semanticweb.org/ontologies/geo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a geo:City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city geo:locatedIn ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+ORDER BY ?city

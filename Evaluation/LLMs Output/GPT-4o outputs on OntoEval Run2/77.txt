@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "When did a certain theatre festival take place?" can be answered using the ontology provided. The ontology includes information about theatre festivals, their start and end dates, and specific instances of festivals such as "Roma Loves Shakespeare." We can write a SPARQL query to extract the start and end dates of a theatre festival.
+
+```sparql
+SELECT ?festival ?startDate ?endDate
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  ?festival theatre:hasStartDate ?startDate .
+  ?festival theatre:hasEndDate ?endDate .
+}
+```

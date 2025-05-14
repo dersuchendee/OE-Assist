@@ -1,0 +1,24 @@
+**Yes**
+
+The competency question "In what country is a certain city located?" can be answered using the ontology because the ontology includes the classes `Cl_City` and `Cl_Country`, and the object property `:locatedIn` that connects a city to a country.
+
+Here's the SPARQL query to retrieve the country in which a given city is located:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+    ?city rdf:type :Cl_City .
+    OPTIONAL { ?city rdfs:label ?cityName . }
+    ?city :locatedIn ?country .
+    ?country rdf:type :Cl_Country .
+    OPTIONAL { ?country rdfs:label ?countryName . }
+    
+    FILTER( ?cityName = "Nocera Inferiore" )
+}
+```
+
+This query selects the country that the city "Nocera Inferiore" is located in. It uses the `:locatedIn` property to navigate from a city to its country, leveraging the ontology's structure to provide the answer.

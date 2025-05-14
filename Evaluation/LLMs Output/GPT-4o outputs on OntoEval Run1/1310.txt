@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the relationships between microbial functional guilds, their involvement in autolithoautotrophy, and the specific habitats where this occurs. The ontology provides the necessary classes and properties to construct such a query.
+
+```sparql
+SELECT ?guild ?guildLabel ?habitat ?habitatLabel
+WHERE {
+  ?guild a :MicrobialFunctionalGuild .
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+
+  ?guild :hasInvolvement ?involvement .
+
+  ?involvement :involvesProcess :Autolithoautotrophy .
+  ?involvement :occursInHabitat ?habitat .
+  OPTIONAL { ?habitat rdfs:label ?habitatLabel . }
+}
+```

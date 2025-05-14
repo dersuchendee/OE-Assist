@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that the intended CQ is to obtain for a given city (or for every city) the country it is located in, the ontology explicitly models cities as instances of :Cl_City and countries as instances of :Cl_Country, with the property :cityInCountry linking a city to its country. Under the closed world assumption, only explicitly stated assertions are accepted, and here, e.g. :NoceraInferiore is linked to :Italy.
+
+Here is a SPARQL query that retrieves, for each city, the country it is located in:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :cityInCountry ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}

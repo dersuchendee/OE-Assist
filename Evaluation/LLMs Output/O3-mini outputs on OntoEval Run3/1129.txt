@@ -1,0 +1,51 @@
+**Yes**
+
+Below is one possible SPARQL query to extract the attributes of the weather service (including its provided location and forecast details) as modelled in the ontology:
+
+────────────────────────────────────────
+PREFIX : <http://example.org/ontology/weather#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?weatherService ?wsLabel 
+       ?location ?locationLabel 
+       ?forecast ?timePeriod 
+       ?tempValue ?tempUnit 
+       ?windValue ?windUnit 
+       ?precipValue ?precipUnit
+WHERE {
+  ?weatherService a :WeatherService .
+  OPTIONAL { ?weatherService rdfs:label ?wsLabel . }
+  
+  OPTIONAL {
+    ?weatherService :providesForecastFor ?location .
+    OPTIONAL { ?location rdfs:label ?locationLabel . }
+    
+    OPTIONAL {
+      ?location :hasForecast ?forecast .
+      ?forecast :hasTimePeriod ?timePeriod .
+      
+      OPTIONAL {
+        ?forecast :hasTemperature ?temperature .
+        ?temperature :hasValue ?tempValue ;
+                     :hasUnit ?tempUnit .
+      }
+      
+      OPTIONAL {
+        ?forecast :hasWind ?wind .
+        ?wind :hasValue ?windValue ;
+              :hasUnit ?windUnit .
+      }
+      
+      OPTIONAL {
+        ?forecast :hasPrecipitation ?precipitation .
+        ?precipitation :hasValue ?precipValue ;
+                       :hasUnit ?precipUnit .
+      }
+    }
+  }
+}
+ORDER BY ?weatherService
+────────────────────────────────────────
+
+This query fully exploits the relationships in the ontology and, under the closed world assumption, it retrieves the weather service attributes (label, the location it provides a forecast for, and the detailed forecast information such as time period along with temperature, wind, and precipitation values and units).

@@ -1,0 +1,18 @@
+**No**
+
+The current ontology does not capture information about the “context” (e.g., urban, periurban, rural) in which a building is located. Although the ontology provides classes like BellTower (a kind of PhysicalSite) and may include address information in imported modules, it does not model any property or classification that indicates the urban, periurban, or rural context. Under a closed‐world assumption, we must assume that such details are not present.
+
+A partial SPARQL query that extracts available location-related information (e.g., address if modeled via a property like ns:location) for bell towers is:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX ns: <http://www.w3.org/2006/vcard/ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?label ?address
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label. }
+  OPTIONAL { ?bellTower ns:location ?address. }
+}
+
+This query provides a partial answer by listing the bell towers (which we treat as buildings) along with any available address/location data, but it does not resolve the CQ of determining the urban/periurban/rural context.

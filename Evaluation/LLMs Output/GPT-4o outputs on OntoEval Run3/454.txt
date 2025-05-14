@@ -1,0 +1,14 @@
+**No**
+
+The competency question asks for the members of a certain band at a certain point in time. The ontology provides information about band memberships and their start and end dates, but it does not directly link this information to specific points in time. Therefore, a partial answer can be extracted by querying the membership information, but it will not be specific to a certain point in time.
+
+```sparql
+SELECT ?person ?band ?start ?end
+WHERE {
+  ?membership rdf:type :Cl_Membership .
+  ?membership :memberOf ?band .
+  ?membership :membershipStart ?start .
+  OPTIONAL { ?membership :membershipEnd ?end . }
+  ?person :memberOf ?band .
+}
+```

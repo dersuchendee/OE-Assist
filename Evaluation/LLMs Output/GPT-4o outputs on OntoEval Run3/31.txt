@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain any explicit properties or classes that directly relate to the action of viewing a product or the actors involved in such an action. The ontology includes classes and properties related to roles and resource relations, but there is no specific mention of a "viewing" action or a connection between actors and products in the context of viewing.
+
+However, we can attempt to extract a partial answer by querying for any instances of the `ViewingResource` class, which might imply a viewing action, but this does not directly answer the competency question as it lacks the connection to specific products.
+
+```sparql
+SELECT ?actor ?resource
+WHERE {
+  ?viewingResource a :ViewingResource .
+  ?viewingResource actorODP:participatingActor ?actor .
+  ?viewingResource actorODP:participatingResource ?resource .
+}
+```
+
+This query attempts to find any actors and resources involved in a `ViewingResource` relation, but without explicit data or properties connecting these to specific products, it remains a partial answer.

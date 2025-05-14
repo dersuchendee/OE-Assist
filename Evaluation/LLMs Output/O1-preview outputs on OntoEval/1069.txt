@@ -1,0 +1,24 @@
+**Answer: Yes**
+
+The competency question "Where did a certain seminar take place?" is answerable using the provided ontology. The ontology defines classes and properties that allow us to retrieve the location of seminars.
+
+In the ontology, seminars are represented by the class `:Cl_Seminar`, and seminar occurrences by `:Cl_SeminarOccurrence`, which is a subclass of `:Cl_Event`. The property `:relatesToSeminar` connects a seminar occurrence to a seminar, and `:tookPlaceAt` connects a seminar occurrence to a location (`:Cl_Location`). Hospitals (`:Cl_Hospital`) are subclasses of locations.
+
+Here is a SPARQL query to retrieve seminars and their locations:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?location ?locationLabel
+WHERE {
+    ?seminarOccurrence a :Cl_SeminarOccurrence .
+    ?seminarOccurrence :relatesToSeminar ?seminar .
+    OPTIONAL { ?seminar rdfs:label ?seminarLabel }
+
+    ?seminarOccurrence :tookPlaceAt ?location .
+    OPTIONAL { ?location rdfs:label ?locationLabel }
+}
+```
+
+This query selects the seminar and its associated location by traversing the relationships defined in the ontology. It starts from the seminar occurrence, links it to the seminar via `:relatesToSeminar`, and then finds the location where it took place using `:tookPlaceAt`. The `OPTIONAL` clauses include any labels if they are available.

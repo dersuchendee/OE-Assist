@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the particular play is identified by its instance in the ontology (or by its rdfs:label), we can retrieve the number of acts using the property that relates a Cl_Play instance to its integer value (as defined by :hasNumberOfActs). For example, the following SPARQL query returns the act count for any play instance, and it can be constrained to a particular play using a FILTER on its label or URI:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?numberOfActs
+WHERE {
+  ?play a :Cl_Play ;
+        :hasNumberOfActs ?numberOfActs .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  # If you want to filter for a particular play (e.g., the Merchant of Venice), uncomment the next line:
+  # FILTER(contains(lcase(str(?playLabel)), "merchant of venice"))
+}
+--------------------------------------------------
+
+This query demonstrates that the competency question "How many acts does a particular play contain?" is answerable by the ontology.

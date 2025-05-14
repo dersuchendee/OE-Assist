@@ -1,0 +1,26 @@
+Answer: **Yes**
+
+The ontology provides the necessary classes and properties to retrieve the dates when a certain theatre festival took place. Specifically:
+
+- **Classes**:
+  - `:Cl_TheatreFestival` - Represents a theatre festival.
+  - `:Cl_FestivalEvent` - A subclass of `:Cl_TheatreFestival`, which has date properties.
+- **Properties**:
+  - `:festivalName` - A data property of `:Cl_TheatreFestival` to specify the name of the festival.
+  - `:startDate` and `:endDate` - Data properties of `:Cl_FestivalEvent` to specify the dates when the festival takes place.
+
+Given that `:Cl_FestivalEvent` is a subclass of `:Cl_TheatreFestival` and includes date properties, we can query for festivals by name and retrieve their start and end dates.
+
+**SPARQL Query**:
+
+```sparql
+SELECT ?startDate ?endDate
+WHERE {
+  ?festival a :Cl_FestivalEvent ;
+            :festivalName "Roma Loves Shakespeare" ;
+            :startDate ?startDate ;
+            :endDate ?endDate .
+}
+```
+
+This query will return the start and end dates for the festival named "Roma Loves Shakespeare".

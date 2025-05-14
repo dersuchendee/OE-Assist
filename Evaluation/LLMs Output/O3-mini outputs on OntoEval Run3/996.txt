@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the publication date for instances of Book or CD:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubLabel ?pubDate
+WHERE {
+  ?publication a ?pubType .
+  FILTER(?pubType = :Book || ?pubType = :CD) .
+  
+  OPTIONAL { ?publication rdfs:label ?pubLabel . }
+  ?publication :hasPublicationDate ?pubDate .
+}
+-----------------------------------------------------------

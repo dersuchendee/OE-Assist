@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a possible SPARQL query that, under a closed‐world assumption, retrieves the articles that were presented in a given seminar. (Replace the IRI for the seminar with the correct one if needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :hasPresentationEvent ?presentationEvent .
+  ?presentationEvent :presentationOfArticle ?article .
+  OPTIONAL { ?article :hasTitle ?articleTitle. }
+  
+  # Optional: restrict to a certain seminar by its IRI:
+  FILTER(?seminar = <http://www.example.org/test#SeminarDecember2008>)
+}
+--------------------------------------------------
+
+This query finds the seminar that holds presentation events (reified as :Cl_PresentationEvent) and then extracts the articles (instances of :Cl_Article) associated via the property :presentationOfArticle.

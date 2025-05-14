@@ -1,0 +1,19 @@
+**Yes**
+Below is one possible SPARQL query that uses the ontology’s classes and properties to retrieve, for any given city, the country in which that city is located:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryName
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isLocatedIn ?country .
+  ?country a :Cl_Country .
+  ?country :countryName ?countryName .
+}
+ORDER BY ?cityLabel
+—————————————————————————————
+
+Under the closed world assumption, this query will return the full answer to the competency question “In what country is a certain city located?” as long as the data is present in the ontology.

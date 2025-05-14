@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that individuals in the ontology are explicitly asserted—i.e. under closed world assumptions—it is possible to retrieve the region for a given city via the property that connects cities to regions. For example, if the target city is identified (e.g., by its URI), the following query extracts its associated region:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :cityInRegion ?region .
+  FILTER(?city = :Portland)   # Replace :Portland with the URI of the desired city
+}
+
+This query returns the region in which the specified city is located.

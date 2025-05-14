@@ -1,0 +1,53 @@
+Answer: **Yes**
+
+The competency question can be answered using the given ontology. The ontology includes classes and properties that model the relationships between persons, roles, productions, and time. Specifically, the `:Cl_PersonRoleInProductionAtTime` class acts as a pivot that connects a person to the roles they have within a production at a specific point in time.
+
+Here's a SPARQL query that retrieves the roles a certain person has within a certain production at a certain point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleLabel
+WHERE {
+  # Specify the person of interest
+  ?person a :Cl_Person ;
+          rdfs:label "Person Name" ;
+          :hasPersonRoleInProductionAtTime ?pript .
+
+  # Link to the pivot class
+  ?pript a :Cl_PersonRoleInProductionAtTime ;
+         :hasRole ?role ;
+         :partOfProductionAtTime ?pat .
+
+  # Retrieve role information
+  ?role rdfs:label ?roleLabel .
+
+  # Link to the production at time
+  ?pat a :Cl_ProductionAtTime ;
+       :hasProduction ?production ;
+       :hasTime ?time .
+
+  # Specify the production and time of interest
+  ?production rdfs:label "Production Name" .
+  FILTER(?time = "YYYY-MM-DD"^^xsd:date)
+}
+```
+
+**Explanation:**
+
+- **Person Selection:** The query begins by selecting a specific person using their label (replace `"Person Name"` with the actual name).
+  
+- **Navigating Relationships:**
+  - `:hasPersonRoleInProductionAtTime` links the person to the `:Cl_PersonRoleInProductionAtTime` pivot class.
+  - Within this pivot class, `:hasRole` obtains the roles associated with the person.
+  - `:partOfProductionAtTime` connects the pivot class to the `:Cl_ProductionAtTime`, which combines the production and the time.
+  
+- **Production and Time Filtering:**
+  - The production is specified by its label (replace `"Production Name"` with the actual production name).
+  - The time is filtered to match the specific point in time of interest (replace `"YYYY-MM-DD"` with the actual date).
+
+- **Retrieving Role Information:**
+  - The role's label is retrieved to provide meaningful output.
+
+**Note:** Ensure that the ontology contains the necessary individuals (`:Cl_Person`, `:Cl_Production`, roles, and time instances) with appropriate labels and connections as per the ontology's structure.

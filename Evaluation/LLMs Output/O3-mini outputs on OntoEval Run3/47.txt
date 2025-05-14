@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?actor ?actorLabel ?competency ?competencyLabel
+WHERE {
+  ?actor a :Actor .
+  ?actor :hasCompetency ?competency .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?competency rdfs:label ?competencyLabel . }
+}
+```

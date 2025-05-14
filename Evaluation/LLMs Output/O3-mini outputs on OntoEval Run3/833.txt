@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that the unique employment record is modelled via the reification class :Cl_Employment linked from a person via the property :employedAt (with its associated :employmentHospital and :employmentStartDate), you could retrieve the first employment date for a given person at a given hospital with a query like:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?hospital a :Cl_Hospital .
+  ?person :employedAt ?employment .
+  ?employment :employmentHospital ?hospital ;
+              :employmentStartDate ?startDate .
+  # These filters represent the “certain person” and “certain hospital”
+  FILTER(?person = <http://www.example.org/test#YourPersonIRI> &&
+         ?hospital = <http://www.example.org/test#YourHospitalIRI>)
+}
+GROUP BY ?person ?hospital
+------------------------------------------------
+
+This query demonstrates that the competencies in the CQ are modelled in the ontology and, under the closed world assumption, the answer is extractable.

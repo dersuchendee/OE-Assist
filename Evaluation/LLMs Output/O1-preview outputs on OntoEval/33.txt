@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX process: <http://w3id.org/CEON/ontology/process/>
+SELECT DISTINCT ?actor ?process
+WHERE {
+  ?participation a :CollaborationParticipation .
+  ?participation :participatingActor ?actor .
+  ?participation :participationIn ?process .
+  ?process a process:Process .
+}
+```
+
+This query selects all actors involved in processes by traversing the `:CollaborationParticipation` class, which links actors to processes via the properties `:participatingActor` and `:participationIn`. The `:Actor` class represents the actors, and `process:Process` represents the processes within a circular value network. The use of `DISTINCT` ensures that each actor-process pair is listed only once.

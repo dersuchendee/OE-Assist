@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?meeting ?meetingLabel ?context ?purpose ?sector ?source ?annotation ?socialEnvironment
+WHERE {
+  ?meeting a :Meeting .
+  OPTIONAL { ?meeting rdfs:label ?meetingLabel . }
+  
+  ?meeting :hasContext ?context .
+  OPTIONAL { ?context :hasPurpose ?purpose . }
+  OPTIONAL { ?context :involvesSector ?sector . }
+  OPTIONAL { ?context :hasSource ?source . }
+  OPTIONAL { ?context :hasAnnotation ?annotation . }
+  OPTIONAL { ?context :hasSocialEnvironment ?socialEnvironment . }
+}
+```

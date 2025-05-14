@@ -1,0 +1,20 @@
+**No**
+
+The ontology does include a class for an ensemble (theatre:Ensemble) and even defines an "Ensemble at time" class (theatre:EnsembleAtTime) that requires an atTime value, but none of the provided individuals appear to be explicitly annotated with a time. Under a closed world assumption the time information is missing, so the CQ “Who are the members of a certain ensemble at a certain point in time?” cannot be fully answered. However, a partial answer – listing the members of ensembles – can be obtained, as in the following SPARQL query:
+
+----------------------------
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ensemble ?ensembleLabel ?member ?memberLabel
+WHERE {
+  ?ensemble a theatre:Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  ?ensemble theatre:hasMember ?member .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+  
+----------------------------
+
+This query returns the ensembles and their members, but it does not filter by time since the necessary time information (using theatre:atTime) is not provided in the ontology.

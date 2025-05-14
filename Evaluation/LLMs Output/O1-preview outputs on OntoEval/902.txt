@@ -1,0 +1,29 @@
+**Yes**
+
+Here's the SPARQL query to answer the competency question:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :membershipUnion :SpecificUnion .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  
+  FILTER (
+    ?startDate <= xsd:date("2023-10-15") &&
+    ( !bound(?endDate) || xsd:date("2023-10-15") <= ?endDate )
+  )
+}
+```
+
+In this query:
+
+- Replace `:SpecificUnion` with the URI of the union you're interested in.
+- Replace `"2023-10-15"` with the date of interest in the format `"YYYY-MM-DD"`.
+
+This query retrieves all persons who are members of the specified union at the given point in time by checking if the membership start date is on or before the date of interest and if the membership end date, if it exists, is on or after the date of interest.

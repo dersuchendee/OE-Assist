@@ -1,0 +1,15 @@
+**Yes**
+Below is one possible SPARQL query that extracts the hospital (i.e. the location) for a given seminar:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?hospital
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarLocatedIn ?hospital .
+}
+-------------------------------------------------------
+
+This query retrieves all seminars (instances of Cl_Seminar) along with the hospital where they took place (using the property :seminarLocatedIn).

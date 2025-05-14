@@ -1,0 +1,19 @@
+**No**
+
+The ontology provided does not contain any information about foundries or any properties that relate bells to their foundries. Therefore, it is not possible to answer the competency question "By whom (by which foundry) were they cast?" using the given ontology.
+
+However, a partial SPARQL query to extract information about bells could look like this:
+
+```sparql
+SELECT ?bell ?setOfBells ?bellTower
+WHERE {
+  ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+  ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+  ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+  OPTIONAL {
+    ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+  }
+}
+```
+
+This query retrieves information about bells, the sets of bells they belong to, and optionally the bell towers they are associated with, but it does not provide any information about the foundries.

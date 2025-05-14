@@ -1,0 +1,24 @@
+**No**
+
+The ontology does not capture any efficiency measures or performance metrics to directly answer “How efficient is this process?”. However, a partial answer can be derived by extracting the process and its required information components, which can indicate aspects related to process configuration and resource requirements.
+
+Below is a SPARQL query that retrieves each CollaborationProcess along with its associated information components:
+
+------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?process ?infrastructure ?processInfo ?energyRecovery ?stakeholder ?energyDemandSurplus ?value
+WHERE {
+  ?process a :CollaborationProcess .
+  OPTIONAL { ?process :requiresInfrastructureInfo ?infrastructure . }
+  OPTIONAL { ?process :requiresProcessInfo ?processInfo . }
+  OPTIONAL { ?process :requiresEnergyRecoveryInfo ?energyRecovery . }
+  OPTIONAL { ?process :requiresStakeholderInfo ?stakeholder . }
+  OPTIONAL { ?process :requiresEnergyDemandSurplusInfo ?energyDemandSurplus . }
+  OPTIONAL { ?process :requiresValueInfo ?value . }
+}
+------------------------
+
+This query offers a partial insight into the process by listing the related information types, but it does not provide any direct measure of efficiency.

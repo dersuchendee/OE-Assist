@@ -1,0 +1,22 @@
+**No**
+
+The CQ “A record always contains at least one track” is not fully supported by the ontology. Although there is a property (:containsTrack) linking a record (an instance of :Cl_Record) to a track (via :Cl_RecordTrack), the ontology does not enforce (via a cardinality or minimum restriction) that every record must have such a link. Under the closed world assumption, we cannot assume that every record has an associated track.
+
+Below is a SPARQL query that returns, for each record, the number of tracks present. This partial answer lets you see which records (if any) do not have a track associated.
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record (COUNT(?recordTrack) AS ?tracksCount)
+WHERE {
+  ?record a :Cl_Record .
+  OPTIONAL {
+    ?record :containsTrack ?recordTrack .
+    ?recordTrack a :Cl_RecordTrack .
+  }
+}
+GROUP BY ?record
+-------------------------------------------------
+
+Using this query you can assess whether the data conforms to the competency question requirement.

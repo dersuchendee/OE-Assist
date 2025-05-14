@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any information about roles that a person has within a production at a specific point in time. The ontology includes classes and properties related to festivals, plays, theatres, ensembles, individuals, and roles, but it lacks the necessary connections to link a person to a specific role within a production at a certain time.
+
+Here is a SPARQL query to extract a partial answer, which lists individuals and their roles, but without the specific production and time information:
+
+```sparql
+SELECT ?individual ?individualName ?role ?roleName
+WHERE {
+  ?individual a :Cl_Individual .
+  ?individual :hasName ?individualName .
+  ?individual :hasRole ?role .
+  ?role :roleName ?roleName .
+}
+```

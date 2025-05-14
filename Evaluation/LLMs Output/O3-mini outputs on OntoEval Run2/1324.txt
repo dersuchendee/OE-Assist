@@ -1,0 +1,22 @@
+**No**
+
+The ontology does not include any explicit instance data for rubisco. Therefore, under a closed‐world assumption, the CQ “What role does rubisco play in the CO2 fixation process?” cannot be answered fully with the current ontology. However, a partial SPARQL query that checks for an enzyme labelled “rubisco” (and its associated role in a CO2 fixation process) would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?enzyme ?enzymeLabel ?role ?roleLabel ?process ?processLabel
+WHERE {
+  ?enzyme a :Enzyme .
+  ?enzyme rdfs:label "rubisco" .
+  OPTIONAL { ?enzyme rdfs:label ?enzymeLabel. }
+  
+  ?enzyme :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel. }
+  
+  ?role :inProcess ?process .
+  ?process a :CO2FixationProcess .
+  OPTIONAL { ?process rdfs:label ?processLabel. }
+} 
+
+This query extracts the enzyme “rubisco” along with its associated role and the CO2 fixation process it participates in, which gives a partial answer to the CQ.

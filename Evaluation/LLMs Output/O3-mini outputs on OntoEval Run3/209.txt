@@ -1,0 +1,15 @@
+**Yes**
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves each production’s basis play (as recorded using the data property isBasedOnPlay):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?basedOnPlay
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :isBasedOnPlay ?basedOnPlay .
+}
+--------------------------------------------------
+
+This query shows that the ontology models the CQ “What play is the basis of this production?” because it lets us extract, for each production (an instance of Cl_Production), the play (recorded as a literal via the isBasedOnPlay property) on which it is based.

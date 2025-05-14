@@ -1,0 +1,12 @@
+**Yes**
+Below is one possible SPARQL query that extracts, for each theatre festival, the date of its occurrence:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+}

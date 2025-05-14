@@ -1,0 +1,33 @@
+**Yes**
+
+The ontology models union membership, roles, and their associated time periods. For example, you can write a SPARQL query that, given a specific person, a specific union, and a point in time, retrieves the union role held by that person during that period. Under the closed‐world assumption (only data explicitly asserted holds), the following SPARQL query returns the role information if it exists:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?roleName ?union ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRole ?role .
+  ?role :roleName ?roleName .
+  ?role :roleInUnion ?union .
+  ?role :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+
+  # Assume the following input parameters define the “certain person”, “certain union”,
+  # and the time point of interest (e.g., "2005-06-15"):
+  FILTER(?person = <http://www.example.org/test#SomePersonIRI>)
+  FILTER(?union = <http://www.example.org/test#SomeUnionIRI>)
+  FILTER(xsd:date("2005-06-15") >= ?roleStartDate &&
+         (!bound(?roleEndDate) || xsd:date("2005-06-15") <= ?roleEndDate))
+}
+ORDER BY ?person
+-------------------------------------------------------------
+
+In this query:
+• The FILTER clauses restrict the results to the specified person and union.
+• The time FILTER ensures that the queried date (here “2005-06-15”) falls within the role’s active period (from ?roleStartDate to ?roleEndDate, if provided).
+• The query returns the person, the union role instance along with its name, the union group, and the role time bounds.
+
+Thus, the CQ "What role does a certain person have within a certain union group at a certain point in time?" is fully answerable using the ontology.

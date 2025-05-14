@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the context of usage of a source. The ontology includes classes and properties related to sources, contexts of usage, and reliability, but it does not explicitly define a property or structure that directly links a source to its context of usage in a way that can be queried for a specific context. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?source ?context
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source :hasContextOfUsage ?context . }
+}
+```

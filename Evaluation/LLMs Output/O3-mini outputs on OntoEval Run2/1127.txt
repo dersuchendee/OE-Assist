@@ -1,0 +1,21 @@
+**Yes**
+Below is one SPARQL query that retrieves the weather service providing personalized weather information along with its associated forecast and user preference details:
+
+────────────────────────────
+PREFIX : <http://example.org/ontology/weather#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?weatherService ?wsLabel ?location ?locationLabel ?forecast ?forecastLabel ?userPreference ?upLabel
+WHERE {
+  ?weatherService a :WeatherService .
+  OPTIONAL { ?weatherService rdfs:label ?wsLabel . }
+  ?weatherService :hasUserPreference ?userPreference .
+  OPTIONAL { ?userPreference rdfs:label ?upLabel . }
+  ?weatherService :providesForecastFor ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  ?weatherService :hasForecast ?forecast .
+  OPTIONAL { ?forecast rdfs:label ?forecastLabel . }
+}
+────────────────────────────
+
+Under the closed world assumption, this query captures the intended answer by returning the weather service (e.g., Yr.no Weather Service), its provided location (e.g., Berlin), its forecast (e.g., 3‑Day Weather Forecast), and the associated user preference that makes the forecast personalized.

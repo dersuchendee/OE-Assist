@@ -1,0 +1,29 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?roleName ?roleStart ?roleEnd
+WHERE {
+    ?person rdf:type :Cl_Person .
+
+    ?personUnionMembership rdf:type :Cl_PersonUnionMembership .
+    ?personUnionMembership :personMemberOfUnion ?person .
+    ?personUnionMembership :unionHasMember ?union .
+
+    ?personUnionRole rdf:type :Cl_PersonUnionRole .
+    ?personUnionRole :roleOfPerson ?personUnionMembership .
+    ?personUnionRole :roleDuring ?unionRole .
+
+    ?unionRole :roleName ?roleName .
+    OPTIONAL { ?unionRole :roleStart ?roleStart . }
+    OPTIONAL { ?unionRole :roleEnd ?roleEnd . }
+
+    # Uncomment the following lines to filter for a specific time
+    # FILTER ( xsd:date("YYYY-MM-DD") >= ?roleStart && xsd:date("YYYY-MM-DD") <= ?roleEnd )
+}
+```
+
+This query retrieves the roles that a person has within a union group, along with the time period during which they held the role. You can replace `"YYYY-MM-DD"` with the specific date you are interested in to filter the results to a certain point in time.

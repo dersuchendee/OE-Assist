@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for every individual that is either a Component or a Product, the associated Material(s) via the :isMadeOf property:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?entity ?entityLabel ?material ?materialLabel
+WHERE {
+  { ?entity a :Product . }
+  UNION
+  { ?entity a :Component . }
+  ?entity :isMadeOf ?material .
+  OPTIONAL { ?entity rdfs:label ?entityLabel. }
+  OPTIONAL { ?material rdfs:label ?materialLabel. }
+}
+--------------------------------------------------
+
+Under the closed world assumption, only those entities explicitly asserted as Products or Components and linked to Materials using :isMadeOf will be returned, thereby answering the competency question.

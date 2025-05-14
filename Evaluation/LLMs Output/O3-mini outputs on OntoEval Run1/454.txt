@@ -1,0 +1,39 @@
+**Yes**
+
+Assuming that the ontology models band‐membership with a reified class (Cl_Membership) that records the start and (optionally) end dates of membership, we can answer the CQ “What are the members of a certain band at a certain point in time?” by writing a query that, for a given band and a given date, returns those persons whose membership period (from membershipStart to membershipEnd) covers that date. (Under the closed world assumption a missing membershipEnd is taken to mean that the membership is still active.)
+
+For example, if we wish to know the members of the band “Red_Hot_Chili_Peppers” on a given date (here represented as “2007-01-01”), the following SPARQL query illustrates one way to extract the answer. (In this query we assume that the membership records are linked so that the band’s member appears both in the direct property :hasMember and (via naming convention) in the appropriate Cl_Membership individual.) 
+
+Below is one possible query:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStart ?membershipEnd
+WHERE {
+  # Retrieve band members via the membership reification
+  :Red_Hot_Chili_Peppers :hasMember ?person .
+  
+  # Assume that for each member, a corresponding membership record exists.
+  # Often the membership record’s IRI is formed as "Membership" + the person’s name.
+  # (Here we “bind” the expected membership IRI from the person’s IRI.)
+  BIND( CONCAT("http://www.example.org/test#Membership", 
+               SUBSTR(STR(?person), STRLEN("http://www.example.org/test#")+1)) AS ?membership )
+  
+  ?membership a :Cl_Membership ;
+      :memberOf :Red_Hot_Chili_Peppers ;
+      :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Filter the membership records for the given point in time.
+  # Under the closed world, if there is no :membershipEnd then membership is active.
+  FILTER (
+    ?membershipStart <= "2007-01-01"^^xsd:date &&
+    ( !BOUND(?membershipEnd) || ?membershipEnd >= "2007-01-01"^^xsd:date )
+  )
+}
+ORDER BY ?person
+--------------------------------------------------------
+
+This query returns all persons who are members of Red_Hot_Chili_Peppers whose membership started on or before January 1, 2007 and who either have not ended their membership or whose membership ended on or after that date.

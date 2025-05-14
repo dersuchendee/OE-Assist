@@ -1,0 +1,11 @@
+**Answer: No**
+
+The competency question cannot be fully answered because the ontology lacks instances of `Cl_EvaluationStatement` and `Cl_Doctor`. Therefore, we cannot retrieve evaluation statements given by doctors to employees. However, we can extract partial information about employees in the ontology.
+
+```sparql
+SELECT ?employee ?employeeName
+WHERE {
+  ?employee rdf:type :Cl_Employee .
+  OPTIONAL { ?employee rdfs:label ?employeeName . }
+}
+```

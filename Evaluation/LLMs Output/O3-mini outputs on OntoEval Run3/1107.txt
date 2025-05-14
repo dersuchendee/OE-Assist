@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for every seminar (an instance of Cl_Seminar), the article(s) (related via the hasPresentedArticle property) that are presented. Under the closed world assumption, any seminar missing at least one presented article would be omitted, thereby confirming that every seminar has at least one article presented.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+--------------------------------------------------
+
+This query answers the competency question by extracting the presented article(s) for each seminar, confirming that the ontology enforces the requirement that every seminar has at least one presented article.

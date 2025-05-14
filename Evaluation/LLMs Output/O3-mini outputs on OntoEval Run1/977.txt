@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, returns the title and number of pages for a particular book (here, the book is identified by its title):
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?title ?pages
+WHERE {
+  ?book a :Cl_Book ;
+        :hasNumberOfPages ?pages ;
+        :title ?title .
+  FILTER(?title = "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals")
+}
+-----------------------------------------------
+
+This query uses the fact that the ontology models books as instances of :Cl_Book and associates a book with a number of pages via the functional data property :hasNumberOfPages.

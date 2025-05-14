@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?cityName ?countryName
+WHERE {
+  ?city rdf:type :Cl_City ;
+        :cityName ?cityName .
+  ?country rdf:type :Cl_Country ;
+           :countryName ?countryName .
+  ?cityCountry rdf:type :Cl_CityCountry ;
+               :hasCity ?city ;
+               :hasCountry ?country .
+}
+```

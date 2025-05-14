@@ -1,0 +1,25 @@
+**Yes**
+
+We can verify that the ontology supports the competency question “A production has exactly one premier” because productions are connected to a production premier via the property :hasPremier. Under the closed‐world assumption we can select only those productions for which exactly one premier exists.
+
+For example, the following SPARQL query returns each production that has exactly one associated premier along with its premier’s date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  {
+    SELECT ?production (COUNT(?premier) AS ?premierCount)
+    WHERE {
+      ?production a :Cl_Production .
+      ?production :hasPremier ?premier .
+    }
+    GROUP BY ?production
+    HAVING (COUNT(?premier) = 1)
+  }
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+
+This query ensures that only productions with exactly one premier are returned, thus answering the competency question.

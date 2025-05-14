@@ -1,0 +1,27 @@
+Answer: **No**
+
+The ontology does not enforce that each production has exactly one premier. There are no cardinality constraints specified on the `:hasPremier` property to indicate that a production must have exactly one premier. Under the closed world assumption, we cannot conclude that every production has exactly one premier based on the given ontology.
+
+However, we can extract productions and their premiers with the following SPARQL query:
+
+```sparql
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremier ?premier . }
+}
+```
+
+To find productions that have exactly one premier, you can use:
+
+```sparql
+SELECT ?production
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+```
+
+This query retrieves productions that have exactly one associated premier in the data, but it does not enforce this as a constraint in the ontology. Without explicit cardinality restrictions in the ontology, we cannot guarantee that all productions have exactly one premier. Therefore, the competency question is not fully supported by the ontology.

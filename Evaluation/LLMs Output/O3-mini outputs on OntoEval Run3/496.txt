@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that an album’s recording event is reified via the recording individual (e.g. a member of the class Cl_Recording, or its specialized subclass Cl_AlbumRecording) and that this recording event carries the recording period date (via the :recordingPeriod data property), we can query the ontology to retrieve the time period during which a specific album was recorded. For example, if we want to get the recording period for an album (say one whose name contains "Stadium Arcadium"), a SPARQL query under a closed‐world assumption would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumName ?recording ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasRecording ?recording .
+  ?recording :recordingPeriod ?recordingPeriod .
+  OPTIONAL { ?album :albumName ?albumName . }
+  
+  # Filter for a specific album, e.g., "Stadium Arcadium"
+  FILTER(regex(?albumName, "Stadium Arcadium", "i"))
+}
+ORDER BY ?recordingPeriod
+
+This query retrieves the album, its associated recording event and the recording period, thus answering the competency question.

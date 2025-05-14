@@ -1,0 +1,37 @@
+**Yes**
+
+Assuming that each actor’s role is captured as an instance of the reified class :Cl_ActorRole (which, by design, is also used to represent the actor taking on that role in a given production), we can “join” the role (with its associated date and play) to the production (via the play) and then restrict the query to a given person (by assuming that the individual representing the role is typed both as an actor and an actor role). For example, if we assume that the actor “FabioBianchi” (with URI <http://www.example.org/test#FabioBianchi>) is modelled as an instance that also plays his roles (i.e. is typed as both :Cl_Actor and :Cl_ActorRole) and that a production is tied to a play via the property :isBasedOn, one may write a query such as:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?production ?productionLabel ?role ?roleLabel ?roleDate
+WHERE {
+  # Get the reified role instance (which also represents the actor’s performance)
+  ?role a :Cl_ActorRole ;
+        :hasRoleDate ?roleDate ;
+        :hasRole ?play .
+  
+  # Link the play to a production
+  ?production a :Cl_Production ;
+              :isBasedOn ?play .
+  
+  # Assume the actor is the same individual that appears as a role instance
+  ?actor a :Cl_Actor .
+  FILTER(?actor = ?role)
+
+  # Restrict query to a specific actor, production and point in time 
+  FILTER(?actor = <http://www.example.org/test#FabioBianchi> &&
+         ?production = <http://www.example.org/test#Production1> &&
+         ?roleDate = "2009-09-07"^^xsd:date)
+  
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+}
+ORDER BY ?roleDate
+---------------------------------------
+
+This query produces for the given actor, production, and time the roles (with their dates and descriptions) that the actor has taken—thus fully addressing the competency question under the Closed World Assumption.

@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the study period (start and end dates) for each degree held by a person:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate ;
+               :studyEndDate ?studyEndDate .
+}
+ORDER BY ?person ?degreeTitle
+--------------------------------------------------
+
+This query demonstrates that the CQ “During what time period did a certain person study for a specific degree?” is answerable using the ontology.

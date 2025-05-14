@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that relate to microbial communities, CO2 fixation processes, and groundwater ecosystems. The ontology defines a `KeyMicrobialCommunity` class that is involved in a `CO2FixationProcess` occurring in a `GroundwaterEcosystem`. Therefore, we can write a SPARQL query to extract the key microbial communities involved in CO2 fixation in groundwater ecosystems.
+
+```sparql
+SELECT ?microbialCommunity ?label
+WHERE {
+  ?microbialCommunity a :KeyMicrobialCommunity .
+  OPTIONAL { ?microbialCommunity rdfs:label ?label . }
+}
+```

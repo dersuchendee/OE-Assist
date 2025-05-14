@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, returns for each region (with a given label) the country in which it is located using the geo ontology provided:
+
+────────────────────────────
+PREFIX : <http://example.org/geo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionName ?country ?countryName
+WHERE {
+  ?region a :Region ;
+          :placeName ?regionName ;
+          :isPartOf ?country .
+  ?country a :Country ;
+           :placeName ?countryName .
+}
+ORDER BY ?regionName
+────────────────────────────
+
+This query extracts the region and its corresponding country by following the :isPartOf relation defined in the ontology.

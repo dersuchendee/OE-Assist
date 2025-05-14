@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide specific information about interactions between different microbial functional guilds in nutrient-poor aquifers. While it defines classes for microbial functional guilds, aquifers, and interactions, it lacks specific properties or instances that describe how these guilds interact in the context of nutrient levels.
+
+Partial answer:
+```sparql
+SELECT ?interaction ?guild1 ?guild2 ?aquifer
+WHERE {
+  ?interaction a :Interaction .
+  ?interaction :hasParticipant ?guild1 .
+  ?interaction :hasParticipant ?guild2 .
+  ?interaction :occursIn ?aquifer .
+  ?aquifer a :Aquifer .
+}
+```

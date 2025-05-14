@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Which is the credibility of a source?" can be answered using the ontology provided. The ontology includes a class `Cl_SourceCredibilityAssessment` and an object property `hasCredibilityAssessment` that links a `Cl_Source` to a `Cl_SourceCredibilityAssessment`. Additionally, the `hasCredibilityLevel` property provides the credibility level of the source. Therefore, we can write a SPARQL query to extract the credibility of a source.
+
+```sparql
+SELECT ?source ?credibilityLevel
+WHERE {
+  ?source a :Cl_Source .
+  ?source :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityLevel ?credibilityLevel .
+}
+```

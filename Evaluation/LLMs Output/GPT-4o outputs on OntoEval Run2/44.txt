@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not explicitly define a relationship between actors and competencies. However, it does define a relationship between actors and capabilities through the `actorODP:capabilityOf` property. Therefore, we can extract a partial answer by querying for actors and their capabilities.
+
+```sparql
+SELECT ?actor ?capability
+WHERE {
+  ?capability a actorODP:Capability .
+  ?capability actorODP:capabilityOf ?actor .
+}
+```

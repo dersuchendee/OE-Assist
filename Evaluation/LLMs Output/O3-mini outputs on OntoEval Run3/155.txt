@@ -1,0 +1,12 @@
+**Yes**
+
+We can answer this competency question using the ontology. In the ontology the class :Cl_Theatre is linked via the property :locatedIn to a city (of type :Cl_City). Under the closed world assumption, if a theatre individual has no associated city it is assumed that no location is recorded. The following SPARQL query retrieves each theatre and the city where it is located:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?theatre ?city
+WHERE {
+  ?theatre rdf:type :Cl_Theatre .
+  ?theatre :locatedIn ?city .
+}

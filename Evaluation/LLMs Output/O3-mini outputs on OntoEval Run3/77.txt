@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the start and end dates for the “Roma Loves Shakespeare” theatre festival:
+
+------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?startDate ?endDate
+WHERE {
+  ?festival a theatre:TheatreFestival ;
+            rdfs:label "Roma Loves Shakespeare" ;
+            theatre:hasStartDate ?startDate ;
+            theatre:hasEndDate ?endDate .
+}
+------------------------------------------------
+
+This query answers the CQ “When did a certain theatre festival take place?” by extracting both the start and the end dates for the festival "Roma Loves Shakespeare" as modeled in the ontology under the closed world assumption.

@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?employment a :Cl_Employment ;
+              :hasActor ?actor ;
+              :hasTheatre ?theatre ;
+              :startDate ?startDate .
+  # Optionally, filter for a specific actor and theatre:
+  # FILTER(?actor = :FabioBianchi && ?theatre = :SomeTheatre)
+}
+```

@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves the publication date for books and CDs (as defined by the ontology, where the property publicationDate has a domain that is the union of :Cl_Book and :Cl_CD):
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?itemLabel ?publicationDate
+WHERE {
+  {
+    ?item a :Cl_Book;
+          :publicationDate ?publicationDate.
+    OPTIONAL { ?item rdfs:label ?itemLabel. }
+  }
+  UNION
+  {
+    ?item a :Cl_CD;
+          :publicationDate ?publicationDate.
+    OPTIONAL { ?item rdfs:label ?itemLabel. }
+  }
+}
+ORDER BY ?item
+----------------------------------
+
+This query extracts the publication date of each book or CD in the ontology, thus demonstrating that the CQ "When was a certain book or CD published?" is modelled by the ontology.

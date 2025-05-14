@@ -1,0 +1,19 @@
+**No**
+
+The following query attempts to retrieve the roles associated with Fabio Bianchi but many role‐related assertions (e.g. instances of :Cl_ActorRole with the appropriate :hasRole values) are missing from the ontology. Thus, only a partial answer can be extracted:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actorRole ?roleLabel ?production ?timePeriod
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+             :hasActor :Actor_FabioBianchi .
+  OPTIONAL { ?actorRole :hasRole ?roleLabel. }
+  OPTIONAL { ?actorRole :hasProduction ?production. }
+  OPTIONAL { ?actorRole :hasTimePeriod ?timePeriod. }
+}
+—————————————————————————————
+
+Using the closed world assumption, since no explicit actor‐role assertions have been provided for Fabio Bianchi, the query retrieves a (partial) answer.

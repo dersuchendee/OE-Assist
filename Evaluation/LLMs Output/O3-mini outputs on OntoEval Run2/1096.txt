@@ -1,0 +1,20 @@
+**No**
+
+The ontology does allow us to retrieve seminars that do have an associated article (via the presentation relation), but it does not enforce (or reify) the requirement that every seminar must have at least one article. Under the closed‐world assumption, while you can list those seminars that currently have at least one article presented, you cannot guarantee for every seminar that an article is presented.
+
+A partial answer can be extracted with the following SPARQL query:
+
+--------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article :presentedAt ?seminarArticle .
+  ?seminarArticle :seminar ?seminar .
+}
+ORDER BY ?seminar
+--------------
+
+This query returns seminars for which at least one article is linked (through a presentation class) but does not guarantee that every seminar has at least one article, hence the answer is **No**.

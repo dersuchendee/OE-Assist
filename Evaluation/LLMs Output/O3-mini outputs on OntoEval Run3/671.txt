@@ -1,0 +1,17 @@
+**Yes**
+Below is one SPARQL query that retrieves, for each performance, the songs that were played (using the :performedSongs property):
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?song
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedSongs ?song .
+  OPTIONAL { ?performance :performedOn ?performanceDate . }
+}
+ORDER BY ?performance
+-------------------------------------------------------
+
+This query shows that the ontology contains a class for Performance (Cl_Performance) and an object property :performedSongs linking a performance to songs (instances of Cl_Song), which fully supports the competency question "What songs were played in a certain performance?" under a closed world assumption.

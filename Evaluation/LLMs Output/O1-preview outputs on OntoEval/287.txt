@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question is answerable because the ontology includes the necessary classes and properties to relate a play to the number of acts it contains. Specifically, the ontology defines a class `:Cl_Play` with a datatype property `:actCount` that records the number of acts for a play. Additionally, the property `:playName` allows us to specify a particular play by name.
+
+```sparql
+SELECT ?playName ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  ?play :playName ?playName .
+  ?play :actCount ?actCount .
+}
+```
+
+This query retrieves the names of plays and their corresponding number of acts. To find out how many acts a particular play contains, you can filter by the play's name. For example, to get the number of acts for "The Merchant of Venice":
+
+```sparql
+SELECT ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  ?play :playName "The Merchant of Venice" .
+  ?play :actCount ?actCount .
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming a given author is identified by their URI (e.g., :AuthorX), the following SPARQL query will return all plays written by that author along with their titles (if provided):
+
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?title
+WHERE {
+  ?play a :Play .
+  ?play :hasAuthor :AuthorX .
+  OPTIONAL { ?play :hasTitle ?title . }
+}
+
+This query leverages the fact that the ontology defines plays as having at least one author via the :hasAuthor property, so the CQ “What plays did a certain author write?” is answerable under a closed world assumption.

@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "What was the composer’s network (patrons, institutions …)?" can be answered using the ontology provided. The ontology includes classes and properties that define a composer's network, including patrons and institutions, which are subclasses of `NetworkEntity`. The `Composer` class has a property `hasNetworkMember` that connects it to `NetworkEntity`. Therefore, we can write a SPARQL query to extract the composer's network.
+
+```sparql
+SELECT ?composer ?networkMember ?networkMemberType
+WHERE {
+  ?composer a :Composer .
+  ?composer :hasNetworkMember ?networkMember .
+  OPTIONAL {
+    ?networkMember a ?networkMemberType .
+    FILTER(?networkMemberType IN (:Patron, :Institution))
+  }
+}
+```

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a seminar. While there is a property `:seminarLocatedIn` that connects a seminar to a hospital, the competency question asks for a specific seminar's location, which is not directly represented in the ontology. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?seminar ?hospital
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarLocatedIn ?hospital .
+}
+```

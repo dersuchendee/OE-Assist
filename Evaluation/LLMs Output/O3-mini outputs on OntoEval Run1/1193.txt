@@ -1,0 +1,29 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each event’s attendees along with their provenance and (optionally) the reason associated with their attendance – which together answer “What is the provenance of the event attendees? What and how they happened to be there?” under the closed world assumption:
+
+---------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventLabel ?person ?personLabel ?provenance ?provenanceLabel ?reason ?reasonLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasAttendance ?attendance .
+  ?attendance :attendedBy ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasProvenance ?provenance .
+  OPTIONAL { ?provenance rdfs:label ?provenanceLabel . }
+  
+  OPTIONAL {
+    ?attendance :hasReason ?reason .
+    OPTIONAL { ?reason rdfs:label ?reasonLabel . }
+  }
+}
+ORDER BY ?event ?person
+---------------------------
+
+This query extracts a complete answer as all the relevant classes and properties (Event, Attendance, Person, Provenance, and Reason) are present in the ontology, thereby modeling the competency question.

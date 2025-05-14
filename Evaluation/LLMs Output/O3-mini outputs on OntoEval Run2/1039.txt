@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, retrieves the seminar and its seminar date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+}
+
+This query answers the CQ “When did a certain seminar take place?” by selecting all seminars (instances of :Cl_Seminar) and retrieving their seminar dates from the ontology.

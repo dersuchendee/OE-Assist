@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, using the union‐membership reification in the ontology (via the Cl_UnionMembership class and its properties :hasMember, :hasUnion, and :hasStartDate), retrieves the staff person(s) who are members of a specified union at a given point in time. (In this example the union is given as :UnionOfMaleNurses and we filter memberships whose start date is on or before a supplied query date.) 
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?startDate 
+WHERE {
+  ?membership rdf:type :Cl_UnionMembership ;
+              :hasUnion :UnionOfMaleNurses ;    # change this to the desired union
+              :hasMember ?person ;
+              :hasStartDate ?startDate .
+  # Assuming that a membership is valid from its start date onward (no end date provided),
+  # we return those memberships that started on or before the given query date.
+  FILTER(?startDate <= "2005-01-01"^^xsd:date)   # replace with the desired point in time
+}
+--------------------------------------------------
+
+This query shows that the competency question—“Who are the members of a certain union at a certain point in time?”—is fully answerable using the ontology.

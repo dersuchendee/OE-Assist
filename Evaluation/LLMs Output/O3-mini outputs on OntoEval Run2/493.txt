@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recording ?timePeriod ?timePeriodLabel
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :albumOf ?recording .
+  ?recording :recordedDuring ?timePeriod .
+  OPTIONAL { ?timePeriod rdfs:label ?timePeriodLabel . }
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?date
+WHERE {
+  ?seminar a ns1:Seminar ;
+           ns1:hasDate ?date .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel. }
+}
+ORDER BY ?date
+```

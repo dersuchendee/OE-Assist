@@ -1,0 +1,40 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  # Specify the union of interest
+  ?membership a ns1:UnionMembership .
+  ?membership ns1:hasUnion ns1:MaleNurseUnion .
+
+  # Find members of the union membership
+  {
+    ?membership ns1:hasMember ?person .
+  } UNION {
+    ?person ns1:memberOf ?membership .
+  }
+
+  # Get the membership period
+  ?membership ns1:hasMembershipPeriod ?period .
+  ?period time:hasBeginning ?startDate .
+  OPTIONAL { ?period time:hasEnd ?endDate . }
+
+  # Filter members active at a specific point in time
+  FILTER (
+    ?startDate <= "2005-01-01T00:00:00+00:00"^^xsd:dateTime &&
+    (
+      !BOUND(?endDate) || "2005-01-01T00:00:00+00:00"^^xsd:dateTime <= ?endDate
+    )
+  )
+
+  # Optional: get the person's label
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+```
+
+This query retrieves the members of a specific union (e.g., `ns1:MaleNurseUnion`) who were active members at a particular point in time (e.g., January 1, 2005). It checks the membership periods to ensure the person was a member during the specified date.

@@ -1,0 +1,26 @@
+**No**
+
+There is no explicit modelling in the ontology that connects a specific product (or product instance) with a manufacturer. One could only partially retrieve manufacturer‐related information by, for example, listing products produced through a manufacturing process where an actor with a “manufacturer” role participated. A partial SPARQL query attempting this is shown below:
+
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX process: <http://w3id.org/CEON/ontology/process/>
+PREFIX product: <http://w3id.org/CEON/ontology/product/>
+
+SELECT ?product ?productLabel ?manufacturingProcess ?manufacturer ?manuLabel
+WHERE {
+  ?product a product:Product.
+  OPTIONAL { ?product rdfs:label ?productLabel. }
+  
+  ?manufacturingProcess a process:ManufacturingProcess.
+  ?manufacturingProcess process:resultingProduct ?product.
+  
+  ?participation actorODP:participationIn ?manufacturingProcess;
+                 actorODP:participatingActor ?manufacturer.
+  OPTIONAL { ?manufacturer rdfs:label ?manuLabel. }
+  
+  # Partial filter: if an actor is known as the manufacturer individual
+  FILTER(?manufacturer = actor:manufacturer)
+}
+
+This query only partially answers the CQ because the ontology does not fully reify or directly connect products with their manufacturers.

@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that every performance is explicitly linked to its location via the property :performanceLocation (with the domain of :Cl_Performance and range of :Cl_Location), a query to retrieve “where a certain performance took place” can be written as follows:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?perfLabel ?location ?locLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?perfLabel. }
+  
+  ?performance :performanceLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locLabel. }
+}
+--------------------------------------------------
+
+This query directly retrieves the location information for each performance, thus satisfying the competency question under the closed world assumption.

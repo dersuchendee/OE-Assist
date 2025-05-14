@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?score ?explanation
+WHERE {
+  ?source a :Source .
+  ?source :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityScore ?score .
+  OPTIONAL { ?assessment :hasCredibilityExplanation ?explanation . }
+}
+```

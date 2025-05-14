@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology includes a TBox axiom that every instance of :Cl_Album (interpreted as a “record” in this context) must have at least one associated :Cl_Track through the :containsTrack property. Under a closed‐world assumption, we can write a query that retrieves all albums and lists their tracked count. If every album returns at least one track, then the CQ “A record always contains at least one track” is modelled by the ontology.
+
+For example, this SPARQL query retrieves each album with the number of tracks it contains:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+
+If the query returns a result for every album with a trackCount ≥ 1, then the competency question is fully supported by the ontology.

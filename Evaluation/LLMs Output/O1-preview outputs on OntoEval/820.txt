@@ -1,0 +1,26 @@
+**Yes**
+
+Here the competency question is answerable because the ontology includes classes and properties that model persons, employments, hospitals, and employment start dates. Specifically, the ontology contains the classes `:Cl_Person`, `:Cl_Employment`, and `:Cl_Hospital`, as well as properties `:employedAt`, `:hospital`, and `:employmentStartDate`. These allow us to query for when a certain person was first employed at a certain hospital.
+
+```sparql
+SELECT (MIN(?employmentStartDate) AS ?firstEmploymentDate)
+WHERE {
+  # Bind the specific person and hospital of interest
+  BIND(:InputPerson AS ?person) .
+  BIND(:InputHospital AS ?hospital) .
+  
+  # Ensure ?person is a Cl_Person
+  ?person a :Cl_Person .
+  
+  # Find employments of the person
+  ?person :employedAt ?employment .
+  
+  # Find the hospital associated with the employment
+  ?employment :hospital ?hospital .
+  
+  # Get the employment start date
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```
+
+In this query, replace `:InputPerson` and `:InputHospital` with the URIs of the specific person and hospital you are interested in. This query retrieves the earliest (`MIN`) employment start date for the person at the hospital, effectively answering the question of when the person was first employed at that hospital.

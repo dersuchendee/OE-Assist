@@ -1,0 +1,14 @@
+**Yes**
+
+We can extract the answer because the ontology defines the property “locatedIn” with a domain of Cl_City and a range of Cl_Country. For any city (instance of Cl_City) that is linked via “locatedIn” to a country, we can retrieve the country.
+
+For example, the following SPARQL query answers the CQ:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?country
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedIn ?country .
+}

@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology connects persons to the instruments they play via the property :playsInstrument. This allows us to directly extract which instruments a given person plays. For instance, you could run a query such as the following (replace the IRI in the FILTER clause with the person of interest):
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person ;
+          :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  FILTER (?person = :Anthony_Kiedis)  # Replace with the target person IRI
+}
+--------------------------------
+
+This SPARQL query returns the instruments that the specified person plays, which fully supports the competency question "What instruments does a certain person play?" under the closed world assumption.

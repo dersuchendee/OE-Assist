@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer the competency question by retrieving those cities that have been linked via the “locatedIn” property to a country and then retrieving the country’s name. For example, under the closed‐world assumption, one SPARQL query to extract the desired answer is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?city ?countryName
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?country .
+  ?country :countryName ?countryName .
+}
+
+This query finds every instance of a city (i.e. an individual of class Cl_City) that is linked through the property “locatedIn” to an instance of a country and then retrieves the country’s name via the data property “countryName”.

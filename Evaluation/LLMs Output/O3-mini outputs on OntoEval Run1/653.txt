@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that retrieves the songs played in a specific performance (for example, filtering on the performance ns1:PortlandPerformance):
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a ns1:Performance .
+  ?performance ns1:hasSong ?song .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel. }
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+  # To focus on a specific performance, for example:
+  FILTER(?performance = ns1:PortlandPerformance)
+}

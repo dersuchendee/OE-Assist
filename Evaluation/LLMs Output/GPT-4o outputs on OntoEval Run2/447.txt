@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of a band at a specific point in time. The ontology includes classes and properties related to band membership, roles, and time periods, but it lacks a direct connection between these elements that would allow for querying the members of a band at a specific time.
+
+Partial SPARQL query to extract some information about band memberships:
+
+```sparql
+SELECT ?band ?artist ?startDate ?endDate
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :membership_band ?band .
+  ?membership :membership_artist ?artist .
+  OPTIONAL { ?membership :membership_startDate ?startDate . }
+  OPTIONAL { ?membership :membership_endDate ?endDate . }
+}
+```
+
+This query retrieves information about band memberships, including the band, artist, and the start and end dates of the membership, but it does not directly answer the competency question regarding the members of a band at a specific point in time.

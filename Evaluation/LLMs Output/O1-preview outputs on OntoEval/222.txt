@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?individual ?name
+WHERE {
+  ?individual :hasEnsembleMembership ?membership .
+  ?membership :memberOf ?ensemble .
+  ?membership :atTime ?membershipTime .
+  
+  FILTER (?ensemble = :MerchantOfVeniceEnsemble)
+  FILTER (?membershipTime = "2009-09-14T00:00:00Z"^^xsd:dateTime)
+  
+  OPTIONAL { ?individual :hasName ?name . }
+}
+```

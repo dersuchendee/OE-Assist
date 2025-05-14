@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+SELECT ?entity ?entityLabel ?legalCondition ?legalConditionLabel ?legislation ?legislationLabel
+WHERE {
+  ?entity a ?entityType .
+  FILTER (?entityType IN (:Actor, :Object, :Process))
+  OPTIONAL { ?entity rdfs:label ?entityLabel . }
+  
+  OPTIONAL {
+    ?entity :isAffectedByLegalCondition ?legalCondition .
+    OPTIONAL { ?legalCondition rdfs:label ?legalConditionLabel . }
+  }
+  
+  OPTIONAL {
+    ?entity :isAffectedByLegislation ?legislation .
+    OPTIONAL { ?legislation rdfs:label ?legislationLabel . }
+  }
+}
+```

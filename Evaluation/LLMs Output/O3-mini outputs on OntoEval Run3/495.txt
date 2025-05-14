@@ -1,0 +1,18 @@
+**Yes**
+
+We can fully answer the question “During what time period was a certain album recorded?” by retrieving the recording process that links an album (e.g. Stadium Arcadium) with its recording time interval (via the :recordedDuring property). Under the closed‐world assumption, if a recording instance does not have a value for the time interval then it is assumed to be absent. Here is an example SPARQL query:
+
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?startDate ?endDate
+WHERE {
+  ?recording a :Recording ;
+             :recordedAlbum ?album ;
+             :recordedDuring ?timeInterval .
+  ?timeInterval :startDate ?startDate ;
+                :endDate ?endDate .
+}
+ORDER BY ?album
+
+This query extracts, for each album recording, the associated time interval (start and end dates) during which the recording took place.

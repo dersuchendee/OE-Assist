@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific point in time with an energy flow. The ontology defines `EnergyFlow` and `EnergyData` classes, and the `EnergyData` class has a `hasTimestamp` property. However, the competency question asks for the data of an energy flow at a specific point in time, which implies a need for a direct association between `EnergyFlow`, `EnergyData`, and a specific timestamp. The ontology does not explicitly model this association.
+
+Partial answer:
+```sparql
+SELECT ?energyFlow ?energyData ?timestamp
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  ?energyFlow :hasData ?energyData .
+  ?energyData :hasTimestamp ?timestamp .
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the premier date for a production by leveraging the reified production premier information in the ontology. In this query we select instances of the class Cl_ProductionPremier, retrieve the related production’s name and the associated premier date via the properties hasProduction and hasPremierDate:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?productionName ?premierDate
+WHERE {
+  ?pp a :Cl_ProductionPremier .
+  ?pp :hasProduction ?prod .
+  ?prod :productionName ?productionName .
+  ?pp :hasPremierDate ?premierDate .
+}
+ORDER BY ?productionName
+----------------------------------
+
+This query answers the competency question “When was the premier of [a production]?” by selecting the production’s name and its premier date from the ontology.

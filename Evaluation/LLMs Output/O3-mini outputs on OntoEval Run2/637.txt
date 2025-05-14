@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :tookPlaceOn ?perfDate .
+  ?perfDate :performanceDate ?performanceDate .
+}
+```
+
+In this query we assume the closed world where all instances and relevant data are explicitly asserted in the ontology. This query retrieves each performance and its date, addressing the competency question "When did a certain performance take place?"

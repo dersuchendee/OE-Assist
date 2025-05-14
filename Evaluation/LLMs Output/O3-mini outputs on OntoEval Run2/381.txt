@@ -1,0 +1,25 @@
+**Yes**
+
+The ontology supports the CQ since it links an actor (modeled as an instance of Cl_Actor) to roles (instances of Cl_ActorRole) via the property hasRole. In addition, an actor role is connected to a production (an instance of Cl_Production) via the property hasRoleInProduction and includes a temporal property (hasRoleDate) to indicate when the role occurs. Thus, using these relations (under the closed‐world assumption), one can write a SPARQL query that—for a given actor (person), a given production, and a specified time—retrieves the roles held.
+
+For example, suppose you want to query for the roles of a specific actor (e.g., :FabioBianchi) in a specific production (e.g., :MerchantOfVenice) at a specific date (e.g., "2009-09-07"^^xsd:date). A corresponding SPARQL query could be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?role ?roleDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :hasRole ?actorRole .
+  ?actorRole :hasRoleInProduction :MerchantOfVenice .
+  ?actorRole :hasRoleDate ?roleDate .
+  
+  FILTER( ?actor = :FabioBianchi && ?roleDate = "2009-09-07"^^xsd:date )
+  
+  # Optionally, get a label or further details about the role
+  OPTIONAL { ?actorRole rdfs:label ?role . }
+}
+--------------------------------------------------
+
+This query retrieves, for the given actor and production at the specified date, the roles (or labels) that answer the competency question.

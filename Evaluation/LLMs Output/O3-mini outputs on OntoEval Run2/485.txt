@@ -1,0 +1,32 @@
+**Yes**
+
+Assuming we have individuals for the person and band, and that membership periods are recorded using the data properties membershipStart and membershipEnd, you can answer the CQ by querying each person’s membership record and filtering on the time of interest. For example, if you want to know what role a given person (e.g., <http://www.example.org/test#SomePerson>) has in a given band (e.g., <http://www.example.org/test#SomeBand>) at a given date (e.g., "2006-08-11"^^xsd:date), you may write a query like:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?membership ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person ;
+          rdfs:label ?personLabel ;
+          :hasMembership ?membership .
+  
+  ?membership :membershipIn ?band ;
+              :hasRole ?role ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  ?band rdfs:label ?bandLabel .
+  
+  # Filter for a specified person and band as well as a given date
+  FILTER (?person = <http://www.example.org/test#SomePerson> &&
+          ?band = <http://www.example.org/test#SomeBand> &&
+         xsd:date("2006-08-11") >= ?membershipStart &&
+         ( !bound(?membershipEnd) || xsd:date("2006-08-11") <= ?membershipEnd) )
+}
+ORDER BY ?membershipStart
+------------------------------------------------
+
+This query retrieves the membership record(s) for the specified person in the specified band at the chosen point in time and shows the role associated with that membership.

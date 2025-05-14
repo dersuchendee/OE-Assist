@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer the CQ by retrieving any instances of a PowerRelation together with the involved persons (the superior and the subordinate) and its relation type. Under the closed world assumption, only explicitly stated PowerRelation instances are considered. For example:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?powerRelation ?superior ?superiorLabel ?subordinate ?subordinateLabel ?relationType ?relationTypeLabel
+WHERE {
+  ?powerRelation a :PowerRelation .
+  
+  ?powerRelation :hasSuperior ?superior .
+  OPTIONAL { ?superior rdfs:label ?superiorLabel . }
+  
+  ?powerRelation :hasSubordinate ?subordinate .
+  OPTIONAL { ?subordinate rdfs:label ?subordinateLabel . }
+  
+  ?powerRelation :hasRelationType ?relationType .
+  OPTIONAL { ?relationType rdfs:label ?relationTypeLabel . }
+}
+--------------------------------
+
+This query extracts the answer to “Was there a power relation?” by listing all the power relation instances with their superior/subordinate pairs and relation types.

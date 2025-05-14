@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one SPARQL query that returns, for each disease category, the hospital associated with the HospitalStatistic having the maximum average length of stay:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?disease ?diseaseLabel ?hospital ?hospitalLabel ?maxAvgLOS
+WHERE {
+  {
+    SELECT ?disease (MAX(?avg) AS ?maxAvgLOS)
+    WHERE {
+      ?hs a :HospitalStatistic .
+      ?hs :forDiseaseCategory ?disease .
+      ?hs :hasAverageLengthOfStay ?avg .
+    }
+    GROUP BY ?disease
+  }
+  
+  ?hs2 a :HospitalStatistic .
+  ?hs2 :forDiseaseCategory ?disease .
+  ?hs2 :hasAverageLengthOfStay ?maxAvgLOS .
+  ?hs2 :recordedBy ?hospital .
+  
+  OPTIONAL { ?disease rdfs:label ?diseaseLabel . }
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+------------------------------------------------
+
+If you need to restrict the query to a particular disease category, simply add a FILTER or bind the specific disease IRI in the inner query.

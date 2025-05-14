@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that retrieves the city in which a theatre is located:
+
+-----------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+-----------------------
+
+Under the closed world assumption, we use the property :locatedIn defined in the ontology along with the class :Cl_Theatre to answer the CQ "In what city is a certain theatre located?"

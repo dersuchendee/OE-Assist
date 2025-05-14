@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that describe trophic relationships between species, specifically within habitats. The ontology defines `TrophicRelationship` with properties `hasConsumer`, `hasResource`, and `occursIn`, which can be used to model the trophic relationships between different species of aquifer microbes.
+
+```sparql
+SELECT ?consumer ?consumerLabel ?resource ?resourceLabel ?habitat ?habitatLabel
+WHERE {
+  ?relationship a :TrophicRelationship .
+  ?relationship :hasConsumer ?consumer .
+  OPTIONAL { ?consumer rdfs:label ?consumerLabel . }
+  
+  ?relationship :hasResource ?resource .
+  OPTIONAL { ?resource rdfs:label ?resourceLabel . }
+  
+  ?relationship :occursIn ?habitat .
+  OPTIONAL { ?habitat rdfs:label ?habitatLabel . }
+  
+  ?habitat a :AquiferMicrobeHabitat .
+}
+```

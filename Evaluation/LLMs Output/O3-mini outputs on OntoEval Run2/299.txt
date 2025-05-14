@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves the number of acts (using the data property :numberOfActs defined on the reified play structure class :Cl_PlayStructure) along with the play's title. You could narrow the query to a specific play (e.g., “Merchant of Venice”) by adding an appropriate FILTER.
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle ?numberOfActs
+WHERE {
+  ?play a :Cl_PlayStructure ;
+        :playTitle ?playTitle ;
+        :numberOfActs ?numberOfActs .
+  # To restrict to a particular play, you can uncomment the following line:
+  # FILTER(?playTitle = "Merchant of Venice")
+}
+ORDER BY ?playTitle
+---------------------------------------------------
+
+This query shows that the competency question “How many acts does a particular play contain?” is supported by the ontology under the closed world assumption.

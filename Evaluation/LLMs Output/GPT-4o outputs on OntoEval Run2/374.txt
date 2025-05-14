@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide a direct way to query for the roles a person has within a production at a specific point in time. The ontology includes classes and properties related to people, roles, productions, and time, but it lacks a direct connection between these elements that would allow for querying roles at specific times.
+
+Here's a SPARQL query to extract a partial answer, focusing on the roles a person has within a production, without the time aspect:
+
+```sparql
+SELECT ?person ?personName ?role ?roleName ?production ?productionTitle
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasName ?personName .
+  ?person :hasRole ?role .
+  ?role :hasRoleName ?roleName .
+  ?person :participatesIn ?production .
+  ?production :hasTitle ?productionTitle .
+}
+```
+
+This query retrieves the roles a person has within a production, but it does not include the temporal aspect due to the lack of a direct connection in the ontology.

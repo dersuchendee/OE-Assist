@@ -1,0 +1,25 @@
+**Yes**
+Assuming that festivals are modelled as instances of the class :Cl_TheatreFestival and that their location can be obtained either directly via the property :hasLocation (with range :Cl_City) or indirectly via a theatre (using :takesPlaceAt with range :Cl_Theatre whose city is given by the property :located_in), one can write a SPARQL query to answer “Where did a certain festival take place?” For example, to look up the festival “Roma Loves Shakespeare” the query could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalName ?location ?locationLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :festivalName ?festivalName .
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+  
+  { 
+    ?festival :hasLocation ?location .
+  }
+  UNION
+  {
+    ?festival :takesPlaceAt ?theatre .
+    ?theatre :located_in ?location .
+  }
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+ORDER BY ?festival
+
+Under the closed world assumption the lack of further explicit individuals implies that only those festivals with asserted location information (either directly or via a theatre’s location) will be returned. This shows that the CQ is fully answerable by the ontology.

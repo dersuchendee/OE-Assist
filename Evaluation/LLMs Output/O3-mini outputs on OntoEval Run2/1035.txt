@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the seminar along with its recorded date:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+---------------------------------------
+
+In a closed world context, since the ontology explicitly provides seminar instances with their seminarDate (e.g. :SeminarInDecember2008), this query will extract the date (e.g. "2008-12-01") as required by the competency question "When did a certain seminar take place?"

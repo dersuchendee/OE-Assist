@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question is answerable because the ontology models relationships between tune families through the `:TuneFamilyRelationship` class, which connects a source tune family to a target tune family using a specific similarity measure.
+
+Here is a SPARQL query to find the tune families related to a specific tune family `:TuneFamily_X` given a similarity measure `:SimilarityMeasure_Y`:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?targetTuneFamily
+WHERE {
+  ?relationship a :TuneFamilyRelationship ;
+                :hasSource :TuneFamily_X ;
+                :hasTarget ?targetTuneFamily ;
+                :usesSimilarityMeasure :SimilarityMeasure_Y .
+}
+```
+
+Replace `:TuneFamily_X` with the IRI of the tune family you're interested in, and `:SimilarityMeasure_Y` with the IRI of the specific similarity measure.

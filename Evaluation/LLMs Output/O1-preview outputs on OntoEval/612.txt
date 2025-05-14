@@ -1,0 +1,44 @@
+**Yes**
+
+The Competency Question (CQ) "What does a certain critic say about a certain record?" can be answered using the ontology provided. The ontology includes classes and properties that represent critics, albums, reviews, and the relationships between them. Specifically, we have:
+
+- `:Cl_Critic` representing critics.
+- `:Cl_Album` representing albums.
+- `:Cl_CriticReview` representing the review instance relating a critic to an album.
+- Properties such as `:reviewsAlbum`, `:reviewedAlbum`, and `:reviewText` that connect critics to reviews and albums.
+
+Here is a SPARQL query that retrieves what a certain critic says about a certain album:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?criticName ?albumTitle ?reviewText
+WHERE {
+  ?critic a :Cl_Critic ;
+          rdfs:label ?criticName ;
+          :reviewsAlbum ?criticReview .
+  
+  ?criticReview a :Cl_CriticReview ;
+                :reviewedAlbum ?album ;
+                :reviewText ?reviewText .
+  
+  ?album a :Cl_Album ;
+         rdfs:label ?albumTitle .
+         
+  # Uncomment and modify the following lines to specify a particular critic and album
+  # FILTER(?criticName = "Brian Hiatt")
+  # FILTER(?albumTitle = "Stadium Arcadium")
+}
+```
+
+**Explanation:**
+
+- The query selects the names of critics, album titles, and the review texts.
+- It matches individuals of class `:Cl_Critic` and retrieves their names.
+- It finds the reviews (`:Cl_CriticReview`) that the critic has via the `:reviewsAlbum` property.
+- It retrieves the associated album and its title through the `:reviewedAlbum` property.
+- The review text is obtained via the `:reviewText` property.
+- Optionally, you can filter the results to a specific critic and album by using the `FILTER` clauses (uncomment and adjust them as needed).
+
+**Note:** This query assumes that `rdfs:label` properties are used to store the names of critics and titles of albums. If your ontology uses different properties for names and titles, please adjust the query accordingly.

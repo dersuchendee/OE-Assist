@@ -1,0 +1,21 @@
+**Yes**
+
+The ontology models that every seminar has at least one article presented. This is established through the class restrictions defined in the ontology:
+
+- **Cl_Seminar** is equivalent to the class that has at least one **:hasPresentationEvent** to **Cl_PresentationEvent**.
+- **Cl_PresentationEvent** is equivalent to the class that has at least one **:presentationOfArticle** to **Cl_Article**.
+
+These restrictions ensure that for every instance of **Cl_Seminar**, there must be at least one associated **Cl_PresentationEvent** which, in turn, must be linked to at least one **Cl_Article**. Therefore, the competency question "At least one article is always presented at each seminar" is supported by the ontology.
+
+Here is a SPARQL query to retrieve each seminar and the articles presented at them:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :hasPresentationEvent ?presentationEvent .
+  ?presentationEvent :presentationOfArticle ?article .
+}
+```
+
+This query will return all seminars along with the articles presented at each seminar, demonstrating that every seminar has at least one article presented, as modeled by the ontology.

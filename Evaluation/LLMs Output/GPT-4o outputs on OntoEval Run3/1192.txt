@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "Who paid to support the event?" can be answered using the ontology provided. The ontology includes the `:paidToSupport` property, which links an `:Agent` (either a `:Person` or an `:Organization`) to an `:Event`. This allows us to query for agents who have paid to support events.
+
+```sparql
+SELECT ?agent ?agentLabel ?event ?eventLabel
+WHERE {
+  ?agent a :Agent .
+  ?agent :paidToSupport ?event .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+```

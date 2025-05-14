@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that in the ontology a “record” is modeled as an instance of the class CD and a “track” is modeled as an instance of Article (with the axiom on CD requiring at least one :contains relation to an Article), the ontology supports the competency question. Under the closed‐world assumption you can retrieve all records with their tracks using a query such as:
+
+PREFIX : <http://example.org/articlecollection#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?record ?track ?title
+WHERE {
+  ?record a :CD .
+  ?record :contains ?track .
+  OPTIONAL { ?track :hasArticleTitle ?title . }
+}
+
+This query returns every record (CD) along with at least one track (Article) it contains, thus answering the CQ “A record always contains at least one track.”

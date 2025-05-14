@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide specific properties or classes that directly relate to the detailed information about a resource, such as its specific attributes or characteristics beyond its type, composition, and usage in process steps. Therefore, a complete answer to the competency question cannot be extracted. However, a partial answer can be obtained by querying the available information about resources, such as their type and composition.
+
+```sparql
+SELECT ?resource ?type ?composition
+WHERE {
+  ?resource a :Resource .
+  OPTIONAL { ?resource :hasType ?type . }
+  OPTIONAL { ?resource :hasComposition ?composition . }
+}
+```

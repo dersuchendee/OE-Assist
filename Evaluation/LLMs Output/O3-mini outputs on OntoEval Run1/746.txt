@@ -1,0 +1,13 @@
+**No**
+
+The provided ontology does not include the necessary musical concepts (such as a class for Record or a property that relates a record to one or more Track instances) to fully answer the competency question “A record always contains at least one track.” Under a closed‐world assumption, we can only try to extract, if present, any record instances that have an associated track. For example, a partial answer can be retrieved with the following SPARQL query:
+
+PREFIX : <http://example.org/music#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a :Record .
+  OPTIONAL { ?record :hasTrack ?track . }
+}
+
+In this query we assume that if the ontology had the intended concepts then records would be typed as :Record and their tracks linked via the property :hasTrack. Since the ontology does not model these concepts fully, the competency question is only partially answerable.

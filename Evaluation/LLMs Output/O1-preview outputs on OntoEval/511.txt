@@ -1,0 +1,17 @@
+**Answer: No**
+
+Because the ontology does not provide data properties for `:Cl_TimePeriod` to extract specific start and end dates of the album recording. Therefore, we cannot fully answer the CQ "During what time period was a certain album recorded?".
+
+Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?album ?albumLabel ?albumRecording
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :recordedDuring ?albumRecording .
+  ?albumRecording a :Cl_AlbumRecording .
+}
+```
+
+This query retrieves the albums and their associated album recording instances, but does not provide specific time period data because such data properties (e.g., start and end dates) are not defined in the ontology.

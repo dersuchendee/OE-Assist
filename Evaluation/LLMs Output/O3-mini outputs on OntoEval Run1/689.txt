@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the performance location directly from the ontology using the role of the performance class (Cl_Performance) and the property (hasLocation). For example, the query below retrieves each performance along with its location:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+————————————————————————————
+
+This query shows that the competency question “Where did a certain performance take place?” is answerable with the given ontology under the closed world assumption.

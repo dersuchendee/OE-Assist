@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a sample SPARQL query that, given a specific book or CD (i.e. an instance of ns1:Book or ns1:CD), retrieves its constituent articles via the ns1:hasArticle property:
+
+----------------------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  { ?collection a ns1:Book . }
+  UNION
+  { ?collection a ns1:CD . }
+
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  
+  ?collection ns1:hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  
+  # (Optional) Use a FILTER to select the specific book or CD (if needed)
+  # FILTER(?collection = <http://www.example.org/ontology/hospital#YourSpecificInstance>)
+}
+----------------------------------------------------------------
+
+This query answers the competency question by extracting the articles that compose each specific article collection (book or CD) modeled in the ontology.

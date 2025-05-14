@@ -1,0 +1,13 @@
+**No**
+
+The given ontology defines the class `:Cl_Book` and associates the data property `:pageCount` with instances of `:Cl_Book`. However, there is no property to identify a particular book (e.g., no title or identifier). Under the closed world assumption, we cannot specify or retrieve the page count of a specific book since the ontology lacks the means to uniquely identify it.
+
+Here is a SPARQL query that extracts a partial answer by listing all books and their page counts:
+
+```sparql
+SELECT ?book ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :pageCount ?pageCount .
+}
+```

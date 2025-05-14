@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question can be answered using the given ontology. Here's the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName
+WHERE {
+  ?person :membership ?membership .
+  ?membership :membershipBand ?band .
+  ?membership :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  ?membership :hasRole ?role .
+  ?role :roleName ?roleName .
+  
+  FILTER ( ?startDate <= ?time && ( !bound(?endDate) || ?time <= ?endDate ) )
+}
+```
+
+In this query:
+- `?person` is the individual of interest.
+- `?band` is the band of interest.
+- `?time` is the specific point in time (xsd:date).
+- The query finds the role (`?roleName`) that the person has in the band at the given time by checking the membership start and end dates.

@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that performances are modelled by the class Cl_Performance (or a subclass such as Cl_BandPerformance) and that the performance’s time is recorded via the property performanceDate, you can extract the date(s) for a given performance using a query such as:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate 
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+--------------------------------------------------------
+
+Under the closed‐world assumption, this query will return the performance(s) along with the date(s) on which these performances took place.

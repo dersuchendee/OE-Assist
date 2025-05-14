@@ -1,0 +1,16 @@
+**Yes**  
+Below is an example SPARQL query that retrieves an album’s release date from the ontology. In this query we assume that albums are individuals of type Cl_Album and that the release date is stored via the property albumReleaseDate.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+  ?album :albumReleaseDate ?releaseDate .
+}
+--------------------------------------------------
+
+This query answers the competency question “When was a certain album released?” by extracting the release date for each album (or a specific album if further filtered), according to the information available in the ontology.

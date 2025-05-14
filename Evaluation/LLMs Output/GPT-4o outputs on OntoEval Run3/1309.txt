@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to link aquatic microbes to specific chemical characteristics of environments. The ontology defines classes for `Species`, `AquaticMicrobe`, `Environment`, and `ChemicalCharacteristic`, but it lacks a direct connection between `AquaticMicrobe` and `ChemicalCharacteristic` through the `Environment`. The `isFoundIn` property connects `Species` to `Environment`, but there is no property that directly connects `AquaticMicrobe` to `ChemicalCharacteristic`.
+
+Partial answer:
+```sparql
+SELECT ?microbe ?environment
+WHERE {
+  ?microbe a :AquaticMicrobe .
+  ?microbe :isFoundIn ?environment .
+}
+```

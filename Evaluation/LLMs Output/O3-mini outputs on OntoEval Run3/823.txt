@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given person and hospital, the earliest employment start date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentStartDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?employment :employmentInHospital ?hospital .
+  # Optionally filter to a specific person and hospital:
+  FILTER(?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?monitoringPoint ?mpLabel ?physicalParameter ?parameterLabel ?timestamp ?value
+WHERE {
+  ?measurement a :Measurement ;
+               :monitoredAt ?monitoringPoint ;
+               :measuresParameter ?physicalParameter ;
+               :hasTimestamp ?timestamp ;
+               :hasValue ?value .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+  OPTIONAL { ?physicalParameter rdfs:label ?parameterLabel . }
+}
+ORDER BY ?monitoringPoint ?timestamp
+```

@@ -1,0 +1,27 @@
+**No**
+
+The ontology provided does not support the competency question fully because it lacks the necessary information to determine "free time periods" in the user's calendar for today. Specifically, the ontology does not:
+
+- Include any concept or property to represent "free time" or "free time periods".
+- Model dates alongside times; the `:startTime` and `:endTime` properties have a range of `xsd:time`, which does not include date information. This means we cannot filter events occurring "today".
+
+Therefore, we cannot compute the free time periods by identifying gaps between scheduled events on a particular date.
+
+However, we can extract a partial answer by listing all scheduled events and their time periods, regardless of the date.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?start ?end
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasEvent ?event .
+  ?event :eventTime ?timePeriod .
+  ?timePeriod :startTime ?start .
+  ?timePeriod :endTime ?end .
+}
+```
+
+This query retrieves all events in the user's calendar along with their start and end times. It does not filter by date or calculate free time periods due to the limitations mentioned above.

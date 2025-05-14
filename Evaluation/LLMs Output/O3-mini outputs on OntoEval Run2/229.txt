@@ -1,0 +1,22 @@
+**Yes**
+Below is one example query that retrieves, for a given ensemble and a chosen point in time, the member names along with the membership date:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ensemble ?ensembleLabel ?memberName ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  ?ensemble :hasMember ?membership .
+  ?membership :memberName ?memberName .
+  ?membership :membershipDate ?membershipDate .
+  
+  # Replace the date value with the specific point in time of interest
+  FILTER(?membershipDate = "2009-09-15"^^xsd:date)
+}
+------------------------------------------------------------
+
+In this query the ontology’s reification pattern for ensemble membership (where :Cl_EnsembleMembership is a subclass of both :Cl_Ensemble and :Cl_Person and carries the data property :membershipDate) allows us to answer the CQ using a SPARQL query under the closed world assumption.

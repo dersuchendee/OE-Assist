@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one example of how you could query for the members of a given band at a particular point in time. In this example we assume that the band membership is reified by instances of the class Cl_BandMembership, that a given band “hasMember” such memberships, and that each membership has an associated time period (an instance of Cl_TimePeriod) with properties (for example, :startTime and :endTime) that let you determine whether a given datetime falls within that period. (Under a closed‐world assumption, only those membership records explicitly stated in the ontology would be returned.)
+
+For example, if you want to know the members of the band identified by <http://www.example.org/test#RedHotChiliPeppers> as of September 1, 2004, you might write a query like the following:
+
+────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?member ?memberLabel ?startTime ?endTime
+WHERE {
+  # Get band memberships for the given band
+  <http://www.example.org/test#RedHotChiliPeppers> :hasMember ?membership .
+  ?membership a :Cl_BandMembership ;
+              :memberOf ?member ;
+              :membershipPeriod ?period .
+              
+  # Optional label for the member
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  # Assume the time period is recorded with a start and an end time
+  ?period :startTime ?startTime ;
+          :endTime ?endTime .
+  
+  # Filter for memberships that are valid at the given time
+  FILTER ( xsd:dateTime("2004-09-01T00:00:00") >= ?startTime &&
+           xsd:dateTime("2004-09-01T00:00:00") <= ?endTime )
+}
+ORDER BY ?member
+────────────────────────────────────
+
+This query returns for the specified band the persons (members) whose membership periods include the point in time “2004-09-01T00:00:00.” (You can replace the band URI and time literal as needed.)

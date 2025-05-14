@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the evaluation statement for a given doctor and a given employee:
+
+--------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluation ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_Evaluation ;
+              :evaluatedBy ?doctor ;
+              :evaluates ?employee ;
+              :evaluationStatement ?evaluationStatement .
+  
+  # Replace with the specific doctor and employee identifiers as needed:
+  FILTER(?doctor = :Dr_Smith && ?employee = :Pasquale_Di_Gennaro)
+}
+--------------------------------------------
+
+This query shows that the competency question ("What is the evaluation statement given by a certain doctor for a certain employee?") is answerable from the ontology.

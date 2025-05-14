@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that extracts, for each city, the country in which it is located:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel 
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityInCountry ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+--------------------------------------------------
+
+Under the closed world assumption, cities without an associated country won’t appear in the query results.

@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the closed‐world view, the ontology models seminars and articles as follows: each seminar (of type Cl_Seminar) has at least one presentation (using the property :hasPresentation linking to a Cl_SeminarPresentation) and each presentation is linked to an article (using the property :presentationOfArticle, whose domain is Cl_SeminarPresentation and range is Cl_Article). Therefore, we can write a SPARQL query that returns, for each seminar, the article(s) presented. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?seminar ?pres ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentation ?pres .
+  ?pres :presentationOfArticle ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+
+This query extracts all seminars that have at least one presentation associated with an article, thus fully answering the competency question "At least one article is always presented at each seminar" under the closed world assumption.

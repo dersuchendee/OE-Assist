@@ -1,0 +1,36 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?implementationAction ?effect ?externalFactor
+WHERE {
+  ?implementationAction rdfs:subClassOf :ImplementationAction .
+  
+  # Get the restriction on hasEffect for the ImplementationAction
+  ?implementationAction rdfs:subClassOf ?implRestriction .
+  ?implRestriction a owl:Restriction ;
+                   owl:onProperty :hasEffect ;
+                   owl:someValuesFrom ?effect .
+  
+  # Ensure the effect is a subclass of Effect
+  ?effect rdfs:subClassOf* :Effect .
+  
+  # Get the restriction on affectsFactor for the Effect
+  ?effect rdfs:subClassOf ?effectRestriction .
+  ?effectRestriction a owl:Restriction ;
+                     owl:onProperty :affectsFactor ;
+                     owl:someValuesFrom ?externalFactor .
+  
+  # Ensure the external factor is a subclass of ExternalFactor (Social or Environmental)
+  ?externalFactor rdfs:subClassOf* :ExternalFactor .
+  FILTER EXISTS {
+    ?externalFactor rdfs:subClassOf* ?factorType .
+    FILTER(?factorType IN (:SocialFactor, :EnvironmentalFactor))
+  }
+}
+```
+
+This query retrieves all implementation actions that have effects on external social and environmental factors by navigating the class hierarchy and property restrictions defined in the ontology. It leverages the subclass relationships and restrictions to find relevant classes even without specific instances.

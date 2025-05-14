@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedSongs ?perfSong .
+  ?perfSong :includesSong ?song .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```

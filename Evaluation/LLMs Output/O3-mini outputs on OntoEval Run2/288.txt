@@ -1,0 +1,16 @@
+**Yes**
+Below is one possible SPARQL query that returns the number of acts for a given play. (In this example we assume that the particular play—for instance, “The Merchant of Venice”—is identified by the URI :TheMerchantOfVenice.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasNumberOfActs ?numberOfActs .
+  FILTER(?play = :TheMerchantOfVenice)
+}
+--------------------------------------------------
+
+This query shows that the ontology models the CQ “How many acts does a particular play contain?” as the property :hasNumberOfActs is defined with domain :Cl_Play and range xsd:integer, making the CQ answerable under the closed world assumption.

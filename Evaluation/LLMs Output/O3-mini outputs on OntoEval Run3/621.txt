@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming we know which critic and record (using their URIs), the ontology defines a reified critique via the class Cl_Critique that relates a critic (via :critiqueMadeBy) to a record (via :critiqueOfRecord) and contains the actual content (via :critiqueContent). Therefore, we can answer the competency question using the model.
+
+Here is an example SPARQL query:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique ;
+            :critiqueMadeBy ?critic ;
+            :critiqueOfRecord ?record ;
+            :critiqueContent ?critiqueContent .
+  FILTER (?critic = <http://www.example.org/test#CrianHiatt> &&
+          ?record = <http://www.example.org/test#SomeRecordURI>)
+}
+---------------------------------
+
+Replace <http://www.example.org/test#CrianHiatt> and <http://www.example.org/test#SomeRecordURI> with the actual URIs for the critic and the record of interest.

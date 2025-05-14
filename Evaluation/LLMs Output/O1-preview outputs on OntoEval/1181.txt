@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "What are the recordings involving a bell or set of bells?" can be answered using the given ontology. The ontology defines the necessary classes and properties to represent recordings involving bells or sets of bells. Specifically, the `:Recording` class, the `:BellOrSetOfBells` class (with subclasses `:Bell` and `:BellSet`), and the property `:involvesBell` that links recordings to bells or sets of bells.
+
+Here is the SPARQL query to retrieve the recordings involving a bell or set of bells:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?recording ?recordingLabel ?bellOrSet ?bellOrSetLabel
+WHERE {
+  ?recording a :Recording .
+  ?recording :involvesBell ?bellOrSet .
+  OPTIONAL { ?recording rdfs:label ?recordingLabel . }
+  OPTIONAL { ?bellOrSet rdfs:label ?bellOrSetLabel . }
+}
+```
+
+This query selects all individuals of type `:Recording` that are connected via the `:involvesBell` property to an individual of `:BellOrSetOfBells`. It optionally retrieves labels for the recordings and the bells or sets of bells for easier identification.

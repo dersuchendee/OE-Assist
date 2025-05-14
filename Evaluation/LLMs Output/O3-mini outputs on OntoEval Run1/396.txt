@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?production (COUNT(?premier) AS ?premierCount)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremierEvent ?premier . }
+}
+GROUP BY ?production
+HAVING (?premierCount = 1)
+```
+
+This query returns all productions that have exactly one premier event, thus verifying the competency question under the closed world assumption.

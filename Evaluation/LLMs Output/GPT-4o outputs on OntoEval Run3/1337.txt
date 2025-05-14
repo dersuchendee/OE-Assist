@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to connect a monitor or policy practitioner to a specific geographical area or disease they are monitoring. The ontology defines classes and properties related to monitoring hospitalizations, diseases, geographical areas, and environmental factors, but it lacks the necessary connections to answer the competency question directly.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?monitor ?hospitalization ?disease ?geographicalArea
+WHERE {
+  ?monitor a :Monitor .
+  ?monitor :monitors ?hospitalization .
+  ?hospitalization :forDisease ?disease .
+  ?hospitalization :inGeographicalArea ?geographicalArea .
+}
+```

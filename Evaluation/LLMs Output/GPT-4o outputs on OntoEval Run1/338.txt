@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not contain any information about the "star rating" given by a newspaper for a production. The ontology includes classes and properties related to theatre festivals, plays, productions, ensembles, actors, and reviews, but it does not specify any data properties or relationships that capture the star rating given by a newspaper for a production.
+
+Partial SPARQL query to extract available information related to reviews:
+
+```sparql
+SELECT ?production ?review ?newspaper
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :op_hasReview ?review .
+  ?review :op_reviewedBy ?newspaper .
+}
+```
+
+This query retrieves the productions, their reviews, and the newspapers that reviewed them, but it does not include the star rating as it is not present in the ontology.

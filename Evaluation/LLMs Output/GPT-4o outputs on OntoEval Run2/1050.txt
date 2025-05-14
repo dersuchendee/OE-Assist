@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate articles with a specific seminar. The ontology includes classes and properties related to seminars and articles, but it lacks a direct connection between articles and the specific seminar they were presented at. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?article ?seminar
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :seminar ?seminar .
+}
+```
+
+This query attempts to find articles and the seminars they were presented in, but it may not fully answer the competency question due to the lack of a direct connection in the ontology.

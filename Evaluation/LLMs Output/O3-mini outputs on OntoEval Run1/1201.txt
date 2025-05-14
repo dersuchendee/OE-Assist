@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?composer ?composerLabel ?relation ?networkMember ?networkMemberLabel
+WHERE {
+  ?composer a :Composer .
+  OPTIONAL { ?composer rdfs:label ?composerLabel . }
+  
+  { ?composer :hasPatron ?networkMember .
+    BIND("hasPatron" AS ?relation) .
+    OPTIONAL { ?networkMember rdfs:label ?networkMemberLabel . } }
+  UNION
+  { ?composer :worksForInstitution ?networkMember .
+    BIND("worksForInstitution" AS ?relation) .
+    OPTIONAL { ?networkMember rdfs:label ?networkMemberLabel . } }
+  UNION
+  { ?composer :collaboratedWith ?networkMember .
+    BIND("collaboratedWith" AS ?relation) .
+    OPTIONAL { ?networkMember rdfs:label ?networkMemberLabel . } }
+}
+```

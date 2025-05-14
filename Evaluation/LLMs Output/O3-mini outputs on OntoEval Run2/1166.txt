@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL 1.1 query that—under the closed world assumption—retrieves for each material its declared origin as well as a (recursive) trace of related materials via the production processes. In this query we use a property path to follow the chain from a material via its production process and then via the process’s consumption and production of other materials. (Note that “complete trace” is interpreted here as the set of all materials reachable along the path starting at the given material.)
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?material ?origin ?traceMaterial
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material :hasOrigin ?origin. }
+  OPTIONAL {
+    ?material ( :producedByProcess / ( :consumesMaterial / :producesMaterial )* ) ?traceMaterial .
+  }
+}
+-----------------------------------------------------
+
+In this query:
+• The OPTIONAL clause retrieves the origin of the material via the :hasOrigin property.
+• The property path ( :producedByProcess / ( :consumesMaterial / :producesMaterial )* ) recursively follows the chain from a material to the process that produced it and then along the consumption/production links of associated processes to yield the complete trace.

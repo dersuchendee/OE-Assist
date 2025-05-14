@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that the ontology explicitly reifies the “written during” relation between a play and its writing period using the reified class (here, :Cl_PlayWrittenPeriod) and the property :writtenDuring, we can extract the time period for a given play. Under the closed world assumption, we assume only statements explicitly stated in the ontology hold true.
+
+For example, the following SPARQL query returns each play (with an optional play name) along with its associated writing time period (via the data property :timePeriod on the reified instance):
+
+-----------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?period ?timePeriodValue
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  
+  ?play :writtenDuring ?period .
+  ?period :timePeriod ?timePeriodValue .
+}
+-----------------------------
+
+This query demonstrates that the competency question “During what time period was a certain play written?” is supported by the ontology.

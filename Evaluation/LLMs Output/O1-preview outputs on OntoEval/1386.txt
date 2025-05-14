@@ -1,0 +1,13 @@
+**No**
+
+The given ontology does not define a property that relates a `:Tune` (which represents a composition) to a `:TuneFamily`. Therefore, we cannot answer the competency question "Which tune family does composition X belong to?" directly from this ontology.
+
+However, we can provide a partial answer by listing all tunes, but we cannot determine their tune families.
+
+```sparql
+SELECT ?tune ?tuneLabel
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+}
+```

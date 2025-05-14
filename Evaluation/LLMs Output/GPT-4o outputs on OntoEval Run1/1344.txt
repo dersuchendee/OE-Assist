@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to connect hospitalisation rates to specific diseases or to determine when these rates are registered. The ontology only defines a class for hospitalisation rate observations and a property to relate these observations to diseases, but it does not include any information about the registration of these rates.
+
+Partial answer:
+```sparql
+SELECT ?observation ?disease ?registrationDate
+WHERE {
+  ?observation a :HospitalisationRateObservation .
+  OPTIONAL { ?observation :isRelatedToDisease ?disease . }
+  OPTIONAL { ?observation :hasRegistrationDate ?registrationDate . }
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves seminars and their dates from the ontology. In a closed‐world scenario, you would assume that every seminar instance has a recorded seminar date.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+------------------------------------------------
+
+This query answers the competency question "When did a certain seminar take place?" by extracting the date (using the :seminarDate property) for each instance of :Cl_Seminar in the ontology.

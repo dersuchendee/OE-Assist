@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine when a specific seminar took place. The ontology includes classes and properties related to seminars, locations, and dates, but it does not explicitly connect a specific seminar to a date. Therefore, a partial answer can be extracted by querying for seminar occurrences and their associated dates, but it will not specify which seminar took place on a particular date.
+
+```sparql
+SELECT ?seminarOccurrence ?date
+WHERE {
+  ?seminarOccurrence a :Cl_SeminarOccurrence .
+  ?seminarOccurrence :hasDate ?date .
+}
+```

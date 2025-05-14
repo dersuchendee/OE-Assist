@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided defines classes and properties relating regions and countries, but it does not include any instances (individual regions or countries). Under the closed world assumption, without specific data instances, we cannot answer the competency question.
+
+Partial SPARQL query:
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :partOf ?country .
+  ?country a :Cl_Country .
+}
+```
+
+This query attempts to retrieve regions and their corresponding countries, but without actual data (instances of regions and countries), it will not return any results.

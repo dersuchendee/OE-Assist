@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any information about ensembles or their members at specific points in time. Therefore, the competency question cannot be fully answered using the given ontology. However, we can extract partial information about productions and their associated plays.
+
+```sparql
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :productionName ?productionName .
+  ?productionPlay a :Cl_ProductionPlay .
+  ?productionPlay :hasProduction ?production .
+  ?productionPlay :hasPlay ?play .
+  ?play :playName ?playName .
+}
+```

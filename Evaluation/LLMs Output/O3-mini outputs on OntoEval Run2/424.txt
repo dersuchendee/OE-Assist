@@ -1,0 +1,21 @@
+**Yes**
+
+With our ontology we can extract the instruments linked to a person via the playsInstrument property. For instance, the following SPARQL query answers the CQ:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+ORDER BY ?person
+------------------------------------------------
+
+Under a closed world assumption on the ontology, this query will return exactly the instruments explicitly linked to each person via the playsInstrument relation.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves for each person the degree they obtained (via the property :hasMedicalDegree) together with the time period during which they studied (recorded by the study record associated via :studiedFor and its :studyPeriod data):
+
+———————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?studyPeriod
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :studiedFor ?studyRecord .
+  ?studyRecord :studyPeriod ?studyPeriod .
+  
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+}
+ORDER BY ?person ?studyPeriod
+———————————————
+
+This query shows that the competency question “During what time period did a certain person study for a specific degree?” can be answered with the given ontology.

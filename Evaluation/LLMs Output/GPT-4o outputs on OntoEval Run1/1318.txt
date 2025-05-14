@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What ecological functions do rare species perform in microbial communities?" can be answered using the given ontology. The ontology includes classes for "Rare Species" and "Ecological Function" and a property "performsFunction" that connects species to ecological functions. Therefore, we can write a SPARQL query to extract the answer.
+
+```sparql
+SELECT ?rareSpecies ?function
+WHERE {
+  ?rareSpecies a :RareSpecies .
+  ?rareSpecies :performsFunction ?function .
+}
+```

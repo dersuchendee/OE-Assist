@@ -1,0 +1,15 @@
+Answer: **No**
+
+The competency question cannot be fully answered by the ontology because there is no way to identify a particular play; the ontology lacks a data property or label to specify the name of a play. While the ontology includes the class `:Cl_Play` and the data property `:numberOfActs` (which provides the number of acts for plays), without a property to identify specific plays, we cannot determine the number of acts for a specific play.
+
+However, we can extract a partial answer by retrieving the number of acts for all plays in the ontology:
+
+```sparql
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :numberOfActs ?numberOfActs .
+}
+```
+
+This query returns all plays along with their number of acts, but it does not allow us to select a particular play.

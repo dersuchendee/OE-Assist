@@ -1,0 +1,33 @@
+**Yes**
+
+Below is an example SPARQL query that uses the reification pattern in the ontology to retrieve the roles a specific person has in a specific production at a given point in time. (In this example, you can replace the literal filter values with the desired person’s name, production title, and time.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?production ?productionTitle ?time ?role ?roleLabel
+WHERE {
+  ?person a :Cl_Person ;
+          :hasName ?personName ;
+          :hasPersonRoleInProduction ?prp .
+  
+  ?prp :withRole ?role ;
+       :inProduction ?production ;
+       :atTime ?time .
+  
+  ?production a :Cl_Production ;
+              :hasTitle ?productionTitle .
+  
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # Replace the following FILTERs with the specific parameters as needed:
+  FILTER( ?personName = "Fabio Bianchi"^^xsd:string &&
+          ?productionTitle = "The Merchant of Venice"^^xsd:string &&
+          ?time = "2009-09-07T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?role
+------------------------------------------------
+
+This query retrieves the roles (with optional labels) that the person (e.g., Fabio Bianchi) has in a given production (e.g., The Merchant of Venice) at a specific timestamp.

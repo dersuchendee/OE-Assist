@@ -1,0 +1,31 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleLabel ?actor ?actorLabel ?membershipStart ?membershipEnd
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :membershipOf ?ensemble .
+  
+  ?actor :hasMembership ?membership .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  
+  OPTIONAL { ?membership :membershipStart ?membershipStart . }
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Specify the desired point in time
+  BIND ("2009-09-15T00:00:00"^^xsd:dateTime AS ?specificDate)
+  
+  # Filter memberships that include the specific date
+  FILTER (
+    ?membershipStart <= ?specificDate &&
+    ( !bound(?membershipEnd) || ?membershipEnd >= ?specificDate )
+  )
+}
+ORDER BY ?ensemble ?actor
+```

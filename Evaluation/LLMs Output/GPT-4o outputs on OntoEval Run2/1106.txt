@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" is supported by the ontology. The ontology includes a restriction that ensures each seminar contains at least one article presentation. Here's a SPARQL query to verify this:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :containsPresentationOf ?presentation .
+  ?presentation a :Cl_SeminarArticlePresentation .
+  ?presentation :presentedIn ?seminar .
+  ?presentation a :Cl_Article .
+}
+```

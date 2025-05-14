@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT ?degreeTitle ?degreeObtainedDate
+WHERE {
+    # Specify the person of interest
+    ?person a :Cl_Person .
+    # Retrieve the degrees the person has
+    ?person :hasDegree ?personDegree .
+    # Get the type of the degree
+    ?personDegree :degreeType ?medicalDegree .
+    # Get the title and obtained date of the medical degree
+    ?medicalDegree :degreeTitle ?degreeTitle .
+    ?medicalDegree :degreeObtainedDate ?degreeObtainedDate .
+    # Optionally filter for a specific person, e.g., by URI or another identifying property
+    # FILTER (?person = :SpecificPersonURI)
+}
+```

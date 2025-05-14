@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What are all compositions in tune family X?" can be answered using the ontology provided. The ontology includes the classes `Composition` and `TuneFamily`, and the object property `hasTuneFamily` which connects compositions to tune families. Therefore, we can write a SPARQL query to extract the compositions belonging to a specific tune family.
+
+```sparql
+SELECT ?composition ?compositionLabel
+WHERE {
+  ?composition a :Composition .
+  ?composition :hasTuneFamily :X .  # Assuming :X is the specific tune family URI
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+}
+```

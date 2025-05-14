@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not contain instances of `:System` or specific energy components linked to a system. Therefore, we cannot retrieve the energy components present in a particular system as required by the competency question. However, we can extract the types of energy components defined in the ontology.
+
+Here is a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?energyComponent ?label
+WHERE {
+  ?energyComponent rdfs:subClassOf* :EnergyComponent .
+  FILTER(?energyComponent != :EnergyComponent)
+  OPTIONAL { ?energyComponent rdfs:label ?label. }
+}
+```
+
+This query retrieves all subclasses of `:EnergyComponent`, such as `:Energy`, `:Exergy`, and `:Anergy`, along with their labels. It provides information about the types of energy components defined in the ontology but does not link them to a specific system due to the absence of individual instances.

@@ -1,0 +1,41 @@
+**Yes**
+
+Below is an example SPARQL query that, given a production, an actor, and a specific date, retrieves the roles that the actor had in that production at that time:
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?role ?roleLabel ?roleStartDate ?roleEndDate
+WHERE {
+  # Retrieve the production having role assignments
+  ?production a :Cl_Production ;
+              :hasRoleAssignment ?assignment .
+  
+  # Each assignment relates an actor to a role
+  ?assignment :roleActor ?actor ;
+              :role ?role ;
+              :roleStartDate ?roleStartDate .
+  OPTIONAL { ?assignment :roleEndDate ?roleEndDate . }
+  
+  # Optional labels for clarity
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # Parameters (replace the IRIs and date as needed)
+  FILTER (?actor = <http://www.example.org/test#Actor_FabioBianchi> &&
+          ?production = <http://www.example.org/test#Production_GrandTheatre_MerchantOfVenice> &&
+          "2009-09-10"^^xsd:date >= ?roleStartDate &&
+          ( !bound(?roleEndDate) || "2009-09-10"^^xsd:date <= ?roleEndDate )
+  )
+}
+ORDER BY ?roleStartDate
+----------------------------------------------------------
+
+In this query:
+• You specify the actor, production, and the date (here "2009-09-10") as filter criteria.
+• The query returns, for that production, all role assignments for the given actor whose valid period (from :roleStartDate until :roleEndDate—if defined) covers the selected date.
+• The query uses the ontology’s properties (e.g. :hasRoleAssignment, :roleActor, :role, :roleStartDate, :roleEndDate) to retrieve all relevant data.
+
+This demonstrates that the CQ (“What roles does a certain person have within a certain production at a certain point in time?”) is modelled and answerable via SPARQL using the provided ontology.

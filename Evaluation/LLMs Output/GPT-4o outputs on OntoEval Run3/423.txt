@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a musician with the instruments they play. The ontology defines a `plays` property that connects a `Musician` to an `Instrument`, but it does not specify which instruments a specific musician plays. Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, we can extract a partial answer by listing all musicians and the instruments they play, without specifying which musician plays which instrument.
+
+```sparql
+SELECT ?musician ?instrument
+WHERE {
+  ?musician a :Musician .
+  ?musician :plays ?instrument .
+}
+```

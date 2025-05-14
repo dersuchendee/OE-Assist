@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+```
+
+Under the closed world assumption, this query retrieves every seminar instance along with at least one presented article, thus verifying that every seminar has at least one article.

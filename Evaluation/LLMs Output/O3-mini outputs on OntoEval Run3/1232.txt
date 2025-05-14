@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?form ?formLabel
+WHERE {
+  ?form a owl:Class ;
+        rdfs:subClassOf :CarbonFixationProcess,
+                       ?restriction .
+  ?restriction owl:onProperty :occursIn ;
+               owl:someValuesFrom :ForestSoil .
+  OPTIONAL { ?form rdfs:label ?formLabel. }
+}
+```
+
+Explanation:
+The competency question asks for the different forms of carbon fixation in forest soils. In the ontology, the class FormOfCarbonFixation is a subclass of CarbonFixationProcess with a restriction that it occurs in ForestSoil. Under the closed world assumption, this query retrieves all classes satisfying that restriction, thereby modelling the competency question.

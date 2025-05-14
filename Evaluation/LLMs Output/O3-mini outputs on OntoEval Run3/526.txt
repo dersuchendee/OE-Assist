@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that answers the CQ “How many tracks does a particular album contain?” using the ontology elements provided:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+—————————————————————————————
+
+This query selects each album (of type Cl_Album) and counts the number of tracks connected via the :containsTrack property, which supports the competency question under the closed world assumption.

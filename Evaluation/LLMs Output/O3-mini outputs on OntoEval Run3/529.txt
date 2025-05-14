@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that each album is explicitly linked to its track count via the property “containsTracks” (with a closed‐world interpretation that only explicitly stated information holds), the competency question is answerable. For example, if a particular album is represented as an instance of Cl_Album and its number of tracks is recorded using the property “containsTracks”, you could use a query like the following:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?trackCount
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :containsTracks ?trackCount .
+  # Optionally, filter for a specific album, e.g.:
+  # FILTER(?albumLabel = "Stadium Arcadium")
+}
+
+This query extracts each album and its recorded number of tracks, which answers the CQ.

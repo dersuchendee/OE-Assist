@@ -1,0 +1,19 @@
+**Yes**
+Below is an example query that retrieves the study period (start and end dates) for a given person and degree:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?studyPeriod ?studyStartDate ?studyEndDate
+WHERE {
+  ?studyPeriod a :Cl_StudyPeriod ;
+               :studiedBy :Pasquale_Di_Gennaro ;    # replace with the person of interest
+               :studiedFor :CertifiedNurseDegree ;   # replace with the specific degree
+               :studyStartDate ?studyStartDate ;
+               :studyEndDate ?studyEndDate .
+}
+------------------------------------------------
+
+In this query, we assume a closed world where all study periods for a person and degree are explicitly modelled using the Cl_StudyPeriod class with properties :studiedBy, :studiedFor, :studyStartDate, and :studyEndDate.

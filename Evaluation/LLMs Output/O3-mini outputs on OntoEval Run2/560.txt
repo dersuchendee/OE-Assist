@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that uses the reification class (here :Cl_TrackRecording) to retrieve, for a given track recording instance, the song (a :Cl_MusicalWork instance) that it is a recording of. (Replace :specificTrackRecording below with the IRI of the specific track if needed.)
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  # Assuming we have a known track recording instance;
+  # optionally, you could list all track recordings.
+  :specificTrackRecording a :Cl_TrackRecording ;
+                           :op_isRecordingOf ?song .
+  OPTIONAL { ?song :dp_compositionDate ?compositionDate . }
+}
+—————————————————————————————
+
+This query demonstrates how the ontology models the reified recording relationship: a track recording (:Cl_TrackRecording) is connected to a song (of type :Cl_MusicalWork) via the property :op_isRecordingOf.

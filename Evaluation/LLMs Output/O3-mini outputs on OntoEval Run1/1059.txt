@@ -1,0 +1,23 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the articles (represented as seminar presentations which are also articles) that were included in a given seminar. (You can filter by a specific seminar—for example by its date or by a known identifier.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate ;
+           :seminarIncludesPresentation ?presentation .
+  ?presentation a :Cl_Article .
+  OPTIONAL { ?presentation rdfs:label ?articleLabel . }
+  BIND(?presentation AS ?article) .
+  
+  # Optionally, filter for a particular seminar.
+  # For example, if you want the seminar held in December 2008:
+  # FILTER(STRSTARTS(STR(?seminarDate), "2008-12"))
+}
+ORDER BY ?seminar ?seminarDate ?article
+
+In this query the property :seminarIncludesPresentation links a seminar to its presentations, and because the presentation class is defined as a subclass of both Cl_Seminar and Cl_Article, we are able to extract the articles presented in the seminar.

@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer the CQ using the employment relationships defined in the ontology. For example, to retrieve the employment start date for a given actor (e.g., :FabioBianchi) at a particular theatre (e.g., :GrandTheatre), one can use the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :employedAt ?employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?employment :employmentIn ?theatre .
+  FILTER(?actor = :FabioBianchi && ?theatre = :GrandTheatre)
+}
+
+This query extracts the start date for the employment of the specified actor at the specified theatre, thus answering the competency question under the closed world assumption.

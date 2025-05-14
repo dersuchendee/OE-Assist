@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ since the ontology includes classes for regions and countries along with a property (partOf) that links a region to its country. Under the closed‐world assumption we expect explicit triples of the form “?region :partOf ?country”. For example, an instance of :Cl_Oregon (a subclass of :Cl_Region) is linked via a restriction to a country (here :Cl_US).
+
+A SPARQL query to extract, for each region, the country in which it is located would be:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?regionName ?country ?countryName
+WHERE {
+  ?region a :Cl_Region ;
+          :partOf ?country .
+  OPTIONAL { ?region :regionName ?regionName . }
+  OPTIONAL { ?country :regionName ?countryName . }
+}
+--------------------------------
+
+This query retrieves each region, its (optional) name, and the country it is linked to (along with its optional name).

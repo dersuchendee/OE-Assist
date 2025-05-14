@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct connection between a festival and its location. The `theatre:RomaLovesShakespeare` festival is associated with a location through the `theatre:hasLocation` property, but this property is not explicitly defined in the provided ontology. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL {
+    ?festival theatre:hasLocation ?location .
+  }
+}
+```

@@ -1,0 +1,17 @@
+Answer: **No**.
+
+The ontology lacks the necessary properties to fully answer the competency question because there is no direct way to associate a festival occurrence with its festival name. Specifically, there is no property linking instances of `Cl_FestivalOccurrence` to instances of `Cl_TheatreFestival` or providing a `hasName` for the festival occurrence itself.
+
+However, we can extract a partial answer by retrieving the dates of festival occurrences:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?festivalOccurrence ?date
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence ;
+                      :hasDate ?date .
+}
+```
+
+This query retrieves festival occurrences and their dates, but it does not provide the names of the festivals, which are needed to fully answer the competency question "When did a certain theatre festival take place?"

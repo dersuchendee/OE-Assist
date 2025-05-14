@@ -1,0 +1,24 @@
+**No**
+
+The ontology does not fully model the CQ “A record always contains at least one track.” In the intended music production domain the CQ requires that every instance of a record (or album) must be linked to at least one track. Although the ontology defines classes for records/albums and tracks and provides properties like :albumContainsTrack and :trackInAlbum, there is no cardinality restriction or guarantee that every record (or album) has at least one associated track. Under a closed‐world interpretation we can extract those records (or albums) that lack any track information, which is only a partial answer to the CQ.
+
+A partial answer can be obtained using a query such as:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?record ?recordLabel (COUNT(?track) AS ?numTracks)
+WHERE {
+  { ?record a :Cl_Record . }
+  UNION
+  { ?record a :Cl_Album . }
+  OPTIONAL { ?record rdfs:label ?recordLabel . }
+  OPTIONAL { ?record :albumContainsTrack ?track . }
+}
+GROUP BY ?record ?recordLabel
+HAVING (?numTracks = 0)
+------------------------------------------------
+
+This query returns all records (or albums) that do not have any tracks attached, thereby indicating that the CQ “A record always contains at least one track” is not fully enforced by the ontology.

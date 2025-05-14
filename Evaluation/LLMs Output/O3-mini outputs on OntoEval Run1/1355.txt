@@ -1,0 +1,25 @@
+**No**
+
+The current ontology does not explicitly distinguish (or “reify”) which parts of an organ are original versus later modifications. Although the ontology provides a means to link an organ with its parts (using properties like core:hasPart and the notion of Parthood with a datatype property (core:isCurrentParthood)), there is no explicit modelling of the “originality” of organ components. Under the closed‐world assumption, unless an individual part is explicitly marked with core:isCurrentParthood false (or in some other way annotated as “original”), we cannot determine from the ontology which parts are original. The following SPARQL query extracts, for each organ, the parts that have an associated Parthood record with an isCurrentParthood value explicitly set to false. This represents a partial answer because it depends on parts being annotated with that property; organs or parts lacking such annotation will not be returned.
+
+------------------------------------------------
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?organ ?part ?isCurrent
+WHERE {
+  ?organ rdf:type organs:Organ .
+  ?organ core:hasPart ?part .
+  OPTIONAL {
+    ?parthood a arco:Parthood ;
+              arco:hasPart ?part ;
+              arco:isPartIncludedIn ?organ ;
+              core:isCurrentParthood ?isCurrent .
+  }
+  FILTER(bound(?isCurrent) && ?isCurrent = false)
+}
+------------------------------------------------
+
+This query will list organ parts that have been explicitly marked as not current, which we interpret here as “original” components. However, because the ontology does not fully model the concept of “original parts” (for example, there is no separate class or property dedicated to flagging a part as original), the CQ is only partially answerable from the provided ontology.

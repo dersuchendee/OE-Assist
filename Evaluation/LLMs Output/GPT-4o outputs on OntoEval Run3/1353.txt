@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the parts of an organ at a specific point in time. The ontology includes classes and properties related to organs and their parts, but it lacks a direct representation of temporal information associated with the parts of an organ. Therefore, a SPARQL query can only extract partial information about the parts of an organ without considering the temporal aspect.
+
+```sparql
+SELECT ?organ ?part
+WHERE {
+  ?organ a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  ?organ <https://w3id.org/arco/ontology/core/includesPart> ?part .
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the original parts of an organ and their locations. The ontology includes classes and properties related to organs, organ parts, and locations, but it lacks explicit information about the original parts and their current locations. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?organ ?originalPart ?location
+WHERE {
+  ?organ a :Organ .
+  ?originalPart a :OriginalPart .
+  ?originalPart :originalPartOf ?organ .
+  OPTIONAL { ?originalPart :currentLocation ?location . }
+}
+```

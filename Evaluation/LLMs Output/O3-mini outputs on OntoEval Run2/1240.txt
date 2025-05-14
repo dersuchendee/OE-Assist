@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming instance data follows the TBox axioms, you can retrieve Energy Metabolism processes along with their influencing Carbon–Nitrogen Ratio and the associated microbial communities with a query like this (applying the closed world assumption):
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyMetabolism ?energyLabel ?ratio ?ratioLabel ?community ?communityLabel
+WHERE {
+  ?energyMetabolism a :EnergyMetabolism .
+  OPTIONAL { ?energyMetabolism rdfs:label ?energyLabel . }
+  
+  ?energyMetabolism :affectedBy ?ratio .
+  ?ratio a :CarbonNitrogenRatio .
+  OPTIONAL { ?ratio rdfs:label ?ratioLabel . }
+  
+  ?energyMetabolism :occursIn ?community .
+  ?community a :MicrobialCommunityInCNCycling .
+  OPTIONAL { ?community rdfs:label ?communityLabel . }
+}
+-----------------------------------------------------------
+
+This query extracts the Energy Metabolism processes that are stated to be affected by a Carbon–Nitrogen Ratio, as well as the microbial communities in which these processes occur, thus addressing the CQ.

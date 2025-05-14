@@ -1,0 +1,30 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves those persons who are members of a specified union (here illustrated using ns1:MaleNurseUnion) at a given point in time (supplied as a parameter ?givenTime). This query assumes that union membership is recorded via a membership entity (using ns1:memberOf and ns1:hasUnion) that carries one or more time intervals (using time:hasBeginning and optionally time:hasEnd). You may replace the union URI and the given time with those appropriate for your query context.
+
+------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?membership ?start ?end
+WHERE {
+  # Retrieve persons with union memberships
+  ?person ns1:memberOf ?membership .
+  ?membership ns1:hasUnion ns1:MaleNurseUnion .
+  
+  # Obtain the membership period
+  ?membership ns1:hasMembershipPeriod ?period .
+  ?period time:hasBeginning ?start .
+  OPTIONAL { ?period time:hasEnd ?end . }
+  
+  # Filter by the given time (replace the literal with the actual query time)
+  BIND("2002-06-01T00:00:00+00:00"^^xsd:dateTime AS ?givenTime)
+  FILTER ( ?givenTime >= ?start && ( !BOUND(?end) || ?givenTime <= ?end ) )
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+------------------------------------------------
+
+This query returns the persons (and their labels if available) who were union members of ns1:MaleNurseUnion at the specified moment in time.

@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that extracts the study period (with its start and end dates) for a given person and a specific degree (here shown for Pasquale Di Gennaro with the Certified Nurse degree):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?studyPeriod ?startDate ?endDate ?degree
+WHERE {
+  ?person a :Person ;
+          rdfs:label "Pasquale Di Gennaro" ;
+          :studiedDuring ?studyPeriod .
+          
+  ?studyPeriod :degreeObtained ?degree ;
+               :hasStartDate ?startDate ;
+               :hasEndDate ?endDate .
+               
+  ?degree rdfs:label "Certified Nurse Degree" .
+}
+--------------------------------------------------
+
+This query traverses the relationships defined in the ontology to extract the study period for the specific person and degree, demonstrating that the competency question is answerable under a closed world assumption.

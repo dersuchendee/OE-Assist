@@ -1,0 +1,15 @@
+**Yes**
+
+Here's a SPARQL query to retrieve the medical degrees that a certain person has:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?degreeName WHERE {
+  :Pasquale_Di_Gennaro rdf:type :Cl_Person .
+  ?pmd :heldBy :Pasquale_Di_Gennaro .
+  ?pmd :degreeOf ?md .
+  ?md :degreeName ?degreeName .
+}
+```
+
+This query starts from the individual `:Pasquale_Di_Gennaro`, finds all the `:Cl_PersonMedicalDegree` instances held by him via the `:heldBy` property, then retrieves the associated `:Cl_MedicalDegree` through the `:degreeOf` property, and finally extracts the `:degreeName` of each medical degree he has.

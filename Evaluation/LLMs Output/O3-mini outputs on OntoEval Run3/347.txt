@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that the specific production and newspaper are given (or can be provided as parameters), the following SPARQL query shows that the ontology supports the CQ by linking productions to their reviews, which include a star rating given by a newspaper:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?prodLabel ?newspaper ?paperLabel ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+  
+  ?production :reviews ?review .
+  ?review :starRating ?starRating .
+  
+  ?review :reviewedBy ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?paperLabel . }
+  
+  # Optionally, you can restrict to a specific production and newspaper
+  # FILTER(?production = :SomeProduction && ?newspaper = :SomeNewspaper)
+}
+----------------------------------------------------------------
+
+Under a closed world assumption, only those productions with an associated review (that includes a starRating and a reviewedBy newspaper) will be returned. This query extracts the complete information required by the CQ.

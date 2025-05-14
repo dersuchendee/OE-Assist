@@ -1,0 +1,24 @@
+**No**
+
+The ontology does not model measures or properties that describe the “similarities/differences” (measure Y) of compositions (or tunes) within a tune family. While the ontology provides classes such as Tune and TuneFamily and even imports Music Meta, there is no connection (for example, a reified association or property) that can be used to specify or compute the “similarities/differences” based on any measure. Under the closed‐world assumption, we have no grounds to derive information for measure Y.
+
+A partial answer can still be obtained by extracting the tunes that belong to a given tune family. For example, assuming that tunes become members of a TuneFamily via some membership relation (even if that property is not modeled explicitly in the ontology, we mimic it via any triple connecting a TuneFamily and its tunes), one could try a query like the following:
+
+--------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel
+WHERE {
+  ?family a :TuneFamily ;
+          rdfs:label "X" .        # Assume "X" is the label of the target tune family
+  
+  ?family ?membershipProperty ?tune .
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+}
+--------------------------------------------------
+
+This query at least extracts the tunes in tune family X even though it does not provide any measure-related similarity or difference information.

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?organ ?movementDate ?toLocation
+WHERE {
+  ?organ a :Organ ;
+         :hasMovementEvent ?movementEvent .
+  ?movementEvent :movementDate ?movementDate ;
+                 :movedTo ?toLocation .
+}
+ORDER BY ?organ ?movementDate
+```

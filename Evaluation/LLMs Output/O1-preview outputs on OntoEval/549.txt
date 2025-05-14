@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+Because the ontology includes the `:releaseDate` data property for albums (`:Cl_Album`), and there are instances of albums associated with their release dates. Therefore, we can write a SPARQL query to extract the release date of any album.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+          :releaseDate ?releaseDate .
+}
+```
+
+This query retrieves all albums and their corresponding release dates from the ontology.

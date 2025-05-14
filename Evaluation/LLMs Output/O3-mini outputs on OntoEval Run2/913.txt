@@ -1,0 +1,38 @@
+**Yes**
+
+One possible SPARQL query to retrieve the union role (with its date) for a given person within a given union at a specified point in time (using appropriate filters) is as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?union ?unionLabel ?role ?roleDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasRole ?role .
+  ?role a :Cl_UnionRole .
+  ?role :roleDate ?roleDate .
+  ?role :hasRole ?union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  
+  # Filter for the specific person (replace with the actual URI)
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  
+  # Filter for the specific union group (replace with the actual union URI)
+  FILTER(?union = <http://www.example.org/test#MaleNursesUnion>)
+  
+  # Filter to check that the role is in effect at a given point in time.
+  # For example, if you wish to retrieve roles valid on 2003-01-01,
+  # you could apply a condition on ?roleDate. Adjust the condition as needed.
+  FILTER(?roleDate <= "2003-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?roleDate
+
+In this query we assume:
+ • The person of interest (e.g. Pasquale Di Gennaro) and the union group (e.g. representing male nurses) have explicit URIs in the ontology.
+ • The property :hasRole is used in two ways: to link a person to an instance of :Cl_UnionRole and to link the :Cl_UnionRole instance to the related union group (as required by the restriction).
+ • The query filters by a given date to ensure that the role applies at that point in time.
+
+Under the closed world assumption the ontology provides enough structure (via the role reification) to answer the competency question.

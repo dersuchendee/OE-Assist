@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific track with the song it is a recording of. However, we can extract partial information about tracks and songs.
+
+```sparql
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track .
+  OPTIONAL { ?track :isRecordingOf ?song . }
+}
+```

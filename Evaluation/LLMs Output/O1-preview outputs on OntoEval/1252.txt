@@ -1,0 +1,33 @@
+**Yes**
+
+The ontology provides sufficient classes and properties to express the competency question. Specifically, it contains classes for `Area`, `ChemicalMeasurement`, and `PhysicalMeasurement`, as well as properties that link measurements to areas (`:hasChemicalMeasurement`, `:hasPhysicalMeasurement`). Therefore, we can write a SPARQL query to retrieve how chemical and physical measurements are distributed across different areas.
+
+Here's a SPARQL query that answers the competency question:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?area ?areaLabel ?measurement ?measurementType ?value
+WHERE {
+  ?area a :Area .
+  OPTIONAL { ?area rdfs:label ?areaLabel . }
+
+  {
+    ?area :hasChemicalMeasurement ?measurement .
+    OPTIONAL { ?measurement rdfs:label ?measurementLabel . }
+    BIND ("ChemicalMeasurement" AS ?measurementType)
+    ?measurement :measurementValue ?value .
+  }
+  UNION
+  {
+    ?area :hasPhysicalMeasurement ?measurement .
+    OPTIONAL { ?measurement rdfs:label ?measurementLabel . }
+    BIND ("PhysicalMeasurement" AS ?measurementType)
+    ?measurement :measurementValue ?value .
+  }
+}
+ORDER BY ?area ?measurementType
+```
+
+This query retrieves each `Area` along with its associated `ChemicalMeasurement` and `PhysicalMeasurement`, including the measurement values. It distinguishes between chemical and physical measurements using the `?measurementType` variable, allowing you to see how these measurements are distributed across different areas.

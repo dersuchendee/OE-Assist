@@ -1,0 +1,21 @@
+**Yes**
+Below is one possible SPARQL query that retrieves each production along with its single premier date (using aggregation to ensure that exactly one premier is recorded):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  {
+    SELECT ?production (GROUP_CONCAT(?date; separator=",") AS ?premierDate)
+           (COUNT(?date) AS ?numPremiers)
+    WHERE {
+      ?production a :Cl_Production ;
+                  :premierDate ?date .
+    }
+    GROUP BY ?production
+    HAVING (?numPremiers = 1)
+  }
+}
+
+This query confirms that each production (an instance of :Cl_Production) has exactly one premier date and extracts that value.

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that uses the ontology to extract the first employment start date for Pasquale Di Gennaro at Ospedale Riunito delle Tre Valli:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?employmentStartDate) AS ?firstEmployment)
+WHERE {
+  :PasqualeDiGennaro :hasEmployment ?employment .
+  ?employment :employedAt :OspedaleRiunitoDelleTreValli .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+--------------------------------
+
+This query returns the earliest (i.e. first) employment start date for the specified person at the indicated hospital.

@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology, as it is possible to extract the required information using a SPARQL query. The ontology provides classes and properties that relate to user preferences, weather services, locations, and time periods, which are all relevant to the competency question.
+
+```sparql
+SELECT ?service ?location ?timePeriod
+WHERE {
+  ?userPreference a :UserPreference .
+  ?userPreference :preferredService ?service .
+  ?userPreference :preferredLocation ?location .
+  ?userPreference :preferredTimePeriod ?timePeriod .
+}
+```

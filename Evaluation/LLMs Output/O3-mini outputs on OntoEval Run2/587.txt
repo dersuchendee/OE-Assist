@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?songTitle ?compositionDate
+WHERE {
+  ?song a :Song ;
+        :songTitle ?songTitle ;
+        :compositionDate ?compositionDate .
+  FILTER(?songTitle = "Hump de Bump")
+}
+```

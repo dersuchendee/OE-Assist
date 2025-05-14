@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the medical degrees (including their titles and obtained dates when available) for a given person (here :PasqualeDiGennaro):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+  FILTER(?person = :PasqualeDiGennaro)
+}

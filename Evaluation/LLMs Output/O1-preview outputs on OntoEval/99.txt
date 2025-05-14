@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival ns1:tookPlaceIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

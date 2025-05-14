@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves movies (an event category) along with some of their attributes (such as title, genre, and actors) and, via the reification pivot, additional screening details.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?screening ?cinema ?screeningTime ?movie ?title ?genre ?actor
+WHERE {
+  ?screening a :Cl_MovieScreening .
+  ?screening :featuresMovie ?movie .
+  
+  OPTIONAL { ?movie :hasTitle ?title . }
+  OPTIONAL { ?movie :hasGenre ?genre . }
+  OPTIONAL { ?movie :hasActor ?actor . }
+  
+  OPTIONAL { ?screening :hasScreeningTime ?screeningTime . }
+  OPTIONAL { ?screening :screenedAt ?cinema . }
+}
+ORDER BY ?screeningTime
+--------------------------------------------------
+
+This query shows that the ontology supports the CQ – using the reification pivot class (Cl_MovieScreening) we can retrieve a movie’s attributes (genre, actor, title) as well as screening details (time and cinema), thus fully capturing the attributes of the event category under investigation.

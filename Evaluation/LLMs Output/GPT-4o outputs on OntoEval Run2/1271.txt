@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide any information or metrics related to the efficiency of a process. It only specifies the types of information required by a `CollaborationProcess`. Therefore, a SPARQL query can only extract the types of information required by a `CollaborationProcess`, not its efficiency.
+
+```sparql
+SELECT ?process ?infoType
+WHERE {
+  ?process a :CollaborationProcess .
+  ?process ?property ?infoType .
+  FILTER(?property IN (:requiresInfrastructureInfo, :requiresProcessInfo, :requiresEnergyRecoveryInfo, :requiresStakeholderInfo, :requiresEnergyDemandSurplusInfo, :requiresValueInfo))
+}
+```

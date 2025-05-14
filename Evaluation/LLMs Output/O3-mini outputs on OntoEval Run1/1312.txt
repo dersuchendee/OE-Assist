@@ -1,0 +1,28 @@
+**Yes**
+
+The CQ is answerable since we can formulate a SPARQL query that compares the composition of habitats by checking whether they share the same microbial and fungal communities (under the closed world assumption).
+
+For example, the following query returns pairs of habitats that have the same microbial community and the same fungal community:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?habitat1 ?habitat2 ?microbialCommunity ?fungalCommunity
+WHERE {
+  ?habitat1 a :Habitat ;
+            :hasComposition ?comp1 .
+  ?habitat2 a :Habitat ;
+            :hasComposition ?comp2 .
+  FILTER(?habitat1 != ?habitat2) .
+
+  ?comp1 :hasMicrobialCommunity ?microbialCommunity .
+  ?comp2 :hasMicrobialCommunity ?microbialCommunity .
+
+  ?comp1 :hasFungalCommunity ?fungalCommunity .
+  ?comp2 :hasFungalCommunity ?fungalCommunity .
+}
+--------------------------------------------------
+
+This query extracts pairs of habitats (avoiding duplicate self-pairs) where their associated compositions yield identical microbial and fungal communities, thus providing an answer to the CQ.

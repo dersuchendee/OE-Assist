@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+
+SELECT ?playLabel ?startDate ?endDate
+WHERE {
+  ?play rdf:type theatre:Play ;
+        rdfs:label ?playLabel ;
+        theatre:hasTimePeriod ?timePeriod .
+
+  ?timePeriod theatre:hasStartDate ?startDate ;
+              theatre:hasEndDate ?endDate .
+}
+```

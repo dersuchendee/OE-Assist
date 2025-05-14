@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?action ?location ?day ?time ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :op_performedAction ?ua .
+  
+  ?ua :op_actionType ?action .
+  ?ua :op_inLocation ?location .
+  ?ua :op_onDay ?day .
+  ?ua :op_duringTime ?time .
+  
+  OPTIONAL { ?time :dp_hasStartTime ?startTime . }
+  OPTIONAL { ?time :dp_hasEndTime ?endTime . }
+}
+ORDER BY DESC(?startTime)
+```

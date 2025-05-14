@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for the sequence of actions performed by the user. The ontology includes classes and properties related to user actions, locations, and times, but it lacks a mechanism to track the sequence or history of actions performed by a user. Therefore, a partial answer can be extracted by querying for actions performed by the user, but it will not provide a chronological sequence.
+
+```sparql
+SELECT ?user ?action ?location ?time
+WHERE {
+  ?user a :Cl_User .
+  ?user :op_performedAction ?userAction .
+  ?userAction :op_actionType ?action .
+  ?userAction :op_inLocation ?location .
+  ?userAction :op_duringTime ?time .
+}
+```

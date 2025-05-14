@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves for each monitoring point the associated measurements together with the physical parameter measured, the time of measurement, and its value:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?monitoringPoint ?parameter ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  ?monitoringPoint :hasMeasurement ?measurement .
+  ?measurement :measuresParameter ?parameter .
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+--------------------------------------------------
+
+This query extracts the recorded physical parameters for each monitoring point and shows how the associated measurements (time and value) change over time.

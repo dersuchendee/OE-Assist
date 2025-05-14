@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that the intended modelling of a book or CD being composed of articles is captured by linking a :Cl_BookOrCD instance to an intermediate :Cl_Composition (which, by its OWL restriction, must “lead to” an article via the same property), the following SPARQL query retrieves, for a specified book or CD, the articles it is composed of. (Here we assume that a book’s composition is represented as a two‐step link: the book is related via :composedOf to a composition instance which in turn is related via :composedOf to an article.)
+
+For example, if you want to list all books/CDs and their articles:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?bookLabel ?article ?articleLabel
+WHERE {
+  ?book a :Cl_BookOrCD .
+  OPTIONAL { ?book rdfs:label ?bookLabel . }
+  
+  ?book :composedOf ?composition .
+  ?composition :composedOf ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?book ?article
+
+This query is answerable over the given ontology under a closed world assumption, and thus the CQ is fully supported.

@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?intermediateProcess
+WHERE {
+  # Find the process that BeechForest participates in
+  :BeechForest rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :participatesIn ;
+    owl:someValuesFrom ?intermediateProcess
+  ] .
+  
+  # Find how that process contributes to CarbonCycling
+  ?intermediateProcess rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :contributesTo ;
+    owl:someValuesFrom :CarbonCycling
+  ] .
+}
+```
+
+This query identifies the process (`?intermediateProcess`) through which Beech forests contribute to carbon cycling, demonstrating how carbon sequestration in Beech forests contributes to overall carbon cycling by connecting the classes and properties defined in the ontology.

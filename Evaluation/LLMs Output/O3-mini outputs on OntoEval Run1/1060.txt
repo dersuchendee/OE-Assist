@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the articles presented during a given seminar. (Replace <seminarURI> with the URI of the seminar you wish to inspect.)
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  # Identify the specified seminar
+  <seminarURI> a :Cl_Seminar .
+  
+  # From the seminar, follow the relation to its seminar article presentation instance.
+  <seminarURI> :containsPresentationOf ?presentation .
+  
+  # Ensure that the presentation is defined as a seminar article presentation (i.e. reified article presentation)
+  ?presentation a :Cl_SeminarArticlePresentation .
+  
+  # Since the reification class indicates that the presentation instance embodies the article,
+  # we treat ?presentation as the article.
+  BIND(?presentation AS ?article)
+  
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+---------------------------------------------------------------
+
+In this ontology, the CQ “What articles were presented in a certain seminar?” is answerable because the reification class Cl_SeminarArticlePresentation connects the seminar (via :containsPresentationOf and :presentedIn) with the article content.

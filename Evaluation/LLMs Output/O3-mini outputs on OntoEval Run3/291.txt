@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the number of acts for a specific play (for example, “The Merchant of Venice”) using the :containsActs property defined for :Cl_Play:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title ?acts
+WHERE {
+  ?play a :Cl_Play ;
+        :hasTitle ?title ;
+        :containsActs ?acts .
+  FILTER(?title = "The Merchant of Venice")
+}
+
+This query answers the competency question by directly extracting the act count from the ontology under the closed world assumption.

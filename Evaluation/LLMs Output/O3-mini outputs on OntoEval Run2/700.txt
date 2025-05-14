@@ -1,0 +1,16 @@
+**No**
+
+Although the ontology defines that cities must be part of some location (as indicated by the axiom that a City is a subclass of things that are :isPartOf some :Region), there is no explicit assertion linking a given city to an individual of type Region (or even a location that is clearly a region). Therefore, we can only extract its isPartOf object (which might be a State or Country) rather than a proper “region” as intended by the CQ.
+
+A partial answer can be obtained with the following SPARQL query:
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?parent ?parentLabel
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isPartOf ?parent .
+  OPTIONAL { ?parent rdfs:label ?parentLabel . }
+}

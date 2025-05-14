@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?play ?timePeriodValue
+WHERE {
+  ?play a :Cl_Play .
+  ?play :writtenDuring ?timePeriod .
+  ?timePeriod :timePeriodValue ?timePeriodValue .
+}
+```
+
+This SPARQL query retrieves the time period during which each play was written, by navigating from the `Cl_Play` class through the `:writtenDuring` object property to the `Cl_TimePeriod` class, and then extracting the `:timePeriodValue` data property which holds the textual representation of the time period. This directly answers the competency question: "During what time period was a certain play written?"

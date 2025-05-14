@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalName ?city ?cityName
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+
+  ?seminar :locationOfSeminar ?seminarLocation .
+  ?seminarLocation :locatedAt ?hospitalLocation .
+  
+  ?hospitalLocation :locationOf ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalName . }
+
+  ?hospitalLocation :locatedIn ?city .
+  OPTIONAL { ?city :cityName ?cityName . }
+}
+```
+
+This query retrieves the location of each seminar by linking the seminar to its location and then to the hospital and city where it took place. It uses the ontology's properties to navigate from the seminar to the seminar location, the hospital location, and finally to the city.

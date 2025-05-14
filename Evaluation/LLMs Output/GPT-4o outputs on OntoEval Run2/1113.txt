@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between the user and the sensor data that would allow us to extract the user's context based on sensor data. The ontology defines classes and properties for users, sensors, and sensor data, but it lacks a direct relationship that connects a specific user's context with the sensor data. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available sensor data:
+
+```sparql
+SELECT ?sensor ?sensorData
+WHERE {
+  ?sensor a :Sensor .
+  ?sensor :hasSensorData ?sensorData .
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+Below is one example of a SPARQL query that, under a closed‐world assumption, retrieves for each seminar the article (via its presentation) that was presented:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?presentation ?article ?presentationDate
+WHERE {
+  ?presentation a :Cl_ArticlePresentation .
+  ?presentation :hasSeminar ?seminar .
+  ?presentation :hasArticle ?article .
+  OPTIONAL { ?presentation :hasPresentationDate ?presentationDate. }
+}
+ORDER BY ?seminar ?presentationDate
+-------------------------------------------------------
+
+Explanation:
+• The ontology defines a reified axiom (via an owl:Restriction on the property :hasArticle) that every seminar (i.e. each instance of :Cl_Seminar) must have at least one article presented.
+• In the data, article presentations are modelled as instances of :Cl_ArticlePresentation which are linked to a seminar by the property :hasSeminar and to the presented article by :hasArticle.
+• Thus, the query retrieves only those seminars that have at least one associated article (via a presentation), which matches the competency question “At least one article is always presented at each seminar.”

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide explicit information about the roles a person has within a union group at a specific point in time. While the ontology includes classes and properties related to union membership and roles, it lacks the temporal aspect necessary to answer the competency question fully. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?union ?roleName
+WHERE {
+  ?role rdf:type :Cl_UnionRole .
+  ?role :roleHolder ?person .
+  ?role :hasUnionRole ?union .
+  ?role :roleName ?roleName .
+}
+```

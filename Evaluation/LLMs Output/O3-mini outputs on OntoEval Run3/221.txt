@@ -1,0 +1,19 @@
+**Yes**
+Below is an example SPARQL query that, using the closed‐world assumption, retrieves the members of a given ensemble that are valid at a given point in time (here provided as a parameter). In this example, we assume that each membership is reified as an instance of Cl_Member with a known membership start date via the property :hasMembershipDate. (If no end date is provided, we assume that a membership remains in effect from its start date unless stated otherwise.) 
+
+For instance, if you want to know the members of ensemble “:ensembleXYZ” that have joined on or before a specified date (e.g. “2009-09-15”), you could run:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?membershipDate
+WHERE {
+  :ensembleXYZ a :Cl_Ensemble .
+  :ensembleXYZ :hasMember ?member .
+  ?member :hasMembershipDate ?membershipDate .
+  FILTER(?membershipDate <= "2009-09-15"^^xsd:date)
+}
+------------------------------------------------------------
+
+This query is answerable from the ontology because there is a direct connection between ensembles and their members using the reified membership (via :hasMember and :hasMembershipDate), and so the CQ is modelled by the ontology.

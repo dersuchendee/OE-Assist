@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that a “certain theatre festival” is represented as an instance of :Cl_TheatreFestival, and that each festival is linked to the plays it features via the property :features, the CQ is fully answerable by the ontology. Under the closed world assumption, we assume that all information about the festival’s plays is explicitly modelled.
+
+For example, the following SPARQL query retrieves, for a given festival, the plays that were featured:
+
+-------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :features ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  
+  # For a specific festival, you could add a filter, for example:
+  # FILTER(?festival = <http://www.example.org/test#RomaLovesShakespeare>)
+}
+-------------------------------------------------
+
+This query extracts the plays featured by each theatre festival, thereby fully addressing the competency question.

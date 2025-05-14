@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?play ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPlay ?play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

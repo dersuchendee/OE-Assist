@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed world assumption, selects the instruments played by a specified person (here using a person IRI parameter, for example :Flea):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?instrument ?instrumentLabel
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  FILTER (?person = :Flea)  # Replace :Flea with another individual if needed
+}
+
+This query demonstrates that the ontology supports the competency question by allowing retrieval of instruments played by a given person.

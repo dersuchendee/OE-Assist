@@ -1,0 +1,19 @@
+**Yes**
+Below is one possible SPARQL query that—under the closed‐world assumption—retrieves the location (e.g. the city name) of a seminar by linking the seminar event to its hosting hospital and then the hospital’s city:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?hospital ?cityName
+WHERE {
+  ?seminar a :Cl_SeminarEvent .
+  ?seminar :heldAt ?hospital .
+  ?hospital :op_isLocatedIn ?city .
+  ?city :dp_cityName ?cityName .
+}
+------------------------------------------------
+
+In this query, we assume that the seminar is modeled as an individual of type Cl_SeminarEvent, that it is linked to the hospital where it was held using a property (here :heldAt), and that the hospital’s location is available via the property :op_isLocatedIn (with the city’s name provided via the data property :dp_cityName). This design enables us to extract where a “certain seminar” took place.

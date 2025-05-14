@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any information about how the sound in a place is performed, whether by hand or by electric means. The ontology focuses on the structure and components of bell towers and bells, but it does not include properties or classes related to the method of sound production.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?bellTower ?setOfBells
+WHERE {
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+  ?setOfBells a <https://w3id.org/polifonia/ontology/bell/SetOfBells> .
+  ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+  ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+}
+```

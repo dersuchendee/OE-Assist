@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that relate microbial functional guilds to the process of autolithoautotrophy and specific habitats. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?guild ?guildLabel ?habitat ?habitatLabel
+WHERE {
+  ?guild a :MicrobialFunctionalGuild .
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+
+  ?guild :isInvolvedIn ?process .
+  ?process a :Autolithoautotrophy .
+
+  ?process :occursInHabitat ?habitat .
+  OPTIONAL { ?habitat rdfs:label ?habitatLabel . }
+}
+```

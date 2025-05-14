@@ -1,0 +1,30 @@
+**Yes**
+
+Below is one possible SPARQL query that, given a person, a union and a specific time (here represented as a literal ?pointTime), retrieves the role held by that person in that union at that point in time. The query uses the union role properties (such as :roleHeldBy, :roleInUnion, :roleName, and :roleStartDate/:roleEndDate) defined in the ontology under the closed‐world assumption.
+
+For example, to check for a particular time (e.g. "2002-05-01"^^xsd:date), you may write:
+
+─────────────────────────────  
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?roleName ?roleStartDate ?roleEndDate
+WHERE {
+  ?role a :Cl_UnionRole ;
+        :roleHeldBy ?person ;
+        :roleInUnion ?union ;
+        :roleName ?roleName ;
+        :roleStartDate ?roleStartDate .
+  OPTIONAL { 
+    ?role :roleEndDate ?roleEndDate .
+  }
+  # Filter to check the point in time; here “2002-05-01” is the chosen moment.
+  FILTER (
+    "2002-05-01"^^xsd:date >= ?roleStartDate 
+    && ( !bound(?roleEndDate) || "2002-05-01"^^xsd:date <= ?roleEndDate )
+  )
+}
+ORDER BY ?person
+─────────────────────────────  
+
+This query returns the role (with its name and validity period) that a given person holds in a given union if the specified date falls between the role’s start and, when available, its end date.

@@ -1,0 +1,20 @@
+**Yes**
+Below is a SPARQL query that uses the ontology’s modeling of meetups and their associated places to answer the CQ:
+
+------------------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?meetupLabel ?location ?locationLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup rdfs:label ?meetupLabel . }
+  
+  ?meetup mtps:hasPlace ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+ORDER BY ?meetup
+------------------------------------------------------------
+
+This query retrieves each meetup and its associated location (the place in which the meetup took place), which exactly reflects the competency question "Where were the places (in which they played)?" Under the closed world assumption, if a meetup does not have a specified place, it is not returned.

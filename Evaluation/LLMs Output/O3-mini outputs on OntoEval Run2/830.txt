@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves—for a given person and hospital—the employment start date (i.e. when that person was first employed at that hospital). Note that in this ontology the employment is modelled via a reification class (Cl_PersonHospitalEmployment) that is a subclass of both Cl_Person and Cl_Hospital and that “employedAt” links the employment instance to the hospital while “employmentStartDate” gives the date. Under a closed‐world assumption the query assumes that only those individuals explicitly typed in the ontology are relevant.
+
+For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?hospital ?hospitalLabel ?employmentStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?hospital a :Cl_Hospital .
+  ?employment a :Cl_PersonHospitalEmployment ;
+              :employedAt ?hospital ;
+              :employmentStartDate ?employmentStartDate .
+  # In this reification model the employment instance is also a person,
+  # so we equate it to the ?person we already retrieved.
+  FILTER(?person = ?employment)
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+ORDER BY ?employmentStartDate
+
+This query answers the competency question “When was a certain person first employed at a certain hospital?” by extracting the employment start date associated with the reified employment instance.

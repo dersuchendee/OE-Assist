@@ -1,0 +1,22 @@
+**No**
+
+The ontology does not capture any explicit property or relation that indicates the level of confidence regarding whether a particular composition (i.e. a Tune) is a variant of a given Tune Family. Without a property (for example, something like :hasConfidence or a reified association that includes a confidence measure), it is not possible under the closed world assumption to fully answer the CQ. We can only partially list the candidate compositions and tune families, but the CQ’s critical aspect (the confidence level) is missing.
+
+Partial SPARQL query:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?tuneFamily ?tuneFamilyLabel
+WHERE {
+  ?composition a :Tune .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+  
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel . }
+  
+  # The intended relationship (e.g., the variant association and its confidence level) is not defined in the ontology.
+}
+ORDER BY ?composition ?tuneFamily

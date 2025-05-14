@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :isLocatedIn ?country .
+}
+```
+
+In this query we retrieve each instance of a region (a member of Cl_Region) together with the country it is located in (via the :isLocatedIn property). This shows that the competency question “In what country is a certain region located?” is directly answerable given the provided ontology under a closed world assumption.

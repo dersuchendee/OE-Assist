@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not directly model the relationship between a production and its basis play. However, we can extract partial information about productions and plays.
+
+```sparql
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :productionName ?productionName .
+  ?production :hasPlay ?play .
+  ?play :playName ?playName .
+}
+```

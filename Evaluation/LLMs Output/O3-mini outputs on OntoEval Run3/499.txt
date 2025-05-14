@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that albums and their recording periods are modelled through the reified class •Cl_AlbumRecording• (which is both a •Cl_Album• and a •Cl_TimePeriod•) and that the relation •recordedDuring• connects an album to its recording time period, we can extract the answer with a query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recording ?timePeriod
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+  ?album :recordedDuring ?recording .
+  ?recording a :Cl_TimePeriod .
+  BIND(?recording AS ?timePeriod)
+}
+ORDER BY ?album
+
+Under the closed‐world assumption the query retrieves albums that have an explicitly stated recording time period.

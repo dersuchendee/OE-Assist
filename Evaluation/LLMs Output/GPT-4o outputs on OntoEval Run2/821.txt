@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query the employment date of a person at a specific hospital. The ontology includes classes and properties related to employment, but it lacks a direct connection between a person and the specific hospital where they are employed, along with the employment date.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?employmentDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :employmentDate ?employmentDate .
+}
+```

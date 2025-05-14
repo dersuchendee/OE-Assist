@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the “certain ensemble” is an instance of :Cl_Ensemble and that its membership information is represented via the reified class :Cl_EnsembleMembership (which carries information about the member’s name and the membership date), we can write a SPARQL query to extract the members of a given ensemble at a specific point in time. For example, if we wish to find those members whose membership date equals a chosen date (here “2007-01-01” as a placeholder), the query would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?memberName ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble ;
+            :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership ;
+              :memberName ?memberName ;
+              :membershipDate ?membershipDate .
+  FILTER(?membershipDate = "2007-01-01"^^xsd:date)
+}
+
+In a closed-world setting, you would need to ensure that the data about ensemble membership is complete; this query relies on the ontology’s reification pattern to connect ensembles with their members and the relevant dates.

@@ -1,0 +1,20 @@
+**No**
+
+The ontology defines classes and properties for evaluation statements (through :Cl_EvaluationStatement, :hasEvaluationStatement and :evaluates) but does not model a clear “doctor” individual (or reified connection) that distinguishes a doctor from a general person (our only individual, :PasqualeDiGennaro, is typed as an employee). Under the closed‐world assumption no information explicitly ties a specific doctor to an evaluation statement for a specific employee. Thus the CQ “What is the evaluation statement given by a certain doctor for a certain employee?” is only partially answerable.
+
+A partial SPARQL query to extract any available evaluation statement information is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?evaluationText ?evaluationDate ?employee
+WHERE {
+  ?doctor :hasEvaluationStatement ?eval .
+  ?eval :evaluationText ?evaluationText .
+  ?eval :evaluationDate ?evaluationDate .
+  ?eval :evaluates ?employee .
+}
+
+This query attempts to retrieve evaluation details even though, under the current closed‐world assumption, the ontology lacks explicitly modeled doctor individuals (and thus a complete reified evaluation statement connection).

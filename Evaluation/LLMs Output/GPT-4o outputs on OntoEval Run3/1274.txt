@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Can a set of bells be played electrically, manually, or both?" can be answered using the given ontology. The ontology provides the necessary classes and properties to determine the playing methods of a bell set. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?bellSet ?method
+WHERE {
+  ?bellSet a :BellSet .
+  ?bellSet :hasPlayingMethod ?method .
+  FILTER(?method = :Manual || ?method = :Electric)
+}
+```

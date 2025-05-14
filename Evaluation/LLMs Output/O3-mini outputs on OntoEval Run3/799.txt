@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves for each person the degree and the corresponding study period (start and end dates):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+}
+ORDER BY ?person ?degree
+
+This query extracts the complete study period for each degree associated with a person, thus answering the competency question "During what time period did a certain person study for a specific degree?"

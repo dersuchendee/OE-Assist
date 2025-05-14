@@ -1,0 +1,21 @@
+**Yes**
+
+The ontology models seminars in such a way that each seminar is defined (via an equivalent class restriction) to have at least one associated seminar presentation, and articles are linked to seminar presentations via the property “presentedIn” (with the inverse relation “presentationOf”). This means we can write a SPARQL query that, for a given seminar, retrieves at least one article presented at that seminar. Under the closed‐world assumption, if a seminar lacks an associated article the query will return no result for that seminar, thereby verifying the CQ.
+
+For example, you could use the following SPARQL query:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :presentationOf ?seminar .
+}
+ORDER BY ?seminar ?article
+---------------------------------
+
+This query extracts, for each seminar, the articles that are presented via their associated seminar presentation, which answers the competency question "At least one article is always presented at each seminar."

@@ -1,0 +1,21 @@
+**Yes**
+
+```sparql
+SELECT ?person ?personName ?role ?roleName ?production ?productionTitle ?time
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :hasName ?personName . }
+  
+  ?person :hasPersonRoleInProduction ?prp .
+  ?prp a :Cl_PersonRoleInProduction .
+  
+  ?prp :withRole ?role .
+  OPTIONAL { ?role :hasRoleName ?roleName . }
+  
+  ?prp :inProduction ?production .
+  OPTIONAL { ?production :hasTitle ?productionTitle . }
+  
+  ?prp :atTime ?time .
+}
+ORDER BY ?person ?production ?time
+```

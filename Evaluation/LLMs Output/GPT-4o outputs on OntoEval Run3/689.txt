@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a specific performance. However, we can extract partial information about performances and their associated songs.
+
+```sparql
+SELECT ?performance ?performanceDate ?song
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+  OPTIONAL {
+    ?performanceSong :performedAt ?performance .
+    ?performanceSong :performedSong ?song .
+  }
+}
+```

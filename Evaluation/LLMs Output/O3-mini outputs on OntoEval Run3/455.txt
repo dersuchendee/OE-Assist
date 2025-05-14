@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves for a given band (here shown as “Red_Hot_Chili_Peppers”) the persons with a band membership recorded at a specified time. (In a real query you could parameterize the band and the time.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?band ?member ?memberLabel ?membershipTime
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :membershipInBand ?band ;
+              :hasMember ?member ;
+              :atTime ?membershipTime .
+  FILTER(?band = :Red_Hot_Chili_Peppers 
+         && ?membershipTime = "1988-01-01T00:00:00Z"^^xsd:dateTime)
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+
+In this query we assume that all membership information is explicitly asserted (a closed‐world view), so the result comprises exactly the members of the specified band at the given time.

@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT ?guild
+WHERE {
+  # Replace :SpecificAquiferEcosystem with the URI of the specific aquifer ecosystem you're interested in
+  ?observation a :MicrobialPresenceObservation .
+  ?observation :isObservationOf :SpecificAquiferEcosystem .
+  ?observation :hasObservedGuild ?guild .
+}
+```
+
+This SPARQL query retrieves the microbial functional guilds (`?guild`) that are observed in a specific aquifer ecosystem (`:SpecificAquiferEcosystem`). The ontology provides the necessary classes and properties to make this query possible:
+
+- `:MicrobialPresenceObservation` instances link observations to aquifer ecosystems via the `:isObservationOf` property.
+- The observed microbial functional guilds are linked to the observations via the `:hasObservedGuild` property.
+
+By traversing these relationships, we can answer the competency question using the ontology provided.

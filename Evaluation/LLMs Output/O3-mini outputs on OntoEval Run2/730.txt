@@ -1,0 +1,12 @@
+**Yes**
+  
+We can answer “In what country is a certain region located?” using the ontology. The ontology defines a class for regions (Cl_Region), a class for countries (Cl_Country), and the object property regionInCountry that links a Cl_Region to a Cl_Country. Under a closed world assumption we would assume that only explicitly declared regions and their corresponding countries are present. Here’s a SPARQL query that returns all regions with the country they are located in:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?region ?country
+WHERE {
+  ?region rdf:type :Cl_Region .
+  ?region :regionInCountry ?country .
+}

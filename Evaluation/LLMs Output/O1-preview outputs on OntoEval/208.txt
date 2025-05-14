@@ -1,0 +1,11 @@
+**Answer: Yes**
+
+The competency question can be answered because the ontology includes the classes `:Cl_Production` and `:Cl_Play`, and the object property `:basedOnPlay` that connects a production to the play it is based on.
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?play .
+}
+```

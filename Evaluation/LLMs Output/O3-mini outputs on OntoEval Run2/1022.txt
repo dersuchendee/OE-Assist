@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/seminar#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?title ?date
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasDate ?date .
+  OPTIONAL { ?seminar :hasSeminarTitle ?title . }
+}
+ORDER BY ?date
+```

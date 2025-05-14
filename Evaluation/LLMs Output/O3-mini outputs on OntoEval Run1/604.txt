@@ -1,0 +1,24 @@
+**Yes**
+Assuming that “a certain record” corresponds to an instance of Cl_Album and “a certain critic” to an instance of Cl_Critic, we can extract the critic’s review about that album using the reification properties (:reviewedBy, :hasCritic, and :hasReview). Under the closed-world assumption (i.e. only the asserted facts are considered true), the following query retrieves the album review written by a given critic.
+
+Replace <ALBUM_URI> and <CRITIC_URI> with the appropriate URIs for the album and critic respectively.
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?review ?reviewText ?reviewDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :reviewedBy ?review .
+  ?review :hasCritic ?critic .
+  ?review :hasReview ?reviewText .
+  OPTIONAL { ?review :hasReviewDate ?reviewDate . }
+  
+  FILTER (?album = <ALBUM_URI> && ?critic = <CRITIC_URI>)
+}
+-------------------------------------------------
+
+This query demonstrates that the competency question is indeed modelled by the ontology.

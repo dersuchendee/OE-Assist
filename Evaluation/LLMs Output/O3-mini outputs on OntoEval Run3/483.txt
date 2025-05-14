@@ -1,0 +1,33 @@
+**Yes**
+
+Below is an example SPARQL query. In this query we assume that the person’s name, the band’s name, and the “point in time” (a date) are given as parameters. The query retrieves the role name of the person in the band if the specified time falls between the membership’s start and end dates (using the closed world assumption on membershipEndDate):
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?roleName ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          rdfs:label "PERSON_NAME" .    # Replace with the person's name
+  ?band a :Cl_Band ;
+        rdfs:label "BAND_NAME" .       # Replace with the band's name
+  
+  ?membership a :Cl_Membership ;
+              :membershipPerson ?person ;
+              :membershipBand ?band ;
+              :hasRole ?role ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  ?role :roleName ?roleName .
+
+  # Replace "YYYY-MM-DD" with the date for which you want to check the membership.
+  FILTER( xsd:date("YYYY-MM-DD") >= ?membershipStartDate &&
+         ( !bound(?membershipEndDate) || xsd:date("YYYY-MM-DD") <= ?membershipEndDate ) )
+}
+ORDER BY ?membershipStartDate
+----------------------------------------
+
+This query shows that the competency question “What role does a certain person have in a certain band at a certain point in time?” is fully answerable by the ontology using the available reified membership information.

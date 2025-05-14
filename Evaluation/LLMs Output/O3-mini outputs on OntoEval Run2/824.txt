@@ -1,0 +1,22 @@
+**Yes**
+
+We can answer this CQ by retrieving the employment start date for a given person at a specific hospital. For example, assuming we are looking for Pasquale Di Gennaro’s first employment at Ospedale Riunito delle Tre Valli, the following SPARQL query obtains his earliest employment start date:
+
+——————————————————————————————
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentStartDate) AS ?firstEmployment)
+WHERE {
+  ?person a :Cl_Person ;
+          :hasEmployment ?employment .
+  ?employment :employedAt ?hospital ;
+              :employmentStartDate ?employmentStartDate .
+  FILTER(?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+
+——————————————————————————————
+
+This query uses the ontology’s properties (:hasEmployment, :employedAt, :employmentStartDate) to extract the first employment date for the person at the given hospital, under a closed‐world assumption.

@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer this CQ using the ontology since the property “paidToSupport” is defined with domain Agent and range Event (and it’s the inverse of isSupportedByPaymentFrom). Under the closed‐world assumption, we would expect that an individual agent supporting an event via a payment is explicitly linked using the paidToSupport property.
+
+For instance, the following SPARQL query retrieves agents (who paid) together with the events they supported:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?agent ?agentLabel ?event ?eventLabel
+WHERE {
+  ?agent a :Agent ;
+         :paidToSupport ?event .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+
+This query lists each agent who paid to support an event along with their optional labels.

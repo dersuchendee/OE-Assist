@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any properties or classes that directly relate to a "star rating" given by a newspaper for a production. The closest match is the `:hasStarRating` property, but it is associated with `:Cl_NewspaperReview`, which is not directly linked to a specific newspaper or production in the ontology. Therefore, a partial answer can be extracted by querying for newspaper reviews and their star ratings, but it will not specify the newspaper or production.
+
+```sparql
+SELECT ?newspaperReview ?starRating
+WHERE {
+  ?newspaperReview a :Cl_NewspaperReview .
+  ?newspaperReview :hasStarRating ?starRating .
+}
+```

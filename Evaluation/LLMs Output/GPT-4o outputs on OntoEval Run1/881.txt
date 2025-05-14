@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of a union at a specific point in time. The ontology includes classes and properties related to employees, unions, and union memberships, but it lacks temporal information about union memberships. Therefore, a partial answer can be extracted by querying for employees who have union memberships, but without the temporal aspect.
+
+```sparql
+SELECT ?employee ?unionMembership
+WHERE {
+  ?employee a :Employee .
+  ?employee :hasUnionMembership ?unionMembership .
+}
+```

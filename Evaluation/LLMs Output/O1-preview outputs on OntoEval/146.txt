@@ -1,0 +1,17 @@
+Answer: **Yes**
+
+The competency question "In what city is a certain theatre located?" is answerable because the ontology includes classes `theatre:Theatre` and `theatre:City`, and they are connected through the property `theatre:locatedIn`. This allows us to retrieve the city for any given theatre.
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre rdf:type theatre:Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre theatre:locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

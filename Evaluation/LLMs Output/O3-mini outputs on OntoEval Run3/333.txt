@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming you know which production and which newspaper you are interested in (i.e. using specific URIs or filtering by labels), the following query extracts the star rating value by linking a review to its production and the newspaper that gave the rating via the properties defined in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ratingValue
+WHERE {
+  ?review a :Cl_Review ;
+          :givenBy ?newspaper ;
+          :forProduction ?production ;
+          :hasStarRating ?starRating .
+  ?starRating :hasStarRatingValue ?ratingValue .
+  # Apply filters for the specific production and newspaper if needed:
+  FILTER(?production = :SpecificProductionURI && ?newspaper = :SpecificNewspaperURI)
+}
+--------------------------------------------------
+
+This query demonstrates that the CQ "What is the 'star rating' given by a certain newspaper for a certain production?" is answerable by the ontology.

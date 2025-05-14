@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?majorClass ?majorClassLabel ?subClass ?subClassLabel
+WHERE {
+  VALUES ?majorClass (:AquaticMicrobe :AquaticFungi) .
+  ?subClass rdfs:subClassOf ?majorClass .
+  OPTIONAL { ?majorClass rdfs:label ?majorClassLabel . }
+  OPTIONAL { ?subClass rdfs:label ?subClassLabel . }
+}
+ORDER BY ?majorClass ?subClass
+```
+
+This query retrieves the subclasses of the major classes **AquaticMicrobe** and **AquaticFungi**, along with their labels. The `VALUES` clause specifies the major classes of interest. The query looks for any classes (`?subClass`) that are subclasses of these major classes using the `rdfs:subClassOf` property. The `OPTIONAL` clauses are used to fetch labels if they exist, making the results more readable.

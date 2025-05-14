@@ -1,0 +1,29 @@
+**Yes**
+
+Assuming that “this material” is represented in the ontology as an instance of Cl_Material and that its associated composition is reified as an instance of Cl_MaterialComposition (which is linked to the material by the property :hasMaterial and further characterized by properties and provenance), we can write a SPARQL query that retrieves for each material its composition details. Under a closed world assumption, we expect that every material which participates in a composition is explicitly connected via a :hasMaterial triple.
+
+For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?material ?materialName ?composition ?property ?propertyName ?provenance ?provenanceName
+WHERE {
+  ?composition a :Cl_MaterialComposition ;
+               :hasMaterial ?material ;
+               :hasProperty ?property ;
+               :hasProvenance ?provenance .
+
+  OPTIONAL { ?material :hasName ?materialName . }
+  OPTIONAL { ?property :hasName ?propertyName . }
+  OPTIONAL { ?provenance :hasName ?provenanceName . }
+}
+--------------------------------------------------
+
+This query returns, for every material that is part of a material composition:
+– The material (and its name, if available),
+– The corresponding material composition instance,
+– The property and provenance associated with that composition.
+
+Thus the competency question “What is the composition of this material?” is fully answerable using the ontology.

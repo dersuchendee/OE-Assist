@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not fully support the competency question because it lacks information about the time period during which a person studied for a specific degree. While it contains data about the degrees a person has obtained and the date of obtaining the degree (degreeObtainedDate), it does not include the start and end dates of the study periods.
+
+Here is a SPARQL query to extract partial information:
+
+```sparql
+SELECT ?person ?personName ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+    ?person rdf:type :Cl_Person .
+    OPTIONAL { ?person :hasName ?personName . }
+    ?person :hasMedicalDegree ?degree .
+    ?degree :degreeTitle ?degreeTitle .
+    OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+```
+
+This query retrieves the person's name, the degrees they have obtained, the titles of those degrees, and the dates when the degrees were obtained, if available.

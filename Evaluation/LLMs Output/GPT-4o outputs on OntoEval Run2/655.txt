@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not contain a direct connection between performances and the songs played during those performances. The ontology includes classes and properties related to songs, tracks, and performances, but it lacks a direct link between a specific performance and the songs played during that performance. Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted by identifying the tracks associated with albums, but this does not specify which songs were played in a particular performance.
+
+```sparql
+SELECT ?performance ?track
+WHERE {
+  ?performance a :Cl_Performance .
+  ?album a :Cl_Album .
+  ?album :hasTrack ?track .
+}
+```

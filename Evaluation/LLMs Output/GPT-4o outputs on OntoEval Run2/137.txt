@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not have a direct connection between theatre festivals and the plays that can be seen during them. The ontology includes classes and properties related to theatre festivals, plays, and productions, but it lacks a direct relationship that would allow us to query which plays are part of a specific theatre festival. Here's a SPARQL query to extract a partial answer, which lists plays but not in the context of a specific festival:
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

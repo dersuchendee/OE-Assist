@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one possible SPARQL query that answers the CQ “What is the quality of a flow at a specific time?” using the ontology provided. In this query a specific time is given as a filter value (in this example "2023-01-01T12:00:00"^^xsd:dateTime); in practice you could replace this value with a parameter or another mechanism for input.
+
+────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?flowLabel ?quality ?qualityLabel ?obsTime
+WHERE {
+  ?flow a :Flow .
+  OPTIONAL { ?flow rdfs:label ?flowLabel . }
+  
+  ?flow :hasQualityObservation ?obs .
+  ?obs :observedAtTime ?obsTime .
+  FILTER(?obsTime = "2023-01-01T12:00:00"^^xsd:dateTime)
+  
+  ?obs :hasQuality ?quality .
+  OPTIONAL { ?quality rdfs:label ?qualityLabel . }
+}
+ORDER BY ?flow
+────────────────────
+
+This query retrieves each Flow, its optional label, the quality (and its optional label) observed at the specified time, thus fully modelling the competency question based on the ontology.

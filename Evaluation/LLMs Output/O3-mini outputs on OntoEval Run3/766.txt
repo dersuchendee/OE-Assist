@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degree ?degreeLabel
+WHERE {
+  ?person a :Person .
+  FILTER(?person = :PasqualeDiGennaro)
+  ?person :hasDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel }
+}
+```

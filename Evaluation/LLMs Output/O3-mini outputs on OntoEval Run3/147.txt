@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer the CQ by exploiting the fact that theatres are defined as a subclass of Cl_Building, and that they use the object property locatedIn with range Cl_City. Assuming that a “certain theatre” is given (or retrieved as an instance of Cl_Theatre), the following SPARQL query retrieves the theatre along with the city in which it is located:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+
+  ?theatre :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+-----------------------------------------------------
+
+This query returns each theatre instance along with its associated city (and labels, if available), thus verifying that the ontology models the CQ under a closed world assumption.

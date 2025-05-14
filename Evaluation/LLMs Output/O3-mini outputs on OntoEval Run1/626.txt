@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query. In our ontology the critic’s review is “reified” in an instance of Cl_CriticReview that (by design) plays the roles of both critic, record, and review text. Thus, given a particular record and a specific critic we can extract the review text. (Under a closed‐world assumption the absence of a matching review tells us that no review exists.)
+
+Assuming that you have the IRIs for the record (<recordIRI>) and the critic (<criticIRI>), a query could be:
+
+-------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?reviewText
+WHERE {
+  <recordIRI> a :Cl_Record ;
+               :reviewedBy ?critReview .
+  ?critReview a :Cl_CriticReview ;
+              :reviewText ?reviewText .
+  # Here the same instance (the reified review) plays the role of critic.
+  FILTER(?critReview = <criticIRI>)
+}
+-------------------------------------------------------------------------
+
+In this query we retrieve the review text provided by the specified critic about the given record.

@@ -1,0 +1,19 @@
+**Yes**
+Below is a SPARQL query that retrieves each flow’s measurement quantity along with its measurement time. (You can add a time filter to target a specific time if needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?time ?quantityValue
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasMeasurement ?measurement .
+  ?measurement :hasQuantityValue ?quantityValue .
+  ?measurement :hasTime ?time .
+  # Uncomment and set the following FILTER to restrict to a specific time, e.g.:
+  # FILTER(?time = "2023-01-01T00:00:00Z"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+This query shows that the ontology supports the competency question by allowing extraction of the quantity value of a flow at a given time.

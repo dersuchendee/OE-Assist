@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person, production, and point in time, returns the roles that person has been assigned in that production:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :assignedRole ?roleAssignment .
+  ?roleAssignment :roleOf ?person .
+  ?roleAssignment :roleName ?roleName .
+  ?roleAssignment :roleDate ?roleDate .
+
+  # Apply closed world filters for the specific production, person, and time:
+  FILTER(?person = <http://www.example.org/test#FabioBianchi>) .
+  FILTER(?production = <http://www.example.org/test#MerchantOfVeniceProduction>) .
+  FILTER(?roleDate = "2009-09-07"^^xsd:date)
+}
+--------------------------------------------------
+
+In this query the URIs (e.g. for FabioBianchi and the production) and the date ("2009-09-07") would be replaced with the concrete identifiers and the exact point in time in your particular dataset. This query demonstrates that the competency question is fully supported by the ontology.

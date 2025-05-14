@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that relate environmental conditions to CO2 fixation in groundwater ecosystems. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?environmentalCondition ?conditionLabel
+WHERE {
+  ?environmentalCondition a :EnvironmentalCondition .
+  OPTIONAL { ?environmentalCondition rdfs:label ?conditionLabel . }
+  ?environmentalCondition :influences :CO2Fixation .
+}
+```

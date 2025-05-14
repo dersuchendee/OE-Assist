@@ -1,0 +1,25 @@
+**Yes**
+Below is a SPARQL query that, under a closed world assumption, retrieves Implementation Actions along with their Effects on External Factors that are either Social or Environmental factors:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?action ?actionLabel ?effect ?effectLabel ?factor ?factorLabel
+WHERE {
+  ?action a :ImplementationAction .
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+  
+  ?action :hasEffect ?effect .
+  OPTIONAL { ?effect rdfs:label ?effectLabel . }
+  
+  ?effect :affectsFactor ?factor .
+  OPTIONAL { ?factor rdfs:label ?factorLabel . }
+  
+  { ?factor a :SocialFactor . }
+  UNION
+  { ?factor a :EnvironmentalFactor . }
+}
+———————————————————————————————
+
+This query answers the CQ “What effects would it have on external social and environmental factors?” by extracting Implementation Actions, their related Effects, and filtering the impacted factors to only those that are either SocialFactor or EnvironmentalFactor.

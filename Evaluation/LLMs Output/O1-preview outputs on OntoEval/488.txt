@@ -1,0 +1,20 @@
+Answer: **Yes**.
+
+Here the CQ is answerable since the competency question is a Reification CQ—meaning all classes and datatypes in the CQ are connected via a reified class in the ontology (`:Cl_BandRole`). This allows us to formulate a SPARQL query to extract the desired information.
+
+```sparql
+SELECT ?person ?band ?role ?timePeriod
+WHERE {
+  ?person a :Cl_Person ;
+          :hasRoleInBand ?bandRole .
+
+  ?bandRole a :Cl_BandRole ;
+            :playsRole ?role ;
+            :roleDuring ?timePeriod .
+
+  ?bandRole rdfs:subClassOf :Cl_Band .
+  ?band a :Cl_Band .
+}
+```
+
+This query retrieves the person, the band they have a role in, the specific role, and the time period during which they held that role. It leverages the reification class `:Cl_BandRole`, which connects `:Cl_Person`, `:Cl_Band`, `:Cl_Role`, and `:Cl_TimePeriod`.

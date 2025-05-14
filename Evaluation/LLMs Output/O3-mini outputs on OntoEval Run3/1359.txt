@@ -1,0 +1,15 @@
+**No**  
+The provided ontology does not explicitly model the reasons why an organ is moved to another location (for example, via a dedicated “move event” or a “hasReason” property connecting to a reified explanation). However, we can extract partial information—such as the organ’s association with a restoration project and the project’s linked place—that might hint at scenarios prompting relocation. For example:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+SELECT ?organ ?project ?place
+WHERE {
+  ?organ a organs:Organ .
+  ?organ core:isDescribedBy ?project .
+  ?project core:hasPlace ?place .
+}
+
+This query returns organs along with the projects that describe them and the related place. Although this does not fully answer “why” an organ has been moved, it provides a partial view based on the available relations in the ontology under a closed world assumption.

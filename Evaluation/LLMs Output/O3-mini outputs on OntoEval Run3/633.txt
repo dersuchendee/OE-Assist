@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology includes a Performance class with an associated TimeInterval (using properties such as hasTimeInterval, startDate, and endDate), so we can write a SPARQL query that—for a given performance—retrieves its time interval (i.e. when it took place). For example:
+
+  PREFIX : <http://example.org/music#>  
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>  
+    
+  SELECT ?performance ?startDate ?endDate  
+  WHERE {  
+    ?performance a :Performance ;  
+                 :hasTimeInterval ?interval .  
+    ?interval :startDate ?startDate ;  
+              :endDate ?endDate .  
+  }  
+
+This query returns the performance(s) and their corresponding start and end dates, thus answering the competency question under the closed world assumption.

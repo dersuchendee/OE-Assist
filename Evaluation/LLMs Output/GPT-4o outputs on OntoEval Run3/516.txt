@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not contain any information about the number of tracks in an album. It defines classes and properties related to albums, music tracks, and their relationships, but it does not include a property or data that specifies the number of tracks in an album. Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted by identifying the tracks that are part of a specific album:
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album a :Album .
+  ?track a :MusicTrack .
+  ?album :containsTrack ?track .
+}
+```

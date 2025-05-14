@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?valueNetwork ?valueNetworkLabel ?actor ?actorLabel
+WHERE {
+  ?pivot a :Cl_ActorInValueNetwork .
+  ?pivot :op_valueNetworkOfActor ?valueNetwork .
+  OPTIONAL { ?valueNetwork rdfs:label ?valueNetworkLabel . }
+  
+  ?pivot :op_actorInvolvedInProcess ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?valueNetwork ?actor
+```

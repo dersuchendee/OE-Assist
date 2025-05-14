@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, extracts each theatre and the city in which it is located:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreName ?city ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre :hasName ?theatreName . }
+  ?theatre :locatedIn ?city .
+  OPTIONAL { ?city :hasName ?cityName . }
+}
+ORDER BY ?theatre
+-------------------------------------------------
+
+This query uses the defined object property :locatedIn—which has domain :Cl_Theatre and range :Cl_City—to answer the competency question "In what city is a certain theatre located?"

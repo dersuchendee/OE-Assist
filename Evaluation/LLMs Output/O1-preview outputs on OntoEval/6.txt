@@ -1,0 +1,27 @@
+Answer: **Yes**.
+
+The competency question "Which is the context of production of a source?" is answerable using the given ontology. The ontology models sources (`:Cl_Source`) and their contexts (`:Cl_SourceContext`). Each source can have a context via the `:hasContext` property, and the context includes details such as who created it (`:createdBy`), where (`:hasCreationPlace`), when (`:hasCreationDate`), the goal (`:hasGoal`), and related events (`:relatesToEvent`). Therefore, we can write a SPARQL query to retrieve the context of production for each source.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?sourceType ?context ?creator ?creationDate ?creationPlace ?goal ?relatedEvent
+WHERE {
+    ?source a :Cl_Source .
+    OPTIONAL {
+        ?source a ?sourceType .
+        FILTER(?sourceType != :Cl_Source)
+    }
+    OPTIONAL {
+        ?source :hasContext ?context .
+        OPTIONAL { ?context :createdBy ?creator . }
+        OPTIONAL { ?context :hasCreationDate ?creationDate . }
+        OPTIONAL { ?context :hasCreationPlace ?creationPlace . }
+        OPTIONAL { ?context :hasGoal ?goal . }
+        OPTIONAL { ?context :relatesToEvent ?relatedEvent . }
+    }
+}
+```
+
+This query retrieves each source and its associated context of production, including who created it, when and where it was created, its goal, and any related events. The `OPTIONAL` clauses are used to include information when it's available, allowing for partial data without excluding sources that may lack some context details.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide information about the country in which a city is located. However, we can extract partial information about the city and its associated hospital.
+
+```sparql
+SELECT ?city ?cityLabel ?hospital ?hospitalLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+```

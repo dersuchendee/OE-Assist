@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "Where did a certain seminar take place?" can be answered using the ontology provided. The ontology includes classes for Seminar and City, and an object property `hasLocation` that links a seminar to its location. The specific seminar "SeminarOnNewArticles" is linked to the city "NoceraInferiore" using this property.
+
+Here is the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?seminar ?location
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasLocation ?location .
+}
+```

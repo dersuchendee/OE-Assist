@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves events (in this case movies) which are available during a given time period (here, the individual “Evening”):
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?eventLabel ?period ?startTime ?endTime 
+WHERE {
+  ?event a :Event .
+  ?event :hasEventCategory ?category .
+  FILTER(?category = :MovieCategory) .
+
+  ?event :isAvailableDuring ?period .
+  ?period :hasStartTime ?startTime ;
+          :hasEndTime ?endTime .
+
+  # Filter to the desired time period (using "Evening" as an example)
+  FILTER(?period = :Evening) .
+
+  OPTIONAL { ?event rdfs:label ?eventLabel } .
+}
+ORDER BY ?startTime
+--------------------------------------------------
+
+This query selects events that belong to the “Movie” category (as defined by having the movie category via :hasEventCategory with value :MovieCategory) and that are available during the evening time period. Given the ontology and closing the world assumption, this CQ is answerable.

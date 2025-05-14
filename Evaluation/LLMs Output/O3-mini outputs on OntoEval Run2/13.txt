@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?instrument ?instrumentLabel ?part ?partLabel
+WHERE {
+  ?instrument a :MusicalInstrument .
+  ?instrument :hasPart ?part .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  OPTIONAL { ?part rdfs:label ?partLabel . }
+}
+```

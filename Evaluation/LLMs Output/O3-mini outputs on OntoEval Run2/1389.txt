@@ -1,0 +1,19 @@
+**No**
+
+The current ontology does not explicitly model any relationship showing which collections (i.e. instances of core:Collection) belong to a tune family. In the ontology, both :TuneFamily and :LyricsFamily are subclasses of core:Collection, but there isn’t a property or reification linking a tune family to its member collections. Under a closed world assumption this means we cannot completely answer the CQ. However, we can still extract a partial answer by listing the instances (if any) explicitly declared as tune families.
+
+Below is a SPARQL query that returns the individuals (or classes, if individuals are not asserted) of type :TuneFamily:
+
+-------------------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tuneFamily ?label
+WHERE {
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?label . }
+}
+-------------------------------------------------------------
+
+This query retrieves the partially answerable set of collections declared as tune families, even though it does not capture any further membership information as required by the original CQ.

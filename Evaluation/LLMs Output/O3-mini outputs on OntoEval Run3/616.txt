@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the critic’s statement on a specific record (here parameterised for critic “Crian_Hiatt” and record “Stadium_Arcadium”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?criticStatement
+WHERE {
+  ?review rdf:type :Cl_CriticReview .
+  ?review :madeByCritic ?critic .
+  ?review :reviewOf ?record .
+  ?review :criticStatement ?criticStatement .
+  FILTER (?critic = :Crian_Hiatt && ?record = :Stadium_Arcadium)
+}

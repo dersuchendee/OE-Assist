@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that returns, for a given publication (book or CD), the articles that compose it:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?publication ?publicationTitle ?article ?articleTitle
+WHERE {
+  ?publication rdf:type ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD) .
+  
+  ?publication :publicationTitle ?publicationTitle .
+  ?publication :composedOf ?article .
+  ?article :articleTitle ?articleTitle .
+}
+--------------------------------------------------
+
+This query assumes the closed world: if a publication is not explicitly typed as a book or CD (or not linked via :composedOf to an article), then that publication is not considered to be composed of articles.

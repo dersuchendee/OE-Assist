@@ -1,0 +1,17 @@
+**Yes**
+
+Because the ontology contains the necessary classes and properties to link water quality parameters to observations, observations to monitoring sites, and observations to measurement dates. This allows us to retrieve, for a specified water quality parameter, the monitoring sites that registered the observations and the dates when the measurements were recorded.
+
+```sparql
+SELECT ?monitoringSite ?siteLabel ?measurementDate
+WHERE {
+  ?observation a :WaterQualityObservation .
+  ?observation :hasParameter :SpecifiedParameter .
+  ?observation :registeredAtSite ?monitoringSite .
+  OPTIONAL { ?monitoringSite rdfs:label ?siteLabel . }
+  ?observation :measurementDate ?measurementDate .
+}
+ORDER BY ?monitoringSite ?measurementDate
+```
+
+*Note:* Replace `:SpecifiedParameter` with the URI of the water quality parameter you are interested in.

@@ -1,0 +1,17 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed-world assumption, returns for each play the number of acts it contains by counting the associated act individuals:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play (COALESCE(?playName, "Unknown") AS ?Name) (COUNT(?act) AS ?actCount)
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  OPTIONAL { ?play :hasAct ?act . }
+}
+GROUP BY ?play ?playName
+ORDER BY ?play
+
+This query extracts each play (of type Cl_Play), its name (if available), and counts the number of acts linked via the hasAct property, thereby answering the competency question.

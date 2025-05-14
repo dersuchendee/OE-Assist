@@ -1,0 +1,15 @@
+**Yes**
+
+You can answer the competency question with the given ontology. Here is a SPARQL query that retrieves the data associated with a specific energy flow at a specific point in time:
+
+```sparql
+SELECT ?data
+WHERE {
+  # Replace :givenEnergyFlow and :givenTimePoint with the actual identifiers of the energy flow and time point you're interested in.
+  :givenEnergyFlow a :EnergyFlow .
+  :givenEnergyFlow :hasData ?data .
+  :givenEnergyFlow :atTime :givenTimePoint .
+}
+```
+
+This query selects the data (`?data`) associated with a particular energy flow (`:givenEnergyFlow`) at a specific time point (`:givenTimePoint`). The ontology defines that each `EnergyFlow` instance must have one `hasData` (linking to `Data`) and one `atTime` (linking to `TimePoint`), which aligns with the competency question.

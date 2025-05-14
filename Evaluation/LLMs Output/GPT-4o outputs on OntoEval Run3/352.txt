@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate an actor with the specific time they started working for a specific theatre. The ontology includes information about employment contracts and roles, but it does not explicitly link an actor's start time with a specific theatre. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?actor a ns1:Actor .
+  ?actor ns1:employedAt ?theatre .
+  ?actor ns1:hasEmploymentContract ?contract .
+  ?contract ns1:employmentStartDate ?employmentStartDate .
+}
+```
+
+This query retrieves the employment start date for actors and the theatres they are employed at, but it does not specify the exact time an actor started working for a specific theatre.

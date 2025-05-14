@@ -1,0 +1,37 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, extracts the persons who have a union membership record (modeled via the reified class Cl_UnionMembership) for a given union (here assumed to be an individual of Cl_UnionGroup) and whose membership time period (using the data properties :startTime and :endTime on the time period individual linked via the property :unionMembershipDuring) contains a given point in time.
+
+In this query you must replace the placeholder URI for the “certain union” and the time literal for the “certain point in time” with the appropriate values.
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?unionMembership ?startTime ?endTime
+WHERE {
+  ?person a :Cl_Person .
+  
+  # Link the person to his/her union membership record
+  ?person :hasUnionMembership ?unionMembership .
+  
+  # Link the person to the union (assumed to be modeled as part of a union group)
+  ?person :partOfUnionGroup ?union .
+  FILTER(?union = <http://www.example.org/test#SpecificUnion>) .
+  
+  # The union membership record has an associated time period
+  ?unionMembership :unionMembershipDuring ?timePeriod .
+  ?timePeriod :startTime ?startTime ;
+              :endTime ?endTime .
+  
+  # Filter to include only memberships valid at the given point in time.
+  # Replace the hard-coded time below with the desired query time.
+  FILTER(xsd:dateTime("2009-01-01T00:00:00") >= ?startTime &&
+         xsd:dateTime("2009-01-01T00:00:00") <= ?endTime) .
+         
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+──────────────────────────────
+
+This query is answerable using the ontology because every component in the CQ—person, union membership (as a reified fact with its time interval), and union group—is linked through explicit properties, allowing us to retrieve the members of a specified union at a given point in time.

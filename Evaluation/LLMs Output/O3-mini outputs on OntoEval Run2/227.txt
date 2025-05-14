@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves the members (actors) of a given ensemble at a specific time. (In this example the ensemble is provided as an individual – you can replace :Ensemble_GrandTheatre_MerchantOfVenice with any target ensemble—and the time period is filtered based on the date value.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?timePeriod 
+WHERE {
+  ?membership a :Cl_EnsembleMembership ;
+              :hasEnsemble :Ensemble_GrandTheatre_MerchantOfVenice ;
+              :hasMember ?actor ;
+              :hasTimePeriod ?timePeriod .
+  ?actor :actorName ?actorName .
+  FILTER (?timePeriod = "2009-09-15"^^xsd:date)
+}
+ORDER BY ?actorName
+
+This query shows that the ontology supports answering the competency question “Who are the members of a certain ensemble at a certain point in time?” under a closed‐world assumption (i.e. with the data explicitly available).

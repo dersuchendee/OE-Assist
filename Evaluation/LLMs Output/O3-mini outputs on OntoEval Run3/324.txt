@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that “a certain production” is represented as an instance of :Cl_Production in the ontology and its premier date is modelled with the data property :premierDate, we can extract the answer with the SPARQL query below (using the closed‐world assumption):
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+  # Optionally, if you want to filter to a specific production (e.g., "Merchant of Venice") that has a label:
+  # ?production rdfs:label ?label .
+  # FILTER(CONTAINS(LCASE(?label), "merchant of venice"))
+}
+-----------------------------------------------
+
+This query retrieves all productions (instances of :Cl_Production) along with their premier date via the :premierDate property, thus answering the competency question.

@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that a “specific track” is identified by its IRI (or label), we can retrieve the song that the given track is a recording of by leveraging the two properties defined in the ontology: the track’s property :isRecordingOf (with domain Cl_Track) links the track to a recording instance (of type Cl_TrackRecording) and the song’s property :hasRecording (with domain Cl_Song) links that recording back to a song. Under a closed-world assumption, only recordings explicitly stated in the data are considered.
+
+For example, if the specific track’s IRI is provided as ?track, the following SPARQL query extracts the song:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track ;
+         :isRecordingOf ?recording .
+  
+  ?song a :Cl_Song ;
+        :hasRecording ?recording .
+  
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  
+  # If a specific track IRI is known, e.g., <http://www.example.org/test#Track1>, use:
+  FILTER( ?track = <http://www.example.org/test#Track1> )
+}
+-----------------------------------------------------------
+
+This query answers the CQ by extracting the song for a given specific track via the recording link established in the ontology.

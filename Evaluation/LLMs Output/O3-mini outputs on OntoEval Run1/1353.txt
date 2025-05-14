@@ -1,0 +1,14 @@
+**No**
+
+The ontology provides connections between an Organ and its parts (using, for example, the property arco:includesPart), but it does not explicitly reify the parthood relation with an associated time interval. Therefore, while you can extract the parts of an organ, there is no explicit modelling of their validity at a specific point in time.
+
+A SPARQL query to extract a partial answer (i.e. the organ parts regardless of time) looks like this:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?part
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:includesPart ?part .
+}

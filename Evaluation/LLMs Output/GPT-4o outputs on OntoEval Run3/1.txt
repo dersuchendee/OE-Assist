@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the subject of a source. The ontology defines a `hasSubject` property, but there are no instances or data provided to demonstrate its use. Therefore, a partial answer can be extracted by querying the available data related to sources and facts.
+
+```sparql
+SELECT ?source ?subject
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source :hasSubject ?subject . }
+}
+```

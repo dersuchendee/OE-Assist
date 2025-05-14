@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one SPARQL query that returns a person’s role within a union at a given point in time:
+
+--------------------------------------------------
+PREFIX : <http://example.org/unionrole#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?role ?roleLabel ?union ?unionLabel ?time
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?role :withinUnion ?union .
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  
+  ?role :atTime ?time .
+  
+  # Optionally, specify a certain person, union or time using FILTER:
+  # FILTER(?person = <http://example.org/unionrole#PasqualeDiGennaro>)
+  # FILTER(?union = <http://example.org/unionrole#MaleNursesUnion>)
+  # FILTER(?time = "2002-01-01"^^xsd:date)
+}
+ORDER BY ?person ?time
+--------------------------------------------------
+
+This query is written under the closed world assumption so that only explicitly stated relations will be returned.

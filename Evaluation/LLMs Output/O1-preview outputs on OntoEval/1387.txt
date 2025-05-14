@@ -1,0 +1,21 @@
+**No**
+
+The ontology provided does not contain sufficient classes or properties to answer the competency question "Who assigned composition X to tune family Y?". Specifically, the ontology lacks:
+
+- A class or property representing an **assignment action** linking compositions to tune families.
+- A representation of **agents** (the "who") who perform such assignments.
+- Properties linking **compositions** to **tune families**.
+
+Without these elements, we cannot model the relationship required to answer the CQ. However, we can extract partial information about tunes and their sources.
+
+```sparql
+SELECT ?tune ?tuneLabel ?source ?sourceLabel
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+  OPTIONAL {
+    ?tune core:hasSource ?source .
+    OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  }
+}
+```

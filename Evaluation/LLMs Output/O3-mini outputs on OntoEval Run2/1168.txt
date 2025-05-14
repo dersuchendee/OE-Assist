@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology supports the CQ because using the properties and class relations declared, we can formulate a SPARQL query to extract the implementation actions and their effects on external factors that are either social or environmental. Under the closed world assumption, only the information stated by the ontology is used.
+
+Here’s a sample SPARQL query that retrieves the Implementation Actions (and their labels, if available), the associated Effects (and their labels), and the External Factor affected (filtering for SocialFactor or EnvironmentalFactor):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?action ?actionLabel ?effect ?effectLabel ?factor ?factorLabel
+WHERE {
+  ?action a :ImplementationAction .
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+  
+  ?action :hasEffect ?effect .
+  OPTIONAL { ?effect rdfs:label ?effectLabel . }
+  
+  ?effect :affectsFactor ?factor .
+  OPTIONAL { ?factor rdfs:label ?factorLabel . }
+  
+  { ?factor a :SocialFactor }
+  UNION
+  { ?factor a :EnvironmentalFactor }  
+}
+
+This query will list the implementation actions along with the effects they have on external social and environmental factors, fully addressing the competency question.

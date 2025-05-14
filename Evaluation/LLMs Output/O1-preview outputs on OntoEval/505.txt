@@ -1,0 +1,12 @@
+Answer: **No**
+
+```sparql
+SELECT ?album ?recordingDate
+WHERE {
+  ?album rdf:type :Cl_Album .
+  OPTIONAL {
+    ?album :hasRecording ?recording .
+    ?recording :recordedDuring ?recordingDate .
+  }
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "What plays did a certain author write?" can be answered using the given ontology. The ontology includes classes and properties that relate authors to the plays they have written. Specifically, the `:hasAuthorPlay` property connects an `:Author` to an `:AuthorPlay`, which in turn is connected to a `:Play` via the `:writtenPlay` property.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author ;
+          rdfs:label ?authorLabel ;
+          :hasAuthorPlay ?authorPlay .
+  ?authorPlay :writtenPlay ?play .
+  ?play rdfs:label ?playLabel .
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology provides information about musicians and their working periods, but it does not include any direct relationships or events that would allow us to determine the time relationship between different musicians, such as who was working at the same time. We can extract partial information about the working periods of individual musicians, but not their overlaps.
+
+```sparql
+SELECT ?musician ?startYear ?endYear
+WHERE {
+  ?musician a :Musician .
+  ?musician :hasWorkingPeriod ?workingPeriod .
+  ?workingPeriod :startYear ?startYear .
+  OPTIONAL { ?workingPeriod :endYear ?endYear . }
+}
+```

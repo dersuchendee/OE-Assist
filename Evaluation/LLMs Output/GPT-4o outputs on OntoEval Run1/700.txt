@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not contain any information about cities or their regions. Therefore, the competency question "In what region is a certain city located?" cannot be fully answered using the given ontology. However, a partial answer can be extracted if there were any cities and their relationships to regions in the ontology.
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :City .
+  ?city :isPartOf ?region .
+  ?region a :Region .
+}
+```

@@ -1,0 +1,28 @@
+Answer: **No**
+
+The ontology does not provide a way to connect `mtps:Participant` instances to specific individuals such as 'Musician X' and 'Performer Y' since there is no property linking `mtps:Participant` to `core:Person` or any representation of persons. Without this connection, we cannot determine whether two specific individuals participated in the same meetup. Therefore, the competency question cannot be fully answered using the provided ontology.
+
+Here is a SPARQL query that attempts to retrieve meetups along with their participants, places, times, and purposes, but cannot filter by specific persons due to the missing linkage:
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?meetup ?participant ?place ?time ?purpose
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasParticipant ?participant ;
+          mtps:hasPlace ?place ;
+          mtps:happensAt ?timeExpression ;
+          mtps:hasAPurpose ?purpose .
+  
+  OPTIONAL {
+    ?timeExpression time:hasBeginning ?timeBegin .
+    ?timeBegin time:inXSDDateTime ?time .
+  }
+}
+```
+
+This query retrieves the available data about meetups but cannot specify or filter participants to check for 'Musician X' and 'Performer Y'. Therefore, the competency question is not fully supported by the current ontology.

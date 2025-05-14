@@ -1,0 +1,30 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the actors who are members of a given ensemble at a specified point in time. In this query we assume that an actor’s membership was "activated" on the date given by the property hasMembershipDate (with no explicit “end‐date” provided, we assume that once membership is recorded before the given time, the actor is considered a member under the closed world assumption):
+
+─────────────────────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  # Specify the particular ensemble (replace <ENSEMBLE_URI> with the actual URI)
+  FILTER (?ensemble = <http://www.example.org/test#Ensemble123>) .
+
+  ?actor :hasMembership ?membership .
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :hasMembershipDate ?membershipDate .
+
+  # Only include memberships that were active at or before the specified time
+  FILTER(?membershipDate <= "2007-01-01T00:00:00Z"^^xsd:dateTime) .
+
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+}
+ORDER BY ?membershipDate
+
+─────────────────────────────────────────────
+
+This query confirms that the ontology reifies ensemble membership and supports the competency question “Who are the members of a certain ensemble at a certain point in time?” under a closed world assumption.

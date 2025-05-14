@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?meetingEvent ?eventLabel ?isAccidental ?person ?personLabel ?hasInvited
+WHERE {
+  ?meetingEvent a :MeetingEvent .
+  OPTIONAL { ?meetingEvent rdfs:label ?eventLabel . }
+  ?meetingEvent :isAccidental ?isAccidental .
+  
+  ?meetingEvent :hasParticipation ?participation .
+  ?participation :involvesPerson ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?participation :hasInvited ?hasInvited .
+}
+ORDER BY ?meetingEvent ?person
+```

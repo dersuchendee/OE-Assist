@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, answers the competency question “In what country is a certain city located?” using the ontology's property that links a city (instance of Cl_City) to its country (via :isLocatedInCountry):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedInCountry ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  OPTIONAL { ?country rdfs:label ?countryLabel. }
+}
+--------------------------------------------------

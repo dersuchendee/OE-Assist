@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology provides a direct link between a record (here modelled as an instance of Cl_Album) and its review (via the property reviewedBy) while the review is connected to a critic (modelled with Cl_Critic) through the madeBy property. Therefore you can write a SPARQL query to retrieve what a given critic says about a given record. For example, the following query extracts the album (record), the review statement, and the critic who made the review:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?critic ?statement
+WHERE {
+  ?album a :Cl_Album .
+  ?album :reviewedBy ?review .
+  ?review :madeBy ?critic .
+  ?review :statement ?statement .
+  
+  # Uncomment and adjust the following FILTERs to specify a certain critic and a certain record:
+  # FILTER(?critic = :CrianHiatt)
+  # FILTER(?album = :StadiumArcadium)
+}
+-------------------------------------------------
+
+This query shows that the competency question is fully answerable by the ontology.

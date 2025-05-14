@@ -1,0 +1,13 @@
+**No**
+```sparql
+SELECT ?media ?publicationDate
+WHERE {
+  {
+    ?media a :Cl_Book .
+  }
+  # Note: The ontology models books but it does not include a class for CDs,
+  # so this query only retrieves publication dates for books.
+  ?media :published ?pub .
+  ?pub :publicationDate ?publicationDate .
+}
+```

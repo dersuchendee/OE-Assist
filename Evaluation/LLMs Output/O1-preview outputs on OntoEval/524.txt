@@ -1,0 +1,25 @@
+Answer: **Yes**
+
+The competency question can be answered using the ontology because the ontology includes the `:numberOfTracks` data property for instances of `:Cl_Album`. Specifically, the album `:Stadium_Arcadium` has the `:numberOfTracks` property with the value 28.
+
+Here is a SPARQL query to find out how many tracks a particular album contains (e.g., `:Stadium_Arcadium`):
+
+```sparql
+SELECT ?numTracks
+WHERE {
+  :Stadium_Arcadium a :Cl_Album .
+  :Stadium_Arcadium :numberOfTracks ?numTracks .
+}
+```
+
+If you want to parameterize the query for any album, you can use:
+
+```sparql
+SELECT ?album ?numTracks
+WHERE {
+  ?album a :Cl_Album .
+  ?album :numberOfTracks ?numTracks .
+}
+```
+
+This query will return the number of tracks for all albums in the ontology.

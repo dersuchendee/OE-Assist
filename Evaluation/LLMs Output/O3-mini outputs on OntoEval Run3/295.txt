@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, retrieves the number of acts recorded for a specific play (here using “The Merchant of Venice” as the particular play):
+
+───────────────────────── SPARQL Query ─────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?numberOfActs
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName ;
+        :numberOfActs ?numberOfActs .
+  FILTER(?playName = "The Merchant of Venice")
+}
+
+───────────────────────── End Query ─────────────────────────
+
+This query extracts the play’s identifier, its name, and its recorded number of acts from the ontology, thus fully supporting the competency question.

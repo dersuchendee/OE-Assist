@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" is supported by the ontology. The ontology includes the class `Cl_Seminar` with a restriction that ensures at least one article is presented at each seminar through the `hasPresentedArticle` property. This can be verified using the following SPARQL query:
+
+```sparql
+SELECT ?seminar
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+```
+
+This query retrieves all seminars that have at least one article presented, which aligns with the competency question.

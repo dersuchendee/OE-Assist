@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that the relevant data has been asserted using the pivot class for play structure (Cl_PlayStructure) and that each play's title is given with the property :playTitle while its number of acts is provided via the property :numberOfActs, the following SPARQL query extracts the number of acts for a particular play (e.g., “Merchant of Venice”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playTitle ?numberOfActs
+WHERE {
+  ?play a :Cl_PlayStructure ;
+        :playTitle ?playTitle ;
+        :numberOfActs ?numberOfActs .
+  FILTER(STR(?playTitle) = "Merchant of Venice")
+}
+
+This query shows that the competency question “How many acts does a particular play contain?” can be answered with the ontology as modeled.

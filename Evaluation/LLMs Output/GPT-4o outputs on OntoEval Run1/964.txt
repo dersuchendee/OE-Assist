@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine which articles a specific book or CD is composed of. The ontology includes classes for books, CDs, articles, and article collections, but it does not explicitly link books or CDs to the articles they contain. The `containsArticle` property links article collections to articles, but there is no property linking books or CDs directly to articles or article collections.
+
+Here is a SPARQL query to extract a partial answer, which retrieves articles contained in article collections:
+
+```sparql
+SELECT ?article ?articleLabel
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  ?articleCollection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```

@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example SPARQL query that—in a closed‐world view—retrieves, for a specified ensemble and a given point in time, the members that joined on or before that time:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel ?membershipDate
+WHERE {
+  # Assume a specific ensemble is known (replace VALUE with its URI or label)
+  ?ensemble a :Cl_Ensemble ;
+            rdfs:label "Name of Ensemble" ;
+            :hasMember ?member .
+  
+  # Retrieve the membership date for each member
+  ?member :hasMembershipDate ?membershipDate .
+  
+  # Optionally get the member’s label
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  # Only include members who joined on or before the specified date (adjust the date as needed)
+  FILTER(?membershipDate <= "2009-09-10"^^xsd:date)
+}
+ORDER BY ?membershipDate
+
+This query shows that the CQ—“Who are the members of a certain ensemble at a certain point in time?”—is answerable using the ontology, since the ensemble-member relationship (via :hasMember) combined with the membership date (via :hasMembershipDate) permits filtering by a given time point.

@@ -1,0 +1,22 @@
+**No**
+
+The ontology defines the necessary classes and properties to represent the relationship between disease categories and codes via the `:hasCode` property. However, it does not include any instances (individuals) of `:DiseaseCategory` or `:Code`. Therefore, under the closed world assumption, the competency question cannot be fully answered because there is no data to retrieve.
+
+Here is a SPARQL query that attempts to extract a partial answer by retrieving any available information about disease categories and their corresponding codes:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?diseaseCategory ?diseaseCategoryLabel ?code ?codeLabel
+WHERE {
+  ?diseaseCategory a :DiseaseCategory .
+  OPTIONAL { ?diseaseCategory rdfs:label ?diseaseCategoryLabel . }
+  OPTIONAL {
+    ?diseaseCategory :hasCode ?code .
+    OPTIONAL { ?code rdfs:label ?codeLabel . }
+  }
+}
+```
+
+This query searches for instances of `:DiseaseCategory` and their associated `:Code` instances through the `:hasCode` property. Since there are no individuals defined in the ontology, the query would return an empty result set.

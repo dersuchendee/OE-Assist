@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?album (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+```

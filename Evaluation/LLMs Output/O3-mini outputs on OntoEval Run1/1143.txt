@@ -1,0 +1,22 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?userLabel ?activity ?activityLabel ?genre ?genreLabel ?weather ?weatherLabel
+WHERE {
+  VALUES ?user { :user123 }  # assume the user of interest is user123
+  OPTIONAL { ?user rdfs:label ?userLabel . }
+  
+  ?user :hasPreference ?pref .
+  
+  ?pref :prefersActivity ?activity .
+  OPTIONAL { ?activity rdfs:label ?activityLabel . }
+  
+  ?pref :prefersGenre ?genre .
+  OPTIONAL { ?genre rdfs:label ?genreLabel . }
+  
+  ?pref :prefersWeather ?weather .
+  OPTIONAL { ?weather rdfs:label ?weatherLabel . }
+}
+```

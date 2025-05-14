@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, returns the members (artists) of a given band at a given point in time. In this query you would supply (via a filter or binding) the URI of the band (?bandURI) and a time point (?point) (as an xsd:date). The query finds memberships whose start date is earlier than or equal to ?point and whose end date is either not specified (i.e. the membership is still ongoing) or later than or equal to ?point.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+  
+SELECT ?membership ?artist
+WHERE {
+  ?membership :membership_band ?band .
+  ?membership :membership_artist ?artist .
+  ?membership :membership_startDate ?start .
+  OPTIONAL { ?membership :membership_endDate ?end . }
+  
+  # Filter to the specific band and time point
+  FILTER(?band = <http://www.example.org/test#YourBandURI> && 
+         xsd:date("2023-01-01") >= ?start && 
+         ( !bound(?end) || xsd:date("2023-01-01") <= ?end ) )
+}
+-----------------------------------------------------------
+
+Replace <http://www.example.org/test#YourBandURI> with the URI of the band you are investigating and xsd:date("2023-01-01") with the desired point in time.

@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+SELECT ?interaction ?guild1 ?guild1Type ?guild2 ?guild2Type ?aquifer
+WHERE {
+  ?interaction a :Interaction .
+  ?interaction :hasParticipant ?guild1 .
+  ?interaction :hasParticipant ?guild2 .
+  FILTER (?guild1 != ?guild2)
+  
+  ?guild1 a ?guild1Type .
+  ?guild2 a ?guild2Type .
+  ?guild1Type rdfs:subClassOf :MicrobialFunctionalGuild .
+  ?guild2Type rdfs:subClassOf :MicrobialFunctionalGuild .
+  
+  ?interaction :occursIn ?aquifer .
+  ?aquifer a :NutrientPoorAquifer .
+}
+```

@@ -1,0 +1,15 @@
+**No**  
+The ontology does not provide an explicit “reified” connection or dedicated property to indicate that a resource “mentions” an organ. However, one may supply a partial query that retrieves any subject with a property pointing to an entity typed as an organ.
+
+For example:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?resource ?p ?organ
+WHERE {
+  ?resource ?p ?organ .
+  ?organ rdf:type organs:Organ .
+}
+
+This query returns subjects (resources) that include an object declared as an organs:Organ, which is a partial answer under the closed world assumption.

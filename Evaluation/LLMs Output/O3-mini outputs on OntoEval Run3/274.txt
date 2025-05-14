@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the time period (via the associated play‐creation period) for a particular play (here “The Merchant of Venice”) from an ontology that uses reification for plays:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName ;
+        :writtenDuring ?playCreation .
+  ?playCreation :timePeriod ?timePeriod .
+  FILTER(?playName = "The Merchant of Venice")
+}
+
+This query demonstrates that the ontology supports answering the competency question "During what time period was a certain play written?" under the closed world assumption.

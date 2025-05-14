@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves performances along with the locations where they took place. In this ontology the location of a performance is modeled using the property “performedAt” whose range is the reified class :Cl_PerformanceLocation.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedAt ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+ORDER BY ?performance
+------------------------------------------------------------
+
+This query works under the closed world assumption—only performances explicitly linked to a location via the property :performedAt are returned.

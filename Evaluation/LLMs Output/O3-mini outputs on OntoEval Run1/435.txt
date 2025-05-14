@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example SPARQL query that, under the closed‐world assumption, retrieves all instruments played by a given person from the ontology:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+ORDER BY ?person ?instrument
+
+─────────────────────────────
+
+In this query the property :playsInstrument connects a person (of type :Cl_Person) to what is deemed a “person instrument” (which, by subclassing :Cl_Instrument, represents the instruments played). Under the closed world assumption, we assume that any instrument not explicitly linked via :playsInstrument is not played by that person.

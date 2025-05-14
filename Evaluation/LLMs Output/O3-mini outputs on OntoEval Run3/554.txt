@@ -1,0 +1,13 @@
+**Yes**
+
+We can answer this CQ by querying for albums and their release dates (using the :releaseDate property defined for :Cl_Album). Under the closed world assumption, we assume that if a :releaseDate isn’t explicitly given, then no release date exists. The following SPARQL query returns albums together with the dates when they were released:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}

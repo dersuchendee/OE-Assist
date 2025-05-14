@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not include specific classes or properties that directly relate to roles, persons, productions, or time points in a way that would allow us to answer the competency question. The ontology primarily focuses on theatre festivals, plays, locations, and related metadata, but lacks the necessary structure to capture roles of persons within productions at specific times.
+
+Here's a SPARQL query to extract a partial answer, focusing on productions and plays:
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?play .
+}
+```

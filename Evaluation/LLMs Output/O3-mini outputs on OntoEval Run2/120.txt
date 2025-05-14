@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves plays associated with a given theatre festival (via the playedAt relationship):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/theatre-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?play a :Play ;
+        :performedAt ?festival .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+}
+--------------------------------------------------
+
+This query extracts, for each theatre festival, the plays that were performed at that festival. The closed world assumption is applied here; only explicitly stated relationships (i.e. plays with a direct :performedAt link to a festival) are considered.

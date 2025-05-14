@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each album in the ontology, its release date and the tracks it contains. This query demonstrates that the competency question (e.g. “For each album, list its tracks along with the album’s release date”) is answerable using the provided ontology under a closed‐world assumption.
+
+-----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate ?track
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate ;
+         :containsTrack ?track .
+}
+ORDER BY ?album ?track
+-----------------------------------

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?process ?processLabel ?actor ?actorLabel
+WHERE {
+  ?actorInProcess a :Cl_ActorInProcess .
+  ?actorInProcess :op_partOfProcess ?process .
+  ?actorInProcess :op_hasActor ?actor .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```

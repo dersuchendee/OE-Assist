@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that extracts the region for a given city (for example, Portland, Oregon):
+
+PREFIX : <http://www.example.org/ontology/musicproduction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isLocatedIn ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  FILTER(?city = :Portland_Oregon)
+}

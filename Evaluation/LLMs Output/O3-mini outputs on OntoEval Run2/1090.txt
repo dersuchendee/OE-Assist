@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology explicitly associates seminars with presentations (using ns1:hasPresentation) and presentations with articles (using ns1:presentedArticle). Under the closed world assumption, if a seminar does not list at least one presentation with a presented article then it is interpreted as not having any. Therefore, the following SPARQL query extracts all seminars that satisfy “at least one article is presented”:
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?seminar ?seminarLabel ?presentation ?article
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar ns1:hasPresentation ?presentation .
+  ?presentation ns1:presentedArticle ?article .
+}
+ORDER BY ?seminar
+
+This query returns all seminars that have at least one presentation with an associated article, thus confirming that the CQ is modeled by the ontology.

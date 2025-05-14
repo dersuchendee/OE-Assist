@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that performances are modelled as instances of the class Cl_Performance and that the performance’s location is captured via an object property (for example, performedAt) which connects a performance (or its reified event) to a location (with its label given by the data property locationName), the following SPARQL query answers the CQ “Where did a certain performance take place?” under a closed world assumption:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?locationName
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedAt ?location .
+  ?location :locationName ?locationName .
+}
+------------------------------------------------------------
+
+This query retrieves each performance’s associated location name, thus fully addressing the competency question as modelled by the ontology.

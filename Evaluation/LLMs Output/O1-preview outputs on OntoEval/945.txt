@@ -1,0 +1,15 @@
+**Yes**
+
+The CQ is answerable because the ontology models evaluation statements given by doctors to employees. The class `:Cl_DoctorEmployeeEvaluation` represents the evaluation event, connected to the doctor via `:evaluatedBy`, to the employee via `:evaluates`, and includes the evaluation statement via `:evaluationStatement`.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?doctor ?employee ?statement
+WHERE {
+  ?evaluation rdf:type :Cl_DoctorEmployeeEvaluation .
+  ?evaluation :evaluatedBy ?doctor .
+  ?evaluation :evaluates ?employee .
+  ?evaluation :evaluationStatement ?statement .
+}
+```

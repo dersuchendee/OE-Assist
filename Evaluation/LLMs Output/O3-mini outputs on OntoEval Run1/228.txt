@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that a “certain ensemble” is represented as an instance of :Cl_Ensemble and its members are reified via instances of :Cl_EnsembleMembership (which, by design, connect an actor, an ensemble and a date via the property :membershipDate and provide the actor’s name via :actorName), one can write a SPARQL query that, given an ensemble and a specific point in time, returns the names (or other details) of its members whose membership date matches that time (closed world assumption). For example, if one wishes to retrieve the members of an ensemble at a given time (provided as the parameter ?pointInTime), the query could be written as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?actorName ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble ;
+            :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership ;
+              :membershipDate ?membershipDate ;
+              :actorName ?actorName .
+  FILTER(?membershipDate = "2007-01-01"^^xsd:date) 
+}
+ORDER BY ?ensemble
+------------------------------------------------
+
+In this query the date "2007-01-01" is an example value for the “certain point in time” that can be replaced with the desired date. This demonstrates that the ontology fully supports answering the CQ.

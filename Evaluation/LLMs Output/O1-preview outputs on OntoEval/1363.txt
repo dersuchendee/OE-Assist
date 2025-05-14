@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not include the concepts of "execution techniques" or "mounting systems", so it is not possible to write a SPARQL query to fully answer the competency question: "What kind of execution techniques are possible to perform according to a specific mounting system?"
+
+However, a partial answer can be obtained by retrieving bells and their associated sets of bells.
+
+```sparql
+SELECT ?bell ?bellLabel ?setOfBells ?setLabel
+WHERE {
+  ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+  OPTIONAL { ?bell rdfs:label ?bellLabel . }
+  OPTIONAL { 
+    ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+    OPTIONAL { ?setOfBells rdfs:label ?setLabel . }
+  }
+}
+```
+
+This query retrieves bells and the sets of bells they are part of, but without information about mounting systems or execution techniques, it cannot fully answer the competency question.

@@ -1,0 +1,17 @@
+**No**
+
+The ontology does include classes for Event, DayOfWeek, and TimeOfDay and properties linking an event to a day and a time. However, the specific event described in the story (brushing teeth on Thursday morning) is not explicitly represented (for example, as an individual event with a label). Therefore, while we can retrieve events with their day and time, we cannot uniquely query for “the certain event” mentioned in the story, so we must provide a partial answer.
+
+A partial SPARQL query to extract any event’s occurring day and time is:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?day ?time
+WHERE {
+  ?event a :Event ;
+         :occursOn ?day ;
+         :hasTime ?time .
+}
+
+This query will list all events with their associated day and time data, which partially answers the competency question under the closed world assumption.

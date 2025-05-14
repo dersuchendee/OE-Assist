@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?filmTitle ?startTime ?cinema
+WHERE {
+  ?event a :Cl_FilmPreviewEvent .
+  ?event :hasStartTime ?startTime .
+  ?event :previewAt ?cinema .
+  ?event :hasPreview ?film .
+  ?film :hasTitle ?filmTitle .
+}
+```

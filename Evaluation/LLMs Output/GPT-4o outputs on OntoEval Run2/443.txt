@@ -1,0 +1,24 @@
+**Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to query the members of a band and their membership time intervals. Here's a SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?musician ?name ?instrument ?membershipTime
+WHERE {
+  ?musician a :Musician ;
+            :hasName ?name ;
+            :playsInstrument ?instrument ;
+            :memberOf ?membership .
+
+  ?membership :membershipInBand :RedHotChiliPeppers ;
+              :membershipTime ?membershipTime .
+
+  ?membershipTime a time:Interval .
+}
+ORDER BY ?name
+```
+
+This query retrieves the musicians who are members of the "Red Hot Chili Peppers" band, along with their names, the instruments they play, and their membership time intervals.

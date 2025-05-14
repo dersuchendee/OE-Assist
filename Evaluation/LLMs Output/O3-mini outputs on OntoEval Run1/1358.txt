@@ -1,0 +1,16 @@
+**No**  
+The ontology does not explicitly represent an event or relationship that indicates when an organ is moved to a new location. However, we can partially explore the available data by retrieving, for each organ, the projects (which may include tasks such as restorations) along with their associated time intervals and places. For example, one could use a query like this:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+
+SELECT ?organ ?project ?timeInterval ?place
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+  OPTIONAL { ?project arco:hasPlace ?place . }
+  OPTIONAL { ?project arco:hasTimeInterval ?timeInterval . }
+}
+
+This query gives a partial answer by enumerating the descriptive projects for organs along with their associated places and time intervals—but it does not directly answer when an organ is moved, since movement events are not explicitly modelled in the ontology.

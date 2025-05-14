@@ -1,0 +1,23 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?role
+WHERE {
+  # Bind the variables for the specific person, production, and time point
+  BIND(<http://www.example.org/test#PersonX> AS ?person)
+  BIND(<http://www.example.org/test#ProductionY> AS ?production)
+  BIND(<http://www.example.org/test#TimeZ> AS ?timePoint)
+  
+  # Find the role assignments associated with the person
+  ?person :assignedRoleAssignment ?roleAssignment .
+  
+  # Connect role assignments to roles
+  ?role :roleAssignmentOfRole ?roleAssignment .
+  
+  # Confirm the role assignment is in the specified production
+  ?production :roleAssignmentInProduction ?roleAssignment .
+  
+  # Confirm the role assignment is at the specified time point
+  ?timePoint :roleAssignmentAtTimePoint ?roleAssignment .
+}
+```

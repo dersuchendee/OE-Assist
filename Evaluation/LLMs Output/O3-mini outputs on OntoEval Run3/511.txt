@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the time period during which an album (e.g. “Stadium Arcadium”) was recorded. In this ontology the album is connected to its recording time period via the reification class Cl_AlbumRecording using the object properties “recordedDuring” (from the album to its recording) and “recordingTimePeriod” (from the recording to the actual time period).
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recordingTimePeriod
+WHERE {
+  ?album a :Cl_Album ;
+         rdfs:label ?albumLabel ;
+         :recordedDuring ?albumRecording .
+  ?albumRecording :recordingTimePeriod ?recordingTimePeriod .
+  FILTER(?albumLabel = "Stadium Arcadium")
+}
+---------------------------------
+
+This query can be adjusted to retrieve the time period for any specified album, and it shows that the competency question is modeled by the ontology.

@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the publication date of a book (and, if available, a CD) from the ontology using the publication date property and the publishedAs relation:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubDate ?item ?itemTitle
+WHERE {
+  ?publication a :Cl_Publication ;
+               :publicationDate ?pubDate ;
+               :publishedAs ?item .
+  {
+    ?item a :Cl_Book ;
+          :bookTitle ?itemTitle .
+  }
+  UNION
+  {
+    ?item a :Cl_CD ;
+          :cdTitle ?itemTitle .
+  }
+}
+--------------------------------------------------
+
+In this query we assume that if CDs are represented in the ontology they use the class :Cl_CD and a title property (here assumed as :cdTitle), while books use the class :Cl_Book with the property :bookTitle. Under the closed‐world assumption, all necessary publication information is present in the data, so the answer to “When was a certain book or CD published?” can be entirely retrieved.

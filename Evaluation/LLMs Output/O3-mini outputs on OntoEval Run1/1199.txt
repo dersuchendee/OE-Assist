@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?musician ?musicianLabel ?place ?placeLabel
+WHERE {
+  ?musician a :Musician .
+  ?musician :hasPlaceOfOrigin ?place .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

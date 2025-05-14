@@ -1,0 +1,14 @@
+**No**
+
+Since the ontology does not contain any individuals of `:Event`, such as the specific event of brushing teeth on Thursday morning, we cannot retrieve the time and day of the week for any events. Therefore, the competency question is not fully supported by the ontology. However, we can provide a partial SPARQL query that would retrieve events and their associated times and days if such data were present.
+
+```sparql
+SELECT ?event ?day ?time
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event :occursOn ?day . }
+  OPTIONAL { ?event :hasTime ?time . }
+}
+```
+
+This query attempts to select all events along with their associated day (`?day`) and time (`?time`). In the current ontology, without specific instances of events, this query will not return any results. To fully answer the competency question, individuals representing specific events and their occurrences need to be added to the ontology.

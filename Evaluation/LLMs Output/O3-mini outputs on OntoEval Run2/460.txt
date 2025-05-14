@@ -1,0 +1,33 @@
+**Yes**
+
+Assuming that the ontology reifies band membership using the class Cl_Membership—with properties linking a person to a band (membershipBand and membershipPerson) as well as start and end dates (membershipStartDate and membershipEndDate)—we can answer the CQ “What are the members of a certain band at a certain point in time?” by selecting for memberships whose period covers the given point in time. Under the closed world assumption, we assume that if a membership end date is not present then the membership is still valid.
+
+Below is an example SPARQL query. You can bind the band of interest (here as ?band) and the time (as ?atTime) to get the answer:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_Membership ;
+              :membershipBand ?band ;
+              :membershipPerson ?member ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  # Filter: the membership must have started on or before the given time
+  FILTER ( xsd:dateTime(?membershipStartDate) <= xsd:dateTime(?atTime) )
+  
+  # And either it has no end date or it ended after (or exactly at) the given time
+  FILTER ( !bound(?membershipEndDate) || xsd:dateTime(?membershipEndDate) >= xsd:dateTime(?atTime) )
+  
+  # Example: filter for the particular band by its IRI; replace with the band you need.
+  FILTER ( ?band = <http://www.example.org/test#RedHotChiliPeppers> )
+}
+ORDER BY ?membershipStartDate
+---------------------------------------------------------
+
+In this query, you supply the ?atTime parameter (for example, "2006-05-05T00:00:00"^^xsd:dateTime) to obtain the members of the specified band active at that point in time.

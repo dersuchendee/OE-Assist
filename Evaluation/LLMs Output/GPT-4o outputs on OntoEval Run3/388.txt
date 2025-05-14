@@ -1,0 +1,20 @@
+**No**
+
+The ontology provided does not have a direct way to associate a person with a specific role within a production at a specific point in time. The ontology includes classes and properties related to actors, roles, productions, and time periods, but it lacks a direct connection that would allow us to query for a person's roles within a specific production at a specific time.
+
+However, we can extract partial information about actors, their roles, and the productions they are involved in, but not specifically at a certain point in time.
+
+```sparql
+SELECT ?actorName ?roleName ?productionName
+WHERE {
+  ?actorRole rdf:type :Cl_ActorRole ;
+             :hasRole ?role ;
+             :roleInProduction ?production .
+  ?role :roleName ?roleName .
+  ?production :productionName ?productionName .
+  ?actorRole :hasRole ?role .
+  ?actorRole :roleInProduction ?production .
+  ?actorRole :roleTimePeriod ?timePeriod .
+  ?actor :actorName ?actorName .
+}
+```

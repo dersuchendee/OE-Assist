@@ -1,0 +1,34 @@
+**Yes**
+Below is an example SPARQL query that answers the CQ by retrieving the role held by a given person within a given union at a specified point in time. In this query we use the closed world assumption (i.e. only the information explicitly asserted in the ontology is considered) and filter on a specific person (here ns1:PasqualeDiGennaro), a specific union (ns1:MaleNurseUnion), and a given point in time (e.g. "2002-06-01T00:00:00+00:00"):
+
+--------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?union ?membershipInterval
+WHERE {
+  ?person a ns1:Person ;
+          ns1:hasRole ?role ;
+          ns1:memberOf ?membership .
+  ?membership ns1:hasUnion ?union ;
+              ns1:hasMembershipPeriod ?interval .
+  ?interval time:hasBeginning ?start .
+  OPTIONAL { ?interval time:hasEnd ?end . }
+  
+  # Closed world: restrict to the given person and union
+  FILTER (?person = ns1:PasqualeDiGennaro)
+  FILTER (?union = ns1:MaleNurseUnion)
+  
+  # Filter the membership interval to include the chosen point in time
+  FILTER (
+    "2002-06-01T00:00:00+00:00"^^xsd:dateTime >= ?start &&
+    ( !BOUND(?end) || "2002-06-01T00:00:00+00:00"^^xsd:dateTime <= ?end )
+  )
+  
+  BIND(STR(?interval) AS ?membershipInterval)
+}
+ORDER BY ?person
+--------------------------------------------------
+
+This query returns the role (and related membership information) that the person has within the specified union at the given time, demonstrating that the ontology can answer the CQ.

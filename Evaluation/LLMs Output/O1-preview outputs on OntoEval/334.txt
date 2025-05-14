@@ -1,0 +1,17 @@
+**No**
+
+The competency question requires us to find out the "star rating" given by a certain newspaper for a certain production. However, in the provided ontology, there is no direct connection between a `:Cl_Newspaper` instance and a `:Cl_ProductionReview` instance that would allow us to identify which newspaper gave the rating for which production.
+
+While we have the classes and properties to find productions and their star ratings through reviews, we lack the linkage to specify the newspaper that provided the review. Therefore, we can only extract partial information—namely, the productions and their star ratings—but not the newspapers associated with those reviews.
+
+Here is a SPARQL query to extract the partial answer:
+
+```sparql
+SELECT ?production ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasReview ?review .
+  ?review a :Cl_ProductionReview .
+  ?review :hasStarRating ?starRating .
+}
+```

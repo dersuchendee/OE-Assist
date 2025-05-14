@@ -1,0 +1,29 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName
+WHERE {
+  # Specify the ensemble and date of interest
+  BIND (:MerchantOfVeniceEnsemble AS ?ensemble) .
+  BIND ("2009-09-15"^^xsd:date AS ?date) .
+  
+  # Find ensemble memberships for the specified ensemble
+  ?ensembleMembership :op_membershipIn ?ensemble ;
+                      :dp_startDate ?startDate ;
+                      :dp_endDate ?endDate .
+  
+  # Find actors associated with these memberships
+  ?actor :op_hasMembership ?ensembleMembership .
+  
+  # Optional: retrieve actor names if available
+  OPTIONAL { ?actor rdfs:label ?actorName . }
+  
+  # Check if the date is within the membership period
+  FILTER ( ?date >= ?startDate && ?date <= ?endDate )
+}
+```
+
+This query retrieves all actors who are members of the specified ensemble at the given date by checking if the date falls within the start and end dates of their ensemble memberships.

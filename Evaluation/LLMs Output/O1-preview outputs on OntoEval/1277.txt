@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "Which is the weight of the bell?" can be answered using the given ontology because it includes the class `:Bell` and the datatype property `:hasWeight`, which allows us to retrieve the weight of each bell.
+
+Here is the SPARQL query to extract the weights of the bells:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?bell ?weight
+WHERE {
+  ?bell a :Bell .
+  ?bell :hasWeight ?weight .
+}
+```
+
+This query selects all individuals of type `:Bell` and retrieves their associated weights using the `:hasWeight` property.

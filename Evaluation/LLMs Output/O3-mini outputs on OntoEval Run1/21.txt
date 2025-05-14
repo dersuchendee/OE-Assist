@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.semanticweb.org/sophia-music-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel ?maker ?makerLabel
+WHERE {
+  ?instrument a :MusicalInstrument .
+  ?instrument :madeBy ?maker .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+  OPTIONAL { ?maker rdfs:label ?makerLabel. }
+}
+```

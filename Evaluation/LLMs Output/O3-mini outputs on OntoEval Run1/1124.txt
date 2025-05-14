@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, retrieves the preferred system action of a user given a particular context (in this case, filtering for the Berlin location and a morning time):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?systemAction ?location ?time
+WHERE {
+  ?user a :Cl_User ;
+        :op_prefers ?userPreferredAction .
+  
+  ?userPreferredAction :op_hasPreferredAction ?systemAction ;
+                       :op_inContext ?context .
+                       
+  ?context :dp_hasLocation ?location ;
+           :dp_hasTime ?time .
+
+  FILTER(STR(?location) = "Berlin")
+  FILTER(
+    xsd:time(?time) >= xsd:time("06:00:00") &&
+    xsd:time(?time) < xsd:time("12:00:00")
+  )
+}
+--------------------------------------------------
+
+In this query:
+• We start by finding a user (:Cl_User) who has an associated preferred action via the property :op_prefers.
+• We then navigate from that reified preference (:Cl_UserPreferredAction) to the preferred system action (:Cl_SystemAction) via :op_hasPreferredAction.
+• We also retrieve the context (:Cl_Context) via :op_inContext and its associated location and time data properties.
+• Finally, we filter the context to select those with a location "Berlin" and a time corresponding to a morning period. 
+
+This demonstrates that the ontology supports the competency question fully.

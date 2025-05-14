@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?place ?placeLabel
+WHERE {
+    ?organ a organs:Organ .
+    OPTIONAL { ?organ rdfs:label ?organLabel . }
+    ?organ arco:isDescribedBy ?project .
+    ?project arco:hasPlace ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+    ?project arco:isFirstProject true^^xsd:boolean .
+}
+```

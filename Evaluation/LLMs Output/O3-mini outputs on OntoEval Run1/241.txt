@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, returns the plays written by a given author (replace the placeholder IRI with the specific author you are interested in):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName
+WHERE {
+  # Select the given author (replace with the actual author IRI)
+  VALUES ?author { <http://www.example.org/test#GivenAuthor> } .
+
+  # The ontology models that an author writes plays via either the property
+  # :authorOf or its subproperty :wrotePlay. Here we assume the author is linked to a play.
+  ?author :authorOf ?play .
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+-------------------------------------------------
+
+This query extracts all plays (and their names, if provided) that were written by the specific author in the ontology, fully supporting the competency question "What plays did a certain author write?"

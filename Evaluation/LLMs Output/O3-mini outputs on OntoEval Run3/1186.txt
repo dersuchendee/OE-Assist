@@ -1,0 +1,12 @@
+**Yes**
+Assuming that “she” refers to a specific person (e.g. an individual named :Sophia), the following SPARQL query extracts the places where that person has lived:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?place ?placeLabel 
+WHERE {
+  :Sophia a :Person ;
+          :hasLivedIn ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}

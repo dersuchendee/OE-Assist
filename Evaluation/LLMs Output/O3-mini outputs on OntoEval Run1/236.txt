@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the plays (with their titles) written by a given author (in this case, William Shakespeare):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title
+WHERE {
+  ?play a :Cl_Play ;
+        :dp_title ?title ;
+        :op_writtenBy ?author .
+  FILTER(?author = :WilliamShakespeare)
+}
+-------------------------------------------------
+
+This query demonstrates that the ontology connects plays to their authors via the property :op_writtenBy and provides the author’s name via the data property :dp_authorName. Thus, the competency question “What plays did a certain author write?” is answerable by the ontology.

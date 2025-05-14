@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one SPARQL query that extracts, for any given person, which instruments they play:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?instrument
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+
+This query answers the CQ “What instruments does a certain person play?” by retrieving all persons of type Cl_Person along with the instruments that they play according to the :playsInstrument property.

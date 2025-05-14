@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not explicitly model the building or renovation of an organ. That is, it has no class, property, or reified representation for “building” or “renovating” an organ, nor does it link an agent to a “construction” or “restoration” task in a way that one could distinguish those actions from any other project‐related task. Using a closed world assumption, we therefore cannot fully answer “Who built and/or renovated an organ?” but we can offer a partial answer by listing agents that are linked to projects describing organs. For example:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?agent ?agentLabel ?project ?projectLabel
+WHERE {
+  ?project a arco:Project .
+  ?project arco:hasAgentRole ?agentRole .
+  ?agentRole arco:hasAgent ?agent .
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+  OPTIONAL { ?project rdfs:label ?projectLabel . }
+}
+ORDER BY ?agent
+
+This query provides a partial answer by retrieving agents associated with organ projects.

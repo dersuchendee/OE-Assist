@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the location of a performance. However, we can extract partial information about performances and their dates.
+
+```sparql
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :hasPerformanceDate ?performanceDate .
+}
+```

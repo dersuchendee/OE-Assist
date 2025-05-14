@@ -1,0 +1,38 @@
+**Yes**
+Below is an example SPARQL query that, given a particular person, band, and date, retrieves the role that the person had (via his band membership, which carries the valid time interval) at that specific moment:
+
+--------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?role ?roleLabel ?membershipBegin ?membershipEnd
+WHERE {
+  # Input parameters: replace these with the desired person, band, and date value
+  VALUES ?person { ns1:AnthonyKiedis } .
+  VALUES ?band   { ns1:RedHotChiliPeppers } .
+  BIND("2005-01-01"^^xsd:date AS ?checkDate) .
+  
+  # Get labels of the person and band
+  ?person rdfs:label ?personLabel .
+  ?band   rdfs:label ?bandLabel .
+
+  # Retrieve the band membership reification, including its valid time interval
+  ?person ns1:hasMembership ?membership .
+  ?membership ns1:membershipInBand ?band .
+  ?membership ns1:memberDuring ?interval .
+  ?interval ns1:hasBeginDate ?membershipBegin .
+  ?interval ns1:hasEndDate ?membershipEnd .
+  
+  # Only consider the membership that is valid at the given check date
+  FILTER (?checkDate >= ?membershipBegin && ?checkDate <= ?membershipEnd)
+  
+  # The role of the person is associated (in this ontology) directly via the ns1:hasRole property;
+  # if desired, you might later extend the model to have role information within the membership instance.
+  ?person ns1:hasRole ?role .
+  ?role   rdfs:label ?roleLabel .
+}
+ORDER BY ?personLabel
+--------------------------------------------------
+
+This query uses the reified BandMembership (via ns1:hasMembership and ns1:memberDuring) to ensure that the role is returned only if the input date lies within the membership's valid interval, thus answering the competency question.

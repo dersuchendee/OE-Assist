@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?materialFlow ?reboundEffect ?addedEnergyRequirement
+WHERE {
+  ?materialFlow a :MaterialFlow .
+  OPTIONAL { ?materialFlow :hasReboundEffect ?reboundEffect . }
+  OPTIONAL { ?materialFlow :hasAddedEnergyRequirement ?addedEnergyRequirement . }
+}
+ORDER BY ?materialFlow
+```

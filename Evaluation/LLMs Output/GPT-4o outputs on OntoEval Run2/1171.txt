@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide specific instances or details about the energy infrastructure available. It only defines classes and properties related to energy infrastructure and its availability status. Therefore, a SPARQL query can only extract partial information about the classes and properties defined in the ontology.
+
+```sparql
+SELECT ?energyInfrastructure ?status
+WHERE {
+  ?energyInfrastructure a :EnergyInfrastructure .
+  OPTIONAL { ?energyInfrastructure :hasAvailabilityStatus ?status . }
+}
+```

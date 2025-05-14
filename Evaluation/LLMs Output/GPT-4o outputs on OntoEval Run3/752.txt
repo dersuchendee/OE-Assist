@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not explicitly model the concept of a "record" containing "tracks" in a way that ensures a record always contains at least one track. The ontology includes classes and properties related to albums, tracks, and recordings, but it does not enforce a constraint that a record must contain at least one track. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract information about records and tracks:
+
+```sparql
+SELECT ?record ?track
+WHERE {
+  ?record a :Cl_Record .
+  OPTIONAL {
+    ?record :containsTrack ?track .
+  }
+}
+```

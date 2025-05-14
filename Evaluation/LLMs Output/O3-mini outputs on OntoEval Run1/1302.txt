@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?organ ?movementDate ?from ?to
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasMovementEvent ?movementEvent .
+  ?movementEvent :movementDate ?movementDate .
+  ?movementEvent :movedFrom ?from .
+  ?movementEvent :movedTo ?to .
+  FILTER(?from != ?to)
+}
+ORDER BY ?organ ?movementDate
+```

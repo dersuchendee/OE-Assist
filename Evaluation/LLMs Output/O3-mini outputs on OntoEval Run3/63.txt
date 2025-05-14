@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the type of a specific resource (assuming you replace <ResourceURI> with the actual resource URI):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?resourceLabel ?type ?typeLabel
+WHERE {
+  VALUES ?resource { <ResourceURI> } .
+  ?resource a :Cl_Resource .
+  OPTIONAL { ?resource rdfs:label ?resourceLabel . }
+  
+  ?resource :hasType ?type .
+  OPTIONAL { ?type rdfs:label ?typeLabel . }
+}
+--------------------------------------------------
+
+In a closed‐world setting, only resources explicitly linked to a type via :hasType (or equivalently via :hasResourceType) will be returned.

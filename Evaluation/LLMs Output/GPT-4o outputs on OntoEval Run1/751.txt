@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "A record always contains at least one track" can be answered using the ontology provided. The ontology includes the class `Cl_Record` and the property `containsTrack` which links a record to a track. This implies that a record can contain tracks, and we can query for records that contain at least one track.
+
+Here is a SPARQL query to extract records that contain at least one track:
+
+```sparql
+SELECT DISTINCT ?record
+WHERE {
+  ?record a :Cl_Record .
+  ?record :containsTrack ?track .
+}
+```
+
+This query retrieves all records that have at least one associated track, satisfying the competency question.

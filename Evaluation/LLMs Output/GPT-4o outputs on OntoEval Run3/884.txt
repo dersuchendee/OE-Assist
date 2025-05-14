@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to relate union members to a specific point in time. The ontology includes properties like `hasMemberAt` and `memberOfAt`, but they are not fully implemented with respect to time. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?union
+WHERE {
+  ?person a :UnionMember .
+  ?person :memberOf ?union .
+}
+```

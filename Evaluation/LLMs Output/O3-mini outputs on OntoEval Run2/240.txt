@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption (i.e. only plays explicitly linked to an author are returned), retrieves all plays written by a given author. (Replace the IRI provided for the author with the IRI of the author of interest.)
+
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?title
+WHERE {
+  ?play a :Play ;
+        :hasAuthor ?author .
+  ?author rdfs:label "William Shakespeare" .   # Replace with the target author label or use their IRI
+  
+  OPTIONAL { ?play :hasTitle ?title . } 
+}

@@ -1,0 +1,12 @@
+**Yes**
+
+Because the ontology defines a class WaterQualityParameter (a subclass of Parameter) with the restriction that it represents quality of some WaterBody, you can write a SPARQL query to extract individuals that are water quality parameters. Under a closed world assumption, only the explicitly declared individuals will be returned. Here is an example query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?parameter ?label
+WHERE {
+  ?parameter a :WaterQualityParameter .
+  OPTIONAL { ?parameter rdfs:label ?label . }
+}

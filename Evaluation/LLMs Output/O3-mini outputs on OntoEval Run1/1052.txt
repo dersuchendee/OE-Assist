@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves all articles (instances of Cl_Article) which were presented in a given seminar (here, for instance, the seminar with identifier :SeminarOnNursePractices):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?article ?articleTitle
+WHERE {
+  ?article a :Cl_Article ;
+           :articleTitle ?articleTitle ;
+           :presentedIn ?presentation .
+  ?presentation :presentationOf :SeminarOnNursePractices .
+}
+------------------------------------------------------------
+
+In this query the pathway from an article, through its associated seminar presentation (via the property :presentedIn), to the seminar (via :presentationOf) is used to extract articles that were presented in that seminar.

@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology models the competency question because it includes a subclass of publication (Cl_Book) that has a data property (pageNumber) capturing the number of pages, which allows us to write a SPARQL query to retrieve that information from a known book (e.g., the “Nurse practices in cancer patient care” publication).
+
+Below is a SPARQL query that extracts the book’s title and its page number:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?publicationTitle ?pageNumber
+WHERE {
+  ?book rdf:type :Cl_Book .
+  OPTIONAL { ?book :publicationTitle ?publicationTitle . }
+  ?book :pageNumber ?pageNumber .
+}
+------------------------------------------------------------
+
+This query returns the book(s) in the ontology along with their publication titles (if available) and how many pages they contain.

@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "How does nitrogen leaching vary across different soil types in forest ecosystems?" can be answered using the given ontology. The ontology provides classes and properties to represent nitrogen leaching observations, soil types, and forest ecosystems. We can write a SPARQL query to extract the relevant information.
+
+```sparql
+SELECT ?soilType ?leachingRate
+WHERE {
+  ?observation a :NitrogenLeachingObservation .
+  ?observation :hasSoilType ?soilType .
+  ?observation :hasNitrogenLeachingRate ?leachingRate .
+  ?observation :occursIn ?ecosystem .
+  ?ecosystem a :ForestEcosystem .
+}
+ORDER BY ?soilType
+```
+
+This query retrieves the soil types and corresponding nitrogen leaching rates for observations that occur in forest ecosystems, thus addressing the competency question.

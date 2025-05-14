@@ -1,0 +1,17 @@
+Answer: **Yes**.
+
+The ontology includes classes for `:Cl_Book` and `:Cl_CD`, which are subclasses of `:Cl_Publication`. The `:Cl_Publication` class has a datatype property `:publication_date`, allowing us to retrieve the publication dates of books and CDs. Therefore, the competency question "When was a certain book or CD published?" is answerable using the ontology.
+
+Here is a SPARQL query to extract the publication dates of all books and CDs:
+
+```sparql
+SELECT ?publication ?title ?publication_date
+WHERE {
+  ?publication a ?pubType .
+  FILTER(?pubType IN (:Cl_Book, :Cl_CD)) .
+  ?publication :title ?title .
+  ?publication :publication_date ?publication_date .
+}
+```
+
+This query retrieves all instances of books and CDs, their titles, and their publication dates by leveraging the ontology's classes and properties.

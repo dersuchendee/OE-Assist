@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any information about albums or their release dates. Therefore, the competency question "When was a certain album released?" cannot be fully answered using the given ontology. However, we can extract partial information about albums if they were present.
+
+```sparql
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :releaseDate ?releaseDate . }
+}
+```

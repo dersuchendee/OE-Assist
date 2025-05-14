@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain a direct way to count the number of tracks in an album. The ontology includes classes and properties related to albums, tracks, and recordings, but it lacks a direct property or mechanism to count the number of tracks associated with a specific album. Here's a SPARQL query to extract a partial answer, which lists the tracks associated with an album, but it does not provide a count:
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTracks ?track .
+}
+```

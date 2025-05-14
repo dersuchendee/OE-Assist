@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?place ?placeLabel
+WHERE {
+  ?event a :Event ;
+         :hasLocation ?place ;
+         :hasParticipant ?musician .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

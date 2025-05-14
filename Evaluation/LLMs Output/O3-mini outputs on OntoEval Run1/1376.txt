@@ -1,0 +1,19 @@
+**No**  
+The ontology does not explicitly model a “performance” role or action that clearly distinguishes when “she” is performing versus merely participating. However, we can provide a partial answer by retrieving locations (via mtps:hasPlace) of meetups in which a specific individual (e.g. mtps:Subject, assumed here to represent “she”) is registered as a participant.
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?meetup ?meetupLabel ?place ?placeLabel
+WHERE {
+  ?meetup a mtps:Meetup ;
+          mtps:hasParticipant mtps:Subject ; 
+          mtps:hasPlace ?place .
+  OPTIONAL { ?meetup rdfs:label ?meetupLabel. }
+  OPTIONAL { ?place rdfs:label ?placeLabel. }
+}
+```  
+
+This query extracts the meetup events and their associated places where mtps:Subject (used here as “she”) is a participant. Note that without an explicit “performance” property or a role indicating an act of performance, the answer remains partial.

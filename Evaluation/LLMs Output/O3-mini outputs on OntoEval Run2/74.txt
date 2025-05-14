@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?name ?date
+WHERE {
+  ?festival a :TheatreFestival ;
+            :hasName ?name ;
+            :hasDate ?date .
+  FILTER regex(?name, "Roma Loves Shakespeare", "i")
+}
+```

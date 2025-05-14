@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What are the materials of this component or product?" can be answered using the ontology provided. The ontology includes classes for `Component`, `Product`, and `Material`, and object properties such as `:isMadeOf` and `collectionentity:hasMember` that link components and products to materials. Therefore, a SPARQL query can be constructed to retrieve the materials associated with a given component or product.
+
+```sparql
+SELECT ?entity ?material
+WHERE {
+  ?entity a ?type .
+  FILTER(?type IN (:Component, :Product))
+  ?entity :isMadeOf ?material .
+}
+```

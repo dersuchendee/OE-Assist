@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any direct relationships or properties that connect authors to the plays they have written. The ontology includes classes and properties related to theatre festivals, plays, productions, and other related entities, but it lacks a direct representation of authorship or a connection between authors and the plays they have written.
+
+To extract a partial answer, we can query for plays, but we won't be able to associate them with specific authors.
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

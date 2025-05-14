@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that uses the ontology to extract the events (i.e. bookings) contained in a given calendar over a specified time period. In this query, you can replace the values for ?periodStart and ?periodEnd with your desired time boundaries.
+
+------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?calendar ?event ?start ?end
+WHERE {
+  ?calendar a :Calendar ;
+            :containsEvent ?event .
+  ?event :hasTimePeriod ?timePeriod .
+  ?timePeriod :startTime ?start ;
+              :endTime ?end .
+  FILTER ( ?start >= "2023-04-01T00:00:00Z"^^xsd:dateTime &&
+           ?end <= "2023-04-01T23:59:59Z"^^xsd:dateTime )
+}
+------------------------------------------------------
+
+This query demonstrates that the CQ ("What bookings does the user’s calendar contain during a certain time period?") is fully answerable within the provided ontology.

@@ -1,0 +1,20 @@
+**No**
+The ontology does not model any explicit relationship (e.g., a property linking a composition (or Tune) with a TuneFamily together with an associated “confidence” value) that would allow us to extract the "level of confidence" corresponding to a variant relationship. However, if we assume that a partial answer would consist in listing the tunes (compositions) that are members (or possibly variants) of a tune family (even though the ‘variant’ relation and its confidence are not modelled), a partial SPARQL query would look like this:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?tuneFamily ?tuneFamilyLabel 
+WHERE {
+  ?composition a :Tune .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel . }
+  # There is no explicitly defined relation for "is a variant in"
+  # So this OPTIONAL block represents a tentative association if such a property existed.
+  OPTIONAL { ?composition :isVariantOf ?tuneFamily . }
+}
+
+This query retrieves tunes (compositions) and tune families, and—if a property like :isVariantOf were present—would also return any detected variant relationship. However, since the ontology lacks a component representing the confidence level of that association, the competency question is only partially answerable.

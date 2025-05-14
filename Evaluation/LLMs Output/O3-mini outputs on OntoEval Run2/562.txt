@@ -1,0 +1,20 @@
+**Yes**
+Below is an example SPARQL query that, given a specific MusicTrack (e.g. identified as :HumpDeBump), retrieves the Song that its recording is a recording of:
+
+──────────────────────────────
+PREFIX : <http://example.org/music#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :MusicTrack ;
+         rdfs:label ?trackLabel ;
+         :isMusicTrackOf ?recording .
+  ?recording :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  FILTER(?track = :HumpDeBump)  # Replace :HumpDeBump with the specific track identifier if needed
+}
+──────────────────────────────
+
+This query shows that the ontology explicitly connects a MusicTrack to a Recording and then to a Song via the properties :isMusicTrackOf and :isRecordingOf, thereby modelling the competency question.

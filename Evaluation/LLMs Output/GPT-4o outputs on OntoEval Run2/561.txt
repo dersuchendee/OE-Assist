@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct connection between a track and the song it is a recording of. The ontology defines `ns1:Track` and `ns1:Song` as separate classes, and while `ns1:HumpDeBump` is both a `ns1:Song` and a `ns1:Track`, there is no explicit property linking a track to a song it records. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?track ?trackLabel
+WHERE {
+  ?track a ns1:Track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+}
+```

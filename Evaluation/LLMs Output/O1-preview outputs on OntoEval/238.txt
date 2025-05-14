@@ -1,0 +1,58 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to represent authors and the plays they have written. Specifically, it includes:
+
+- **Classes**:
+  - `theatre:Author`: Represents an author.
+  - `theatre:Play`: Represents a play.
+  
+- **Properties**:
+  - `theatre:wrote`: An object property that links an `Author` to the `Play` they wrote.
+    - **Domain**: `theatre:Author`
+    - **Range**: `theatre:Play`
+  - `theatre:writtenBy`: An inverse of `theatre:wrote`, linking a `Play` to its `Author`.
+    - **Domain**: `theatre:Play`
+    - **Range**: `theatre:Author`
+
+Given this structure, we can write a SPARQL query to retrieve the plays written by a certain author.
+
+Here is the SPARQL query:
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?authorName ?play ?playTitle
+WHERE {
+  # Specify the author of interest by name
+  ?author rdf:type theatre:Author .
+  ?author rdfs:label ?authorName .
+  FILTER(?authorName = "William Shakespeare")  # Replace with the desired author's name
+  
+  # Find plays written by the author
+  ?author theatre:wrote ?play .
+  ?play rdf:type theatre:Play .
+  OPTIONAL { ?play rdfs:label ?playTitle . }
+}
+```
+
+**Explanation:**
+
+- The query selects the author's name, the play URI, and the play title.
+- It filters for the specific author by their name (`?authorName = "William Shakespeare"`). You can replace `"William Shakespeare"` with any other author's name present in the ontology.
+- It retrieves all plays (`?play`) that the author has written using the `theatre:wrote` property.
+- It ensures that the plays are of type `theatre:Play`.
+- It optionally retrieves the play's title using the `rdfs:label` property.
+
+**Usage Example:**
+
+If you run this query against the provided ontology, it will return:
+
+| authorName          | play                           | playTitle                |
+|---------------------|--------------------------------|--------------------------|
+| "William Shakespeare" | theatre:MerchantOfVenice       | "The Merchant of Venice" |
+
+**Conclusion:**
+
+Since we can retrieve the plays written by a certain author using the ontology and the SPARQL query above, the competency question is supported by the ontology.

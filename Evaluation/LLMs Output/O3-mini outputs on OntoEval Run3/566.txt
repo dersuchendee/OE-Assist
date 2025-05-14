@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one valid SPARQL query that, given a specific track, returns the song that the track is a recording of:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track .
+  ?track :isRecordingOf ?trackRecording .
+  ?trackRecording :recordedSong ?song .
+  FILTER (?track = <http://www.example.org/test#SpecificTrack>)
+}
+---------------------------------------------------
+
+In this query we assume that the specific track is identified by the URI <http://www.example.org/test#SpecificTrack>. This query uses the reification pattern provided by the ontology, where a Cl_Track resource is linked via the :isRecordingOf property to an intermediate Cl_TrackRecording instance, which in turn is connected via :recordedSong to the corresponding Cl_Song.

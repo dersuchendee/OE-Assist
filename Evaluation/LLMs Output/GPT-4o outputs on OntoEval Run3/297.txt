@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any information about the number of acts in a play. The ontology includes classes and properties related to theatre festivals, plays, productions, and other related entities, but it does not specify the number of acts for any play. Therefore, the competency question "How many acts does a particular play contain?" cannot be fully answered using the given ontology.
+
+Here is a SPARQL query to extract a partial answer, which would list the plays without providing the number of acts:
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

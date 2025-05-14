@@ -1,0 +1,15 @@
+**Yes**
+
+We can answer this CQ using the ontology because it includes a class for performances (Cl_Performance) together with a data property (performanceDate) that records when a performance takes place.
+
+A possible SPARQL query under the closed world assumption is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}

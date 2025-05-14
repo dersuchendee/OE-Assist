@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?monitor ?monitorLabel ?disease ?diseaseLabel ?area ?areaLabel
+WHERE {
+  ?monitor a :Monitor .
+  OPTIONAL { ?monitor rdfs:label ?monitorLabel . }
+  ?monitor :monitors ?hospitalization .
+  ?hospitalization :forDisease ?disease .
+  OPTIONAL { ?disease rdfs:label ?diseaseLabel . }
+  ?hospitalization :inGeographicalArea ?area .
+  OPTIONAL { ?area rdfs:label ?areaLabel . }
+}
+```

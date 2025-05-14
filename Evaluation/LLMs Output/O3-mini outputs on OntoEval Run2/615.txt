@@ -1,0 +1,23 @@
+**Yes**
+
+The ontology models this competency question using reification. For example, one can write the following SPARQL query to extract the critique text for a specific critic (e.g. :Crian_Hiatt) and a record (e.g. :Stadium_Arcadium):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?critiqueText
+WHERE {
+  ?critic rdf:type :Cl_Critic .
+  ?record rdf:type :Cl_Album .
+  ?critic :madeCritique ?critique .
+  ?critique :critiqueOf ?record .
+  ?critique :critiqueText ?critiqueText .
+  
+  FILTER(?critic = :Crian_Hiatt && ?record = :Stadium_Arcadium)
+}
+--------------------------------------------------
+
+This query retrieves what a given critic (Crian_Hiatt) said about a given record (Stadium_Arcadium), which demonstrates that the CQ is modeled by the ontology.

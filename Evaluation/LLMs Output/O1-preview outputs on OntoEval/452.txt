@@ -1,0 +1,13 @@
+**No**
+
+We cannot fully answer the competency question because the ontology lacks properties to specify the start and end dates of a `Cl_TimePeriod`. Without these, we cannot determine if a band member was active at a specific point in time. However, we can retrieve the band members and their associated time periods.
+
+```sparql
+SELECT ?band ?member ?membershipPeriod
+WHERE {
+  ?bandMembership a :Cl_BandMembership .
+  ?bandMembership :memberOf ?member .
+  ?bandMembership :hasMember ?band .
+  ?bandMembership :membershipPeriod ?membershipPeriod .
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct relationship between a track and the song it is a recording of. The ontology includes classes for `Track` and `Song`, but there is no explicit connection between them in the provided ontology. Therefore, a SPARQL query can only extract partial information about tracks and songs separately.
+
+```sparql
+SELECT ?track ?trackTitle ?album ?albumTitle
+WHERE {
+  ?track a :Track .
+  ?track :trackTitle ?trackTitle .
+  ?track :isTrackOf ?album .
+  ?album :albumTitle ?albumTitle .
+}
+```

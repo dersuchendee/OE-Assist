@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves, for a given seminar (here represented with a placeholder IRI “:SpecificSeminar”), its associated seminar occurrence date and location. In our ontology a seminar occurrence is reified as an instance of :Cl_SeminarOccurrence that “relates” to a :Cl_Seminar and carries the seminar date via the property :hasDate. Under a closed world assumption the absence of alternative semantics means that a seminar’s occurrence and thus its date are answerable via this query:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?date ?location
+WHERE {
+  ?occurrence a :Cl_SeminarOccurrence ;
+              :relatesToSeminar ?seminar ;
+              :hasDate ?date ;
+              :tookPlaceAt ?location .
+  FILTER(?seminar = :SpecificSeminar)  # Replace :SpecificSeminar with the actual seminar IRI
+}
+ORDER BY ?date
+-------------------------------------------------
+
+This query extracts the date (and optional location) from the reified seminar occurrence corresponding to the “certain seminar” and shows that the CQ is fully modelled by the ontology.

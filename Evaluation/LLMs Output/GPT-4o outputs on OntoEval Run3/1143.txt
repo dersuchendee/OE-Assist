@@ -1,0 +1,25 @@
+**Yes**
+
+The competency question "What does this user prefer to do in a certain situation?" can be answered using the given ontology. The ontology provides information about the user's preferences, including activities, movie genres, and weather conditions. We can write a SPARQL query to extract this information.
+
+```sparql
+SELECT ?activityLabel ?genreLabel ?weatherLabel
+WHERE {
+  :user123 :hasPreference ?preference .
+  
+  OPTIONAL {
+    ?preference :prefersActivity ?activity .
+    ?activity rdfs:label ?activityLabel .
+  }
+  
+  OPTIONAL {
+    ?preference :prefersGenre ?genre .
+    ?genre rdfs:label ?genreLabel .
+  }
+  
+  OPTIONAL {
+    ?preference :prefersWeather ?weather .
+    ?weather rdfs:label ?weatherLabel .
+  }
+}
+```

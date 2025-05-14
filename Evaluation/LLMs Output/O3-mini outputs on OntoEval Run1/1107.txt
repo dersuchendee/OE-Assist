@@ -1,0 +1,15 @@
+**Yes**
+
+We can check that every seminar in the ontology is required (by its subclass restriction) to have at least one presented article. Under the closed world assumption, we assume that if a seminar instance is present then it must have one or more articles connected via the property :hasPresentedArticle. The following SPARQL query retrieves each seminar with its presented articles:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?presentedArticle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?presentedArticle .
+}
+
+If every seminar has at least one presented article, each result will include a seminar and one (or more) associated article.

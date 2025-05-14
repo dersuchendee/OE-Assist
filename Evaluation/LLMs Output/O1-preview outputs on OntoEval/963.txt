@@ -1,0 +1,19 @@
+**Yes**
+
+Here is a SPARQL query to find the articles that a specific book or CD is composed of:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookOrCD ?bookOrCDLabel ?article ?articleLabel
+WHERE {
+  ?bookOrCD a ?type .
+  FILTER (?type = :Cl_Book || ?type = :Cl_CD) .
+  ?bookOrCD :containsArticle ?article .
+  OPTIONAL { ?bookOrCD rdfs:label ?bookOrCDLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+This query retrieves all books or CDs (`?bookOrCD`) along with their associated articles (`?article`). It uses the `:containsArticle` property to find the articles contained in each book or CD. The `FILTER` ensures that only instances of `:Cl_Book` or `:Cl_CD` are considered. The `OPTIONAL` clauses are used to get labels if they are available.

@@ -1,0 +1,30 @@
+**Yes**
+
+Here's a SPARQL query to determine the number of acts that a particular play contains:
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?playTitle (COUNT(?act) AS ?numberOfActs)
+WHERE {
+  ?play a :Play .
+  ?play :hasTitle ?playTitle .
+  # Specify the title of the play you're interested in
+  FILTER(?playTitle = "The Merchant of Venice") .
+  ?play :hasAct ?act .
+}
+GROUP BY ?playTitle
+```
+
+**Explanation:**
+
+The ontology supports answering the competency question because it includes:
+
+- The classes **:Play** and **:Act** to represent plays and their acts.
+- The object property **:hasAct** (a sub-property of **:hasPart**) to associate plays with their acts.
+- The datatype property **:hasTitle** to provide the title of the play.
+
+By counting the number of **:Act** instances associated with a particular **:Play** via the **:hasAct** property, we can determine how many acts the play contains. The FILTER clause allows you to specify the particular play you're interested in—in this case, "The Merchant of Venice".
+
+This query will return the title of the play and the number of acts it contains, satisfying the competency question.

@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves each production together with its single premier (its premier date) by confirming that a production has exactly one premier:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# This query first selects productions that have exactly one associated premier
+# Then it returns the production identifier, the premier node and its premierDate.
+SELECT ?production ?premier ?premierDate
+WHERE {
+  {
+    SELECT ?production
+    WHERE {
+      ?production a :Cl_Production .
+      OPTIONAL { ?production :hasPremier ?premier . }
+    }
+    GROUP BY ?production
+    HAVING (COUNT(?premier) = 1)
+  }
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+-------------------------------------------------
+
+Explanation:
+1. The inner SELECT finds all individuals of type :Cl_Production and (using the closed world assumption) only selects those for which exactly one :hasPremier relation exists.
+2. The outer query then retrieves the premier individual as well as its premierDate.
+3. This shows that the ontology models the competency question “A production has exactly one premier.”

@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What devices are available in this indoor location?" can be answered using the given ontology. The ontology provides a class `IndoorLocation` and a class `Device`, with an object property `hasDevice` that links an indoor location to the devices available in it. Therefore, we can write a SPARQL query to extract the devices available in a specified indoor location.
+
+```sparql
+SELECT ?device ?deviceLabel
+WHERE {
+  :Berlin :hasDevice ?device .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+}
+```
+
+This query retrieves the devices available in the indoor location represented by the individual `:Berlin`. The `OPTIONAL` clause is used to get the labels of the devices if they are available.

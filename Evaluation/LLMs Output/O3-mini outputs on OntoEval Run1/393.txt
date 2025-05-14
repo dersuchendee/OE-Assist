@@ -1,0 +1,29 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given person (e.g. via a parameter <PERSON_URI>), a given production (<PRODUCTION_URI>), and at a given date ("YYYY-MM-DD"^^xsd:date), all the roles held by that person during that production at that time:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?roleName ?roleTime ?production
+WHERE {
+  ?person a :Cl_Person ;
+          :hasRole ?role .
+          
+  ?role :roleInProduction ?production ;
+        :roleAtTime ?roleTime .
+        
+  OPTIONAL { ?role :roleName ?roleName . }
+  
+  # Apply filters to select the specific person, production and point in time.
+  FILTER(?person = <PERSON_URI>)
+  FILTER(?production = <PRODUCTION_URI>)
+  FILTER(?roleTime = "YYYY-MM-DD"^^xsd:date)
+}
+ORDER BY ?roleTime
+------------------------------------------------------
+
+Replace <PERSON_URI>, <PRODUCTION_URI>, and "YYYY-MM-DD"^^xsd:date with the appropriate IRIs and date value. 
+
+This query demonstrates that the ontology answers the competency question by reifying the role information (through the Cl_Role class and its properties) associated with a person, including its production and time attributes.

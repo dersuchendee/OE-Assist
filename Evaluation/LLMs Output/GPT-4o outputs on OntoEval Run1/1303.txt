@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the confidence level of a composition being a variant in a tune family, which is represented by the `VariantAssertion` class in the ontology. The `VariantAssertion` class connects compositions and tune families and includes a confidence level.
+
+```sparql
+SELECT ?composition ?tuneFamily ?confidenceLevel
+WHERE {
+  ?variantAssertion a :VariantAssertion .
+  ?variantAssertion :relatesComposition ?composition .
+  ?variantAssertion :relatesTuneFamily ?tuneFamily .
+  ?variantAssertion :hasConfidenceLevel ?confidenceLevel .
+}
+```

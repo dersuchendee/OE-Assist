@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT ?doctor ?doctorLabel ?employee ?employeeLabel ?evaluationStatement
+WHERE {
+  ?doctor a :Cl_Doctor .
+  OPTIONAL { ?doctor rdfs:label ?doctorLabel . }
+  
+  ?doctor :evaluates ?evaluation .
+  ?evaluation a :Cl_DoctorEmployeeEvaluation .
+  
+  ?evaluation :evaluationStatementFor ?employee .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  ?employee a :Cl_Employee .
+  
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that the “certain person” is identified by an IRI (for example, :PasqualeDiGennaro) and that the ontology uses the class :Cl_Person for persons and the property :hasMedicalDegree to relate a person to an instance of :Cl_MedicalDegree with an optional textual name given by the property :degreeName, a SPARQL query to answer the CQ would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?degree ?degreeName
+WHERE {
+  :PasqualeDiGennaro a :Cl_Person ;
+                      :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+}
+
+This query retrieves all the medical degree instances associated with the person using the closed‐world assumption (i.e. only the information explicitly stored in the ontology is considered).

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not explicitly provide a reified connection or instances for DiseaseCategory that would support a full answer to the CQ. However, given a closed world assumption you can partially answer the question by counting the individuals of :DiseaseCategory (if any).
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(DISTINCT ?diseaseCategory) AS ?numDiseaseCategories)
+WHERE {
+  ?diseaseCategory a :DiseaseCategory .
+}
+```

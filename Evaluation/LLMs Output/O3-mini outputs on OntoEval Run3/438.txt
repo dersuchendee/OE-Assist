@@ -1,0 +1,12 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the musical instruments played by a given person (replace :SomePerson with the actual individual IRI):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  :SomePerson a :Cl_Person .
+  :SomePerson :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}

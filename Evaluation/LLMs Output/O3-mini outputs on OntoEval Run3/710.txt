@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that—under the closed‐world assumption utilizing the explicit property assertions in the ontology—retrieves the region in which a given city is located:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedInRegion ?region .
+}
+------------------------------------------------
+
+This query answers the competency question “In what region is a certain city located?” by selecting any individual of class Cl_City and returning the region via the property :locatedInRegion.

@@ -1,0 +1,20 @@
+**Yes**
+Below is an example SPARQL query that, given a specific doctor and a specific employee, retrieves the evaluation statement provided by that doctor for the employee:
+
+────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee .
+  ?employee :evaluatedBy ?evaluation .
+  ?evaluation :doctor <http://www.example.org/test#GivenDoctor> .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  
+  # Optional: restrict to a specific employee if needed:
+  FILTER (?employee = <http://www.example.org/test#GivenEmployee>)
+}
+────────────────────────────────────────────
+
+In this query, replace <http://www.example.org/test#GivenDoctor> and <http://www.example.org/test#GivenEmployee> with the actual URIs of the doctor and the employee under investigation.

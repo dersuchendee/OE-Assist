@@ -1,0 +1,12 @@
+**No**
+
+The provided ontology does not model any explicit property or reified relationship connecting different TuneFamily instances in relation to a similarity measure. Under the closed world assumption, we cannot write a SPARQL query that fully answers the CQ “To what tune families is tune family X related, given similarity measure Y?” because there is no connection representing similarity between TuneFamilies. A partial query that at least extracts TuneFamily instances is shown below:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tuneFamily ?label
+WHERE {
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?label . }
+}

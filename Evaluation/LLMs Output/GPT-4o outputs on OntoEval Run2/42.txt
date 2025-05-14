@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not directly provide a way to query the type of an actor. The `Cl_ActorType` class is related to `Cl_ActorTypeRole`, but there is no direct property linking `Cl_Actor` to `Cl_ActorType`. Therefore, the competency question cannot be fully answered with the given ontology. However, we can extract a partial answer by identifying the actor type roles associated with each actor.
+
+```sparql
+SELECT ?actor ?actorTypeRole
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :actorHasTypeRole ?actorTypeRole .
+}
+```

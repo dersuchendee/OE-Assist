@@ -1,0 +1,36 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a chosen actor and production, the roles that actor performs along with the time period during which the role is active. (The query assumes that the ontology reifies actor roles using the class Cl_ActorRole with properties that link the role instance to an actor, a production, the role they play—for example via a data property or literal—and the time period during which that role is held.)
+
+For example:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?production ?productionName ?role ?roleValue ?timePeriod ?date
+WHERE {
+  # Get actor info
+  ?actor rdf:type :Cl_Actor ;
+         :actorName ?actorName .
+  # Get production info
+  ?production rdf:type :Cl_Production ;
+              :productionName ?productionName .
+  # Role instance relating a given actor and production at a time
+  ?roleInstance rdf:type :Cl_ActorRole ;
+                :hasActor ?actor ;
+                :hasProduction ?production ;
+                :hasRole ?role . 
+  # Here, we assume that the role is given as a literal optional (or via rdfs:label on the role individual)
+  OPTIONAL { ?role rdfs:label ?roleValue . }
+  # Get the time period for which the role is held.
+  ?roleInstance :hasTimePeriod ?timePeriod .
+  # Optionally extract date info from the time period instance (if modeled as a date instance)
+  OPTIONAL { ?timePeriod :festivalDate ?date . }
+}
+ORDER BY ?actorName ?productionName ?date
+------------------------------------------------
+
+In a closed‐world view you can further restrict the query with FILTERs (e.g. by a specific actor name, production name, or date range) to answer “What roles does a certain person have within a certain production at a certain point in time?”

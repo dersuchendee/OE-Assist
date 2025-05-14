@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one example SPARQL query that, under a closed‐world assumption, counts the number of tracks contained in the album Stadium Arcadium:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (COUNT(DISTINCT ?track) AS ?numTracks)
+WHERE {
+  :StadiumArcadium :containsTrack ?track .
+}
+------------------------------------------------
+
+This query retrieves all distinct tracks related to the album :StadiumArcadium via the “containsTrack” property and counts them, thus answering the competency question.

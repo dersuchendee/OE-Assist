@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a region and the country it is located in. The `isPartOf` property connects a region to a country, but there is no direct instance data provided in the ontology to answer the competency question. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a ns1:Region .
+  ?region ns1:isPartOf ?country .
+}
+```

@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a play was written. The ontology includes a class `Cl_TimePeriod` and a property `writtenDuring` that connects a `Cl_Play` to a `Cl_TimePeriod`, but there is no data property or mechanism to specify the actual time period values for plays.
+
+Partial SPARQL query to extract available information about plays and their associated time periods:
+
+```sparql
+SELECT ?play ?timePeriod
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL {
+    ?play :writtenDuring ?timePeriod .
+  }
+}
+```

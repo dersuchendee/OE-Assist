@@ -1,0 +1,12 @@
+Answer: **Yes**.
+
+The ontology supports the competency question as it models the actors involved in a circular value network through the `:hasActor` property connecting `:ValueNetwork` to `:Actor`.
+
+```sparql
+SELECT ?actor ?actorLabel
+WHERE {
+  ?valueNetwork a :ValueNetwork .
+  ?valueNetwork :hasActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```

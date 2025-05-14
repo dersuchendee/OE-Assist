@@ -1,0 +1,19 @@
+**No**
+
+The given ontology does not explicitly model the idea of invitation (i.e. “Were they invited?”) so that part of the query cannot be directly answered from the provided classes and properties. However, we can partially address the “accidental” part by looking at the meeting’s purpose: if its purpose is recorded as mtps:Coincidence, we might interpret that as an accidental meeting. Also, one can list meetups and their participants (from which one might try to infer some context regarding invitations) even though no explicit invitation property is provided.
+
+A partial-answer SPARQL query might be:
+
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+
+SELECT ?meetup ?purpose ?participant
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup mtps:hasAPurpose ?purpose . }
+  OPTIONAL { ?meetup mtps:hasParticipant ?participant . }
+  # Optionally, filter for accidental meetings (if purpose is mtps:Coincidence)
+  FILTER(!BOUND(?purpose) || ?purpose = mtps:Coincidence)
+}
+
+This query returns meetups with their purposes and participants and then filters to show either those with no recorded purpose or with a purpose indicating coincidence (i.e. “accidental”). There is no way in the ontology to determine invitation data, so the query only extracts a partial answer.

@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that uses a given union URI and a target date to retrieve the persons who were members of that union at that time. In this query, we assume that a membership is valid at a given time if the membershipStartDate is on or before the given date and, if a membershipEndDate exists, the given date is also on or before the membershipEndDate. (Under a closed‐world assumption, if membershipEndDate is not provided, the membership is assumed to be still active.)
+
+------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOfUnion <http://www.example.org/test#Union_Male_Nurses> ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Replace "2003-01-01"^^xsd:date with the desired evaluation date
+  FILTER ( ?start <= "2003-01-01"^^xsd:date &&
+          ( !bound(?end) || "2003-01-01"^^xsd:date <= ?end ) )
+}
+------------------------------------------------------------------------
+
+This query answers the CQ “Who are the members of a certain union at a certain point in time?” using the ontology’s union membership classes and properties.

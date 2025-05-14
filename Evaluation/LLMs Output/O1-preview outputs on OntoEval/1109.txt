@@ -1,0 +1,29 @@
+**Yes**
+
+Here's a SPARQL query to retrieve seminars and the articles presented in each seminar:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?seminar ?article
+WHERE {
+    ?seminar a :Cl_Seminar .
+    ?seminar :presentedIn ?article .
+    ?article a :Cl_Article .
+}
+```
+
+**Explanation:**
+
+The ontology includes the following restriction:
+
+```ttl
+:Cl_Seminar owl:equivalentClass [
+    rdf:type owl:Restriction ;
+    owl:onProperty :presentedIn ;
+    owl:someValuesFrom :Cl_Article
+] .
+```
+
+This means that every instance of `:Cl_Seminar` must have at least one `:presentedIn` relationship to an instance of `:Cl_Article`. This models the competency question "At least one article is always presented at each seminar."
+
+Despite some confusion in the ontology regarding the direction of the `:presentedIn` property, for the competency question to be answerable, we assume that `:presentedIn` is an object property from `:Cl_Seminar` to `:Cl_Article`. This aligns with the restriction and allows us to retrieve the required information using the SPARQL query provided.

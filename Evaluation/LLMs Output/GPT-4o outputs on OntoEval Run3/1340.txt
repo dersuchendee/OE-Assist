@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "Who records the amount of microbiological substances in surface waters in time?" can be answered using the given ontology. The ontology provides the necessary classes and properties to connect a `Measurement` to a `Recorder`, `MicrobiologicalSubstance`, `SurfaceWater`, and a `dateTime`. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?recorder ?substance ?location ?time
+WHERE {
+  ?measurement a :Measurement .
+  ?measurement :recordedBy ?recorder .
+  ?measurement :measuresSubstance ?substance .
+  ?measurement :hasLocation ?location .
+  ?measurement :hasTime ?time .
+}
+```

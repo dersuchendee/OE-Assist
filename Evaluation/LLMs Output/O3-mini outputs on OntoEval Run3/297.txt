@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that each play is modelled as an instance of :Cl_Play which is linked via the object property :containsActs to an instance of :Cl_PlayActs having a data property :numberOfActs that records the number of acts, we can answer the CQ “How many acts does a particular play contain?” under the closed‐world assumption. For example, to get the number of acts for the play “The Merchant of Venice,” one can use the following SPARQL query:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?playName ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  ?play :playName ?playName .
+  ?play :containsActs ?act .
+  ?act :numberOfActs ?numberOfActs .
+  FILTER(?playName = "The Merchant of Venice")
+}
+-----------------------------------------------------------
+
+This query retrieves the name of a particular play (in this case “The Merchant of Venice”) and the associated number of acts as stored in the ontology.

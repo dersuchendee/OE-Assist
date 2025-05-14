@@ -1,0 +1,26 @@
+**Yes**
+
+We can answer the CQ “What songs were played in a certain performance?” by taking advantage of the reified structure for performances. In the ontology, a performance (an instance of Cl_Performance) is connected to one or more performed songs via the object property :includesSong. Each performed song (of type Cl_PerformedSong) then indicates which song was played using the property :songPerformed (with range Cl_Song).
+
+Below is a SPARQL query (assuming a closed world on the provided ontology) to extract, for a given performance, the songs that were played:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?performance :includesSong ?performedSong .
+  ?performedSong :songPerformed ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance ?song
+
+--------------------------------------------------
+
+This query retrieves each performance along with its label (if present) and the songs played, using the reified structure defined in the ontology.

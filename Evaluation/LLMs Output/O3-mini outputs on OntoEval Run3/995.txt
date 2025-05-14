@@ -1,0 +1,21 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?collectionType ?publicationDate
+WHERE {
+  {
+    ?collection a :Cl_Book .
+    BIND("Book" AS ?collectionType)
+  }
+  UNION
+  {
+    ?collection a :Cl_CD .
+    BIND("CD" AS ?collectionType)
+  }
+  ?collection :hasPublicationEvent ?pubEvent .
+  ?pubEvent :publicationDate ?publicationDate .
+}
+ORDER BY ?collectionType ?collection
+```

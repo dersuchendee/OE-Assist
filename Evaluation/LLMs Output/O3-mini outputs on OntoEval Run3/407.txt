@@ -1,0 +1,14 @@
+**Yes**
+
+The ontology asserts that every production (of type :Cl_Production) must have exactly one premier, enforced by a cardinality restriction on the property :premierDate. Therefore, the competency question can be answered with a SPARQL query that retrieves each production and its premier date.
+
+For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+}

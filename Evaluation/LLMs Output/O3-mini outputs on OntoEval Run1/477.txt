@@ -1,0 +1,41 @@
+**Yes**
+
+Assuming that the ontology’s membership reification is meant to record when a person is (or was) a member of a band—and that a person’s “role” (via the :hasRole and :roleInBand relations) applies during the period indicated by a membership’s :membershipStart and (optionally) :membershipEnd—we can answer:
+
+For example, to ask “What role does John Frusciante have in the Red_Hot_Chili_Peppers at a specified date?” you could use a query like the one below. (Under a closed‐world assumption we assume that membership records are complete and that a membership individual’s URI contains the local name of its person; adjust the joining filter if an explicit linking property becomes available.)
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?membershipStart ?membershipEnd
+WHERE {
+  # Set the time point for which you want the query answer:
+  BIND(xsd:date("1988-06-15") AS ?queryDate)
+  
+  # Retrieve the person, his membership in a band, and his role in that band:
+  ?person a :Cl_Person ;
+          :memberOf ?band ;
+          :hasRole ?role .
+  ?role :roleInBand ?band .
+  
+  # Retrieve the membership record (reification) with its start (and optional end) dates.
+  ?membership a :Cl_Membership ;
+              :memberOf ?band ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # (Closed‑world “linking” hack assuming the membership record’s URI embeds the person’s local name)
+  FILTER( CONTAINS(STR(?membership), REPLACE(STR(?person), ".*[#/]", "")) )
+  
+  # Only consider memberships valid at the query date:
+  FILTER( xsd:date(?membershipStart) <= ?queryDate &&
+         ( !BOUND(?membershipEnd) || ?queryDate <= xsd:date(?membershipEnd) ))
+  
+  # Here we restrict to a specific person and band (you may parameterize these values):
+  FILTER(?person = :John_Frusciante && ?band = :Red_Hot_Chili_Peppers)
+}
+ORDER BY ?person ?band
+------------------------------------------------------------
+
+This query extracts, for the given date (1988‑06‑15) and for John Frusciante in the Red_Hot_Chili_Peppers, the role (as modeled via the :hasRole and :roleInBand relations) together with the membership start and end dates. Thus, the CQ is supported by the ontology.

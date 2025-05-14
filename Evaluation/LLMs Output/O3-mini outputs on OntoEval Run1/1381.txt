@@ -1,0 +1,20 @@
+**No**
+
+The provided ontology does not include any class or property associated with payment or financial support. Therefore, the competency question "Who paid to support the event?" cannot be answered in full using the available classes (e.g., Meetup, Participant, Role) or relations (e.g., mtps:hasParticipant, mtps:hasRole). Under the closed world assumption, if payment data is not explicitly modelled then we assume it does not exist.
+
+Below is a partial SPARQL query that retrieves participants for each meetup along with their roles (if provided). This gives an overview of the entities involved in an event even though it does not address any "payment" information:
+
+------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?participant ?participantLabel ?role
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  OPTIONAL { ?participant rdfs:label ?participantLabel . }
+  OPTIONAL { ?participant mtps:hasRole ?role . }
+}
+------------------------------------------------
+
+This query provides a partial answer by listing the participants of each meetup, but it does not capture any information regarding who paid to support the event.

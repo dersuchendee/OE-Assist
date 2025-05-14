@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the location where a festival took place:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :tookPlaceIn ?location .
+}
+-------------------------------------------------
+
+This query works under the closed world assumption by selecting those individuals that are explicitly declared as a :Cl_TheatreFestival and have an associated :tookPlaceIn property indicating the city where the festival took place.

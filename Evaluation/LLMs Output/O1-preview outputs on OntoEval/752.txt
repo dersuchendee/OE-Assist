@@ -1,0 +1,17 @@
+Answer: **No**
+
+The ontology does not enforce that every record contains at least one track. There are no cardinality restrictions specified that require a `:Cl_Record` to have at least one `:Cl_Track`. Under the closed-world assumption, we cannot conclude that a record always contains at least one track based solely on the ontology.
+
+Here's a SPARQL query to extract records and any tracks they may contain:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?record ?track
+WHERE {
+    ?record a :Cl_Record .
+    OPTIONAL {
+        ?record :containsTrack ?recordTrack .
+        ?recordTrack :containedInRecord ?track .
+    }
+}
+```

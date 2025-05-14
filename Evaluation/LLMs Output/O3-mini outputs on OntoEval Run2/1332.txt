@@ -1,0 +1,18 @@
+**Yes**
+
+The denitrification process is modelled to require a participant that is a denitrifying bacterium, and each denitrifying bacterium has an associated role. Thus, we can extract the role(s) by joining the denitrification processes with their participating denitrifying bacteria and then retrieving the role information. Under the closed world assumption, you can write the following SPARQL query:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?process ?bacteria ?role
+WHERE {
+  ?process a :DenitrificationProcess .
+  ?process :hasParticipant ?bacteria .
+  ?bacteria a :DenitrifyingBacteria .
+  ?bacteria :hasRole ?role .
+}
+---------------------------------
+
+This query retrieves each denitrification process, the denitrifying bacteria that participate in it, and the corresponding role(s) of those bacteria, thus answering the competency question.

@@ -1,0 +1,21 @@
+**Answer: Yes**
+
+The competency question "What medical degrees does a certain person have?" is answerable using the given ontology. Even though the ontology uses a reification class `Cl_StudyForDegree` to represent the relationship between a person and their medical degree, we can retrieve the necessary information by navigating through this reified class.
+
+Here is a SPARQL query that extracts the medical degrees of persons:
+
+```sparql
+SELECT ?person ?degree
+WHERE {
+  ?study a :Cl_StudyForDegree .
+  ?study :hasStudent ?person .
+  ?study :hasDegree ?degree .
+}
+```
+
+This query works as follows:
+
+- It selects instances of the class `Cl_StudyForDegree`.
+- From each `Cl_StudyForDegree` instance (`?study`), it retrieves the associated person (`?person`) via the `:hasStudent` property and the medical degree (`?degree`) via the `:hasDegree` property.
+
+By executing this query, you can obtain the medical degrees associated with each person in the ontology.

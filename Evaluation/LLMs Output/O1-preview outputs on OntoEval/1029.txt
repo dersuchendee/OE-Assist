@@ -1,0 +1,12 @@
+**Answer: Yes**
+
+The competency question is answerable since the ontology contains seminars (`:Cl_Seminar`) and their dates (`:seminarDate`).
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?date .
+}
+```

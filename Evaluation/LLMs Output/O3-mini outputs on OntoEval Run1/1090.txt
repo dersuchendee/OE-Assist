@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+
+SELECT ?seminar ?presentation ?article
+WHERE {
+  ?seminar a ns1:Seminar .
+  ?seminar ns1:hasPresentation ?presentation .
+  ?presentation ns1:presentedArticle ?article .
+}
+```
+
+In this query, for each seminar we retrieve the presentations and the corresponding articles that were presented, thereby verifying that each seminar indeed has at least one article presented. The closed world assumption implies that if a seminar does not have a matching presentation with a presented article, then we treat it as not having the required article information.

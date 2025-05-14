@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves books (i.e. instances of classes whose hierarchy includes :Cl_Book) along with the number of pages recorded for each book:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?pages 
+WHERE {
+  ?book a :Cl_Book .
+  ?book :numberOfPages ?pages .
+}
+---------------------------------
+
+In a closed world setting this query will return, for example, the book (such as :Book_1) with its recorded page count (e.g. 346).

@@ -1,0 +1,29 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventLabel ?eventType (CASE 
+    WHEN EXISTS { ?event a :Celebration } THEN "Celebration"
+    WHEN EXISTS { ?event a :Festival } THEN "Festival"
+    WHEN EXISTS { ?event a :PrivateEvent } THEN "Private Event"
+    ELSE "Unknown" END AS ?classification)
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  {
+    ?event a :Celebration .
+    BIND("Celebration" AS ?eventType)
+  }
+  UNION
+  {
+    ?event a :Festival .
+    BIND("Festival" AS ?eventType)
+  }
+  UNION
+  {
+    ?event a :PrivateEvent .
+    BIND("Private Event" AS ?eventType)
+  }
+}
+```

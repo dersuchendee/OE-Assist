@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming the ontology includes the datatype property “:hasPremiereDate” for a theatre production, you can extract the premiere date of a given production using a query such as:
+
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :TheatreProduction .
+  ?production :hasPremiereDate ?premiereDate .
+  # Optionally, restrict to a specific production:
+  # FILTER(?production = <http://example.org/theatreontology#YourProductionIRI>)
+}
+
+This query returns the production(s) along with the date when they premiered, thereby answering the competency question “When was the premier of a certain production?” under the closed world assumption.

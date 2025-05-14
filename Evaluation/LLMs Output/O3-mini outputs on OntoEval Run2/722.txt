@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a ns1:Region .
+  ?region ns1:isPartOf ?country .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```

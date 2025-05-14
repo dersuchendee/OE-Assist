@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyFlow ?energyFlowLabel ?data ?dataLabel ?time ?timeLabel
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  OPTIONAL { ?energyFlow rdfs:label ?energyFlowLabel . }
+  ?energyFlow :hasData ?data .
+  OPTIONAL { ?data rdfs:label ?dataLabel . }
+  ?energyFlow :atTime ?time .
+  OPTIONAL { ?time rdfs:label ?timeLabel . }
+}
+ORDER BY ?energyFlow
+```

@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "During what time period was a certain play written?" can be answered using the ontology provided. The ontology includes information about plays and the time periods during which they were written, as indicated by the `ns1:wasWrittenDuring` property. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?play ?playLabel ?startTime ?endTime
+WHERE {
+  ?play a ns1:Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play ns1:wasWrittenDuring ?timePeriod .
+  ?timePeriod ns1:hasStartTime ?startTime .
+  ?timePeriod ns1:hasEndTime ?endTime .
+}
+ORDER BY ?play
+```
+
+This query retrieves the plays along with their labels and the start and end times of the periods during which they were written.

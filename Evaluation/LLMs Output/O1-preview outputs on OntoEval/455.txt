@@ -1,0 +1,15 @@
+**No**
+
+The ontology provides information about band members and the start times of their memberships through the `:atTime` property, but it does not include the end times of memberships. Without the end times, we cannot determine whether a person was a member of a band at a specific point in time. Therefore, the competency question "What are the members of a certain band at a certain point in time?" is not fully supported by the ontology.
+
+Here is a SPARQL query to extract a partial answer (members and their membership start times):
+
+```sparql
+SELECT ?person ?membershipTime
+WHERE {
+  ?membership rdf:type :Cl_BandMembership ;
+              :membershipInBand :Red_Hot_Chili_Peppers ;
+              :hasMember ?person ;
+              :atTime ?membershipTime .
+}
+```

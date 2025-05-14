@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+The competency question can be answered using the `:consistsOf` property, which relates `:Product` instances to the `:Material` they consist of.
+
+```sparql
+SELECT ?product ?productLabel ?material ?materialLabel
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+
+  ?product :consistsOf ?material .
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+}
+```

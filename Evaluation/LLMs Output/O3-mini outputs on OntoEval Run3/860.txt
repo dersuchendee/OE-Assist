@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves, for each city, the country it is located in:
+
+PREFIX ns1: <http://www.example.org/ontology/hospital#>  
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel  
+WHERE {  
+  ?city a ns1:City .  
+  ?city ns1:isLocatedIn ?country .  
+  OPTIONAL { ?city rdfs:label ?cityLabel . }  
+  OPTIONAL { ?country rdfs:label ?countryLabel . }  
+}

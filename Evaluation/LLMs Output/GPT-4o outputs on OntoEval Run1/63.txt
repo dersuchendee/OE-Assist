@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to query the type of a specific resource. The ontology defines classes for different types of resources (Product, Component, Material, etc.) but does not provide a direct property or mechanism to query the type of a specific resource instance. The ontology uses restrictions to define equivalence classes, but these are not directly queryable in SPARQL without specific instances or additional data.
+
+Partial answer:
+```sparql
+SELECT ?resource ?type
+WHERE {
+  ?resource a :Cl_Resource .
+  OPTIONAL {
+    ?resource a ?type .
+    FILTER(?type IN (:Cl_Product, :Cl_Component, :Cl_Material, :Cl_Consumable, :Cl_Catalyst))
+  }
+}
+```

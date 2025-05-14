@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the evaluation statement given by a doctor to an employee. In this example the query assumes you want to retrieve an evaluation where the evaluation individual is of type Cl_Evaluation and it connects a doctor (via the :evaluatedBy property) to an employee (via the :evaluationOf property). You can add FILTER conditions for a “certain doctor” and “a certain employee” if needed.
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?employee ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_Evaluation ;
+              :evaluationStatement ?evaluationStatement ;
+              :evaluatedBy ?doctor ;
+              :evaluationOf ?employee .
+  # For example, if you are interested in a specific doctor and employee, add:
+  # FILTER(?doctor = :SomeDoctor && ?employee = :SomeEmployee)
+}
+
+This query extracts the evaluation statement (and also the doctor and employee) from the ontology, demonstrating that the CQ is fully modelled by the ontology.

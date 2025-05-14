@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves albums along with their release dates. (In the provided ontology the album (e.g., StadiumArcadium) is modelled as an individual of type :Cl_Album and its release date is given by data property :releaseDate.)
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}
+ORDER BY ?album
+----------------------------------------------------
+
+This query shows that the competency question "When was a certain album released?" is answerable in the ontology under the closed world assumption.

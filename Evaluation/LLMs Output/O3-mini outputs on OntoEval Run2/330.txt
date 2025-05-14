@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, extracts the star rating given by a specific newspaper (e.g. theatre:IlGazzettino) for a specific production (e.g. theatre:MerchantOfVeniceProduction):
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?starRating
+WHERE {
+  ?review a theatre:Review ;
+          theatre:hasStarRating ?starRating ;
+          theatre:isReviewOf theatre:MerchantOfVeniceProduction ;
+          theatre:publishedIn theatre:IlGazzettino .
+}
+
+This query shows that the CQ (“What is the ‘star rating’ given by a certain newspaper for a certain production?”) is answerable using the ontology because the relevant classes and properties (Review, hasStarRating, isReviewOf, publishedIn) directly connect a review to a production and the newspaper that published it.

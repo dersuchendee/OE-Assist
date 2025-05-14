@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world interpretation, retrieves for each theatre its associated city based on the ontology classes and properties (e.g. using :Cl_Theatre, :Cl_TheatreLocation, :Cl_City, and the data property :theatreName and :cityName):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreName ?city ?cityName
+WHERE {
+  ?theatre rdf:type :Cl_Theatre .
+  ?theatre :theatreName ?theatreName .
+  
+  ?location rdf:type :Cl_TheatreLocation .
+  ?location :hasTheatre ?theatre .
+  ?location :hasCity ?city .
+  ?city :cityName ?cityName .
+}
+--------------------------------------------------
+
+This query extracts all theatres, their names, and the cities they are located in, thus answering the competency question.

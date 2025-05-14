@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any information about the method of sound production (manual or electric) for bells in bell towers. Therefore, the competency question cannot be fully answered using the given ontology. However, we can extract partial information about the bell towers and the sets of bells they contain.
+
+```sparql
+SELECT ?bellTower ?setOfBells
+WHERE {
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+  ?setOfBells a <https://w3id.org/polifonia/ontology/bell/SetOfBells> .
+  ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+  ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+}
+```

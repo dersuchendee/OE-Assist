@@ -1,0 +1,66 @@
+Answer: **Yes**
+
+The competency question "What songs were played in a certain performance?" is supported by the ontology. We can write a SPARQL query to extract the songs performed at a given performance event.
+
+Here's the SPARQL query:
+
+```sparql
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?songPerformance a :Cl_SongPerformance .
+  ?songPerformance :performedAt ?performance .
+  ?songPerformance :performedSong ?song .
+  
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+
+  FILTER (?performance = :SpecificPerformance)
+}
+```
+
+**Explanation:**
+
+- **Classes and Properties Used:**
+  - `:Cl_SongPerformance`: Represents the performance of a song.
+  - `:performedAt`: Links a `:Cl_SongPerformance` to a `:Cl_Performance`.
+  - `:performedSong`: Links a `:Cl_SongPerformance` to a `:Cl_Song`.
+  - `:Cl_Performance`: Represents the performance event.
+  - `:Cl_Song`: Represents the song that was performed.
+
+- **Query Breakdown:**
+  - We select the variables `?performance`, `?performanceLabel`, `?song`, and `?songLabel` to retrieve the performance and song information.
+  - We find all instances of `:Cl_SongPerformance`.
+  - We traverse the `:performedAt` property to get the specific performance we're interested in.
+  - We traverse the `:performedSong` property to get the songs performed.
+  - We use `OPTIONAL` clauses to get labels for better readability (if available).
+  - The `FILTER` condition `(?performance = :SpecificPerformance)` ensures we retrieve songs for a particular performance. Replace `:SpecificPerformance` with the actual URI of the performance you're querying.
+
+- **Notes:**
+  - Ensure that the ontology includes instances of `:Cl_SongPerformance`, `:Cl_Performance`, and `:Cl_Song`, and that they are properly connected via the `:performedAt` and `:performedSong` properties.
+  - The query operates under the Closed World Assumption, meaning it considers only the information explicitly provided in the ontology.
+
+**Usage Example:**
+
+If you have a performance event with the URI `:Performance_001`, replace `:SpecificPerformance` in the query with `:Performance_001`:
+
+```sparql
+FILTER (?performance = :Performance_001)
+```
+
+**Alternate Query Without Specific Performance:**
+
+If you wish to retrieve songs for all performances, you can omit the `FILTER` clause:
+
+```sparql
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?songPerformance a :Cl_SongPerformance .
+  ?songPerformance :performedAt ?performance .
+  ?songPerformance :performedSong ?song .
+  
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```
+
+This will return all songs performed at all performances recorded in the ontology.

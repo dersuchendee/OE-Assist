@@ -1,0 +1,24 @@
+Answer: **Yes**
+
+Since the ontology includes classes `:Cl_Album` and `:Cl_Track` and defines the object property `:hasTrack` from albums to tracks, we can determine how many tracks a particular album contains by counting the number of `:hasTrack` relations for each album. Additionally, the ontology defines a data property `:trackCount` which, if populated, directly provides the number of tracks for an album.
+
+Here is a SPARQL query to count the number of tracks for each album:
+
+```sparql
+SELECT ?album (COUNT(?track) AS ?numberOfTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasTrack ?track .
+}
+GROUP BY ?album
+```
+
+Alternatively, if the `:trackCount` data property is used and populated in the ontology, we can retrieve the track count directly:
+
+```sparql
+SELECT ?album ?trackCount
+WHERE {
+  ?album a :Cl_Album .
+  ?album :trackCount ?trackCount .
+}
+```

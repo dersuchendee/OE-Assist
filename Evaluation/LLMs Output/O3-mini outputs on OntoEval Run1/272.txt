@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, extracts the time period during which a given play was written. In this example we select all plays (with their names) along with the associated time period (e.g. “1596-1598”) provided via the property “writtenDuring.”
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?timePeriod ?timePeriodVal
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName ;
+        :writtenDuring ?period .
+  ?period :timePeriod ?timePeriodVal .
+  BIND(?period AS ?timePeriod)
+}
+ORDER BY ?playName
+
+This query returns, for each play, its name and the corresponding time period during which it was written—as required by the CQ "During what time period was a certain play written?"

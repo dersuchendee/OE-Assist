@@ -1,0 +1,13 @@
+**Yes**
+Below is a SPARQL query that retrieves actors explicitly involved in the value network (i.e. those with an associated material flow):
+
+PREFIX : <http://example.org/ontology/construction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?materialFlow ?materialFlowLabel
+WHERE {
+  ?actor a :Actor .
+  ?actor :involvedInMaterialFlow ?materialFlow .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?materialFlow rdfs:label ?materialFlowLabel . }
+}

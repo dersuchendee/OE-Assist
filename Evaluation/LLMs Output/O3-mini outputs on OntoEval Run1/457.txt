@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption implied by the ontology, retrieves each performance along with its geographic location details (city, region and country):
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?city .
+  ?city :locatedInRegion ?region .
+  ?region :locatedInCountry ?country .
+}
+ORDER BY ?performance
+----------------------------------------------------------
+
+This query shows that the ontology can answer a competency question regarding the geographic location of performances as described in the OS (story).

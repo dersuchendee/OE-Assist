@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question "A record always contains at least one track" is supported by the ontology. The ontology defines that every instance of `:Cl_Record` must have at least one `:containsTrack` relationship to a `:Cl_Track`. This is specified using an OWL restriction with `owl:minCardinality` of 1 on the `:containsTrack` property for `:Cl_Record`.
+
+Here is a SPARQL query that extracts this information from the ontology:
+
+```sparql
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?minCardinality
+WHERE {
+  :Cl_Record owl:equivalentClass ?restriction .
+  ?restriction owl:onProperty :containsTrack .
+  ?restriction owl:minCardinality ?minCardinality .
+}
+```
+
+This query retrieves the `owl:minCardinality` restriction on the `:containsTrack` property for `:Cl_Record`, confirming that it has a minimum cardinality of 1, and thus supporting the competency question.

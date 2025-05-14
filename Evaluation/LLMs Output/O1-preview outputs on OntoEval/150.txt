@@ -1,0 +1,13 @@
+**Yes**
+
+We can answer the competency question "In what city is a certain theatre located?" using the ontology because the property `:isLocatedIn` connects instances of `:Cl_Theatre` to instances of `:Cl_City`. Here's the SPARQL query to extract the required information:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :isLocatedIn ?city .
+}
+```
+
+This query retrieves all theatres and the cities they are located in by selecting resources that are instances of `:Cl_Theatre` and using the `:isLocatedIn` property to find the associated `:Cl_City`.

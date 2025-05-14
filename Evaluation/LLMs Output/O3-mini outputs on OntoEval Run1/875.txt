@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the ontology follows a closed world assumption, the CQ “In what country is a certain city located?” is answerable because the ontology defines a class for cities (:Cl_City), a class for countries (:Cl_Country), and an object property (:isLocatedIn) that links a city to its country. Under this assumption, if a city has an :isLocatedIn relation, we assume that this is the complete information available.
+
+A SPARQL query to extract the answer could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  ?city :isLocatedIn ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel. }
+}
+
+This query retrieves each instance of :Cl_City and its associated country via the :isLocatedIn property, producing the answer needed for the competency question.

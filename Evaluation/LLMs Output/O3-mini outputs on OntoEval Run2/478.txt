@@ -1,0 +1,25 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for a given person, band, and time, the role that the person held in that band at that time. Under the closed‐world assumption it is assumed that all membership and role information is explicitly asserted in the ontology.
+
+-----------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?roleTime
+WHERE {
+  ?bandRole a :Cl_BandRole ;
+            :roleOfPerson ?person ;
+            :roleInBand ?band ;
+            :hasRole ?role ;
+            :roleAtTime ?roleTime .
+  
+  # Example filters to restrict to a particular person, band, and time:
+  # Remove or modify these filters for a generic query.
+  FILTER(?person = :John_Frusciante &&
+         ?band = :Red_Hot_Chili_Peppers &&
+         ?roleTime = "1988-01-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?person ?band ?roleTime
+-----------------------
+
+This query shows that the competency question “What role does a certain person have in a certain band at a certain point in time?” is supported by the ontology.

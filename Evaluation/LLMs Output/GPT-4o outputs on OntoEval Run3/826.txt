@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not contain information about the employment start date of a person at a specific hospital. The ontology includes classes and properties related to persons, medical degrees, hospitals, and employment, but it lacks a direct connection between a person and their employment start date at a specific hospital.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?hospital ?employmentStartDate
+WHERE {
+  ?employment rdf:type :Cl_Employment .
+  ?employment :employee ?person .
+  ?employment :employedAt ?hospital .
+  OPTIONAL { ?employment :employmentStartDate ?employmentStartDate . }
+}
+```

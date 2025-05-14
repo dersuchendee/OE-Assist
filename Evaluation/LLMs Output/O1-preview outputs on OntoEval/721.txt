@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  ?region :op_isLocatedIn ?country .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```
+
+This query retrieves the countries in which each region is located, according to the ontology. It leverages the `:op_isLocatedIn` object property that connects `:Cl_Region` instances to `:Cl_Country` instances, fulfilling the competency question "In what country is a certain region located?"

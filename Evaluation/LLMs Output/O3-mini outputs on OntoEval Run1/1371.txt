@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not explicitly model or relate buildings (or bell towers) with a location context (e.g., urban, periurban, rural). Under the closed world assumption only explicitly declared relations and properties are taken into account. Since no property (such as bell:locatedInContext or an equivalent) connects a building with its context, we can only provide a partial answer by retrieving the bell towers.
+
+Below is a partial SPARQL query that retrieves all bell towers. (Note: Since no context property is modelled, the query can’t return the requested context information.)
+
+PREFIX bell: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?label
+WHERE {
+  ?bellTower a bell:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label. }
+}

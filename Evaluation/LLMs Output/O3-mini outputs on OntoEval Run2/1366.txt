@@ -1,0 +1,14 @@
+**No**
+The CQ asks for “recordings involving a bell or set of bells”, yet the provided ontology does not model any class or property related to recordings (for example, classes for MusicalPerformance, Recording, or properties linking instances of bells (or sets of bells) to recordings). Therefore, although we can query for instances of bells and sets of bells, we cannot fully answer the CQ. Under the closed world assumption, we know that the recordings information is not represented.
+A partial SPARQL query that returns the available instances of bells and sets of bells is given below:
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+
+SELECT ?bellOrSet
+WHERE {
+  { ?bellOrSet a bells:Bell . }
+  UNION
+  { ?bellOrSet a bells:SetOfBells . }
+}
+
+This query returns the bells and sets of bells known in the ontology, which is only a partial answer to the CQ.

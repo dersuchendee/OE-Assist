@@ -1,0 +1,13 @@
+Answer: **No**
+
+The ontology lacks the necessary properties to connect a specific person and a specific degree to the study period during which the person studied for that degree. While we can retrieve which degrees a person has using the `:hasMedicalDegree` property, we cannot retrieve the time period of study because there are no object properties connecting `:Cl_PersonDegreeStudy` to specific `:Cl_Person` and `:Cl_MedicalDegree` instances.
+
+Partial SPARQL query to extract available information (persons and their degrees):
+
+```sparql
+SELECT ?person ?degree
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+}
+```

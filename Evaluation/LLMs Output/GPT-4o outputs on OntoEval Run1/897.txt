@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about unions or their members. Therefore, the competency question cannot be fully answered. However, we can extract partial information about individuals and their employment, which might be related to union membership.
+
+```sparql
+SELECT ?person ?employment ?employmentStartDate
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?employment :employmentOf ?person .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```

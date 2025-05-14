@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, uses the user’s context (their location and activity) to infer how weather content should be presented. In this example, if a user is located "In front of mirror" the presentation device is the Smart Mirror (displaying content graphically) and if the location is "Walking around" then the Smart Speaker (reading out the weather) is suggested.
+
+──────────────────────────────
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?locationLabel ?activityLabel 
+       (IF(?location = :InFrontOfMirror, "Display on Smart Mirror", 
+           IF(?location = :WalkingAround, "Read out via Smart Speaker", "Unknown presentation")) AS ?presentation)
+WHERE {
+  ?user a :User .
+  ?user :hasLocation ?location .
+  ?user :hasActivity ?activity .
+  
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  OPTIONAL { ?activity rdfs:label ?activityLabel . }
+}
+──────────────────────────────
+
+This query retrieves each user’s context (their location and activity) and then uses a conditional expression to decide the presentation mode of the WeatherContent.

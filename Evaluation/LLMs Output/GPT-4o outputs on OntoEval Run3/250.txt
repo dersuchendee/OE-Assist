@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any direct information about authors and the plays they have written. The ontology primarily focuses on theatre festivals, locations, plays, productions, and related entities. While there is a class `Cl_Author` and a property `hasAuthor`, there are no instances or data linking specific authors to the plays they have written.
+
+To extract a partial answer, we can query for plays and their names, but we won't be able to link them to specific authors.
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?play a :Cl_Play .
+  ?play :playName ?playName .
+}
+```

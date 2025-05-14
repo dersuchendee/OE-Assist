@@ -1,0 +1,16 @@
+**No**
+
+The current ontology does not provide an explicit property (or reified class) to capture the construction date (or the year the building was built) of physical structures such as bell towers/buildings. A partial query can retrieve the bell towers (buildings) and attempt to look for a construction year property if it were asserted, for example, using a property like arco:hasConstructionYear (assuming such a property might be defined or imported via ArCo):
+
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?bellTower ?constructionYear
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL {
+    ?bellTower arco:hasConstructionYear ?constructionYear .
+  }
+}
+
+This query returns each bell tower and, if available, a construction year. Under the closed world assumption, if no such statements exist in the ontology, then the query returns no construction year data.

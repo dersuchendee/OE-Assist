@@ -1,0 +1,21 @@
+**Yes**
+
+We can retrieve the required information by linking each hospital with its HospitalAdmissionSummary that contains the average admissions and the specific diagnosis code. Under a closed world assumption, we assume that the only relevant HospitalAdmissionSummary instances are those explicitly asserted in the ontology. The query below extracts the hospital, the associated diagnosis code, and the average admissions value:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?diagnosisCode ?diagnosisCodeLabel ?avgAdmissions
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel. }
+  
+  ?hospital :hasAdmissionSummary ?summary .
+  ?summary :reportedByHospital ?hospital .
+  ?summary :appliesToDiagnosisCode ?diagnosisCode .
+  OPTIONAL { ?diagnosisCode rdfs:label ?diagnosisCodeLabel. }
+  
+  ?summary :averageAdmissions ?avgAdmissions .
+} 
+
+This query answers the competency question by extracting, for each hospital and given diagnosis code, the average number of admissions as recorded in the ontology.

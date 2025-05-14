@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "When is the level of a chemical substance recorded in a water body?" can be answered using the given ontology. The ontology provides the necessary classes and properties to extract the recording date of a chemical substance in a water body. Here is the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?waterBody ?chemicalSubstance ?recordingDate
+WHERE {
+  ?recording a :ChemicalLevelRecording .
+  ?recording :recordedIn ?waterBody .
+  ?recording :recordsChemical ?chemicalSubstance .
+  ?recording :hasRecordingDate ?recordingDate .
+}
+ORDER BY ?recordingDate
+```

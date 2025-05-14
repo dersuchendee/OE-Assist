@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?playName (MIN(?date) AS ?startDate) (MAX(?date) AS ?endDate)
+WHERE {
+  ?playTimePeriod a :Cl_PlayTimePeriod ;
+    :hasPlay ?play ;
+    :hasTimePeriod ?timePeriod .
+  ?play :playName ?playName .
+  ?timePeriod :festivalDate ?date .
+}
+GROUP BY ?playName
+```

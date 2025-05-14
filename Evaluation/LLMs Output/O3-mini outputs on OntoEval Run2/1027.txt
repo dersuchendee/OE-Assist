@@ -1,0 +1,16 @@
+**Yes**
+
+We can retrieve the seminar date from the ontology because seminars are modelled as instances of :Cl_Seminar with an associated :seminarDate property. For example, assuming that the seminar instance is identified (or we simply list all seminars with their dates), the following SPARQL query answers the competency question:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+---------------------------------------------------
+
+This query returns each seminar and the date it took place, thus fulfilling the CQ "When did a certain seminar take place?" under the closed world assumption.

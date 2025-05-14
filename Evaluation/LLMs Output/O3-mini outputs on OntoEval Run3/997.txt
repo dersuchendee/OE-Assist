@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology explicitly represents books and CDs through the classes Cl_Book and Cl_CD (both sub‐classes of Cl_ArticleCollection) and associates a publication event (class Cl_PublicationEvent) with each publication via the object property hasPublicationEvent. The publication event carries a publication date identified by the data property publicationDate. Using the closed world assumption, we conclude that if a publication has an associated publication event with a publication date, then that is the publication date. Thus, the competency question “When was a certain book or CD published?” is answerable.
+
+Below is a SPARQL query that retrieves the publication date for any book or CD in the ontology:
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubDate
+WHERE {
+  { ?publication a :Cl_Book .
+    ?publication :hasPublicationEvent ?event .
+    ?event :publicationDate ?pubDate .
+  }
+  UNION
+  { ?publication a :Cl_CD .
+    ?publication :hasPublicationEvent ?event .
+    ?event :publicationDate ?pubDate .
+  }
+}
+-------------------------
+
+This query returns each publication (whether a book or a CD) along with its publication date, thereby fully answering the competency question.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the monitors (e.g., Policy Practitioners) along with the hospitalisation they monitor, making sure that each hospitalisation has an associated disease and geographical area:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?monitor ?monitorLabel ?hospitalization ?disease ?area
+WHERE {
+  ?monitor a :Monitor .
+  OPTIONAL { ?monitor rdfs:label ?monitorLabel . }
+  
+  ?monitor :monitors ?hospitalization .
+  ?hospitalization :forDisease ?disease .
+  ?hospitalization :inGeographicalArea ?area .
+}
+---------------------------------------------------
+
+This query works under a closed world assumption since, by the ontology restrictions, a Hospitalization individual must have exactly one associated disease (via :forDisease) and one geographical area (via :inGeographicalArea), thereby ensuring the CQ is fully answerable by the ontology.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a bell with its specific measurements. The ontology defines the properties `hasWeight`, `hasHeight`, and `hasDiameter` for the `Bell` class, but it does not provide a way to query for specific measurements of a bell. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?bell ?weight ?height ?diameter
+WHERE {
+  ?bell a :Bell .
+  OPTIONAL { ?bell :hasWeight ?weight . }
+  OPTIONAL { ?bell :hasHeight ?height . }
+  OPTIONAL { ?bell :hasDiameter ?diameter . }
+}
+```

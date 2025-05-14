@@ -1,0 +1,27 @@
+**Yes**
+Below is one possible SPARQL query (using parameters for the band and the time point) that returns the band members whose membership period covers the given time:
+
+————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?artist ?artistLabel
+WHERE {
+  ?membership a :Cl_Membership ;
+              :membership_band ?band ;
+              :membership_artist ?artist ;
+              :membership_startDate ?start .
+  OPTIONAL { ?membership :membership_endDate ?end . }
+  OPTIONAL { ?artist rdfs:label ?artistLabel . }
+  
+  # Replace the following with the desired band IRI and time point
+  FILTER (?band = <http://www.example.org/test#RedHotChiliPeppers>)
+  FILTER ( xsd:date(?start) <= xsd:date("2005-01-01") &&
+           ( !BOUND(?end) || xsd:date("2005-01-01") <= xsd:date(?end) )
+         )
+}
+ORDER BY ?artistLabel
+————————————
+
+In this query, the membership is selected if its start date is on or before the specified date ("2005-01-01" in this example) and, if an end date is provided, the specified date is before (or equal to) that end date. This satisfies the competency question under the closed world assumption.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the evaluation statement (its text and date) authored by a specific doctor for a specific employee:
+
+--------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement ?statementText ?statementDate
+WHERE {
+  ?evaluationStatement a :EvaluationStatement ;
+                       :authoredBy ?doctor ;
+                       :aboutEmployee ?employee ;
+                       :statementText ?statementText ;
+                       :statementDate ?statementDate .
+  # Replace the following URIs with the actual identifiers for the doctor and employee:
+  FILTER(?doctor = <http://example.org/ontology#Doctor1> && ?employee = <http://example.org/ontology#Employee1>)
+}
+--------------------------------------------------------------
+
+Under the closed world assumption, we assume that only those evaluation statements explicitly represented in the ontology exist. This query answers the CQ “What is the evaluation statement given by a certain doctor for a certain employee?” by retrieving exactly the evaluation statement(s) that match the given doctor and employee identifiers.

@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?organPart ?partLabel
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  ?organ :hasPart ?organPart .
+  OPTIONAL { ?organPart rdfs:label ?partLabel . }
+  ?organPart :isOriginal "true"^^xsd:boolean .
+}
+```

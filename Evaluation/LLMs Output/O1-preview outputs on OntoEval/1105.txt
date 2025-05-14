@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not fully model the relationship between seminars and the articles presented in them to answer the competency question completely.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?seminar ?presentation
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?seminar :seminarIncludesPresentation ?presentation .
+    ?presentation a :Cl_SeminarPresentation .
+  }
+}
+```

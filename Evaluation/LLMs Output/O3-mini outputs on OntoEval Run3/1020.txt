@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer the CQ since the ontology defines a seminar class (:Cl_Seminar) and a data property (:hasSeminarDate) that specifies the date a seminar took place. Under the closed world assumption, only those seminars for which the date is explicitly asserted will be returned. For example, the following SPARQL query retrieves the seminar (or seminars) together with their date:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasSeminarDate ?date .
+}
+-----------------------------------------------------
+
+This query extracts the answer for “When did a certain seminar take place?” based on the available ontology.

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific composition (e.g. :CompositionX) and a specific tune family (e.g. :TuneFamilyY), retrieves the level of confidence from the VariantRelationship linking them:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?tuneFamily ?confidence
+WHERE {
+  ?composition a :Composition .
+  ?composition :hasVariantRelationship ?vr .
+  ?vr :hasLevelOfConfidence ?confidence .
+  ?vr :involvesTuneFamily ?tuneFamily .
+  
+  # Filter for the specific composition and tune family of interest
+  FILTER(?composition = :CompositionX && ?tuneFamily = :TuneFamilyY)
+}
+-------------------------------------------------
+
+This query demonstrates that the ontology supports the competency question "With what level of confidence is composition X a variant in tune family Y?" under the closed world assumption, because it provides a way to extract the related VariantRelationship (and hence the confidence value) between the given Composition and Tune Family.

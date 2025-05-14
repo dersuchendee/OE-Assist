@@ -1,0 +1,18 @@
+**No**
+
+The ontology lacks the necessary relationships to fully answer the competency question. Specifically, while we have classes for `:Cl_Person`, `:Cl_PersonRole`, `:Cl_Production`, and `:Cl_Date`, the connections between a person's roles and the production they are part of at a certain time are not explicitly defined. The `:Cl_PersonRole` class is a subclass of multiple classes, including `:Cl_Person`, `:Cl_Role`, `:Cl_Production`, and `:Cl_Date`, but there are no object properties linking these concepts in a way that can be queried to retrieve the desired information.
+
+Here's a SPARQL query that extracts a partial answer, retrieving the roles a person has and the dates, but without linking them to specific productions:
+
+```sparql
+SELECT ?person ?personName ?roleName ?roleDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :personName ?personName . }
+  ?person :hasRole ?personRole .
+  ?personRole :roleName ?roleName .
+  ?personRole :roleDate ?roleDate .
+}
+```
+
+This query retrieves the person, their roles, and the dates of those roles, but it doesn't associate the roles with a specific production at a certain point in time, as required by the competency question. To fully support the CQ, the ontology would need additional properties to connect `:Cl_PersonRole` with `:Cl_Production` and to appropriately model the time aspect.

@@ -1,0 +1,16 @@
+**Yes**
+Below is an example SPARQL query that returns the medical degrees (and associated data) for a given person (here, for instance, PasqualeDiGennaro):
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+----------------------------------------
+
+In a closed‐world setting this query retrieves all the medical degrees that have been explicitly linked to the person in the ontology.

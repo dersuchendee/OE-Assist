@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the seminar instances are represented as individuals of class :Cl_Seminar and their date information is stored using the property :seminarDate, you can answer the CQ with a query like:
+
+--------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?date .
+  # Optionally, if you want to restrict the query to a certain seminar,
+  # you could add a FILTER or specify its URI directly.
+}
+--------------------------------------------------------------------
+
+This query retrieves each seminar and the date on which it took place, thereby fully modelling the competency question under a closed world assumption.

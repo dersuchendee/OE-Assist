@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed world reading of the ontology, retrieves for a given aquifer environment (replace <SPECIFIC_AQUIFER_ENVIRONMENT_URI> with the desired URI) the aquifer microbes along with an aggregate abundance so that the “most common” ones (i.e. those with the highest total abundance) can be identified:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbe ?microbeLabel (SUM(?abundance) AS ?totalAbundance)
+WHERE {
+  ?occurrence a :MicrobeOccurrence .
+  ?occurrence :inEnvironment <SPECIFIC_AQUIFER_ENVIRONMENT_URI> .
+  ?occurrence :hasMicrobe ?microbe .
+  ?occurrence :hasAbundance ?abundance .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel . }
+}
+GROUP BY ?microbe ?microbeLabel
+ORDER BY DESC(?totalAbundance)
+---------------------------------
+
+This query answers the competency question by extracting the aquifer microbes reported in occurrences within a given aquifer environment and ordering them by their summed abundance, thereby supporting an analysis of which microbes are the most common.

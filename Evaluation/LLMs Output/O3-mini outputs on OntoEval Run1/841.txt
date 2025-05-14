@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, extracts for each hospital its associated city (using the defined :hasLocation property and the city’s name via :cityName):
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityName
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  ?hospital :hasLocation ?city .
+  ?city :cityName ?cityName .
+}
+---------------------------------------
+
+This query demonstrates that the ontology supports the competency question “In what city is a certain hospital located?” by retrieving the city (and its name) for each hospital.

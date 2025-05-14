@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves, for a given book or CD, the articles it contains:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookOrCD ?article ?articleLabel
+WHERE {
+  # Select a resource that is either a Book or a CD
+  ?bookOrCD rdf:type ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD)) .
+
+  # Get the articles contained within that resource using the :containsArticle property
+  ?bookOrCD :containsArticle ?article .
+
+  # Optionally retrieve the label of the article for display purposes
+  OPTIONAL { ?article rdfs:label ?articleLabel }
+}
+----------------------------------------------------
+
+In this query a resource of type :Cl_Book or :Cl_CD is considered a specific book or CD, and its associated articles are extracted using the :containsArticle property. This shows that the competency question is modeled by the ontology.

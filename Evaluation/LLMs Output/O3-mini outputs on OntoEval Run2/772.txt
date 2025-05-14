@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming the ontology uses a reified approach for connecting persons to their medical degrees (using the pivot class Cl_PersonMedicalDegree), you can extract all the medical degrees of a given person with a query like:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?person ?degree ?degreeName ?degreeDate
+WHERE {
+  ?record a :Cl_PersonMedicalDegree ;
+         :hasPerson ?person ;
+         :hasDegree ?degree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+  OPTIONAL { ?degree :degreeDate ?degreeDate . }
+}
+--------------------------------------------------
+
+This query retrieves, for each reified record linking a person to a medical degree, the person, the degree instance, and, when available, the degree's name and date.

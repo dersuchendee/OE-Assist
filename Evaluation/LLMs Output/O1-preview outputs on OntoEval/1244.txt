@@ -1,0 +1,23 @@
+Answer: **Yes**.
+
+The competency question is answerable because the ontology includes the necessary classes and properties to relate contaminated sites to observations, geographical areas, and observation times.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?contaminatedSite ?siteLabel ?geographicalArea ?areaLabel ?observationTime
+WHERE {
+  ?contaminatedSite a :ContaminatedSite .
+  OPTIONAL { ?contaminatedSite rdfs:label ?siteLabel . }
+
+  ?contaminatedSite :hasObservation ?observation .
+  ?observation a :ContaminationObservation .
+  
+  ?observation :observedInArea ?geographicalArea .
+  OPTIONAL { ?geographicalArea rdfs:label ?areaLabel . }
+  
+  ?observation :hasObservationTime ?observationTime .
+}
+ORDER BY ?geographicalArea ?contaminatedSite ?observationTime
+```

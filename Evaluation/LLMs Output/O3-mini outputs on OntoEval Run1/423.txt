@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a “certain person” is identified by name (or another unique identifier), the following SPARQL query returns the instruments that the person plays using the :plays property defined in the ontology:
+
+-------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel 
+WHERE {
+  ?musician a :Musician ;
+            rdfs:label "PersonName" .  # Replace "PersonName" with the name of the musician
+  ?musician :plays ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+-------------------------------------------------
+
+This query is answerable under the closed world assumption because all necessary relationships (i.e. that a musician plays an instrument via the :plays property) are explicitly modeled in the ontology.

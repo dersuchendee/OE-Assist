@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question is supported by the ontology as it is possible to write a SPARQL query to extract the chemical parameters associated with specific aquifer fungi. The ontology includes classes and properties that connect aquifer fungi to chemical parameters.
+
+```sparql
+SELECT ?fungus ?chemicalParameter
+WHERE {
+  ?fungus a :AquiferFungus .
+  ?fungus :hasAssociatedChemicalParameter ?chemicalParameter .
+}
+```

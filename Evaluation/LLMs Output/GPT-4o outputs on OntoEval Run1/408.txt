@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology includes the `dp_premierDate` property, which is defined as a functional property, meaning each `Cl_TheatreProduction` can have at most one `dp_premierDate`. This aligns with the competency question's requirement that a production has exactly one premier.
+
+Here is a SPARQL query to extract the premier date for each theatre production:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production rdf:type :Cl_TheatreProduction .
+  ?production :dp_premierDate ?premierDate .
+}
+```

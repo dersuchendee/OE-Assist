@@ -1,0 +1,19 @@
+Answer: **No**
+
+The ontology does not define specific types for resources such as "product," "component," or "material" as mentioned in the competency question and story. Therefore, the CQ cannot be fully answered with the given ontology. However, we can provide a partial answer by retrieving the types (classes) that resources belong to within the ontology.
+
+```sparql
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?resourceLabel ?type ?typeLabel
+WHERE {
+  ?resource a :Resource .
+  ?resource a ?type .
+  FILTER(?type != :Resource)
+  OPTIONAL { ?resource rdfs:label ?resourceLabel . }
+  OPTIONAL { ?type rdfs:label ?typeLabel . }
+}
+```
+
+This query retrieves resources and their types, excluding the generic `:Resource` class, to find any more specific classifications assigned to them in the ontology.

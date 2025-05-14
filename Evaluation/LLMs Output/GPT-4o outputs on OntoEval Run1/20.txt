@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between an instrument realization and the person who built it. The ontology includes a class for instrument realization (`Cl_InstrumentRealization`) and a property for who realized the instrument (`Op_realizedBy`), but it does not include a property for who built the instrument realization. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract information about instrument realizations and who realized them:
+
+```sparql
+SELECT ?instrumentRealization ?person
+WHERE {
+  ?instrumentRealization a :Cl_InstrumentRealization .
+  ?instrumentRealization :Op_realizedBy ?person .
+}
+```

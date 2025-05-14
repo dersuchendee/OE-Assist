@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves for a given play (here “The Merchant of Venice”) the minimum and maximum dates recorded on its associated play time period – which represents the period during which it was written:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playName (MIN(?date) AS ?startDate) (MAX(?date) AS ?endDate)
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName .
+  FILTER(?playName = "The Merchant of Venice")
+  
+  ?playTimePeriod a :Cl_PlayTimePeriod ;
+                  :hasPlay ?play ;
+                  :hasTimePeriod ?datePeriod .
+  ?datePeriod :festivalDate ?date .
+}
+GROUP BY ?playName
+-------------------------------------------------
+
+This query extracts the writing time period for the play by grouping the available dates and returning the earliest and latest dates as the start and end of the period.

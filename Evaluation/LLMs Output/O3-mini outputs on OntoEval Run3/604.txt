@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?album ?review ?reviewDate
+WHERE {
+  ?critic a :Cl_Critic ;
+          :hasName "Crian Hiatt" .
+  
+  ?album a :Cl_Album ;
+         :reviewedBy ?critReview .
+  
+  ?critReview :hasCritic ?critic ;
+              :hasReview ?review .
+  OPTIONAL { ?critReview :hasReviewDate ?reviewDate. }
+}
+```

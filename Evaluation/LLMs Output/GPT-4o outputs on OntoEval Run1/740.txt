@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate a region with a country. The ontology includes classes for `Cl_Region` and `Cl_Country`, and an object property `locatedInCountry` that connects a region to a country. However, there is no direct connection from a region to a country in the provided data. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract regions and their associated countries if any data were available:
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL {
+    ?region :locatedInCountry ?country .
+  }
+}
+```

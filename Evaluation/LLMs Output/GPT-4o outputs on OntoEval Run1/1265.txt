@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for the legal conditions and legislation affecting a specific actor, object, or process. The ontology defines classes and properties related to legal conditions and legislation, but it does not establish a direct connection between specific actors, objects, or processes and the legal conditions or legislation that affect them.
+
+Partial answer:
+```sparql
+SELECT ?legalCondition ?legislation
+WHERE {
+  ?legalCondition a :LegalCondition .
+  ?legalCondition :governedBy ?legislation .
+}
+```

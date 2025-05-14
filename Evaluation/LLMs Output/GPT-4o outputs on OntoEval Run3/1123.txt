@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "Where does this user live/where does the system run?" can be answered using the ontology provided. The ontology includes information about the user's location and the system's operation location. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?user ?location
+WHERE {
+  ?user a :User .
+  ?user :hasLocation ?location .
+}
+```
+
+This query retrieves the user and their associated location, which answers the competency question.

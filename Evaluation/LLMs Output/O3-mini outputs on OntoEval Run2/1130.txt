@@ -1,0 +1,26 @@
+**No**
+
+It is not possible to fully answer the CQ because the ontology does not explicitly link a weather service (its attributes such as the URL) with the user weather service preference. Under the closed‐world assumption no additional, implicit connection may be assumed. However, we can still extract the parts that are present (the user preference’s location and prognosis attributes) and try to join them to a weather service if available. For example, the following query obtains a partial answer by retrieving the location, prognosis for the user preference and (optionally) the URL of a weather service that is connected via the user preference (if such a link existed):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?userPref ?ws ?url ?location ?duration
+WHERE {
+  ?userPref a :Cl_UserWeatherServicePreference ;
+            :hasUserPreference ?up ;
+            :hasLocation ?location ;
+            :hasPrognosis ?prog .
+  ?prog :hasDuration ?duration .
+  OPTIONAL {
+    ?ws a :Cl_WeatherService ;
+        :hasUserPreference ?up ;
+        :hasURL ?url .
+  }
+}
+--------------------------------------------------
+
+Because the intended connection between a weather service and a user preference is not modelled (i.e. there is no triple linking a Cl_WeatherService instance such as :WeatherServiceYrNo with the user preference), the CQ can only be partially answered by the above query.

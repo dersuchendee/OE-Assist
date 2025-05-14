@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the relationship between processes and circular value networks, which is represented in the ontology through the `op_isUsedIn` and `op_partOfCVN` properties. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?process ?cvn
+WHERE {
+  ?processInCVN a :Cl_ProcessInCVN .
+  ?processInCVN :op_isUsedIn ?process .
+  ?processInCVN :op_partOfCVN ?cvn .
+}
+```

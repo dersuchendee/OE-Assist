@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the union role of a given person (e.g., PasqualeDiGennaro) in a specific union (e.g., MaleNursesUnion) that is active at a given point in time (which you can specify using a FILTER on the role’s start/end dates):
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membership ?union ?role ?roleTitle ?roleStartDate ?roleEndDate
+WHERE {
+  # Select the specified person’s union membership in a given union group.
+  :PasqualeDiGennaro :isMemberOf ?membership .
+  ?membership :membershipInUnion :MaleNursesUnion .
+  
+  # Retrieve that union membership’s role.
+  ?membership :hasUnionRole ?role .
+  ?role :unionRoleTitle ?roleTitle .
+  ?role :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+  
+  # Ensure the specified point in time (e.g., 2002-05-01) falls within the role’s active period.
+  FILTER (
+    xsd:date("2002-05-01") >= ?roleStartDate &&
+    (
+      !BOUND(?roleEndDate) || xsd:date("2002-05-01") <= ?roleEndDate
+    )
+  )
+  
+  BIND(:PasqualeDiGennaro AS ?person)
+  BIND(:MaleNursesUnion AS ?union)
+}
+ORDER BY ?roleStartDate
+-------------------------------------------------------
+
+This query answers the competency question by extracting the union role that the person has in the specified union group at the given time.

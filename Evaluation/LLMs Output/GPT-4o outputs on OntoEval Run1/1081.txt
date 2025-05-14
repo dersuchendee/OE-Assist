@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any direct information about the location of seminars. However, it does contain information about seminar presentations and their associated articles. A partial answer can be extracted by identifying the seminar and its associated location through the relationships defined in the ontology.
+
+```sparql
+SELECT ?seminar ?hospitalLocation
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminarLocation :locationOfSeminar ?seminar .
+  ?seminarLocation :locatedAt ?hospitalLocation .
+}
+```

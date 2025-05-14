@@ -1,0 +1,32 @@
+**Yes**
+
+Assuming that the ontology contains complete facts about which instruments a person plays (under the closed world assumption), we can answer the competency question “What instruments does a certain person play?” by retrieving the instruments linked by the property :playsInstrument from the person. For example, if we know the IRI of the person (say :JohnDoe), the following SPARQL query will return the instruments he plays:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  :JohnDoe a :Cl_Person ;
+           :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+---------------------------------
+
+If you need a query that works for any person (for instance, if you want to list instruments for all persons), you could use:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person ;
+          :playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+---------------------------------
+
+This shows that the competency question is fully supported by the ontology.

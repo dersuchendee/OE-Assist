@@ -1,0 +1,18 @@
+**Yes**
+Below is one possible SPARQL query that returns, for each denitrification process, the denitrifying bacteria participating in it and their roles:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?process ?bacterium ?role
+WHERE {
+  ?process a :DenitrificationProcess .
+  ?process :hasParticipant ?bacterium .
+  ?bacterium a :DenitrifyingBacteria .
+  ?bacterium :hasRole ?role .
+}
+--------------------------------------------------
+
+Under the closed world assumption, this query extracts answers only if individuals are explicitly asserted in the data.

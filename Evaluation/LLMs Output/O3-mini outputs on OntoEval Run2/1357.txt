@@ -1,0 +1,22 @@
+**No**
+
+The CQ “Where is an organ located originally?” cannot be fully answered from the available ontology. Although the ontology contains links from an Organ to a Project (using the isDescribedBy property) and from a Project to a Place (using hasPlace), there is no explicit modelling of the “original location” (for example, an “originallyLocatedIn” property or any indication about historical location status). Under the closed world assumption, and given that the concept “original” is not represented or reified in the ontology, we can only extract a partial answer by retrieving any associated place information for an organ via its related project.
+
+A partial SPARQL query to extract available location information is given below:
+
+------------------------------------------------
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?organ ?organLabel ?place ?placeLabel
+WHERE {
+  ?organ a organs:Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  ?project arco:isDescribedBy ?organ .
+  ?project arco:hasPlace ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+------------------------------------------------
+
+This query retrieves organs and their associated places (through the project that describes the organ), which may serve as a partial answer to the CQ.

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, returns each seminar together with the articles presented (optionally retrieving the article title):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?article :title ?articleTitle . }
+  # If you need a specific seminar, add a FILTER or VALUES clause here, e.g.:
+  # FILTER(?seminar = <http://www.example.org/test#Seminar123>)
+}
+ORDER BY ?seminar ?article

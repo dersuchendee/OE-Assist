@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that, given a band (for example, RedHotChiliPeppers) and a date of interest, retrieves its members whose membership time interval covers that date:
+
+-------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?band ?member ?memberName ?startDate ?endDate
+WHERE {
+  ?membership a :BandMembership ;
+              :hasBand ?band ;
+              :involvesMember ?member ;
+              :hasTimeInterval ?interval .
+  ?member :personName ?memberName .
+  ?interval :startDate ?startDate ;
+            :endDate ?endDate .
+  # Replace "2006-01-01" with the point in time of interest:
+  FILTER(xsd:date("2006-01-01") >= ?startDate && xsd:date("2006-01-01") <= ?endDate)
+  # Optionally restrict to a particular band:
+  FILTER(?band = <http://example.org/music#RedHotChiliPeppers>)
+}
+ORDER BY ?memberName
+-------------------------------------------------
+
+This query leverages the reified membership (BandMembership) class that connects a person (member), a band, and a time interval. In a closed‐world setting, only those memberships whose defined start and end dates encompass the given point are returned.

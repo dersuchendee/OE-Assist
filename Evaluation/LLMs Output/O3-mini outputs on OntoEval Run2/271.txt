@@ -1,0 +1,19 @@
+**Yes**
+
+One possible SPARQL query to retrieve, for any given play, the writing period (start and end dates) is as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?writingStart ?writingEnd 
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :hasWritingPeriod ?period .
+  ?period :writingStartDate ?writingStart .
+  ?period :writingEndDate ?writingEnd .
+}
+ORDER BY ?play
+
+This query extracts each play along with its optional label and the writing period dates (start and end).

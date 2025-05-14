@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?album ?albumName ?trackCount
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasName ?albumName .
+  ?album :hasTrackCount ?albumTrackInfo .
+  ?albumTrackInfo a :Cl_AlbumTrackInfo .
+  ?albumTrackInfo :hasTrackCount ?trackCount .
+}
+```

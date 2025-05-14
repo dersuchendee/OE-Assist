@@ -1,0 +1,20 @@
+**No**
+
+The ontology does link persons to their roles (using ex:hasRole) and persons to bands (using ex:hasMember), but it does not capture any temporal information related to a person’s role in a band. Therefore, the “at a certain point in time” part of the CQ cannot be answered with the current ontology. Under the closed world assumption, we can only provide a partial answer that retrieves the band, the person, and the role without any time context.
+
+Below is a SPARQL query that returns the available (partial) information:
+
+PREFIX ex: <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?bandName ?person ?personName ?role ?roleLabel
+WHERE {
+  ?band a ex:Band .
+  ?band ex:hasMember ?person .
+  ?person ex:hasRole ?role .
+  OPTIONAL { ?band rdfs:label ?bandName . }
+  OPTIONAL { ?person ex:hasName ?personName . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+
+This query extracts the persons who are members of a band along with their roles, but does not address the temporal aspect since it is not modelled in the ontology.

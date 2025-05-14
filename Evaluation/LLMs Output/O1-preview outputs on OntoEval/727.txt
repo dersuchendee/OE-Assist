@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct connection between a region and its country that allows us to answer the competency question "In what country is a certain region located?". The properties `:regionCountry` and `:countryOfRegion` involve the class `:Cl_RegionCountry`, which is a subclass of both `:Cl_Region` and `:Cl_Country`, but there is no straightforward path from a region instance to its country.
+
+A partial SPARQL query to list regions is:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?region
+WHERE {
+  ?region a :Cl_Region .
+}
+```
+
+This query retrieves all instances of regions in the ontology, but does not provide the countries they are located in due to the missing direct relationship.

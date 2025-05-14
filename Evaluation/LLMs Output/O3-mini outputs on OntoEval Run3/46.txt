@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer the competency question using the ontology by retrieving actors and the competencies they hold through either the direct relation (hasCompetency) or via the reified relation (actorHasCompetency → competencyOfActor). For example, the following SPARQL query retrieves, for each actor, the competencies they hold:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?actor ?competency
+WHERE {
+  ?actor rdf:type :Cl_Actor .
+  
+  { 
+    ?actor :hasCompetency ?competency .
+  }
+  UNION
+  {
+    ?actor :actorHasCompetency ?actorCompetency .
+    ?actorCompetency :competencyOfActor ?competency .
+  }
+}
+----------------------------------
+
+This query supports the competency question under a closed world assumption by extracting actors that have a competency either directly or via a linked reified structure, thus fully modelling the competency question posed in the OS.

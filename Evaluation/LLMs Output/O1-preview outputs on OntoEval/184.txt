@@ -1,0 +1,16 @@
+Answer: **No**
+
+The CQ "In what country is a certain city located?" cannot be fully answered with the given ontology because there is no data property or label associated directly with the `:Cl_City` class to identify specific cities. Although there is an object property `:isLocatedInCountry` connecting cities to a `:Cl_CityLocation`, and a data property `:countryName` in `:Cl_CityLocation`, we lack a way to reference or retrieve specific cities by name.
+
+Here is a partial SPARQL query that attempts to retrieve cities and their corresponding countries:
+
+```sparql
+SELECT ?city ?countryName
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :isLocatedInCountry ?location .
+  ?location :countryName ?countryName .
+}
+```
+
+This query would list all cities and their countries if instances and necessary properties (like city names) were properly defined in the ontology.

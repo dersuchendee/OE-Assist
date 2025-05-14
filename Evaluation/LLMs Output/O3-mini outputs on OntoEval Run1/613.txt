@@ -1,0 +1,25 @@
+**No**
+
+The ontology links critics to reviews on albums via the properties :reviews, :reviewedAlbum and :reviewText but it does not explicitly model “records” (as distinct from albums). Under the closed‐world assumption, we cannot assume that a “record” is equivalent to an album. Thus the CQ “What does a certain critic say about a certain record?” cannot be fully answered according to the provided ontology—even though one may get a partial answer by extracting review texts for albums.
+
+A partial SPARQL query that extracts what a critic said about an album (as a proxy for “record”) is shown below:
+
+----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?album ?reviewText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?album a :Cl_Album .
+  ?critic :reviews ?review .
+  ?album :reviewedAlbum ?review .
+  ?review :reviewText ?reviewText .
+  # For a specific critic and album, add FILTER conditions, for example:
+  # FILTER(?critic = <http://example.org/critic/CrianHiatt> && ?album = <http://example.org/album/StadiumArcadium>)
+}
+----------------------------------------------
+
+This query permits retrieving review texts for albums as proxies for records—even though the CQ asks about “records,” the ontology does not provide an explicit connection for that term.

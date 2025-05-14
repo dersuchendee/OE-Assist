@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves the medical degrees linked to a person (using the property “hasMedicalDegree” defined for Cl_Person):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel. }
+}
+
+This query answers the CQ “What medical degrees does a certain person have?” by extracting all degrees (instances of Cl_MedicalDegree) that are connected to a person via the property :hasMedicalDegree.

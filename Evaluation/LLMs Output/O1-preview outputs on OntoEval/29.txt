@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?actorLabel ?role ?roleLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  ?actor :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+```

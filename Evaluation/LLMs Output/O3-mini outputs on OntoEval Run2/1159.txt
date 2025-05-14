@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves for each event (or event category instance) the available ticket options along with the customizable elements (seat and show time):
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology/ticketing#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventLabel ?ticketOption ?ticketOptionLabel ?seat ?seatLabel ?showTime ?showTimeLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasTicketOption ?ticketOption .
+  OPTIONAL { ?ticketOption rdfs:label ?ticketOptionLabel . }
+  
+  ?ticketOption :hasSeat ?seat .
+  OPTIONAL { ?seat rdfs:label ?seatLabel . }
+  
+  ?ticketOption :hasShowTime ?showTime .
+  OPTIONAL { ?showTime rdfs:label ?showTimeLabel . }
+}
+--------------------------------------------------
+
+This query addresses the competency question “What are the options available for this event category/specific event?” by extracting each event’s ticket options along with their associated seat selections and show times.

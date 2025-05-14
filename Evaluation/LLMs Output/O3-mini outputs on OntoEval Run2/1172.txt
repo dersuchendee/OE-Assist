@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?exchange ?exchangeType ?successStatus
+WHERE {
+  { ?exchange a :MaterialExchange }
+  UNION
+  { ?exchange a :InformationExchange }
+  ?exchange :hasSuccessStatus ?successStatus .
+  
+  # Optionally, determine the exchange type label.
+  BIND(
+    IF( EXISTS { ?exchange a :MaterialExchange }, "MaterialExchange", "InformationExchange" )
+    AS ?exchangeType
+  )
+}
+```

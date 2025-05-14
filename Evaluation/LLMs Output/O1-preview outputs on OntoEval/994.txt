@@ -1,0 +1,14 @@
+Answer: **No**
+
+The ontology does not include properties to identify a particular book, such as a title or unique identifier. Therefore, we cannot specify a particular book in our query to find out how many pages it contains. However, we can retrieve the number of pages for all books present in the ontology.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?numberOfPages
+WHERE {
+  ?book rdf:type :Cl_Book .
+  ?book :numberOfPages ?numberOfPages .
+}
+```

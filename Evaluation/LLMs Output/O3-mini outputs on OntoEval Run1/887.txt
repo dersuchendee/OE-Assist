@@ -1,0 +1,39 @@
+**Yes**
+Below is an example SPARQL query that (under a closed‐world assumption) retrieves the union’s employees who were members at a given point in time. (In the query below, replace "UnionName" with the label (or identifier) of the union you wish to query and adjust the literal for the query time as needed.)
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?employee ?employeeLabel ?startTime ?endTime
+WHERE {
+  # Select the union with the given name
+  ?union a :Cl_Union ;
+         rdfs:label "UnionName" .
+  
+  # Retrieve the union membership reification instance
+  ?union :hasMember ?membership .
+  ?membership a :Cl_UnionMembership ;
+              :hasMember ?employee ;
+              :memberDuring ?timePeriod .
+  
+  # Get the time period boundaries
+  ?timePeriod :startTime ?startTime .
+  OPTIONAL { ?timePeriod :endTime ?endTime . }
+  
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  
+  # Filter only those memberships active for the given point in time.
+  # (Assuming the query time is provided as 2002-01-01T00:00:00)
+  FILTER(
+    xsd:dateTime("2002-01-01T00:00:00")
+        >= ?startTime &&
+    ( !bound(?endTime) || xsd:dateTime("2002-01-01T00:00:00")
+        <= ?endTime )
+  )
+}
+ORDER BY ?employee
+----------------------------------------------------
+
+This query answers the competency question “Who are the members of a certain union at a certain point in time?” by using the reified union membership class that links a union with its member (employee) along with a time period indicating when that membership was active.

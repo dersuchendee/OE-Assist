@@ -1,0 +1,20 @@
+**Yes**
+Below is one SPARQL query that returns each production that (under a closed‐world assumption) has exactly one associated premier event:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production
+WHERE {
+  {
+    SELECT ?production (COUNT(?premier) AS ?premierCount)
+    WHERE {
+      ?premier rdf:type :Cl_ProductionPremier ;
+               :premierOf ?production .
+    }
+    GROUP BY ?production
+  }
+  FILTER(?premierCount = 1)
+}
+
+In this query, we count for each production the number of premiere events (instances of :Cl_ProductionPremier) linked via the :premierOf property. Under the closed‐world assumption, only productions with exactly one premier are returned, which models the competency question “A production has exactly one premier.”

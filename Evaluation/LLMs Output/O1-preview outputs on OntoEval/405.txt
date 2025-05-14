@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not specify that each production has exactly one premier. We can retrieve productions and their associated premieres, but we cannot confirm that a production has exactly one premier due to the missing cardinality restriction from `:Cl_Production` to `:Cl_ProductionPremier`. Here's a partial SPARQL query to retrieve productions and their premieres:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?premier
+WHERE {
+    ?premier rdf:type :Cl_ProductionPremier .
+    ?premier :premierOf ?production .
+}
+```

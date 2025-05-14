@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology, as it includes the necessary classes and properties to represent the relationship between a person, their study period, and the degree obtained. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  ?person :studiedDuring ?studyPeriod .
+  ?studyPeriod :degreeObtained ?degree .
+  OPTIONAL { ?studyPeriod :hasStartDate ?startDate . }
+  OPTIONAL { ?studyPeriod :hasEndDate ?endDate . }
+}
+```

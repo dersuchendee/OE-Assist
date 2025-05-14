@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?article ?articleTitle ?seminar ?seminarDate
+WHERE {
+  ?article a :Cl_Article .
+  ?article :op_presentedIn ?seminarPresentation .
+  ?seminarPresentation :op_presents ?seminar .
+  OPTIONAL { ?article :dp_title ?articleTitle . }
+  OPTIONAL { ?seminar :dp_date ?seminarDate . }
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not explicitly represent the concept of an organ builder, and there is no clear class or property (e.g. hasOrganBuilder) linking resources to the builder. However, we can try a partial query that searches all literal annotations (labels, comments, etc.) for the phrase “organ builder”.
+
+```sparql
+SELECT DISTINCT ?resource ?property ?literal
+WHERE {
+  ?resource ?property ?literal .
+  FILTER(isLiteral(?literal) && CONTAINS(LCASE(?literal), "organ builder"))
+}
+```
+
+This query attempts to locate any resource whose annotation (or other literal value) mentions “organ builder.”

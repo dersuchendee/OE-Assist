@@ -1,0 +1,15 @@
+**Yes**
+
+We can extract the recording period (start and end dates) for an album from the ontology using the properties defined for Cl_Album. For example, the following SPARQL query retrieves each album along with its recording start and end dates:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStartDate ?recordingEndDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :albumRecordingStartDate ?recordingStartDate .
+  ?album :albumRecordingEndDate ?recordingEndDate .
+}
+
+This query answers the CQ “During what time period was a certain album recorded?” by returning the recording start and end dates for each album present in the ontology under a closed world assumption.

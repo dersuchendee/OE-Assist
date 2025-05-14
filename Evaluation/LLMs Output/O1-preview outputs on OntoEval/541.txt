@@ -1,0 +1,29 @@
+Answer: **Yes**
+
+You can retrieve the release date of a specific album using the following SPARQL query:
+
+```sparql
+PREFIX : <http://example.org/music#>
+
+SELECT ?albumTitle ?releaseDate
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :releaseDate ?releaseDate .
+}
+```
+
+If you want to find the release date of a particular album (e.g., "Stadium Arcadium"), you can modify the query as follows:
+
+```sparql
+PREFIX : <http://example.org/music#>
+
+SELECT ?releaseDate
+WHERE {
+  ?album a :Album ;
+         :albumTitle "Stadium Arcadium" ;
+         :releaseDate ?releaseDate .
+}
+```
+
+This query will return the release date of the album "Stadium Arcadium" as stored in the ontology.

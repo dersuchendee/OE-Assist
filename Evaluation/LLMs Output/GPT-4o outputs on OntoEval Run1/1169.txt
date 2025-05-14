@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What external factors affect this process/actor/value network?" can be answered using the ontology provided. The ontology defines the necessary classes and properties to identify external factors affecting processes, actors, or value networks.
+
+```sparql
+SELECT ?affectedEntity ?affectedEntityLabel ?externalFactor ?externalFactorLabel
+WHERE {
+  ?affectedEntity a :AffectedEntity .
+  OPTIONAL { ?affectedEntity rdfs:label ?affectedEntityLabel . }
+
+  ?affectedEntity :isAffectedBy ?externalFactor .
+  OPTIONAL { ?externalFactor rdfs:label ?externalFactorLabel . }
+}
+```

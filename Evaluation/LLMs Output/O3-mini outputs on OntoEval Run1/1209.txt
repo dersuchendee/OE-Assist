@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, extracts all compositions connected to a given Tune Family (here represented by an individual URI, e.g. :X, or by matching a label):
+
+Example 1 – using a known URI for tune family X:
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel
+WHERE {
+  ?composition a :Composition ;
+               :hasTuneFamily :X .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+}
+
+Example 2 – filtering by a label (when the tune family instance’s label equals "X"):
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?tuneFamily ?tuneFamilyLabel
+WHERE {
+  ?composition a :Composition ;
+               :hasTuneFamily ?tuneFamily .
+  ?tuneFamily rdfs:label ?tuneFamilyLabel .
+  FILTER(?tuneFamilyLabel = "X")
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+}
+
+These queries provide a complete answer to the CQ "What are all compositions in tune family X?" based on the given ontology.

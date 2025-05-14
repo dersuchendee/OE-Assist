@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the medical degrees held by a given person (for example, Pasquale Di Gennaro):
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degreeName
+WHERE {
+  # Identify the person (change the IRI to the person of interest)
+  <http://www.example.org/test#PasqualeDiGennaro> a :Cl_Person ;
+           :hasMedicalDegree ?degree .
+  
+  # Retrieve the name of the medical degree
+  ?degree :degreeName ?degreeName .
+}
+---------------------------------------------------------
+
+This query makes use of the modelling by the ontology—since the ontology includes the class Cl_Person, the object property hasMedicalDegree (with domain Cl_Person and range Cl_MedicalDegree) and the data property degreeName—and under the closed world assumption, it correctly extracts the medical degrees for the specified person.

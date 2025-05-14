@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that “musician X” and “performer Y” are represented in the ontology as individuals of type mtps:Participant (using, for instance, the URIs <http://example.org/musicianX> and <http://example.org/performerY>), one can answer the CQ by retrieving meetups where both appear as participants, and then extracting the place (mtps:hasPlace), time (mtps:happensAt), and the purpose (mtps:hasAPurpose) of the meetup. Under a closed-world assumption, only explicitly stated information is returned. For example, one can use the following SPARQL query:
+
+----------------------------------------------------------
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+
+SELECT ?meetup ?place ?time ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant <http://example.org/musicianX> .
+  ?meetup mtps:hasParticipant <http://example.org/performerY> .
+  ?meetup mtps:hasPlace ?place .
+  ?meetup mtps:happensAt ?time .
+  ?meetup mtps:hasAPurpose ?purpose .
+}
+ORDER BY ?time
+----------------------------------------------------------
+
+This query will return all meetups where musician X and performer Y are both participants, along with the corresponding location, time, and purpose—fully answering the CQ.

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine when a specific theatre festival took place. The ontology includes a `hasDate` property for `Cl_TheatreFestival`, but it does not specify which festival or provide a mechanism to query for a specific festival's date. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasDate ?date .
+}
+```

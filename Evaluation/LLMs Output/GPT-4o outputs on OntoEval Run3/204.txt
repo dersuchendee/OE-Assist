@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct connection between a production and the play it is based on. However, we can extract partial information about productions and their associated plays.
+
+```sparql
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :productionName ?productionName .
+  ?productionPlay a :Cl_ProductionPlay .
+  ?productionPlay :hasProduction ?production .
+  ?productionPlay :hasPlay ?play .
+  ?play :playName ?playName .
+}
+```

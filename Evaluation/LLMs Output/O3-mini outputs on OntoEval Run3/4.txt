@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?sourceLabel ?sourceType ?sourceTypeLabel
+WHERE {
+  ?source a :Cl_Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  ?source :hasSourceType ?sourceType .
+  OPTIONAL { ?sourceType rdfs:label ?sourceTypeLabel . }
+}
+```

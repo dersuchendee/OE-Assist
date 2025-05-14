@@ -1,0 +1,33 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the union role of a given person (here, e.g., PasqualeDiGennaro) within a given union group (e.g., UnionMaleNurses) at a specified point in time. This assumes that the ontology models union role memberships as a reified class (here, :Cl_UnionRoleMembership) with properties linking a person, the union group, the role (via :roleOfMembership) and the time validity (with :roleStartDate, and optionally :roleEndDate). You can adjust the fixed names and date as needed.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personLabel ?unionGroupLabel ?role ?roleLabel ?roleStartDate ?roleEndDate
+WHERE {
+  # Identify the role membership record for the person in the union group
+  ?membership a :Cl_UnionRoleMembership ;
+              :hasMember :PasqualeDiGennaro ;
+              :roleMembershipIn :UnionMaleNurses ;
+              :roleOfMembership ?role ;
+              :roleStartDate ?roleStartDate .
+  OPTIONAL { ?membership :roleEndDate ?roleEndDate . }
+  
+  # Ensure the specified time falls within the validity period.
+  # For example, we want the role as of January 1, 2005.
+  FILTER ( "2005-01-01"^^xsd:date >= ?roleStartDate &&
+          ( !BOUND(?roleEndDate) || "2005-01-01"^^xsd:date <= ?roleEndDate ) )
+  
+  # Optionally get labels for presentation
+  OPTIONAL { :PasqualeDiGennaro rdfs:label ?personLabel . }
+  OPTIONAL { :UnionMaleNurses rdfs:label ?unionGroupLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+ORDER BY ?roleStartDate
+------------------------------------------------
+
+This query will return the role (and its label, if available) that the person holds in the specified union group at the given time.

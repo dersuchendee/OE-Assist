@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between plays and theatre festivals through productions. The ontology defines plays, theatre festivals, and productions, but it lacks the necessary relationships to directly associate plays with specific productions within a festival. Therefore, a partial answer can be extracted by identifying plays associated with a festival, but not the specific productions.
+
+```sparql
+SELECT ?play ?playLabel
+WHERE {
+  ?play a :Play .
+  ?play rdfs:label ?playLabel .
+  ?play :performedAt ?festival .
+  ?festival a :TheatreFestival .
+}
+```

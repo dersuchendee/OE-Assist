@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming a closed‐world interpretation, the ontology does provide a way to “reify” the presentation of an article at a seminar. In particular, an article (of type :Cl_Article) is associated via the property :presentedAt to an instance of :Cl_SeminarPresentation, and by construction any such presentation is (by its subclass restriction) connected to some seminar (of type :Cl_Seminar). This means that we can write a SPARQL query that, for each seminar, retrieves at least one article that was presented there.
+
+For example, one SPARQL query that extracts for each seminar the articles presented is:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel (GROUP_CONCAT(DISTINCT ?articleLabel; separator=", ") AS ?presentedArticles)
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedAt ?presentation .
+  ?presentation :presentedAt ?seminar .
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+GROUP BY ?seminar ?seminarLabel
+------------------------------------------------
+
+This query lists each seminar along with the articles (by their labels) that were presented there. Under the closed‐world assumption, if a seminar does not have any associated article (via the reified :presentedAt relation), then the data clearly shows that the seminar does not meet the “at least one article presented” requirement.
+
+Thus, since we can write such a query and the necessary connections are available in the ontology, the CQ is answerable.

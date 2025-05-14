@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not explicitly model the relationship between seminars and articles being presented at them. While there is a `hasPresentation` property linking seminars to presentations, there is no direct link or constraint ensuring that at least one article is always presented at each seminar. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract seminars and their presentations:
+
+```sparql
+SELECT ?seminar ?presentation
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar ns1:hasPresentation ?presentation . }
+}
+```

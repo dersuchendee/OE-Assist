@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming a closed world where only the explicitly modelled facts exist, we can retrieve the key microbial communities involved in CO2 Fixation in groundwater ecosystems. For this, we look for instances of MicrobialCommunity that are linked via the property involvedIn to a process of type CO2Fixation (which is a subclass of CarbonCycling) and where that process occurs in an instance of GroundwaterEcosystem. One possible SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?microbialCommunity ?mcLabel
+WHERE {
+  ?microbialCommunity a :MicrobialCommunity .
+  OPTIONAL { ?microbialCommunity rdfs:label ?mcLabel . }
+  
+  ?microbialCommunity :involvedIn ?process .
+  ?process a :CO2Fixation .
+  
+  ?process :occursIn ?ecosystem .
+  ?ecosystem a :GroundwaterEcosystem .
+} 
+
+This query extracts the microbial communities involved in CO2 fixation processes that occur within groundwater ecosystems, thereby answering the competency question.

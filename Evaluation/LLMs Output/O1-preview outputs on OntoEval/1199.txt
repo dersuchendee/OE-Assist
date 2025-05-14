@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question asks for the places of origin of musicians. The ontology includes the necessary classes and properties to answer this question: `:Musician`, `:Place`, and the object property `:hasPlaceOfOrigin` that links musicians to their places of origin.
+
+```sparql
+SELECT ?musician ?musicianLabel ?place ?placeLabel
+WHERE {
+  ?musician a :Musician .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+
+  ?musician :hasPlaceOfOrigin ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

@@ -1,0 +1,28 @@
+Answer: **Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology defines the class `:Cl_Production` and the object property `:hasPremier`, with a cardinality restriction specifying that each production has exactly one premier. This is expressed in the ontology with the following axioms:
+
+```ttl
+:Cl_Production a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasPremier ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] .
+
+:hasPremier a owl:ObjectProperty ;
+    rdfs:domain :Cl_Production ;
+    rdfs:range :Cl_Premier .
+```
+
+Given this, we can write a SPARQL query to retrieve all productions and their associated premier:
+
+```sparql
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+```
+
+This query will return all instances of `:Cl_Production` and their corresponding `:hasPremier`, satisfying the competency question.

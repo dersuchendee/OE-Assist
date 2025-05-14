@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not explicitly model reviews of “records” – instead, reviews are associated with albums (using the class Cl_CriticReview, which is defined as a subclass of Cl_Critic, Cl_Album, and Cl_Review). Under the closed‐world assumption, since there is no link between a critic’s review and a “record” (as distinct from an album or other release), we can only extract a partial answer (that is, information on what critics say about albums).
+
+A partial SPARQL query to extract a critic’s review on an album (as a proxy for “record”) is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?album ?reviewText
+WHERE {
+  ?review a :Cl_CriticReview ;
+          :reviewText ?reviewText ;
+          :reviewedAlbum ?album .
+  ?critic :reviews ?review .
+}
+
+This query retrieves critics, the albums they reviewed, and the associated review texts – which is only a partial answer to “What does a certain critic say about a certain record?” because the ontology does not relate critics directly to records.

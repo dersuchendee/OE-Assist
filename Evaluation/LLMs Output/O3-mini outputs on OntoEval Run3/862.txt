@@ -1,0 +1,17 @@
+**No**
+Below is a SPARQL query that extracts a partial answer by retrieving the city’s name and the country it is linked to via the :isLocatedIn property:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName ;
+        :isLocatedIn ?country .
+  ?country :countryName ?countryName .
+  # You can filter for a specific city by its name if needed:
+  # FILTER(?cityName = "Nocera Inferiore")
+}
+
+This CQ is only partially answerable using the given ontology because the geographic aspect is not connected via a reified class (for example one like Cl_Membership) as required by the reification competency.

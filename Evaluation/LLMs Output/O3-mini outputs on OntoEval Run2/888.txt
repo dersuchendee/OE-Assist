@@ -1,0 +1,25 @@
+**Yes**
+Below is a SPARQL query that, using the closed world assumption, retrieves persons who are members of a given union at a specified point in time. In this query, replace ‹?union› with the desired union identifier (URI) and the literal ‹"YYYY-MM-DD"^^xsd:date› with the point‐in‐time you are investigating.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :inUnion ?union .
+  ?membership :membershipStartDate ?start .
+  ?membership :membershipEndDate ?end .
+
+  # Filter for the specified union and point in time:
+  FILTER(?union = <http://www.example.org/test#YourUnionURI> &&
+         ?start <= "2020-01-01"^^xsd:date &&
+         ?end >= "2020-01-01"^^xsd:date)
+
+  OPTIONAL { ?person rdfs:label ?personLabel }
+}
+--------------------------------------------------
+
+In this query the FILTER clause ensures that only those memberships whose start date is on or before the given date and whose end date is on or after the given date are returned. This models the CQ “Who are the members of a certain union at a certain point in time?” using the provided ontology.

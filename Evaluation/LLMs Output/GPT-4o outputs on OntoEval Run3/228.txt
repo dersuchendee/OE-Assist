@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not have a direct way to associate ensemble members with a specific point in time. The ontology includes classes and properties related to theatre festivals, plays, productions, and actors, but it lacks a mechanism to capture the temporal aspect of ensemble membership at a specific point in time.
+
+However, we can extract partial information about ensemble members and their roles:
+
+```sparql
+SELECT ?ensemble ?actor ?actorName
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :actorName ?actorName .
+}
+```

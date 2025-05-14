@@ -1,0 +1,28 @@
+Answer: **No**
+
+The ontology does not provide properties or classes that model the event of an organ being moved to another location at a specific time. Therefore, we cannot directly answer the competency question.
+
+However, we can provide a partial answer by retrieving projects associated with organs, along with their places and time intervals, which might indicate when activities (like moving an organ) have occurred.
+
+```sparql
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX arco-core: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?project ?projectLabel ?place ?placeLabel ?timeInterval
+WHERE {
+  ?organ a organs:Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+
+  ?organ arco-core:isDescribedBy ?project .
+  OPTIONAL { ?project rdfs:label ?projectLabel . }
+
+  OPTIONAL { ?project arco-core:hasPlace ?place .
+             OPTIONAL { ?place rdfs:label ?placeLabel . } }
+
+  OPTIONAL { ?project core:hasTimeInterval ?timeInterval . }
+}
+```
+
+This query retrieves organs, their associated projects, places, and time intervals. While it doesn't directly answer "when an organ is moved to another location," it may help identify projects that could involve moving an organ.

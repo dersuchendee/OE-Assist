@@ -1,0 +1,33 @@
+**Yes**
+Below is one example of a SPARQL query that, under the closed‐world assumption, returns the roles a specified person has in a specified production at a given point in time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?personName ?productionTitle ?role ?timeInstant
+WHERE {
+  # Identify the person with a known name (parameterize as needed)
+  ?person a :Person ;
+          :hasName ?personName ;
+          :hasTimeIndexedRole ?tir .
+  FILTER(?personName = "Fabio Bianchi"@en)
+  
+  # Get the underlying role for this time-indexed role
+  ?tir :hasRole ?role .
+  
+  # The role must be linked to the production
+  ?role :performedIn ?production .
+  ?production :hasTitle ?productionTitle .
+  FILTER(?productionTitle = "The Merchant of Venice"@en)
+  
+  # And the role is valid at a certain time instance
+  ?tir :hasTime ?time .
+  ?time time:inXSDDateTime ?timeInstant .
+  FILTER(?timeInstant = "2009-09-07T20:00:00Z"^^xsd:dateTime)
+}
+--------------------------------------------------
+
+This query extracts the name of the person, the title of the production, the role the person is playing (via the time-indexed role), and the time (as an xsd:dateTime) at which that role is held.

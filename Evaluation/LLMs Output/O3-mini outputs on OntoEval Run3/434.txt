@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one example of a SPARQL query you can use to extract the tracks that are contained in the album “StadiumArcadium” (the CQ implied by the story):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?track
+WHERE {
+  :StadiumArcadium :containsTrack ?track .
+}
+--------------------------------------------------
+
+This query “answers” the CQ in the sense that, using the properties defined in the ontology (including the cardinality restriction on Cl_Album indicating at least one track must be contained), you can retrieve all track individuals that are linked to the album StadiumArcadium.

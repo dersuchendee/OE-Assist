@@ -1,0 +1,18 @@
+**No**
+
+The ontology provided does not contain any properties or classes that directly relate to the movement of organs to different locations. The ontology primarily describes the structure and components of organs, such as cases, keyboards, and wind systems, but does not include any temporal or locational data that would indicate when an organ is moved.
+
+Partial SPARQL query to extract related information:
+
+```sparql
+SELECT ?organ ?part ?location
+WHERE {
+  ?organ a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  ?organ <https://w3id.org/arco/ontology/core/includesPart> ?part .
+  OPTIONAL {
+    ?part <https://w3id.org/polifonia/ontology/organs/hasConsoleLocation> ?location .
+  }
+}
+```
+
+This query attempts to retrieve organs and their parts, along with any console location information, but it does not directly answer the competency question regarding the movement of organs.

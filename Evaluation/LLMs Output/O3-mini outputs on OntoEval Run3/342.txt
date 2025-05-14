@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves the star rating given by a particular newspaper for a specific production:
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?newspaperName ?productionName ?starRating
+WHERE {
+  ?review a :Cl_Review ;
+          :hasNewspaper ?newspaper ;
+          :hasProduction ?production ;
+          :hasStarRating ?starRating .
+  ?newspaper :newspaperName ?newspaperName .
+  ?production :productionName ?productionName .
+  # Optionally restrict to a specific newspaper and production
+  FILTER(?newspaperName = "Il Gazzettino" && ?productionName = "The Merchant of Venice at The Grand Theatre")
+}
+-----------------------------------------------
+
+This query uses the ontology’s review structure to extract the star rating for the production as given by the specified newspaper under a closed world assumption.

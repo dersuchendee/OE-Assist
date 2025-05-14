@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the text of the review by a given critic for a specified record (album). In this query we assume that the critic of interest is :Crian_Hiatt and the record is :Stadium_Arcadium:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?reviewText
+WHERE {
+  ?review rdf:type :Cl_Review ;
+          :reviewedBy :Crian_Hiatt ;
+          :reviewOf :Stadium_Arcadium ;
+          :reviewText ?reviewText .
+}
+------------------------------------------------
+
+This query shows that the ontology supports the competency question “What does a certain critic say about a certain record?” since it directly retrieves the review text given the critic and the album.

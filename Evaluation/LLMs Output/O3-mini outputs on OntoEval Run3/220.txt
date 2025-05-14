@@ -1,0 +1,21 @@
+**Yes**
+
+Here’s a SPARQL query that, under the closed world assumption, retrieves ensembles along with their members for a specified point in time. (In this example, the date is provided as a filter value—you can adjust it as needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleLabel ?member ?memberLabel ?date
+WHERE {
+  ?ensemble a :Cl_Ensemble ;
+            :hasMember ?member ;
+            :date ?date .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  FILTER(?date = "2009-09-07"^^xsd:date) 
+}
+--------------------------------------------------
+
+This query answers the CQ “Who are the members of a certain ensemble at a certain point in time?” by finding ensembles with a given date and returning their members.

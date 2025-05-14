@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Who is where in this indoor location?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to determine the location of a person within an indoor environment. The reification class `Cl_PersonLocationActivity` connects a person to a location and an activity, which can be used to answer the CQ.
+
+```sparql
+SELECT ?person ?location
+WHERE {
+  ?personLocationActivity a :Cl_PersonLocationActivity .
+  ?personLocationActivity :op_hasPerson ?person .
+  ?personLocationActivity :op_hasActivityLocation ?location .
+}
+```

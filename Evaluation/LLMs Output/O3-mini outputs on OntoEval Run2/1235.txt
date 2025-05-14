@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?process ?from ?fromLabel ?to ?toLabel
+WHERE {
+  ?process a :DissolvedCarbonTransportProcess ;
+           :fromCompartment ?from ;
+           :toCompartment ?to .
+  OPTIONAL { ?from rdfs:label ?fromLabel . }
+  OPTIONAL { ?to rdfs:label ?toLabel . }
+}
+ORDER BY ?process
+```

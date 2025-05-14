@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves the instruments played by a given person (replace :GivenPerson with the appropriate URI):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentName
+WHERE {
+  :GivenPerson a :Cl_Person ;
+               :plays ?instrument .
+  OPTIONAL { ?instrument :instrumentName ?instrumentName . }
+}
+
+This query returns all instruments that the given person (of type Cl_Person) plays using the “plays” relation defined in the ontology.

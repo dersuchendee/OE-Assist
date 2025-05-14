@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves albums and their release dates (thus answering “When was a certain album released?”):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+}
+------------------------------------------------
+
+This query makes use of the ontology’s Cl_Album class and its associated data property :releaseDate to extract the answer.

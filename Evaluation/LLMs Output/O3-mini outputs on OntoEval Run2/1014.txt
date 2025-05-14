@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that instances of the classes :Cl_Book and :Cl_CD have been appropriately created and linked with their publication dates via the :publicationDate property (whose rdfs:domain is set to an anonymous union of these two classes), this CQ is fully answerable from the ontology. Under the closed world assumption, we assume that any book or CD without an explicitly stated publication date has no publication date.
+
+A SPARQL query answering the CQ “When was a certain book or CD published?” would be:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  { ?item a :Cl_Book } UNION { ?item a :Cl_CD } .
+  ?item :publicationDate ?publicationDate .
+}
+-------------------------------------------------
+
+This query retrieves the publication date for every instance of :Cl_Book and :Cl_CD.

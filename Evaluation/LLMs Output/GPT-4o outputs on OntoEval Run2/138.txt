@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not have a direct connection between theatre festivals and the plays that can be seen during them. The ontology includes classes and properties related to theatre festivals, plays, and their occurrences, but it lacks a direct link between a specific festival and the plays that are part of it. Therefore, the competency question cannot be fully answered using the current ontology.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?festival ?play
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasPlay ?festivalPlay .
+  ?festivalPlay :playName ?play .
+}
+```
+
+This query retrieves the names of plays associated with theatre festivals, but it does not specify which plays can be seen during a specific festival, as the ontology does not provide this level of detail.

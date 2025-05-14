@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?chemical ?concentrationValue ?waterSource
+WHERE {
+    ?measurement a :ChemicalMeasurement .
+    ?measurement :hasConcentrationValue ?concentrationValue .
+    ?measurement :ofChemical ?chemical .
+    ?measurement :measuredIn ?waterSource .
+}
+```

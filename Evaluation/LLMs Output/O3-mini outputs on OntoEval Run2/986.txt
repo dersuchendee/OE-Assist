@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the page count for a specific book from the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?bookLabel ?pageCount
+WHERE {
+  ?book a :Cl_Book ;
+        rdfs:label ?bookLabel ;
+        :pageCount ?pageCount .
+  FILTER(STR(?bookLabel) = "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals")
+}
+--------------------------------------------------
+
+This query shows that the CQ "How many pages does a particular book contain?" is answerable using the ontology as it includes a reified property (:pageCount) on the class :Cl_Book.

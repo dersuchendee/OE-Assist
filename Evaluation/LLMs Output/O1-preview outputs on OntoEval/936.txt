@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a property that connects evaluations to employees. Therefore, we cannot fully answer the competency question "What is the evaluation statement given by a certain doctor for a certain employee?". However, we can partially retrieve evaluation statements given by doctors.
+
+```sparql
+SELECT ?doctor ?evaluationStatement
+WHERE {
+  ?doctor a :Cl_Doctor .
+  ?doctor :givesEvaluation ?evaluation .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+```

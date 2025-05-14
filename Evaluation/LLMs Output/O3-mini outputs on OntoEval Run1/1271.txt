@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not capture any explicit notion of "efficiency" or metrics to evaluate the process’s efficiency. A partial query could retrieve the available process information components (e.g. infrastructure info, process info, energy recovery info, stakeholder info, energy demand surplus info, and value info) that may indirectly relate to evaluating efficiency:
+
+------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?process ?infrastructure ?processInfo ?energyRecovery ?stakeholder ?energyDemandSurplus ?valueInfo
+WHERE {
+  ?process a :CollaborationProcess .
+  OPTIONAL { ?process :requiresInfrastructureInfo ?infrastructure . }
+  OPTIONAL { ?process :requiresProcessInfo ?processInfo . }
+  OPTIONAL { ?process :requiresEnergyRecoveryInfo ?energyRecovery . }
+  OPTIONAL { ?process :requiresStakeholderInfo ?stakeholder . }
+  OPTIONAL { ?process :requiresEnergyDemandSurplusInfo ?energyDemandSurplus . }
+  OPTIONAL { ?process :requiresValueInfo ?valueInfo . }
+}
+------------------------------------------------------------------------
+
+This query provides a partial answer by listing the different pieces of information associated with the process, although it does not directly quantify efficiency.

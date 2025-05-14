@@ -1,0 +1,33 @@
+**Yes**
+
+Below is an example SPARQL query that—under the closed‐world assumption—retrieves the persons (members) of a given band whose reified membership is valid at a specified point in time. (In the query you would replace the placeholders for the band and the time point as needed.)
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membershipStart ?membershipEnd
+WHERE {
+  # Assume we want the members of a specific band; here we bind the band URI or look it up by its label.
+  ?band a :Cl_Band ;
+        rdfs:label "The Red Hot Chili Peppers" .
+        
+  # Bind a specific point in time (change the date as appropriate for your query)
+  BIND("2004-09-01"^^xsd:date AS ?givenTime) .
+  
+  # Find memberships of persons that are reified via :hasMembership and that link to the band via :membershipIn.
+  ?person :hasMembership ?membership .
+  ?membership :membershipIn ?band ;
+              :membershipStart ?membershipStart ;
+              :membershipEnd ?membershipEnd .
+  
+  # Select only those memberships active at ?givenTime.
+  FILTER(?givenTime >= ?membershipStart && ?givenTime <= ?membershipEnd)
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?person
+-----------------------------------------------
+
+In this query the ontology’s reification of band membership (class :Cl_Membership with properties :hasMembership, :membershipIn, :membershipStart, and :membershipEnd) is used to answer the CQ “What are the members of a certain band at a certain point in time?”

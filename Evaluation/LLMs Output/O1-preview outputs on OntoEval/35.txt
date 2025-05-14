@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not contain data about specific actors involved in specific processes, so we cannot fully answer the competency question. However, we can construct a SPARQL query that, if data were present, would extract partial information.
+
+```sparql
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  ?participation a actor:ProcessParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```
+
+This query aims to retrieve actors who are participating in a process. It looks for instances where an actor is involved in a `actor:ProcessParticipation`, linking `actorODP:participatingActor` to the actor. Due to the lack of specific data instances in the ontology, executing this query would return no results. However, it demonstrates how the question could be answered if the ontology contained relevant data.

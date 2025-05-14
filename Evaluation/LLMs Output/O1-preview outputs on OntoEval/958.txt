@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "What articles is a specific book or CD composed of?" can be answered using the given ontology. The ontology includes classes `Cl_Book`, `Cl_CD`, and `Cl_Article`, as well as properties that relate them. Specifically, the property `:composedOf` links a `Cl_Book` or `Cl_CD` to a `Cl_ArticleCollection`, and the property `:article` links a `Cl_ArticleCollection` to `Cl_Article`. Since `Cl_ArticleCollection` is a subclass of both `Cl_Book` and `Cl_CD`, we can traverse from a specific book or CD to its articles.
+
+Here is the SPARQL query to retrieve the articles composed in a specific book or CD:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?bookOrCD ?bookOrCDLabel ?article ?articleLabel
+WHERE {
+    ?bookOrCD a ?type .
+    FILTER (?type = :Cl_Book || ?type = :Cl_CD) .
+    OPTIONAL { ?bookOrCD rdfs:label ?bookOrCDLabel . }
+    ?bookOrCD :composedOf ?articleCollection .
+    ?articleCollection :article ?article .
+    OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+This query selects all books or CDs and retrieves the articles they are composed of. It uses the classes and properties defined in the ontology to navigate from books or CDs to articles.

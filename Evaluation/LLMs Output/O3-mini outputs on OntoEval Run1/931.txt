@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the evaluation statement (i.e. the evaluation_text of the evaluation event) linking a given doctor and a given employee:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?doctor ?employee ?evaluation_text
+WHERE {
+  ?doctor a :Cl_Doctor ;
+          :conducts_evaluation_event ?evalEvent .
+  
+  ?employee a :Cl_Employee ;
+            :undergoes_evaluation_event ?evalEvent .
+  
+  ?evalEvent :evaluation_text ?evaluation_text .
+  
+  # Replace :DoctorID and :EmployeeID with the specific individual IRIs
+  FILTER(?doctor = :DoctorID && ?employee = :EmployeeID)
+}
+------------------------------------------------------------
+
+This query is answerable under the closed world assumption of the ontology, as it explicitly relates the doctor and the employee via the shared evaluation event and extracts the evaluation statement.

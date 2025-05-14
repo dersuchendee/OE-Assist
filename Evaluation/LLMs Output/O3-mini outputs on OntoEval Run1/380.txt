@@ -1,0 +1,28 @@
+**Yes**
+
+Assuming that the ontology’s reification is used to capture the triple‐fact (a person’s role in a production at a given time) via the pivot class Cl_PersonRoleInProductionAtTime and that additional properties (for example, :hasPerson, :hasRole, and :atTime) are used to “unpack” that triple, one may write the following SPARQL query (using the closed world assumption) to return the roles a given person has in a given production at a particular time:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel ?time
+WHERE {
+  ?production a :Cl_Production .
+  FILTER(?production = <http://www.example.org/test#TargetProduction>) .
+
+  ?production :hasPersonRoleInProductionAtTime ?pivot .
+  ?pivot a :Cl_PersonRoleInProductionAtTime .
+
+  ?pivot :hasPerson ?person .
+  FILTER(?person = <http://www.example.org/test#TargetPerson>) .
+
+  ?pivot :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  ?pivot :atTime ?time .
+}
+ORDER BY ?time
+---------------------------------------------------------------
+
+This query selects, for a specified production and person, all roles (with optional labels) along with the time at which that role association holds, thereby answering the competency question.

@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "In what city is a certain theatre located?" can be answered using the ontology provided. The ontology includes the `theatre:isLocatedIn` property, which connects a `theatre:Theatre` to a `theatre:City`. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a theatre:Theatre .
+  ?theatre theatre:isLocatedIn ?city .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

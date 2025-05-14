@@ -1,0 +1,17 @@
+**Yes**
+
+A suitable SPARQL query under the closed‐world assumption is:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLocation ?locLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarLocation ?seminarLocation .
+  OPTIONAL { ?seminarLocation rdfs:label ?locLabel . }
+}
+------------------------------------------------
+
+This query retrieves each seminar and its location (optionally including the location’s label), which answers the CQ “Where did a certain seminar take place?” based on the ontology.

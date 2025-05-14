@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that—using the closed world assumption—retrieves the members of a given band (here represented by the individual :RedHotChiliPeppers) valid at a specified point in time (for example, "2005-01-01"^^xsd:date). The query works by following the reified membership information (via the class :Cl_BandMembership) and filtering by the membership start and (if available) membership end dates.
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person ;
+          :memberOf ?membership .
+  ?membership a :Cl_BandMembership ;
+              :hasMembership :RedHotChiliPeppers ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  OPTIONAL { ?membership :hasRole ?role . }
+  
+  # Specify the point in time (e.g., 2005-01-01)
+  FILTER (
+    xsd:date(?membershipStart) <= xsd:date("2005-01-01"^^xsd:date) &&
+    ( !bound(?membershipEnd) || xsd:date(?membershipEnd) >= xsd:date("2005-01-01"^^xsd:date) )
+  )
+}
+ORDER BY ?membershipStart
+--------------------------------------------------------
+
+In this query, we assume that if a membership has no :membershipEnd value then it is still active. This query fully answers the CQ by returning all persons who, according to the reified membership records, were members of the band at the given time.

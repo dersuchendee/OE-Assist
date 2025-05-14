@@ -1,0 +1,25 @@
+**Yes**
+
+The competency question "What is the composition of this material?" can be answered using the given ontology. In this ontology, materials are associated with properties and provenance through the `Cl_MaterialComposition` class. Each `Cl_MaterialComposition` links a material to its properties and provenance using the object properties `:hasProperty` and `:hasProvenance`.
+
+Here's the SPARQL query to retrieve the composition (properties and provenance) of a specific material:
+
+```sparql
+SELECT ?propertyName ?provenanceName
+WHERE {
+  ?materialComposition :hasMaterial ?material .
+  ?material :hasName "MaterialName" .
+
+  OPTIONAL {
+    ?materialComposition :hasProperty ?property .
+    ?property :hasName ?propertyName .
+  }
+
+  OPTIONAL {
+    ?materialComposition :hasProvenance ?provenance .
+    ?provenance :hasName ?provenanceName .
+  }
+}
+```
+
+Replace `"MaterialName"` with the name of the material you're interested in. This query retrieves the names of the properties and provenance associated with the material, effectively providing its composition as defined in the ontology.

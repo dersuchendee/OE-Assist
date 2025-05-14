@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What plays did a certain author write?" can be answered using the given ontology. The ontology includes classes for authors and plays, and there is an object property `op_writtenBy` that connects plays to their authors. We can write a SPARQL query to extract the plays written by a specific author.
+
+```sparql
+SELECT ?play ?title
+WHERE {
+  ?play a :Cl_Play .
+  ?play :op_writtenBy :WilliamShakespeare .
+  ?play :dp_title ?title .
+}
+```

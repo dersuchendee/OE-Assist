@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the number of acts for plays (including a particular play if wished):
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?numberOfActs
+WHERE {
+  ?play a ns1:Play .
+  ?play ns1:numberOfActs ?numberOfActs .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  # To retrieve the answer for a specific play, you could uncomment and adjust the following line:
+  # FILTER(?play = ns1:TheMerchantOfVenice)
+}

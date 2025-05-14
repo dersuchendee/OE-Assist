@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?play ?playName
+WHERE {
+    :CertainFestival a :Cl_TheatreFestival .
+    :CertainFestival :hasPlay ?play .
+    OPTIONAL { ?play :playName ?playName . }
+}
+```

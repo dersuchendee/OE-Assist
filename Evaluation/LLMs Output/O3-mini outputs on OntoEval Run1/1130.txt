@@ -1,0 +1,25 @@
+**No**
+
+The CQ asks for the attribute values (such as the URL of the weather service plus configuration details like the location and prognosis duration) that are used to derive personalized weather information. Although the ontology includes all the necessary classes and properties (for example, Cl_WeatherService with its :hasURL, and the reified preference class Cl_UserWeatherServicePreference with :hasLocation, :hasPrognosis, and the prognosis’s :hasDuration), there is no explicit connection (e.g. a triple linking a Cl_WeatherService individual to a Cl_UserWeatherServicePreference instance via the :hasUserPreference property) that would allow us to directly join the weather service with a particular user’s preferences.
+
+Under the closed world assumption, we cannot assume that, for instance, the weather service individual (e.g. :WeatherServiceYrNo) is connected with the user’s configuration (e.g. :UserWeatherServicePreferenceBerlin). Therefore, we can only partially answer the competency question by retrieving the weather service’s attribute (its URL) and the available user configuration details separately.
+
+A SPARQL query to extract the available (partial) answer is given below:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ws ?url ?location ?prognosis ?duration
+WHERE {
+  ?ws a :Cl_WeatherService ;
+      :hasURL ?url .
+  OPTIONAL {
+    ?prefs a :Cl_UserWeatherServicePreference ;
+           :hasLocation ?location ;
+           :hasPrognosis ?prognosis .
+    OPTIONAL { ?prognosis :hasDuration ?duration . }
+  }
+}
+
+This query retrieves the weather service’s URL and, where available, the configured location and prognosis details. However, because there is no asserted link between a weather service instance and a user preference instance in the ontology, the query only provides a partial answer to the original CQ.

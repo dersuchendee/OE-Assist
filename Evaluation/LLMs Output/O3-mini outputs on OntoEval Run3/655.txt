@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one possible SPARQL query that answers the CQ by retrieving, for a given performance, the songs that were played:
+
+───────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?song ?songLabel
+WHERE {
+  # Assume ?performance is the specific performance instance you want to investigate
+  ?performance a :Cl_Performance .
+
+  # The class Cl_SongPerformance reifies the played song event
+  ?songPerformance a :Cl_SongPerformance ;
+                   :performedAt ?performance ;
+                   :performedSong ?song .
+
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+
+  # Uncomment and adjust the following FILTER to focus on a certain performance by its IRI if needed
+  # FILTER(?performance = <http://www.example.org/test#YourPerformanceIRI>)
+}
+ORDER BY ?performance ?song
+
+───────────────────────────
+
+Under the closed world assumption, since the ontology explicitly connects performances (via :Cl_Performance) with a reified song performance element (:Cl_SongPerformance) that in turn links to the song (:Cl_Song) via :performedSong, this CQ is fully modeled by the ontology.

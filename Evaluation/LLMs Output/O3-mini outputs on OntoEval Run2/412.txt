@@ -1,0 +1,18 @@
+**Yes**
+
+Because the ontology defines a restriction on productions to have exactly one premier (via the qualified cardinality restriction on the property :hasPremier with value 1), we can write a SPARQL query to retrieve productions and their premier. For instance:
+
+-----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+-----------------------------------
+
+This query retrieves each production along with its premier, which (under the closed-world assumption and the ontology’s cardinality restriction) guarantees that every production appears with exactly one premier.

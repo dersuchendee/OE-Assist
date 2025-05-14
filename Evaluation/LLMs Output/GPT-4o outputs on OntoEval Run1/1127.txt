@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about the specific weather service providing personalized weather information. However, we can extract partial information about the weather service and its associated forecasts and preferences.
+
+```sparql
+SELECT ?weatherService ?forecast ?preference
+WHERE {
+  ?weatherService a :WeatherService .
+  OPTIONAL { ?weatherService :hasForecast ?forecast . }
+  OPTIONAL { ?weatherService :hasUserPreference ?preference . }
+}
+```

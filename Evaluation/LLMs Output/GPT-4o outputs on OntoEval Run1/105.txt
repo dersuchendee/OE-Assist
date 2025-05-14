@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate a festival with a specific location. The `heldIn` property connects `Cl_TheatreFestival` to `Cl_City`, but there is no instance data or specific festival information provided in the ontology. Therefore, a partial answer can be extracted by identifying the cities where theatre festivals are held, but not the specific festival location.
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :heldIn ?city .
+}
+```

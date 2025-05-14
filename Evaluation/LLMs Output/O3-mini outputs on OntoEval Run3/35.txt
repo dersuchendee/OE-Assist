@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, retrieves processes along with the actors involved in each process by following the participation relation (using the property actorODP:participationIn to link a participation to a process and actorODP:participatingActor to link that participation to an actor):
+
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX processODP: <http://w3id.org/CEON/ontology/processODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?process ?processLabel ?actor ?actorLabel
+WHERE {
+  ?process a processODP:Process .
+  ?participation actorODP:participationIn ?process .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?processLabel ?actorLabel

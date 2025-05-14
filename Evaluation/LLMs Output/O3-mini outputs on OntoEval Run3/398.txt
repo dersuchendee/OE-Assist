@@ -1,0 +1,18 @@
+**Yes**
+Below is one SPARQL query that lists each production along with its unique premier event. Under the closed‐world assumption, we treat a production with no stated premier as violating the “exactly one” requirement. In other words, if the data is complete, every production should appear with one and only one premier event.
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierEvent
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierEvent ?premierEvent .
+}
+GROUP BY ?production ?premierEvent
+HAVING (COUNT(?premierEvent) = 1)
+---------------------------------------------------
+
+This query extracts all productions that have exactly one premier event, thereby showing that the CQ “A production has exactly one premier” is supported by the ontology.

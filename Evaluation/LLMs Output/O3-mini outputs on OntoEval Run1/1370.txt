@@ -1,0 +1,18 @@
+**No**
+
+While the ontology describes bells, bell towers, and sets of bells, it does not explicitly model information about when (what year) a building (e.g. a bell tower or a church) was built. In other words, there is no property (such as a “constructedYear” or “builtYear” property) connected to a building class within this ontology. Under the closed‐world assumption, we assume that information not represented in the ontology is false or absent. For this reason, we cannot fully answer the CQ; however, we can attempt a partial query to extract any triples that might hint at construction dates if a property name related to “built” exists in the data.
+
+Below is a SPARQL query that retrieves, for each bell tower, any property whose name contains the string “build” (ignoring case). This may help extract partial information if such data has been added externally.
+
+--------------------------------------------------------------
+PREFIX bell: <https://w3id.org/polifonia/ontology/bell/>
+
+SELECT ?bellTower ?property ?value
+WHERE {
+  ?bellTower a bell:BellTower .
+  ?bellTower ?property ?value .
+  FILTER (regex(str(?property), "build", "i"))
+}
+--------------------------------------------------------------
+
+Since the ontology does not specify a built year, the CQ is not fully supported.

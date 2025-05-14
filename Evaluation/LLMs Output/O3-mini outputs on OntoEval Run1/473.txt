@@ -1,0 +1,37 @@
+**Yes**
+Below is one example SPARQL query that, under a closed‐world assumption, retrieves the role a given person had in a given band at a specific point in time. (Here the query uses parameter values for a “certain person”, a “certain band”, and a time point that falls between the start and end dates of the membership.)
+
+───────────────────────────────────────────── 
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personName ?bandName ?roleName ?startDate ?endDate
+WHERE {
+  # Assume the person and the band are given (replace :PersonX and :BandY with the actual IRIs)
+  ?person a :Cl_Person ;
+          :name ?personName ;
+          :memberOf :BandY ;
+          :hasRole ?memberRole .
+  
+  # Get the band’s name (if available)
+  :BandY :bandName ?bandName .
+
+  # The membership role assigned to the person
+  ?memberRole :roleName ?roleName ;
+              :atTime ?timePeriod .
+
+  # The reified time period for which the role is valid
+  ?timePeriod :startDate ?startDate ;
+              :endDate ?endDate .
+
+  # Specify a given date (modify the date literal as needed)
+  FILTER( "2005-06-01"^^xsd:date >= ?startDate && "2005-06-01"^^xsd:date <= ?endDate )
+}
+ORDER BY ?personName
+───────────────────────────────────────────── 
+
+In this query:
+• The person is identified as having a role (through :hasRole leading to a reified membership role) and a membership to a band via :memberOf.
+• The membership role carries a :roleName and is linked (via :atTime) to a time period with a start and an end date.
+• The FILTER ensures that the provided date (here "2005-06-01") is within the valid interval.
+Thus, the competency question “What role does a certain person have in a certain band at a certain point in time?” is answerable given the ontology.

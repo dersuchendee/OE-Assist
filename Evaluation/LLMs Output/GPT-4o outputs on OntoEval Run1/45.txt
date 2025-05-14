@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not explicitly define a relationship between actors and competencies. The ontology includes classes and properties related to actors, capabilities, and participation, but it does not directly link actors to specific competencies. Therefore, the competency question cannot be fully answered with the given ontology. However, we can extract partial information about actors and their capabilities.
+
+```sparql
+SELECT ?actor ?capability
+WHERE {
+  ?capability a :Capability .
+  ?capability :capabilityOf ?actor .
+}
+```

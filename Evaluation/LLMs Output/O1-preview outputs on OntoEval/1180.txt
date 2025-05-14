@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT ?place ?placeLabel ?meansTypeLabel
+WHERE {
+  ?place a :Place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+  
+  ?place :hasSound ?sound .
+  ?sound :isCurrentlyPerformed true^^xsd:boolean .
+  ?sound :hasMeans ?means .
+  
+  ?means a ?meansType .
+  OPTIONAL { ?meansType rdfs:label ?meansTypeLabel . }
+  
+  FILTER (?meansType = :ManualPerformance || ?meansType = :ElectricPerformance)
+}
+```

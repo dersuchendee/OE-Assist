@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming a closed‐world view, every instance of a record is required to be connected via the property “:containsTrack” to at least one track. One way to verify this competency is to query all records and list the tracks linked to them. For example, if the ontology correctly models that each record (class :Cl_Record) must have at least one associated track (via “:containsTrack” whose range is :Cl_RecordTrack), then we can write the following SPARQL query:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?recordTrack
+WHERE {
+  ?record a :Cl_Record .
+  ?record :containsTrack ?recordTrack .
+}
+ORDER BY ?record
+----------------------------------
+
+If every record indeed always has at least one track, this query will return at least one ?recordTrack for each ?record.

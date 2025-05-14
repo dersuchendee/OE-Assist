@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that uses the reified relationships in the ontology to retrieve the composition date for a particular song (in this example, “Hump de Bump”):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song rdfs:label ?songLabel .
+  ?song :composedOn ?songComposition .
+  ?songComposition :compositionDate ?compositionDate .
+
+  # If you wish to restrict to a specific song (e.g., "Hump de Bump"), uncomment the line below
+  # FILTER (str(?songLabel) = "Hump de Bump")
+}
+-------------------------------------------------
+
+This query extracts the song (which is an instance of :Cl_Song) along with its label and the corresponding composition date obtained from the related song composition instance via the :composedOn property.

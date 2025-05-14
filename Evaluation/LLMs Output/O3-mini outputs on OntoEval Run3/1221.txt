@@ -1,0 +1,40 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed world assumption, retrieves interactions in nutrient‐poor aquifers along with the participating microbial functional guilds (e.g., autotrophs and heterotrophs). This query assumes that only interactions occurring in a NutrientPoorAquifer are relevant and that each interaction involves at least two distinct guilds. For clarity the query pairs participants belonging to either :Autotroph or :Heterotroph.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?interaction ?interactionLabel ?aquifer ?aquiferLabel ?guild1 ?guild1Label ?guild2 ?guild2Label
+WHERE {
+  ?interaction a :Interaction ;
+               :occursIn ?aquifer ;
+               :hasParticipant ?guild1, ?guild2 .
+  ?aquifer a :NutrientPoorAquifer .
+  
+  # Ensure guilds are different instances
+  FILTER(?guild1 != ?guild2)
+  
+  # Restrict to guilds of interest (e.g., Autotrophs and Heterotrophs)
+  ?guild1 a ?guildType1 .
+  ?guild2 a ?guildType2 .
+  FILTER(?guildType1 IN (:Autotroph, :Heterotroph))
+  FILTER(?guildType2 IN (:Autotroph, :Heterotroph))
+  
+  OPTIONAL { ?interaction rdfs:label ?interactionLabel . }
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+  OPTIONAL { ?guild1 rdfs:label ?guild1Label . }
+  OPTIONAL { ?guild2 rdfs:label ?guild2Label . }
+}
+ORDER BY ?interaction ?guild1 ?guild2
+-----------------------------------------------------------
+
+In this query:
+• We retrieve interactions occurring in a NutrientPoorAquifer.
+• For each such interaction, we extract pairs of participating guilds (ensuring different participants via FILTER) that are either Autotrophs or Heterotrophs.
+• We include optional labels for better human readability.
+
+This SPARQL query fully supports answering the competency question and thus shows that the ontology properly models the required information.

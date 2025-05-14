@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the articles a specific book (here, the "Book_Nurse_Practices") is composed of:
+
+------------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  :Book_Nurse_Practices :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+------------------------------------------------------------------------------
+
+This query directly extracts the articles related to the specified book via the property :containsArticle.

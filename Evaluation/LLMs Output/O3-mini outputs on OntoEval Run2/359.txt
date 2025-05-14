@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world view, retrieves the employment start date for a given actor and theatre. (In this example the actor’s and theatre’s names are matched via rdfs:label; you can adjust the filters according to your data.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?employmentDate
+WHERE {
+  ?actor a :Cl_ActorEmployment ;
+         :worksForTheatre ?theatre ;
+         :hasEmploymentDate ?employmentDate ;
+         rdfs:label ?actorLabel .
+  ?theatre rdfs:label ?theatreLabel .
+  
+  FILTER(?actorLabel = "Fabio Bianchi" && ?theatreLabel = "The Grand Theatre")
+}
+
+This query extracts the employment date for the given actor working at the specified theatre, thereby fully modelling the CQ.

@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the evaluation statement (its text and date) provided by a specified doctor for a specified employee. In this example, we use ns1:DrSmith as the doctor and ns1:PasqualeDiGennaro as the employee. You can replace these with the appropriate URIs as needed.
+
+----------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluation ?evaluationText ?evaluationDate
+WHERE {
+  ?evaluation a ns1:EvaluationStatement .
+  ?evaluation ns1:providedBy ns1:DrSmith .
+  ?evaluation ns1:evaluates ns1:PasqualeDiGennaro .
+  ?evaluation ns1:evaluationText ?evaluationText .
+  ?evaluation ns1:evaluationDate ?evaluationDate .
+}
+----------------------------------
+
+This query extracts the evaluation statement given by the designated doctor for the designated employee, which shows that the CQ is answerable by the ontology under a closed world assumption.

@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that, assuming you know the seminar’s URI, can retrieve all articles presented in that seminar:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedAt ?seminarPresentation .
+  ?seminarPresentation :presentedAt ?seminar .
+  FILTER(?seminar = <http://www.example.org/test#YourSeminarURI>)
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+----------------------------------------------------
+
+Under the closed world assumption, this query will only return those articles whose “presentedAt” reification (an instance of Cl_SeminarPresentation) explicitly links via the same property (:presentedAt) to the given seminar.

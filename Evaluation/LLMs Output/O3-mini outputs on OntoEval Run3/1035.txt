@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology includes a class for seminars (Cl_Seminar) and a data property (seminarDate) that records when a seminar took place. Using these elements under the closed world assumption, we can formulate a SPARQL query to extract the date of a seminar.
+
+For example, a query to retrieve all seminars and their dates would be:
+
+------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+------------------------------------------

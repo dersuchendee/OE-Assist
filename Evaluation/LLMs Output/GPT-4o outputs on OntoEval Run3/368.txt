@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain any direct classes or properties that relate to actors working for a specific theatre or the start date of their employment. The ontology primarily focuses on theatre festivals, plays, productions, and related entities, but does not include specific information about employment or actors' work history with theatres.
+
+However, a partial answer can be extracted by querying for any employment relationships that might exist, even though they do not directly answer the CQ.
+
+```sparql
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?employment a :Cl_Employment .
+  ?employment :employmentStartDate ?employmentStartDate .
+  ?actor :isEmployedAt ?employment .
+  ?employment a :Cl_Theatre .
+}
+```

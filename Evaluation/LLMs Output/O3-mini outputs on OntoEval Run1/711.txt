@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that, under closed‐world assumptions, retrieves the region of a given city (here “Portland”) as encoded in the ontology:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?region ?regionName
+WHERE {
+  ?city a :Cl_City ;
+        :locationName ?cityName ;
+        :locatedIn ?region .
+  ?region a :Cl_Region ;
+          :locationName ?regionName .
+  FILTER(?city = :Portland)
+}
+—————————————————————————————
+
+This query shows that the competency question “In what region is a certain city located?” is modeled by the ontology.

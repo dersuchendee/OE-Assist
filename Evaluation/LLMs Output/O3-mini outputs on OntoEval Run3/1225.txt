@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?fungus ?fungusLabel ?heterotroph ?heterotrophLabel ?abundance ?activity ?aquifer ?aquiferLabel
+WHERE {
+  ?fungus a :AquaticFungus .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel . }
+
+  # Retrieve heterotrophs whose abundance and activity are influenced by the fungus
+  ?fungus :influencesAbundanceOf ?heterotroph .
+  ?fungus :influencesActivityOf ?heterotroph .
+  OPTIONAL { ?heterotroph rdfs:label ?heterotrophLabel . }
+
+  # Get heterotroph measured values
+  ?heterotroph :hasAbundance ?abundance .
+  ?heterotroph :hasActivityLevel ?activity .
+
+  # Ensure the heterotroph lives in an aquifer
+  ?heterotroph :livesIn ?aquifer .
+  ?aquifer a :Aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+}
+```

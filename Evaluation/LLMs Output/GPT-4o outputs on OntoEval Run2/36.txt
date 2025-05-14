@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to extract actors involved in a process. The ontology defines classes for actors, processes, and work processes, and an object property `op_involvedIn` that connects actors to work processes. However, there is no direct connection between actors and processes. The `op_outlines` property connects work processes to processes, but without a direct link between actors and processes, the competency question cannot be fully answered.
+
+Partial answer:
+```sparql
+SELECT ?actor
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :op_involvedIn ?workProcess .
+}
+```

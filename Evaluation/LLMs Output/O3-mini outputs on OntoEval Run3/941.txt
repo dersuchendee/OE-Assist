@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that finds the evaluation statement provided by a given doctor (e.g., :Dr_Smith) for a given employee (e.g., :Pasquale_Di_Gennaro):
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_Evaluation ;
+              :evaluatedBy :Dr_Smith ;
+              :evaluates :Pasquale_Di_Gennaro ;
+              :evaluationStatement ?evaluationStatement .
+}
+-----------------------------------------------
+
+This query directly retrieves the evaluation statement from the evaluation individual that relates the specified doctor with the specified employee, thereby fully answering the competency question under the closed world assumption.

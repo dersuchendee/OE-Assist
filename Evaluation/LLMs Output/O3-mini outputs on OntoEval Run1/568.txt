@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query to extract the song associated with a specific track via its recording relation:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track ;
+         :isRecordingOf ?recording .
+  ?song a :Cl_Song ;
+        :hasRecording ?recording .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  FILTER(?track = <http://www.example.org/test#YourSpecificTrackIRI>)
+}
+--------------------------------------------------
+
+In this query, replace <http://www.example.org/test#YourSpecificTrackIRI> with the IRI of the specific track you are investigating. The query retrieves the song (and optionally its label) that is related to the track via the recording relationship.

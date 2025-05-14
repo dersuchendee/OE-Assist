@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the star rating given by a particular newspaper (e.g. “Il Gazzettino”) for a particular production (for example, “The Merchant of Venice”). In our ontology the star rating is associated with instances of the class Cl_NewspaperReview (which is modeled as a kind of newspaper) that relate to a production via the property reviewsProduction and carry the literal star value via hasStarRating.
+
+Assuming that the instances carry appropriate labels, the query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?starRating
+WHERE {
+  ?review a :Cl_NewspaperReview ;
+          rdfs:label "Il Gazzettino" ;
+          :hasStarRating ?starRating ;
+          :reviewsProduction ?production .
+  ?production rdfs:label "The Merchant of Venice" .
+}
+
+In a closed‐world setting (i.e. assuming that the only newspaper review for “The Merchant of Venice” with label “Il Gazzettino” is the one in question), this query fully answers the competency question.

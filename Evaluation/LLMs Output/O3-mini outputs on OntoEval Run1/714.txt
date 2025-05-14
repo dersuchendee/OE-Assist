@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming the city is asserted as an instance of Cl_City and its region is connected via the object property :locatedIn, the following SPARQL query (under a closed world assumption) would return the region for each city:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedIn ?region .
+}
+
+This query retrieves every individual of type Cl_City along with the region in which it is located.

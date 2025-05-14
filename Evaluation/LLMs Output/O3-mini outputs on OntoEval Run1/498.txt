@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each album, its recording period, as modelled by the properties recordedDuring (linking an album to an album recording) and recordingPeriod (linking that recording to a time period):
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album .
+  ?album :recordedDuring ?albumRecording .
+  ?albumRecording :recordingPeriod ?recordingPeriod .
+}
+
+--------------------------------------------------
+
+This query shows that the CQ "During what time period was a certain album recorded?" is answerable using the ontology.

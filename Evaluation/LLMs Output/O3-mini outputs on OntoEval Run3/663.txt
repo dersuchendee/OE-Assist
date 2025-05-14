@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the “certain performance” is identified (for example, by the individual :PortlandPerformance), we can extract the songs played at that performance by looking for a performance setlist that is linked to that performance and then following its :includesSong relationships. Under the closed‐world assumption (i.e. all relevant facts are explicitly asserted), the following SPARQL query retrieves the songs played in the performance:
+
+------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  ?setlist a :Cl_PerformanceSetlist ;
+           :performedIn :PortlandPerformance ;
+           :includesSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+------------------------------------------------
+
+This query identifies the setlist(s) that took place in the specified performance and then returns the songs from those setlists.

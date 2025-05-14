@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the evaluation statement for a specific employee and a specific doctor. (Replace <EmployeeURI> and <DoctorURI> with the actual IRIs.)
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?evaluation ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee .
+  ?employee :evaluatedBy ?evaluation .
+  ?evaluation :doctor ?doctor .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  FILTER( ?employee = <EmployeeURI> && ?doctor = <DoctorURI> )
+}
+----------------------------------------

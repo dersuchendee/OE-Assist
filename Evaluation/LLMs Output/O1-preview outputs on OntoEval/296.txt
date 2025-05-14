@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?playName ?numberOfActs
+WHERE {
+  ?play rdf:type :Cl_Play ;
+        :playName ?playName .
+  ?playActs rdf:type :Cl_PlayActs ;
+            :hasPlay ?play ;
+            :hasNumberOfActs ?numberOfActs .
+}
+```
+
+The CQ is answerable because the ontology includes information about plays and their number of acts through the `:Cl_PlayActs` class, which connects a play (`:hasPlay`) to its number of acts (`:hasNumberOfActs`). For example, the ontology contains the instance `:PlayActs_TheMerchantOfVenice` representing that "The Merchant of Venice" has 5 acts.

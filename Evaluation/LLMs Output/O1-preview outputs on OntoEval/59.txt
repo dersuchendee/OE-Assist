@@ -1,0 +1,13 @@
+Answer: **Yes**
+
+The ontology supports retrieving the chemical composition of materials via the `:hasChemicalComposition` property and the associated data properties `:hasElement` and `:hasAtomicPercentage` on `:Cl_ChemicalComposition`. Here's a SPARQL query to extract the chemical composition of each material:
+
+```sparql
+SELECT ?material ?element ?percentage
+WHERE {
+    ?material rdf:type :Cl_Material .
+    ?material :hasChemicalComposition ?composition .
+    ?composition :hasElement ?element .
+    ?composition :hasAtomicPercentage ?percentage .
+}
+```

@@ -1,0 +1,33 @@
+**Answer:** **Yes**
+
+The competency question can be answered using the provided ontology. We can write a SPARQL query to retrieve the articles presented in a specific seminar by utilizing the relationships defined in the ontology.
+
+Here's the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+    ?article a :Cl_Article .
+    ?article :presentedIn ?seminarPresentation .
+    ?seminarPresentation :seminar ?seminar .
+
+    # Optionally get the article's title
+    OPTIONAL { ?article rdfs:label ?articleTitle . }
+
+    # Specify the seminar of interest (replace ':SpecificSeminar' with the actual seminar URI)
+    FILTER ( ?seminar = :SpecificSeminar )
+}
+```
+
+This query works by:
+
+- Selecting instances of `:Cl_Article`.
+- Following the `:presentedIn` property to find the related `:Cl_SeminarPresentation`.
+- From the `:Cl_SeminarPresentation`, retrieving the associated `:Cl_Seminar` through the `:seminar` property.
+- Optionally retrieving the article's title if available.
+- Filtering the results to a specific seminar (you should replace `:SpecificSeminar` with the actual URI of the seminar you're interested in).
+
+This utilizes the ontology's classes and properties to effectively answer the competency question.

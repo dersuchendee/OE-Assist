@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves for a given user and ticket option the default value stored in the associated User Preference:
+
+PREFIX : <http://www.example.org/ontology/ticketing#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?ticketOption ?defaultValue
+WHERE {
+  ?user a :User .
+  ?user :hasUserPreference ?preference .
+  ?preference :appliesTo ?ticketOption .
+  ?preference :hasDefaultValue ?defaultValue .
+}
+  
+This query extracts the default value of “this option” for “this user in this context” by following the ontology’s structure where a User has one or more UserPreferences that apply to specific TicketOptions.

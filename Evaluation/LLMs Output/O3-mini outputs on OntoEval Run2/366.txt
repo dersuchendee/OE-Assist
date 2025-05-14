@@ -1,0 +1,35 @@
+**Yes**
+
+Assuming that an employment record is reified as an individual of the class :Cl_ActorEmployment—which is a subclass of both :Cl_Actor and :Cl_Theatre as well as of :Cl_Date—and that an actor’s employment record carries the employment start information via the data property :employmentStartDate, you can answer the CQ “At what time did a certain actor start working for a specific theatre?” with the following SPARQL query. (Here we also assume that the actor and the theatre are connected through the fact that the employment record is considered equal to the theatre instance in the reification framework.)
+
+Below is an example SPARQL query (using the closed‐world assumption):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?theatreName ?employmentStartDate
+WHERE {
+  # Find the actor with his/her name and employment record
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName ;
+         :employedAt ?employmentRecord .
+
+  # The employment record (a reification instance) carries the start date
+  ?employmentRecord a :Cl_ActorEmployment ;
+                    :employmentStartDate ?employmentStartDate .
+
+  # In our reification design, the employment record is also an instance 
+  # of the theatre that employed the actor.
+  ?theatre a :Cl_Theatre ;
+           :theatreName ?theatreName .
+
+  # We assume that the employment record uniquely identifies the theatre,
+  # so we equate the employment record with the theatre.
+  FILTER(?employmentRecord = ?theatre)
+}
+------------------------------------------------
+
+In this query the actor (with property :actorName) is linked to an employment record via :employedAt. The employment record (of type :Cl_ActorEmployment) carries the employment start time via :employmentStartDate. Under the reification modelling, that same record is also treated as an instance of :Cl_Theatre (carrying a :theatreName). Thus, the query answers “At what time did a certain actor start working for a specific theatre?” by returning the actor’s name, the theatre’s name, and the employment start date.

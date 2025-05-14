@@ -1,0 +1,16 @@
+**Yes**
+Below is one SPARQL query that gathers each record (album) together with the count of tracks associated with it. Under the closed‐world assumption the presence of every album’s recorded tracks can be checked; since the ontology enforces a minimum cardinality of 1 on :hasTrack for :Cl_Album, no album should appear with a count less than one.
+
+  PREFIX : <http://www.example.org/test#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  
+  SELECT ?album (COUNT(?track) AS ?numTracks)
+  WHERE {
+     ?album a :Cl_Album .
+     ?album :hasTrack ?track .
+  }
+  GROUP BY ?album
+  ORDER BY ?album
+
+This query “extracts” the answer by listing each album with its track count and confirms that every album indeed has at least one track.

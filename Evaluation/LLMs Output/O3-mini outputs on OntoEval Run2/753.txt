@@ -1,0 +1,26 @@
+**Yes**
+
+The following SPARQL query extracts, for each monitoring point, the physical parameters that have been measured along with the corresponding measurement times and values. This demonstrates that the ontology supports the CQ under a closed world assumption.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+  
+  ?monitoringPoint :hasMeasurement ?measurement .
+
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+--------------------------------------------------
+
+This query retrieves the monitoring point along with labels (if available), the measured physical parameters (with their labels), and the time and value of each measurement, thereby fully addressing the CQ.

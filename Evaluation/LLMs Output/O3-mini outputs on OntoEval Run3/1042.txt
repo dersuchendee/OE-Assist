@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleTitle ?articlePageCount
+WHERE {
+  ?seminar a :Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel. }
+  
+  ?seminar :hasPresentedArticle ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle. }
+  OPTIONAL { ?article :articlePageCount ?articlePageCount. }
+  
+  # To restrict to a certain seminar, e.g., Seminar December 2008, uncomment the following line:
+  # FILTER(?seminar = :Seminar_Dec2008)
+}
+```

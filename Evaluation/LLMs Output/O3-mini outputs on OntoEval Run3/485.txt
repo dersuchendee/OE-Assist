@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that answers the CQ under the closed‐world assumption. In this query we assume that you supply the specific person’s URI (<http://www.example.org/test#PersonX>), the band’s URI (<http://www.example.org/test#BandY>), and the point in time (as an xsd:date literal) via the variable ?givenDate. (You can replace these placeholders with actual values as needed.)
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?membershipStart ?membershipEnd 
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMembership ?membership .
+  ?membership :membershipIn ?band .
+  ?membership :hasRole ?role .
+  ?membership :membershipStart ?membershipStart .
+  ?membership :membershipEnd ?membershipEnd .
+
+  FILTER(
+    ?person = <http://www.example.org/test#PersonX> &&
+    ?band = <http://www.example.org/test#BandY> &&
+    xsd:date("2005-06-15") >= ?membershipStart &&
+    xsd:date("2005-06-15") <= ?membershipEnd
+  )
+}
+---------------------------------------------------------
+
+This query retrieves the membership record for the given person in the given band whose membership period (from ?membershipStart to ?membershipEnd) covers the specified date. Hence the ontology does model the CQ successfully.

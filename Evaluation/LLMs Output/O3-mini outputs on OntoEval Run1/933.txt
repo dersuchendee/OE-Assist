@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+SELECT ?evalStatement
+WHERE {
+  ?doctor a :Cl_Doctor .
+  ?employee a :Cl_Employee .
+  
+  ?doctor :evaluates ?evaluation .
+  ?evaluation :evaluationStatementFor ?employee .
+  ?evaluation :evaluationStatement ?evalStatement .
+  
+  FILTER (?doctor = <http://www.example.org/test#DoctorID> &&
+          ?employee = <http://www.example.org/test#EmployeeID>)
+}
+```

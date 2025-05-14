@@ -1,0 +1,17 @@
+**Yes**
+
+The CQ is answerable since the ontology includes the class `:Cl_ActorEmployment`, which connects actors to theatres via employment with a start date.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?actorName ?theatreName ?startDateValue
+WHERE {
+    ?employment rdf:type :Cl_ActorEmployment .
+    ?employment :hasActor ?actor .
+    ?actor :actorName ?actorName .
+    ?employment :hasTheatre ?theatre .
+    ?theatre :theatreName ?theatreName .
+    ?employment :hasStartDate ?startDate .
+    ?startDate :festivalDate ?startDateValue .
+}
+```

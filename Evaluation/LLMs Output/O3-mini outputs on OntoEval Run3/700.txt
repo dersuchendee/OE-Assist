@@ -1,0 +1,22 @@
+**Yes**
+
+We can answer this CQ because the ontology includes the necessary modelling: it defines a class :City as a subclass of :Location with a restriction that every city is part of some :Region (using the :isPartOf property). Under the closed world assumption we only consider what is explicitly stated; if a given city has an :isPartOf triple to a region, we can retrieve that region.
+
+Below is a SPARQL query to extract for each city (or a specific city when filtered) the region it is located in:
+
+------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  
+  ?city :isPartOf ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+}
+ORDER BY ?city
+------------------------------------
+
+This query retrieves all cities that have an explicit association to a region via the :isPartOf property along with their labels.

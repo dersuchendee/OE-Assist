@@ -1,0 +1,19 @@
+**Yes**
+
+The following SPARQL query retrieves performances along with the date on which each took place by following the performance reification via the Cl_PerformanceEvent and its date property:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?date
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performanceEvent ?event .
+  ?event :performanceEventDate ?date .
+}
+ORDER BY ?performance
+---------------------------------------------------------
+
+Under the closed world assumption, this query will extract the expected performance dates defined in the ontology for each performance, confirming that the CQ “When did a certain performance take place?” is supported by the ontology.

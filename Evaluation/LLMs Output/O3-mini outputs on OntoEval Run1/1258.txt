@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed world assumption, retrieves the quality of flows at a specific time (here represented by a parameterized datetime value):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?flowLabel ?quality ?qualityLabel ?time
+WHERE {
+  ?assessment a :FlowQualityAssessment ;
+              :assessesFlow ?flow ;
+              :hasQuality ?quality ;
+              :atTime ?time .
+  OPTIONAL { ?flow rdfs:label ?flowLabel . }
+  OPTIONAL { ?quality rdfs:label ?qualityLabel . }
+  
+  # Specify the desired time (adjust the value as needed)
+  FILTER(?time = "2021-01-01T12:00:00Z"^^xsd:dateTime)
+}
+------------------------------------------------------------
+
+This query extracts each flow (and its label, if available) along with its associated quality at the given specific time.

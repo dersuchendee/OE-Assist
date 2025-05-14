@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not contain any properties or classes related to the time period during which an album was recorded. However, we can extract partial information about albums and their recording sessions.
+
+```sparql
+SELECT ?album ?recordingSession
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :recordedDuring ?recordingSession . }
+}
+```

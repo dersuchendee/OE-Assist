@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that individuals exist following the TBox axioms under a closed‐world assumption, we can retrieve those Energy Metabolism processes that contribute to CO2 Fixation Pathways (and that occur in aquatic ecosystems) by writing a query such as:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyProcess ?energyLabel ?co2FixPath ?co2FixLabel ?aquaticEco ?ecoLabel
+WHERE {
+  ?energyProcess a :EnergyMetabolism .
+  OPTIONAL { ?energyProcess rdfs:label ?energyLabel . }
+  
+  ?energyProcess :contributesTo ?co2FixPath .
+  OPTIONAL { ?co2FixPath rdfs:label ?co2FixLabel . }
+  
+  ?energyProcess :occursIn ?aquaticEco .
+  ?aquaticEco a :AquaticEcosystem .
+  OPTIONAL { ?aquaticEco rdfs:label ?ecoLabel . }
+}
+-----------------------------------------------------------
+
+This query extracts Energy Metabolism processes, the CO2 Fixation Pathways they contribute to, and confirms that the processes occur in an Aquatic Ecosystem as required by the competency question.

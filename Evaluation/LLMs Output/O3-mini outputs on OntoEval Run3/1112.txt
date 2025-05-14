@@ -1,0 +1,26 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?activity ?timestamp ?activityType ?location ?alone ?isFacing ?object ?isHolding
+WHERE {
+  ?activity a :Cl_UserBrushingActivity .
+  OPTIONAL { ?activity :hasActivityType ?activityType . }
+  OPTIONAL {
+    ?activity :hasSensorData ?sensor .
+    OPTIONAL { ?sensor :hasTimestamp ?timestamp . }
+    OPTIONAL {
+      ?sensor :hasLocation ?location .
+      OPTIONAL { ?location :isAlone ?alone . }
+      OPTIONAL { ?location :isFacing ?isFacing . }
+    }
+    OPTIONAL {
+      ?sensor :hasObject ?object .
+      OPTIONAL { ?object :isHolding ?isHolding . }
+    }
+  }
+}
+ORDER BY ?activity ?timestamp
+```

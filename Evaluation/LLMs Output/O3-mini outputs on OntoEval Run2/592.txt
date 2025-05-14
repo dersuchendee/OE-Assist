@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming a “certain song” is one that can be identified (for example via its IRI or label), the ontology provides a data property (:composedOn) on instances of :Cl_Song that records the composition date. Under the closed‐world assumption you can extract the answer by querying for songs that have a value for :composedOn. For example:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?composedOn
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedOn ?composedOn .
+}
+-----------------------------------------
+
+This query returns each song and the date on which it was composed.

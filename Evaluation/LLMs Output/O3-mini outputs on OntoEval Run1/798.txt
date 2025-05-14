@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for each person, the degree for which they studied together with the (reified) study period:
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?studyPeriod
+WHERE {
+  ?person a :Cl_Person ;
+          :studiedFor ?studyInstance .
+  ?studyInstance :studyPeriod ?studyPeriod ;
+                 :studiedFor ?degree .
+}
+ORDER BY ?person ?studyPeriod
+────────────────────────────
+
+In this query the property :studiedFor is used in a reified way linking a person to a study instance (of type :Cl_PersonDegreeStudy) and further linking that study to the (medical) degree (of type :Cl_MedicalDegree). Thus the competency question “During what time period did a certain person study for a specific degree?” is modelled and answerable by the ontology under a closed‐world assumption.

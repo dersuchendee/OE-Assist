@@ -1,0 +1,31 @@
+**Yes**
+
+The competency question can be answered by the ontology since it includes the necessary classes and properties to represent the study periods of individuals for specific degrees. The class `:Cl_StudyForDegree` acts as a reification class connecting persons and degrees with their study periods.
+
+Here is the SPARQL query to extract the study start and end dates for each person and degree:
+
+```sparql
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?study rdf:type :Cl_StudyForDegree .
+  ?study :hasStudent ?person .
+  ?study :hasDegree ?degree .
+  ?study :studyStartDate ?startDate .
+  ?study :studyEndDate ?endDate .
+}
+```
+
+If you want to find the study period for a specific person and a specific degree, you can parameterize the query as follows (replace `:PersonX` and `:DegreeY` with the appropriate URIs):
+
+```sparql
+SELECT ?startDate ?endDate
+WHERE {
+  ?study rdf:type :Cl_StudyForDegree .
+  ?study :hasStudent :PersonX .
+  ?study :hasDegree :DegreeY .
+  ?study :studyStartDate ?startDate .
+  ?study :studyEndDate ?endDate .
+}
+```
+
+This query retrieves the time period during which the specified person studied for the specified degree, as required by the competency question.

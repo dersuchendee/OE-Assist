@@ -1,0 +1,14 @@
+Answer: **Yes**.
+
+The competency question is answerable because the ontology includes the classes `:Cl_Book` and `:Cl_CD`, and the data property `:publicationDate` that applies to both. Here is the SPARQL query to retrieve the publication date of a specific book or CD:
+
+```sparql
+SELECT ?item ?publicationDate
+WHERE {
+  ?item a ?type .
+  FILTER (?type = :Cl_Book || ?type = :Cl_CD) .
+  ?item :publicationDate ?publicationDate .
+}
+```
+
+This query selects items that are instances of either `:Cl_Book` or `:Cl_CD` and retrieves their associated `:publicationDate`.

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to extract the actors involved in a process. The ontology defines classes and properties related to actors, capabilities, and participation, but it does not explicitly link actors to specific processes. Here's a SPARQL query to extract a partial answer, focusing on actors and their participation:
+
+```sparql
+SELECT ?actor ?participation
+WHERE {
+  ?participation a :Participation .
+  ?participation :participatingActor ?actor .
+}
+```

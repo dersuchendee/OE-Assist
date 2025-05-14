@@ -1,0 +1,30 @@
+**Yes**
+
+```sparql
+SELECT ?energyInfrastructure ?eiLabel 
+       ?level ?levelLabel 
+       ?legislature ?legislatureLabel 
+       ?barrier ?barrierLabel 
+       ?externalFactor ?externalFactorLabel
+WHERE {
+  ?energyInfrastructure a :EnergyInfrastructure .
+  OPTIONAL { ?energyInfrastructure rdfs:label ?eiLabel . }
+  
+  OPTIONAL { 
+    ?energyInfrastructure :hasLevel ?level .
+    OPTIONAL { ?level rdfs:label ?levelLabel . }
+  }
+  OPTIONAL { 
+    ?energyInfrastructure :governedBy ?legislature .
+    OPTIONAL { ?legislature rdfs:label ?legislatureLabel . }
+  }
+  OPTIONAL { 
+    ?energyInfrastructure :hasBarrier ?barrier .
+    OPTIONAL { ?barrier rdfs:label ?barrierLabel . }
+  }
+  OPTIONAL { 
+    ?energyInfrastructure :influencedBy ?externalFactor .
+    OPTIONAL { ?externalFactor rdfs:label ?externalFactorLabel . }
+  }
+}
+```

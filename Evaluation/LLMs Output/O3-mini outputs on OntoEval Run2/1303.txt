@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific composition (X) and a specific tune family (Y), retrieves the confidence level with which X is considered a variant of Y:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?tuneFamily ?confidence
+WHERE {
+  ?va a :VariantAssertion ;
+      :relatesComposition ?composition ;
+      :relatesTuneFamily ?tuneFamily ;
+      :hasConfidenceLevel ?confidence .
+  FILTER(?composition = :CompositionX && ?tuneFamily = :TuneFamilyY)
+}
+--------------------------------------------------
+
+In this query, replace :CompositionX and :TuneFamilyY with the actual IRIs of composition X and tune family Y. This query works under the closed world assumption, meaning that only explicitly asserted VariantAssertions will be used to answer the competency question.

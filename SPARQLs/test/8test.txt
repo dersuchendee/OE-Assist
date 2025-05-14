@@ -1,9 +1,0 @@
-SELECT ?organ ?project ?place ?timeInterval
-WHERE {
-  ?organ a organs:Organ .
-  OPTIONAL { ?organ arco:isDescribedBy ?project .
-             ?project a arco:Project .
-             OPTIONAL { ?project arco:hasPlace ?place . }
-             OPTIONAL { ?project core:hasTimeInterval ?timeInterval . }
-           }
-}

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the credibility of a source as a single value or attribute. The ontology includes classes and properties related to credibility assessments, experts, and facts, but it does not define a direct property or attribute for the overall credibility of a source. Therefore, a partial answer can be extracted by querying the credibility assessments associated with a source.
+
+```sparql
+SELECT ?source ?credibilityScore ?credibilityExplanation
+WHERE {
+  ?source a :Source .
+  ?source :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityScore ?credibilityScore .
+  OPTIONAL { ?assessment :hasCredibilityExplanation ?credibilityExplanation . }
+}
+```

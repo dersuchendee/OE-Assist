@@ -1,0 +1,15 @@
+**Yes**
+Below is one SPARQL query that, under the closed‐world assumption given in the ontology, extracts the region in which a given city (e.g., Portland_Oregon) is located:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedIn ?region .
+}
+-------------------------------------------------
+
+This query returns the city and its associated region as required by the competency question "In what region is a certain city located?"

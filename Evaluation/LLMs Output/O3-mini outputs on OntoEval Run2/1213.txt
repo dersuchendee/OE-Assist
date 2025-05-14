@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?aquiferFungus ?fungusLabel ?chemicalParameter ?chemicalParameterLabel
+WHERE {
+  ?aquiferFungus a :AquiferFungus .
+  OPTIONAL { ?aquiferFungus rdfs:label ?fungusLabel . }
+  ?aquiferFungus :hasAssociatedChemicalParameter ?chemicalParameter .
+  OPTIONAL { ?chemicalParameter rdfs:label ?chemicalParameterLabel . }
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the location of a festival (using the property ns1:tookPlaceIn defined for ns1:TheatreFestival):
+
+--------------------------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?location ?locationLabel
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  ?festival ns1:tookPlaceIn ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+--------------------------------------------------
+
+This query answers the competency question “Where did a certain festival take place?” by extracting each festival along with its associated location under the closed world assumption.

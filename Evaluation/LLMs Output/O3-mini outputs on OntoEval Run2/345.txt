@@ -1,0 +1,26 @@
+**Yes**
+Below is one example of a SPARQL query that, by using the reification provided by the pivot class Cl_NewspaperReview, retrieves the star rating that a given newspaper gave for a production:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?newspaper ?newspaperLabel ?production ?productionLabel ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper ;
+             rdfs:label ?newspaperLabel ;
+             :hasReview ?review .
+  ?review a :Cl_NewspaperReview ;
+          :starRating ?starRating ;
+          rdfs:label ?productionLabel .
+  # In this ontology the review is a reified entity that is also a production 
+  BIND(?review AS ?production)
+  
+  # OPTIONAL filters to narrow down to a particular newspaper or production can be added.
+  # For example, to select a specific newspaper and production:
+  # FILTER(?newspaperLabel = "Il Gazzettino" && ?productionLabel = "Merchant of Venice")
+}
+ORDER BY ?newspaperLabel ?productionLabel
+--------------------------------------------------
+
+By using the object property :hasReview and the reified class :Cl_NewspaperReview (which is declared as a subclass of both :Cl_Newspaper and :Cl_Production), this query fully supports the competency question.

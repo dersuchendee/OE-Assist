@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "How many pages does a particular book contain?" can be answered using the ontology provided. The ontology includes classes and properties related to books and their page counts. Here's a SPARQL query to extract the number of pages for a particular book:
+
+```sparql
+SELECT ?book ?title ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :dp_hasTitle ?title .
+  ?book :dp_hasPageCount ?pageCount .
+}
+```
+
+This query retrieves the book's title and the number of pages it contains, which directly answers the competency question.

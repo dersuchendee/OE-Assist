@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+The competency question is supported by the ontology since it includes the `:Source` class, the `:ContextOfUsage` class, and the object property `:hasContextOfUsage` linking a source to its context of usage.
+
+Here is the SPARQL query to retrieve the context of usage of each source:
+
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?sourceLabel ?contextOfUsage ?contextLabel
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  ?source :hasContextOfUsage ?contextOfUsage .
+  OPTIONAL { ?contextOfUsage rdfs:label ?contextLabel . }
+}
+```
+
+This query selects all instances of `:Source` and retrieves their associated contexts of usage through the `:hasContextOfUsage` property, along with any available labels for better readability.

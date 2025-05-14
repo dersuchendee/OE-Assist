@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?album (COUNT(?albumTrack) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?albumTrack .
+  ?albumTrack a :Cl_AlbumTrack .
+}
+GROUP BY ?album
+```
+
+This query retrieves each album in the ontology and counts the number of associated tracks through the `:containsTrack` property. The `COUNT` function aggregates the number of `:Cl_AlbumTrack` instances for each album, effectively answering the competency question "How many tracks does a particular album contain?"

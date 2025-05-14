@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that a seminar is modelled as a subclass of Event that has an associated eventDate (indicating when the seminar took place), you can answer the CQ by querying for seminar events and retrieving their event dates. Under the closed world assumption, we expect every seminar instance to have an eventDate value. For example, the following SPARQL query extracts the title (if available) and the event date of seminars:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?title ?eventDate
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :eventDate ?eventDate .
+  OPTIONAL { ?seminar :title ?title . }
+}
+ORDER BY ?eventDate
+
+This query shows that the ontology adequately supports the CQ "When did a certain seminar take place?" by retrieving the event date of each seminar.

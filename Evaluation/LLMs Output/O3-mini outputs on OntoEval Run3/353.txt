@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?startDate
+WHERE {
+  ?actor a theatre:Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  
+  ?actor theatre:hasEmployment ?employment .
+  ?employment theatre:hasTheatre ?theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  
+  ?employment theatre:hasStartDate ?startDate .
+}
+ORDER BY ?actor ?startDate
+```

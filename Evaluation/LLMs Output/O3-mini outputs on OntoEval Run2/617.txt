@@ -1,0 +1,21 @@
+**Yes**
+
+We can fully answer this CQ with the provided ontology. In this ontology, an album (or record) is reviewed by a review (via the property reviewedBy), the review provides a statement (using the data property statement) and is linked to a critic (via madeBy). Applying the closed world assumption, we assume that every association is fully specified.
+
+For example, to get what a given critic (say :CrianHiatt) says about a given album (say :StadiumArcadium), you could use the following SPARQL query:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?record ?review ?statement
+WHERE {
+  ?record :reviewedBy ?review .
+  ?review :madeBy :CrianHiatt .
+  ?review :statement ?statement .
+  FILTER(?record = :StadiumArcadium)
+}
+-------------------------------------------------
+
+This query extracts, for a specified critic and record, the review and its statement.

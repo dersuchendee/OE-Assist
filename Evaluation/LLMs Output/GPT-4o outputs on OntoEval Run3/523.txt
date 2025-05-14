@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the number of tracks in a particular album. While there is a `:numberOfTracks` data property associated with `:Cl_Album`, the ontology does not explicitly link this property to specific tracks within an album. Therefore, a partial answer can be extracted by querying the `:numberOfTracks` property for a given album.
+
+```sparql
+SELECT ?album ?numberOfTracks
+WHERE {
+  ?album a :Cl_Album .
+  ?album :numberOfTracks ?numberOfTracks .
+}
+```

@@ -1,0 +1,23 @@
+**No**
+
+The ontology only partially supports the CQ. Although it represents musicians, bands, time periods (via LineUp and TimePeriod) and even a Role class together with the property :hasRole (and/or the multifunctional :plays), there is no explicit modeling linking a musician’s role to their membership in a band in the context of a given time period. In other words, while you can determine that a musician is part of a band during a specific LineUp (with its active time period), you cannot definitively extract the role that the musician played at that point. (The CQ expects an answer “What role does a certain person have in a certain band at a certain point in time?” but only partial membership data (and optionally instrument/role via :plays or :hasRole) is available without an explicit reification of role‐assignment in context.)
+
+A SPARQL query to extract the partial answer (membership and active time period, with any role if available) under a closed‐world assumption is as follows:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?lineup ?member ?memberName ?timePeriod ?role
+WHERE {
+  ?lineup a :LineUp ;
+          :partOfBand ?band ;
+          :activeDuring ?timePeriod ;
+          :hasMember ?member .
+  ?member rdfs:label ?memberName .
+  OPTIONAL { ?member :hasRole ?role . }
+  FILTER(?band = :RedHotChiliPeppers && ?member = :AnthonyKiedis)
+}
+--------------------------------------------------
+
+This query returns the band, the specific line-up (with its active time period) and, if available, the role of the musician. Since the ontology does not fully capture the role information in the context of the band and a time period, the answer is only partial.

@@ -1,0 +1,14 @@
+**No**
+Below is a SPARQL query that will try to retrieve any record along with its tracks (if available), even though the ontology does not explicitly model a record–track relationship.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+ 
+SELECT ?record ?track
+WHERE {
+  ?record a :Record.
+  OPTIONAL { ?record :hasTrack ?track. }
+}
+------------------------------------------------
+
+This query provides a partial answer by returning any record and its associated track when present, even though the ontology does not guarantee that every record has at least one track.

@@ -1,0 +1,18 @@
+**Yes**
+Below is one example of a SPARQL query that retrieves an album’s release date from the ontology:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  # You may add a filter to specify which album, for example:
+  # FILTER(langMatches(lang(?albumLabel),"EN") && ?albumLabel = "Stadium Arcadium")
+}
+------------------------------------------------
+
+Under the Closed World Assumption and given that the ontology declares a datatype property :releaseDate with domain :Cl_Album (that is, every album has a release date), we can answer the competency question "When was a certain album released?" using this query.

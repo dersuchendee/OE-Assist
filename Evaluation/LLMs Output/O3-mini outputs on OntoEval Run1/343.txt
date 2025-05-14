@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that instances of productions are linked (via the ratedBy property) to newspaper‐rating reification instances (of type Cl_NewspaperRating) that hold the starRating value and (for example) have a label identifying the newspaper, one can answer the CQ. For instance, to get the star rating given by “Il Gazzettino” for a particular production, one could write a query like this (under the closed world assumption):
+
+-----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production :ratedBy ?rating .
+  ?rating a :Cl_NewspaperRating .
+  ?rating :starRating ?starRating .
+  ?rating rdfs:label ?newspaperLabel .
+  FILTER(?newspaperLabel = "Il Gazzettino")
+}
+-----------------
+
+This query retrieves each production (with an optional label) that is rated by a newspaper rating instance (of type Cl_NewspaperRating) and filters for those ratings that come from “Il Gazzettino” (as indicated by the rdfs:label on the rating reification instance), returning the starRating value.

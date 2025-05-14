@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer this CQ with a query that retrieves all capabilities and the associated actor (the holder of that capability) via the property actorODP:capabilityOf. Under the closed world assumption, if no such triple exists we conclude that the actor does not hold that capability. For example, one possible SPARQL query is:
+
+------------------------------------------------------------
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?capability ?capabilityLabel ?actor ?actorLabel
+WHERE {
+  ?capability a actorODP:Capability .
+  ?capability actorODP:capabilityOf ?actor .
+  OPTIONAL { ?capability rdfs:label ?capabilityLabel . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+------------------------------------------------------------
+
+This query extracts those capabilities and their linked actor(s), thus answering “What actors hold this competency?” as modelled in the ontology.

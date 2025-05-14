@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology includes a property (:isBasedOn) with domain Cl_Production and range Cl_Play, which allows us to ask “What play is the basis of this production?” Here’s a SPARQL query that answers the competency question under a closed world assumption:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  ?production :isBasedOn ?play .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?production
+
+This query retrieves all productions and the plays they are based on.

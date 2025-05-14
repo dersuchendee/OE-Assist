@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves the number of pages for books (and can be further restricted to a particular book if desired):
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?pages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :numberOfPages ?pages .
+}
+-------------------------
+
+This query shows that the ontology supports answering the CQ “How many pages does a particular book contain?”.

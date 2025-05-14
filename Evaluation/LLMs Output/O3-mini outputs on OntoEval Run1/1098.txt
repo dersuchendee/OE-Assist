@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves, for each seminar, at least one article presented at that seminar:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar rdf:type :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+  
+  ?article rdf:type :Cl_Article ;
+           :articleTitle ?articleTitle ;
+           :presentedIn ?presentation .
+  
+  ?presentation :presentationOf ?seminar .
+}
+---------------------------------
+
+Under the closed world assumption the above query verifies that every seminar in the data (here, for instance, :SeminarOnNursePractices) is associated with at least one article (e.g. :A5YearProgramForImprovingCancerCare via its presentation instance).

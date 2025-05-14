@@ -1,0 +1,28 @@
+**Yes**
+Below is an example SPARQL query that returns the union role of a given person within a given union when the role is active at a given time. In this query, the parameters ?person, ?union, and ?givenTime serve to specify “a certain person”, “a certain union group”, and “a certain point in time” respectively:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleTitle ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :isMemberOf ?membership .
+  ?membership :membershipInUnion ?union ;
+              :hasUnionRole ?role .
+  ?role :unionRoleTitle ?roleTitle ;
+        :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+  # Filter by the given time – assuming ?givenTime is provided as an xsd:date literal.
+  FILTER (
+      ?givenTime >= ?roleStartDate &&
+      ( !BOUND(?roleEndDate) || ?givenTime <= ?roleEndDate )
+  )
+  # Additionally, you could filter further by specific person and union values.
+  # For example:
+  # FILTER (?person = :PasqualeDiGennaro && ?union = :MaleNursesUnion)
+}
+-----------------------------------------------------------
+
+Under the closed world assumption (i.e. any fact not explicitly stated is considered false), this query extracts the union role(s) held by a person at a specific time within a specified union group.

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the instruments played by a given person based on the ontology’s modelling of instrument playing via the Cl_InstrumentPlaying class and the properties playsInstrument and playedBy:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person ;
+          :playsInstrument ?playing .
+  ?playing :playedBy ?instrument .
+  # To restrict to a specific person you could add a FILTER with their URI
+  # FILTER(?person = <http://www.example.org/test#SpecificPersonURI>)
+}
+
+This query extracts the instruments (via the property :playedBy) that are associated with a reified instance of instrument playing (via :playsInstrument) for a person.

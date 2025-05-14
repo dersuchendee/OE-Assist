@@ -1,0 +1,19 @@
+**Yes**
+
+We can retrieve the play that is the basis of a production by using the defined relation (through the inverse properties hasPlay and isBasisOf). For example, the following SPARQL query returns each production along with the play that is its basis:
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production :hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?production
+----------------------------------------------------------
+
+Under the closed world assumption, only the productions explicitly linked to a play via the :hasPlay property are returned.

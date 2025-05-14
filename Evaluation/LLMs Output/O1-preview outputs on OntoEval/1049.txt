@@ -1,0 +1,26 @@
+**Yes**
+
+The CQ is answerable because the ontology includes classes and properties that relate articles to seminar presentations and seminars. Specifically, we have:
+
+- `:Cl_Article` class representing articles.
+- `:Cl_Seminar` class representing seminars.
+- `:Cl_SeminarPresentation` class representing presentations in seminars.
+- Properties connecting these classes:
+  - `:presentedIn` links an article to a seminar presentation.
+  - `:presentationInSeminar` links a seminar presentation to a seminar.
+
+Here's a SPARQL query to retrieve the articles presented in a specific seminar:
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+  # Replace :SpecificSeminar with the URI of the seminar of interest
+  VALUES ?seminar { :SpecificSeminar }
+  
+  ?seminar :hasPresentation ?presentation .
+  ?presentation :presentationOfArticle ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+```
+
+Replace `:SpecificSeminar` with the identifier of the seminar you're interested in. This query retrieves all articles presented in that seminar, along with their titles if available.

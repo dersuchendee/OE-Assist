@@ -1,0 +1,20 @@
+**Yes**  
+Below is a SPARQL query that uses the ontology’s reified performance and location classes to retrieve where a specific performance took place:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel. }
+  
+  ?performance :tookPlaceAt ?location .
+  ?location a :Cl_PerformanceLocation .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+------------------------------------------------------
+
+This query extracts all performances and the corresponding performance location as asserted in the ontology under a closed world assumption.

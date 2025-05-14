@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the star rating value assigned by a specific newspaper for a specific production:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?newspaper ?starRatingValue
+WHERE {
+  ?review a :Cl_Review .
+  ?review :forProduction ?production .
+  ?review :givenBy ?newspaper .
+  ?review :hasStarRating ?starRating .
+  ?starRating :hasStarRatingValue ?starRatingValue .
+  
+  # Apply filters for a given production and newspaper
+  FILTER (?production = <http://www.example.org/test#YourProductionURI>) .
+  FILTER (?newspaper = <http://www.example.org/test#YourNewspaperURI>) .
+}
+--------------------------------------------------
+
+Using the closed world assumption, the query filters on the specific production and newspaper, ensuring we obtain the exact star rating as modelled in the ontology.

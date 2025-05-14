@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming we know the identifiers for the person and hospital (for example, using :PasqualeDiGennaro and :OspedaleRiunitoDelleTreValli), you can answer the CQ “When was a certain person first employed at a certain hospital?” by retrieving the employment instances for that person at a hospital and selecting the earliest (minimum) employment start date. Under a closed world assumption, we assume that all employment events are recorded in the ontology.
+
+A corresponding SPARQL query is:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?employmentDate) AS ?firstEmployment)
+WHERE {
+  ?employment a :Employment .
+  ?employment :hasEmployee :PasqualeDiGennaro .
+  ?employment :hasEmployer ?employer .
+  ?employer a :Hospital .
+  ?employment :employmentStartDate ?employmentDate .
+}
+
+This query retrieves the earliest employment start date for Pasquale Di Gennaro at a hospital (here, any employer that is of type :Hospital) by taking the minimum of the recorded employment start dates.

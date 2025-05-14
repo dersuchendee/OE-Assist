@@ -1,0 +1,21 @@
+**Yes**
+Below is one SPARQL query that uses the reified role assignment structure to retrieve the roles a person has in a production at a given time point:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+SELECT ?person ?role ?production ?timePoint
+WHERE {
+  ?person a :Cl_Person .
+  ?person :assignedRoleAssignment ?assignment .
+  
+  ?production a :Cl_Production .
+  ?production :roleAssignmentInProduction ?assignment .
+  
+  ?timePoint a :Cl_TimePoint .
+  ?timePoint :roleAssignmentAtTimePoint ?assignment .
+  
+  ?role :roleAssignmentOfRole ?assignment .
+}
+---------------------------------------------------------
+
+This query uses the fact that a Cl_RoleAssignment (used to reify the relationship) connects a person (via :assignedRoleAssignment), a production (via :roleAssignmentInProduction), and a time point (via :roleAssignmentAtTimePoint) along with the actual role (via :roleAssignmentOfRole). Under the closed world assumption, the query fully captures the intended competency question.

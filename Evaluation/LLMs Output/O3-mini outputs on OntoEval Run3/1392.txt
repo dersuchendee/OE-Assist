@@ -1,0 +1,21 @@
+**No**
+
+The provided ontology does not model an explicit connection between a composer and a tune family, so the CQ cannot be fully answered. However, we can partially extract tunes that are members of a tune family (ignoring the composer association, which is not modelled). Here’s a partial SPARQL query:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tuneFamily ?tfLabel ?tune ?tuneLabel
+WHERE {
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tfLabel . }
+  
+  ?tuneFamily core:hasMember ?tune .
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+}
+ORDER BY ?tuneFamily ?tune
+
+This query returns the tunes that are part of a tune family, but it does not filter or associate them with a composer since such a relation is not specified in the ontology under the closed world assumption.

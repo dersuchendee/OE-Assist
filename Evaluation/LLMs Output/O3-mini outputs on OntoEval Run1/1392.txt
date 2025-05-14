@@ -1,0 +1,25 @@
+**No**
+
+The provided ontology does not encode a direct link between a TuneFamily, its composing Tunes, and an associated Composer. Under the closed‐world assumption, while we can extract Tunes and TuneFamilies, the composer association is not explicitly modeled. Therefore, we can only provide a partial answer extracting Tunes and their TuneFamilies.
+
+Below is a SPARQL query that extracts the tunes and tune families (assuming that if a Tune is part of a TuneFamily, it would be linked via a membership relation—not present in the given ontology—but at least retrieving the two classes can serve as a partial answer):
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?tune ?tuneLabel ?tuneFamily ?tuneFamilyLabel
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel . }
+  
+  # In a complete model, there would be a property linking a Tune to a TuneFamily;
+  # since that relation is missing, the query returns the sets independently.
+}
+ORDER BY ?tuneFamily ?tune
+
+This query represents a partial answer since it does not cover the association with a composer, which is not available in the ontology.

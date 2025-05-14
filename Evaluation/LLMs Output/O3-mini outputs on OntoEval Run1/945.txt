@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, retrieves the evaluation statement given by a specific doctor for a specific employee. (Replace the example URIs <doctor_URI> and <employee_URI> with the actual URIs.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_DoctorEmployeeEvaluation ;
+              :evaluatedBy <doctor_URI> ;
+              :evaluates   <employee_URI> ;
+              :evaluationStatement ?evaluationStatement .
+}
+--------------------------------------------------
+
+This query finds instances of the reified evaluation (of type Cl_DoctorEmployeeEvaluation) where the property :evaluatedBy links to the given doctor and :evaluates links to the given employee, then returns the associated evaluation statement.

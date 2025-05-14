@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, retrieves the star rating given by a specific newspaper (for example, ns1:IlGazzettino) for a particular production (for example, ns1:MerchantOfVenice_GrandTheatre):
+
+--------------------------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT ?production ?newspaper ?starRating 
+WHERE {
+  ?review a ns1:Review ;
+          ns1:reviewOf ?production ;
+          ns1:publishedBy ?newspaper ;
+          ns1:starRating ?starRating .
+  
+  # Filter for the specific newspaper and production
+  FILTER(?newspaper = ns1:IlGazzettino && ?production = ns1:MerchantOfVenice_GrandTheatre)
+}
+--------------------------------------------------
+
+This query shows that the competency question “What is the ‘star rating’ given by a certain newspaper for a certain production?” is answerable with the ontology.

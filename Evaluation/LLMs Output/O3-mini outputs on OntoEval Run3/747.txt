@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not explicitly represent the concept “record” with an associated “track” (for example via a property like :hasTrack) even though the OS talks about an album containing tracks. Therefore, under the closed‐world assumption we cannot fully answer the competency question “A record always contains at least one track” from the provided ontology. However, we can write a query that partially retrieves instances of a record (here assumed as a CD, e.g. :Cl_CD) along with any (optional) tracks if declared.
+
+For example, a partial SPARQL query might be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a :Cl_CD .
+  OPTIONAL { ?record :hasTrack ?track. }
+}
+
+This query returns all instances of :Cl_CD (assumed to denote a record) with their associated tracks (if any), illustrating that the ontology does not enforce that every record has at least one track.

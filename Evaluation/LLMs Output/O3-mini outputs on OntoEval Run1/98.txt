@@ -1,0 +1,18 @@
+**Yes**
+Below is one SPARQL query that, under the closed world assumption, retrieves for each festival occurrence its associated city (location):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalOccurrence ?festName ?city ?cityName
+WHERE {
+  ?festivalOccurrence a :Cl_FestivalOccurrence .
+  OPTIONAL { ?festivalOccurrence :hasName ?festName . }
+  ?festivalOccurrence :occursIn ?city .
+  OPTIONAL { ?city :hasName ?cityName . }
+}
+--------------------------------------------------
+
+This query answers the CQ “Where did a certain festival take place?” by finding the festival occurrences (e.g., instances like :RomaLovesShakespeare2007) and extracting the city (e.g., :CityOfRome) associated via the property :occursIn.

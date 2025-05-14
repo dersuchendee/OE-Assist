@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?resource ?type ?composition ?compositionLevel ?usedIn ?partOfNetwork ?mainFocusOf
+WHERE {
+  ?resource a :Cl_Resource .
+  OPTIONAL { ?resource :isTypeOf ?type . }
+  OPTIONAL { ?resource :hasComposition ?composition . }
+  OPTIONAL { ?resource :hasCompositionLevel ?compositionLevel . }
+  OPTIONAL { ?resource :usedIn ?usedIn . }
+  OPTIONAL { ?resource :isPartOf ?partOfNetwork . }
+  OPTIONAL { ?resource :mainFocusOf ?mainFocusOf . }
+}
+```
+
+This SPARQL query retrieves information about resources as modeled in the ontology. It selects resources of type `:Cl_Resource` and optionally retrieves their type (`:isTypeOf`), composition (`:hasComposition`), composition level (`:hasCompositionLevel`), the process steps they are used in (`:usedIn`), the circular value network they are part of (`:isPartOf`), and the circular value network where they are the main focus (`:mainFocusOf`). This aligns with the competency question "Give me information about this resource," as it extracts relevant details about resources within the ontology's framework.

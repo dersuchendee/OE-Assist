@@ -1,0 +1,20 @@
+**No**
+
+It is not fully answerable using the available ontology because there is no dedicated reified construct or explicit property that directly “characterizes the relation among the participants.” Although we can infer co‐participation in events, the ontology only links Persons to Events (via participatesIn and hasParticipant), and it does not specify any additional attributes or properties that explicitly describe the relation between participants. 
+
+A partial query that retrieves pairs of persons who co‐participate in the same event (thus indirectly suggesting a relation among them) is shown below:
+
+SPARQL:
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?participant1 ?participant2
+WHERE {
+  ?event a :Event .
+  ?event :hasParticipant ?participant1 .
+  ?event :hasParticipant ?participant2 .
+  FILTER(?participant1 != ?participant2)
+}
+ORDER BY ?event ?participant1 ?participant2
+
+This query extracts events and, for each event, lists pairs of distinct participants. While it provides some insight into how participants are related through common events, it does not fully “characterize” their relationship as the original CQ intends.

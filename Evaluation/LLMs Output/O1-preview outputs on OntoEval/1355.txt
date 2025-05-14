@@ -1,0 +1,26 @@
+**No**
+
+The provided ontology allows us to retrieve the parts of an organ through the `arco:includesPart` relationship. However, it lacks the necessary information to distinguish between original parts and those that have been replaced or restored over time. Specifically, there are no properties or classes that indicate the originality or historical continuity of a part.
+
+As a partial answer, we can retrieve all the parts of an organ, but we cannot identify which of these parts are original. Below is a SPARQL query that lists the parts of each organ:
+
+```sparql
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT DISTINCT ?organ ?organLabel ?part ?partLabel ?partTypeLabel
+WHERE {
+    ?organ a organs:Organ .
+    OPTIONAL { ?organ rdfs:label ?organLabel . }
+    
+    ?organ arco:includesPart ?part .
+    OPTIONAL { ?part rdfs:label ?partLabel . }
+    
+    ?part a ?partType .
+    OPTIONAL { ?partType rdfs:label ?partTypeLabel . }
+}
+ORDER BY ?organ ?part
+```
+
+This query retrieves each organ along with its parts and the types of those parts. However, without additional properties to indicate whether a part is original or not, we cannot fully answer the competency question.

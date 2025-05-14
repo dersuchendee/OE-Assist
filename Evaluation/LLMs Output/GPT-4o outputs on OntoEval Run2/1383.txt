@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide explicit information about whether participants were invited or if the meeting was accidental. However, we can extract partial information about the purpose of the meetup, which might give some insight into the nature of the meeting.
+
+```sparql
+SELECT ?meetup ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose ?purpose .
+}
+```

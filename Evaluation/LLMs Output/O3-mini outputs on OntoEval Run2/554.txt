@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+  # Optionally, filter for a specific album if needed, e.g.,
+  # FILTER(regex(str(?album), "StadiumArcadium", "i"))
+}
+```

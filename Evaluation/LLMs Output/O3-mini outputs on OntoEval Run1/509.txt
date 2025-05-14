@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology supports this competency question because an album (of type :Cl_Album) has an associated recording session (via the property :hasRecordingSession) that carries the start and finish dates (through :recordingStartDate and :recordingEndDate). Under a closed world assumption, you can query for a given album (or all albums) and extract the recording time period.
+
+For example, the following SPARQL query extracts the recording time period for each album:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recordingSession ?recordingStartDate ?recordingEndDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+  ?album :hasRecordingSession ?recordingSession .
+  ?recordingSession :recordingStartDate ?recordingStartDate .
+  ?recordingSession :recordingEndDate ?recordingEndDate .
+}
+ORDER BY ?album
+
+This query demonstrates that the competency question "During what time period was a certain album recorded?" is answerable by the ontology.

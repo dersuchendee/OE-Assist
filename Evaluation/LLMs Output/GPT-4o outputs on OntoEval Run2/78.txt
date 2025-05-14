@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific theatre festival with a date. The ontology includes classes and properties related to festivals and occurrences, but it lacks the necessary data properties or object properties to directly link a specific festival to a date. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?occurrence ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalOccurrence ?occurrence .
+  OPTIONAL { ?occurrence :occurredOnDate ?date . }
+}
+```
+
+This query attempts to retrieve festivals and their occurrences, but without specific data, it cannot provide the exact date of a festival.

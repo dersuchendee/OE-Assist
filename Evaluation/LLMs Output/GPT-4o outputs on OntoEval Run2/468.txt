@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to query the role of a person in a band at a specific point in time. The ontology includes classes and properties related to bands, musicians, and their roles, but it lacks a temporal component to capture the role at a specific time. Here's a SPARQL query to extract a partial answer, which lists the roles of persons in bands without considering the time aspect:
+
+```sparql
+SELECT ?person ?personName ?band ?bandName ?role
+WHERE {
+  ?person a :Cl_Person ;
+          :hasName ?personName ;
+          :memberOf ?bandMembership .
+  ?bandMembership :hasMembership ?band ;
+                  :hasRole ?role .
+  ?band :hasName ?bandName .
+}
+```

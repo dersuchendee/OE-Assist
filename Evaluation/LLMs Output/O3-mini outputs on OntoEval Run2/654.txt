@@ -1,0 +1,12 @@
+**Yes**
+Below is an example SPARQL query that retrieves the songs played in a given performance (here assumed to be identified by the IRI <http://example.org/music#performance1>):
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  <http://example.org/music#performance1> a :Performance ;
+      :hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+}

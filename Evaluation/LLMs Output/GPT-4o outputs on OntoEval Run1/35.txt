@@ -1,0 +1,12 @@
+**Yes**
+
+The ontology provides a structure to identify actors involved in processes through the `actorODP:participatingActor` property, which links actors to their participation in processes. Here's a SPARQL query to extract the actors involved in any process:
+
+```sparql
+SELECT DISTINCT ?actor ?process
+WHERE {
+  ?participation a actor:ProcessParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participationIn ?process .
+}
+```

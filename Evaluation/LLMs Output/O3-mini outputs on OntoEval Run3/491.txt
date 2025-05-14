@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that an album’s recording period is modelled by having the album instance also be an instance of the reified class for album recordings (i.e. :Cl_AlbumRecording, which carries data properties for the start and end of recording), one can write a SPARQL query to extract the recording period for a “certain album”. For example, if the album in question is identified by its URI (e.g. :ind_StadiumArcadiumRecording), the query could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_AlbumRecording ;
+         :dp_recordingStartDate ?recordingStart ;
+         :dp_recordingEndDate ?recordingEnd .
+  FILTER(?album = :ind_StadiumArcadiumRecording)
+}
+
+Under the closed‐world assumption this query extracts the complete answer for the competency question “During what time period was a certain album recorded?”

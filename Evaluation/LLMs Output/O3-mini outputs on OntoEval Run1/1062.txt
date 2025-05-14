@@ -1,0 +1,21 @@
+**Yes**
+Below is a SPARQL query that retrieves the articles presented in a specified seminar. (Replace the placeholder value for the seminar IRI or label to target the particular seminar of interest.)
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  
+  ?seminar :hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+
+  # Filter condition to select a given seminar; for example, by label.
+  FILTER( ?seminarLabel = "December 2008 Seminar at Ospedale Riunito delle Tre Valli" )
+}
+---------------------------------
+
+This query can be modified to use a different filter (for example, via an IRI) to target the “certain seminar” as required.

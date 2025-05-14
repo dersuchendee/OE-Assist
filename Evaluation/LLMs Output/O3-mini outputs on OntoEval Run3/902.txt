@@ -1,0 +1,31 @@
+**Yes**
+
+The ontology models union membership using a reification class for union membership (Cl_UnionMembership) together with properties linking a person (domain Cl_Person) to a union membership record (via the property memberOf) and from that record to a union (using membershipUnion). Moreover, dates for the membership (membershipStartDate and membershipEndDate) are available, which allow checking if a membership was active at a specified point in time. For example, the CQ “Who are the members of a certain union at a certain point in time?” is answerable by the following SPARQL query (using a closed world assumption):
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Replace :UnionX with the specific union IRI you want to query
+# Replace "2005-01-01"^^xsd:date with the time point of interest
+
+SELECT DISTINCT ?person ?personLabel ?membership ?start ?end
+WHERE {
+  ?person a :Cl_Person ;
+          :memberOf ?membership .
+  ?membership :membershipUnion :UnionX ;
+              :membershipStartDate ?start ;
+              :membershipEndDate ?end .
+  
+  # Bind the query time (the point in time we want to check)
+  BIND(xsd:date("2005-01-01") AS ?queryTime)
+  
+  # Ensure that the query time falls within the membership period.
+  FILTER(?queryTime >= ?start && ?queryTime <= ?end)
+  
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+}
+----------------------------------
+
+This query extracts the persons whose union membership (for the specified union) was active at the given time, thereby providing an answer to the competency question.

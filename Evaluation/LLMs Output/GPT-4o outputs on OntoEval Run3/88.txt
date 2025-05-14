@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "When did a certain theatre festival take place?" can be answered using the ontology provided. The ontology includes classes and properties that relate to theatre festivals and their dates, allowing us to extract the required information.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?festivalName ?eventDate
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasFestivalEvent ?event .
+  ?event :hasDate ?date .
+  ?date :eventDate ?eventDate .
+}
+```
+
+This query retrieves the names of theatre festivals and their corresponding event dates from the ontology.

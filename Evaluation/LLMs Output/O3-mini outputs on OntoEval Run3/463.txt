@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one possible SPARQL query that—under a closed‐world view—retrieves the current members of a given band (identified by its URI) at a particular time (here bound to a fixed date-time, which you may replace with any input value):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?bandLabel ?member ?memberLabel ?membership ?start ?end
+WHERE {
+  ?band a :Cl_Band .
+  OPTIONAL { ?band rdfs:label ?bandLabel. }
+
+  # Get the band membership instance from the band
+  ?band :hasMember ?membership .
+  ?membership :isMember ?member .
+  ?membership :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end. }
+
+  # Here we supply the “point in time” of interest.
+  BIND(xsd:dateTime("2000-01-01T00:00:00") AS ?pointInTime)
+  
+  # Under the closed world assumption, if a membership end date is not provided it is treated as “not active” (unless specifically meant as ongoing).
+  # This filter ensures that the membership started on or before ?pointInTime and ended at or after ?pointInTime.
+  FILTER(
+      ?start <= ?pointInTime &&
+      (bound(?end) && ?pointInTime <= ?end || !bound(?end))
+  )
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+}
+ORDER BY ?band ?start
+
+In this query, you can replace the band URI and the fixed date-time with parameters as needed. This demonstrates that the ontology does support answering the competency question "What are the members of a certain band at a certain point in time?"

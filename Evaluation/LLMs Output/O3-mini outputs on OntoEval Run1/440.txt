@@ -1,0 +1,15 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for a given person (or for all persons), the instruments they play:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?instrument
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :playsInstrument ?instrument .
+}
+--------------------------------------------------
+
+Under the closed world assumption, only those persons having an explicit triple linking them via the property playsInstrument to an instrument will be returned.

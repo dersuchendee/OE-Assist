@@ -1,0 +1,18 @@
+**Yes**
+Below is one example of a SPARQL query that, under a closed‐world assumption, retrieves the number of pages for a given book (for instance, the “Nurse practices in cancer patient care …” book) by following its reified detail – the book details holding the page count:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?title ?pages
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book :hasTitle ?title . }
+  
+  ?book :hasBookDetails ?details .
+  ?details :hasNumberOfPages ?pages .
+} 
+
+ORDER BY ?book
+
+This query shows that the competency question—“How many pages does a particular book contain?”—is answerable using the ontology since the book, its details (a reification of the book’s attributes), and the page count (via the data property :hasNumberOfPages) are properly modeled in the ontology.

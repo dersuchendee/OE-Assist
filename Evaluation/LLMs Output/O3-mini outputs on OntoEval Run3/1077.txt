@@ -1,0 +1,16 @@
+**Yes**
+
+The CQ "Where did a certain seminar take place?" is fully answerable by the ontology as specified. In particular, seminars in the ontology are modelled as instances of the class Cl_Seminar that are linked to their venue (here a hospital) via the property takesPlaceAt. Under the closed world assumption, we assume that the provided triples are complete and an instance such as :SeminarOnNursePractices is known to take place at :OspedaleRiunitoDelleTreValli.
+
+A possible SPARQL query to extract the seminar locations is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?hospital
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :takesPlaceAt ?hospital .
+}
+
+This query will return the seminar(s) along with the hospital where the seminar took place.

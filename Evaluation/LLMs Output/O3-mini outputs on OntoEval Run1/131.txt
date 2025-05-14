@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology provides a clear reified connection between theatre festivals and the plays that are part of them via the object property :op_hasPlay. Using the closed world assumption, we assume that if a festival doesn't state a relationship to a play, then it simply does not have one. The following SPARQL query answers the CQ by extracting, for each theatre festival, the associated plays:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?festival ?festivalLocation ?play
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  OPTIONAL { ?festival :dp_location ?festivalLocation . }
+  ?festival :op_hasPlay ?play .
+}
+------------------------------------------------
+
+This query returns every theatre festival (optionally with its location) along with the plays that can be seen during that festival.

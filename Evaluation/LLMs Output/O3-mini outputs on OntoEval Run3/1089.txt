@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the closed world assumption and using the reification pattern indicated by the ontology (where every seminar must be connected to at least one presentation event that in turn is linked to an article), the following SPARQL query retrieves, for each seminar, the associated article(s) that have been presented:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+ 
+SELECT ?seminar ?article
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :hasPresentationEvent ?presentationEvent .
+  ?presentationEvent :presentationOfArticle ?article .
+}
+ORDER BY ?seminar
+---------------------------------------------------
+
+This query answers the competency question “At least one article is always presented at each seminar” since it retrieves, for every seminar in the ontology, that article (or articles) linked via the reification property.

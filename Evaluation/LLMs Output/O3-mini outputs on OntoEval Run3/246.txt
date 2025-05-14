@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the plays written by authors using the :op_hasWritten property:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?author ?play
+WHERE {
+  ?author a :Cl_Author .
+  ?author :op_hasWritten ?play .
+}
+-------------------------------------------------
+
+This query works under a closed‐world assumption by only returning plays that are explicitly linked to an author via the :op_hasWritten property in the ontology.

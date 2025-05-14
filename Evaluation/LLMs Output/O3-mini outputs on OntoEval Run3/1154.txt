@@ -1,0 +1,21 @@
+**Yes**
+Below is one SPARQL query that extracts the attributes of movie events by leveraging the reification provided by the Cl_MovieScreening pivot class:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?screening ?movie ?title ?genre ?actor ?cinema ?screeningTime
+WHERE {
+  ?screening a :Cl_MovieScreening .
+  ?screening :featuresMovie ?movie .
+  
+  OPTIONAL { ?movie :hasTitle ?title . }
+  OPTIONAL { ?movie :hasGenre ?genre . }
+  OPTIONAL { ?movie :hasActor ?actor . }
+  
+  OPTIONAL { ?screening :hasScreeningTime ?screeningTime . }
+  OPTIONAL { ?screening :screenedAt ?cinema . }
+} 
+
+This query extracts the movie’s title, genre, and actors as well as screening-related information such as screening time and the cinema where it is shown, thus answering the CQ under the closed world assumption.

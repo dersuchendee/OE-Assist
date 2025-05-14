@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, returns the persons (members) of a given band (e.g. the RedHotChiliPeppers) who were members at a specified point in time. In this example the point in time is given as 2004-09-01. (You can replace the band IRI and the query date as needed.)
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person ;
+          :memberOf ?membership .
+  ?membership :hasMembership :RedHotChiliPeppers ;
+              :hasRole ?role ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # The given point of time for the query (adjust as needed)
+  BIND(xsd:date("2004-09-01") AS ?queryDate)
+  
+  # Filter: membership must have started on or before the query date,
+  # and if there is an end date it must be after the query date.
+  FILTER( ?membershipStart <= ?queryDate &&
+         ( !bound(?membershipEnd) || ?queryDate <= ?membershipEnd )
+  )
+}
+ORDER BY ?membershipStart
+---------------------------------------
+
+This query answers the CQ “What are the members of a certain band at a certain point in time?” by retrieving the band members whose memberships have started before (or on) and have not ended before the given query date.

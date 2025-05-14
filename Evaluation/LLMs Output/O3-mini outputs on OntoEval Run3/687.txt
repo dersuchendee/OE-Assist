@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example SPARQL query that, under a closed‐world assumption, retrieves each performance along with its performance date and location (including any linked city, region, and country information):
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?location ?cityLabel ?region ?country
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :performanceLocation ?location .
+  
+  # Optionally get a human‑readable label for the location (city)
+  OPTIONAL { ?location rdfs:label ?cityLabel . }
+  
+  # Optionally get higher level geographic context
+  OPTIONAL { ?location :locatedInRegion ?region . }
+  OPTIONAL { ?region :locatedInCountry ?country . }
+}
+ORDER BY ?performanceDate
+-----------------------------------------
+
+This query assumes that the ontology models performances with the property :performanceLocation linking to a location (such as a city). It retrieves the performance’s date and, if available, labels and regional/country information linked via :locatedInRegion and :locatedInCountry.

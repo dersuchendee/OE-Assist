@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the newspaper (and optionally its name) that gave the Merchant of Venice production a star rating of 5:
+
+--------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?newspaper ?newspaperName ?starRating
+WHERE {
+  ?review a :Cl_Review ;
+          :hasProduction :Production_GrandTheatre_MerchantOfVenice ;
+          :hasNewspaper ?newspaper ;
+          :hasStarRating ?starRating .
+  
+  FILTER(?starRating = 5)
+  
+  OPTIONAL { 
+    ?newspaper :newspaperName ?newspaperName .
+  }
+}
+--------------------------------------------------------------------
+
+With the closed world assumption, the query assumes that if a review does not have a statement for a given property (here :hasStarRating) then the fact is not true. This query shows that the production “The Merchant of Venice at The Grand Theatre” (instance :Production_GrandTheatre_MerchantOfVenice) received a review with a star rating of 5 from the newspaper linked via :hasNewspaper.

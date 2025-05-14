@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for a given person, the medical degree(s) they have. This query takes into account that the ontology may include a direct relationship (via :hasMedicalDegree) as well as an indirect, reified association (via the reification class :Cl_StudyForDegree with properties :hasStudent and :hasDegree):
+
+———————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  {
+    ?person :hasMedicalDegree ?degree .
+  }
+  UNION
+  {
+    ?study a :Cl_StudyForDegree ;
+           :hasStudent ?person ;
+           :hasDegree ?degree .
+  }
+  
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+}
+———————————————
+
+Under a closed‐world assumption the query returns exactly the medical degree(s) associated with a given person in the ontology.

@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology models seminars (instances of Cl_Seminar) such that the OWL restriction requires each seminar to have at least one article (an instance of Cl_Article) associated via the “presentedIn” property. Under the closed world assumption, we can write a SPARQL query that retrieves, for each seminar, at least one article that is presented in it.
+
+For example, the following query returns each seminar along with its presented article:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article :presentedIn ?seminar .
+}
+ORDER BY ?seminar ?article
+
+This query shows that for every seminar recorded in the ontology there is at least one article presented, thus the competency question is answerable.

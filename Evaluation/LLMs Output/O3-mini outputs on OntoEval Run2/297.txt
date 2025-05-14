@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that each play is linked via the property :containsActs to its reified acts instance (of type :Cl_PlayActs) which in turn records the number of acts via its data property :numberOfActs, the following SPARQL query answers the CQ under the closed‐world assumption:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  ?play :containsActs ?acts .
+  ?acts :numberOfActs ?numberOfActs .
+}
+---------------------------------
+
+This query retrieves each play (optionally its name, if provided) and the associated number of acts as recorded in the reified plays information.

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the start date of an actor's employment at a specific theatre. The ontology includes the `:employmentStartDate` property for `:Cl_Person`, but it does not connect this information to a specific theatre through the `:employedAt` property. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?employmentStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employmentStartDate ?employmentStartDate .
+}
+```

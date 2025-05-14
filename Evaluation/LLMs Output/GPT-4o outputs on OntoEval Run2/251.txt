@@ -1,0 +1,17 @@
+**No**
+
+The ontology provided does not have a direct connection between an author and the plays they have written. The ontology includes classes and properties related to theatre festivals, locations, plays, productions, and authorship, but it does not explicitly model the relationship between an author and the plays they have written. Therefore, the competency question "What plays did a certain author write?" cannot be fully answered using the given ontology.
+
+However, a partial answer can be extracted by identifying plays and their authorship, but without a direct link to the specific author:
+
+```sparql
+SELECT ?play ?playName
+WHERE {
+  ?play a :Cl_Play .
+  ?authorship a :Cl_Authorship .
+  ?authorship :wrotePlay ?play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```
+
+This query retrieves plays and their names, but it does not directly associate them with a specific author due to the lack of a direct relationship in the ontology.

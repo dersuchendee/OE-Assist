@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?doctor ?employee ?evaluationText
+WHERE {
+  ?doctor a :Cl_Doctor .
+  ?employee a :Cl_Employee .
+  ?doctor :conducts_evaluation_event ?evaluationEvent .
+  ?employee :undergoes_evaluation_event ?evaluationEvent .
+  ?evaluationEvent :evaluation_text ?evaluationText .
+  # Optionally, if you want to restrict to a certain doctor and employee, add:
+  # FILTER(?doctor = <http://www.example.org/test#SpecificDoctorURI> && ?employee = <http://www.example.org/test#SpecificEmployeeURI>)
+}
+```

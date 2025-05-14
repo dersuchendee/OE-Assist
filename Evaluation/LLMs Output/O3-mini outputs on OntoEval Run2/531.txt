@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves each album along with its number of tracks:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?numberOfTracks
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :numberOfTracks ?numberOfTracks .
+}
+--------------------------------------------------------
+
+This query works under the closed world assumption by directly retrieving the value asserted (via the :numberOfTracks data property) for each album, thereby fully supporting the competency question.

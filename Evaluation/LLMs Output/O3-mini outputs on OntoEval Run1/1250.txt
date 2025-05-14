@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer this CQ by counting the classes that represent disease categories. In this ontology, a disease category is defined as the class :DiseaseCategory and its direct subclasses (e.g. :InfectiousDisease, :ChronicDisease, :GeneticDisease, :EnvironmentalDisease, :DeficiencyDisease). Using a SPARQL query under the closed world assumption, we can count both the base class and its declared subclasses:
+
+----------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT (COUNT(DISTINCT ?diseaseCategory) AS ?numDiseaseCategories)
+WHERE {
+  { ?diseaseCategory a owl:Class ;
+                     rdfs:subClassOf :DiseaseCategory . }
+  UNION
+  { BIND(:DiseaseCategory AS ?diseaseCategory) }
+}
+----------------------
+
+This query returns the total number of distinct classes that qualify as disease categories according to the ontology.

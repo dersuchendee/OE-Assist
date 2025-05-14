@@ -1,0 +1,33 @@
+**Yes**
+
+Here is a SPARQL query to find the members of a specific union at a certain point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member
+WHERE {
+  # Replace :UnionX with the union of interest, or bind ?union to the desired URI
+  # Replace "YYYY-MM-DD"^^xsd:date with the specific date of interest
+  BIND (:UnionX AS ?union) .
+  BIND ("YYYY-MM-DD"^^xsd:date AS ?date) .
+
+  # Union membership
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :hasMember ?member .
+  ?membership :memberOf ?union .
+  ?membership :membershipStartDate ?startDate .
+
+  # Optional membership end date
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+
+  # Filter memberships active at the given date
+  FILTER (
+    ?startDate <= ?date &&
+    ( !BOUND(?endDate) || ?date <= ?endDate )
+  )
+}
+```
+
+This query selects all members (`?member`) who are part of the specified union (`?union`) during the specified date (`?date`). It checks the membership's start and optional end dates to ensure the membership was active on that date.

@@ -1,0 +1,26 @@
+**No**  
+Because the ontology does not encode the temporal boundaries (such as start/end instants or a time‐containment relation) required to check if a membership is valid “at a certain point in time,” we cannot fully answer the CQ. However, we can provide a partial answer that returns the band’s memberships with their associated (but undetailed) membership time.
+
+For example:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?musician ?name ?membershipTime
+WHERE {
+  # Get memberships for the given band (here fixed as RedHotChiliPeppers; replace as needed)
+  ?membership a :Membership ;
+              :membershipInBand :RedHotChiliPeppers ;
+              :membershipTime ?membershipTime .
+  
+  # Find the musician linked to that membership
+  ?musician :memberOf ?membership ;
+            :hasName ?name .
+  
+  # (Note: There is no detailed temporal structure to check if ?membershipTime contains a given time.)
+}
+-------------------------------------------------
+
+Under a closed world assumption, without further time interval properties, we cannot filter memberships according to a specific instant.

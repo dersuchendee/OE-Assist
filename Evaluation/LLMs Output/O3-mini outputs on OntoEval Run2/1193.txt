@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+SELECT ?event ?eventLabel ?person ?personLabel ?provenance ?provenanceLabel ?reason ?reasonLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasAttendance ?attendance .
+  ?attendance :attendedBy ?person .
+  ?person :hasProvenance ?provenance .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?provenance rdfs:label ?provenanceLabel . }
+  
+  OPTIONAL { 
+    ?attendance :hasReason ?reason .
+    OPTIONAL { ?reason rdfs:label ?reasonLabel . }
+  }
+}
+ORDER BY ?event ?person
+```

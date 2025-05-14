@@ -1,0 +1,22 @@
+**No**
+
+The ontology does not explicitly model events or properties that explain why an organ is moved (i.e. there is no class or property capturing "moved", a "move action" or a reason for relocation). However, you could try to extract partial information by exploring the projects (or tasks) linked to an organ and the places associated with those projects, which may hint at an organ’s re‐location.
+
+For example, one might run a query like this to list organs with their corresponding projects and declared places:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?project ?projectLabel ?place ?placeLabel
+WHERE {
+  ?organ a organs:Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel. }
+  
+  ?organ arco:isDescribedBy ?project .
+  OPTIONAL { ?project rdfs:label ?projectLabel. }
+  ?project arco:hasPlace ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel. }
+}
+
+This query returns partial info extracted from properties relating organs to projects and places, but it does not directly answer “Why is an organ moved to another location?” because the explanation for the movement is not captured in the ontology.

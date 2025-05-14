@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide information about the specific dates of performances. It includes classes and properties related to performances, bands, and locations, but it lacks the necessary data to answer the competency question about when a certain performance took place. Here's a SPARQL query to extract a partial answer, which would list performances and their associated bands and locations, but not the specific dates:
+
+```sparql
+SELECT ?performance ?band ?location
+WHERE {
+  ?performance a :Performance .
+  ?performance :hasPerformer ?band .
+  ?performance :hasLocation ?location .
+}
+```

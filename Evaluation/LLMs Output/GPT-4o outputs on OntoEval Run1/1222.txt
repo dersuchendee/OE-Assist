@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology, as it includes classes and properties that allow us to identify rare species and their characteristics within a specific aquifer. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?species ?characteristic
+WHERE {
+  ?species a :RareSpecies .
+  ?species :isFoundIn ?aquifer .
+  ?aquifer a :Aquifer .
+  ?species :hasCharacteristic ?characteristic .
+}
+```

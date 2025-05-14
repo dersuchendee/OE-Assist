@@ -1,0 +1,12 @@
+**No**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel
+WHERE {
+    ?track a ns1:Track .
+    OPTIONAL { ?track rdfs:label ?trackLabel }
+}
+```
+The competency question cannot be fully answered because the ontology does not explicitly link tracks to the songs they are recordings of. In the ontology, `ns1:Track` and `ns1:Song` are separate classes, but instances like `ns1:HumpDeBump` are modeled as both a `ns1:Track` and a `ns1:Song`. There is no property that connects a `ns1:Track` to a `ns1:Song` to indicate that the track is a recording of the song. The provided SPARQL query retrieves all tracks and their labels, which is a partial answer.

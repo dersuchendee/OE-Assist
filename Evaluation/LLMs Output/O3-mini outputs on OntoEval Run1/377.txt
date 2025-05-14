@@ -1,0 +1,28 @@
+**Yes**
+Below is an example SPARQL query that retrieves the roles assigned to a given person in a specific production at a specific time point. (In the query below, you would replace :targetPerson, :targetProduction, and :targetTimePoint with the actual URIs of the person, production, and time instance of interest.)
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  # Identify the given person and their role assignments
+  :targetPerson a :Cl_Person ;
+                :assignedRoleAssignment ?assignment .
+
+  # Ensure that the assignment is connected to the specified production
+  :targetProduction a :Cl_Production ;
+                    :roleAssignmentInProduction ?assignment .
+
+  # Ensure that the assignment corresponds to the specified time point
+  :targetTimePoint a :Cl_TimePoint ;
+                   :roleAssignmentAtTimePoint ?assignment .
+
+  # Retrieve the role associated with the role assignment
+  ?role :roleAssignmentOfRole ?assignment .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+----------------------------------
+
+This query shows that the ontology models the competency question since it is possible to extract the answer using the defined reification structure (via Cl_RoleAssignment).

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example SPARQL query that, using a grouping and a COUNT, returns all productions that have exactly one premier:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production (SAMPLE(?premier) AS ?premierInstance)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+GROUP BY ?production
+HAVING(COUNT(?premier)=1)
+-------------------------------------------------
+
+In a closed‐world setting we assume that if no premier is asserted then the production does not have one, and if more than one is asserted then it violates the “exactly one premier” requirement. This query extracts only those productions for which exactly one premier is present.

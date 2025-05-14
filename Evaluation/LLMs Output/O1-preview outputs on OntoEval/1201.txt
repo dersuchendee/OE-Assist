@@ -1,0 +1,26 @@
+Answer: **Yes**
+
+Here the competency question is answerable since the ontology defines the relationships between composers and their patrons, institutions, and collaborators, allowing retrieval of the composer's network via SPARQL queries.
+
+```sparql
+SELECT ?composer ?composerName ?patron ?patronName ?institution ?institutionName ?collaborator ?collaboratorName
+WHERE {
+  ?composer a :Composer .
+  OPTIONAL { ?composer rdfs:label ?composerName . }
+  
+  OPTIONAL {
+    ?composer :hasPatron ?patron .
+    OPTIONAL { ?patron rdfs:label ?patronName . }
+  }
+  
+  OPTIONAL {
+    ?composer :worksForInstitution ?institution .
+    OPTIONAL { ?institution rdfs:label ?institutionName . }
+  }
+  
+  OPTIONAL {
+    ?composer :collaboratedWith ?collaborator .
+    OPTIONAL { ?collaborator rdfs:label ?collaboratorName . }
+  }
+}
+```

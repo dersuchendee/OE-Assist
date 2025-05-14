@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that retrieves the publication title and date for those publications whose type is either “Book” or “CD”:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?publicationDate
+WHERE {
+  ?publication a :Cl_Publication ;
+               :publicationTitle ?publicationTitle ;
+               :publicationDate ?publicationDate ;
+               :publicationType ?pubType .
+  FILTER(?pubType = "Book" || ?pubType = "CD")
+}
+----------------------------------
+
+This query answers the CQ “When was a certain book or CD published?” by extracting the publication date (and title) for publications defined as a Book or CD.

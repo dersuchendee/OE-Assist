@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a sample SPARQL query that extracts, for each composition (the reified event of composing) the song and its composition date. You can further filter or parameterize the song of interest.
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate 
+WHERE {
+  ?comp a :Cl_Composition ;
+        :composition_song ?song ;
+        :composition_date ?compositionDate .
+}
+ORDER BY ?song
+---------------------------------
+
+This query works under a closed world assumption by assuming that all instances of a song’s composition are fully represented via the reified :Cl_Composition class.

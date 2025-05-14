@@ -1,0 +1,14 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, returns for each album (or a specified album) the number of album tracks that it contains:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel (COUNT(?track) AS ?tracksCount)
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album ?albumLabel

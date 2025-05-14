@@ -1,0 +1,18 @@
+**Yes**
+Below is an example SPARQL query that—under a closed‐world assumption—retrieves the songs played in a given performance (for example, a performance identified as :PortlandPerformance) by using the property (here modeled as :featuresSong) connecting a performance to the song (instance of :Cl_MusicTrack):
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?song ?songTitle
+WHERE {
+  ?performance rdf:type :Cl_PerformanceEvent .
+  ?performance :featuresSong ?song .
+  OPTIONAL { ?song :hasName ?songTitle. }
+  FILTER(?performance = :PortlandPerformance)
+}
+---------------------------------------------------------
+
+In this query, we assume that the ontology contains the class :Cl_PerformanceEvent and the object property :featuresSong (with domain :Cl_PerformanceEvent and range :Cl_MusicTrack), which links a performance (e.g., the live performance in Portland) to the songs played there.

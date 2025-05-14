@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to retrieve evaluation statements given by a doctor for a specific employee. The ontology includes classes and properties related to evaluation statements, doctors, and employees, but there is no instance data or specific relationships that connect these entities in a way that would allow for the retrieval of such information.
+
+Here is a SPARQL query to extract a partial answer, which lists all evaluation statements and their associated doctors and employees, if any:
+
+```sparql
+SELECT ?evaluationStatement ?doctor ?employee ?evaluationText
+WHERE {
+  ?evaluationStatement a :Cl_EvaluationStatement .
+  OPTIONAL { ?evaluationStatement :givenBy ?doctor . }
+  OPTIONAL { ?evaluationStatement :givenTo ?employee . }
+  OPTIONAL { ?evaluationStatement :evaluationText ?evaluationText . }
+}
+```

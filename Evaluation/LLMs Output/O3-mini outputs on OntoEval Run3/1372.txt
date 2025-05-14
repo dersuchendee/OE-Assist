@@ -1,0 +1,19 @@
+**No**
+
+The ontology supports extracting information about bells within bell towers, but it does not appear to model churches (or their connection to bell towers) explicitly. Under the closed‐world assumption, we can write a query that returns the number of bells for bell towers (assuming that bell towers have components that are sets of bells, and those sets in turn have bells as components). However, a complete answer to the CQ (which asks about both churches and bell towers) is not possible with the available axioms.
+
+Here’s a SPARQL query that provides a partial answer by counting the bells for bell towers:
+
+PREFIX bell: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?bellTower (COUNT(?bell) AS ?numBells)
+WHERE {
+  ?bellTower a bell:BellTower .
+  ?bellTower arco:hasComponent ?setOfBells .
+  ?setOfBells arco:hasComponent ?bell .
+  ?bell a bell:Bell .
+}
+GROUP BY ?bellTower
+
+This query retrieves each bell tower (modeled by bell:BellTower) that has an associated set of bells (via arco:hasComponent) and counts the number of bells (bell:Bell) within that set.

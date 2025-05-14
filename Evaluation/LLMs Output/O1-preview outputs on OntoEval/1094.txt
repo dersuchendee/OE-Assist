@@ -1,0 +1,14 @@
+**No**
+
+We cannot conclusively answer the competency question "At least one article is always presented at each seminar" with the given ontology because there is no constraint or cardinality restriction enforcing that every seminar must have at least one article presented. The ontology allows for seminars without any associated articles. However, we can retrieve seminars that do have articles presented using the following SPARQL query:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasArticle ?presentation .
+  ?presentation :presentationOf ?article .
+}
+```
+
+This query retrieves seminars and the articles presented at them but does not confirm that all seminars have at least one article. Therefore, the ontology does not fully support the competency question under the closed world assumption.

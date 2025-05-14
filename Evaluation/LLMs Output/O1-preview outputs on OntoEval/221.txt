@@ -1,0 +1,21 @@
+Answer: **No**.
+
+The ontology lacks information about the duration of membership, specifically membership end dates. Therefore, we cannot definitively determine who are the members of a certain ensemble at a specific point in time.
+
+Partial answer:
+
+```sparql
+SELECT ?member
+WHERE {
+  # Specify the ensemble URI and date as parameters
+  BIND(<http://www.example.org/test#YourEnsemble> AS ?ensemble)
+  BIND("YYYY-MM-DD"^^xsd:date AS ?date)
+
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?member .
+  ?member :hasMembershipDate ?membershipDate .
+  FILTER(?membershipDate <= ?date)
+}
+```
+
+This query retrieves members who joined the ensemble on or before the specified date, but without membership end dates, we cannot confirm if they were still members at that time.

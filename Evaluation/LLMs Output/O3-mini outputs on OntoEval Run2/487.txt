@@ -1,0 +1,37 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the role (its role name) for a given person, band, and point in time. In this query we assume that the person is linked to a membership (using :hasMembership) that specifies the band (using :membershipInBand), the valid time period (via :membershipStart and :membershipEnd), and the membership’s role (via :hasRole and the role’s :roleName):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName
+WHERE {
+  # Bind the given person, band, and the point in time
+  BIND(<http://www.example.org/test#SomePerson> AS ?person) .
+  BIND(<http://www.example.org/test#SomeBand> AS ?band) .
+  BIND("2006-05-05"^^xsd:date AS ?pointTime) .
+
+  # Find the membership of the person
+  ?person :hasMembership ?membership .
+
+  # Ensure the membership is in the specified band
+  ?membership :membershipInBand ?band .
+
+  # Get the membership's valid start and end (using a closed world assumption)
+  ?membership :membershipStart ?start .
+  ?membership :membershipEnd ?end .
+
+  # Check that the given point in time lies within the membership period
+  FILTER(?pointTime >= ?start && ?pointTime <= ?end) .
+
+  # Retrieve the role associated with this membership
+  ?membership :hasRole ?role .
+  ?role :roleName ?roleName .
+}
+--------------------------------------------------
+
+In this query you would replace the IRIs for the person (<http://www.example.org/test#SomePerson>), band (<http://www.example.org/test#SomeBand>), and the literal date "2006-05-05" with the actual values you are interested in querying.

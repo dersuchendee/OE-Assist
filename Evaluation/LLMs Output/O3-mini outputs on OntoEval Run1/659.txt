@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the songs played in a given performance using the reified relationships defined in the ontology:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  # The reified relationship linking performance and songs:
+  ?performance :playedSong ?ps .
+  ?song a :Cl_Song .
+  ?song :songPlayed ?ps .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  
+  # To select a specific performance, you could add a FILTER, e.g.,
+  # FILTER(?performance = :Performance1)
+}
+ORDER BY ?performance ?song
+----------------------------------------------------------------
+
+This query answers the competency question “What songs were played in a certain performance?” by retrieving the performance, its played song reification (via :playedSong and :songPlayed), and the associated song labels.

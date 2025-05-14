@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, extracts the songs played in a given performance using the reified connection in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceName ?song ?songName
+WHERE {
+  # A specific performance; replace <#SpecificPerformance> with the actual performance IRI if needed
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance :hasName ?performanceName . }
+  
+  # A reified performance-song instance that connects a performance with a song
+  ?perfSong a :Cl_PerformanceSong ;
+            :performanceOf ?performance ;
+            :songPlayed ?song .
+  OPTIONAL { ?song :hasName ?songName . }
+}
+--------------------------------------------------
+
+In this query, we first select a performance and then use the reification class Cl_PerformanceSong (via its object properties :performanceOf and :songPlayed) to retrieve the songs played in that performance.

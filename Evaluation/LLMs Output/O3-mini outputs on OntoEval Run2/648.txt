@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming the ontology uses the reification class Cl_Performance and the performedOn property (with xsd:date) to associate a date with each performance, the competency question “When did a certain performance take place?” is supported. Under the closed world assumption, we can query explicitly for those individuals of type Cl_Performance that have a performedOn date recorded. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?date
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performedOn ?date .
+}
+
+This query will return the performance(s) along with the date when they took place.

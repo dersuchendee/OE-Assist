@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain information about the time period during which an album was recorded. It only contains the start and end dates of the recording, but not the specific time period. Therefore, a partial answer can be extracted by querying the recording start and end dates.
+
+```sparql
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?recording rdf:type :Cl_Recording .
+  ?recording :recorded ?album .
+  ?recording :recordingStart ?recordingStart .
+  ?recording :recordingEnd ?recordingEnd .
+}
+```

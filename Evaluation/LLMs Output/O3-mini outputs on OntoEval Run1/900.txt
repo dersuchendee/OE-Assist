@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that the union membership information is recorded using the class Cl_UnionMembership (with properties :hasUnion, :hasPerson, :membershipStartDate, and optionally :membershipEndDate), we can “reify” the notion of membership over time. Using the closed world assumption, if a membership record is not present then the person is not a member at that time. The following SPARQL query lets you retrieve the persons (their URI and optional label) who belong to a specified union (:SpecificUnion in this example) at a specific point in time (here “2002-01-01”, which you can replace with any given date):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion ?union ;
+              :hasPerson ?person ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end. }
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  FILTER(
+    ?union = :SpecificUnion &&
+    ?start <= "2002-01-01"^^xsd:date &&
+    ( !bound(?end) || ?end > "2002-01-01"^^xsd:date )
+  )
+}
+------------------------------------------------------------
+
+In this query, we use the membership start and (if available) end dates to “close the world” on the membership information and return only those persons who were active members of the chosen union at the specified date.

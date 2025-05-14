@@ -1,0 +1,14 @@
+**Yes**
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the number of acts for a given play (replace the play URI with the URI of the desired play):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel } .
+  ?play :hasNumberOfActs ?numberOfActs .
+  FILTER(?play = <http://www.example.org/test#TheMerchantOfVenice>)
+}

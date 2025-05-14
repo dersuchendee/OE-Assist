@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one example SPARQL query that answers the CQ “What roles does a certain person have within a certain production at a certain point in time?” by retrieving, from the ontology, the actor’s role(s) that are connected (via the reified class for actor roles) to both the given person and production, along with the time period during which the role is held. (Here the query uses parameters that the user can bind to a specific actor, production, and point in time.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?productionName ?role ?timePeriodDate
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+             :hasActor ?actor ;
+             :hasProduction ?production ;
+             :hasRole ?role ;
+             :hasTimePeriod ?timePeriod .
+  ?actor :actorName ?actorName .
+  ?production :productionName ?productionName .
+  ?timePeriod :festivalDate ?timePeriodDate .
+  
+  # Here you can restrict to a certain actor, production and a specific time:
+  FILTER (?actor = :DesiredActor 
+          && ?production = :DesiredProduction 
+          && ?timePeriodDate = "2009-09-08"^^xsd:date)
+}
+ORDER BY ?timePeriodDate
+
+In this query the user may supply the particular actor (e.g. :DesiredActor), production (e.g. :DesiredProduction) and point in time (here “2009‑09‑08” is used as an example) so that the underlying ontology is used to answer the CQ completely under a closed‐world assumption.

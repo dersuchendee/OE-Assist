@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the ontology already contains instances of ensembles with membership “records” via the property :hasMember and each membership has a membershipDate, you can write a query parameterizing the ensemble of interest (here shown as an example IRI) and filtering by a given time point. For instance, the following query returns, for a given ensemble, the individuals that are its members with a membershipDate that is at or before the specified time:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?membershipDate
+WHERE {
+  # Replace <http://www.example.org/test#Ensemble123> with the IRI of the ensemble of interest.
+  <http://www.example.org/test#Ensemble123> :hasMember ?member .
+  ?member :membershipDate ?membershipDate .
+  # Replace the date below with the specific point in time the CQ refers to.
+  FILTER(?membershipDate <= "2009-09-15"^^xsd:date)
+}
+------------------------------------------------------------
+
+This SPARQL query shows that the ontology supports answering the CQ “Who are the members of a certain ensemble at a certain point in time?” under the closed world assumption.

@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for each festival (an instance of Cl_TheatreFestival), the name of the city where it is located (using the locatedIn property and the locationName data property):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :locatedIn ?city .
+  ?city :locationName ?locationName .
+}
+--------------------------------------------------
+
+Under the closed‐world assumption, we assume that every festival in the ontology that took place has its location recorded via the :locatedIn property and that the location (of type :Cl_City or the reified :Cl_FestivalLocation) carries a :locationName. This query answers the competency question “Where did a certain festival take place?” by extracting the festival and its associated location name.

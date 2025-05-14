@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?ensemble ?member ?date
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership :memberName ?member .
+  ?membership :membershipDate ?date .
+  FILTER(?date = "YYYY-MM-DD"^^xsd:date)  # Replace with the desired date
+}
+```
+
+This query retrieves the members (`?member`) of a specific ensemble (`?ensemble`) who are associated with a particular membership date (`?date`). By specifying the date in the `FILTER` clause, you can find out who were the members of the ensemble at that specific point in time.

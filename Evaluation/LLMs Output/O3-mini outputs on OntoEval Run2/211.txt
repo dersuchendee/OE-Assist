@@ -1,0 +1,41 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the actors (members) who belong to a given ensemble at a specified point in time. (In this example the ensemble is filtered by its URI and the time point is “2009-09-10”. You can substitute these values with your own parameters.)
+
+-------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleName ?actor ?actorName ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :membershipOf ?ensemble .
+  ?membership :member ?actor .
+  
+  OPTIONAL { ?ensemble :hasName ?ensembleName . }
+  OPTIONAL { ?actor :hasName ?actorName . }
+  
+  ?membership :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # Check that the membership is active at the specified time ("2009-09-10")
+  FILTER (
+    ?membershipStartDate <= "2009-09-10"^^xsd:date &&
+    ( !bound(?membershipEndDate) || ?membershipEndDate > "2009-09-10"^^xsd:date )
+  )
+  
+  # Filter for the specific ensemble (replace <http://www.example.org/test#YourEnsemble> with the specific ensemble URI)
+  FILTER ( ?ensemble = <http://www.example.org/test#YourEnsemble> )
+}
+ORDER BY ?actor
+
+-------------------------------------------------
+
+This query:
+• Finds all instances of Cl_EnsembleMembership that link an ensemble (using the reification property membershipOf) to an actor (using member).
+• Filters using the membershipStartDate and, if present, the membershipEndDate to ensure that the membership is active at the given date.
+• Optionally retrieves names of the ensemble and actors.
+• Uses a filter to target the specified ensemble.
+
+Thus, the competency question "Who are the members of a certain ensemble at a certain point in time?" is supported by the ontology via the above query.

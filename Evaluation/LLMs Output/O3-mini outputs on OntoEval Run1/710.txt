@@ -1,0 +1,12 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for each city in the ontology, the region in which it is located (using the :locatedInRegion property):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City ;
+        :locatedInRegion ?region .
+}

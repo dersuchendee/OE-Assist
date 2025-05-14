@@ -1,0 +1,20 @@
+**No**
+
+The competency question cannot be fully answered using the given ontology, as the ontology does not enforce or specify that at least one article is always presented at each seminar. There are no constraints or cardinality restrictions in the ontology ensuring that every seminar has at least one associated article presentation.
+
+However, we can extract partial information about seminars and the articles presented in them using the following SPARQL query:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  
+  # Find articles presented via presentations linked to seminars
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation a :Cl_Presentation .
+  ?presentation :presentedIn ?seminar .
+}
+```
+
+This query retrieves seminars and the articles that have been presented in them, based on the relationships defined in the ontology. It does not, however, confirm that every seminar has at least one article presented, as the ontology lacks the necessary constraints to ensure this universally.

@@ -1,0 +1,30 @@
+**Yes**
+
+Below is a sample SPARQL query that, under the closed‐world assumption, returns for each person in a given band the role they held during a specified time (by checking that the given point in time falls between the start and end dates defined in the reified member role):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?band ?bandName ?role ?roleName ?timePeriod ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :name ?personName . }
+  
+  ?person :hasRole ?role .
+  ?role :roleName ?roleName .
+  ?role :atTime ?timePeriod .
+  ?timePeriod :startDate ?startDate .
+  ?timePeriod :endDate ?endDate .
+  
+  ?person :memberOf ?band .
+  OPTIONAL { ?band :bandName ?bandName . }
+  
+  # Filter for a chosen point in time (e.g., '2006-01-01')
+  FILTER ( "2006-01-01"^^xsd:date >= ?startDate && "2006-01-01"^^xsd:date <= ?endDate )
+}
+ORDER BY ?person ?band
+------------------------------------------------
+
+This query is answerable because the ontology reifies the person–band membership using a pivot class (Cl_MemberRole) bound to a time period, which in turn allows one to determine the role that a person had in a band at a specific point in time.

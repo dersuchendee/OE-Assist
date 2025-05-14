@@ -1,0 +1,22 @@
+**Yes**
+
+Under the closed world assumption, we can extract for each production its premier and verify that there is exactly one. For example, the following SPARQL query returns each production together with its premier, but only if there is exactly one premier (i.e. no additional :hasPremier links exist):
+
+---------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  # Ensure there is no other premier associated with the same production
+  FILTER NOT EXISTS {
+    ?production :hasPremier ?otherPremier .
+    FILTER (?otherPremier != ?premier)
+  }
+}
+---------------------------
+
+This query shows that each production indeed has exactly one premier according to the ontology.

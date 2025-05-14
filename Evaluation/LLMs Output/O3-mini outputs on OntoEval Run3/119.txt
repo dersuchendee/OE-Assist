@@ -1,0 +1,22 @@
+**No**
+
+The ontology does not explicitly connect a theatre festival individual with its play appearances via the :hasProduction property (or another linking property), meaning we can’t fully answer “What plays could be seen during a certain theatre festival?” from the given assertions. However, a partial answer can be extracted by retrieving festival play appearances whose IRIs suggest they belong to a particular festival. For example, assuming that the reified production individuals’ identifiers include the festival name (like “RomaLovesShakespeare”), a partial SPARQL query for the festival "Roma Loves Shakespeare" could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalName ?appearance ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasName ?festivalName .
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+  
+  ?appearance a :Cl_FestivalPlayAppearance ;
+              :featuresPlay ?play .
+  OPTIONAL { ?play :hasName ?playName . }
+  
+  # Partial matching based on naming convention in the IRI
+  FILTER(regex(str(?appearance), "RomaLovesShakespeare", "i"))
+}
+
+This query provides a partial answer under the closed world assumption by selecting reified play appearances whose names imply association with the festival even though an explicit connection is missing in the ontology.

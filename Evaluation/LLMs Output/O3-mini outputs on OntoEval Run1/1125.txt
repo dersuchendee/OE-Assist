@@ -1,0 +1,26 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?action ?actionLabel ?time ?system ?systemLabel ?location ?locationLabel
+WHERE {
+  ?user a :User ;
+        rdfs:label ?userLabel ;
+        :prefers ?action .
+  ?action a :MorningRoutine ;
+          rdfs:label ?actionLabel ;
+          :performedBy ?system .
+  ?system :hasLocation ?location ;
+          rdfs:label ?systemLabel .
+  ?location rdfs:label ?locationLabel .
+  OPTIONAL { ?action :atTime ?time . }
+  
+  # The context: the user is associated with a system at a known location.
+  # If desired, restrict to a specific user (e.g., UserJohn) or location (e.g., Berlin)
+  # Uncomment the following lines to apply closed world constraints:
+  # FILTER(?user = :UserJohn)
+  # FILTER(?location = :Berlin)
+}
+```

@@ -1,0 +1,26 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the evaluation statement given by a specific doctor for a specific employee by following the ontology’s reification of evaluations:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluation ?evaluationStatement
+WHERE {
+  # Identify the doctor who performs evaluations
+  ?doctor a :Cl_Doctor .
+  ?doctor :evaluates ?evaluation .
+  
+  # Get the evaluation statement for this evaluation
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  
+  # Link the evaluation to the employee
+  ?evaluation :evaluationFor ?employee .
+  
+  # Using the closed world assumption, we assume that the specific doctor and employee are known
+  FILTER(?doctor = :SpecificDoctor && ?employee = :SpecificEmployee)
+} 
+
+This query returns the evaluation (and its statement) provided by the given doctor for the given employee.

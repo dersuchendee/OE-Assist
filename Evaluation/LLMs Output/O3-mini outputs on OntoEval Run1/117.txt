@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the ontology version including the data property “hasLocation” for instances of Cl_TheatreFestival is used, you can answer the CQ by extracting the location of a festival. For example, given that the festival individuals are typed as :Cl_TheatreFestival and their locations are recorded using the :hasLocation property, a query to retrieve the location of a specific festival (or all festivals) is as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasLocation ?location .
+  # Optionally, filter by a known festival identifier, for example:
+  # FILTER(?festival = :RomaLovesShakespeare)
+}
+------------------------------------------------
+
+This query satisfies the competency question “Where did a certain festival take place?” under the closed world assumption by returning only the festivals for which a location is explicitly provided.

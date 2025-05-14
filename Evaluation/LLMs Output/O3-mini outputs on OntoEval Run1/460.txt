@@ -1,0 +1,33 @@
+**Yes**  
+Below is one example of a SPARQL query that returns, for a given band and a specified point in time, every person whose membership (represented via a reified membership instance) started before (or on) the given time and either has no end date or ended after that time.
+
+Assuming that the ontology uses the class :Cl_Membership with properties :membershipBand, :membershipPerson, :membershipStartDate, and optionally :membershipEndDate, the following query shows how to answer the CQ. (Replace the band IRI and the point in time as needed.) 
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?person ?personLabel ?membershipStartDate ?membershipEndDate
+WHERE {
+  # Bind your chosen band and point in time here:
+  BIND(:RedHotChiliPeppers AS ?band) .
+  BIND("2005-01-01"^^xsd:date AS ?pointInTime) .
+  
+  ?membership a :Cl_Membership ;
+              :membershipBand ?band ;
+              :membershipPerson ?person ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate. }
+  
+  # The membership is valid if it started on or before ?pointInTime 
+  # and either does not have an end date or ends on/after ?pointInTime.
+  FILTER( ?membershipStartDate <= ?pointInTime &&
+          ( !bound(?membershipEndDate) || ?pointInTime <= ?membershipEndDate ) )
+  
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+}
+ORDER BY ?membershipStartDate
+--------------------------------------------------
+
+This query demonstrates that the CQ is modelled by the ontology since we can extract the band members at a given time via the reified membership information under a closed world assumption.

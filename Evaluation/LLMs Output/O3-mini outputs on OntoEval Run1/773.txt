@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the medical degree(s) – along with their names if available – for a given person (for example, Pasquale Di Gennaro):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degree ?degreeName
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeName ?degreeName. }
+  
+  # For a specific person, you might filter by identifier (e.g., Pasquale Di Gennaro)
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+}
+----------------------------------------------------------------
+
+This query shows that the competency question “What medical degrees does a certain person have?” is answerable using the ontology because the property :hasMedicalDegree (whose range is :Cl_MedicalDegree and which uses the property :degreeName to provide additional information) directly connects a :Cl_Person to their medical degree(s).

@@ -1,0 +1,28 @@
+**No**
+
+The competency question cannot be fully answered using the given ontology because there is no individual of type `:Cl_Doctor` defined. Specifically, `:Doctor1` is referenced in the ontology but is not declared as an instance of `:Cl_Doctor` or provided with any properties (such as a name). Under the closed world assumption, this means we lack the necessary information to identify the doctor who gave the evaluation statement.
+
+However, we can extract a partial answer that includes the evaluation statements and the employees they evaluate, even though we cannot provide details about the doctor.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluation ?evaluationDate ?evaluationContent ?employeeName
+WHERE {
+  ?evaluation a :Cl_EvaluationStatement .
+  ?evaluation :evaluatesEmployee ?employee .
+  ?employee :hasName ?employeeName .
+  OPTIONAL { ?evaluation :hasEvaluationDate ?evaluationDate . }
+  OPTIONAL { ?evaluation :hasEvaluationContent ?evaluationContent . }
+}
+```
+
+This query retrieves:
+
+- `?evaluation`: The evaluation statement.
+- `?evaluationDate`: The date of the evaluation (if available).
+- `?evaluationContent`: The content of the evaluation (if available).
+- `?employeeName`: The name of the employee being evaluated.
+
+Since we cannot retrieve information about the doctor who wrote the evaluation (due to the absence of `:Doctor1` as a defined individual with properties), we cannot fully answer the competency question.

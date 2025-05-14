@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?source ?sourceType ?context ?productionDate ?productionLocation ?productionGoal ?creator ?event
+WHERE {
+  ?source a :Cl_Source .
+  OPTIONAL { ?source a ?sourceType . FILTER (?sourceType != :Cl_Source) }
+
+  ?source :Op_hasSourceContext ?context .
+
+  OPTIONAL { ?context :Dp_hasProductionDate ?productionDate . }
+  OPTIONAL { ?context :Dp_hasProductionLocation ?productionLocation . }
+  OPTIONAL { ?context :Dp_hasProductionGoal ?productionGoal . }
+  OPTIONAL { ?context :Op_createdBy ?creator . }
+  OPTIONAL { ?context :Op_relatedToEvent ?event . }
+}
+```

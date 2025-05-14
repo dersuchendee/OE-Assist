@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that the target person, production, and time are specified (e.g. via known URIs or parameters), you can extract the actor’s roles with a query such as the following:
+
+—————————————————————————————  
+PREFIX : <http://www.example.org/test#>  
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>  
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
+
+SELECT ?role ?roleLabel ?date  
+WHERE {  
+  ?role a :Cl_ActorRole ;  
+        :playedBy ?actor ;  
+        :inProduction ?production ;  
+        :date ?date .  
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  # Replace the following URIs with the specific person or production in question  
+  FILTER(?actor = <http://www.example.org/test#TargetPerson> &&  
+         ?production = <http://www.example.org/test#TargetProduction> &&  
+         ?date = "2009-09-07"^^xsd:date)  
+}  
+ORDER BY ?date  
+—————————————————————————————  
+
+This query answers the CQ by retrieving roles (with an optional label) performed by a given actor in a specified production at a chosen point in time.

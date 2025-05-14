@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology supports the competency question. The mounting system is linked to its execution techniques through the “allowsExecutionTechnique” property. For a given mounting system, you can extract the possible execution techniques with a query such as:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?mountingSystem ?executionTechnique ?techniqueLabel
+WHERE {
+  ?mountingSystem a :MountingSystem .
+  ?mountingSystem :allowsExecutionTechnique ?executionTechnique .
+  OPTIONAL { ?executionTechnique rdfs:label ?techniqueLabel . }
+  # Replace the IRI below with the specific mounting system of interest
+  FILTER (?mountingSystem = <http://www.example.org/test#SpecificMountingSystem>) 
+}
+---------------------------------
+
+This query retrieves the execution technique(s) allowed by a specific mounting system, along with any available labels.

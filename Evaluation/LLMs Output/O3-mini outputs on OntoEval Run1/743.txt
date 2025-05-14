@@ -1,0 +1,19 @@
+**Yes**
+
+One way to verify that every album (record) has at least one track is to retrieve each album along with its tracks. In a closed‐world setting, if every album returns at least one track then the competency question is answered by the ontology. For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/ontology/musicproduction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :hasTrack ?track .
+}
+GROUP BY ?album ?albumLabel
+HAVING (COUNT(?track) >= 1)
+--------------------------------------------------
+
+This query lists every album along with its label and the count of associated tracks. Because the ontology specifies via a restriction that each album must have at least one track, the returned results should always show ?trackCount ≥ 1, thereby supporting the CQ.

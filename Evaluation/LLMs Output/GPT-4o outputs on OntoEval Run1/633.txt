@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to query for the specific date of a performance. However, we can extract partial information about performances and their associated time intervals.
+
+```sparql
+SELECT ?performance ?performanceLabel ?startDate ?endDate
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :hasTimeInterval ?timeInterval .
+  ?timeInterval :startDate ?startDate .
+  ?timeInterval :endDate ?endDate .
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?festival ?play ?playName
+WHERE {
+  # Assuming we are focusing on a specific festival
+  ?festival a :Cl_TheatreFestival .
+  # Optionally filter for a specific festival by name
+  # ?festival :festivalName "Roma Loves Shakespeare" .
+
+  ?festival :hasProduction ?production .
+  ?production a :Cl_TheatreProduction .
+  ?production :hasPlay ?play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

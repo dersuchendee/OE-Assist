@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the production, the newspaper that reviewed it, and the associated star rating:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production :hasReview ?review .
+  ?review :starRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+}
+ORDER BY ?production ?newspaper

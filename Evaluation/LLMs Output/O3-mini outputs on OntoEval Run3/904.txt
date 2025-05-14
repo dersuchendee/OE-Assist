@@ -1,0 +1,32 @@
+**Yes**
+```sparql
+PREFIX : <http://www.semanticweb.org/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?union ?role ?roleLabel ?start ?end
+WHERE {
+  # Bind the certain person, union, and the time point (update these as needed)
+  BIND(:PasqualeDiGennaro AS ?person)
+  BIND(:UnionOfMaleNurses AS ?union)
+  BIND("2003-06-15T00:00:00Z"^^xsd:dateTime AS ?queryTime)
+  
+  # Get the role(s) the person holds
+  ?person :hasRole ?role .
+  
+  # Ensure the person is a member of the union and the union has that role as its representative
+  ?person :memberOfUnion ?union .
+  ?union :hasUnionRepresentative ?role .
+  
+  # Retrieve the time interval during which the role is active
+  ?role :roleActiveDuring ?interval .
+  ?interval time:hasBeginning ?start ;
+            time:hasEnd ?end .
+  
+  # Check that the query time falls within the active interval of the role
+  FILTER (?start <= ?queryTime && ?end >= ?queryTime)
+  
+  OPTIONAL { ?role rdfs:label ?roleLabel. }
+}
+```

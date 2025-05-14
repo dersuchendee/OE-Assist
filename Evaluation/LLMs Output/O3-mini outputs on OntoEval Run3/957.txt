@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the articles a given book or CD (modeled as a Cl_Media instance) is composed of:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?media ?mediaLabel ?article ?articleTitle
+WHERE {
+  ?media a :Cl_Media .
+  OPTIONAL { ?media rdfs:label ?mediaLabel. }
+  
+  ?media :composedOf ?articleCollection .
+  ?articleCollection :containsArticle ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle. }
+  
+  # To restrict to a specific book or CD, you can filter by its URI:
+  # FILTER(?media = <http://www.example.org/test#<SpecificMediaID>>)
+}
+------------------------------------------------------------
+
+This query leverages the modeling in the ontology where a media item (book or CD) is connected via the property composedOf to an article collection and, in turn, articles are linked to that collection via containsArticle.

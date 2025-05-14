@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming a specific track is known (e.g., identified as :SpecificTrack), the ontology provides an object property (isRecordingOf) linking a track (instance of Cl_Track) to a song (instance of Cl_Song). Under the closed world assumption, we can write the following SPARQL query to extract the song that a given track is a recording of:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  :SpecificTrack a :Cl_Track ;
+                 :isRecordingOf ?song .
+  ?song a :Cl_Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+
+Replace :SpecificTrack with the actual track identifier as needed.

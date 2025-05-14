@@ -1,0 +1,16 @@
+**No**
+
+The ontology does indicate that instances of the class CollaborateAndAlignProcesses (a subclass of ImplementationAction) require some Information via the property requiresInformation. However, the restriction only states that any such implementation action must have at least one value of type Information. It does not further specify or differentiate what specific kinds of Information are needed to collaborate and align processes. Thus, we cannot extract a complete answer to the CQ (i.e. which detailed pieces of information are required) but only a partial answer by retrieving any available triples linking a CollaborateAndAlignProcesses instance to some Information.
+
+A SPARQL query to extract the partial information available is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?process ?processLabel ?info ?infoLabel
+WHERE {
+  ?process a :CollaborateAndAlignProcesses .
+  OPTIONAL { ?process rdfs:label ?processLabel. }
+  ?process :requiresInformation ?info .
+  OPTIONAL { ?info rdfs:label ?infoLabel. }
+}

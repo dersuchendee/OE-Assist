@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?venue ?venueLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :performedAt ?venue .
+  OPTIONAL { ?venue rdfs:label ?venueLabel . }
+}
+```

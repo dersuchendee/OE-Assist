@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?article ?title ?author
+WHERE {
+  ?article rdf:type :Cl_SeminarArticle .
+  ?article :presentedIn :Seminar_1 .
+  ?article :articleTitle ?title .
+  OPTIONAL { ?article :articleAuthor ?author . }
+}
+```

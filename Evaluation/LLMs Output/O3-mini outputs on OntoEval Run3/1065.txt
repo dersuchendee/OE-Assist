@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?location ?locationLabel
+WHERE {
+  ?seminar a :Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

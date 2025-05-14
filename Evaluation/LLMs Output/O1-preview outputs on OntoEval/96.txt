@@ -1,0 +1,17 @@
+**No**
+
+The competency question "Where did a certain festival take place?" cannot be fully answered using the given ontology because there is no direct connection between a specific festival (`:Cl_Festival`) and its occurrence (`:Cl_FestivalOccurrence`), nor is there a property associating a festival occurrence with its festival name. The ontology lacks a property that links `:Cl_Festival` instances to `:Cl_FestivalOccurrence` instances.
+
+However, we can extract partial information about festival occurrences and the cities where they took place. Here's a SPARQL query that retrieves festival occurrences and their locations:
+
+```sparql
+SELECT ?festivalOccurrence ?date ?cityName
+WHERE {
+  ?festivalOccurrence rdf:type :Cl_FestivalOccurrence .
+  ?festivalOccurrence :hasDate ?date .
+  ?festivalOccurrence :tookPlaceIn ?city .
+  OPTIONAL { ?city :hasName ?cityName . }
+}
+```
+
+This query will provide the festival occurrences (`?festivalOccurrence`), the dates they occurred (`?date`), and the cities where they took place (`?cityName`), if the city names are available. Unfortunately, without a link between the festival and its occurrence, we cannot determine "where a certain festival took place" based solely on the festival's name.

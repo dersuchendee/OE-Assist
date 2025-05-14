@@ -1,0 +1,17 @@
+**Yes**
+Below is a SPARQL query that, under a closed world assumption, retrieves a hospital’s location (i.e. the city) from the ontology:
+
+--------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel. }
+  ?hospital :isLocatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+--------------------------------
+
+In this query the hospital individual is selected by its type (:Hospital), and its associated city is retrieved via the :isLocatedIn property. This fully answers the competency question "In what city is a certain hospital located?" under a closed world assumption.

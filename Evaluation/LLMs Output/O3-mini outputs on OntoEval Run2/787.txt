@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that the individual representing “a certain person” (for example, Pasquale Di Gennaro) is identified in the data, the ontology models his medical degree information using a reification pattern (via the Cl_PersonDegree class). We can “extract” his medical degree details (which include the degree title, obtained date, and study dates) by following the relationship from the person via the :hasDegree property to an instance of Cl_PersonDegree and, in turn, following the :degreeType property to the medical degree (an instance of Cl_MedicalDegree).
+
+For example, if we assume that the specific person is identified as :Pasquale_Di_Gennaro, the following SPARQL query will retrieve the medical degrees (and related properties) for that person using closed world assumption:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?medicalDegree ?degreeTitle ?obtainedDate ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  FILTER(?person = :Pasquale_Di_Gennaro) .
+  
+  ?person :hasDegree ?personDegree .
+  ?personDegree :degreeType ?medicalDegree .
+  ?medicalDegree :degreeTitle ?degreeTitle .
+  
+  OPTIONAL { ?medicalDegree :degreeObtainedDate ?obtainedDate . }
+  OPTIONAL { ?personDegree :studyStartDate ?studyStartDate . }
+  OPTIONAL { ?personDegree :studyEndDate ?studyEndDate . }
+}
+-------------------------------------------------
+
+This query follows the reification design of the ontology and thus fully supports the competency question "What medical degrees does a certain person have?"

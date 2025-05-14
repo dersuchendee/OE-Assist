@@ -1,0 +1,32 @@
+**Yes**
+
+Assuming that the instance‐data uses the reification classes (e.g. Cl_BandRole linked to Cl_Person, Cl_Band, and Cl_TimePeriod) to express a person’s role in a band and that time periods are given (for example via properties such as :hasBegin and :hasEnd on a Cl_TimePeriod instance), one can answer the CQ “What role does a certain person have in a certain band at a certain point in time?” with a SPARQL query. For example, if one supplies a target time via the variable ?targetTime, the query could look like this:
+
+────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?role ?roleLabel ?timePeriod ?start ?end
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  ?person :hasRole ?bandRole .
+  ?bandRole :roleOf ?band .
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+
+  ?bandRole :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  ?bandRole :rolePeriod ?timePeriod .
+  ?timePeriod :hasBegin ?start ;
+              :hasEnd ?end .
+  
+  # Check that the target time falls within the role’s time period.
+  FILTER (?targetTime >= ?start && ?targetTime <= ?end)
+}
+────────────────────────────────────────────
+
+This query shows that the ontology explicitly reifies the membership and role information (via Cl_BandRole, linked by properties such as :hasRole, :roleOf, and :rolePeriod) so that one can extract the role(s) that a given person has (optionally labelled) in a given band during the time period covering a specified time point (?targetTime).
+
+Thus, under a closed‐world assumption and provided appropriate instance data, the ontology supports the competency question.

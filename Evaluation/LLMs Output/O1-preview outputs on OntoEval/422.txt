@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a ns1:Person ;
+          ns1:playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+```

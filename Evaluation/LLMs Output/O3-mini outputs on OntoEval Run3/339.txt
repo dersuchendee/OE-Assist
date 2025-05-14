@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the star rating given by a newspaper for a production:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasReview ?review .
+  ?review :reviewedBy ?newspaper .
+  ?review :starRating ?starRating .
+}
+------------------------------------------------
+
+This query assumes a closed world where all productions, reviews, and newspapers are explicitly declared in the ontology and uses the given properties (:hasReview, :reviewedBy, :starRating) to extract the answer.

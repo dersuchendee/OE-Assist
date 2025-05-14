@@ -1,0 +1,31 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  # Given inputs: ?person, ?union, and ?queryTime (as xsd:dateTime)
+  
+  ?assignment a :UnionRoleAssignment ;
+               :hasAgent ?person ;
+               :inUnion ?union ;
+               :hasRole ?role ;
+               :atTime ?timeInterval .
+  
+  ?timeInterval :startDate ?startDate ;
+                :endDate ?endDate .
+  
+  FILTER ( ?queryTime >= ?startDate && ?queryTime <= ?endDate )
+}
+```
+
+This query retrieves the role (`?role`) that a specific person (`?person`) has within a specific union (`?union`) at a certain point in time (`?queryTime`). It matches the `UnionRoleAssignment` where:
+
+- The assignment involves the given person (`:hasAgent ?person`).
+- The assignment is within the given union (`:inUnion ?union`).
+- The assignment has a role (`:hasRole ?role`).
+- The assignment is valid during a time interval that includes the given time (`?queryTime` falls between `:startDate` and `:endDate`).
+
+This aligns with the ontology provided, utilizing the classes and properties related to union role assignments and time intervals.

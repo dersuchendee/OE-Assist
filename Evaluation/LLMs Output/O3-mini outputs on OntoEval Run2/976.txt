@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves books along with the number of pages recorded for each:
+
+----------------------------------------------------------------
+PREFIX : <http://example.org/articlecollection#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?pageNumber
+WHERE {
+  ?book a :Book .
+  ?book :pageNumber ?pageNumber .
+}
+----------------------------------------------------------------
+
+In this query we assume that a book’s number of pages is explicitly stored in the data property :pageNumber. Under the closed world assumption, if no page number is present for a given book then that book is assumed not to have a recorded page count.

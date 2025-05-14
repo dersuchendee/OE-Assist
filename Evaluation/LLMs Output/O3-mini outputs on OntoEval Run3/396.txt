@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  {
+    SELECT ?production (COUNT(?premierEvent) AS ?premierCount) (SAMPLE(?premierEvent) AS ?premier)
+    WHERE {
+      ?production :hasPremierEvent ?premierEvent .
+    }
+    GROUP BY ?production
+    HAVING (?premierCount = 1)
+  }
+}
+```

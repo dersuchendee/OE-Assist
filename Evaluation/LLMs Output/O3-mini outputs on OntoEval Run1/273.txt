@@ -1,0 +1,20 @@
+**Yes**
+Below is one example SPARQL query that, under a closed‐world assumption, retrieves production premier information from the ontology (i.e. linking a production to its premier date):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premierDate 
+WHERE {
+  ?premiere a :Cl_ProductionPremier ;
+            :hasProduction ?production ;
+            :hasPremierDate ?premierDate .
+  ?production :productionName ?productionName .
+}
+ORDER BY ?premierDate
+--------------------------------------------------
+
+This query shows that the competency question (e.g. “When was a particular production premiered?”) is answerable using the ontology’s modelling of production premier dates.

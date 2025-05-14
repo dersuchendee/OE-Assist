@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production ;
+              :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+ORDER BY ?production
+```

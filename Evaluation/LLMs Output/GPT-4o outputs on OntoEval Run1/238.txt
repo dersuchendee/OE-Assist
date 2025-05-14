@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "What plays did a certain author write?" can be answered using the provided ontology. The ontology includes classes and properties that relate authors to the plays they have written. Specifically, the `theatre:Author` class and the `theatre:wrote` property can be used to find the plays written by a specific author.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?play ?playLabel
+WHERE {
+  ?author a theatre:Author ;
+          rdfs:label "William Shakespeare" ;
+          theatre:wrote ?play .
+  ?play rdfs:label ?playLabel .
+}
+```
+
+This query retrieves the plays written by William Shakespeare, using the `theatre:wrote` property to link authors to their plays.

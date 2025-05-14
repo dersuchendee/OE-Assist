@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?systemAction WHERE { 
+  ?user a :Cl_User . 
+  ?user :op_prefers ?userPreferredAction . 
+  ?userPreferredAction :op_hasPreferredAction ?systemAction . 
+  ?userPreferredAction :op_inContext ?context . 
+  ?context :dp_hasLocation "Berlin" . 
+  ?context :dp_hasTime ?time . 
+  FILTER(?time >= "06:00:00"^^xsd:time && ?time <= "09:00:00"^^xsd:time)
+}
+```
+
+This SPARQL query retrieves the system action preferred by the user in the specific context defined by the location "Berlin" and the time range corresponding to the morning hours when the user is brushing their teeth. The query utilizes the ontology's classes and properties to connect the user, their preferred action, the system action, and the context, ensuring all elements of the competency question are addressed.

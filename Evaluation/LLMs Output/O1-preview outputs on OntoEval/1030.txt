@@ -1,0 +1,22 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+```
+
+Or, if you want to retrieve the date of the seminar held at a specific hospital:
+
+```sparql
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :heldIn :OspedaleRiunitoDelleTreValli .
+  ?seminar :seminarDate ?seminarDate .
+}
+```
+
+This query retrieves the date(s) when the seminar(s) took place, satisfying the competency question.

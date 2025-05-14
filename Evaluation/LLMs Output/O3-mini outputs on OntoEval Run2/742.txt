@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?title (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasTitle ?title .
+  ?album :containsTrack ?recordContain .
+  ?recordContain :trackContained ?track .
+}
+GROUP BY ?album ?title
+HAVING (COUNT(?track) >= 1)
+```

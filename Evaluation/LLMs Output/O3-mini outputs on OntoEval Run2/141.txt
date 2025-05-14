@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the plays (i.e. their play names) associated with theatre festivals:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :hasPlay ?play .
+  ?play :playName ?playName .
+}
+-------------------------------------------------------------
+
+This query assumes that instances of theatre festivals are linked via the property :hasPlay to instances of the reified play class (:Cl_FestivalPlays) and that the play name is stored as a literal via the :playName data property.

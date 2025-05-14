@@ -1,0 +1,31 @@
+**Yes**
+
+The competency question "When was a certain album released?" can be answered by the ontology because it includes the necessary classes and properties to represent albums and their release dates. Specifically, the ontology defines:
+
+- Class `:Cl_Album`
+- Class `:Cl_AlbumRelease` which is associated with `:Cl_Album` via the property `:releasedOn`
+- Property `:releaseDate` that associates an `:Cl_AlbumRelease` with an `xsd:date`
+
+Here's a SPARQL query to retrieve the release date of each album:
+
+```sparql
+SELECT ?album ?releaseDate WHERE {
+  ?album a :Cl_Album .
+  ?album :releasedOn ?albumRelease .
+  ?albumRelease a :Cl_AlbumRelease .
+  ?albumRelease :releaseDate ?releaseDate .
+}
+```
+
+If you want to find the release date of a specific album (e.g., `:Stadium_Arcadium`), you can use the following query:
+
+```sparql
+SELECT ?releaseDate WHERE {
+  :Stadium_Arcadium a :Cl_Album .
+  :Stadium_Arcadium :releasedOn ?albumRelease .
+  ?albumRelease a :Cl_AlbumRelease .
+  ?albumRelease :releaseDate ?releaseDate .
+}
+```
+
+These queries navigate from the album to its release event and extract the associated release date, thus answering the competency question using the provided ontology.

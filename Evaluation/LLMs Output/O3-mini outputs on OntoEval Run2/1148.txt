@@ -1,0 +1,22 @@
+**Yes**
+Below is an example SPARQL query that retrieves movies (i.e. events of type Cl_Movie) along with their available time periods. In this query we assume you want to find movies available during a specified time period (here represented by a target date‐time that should fall within the movie’s available period):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?movie ?startTime ?endTime
+WHERE {
+  ?availability rdf:type :Cl_Availability .
+  ?availability :hasEvent ?movie .
+  ?movie rdf:type :Cl_Movie .
+  ?movie :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime .
+  ?timePeriod :hasEndTime ?endTime .
+
+  # Replace the following dateTime with the target period you are interested in.
+  # This FILTER checks that the target time (e.g., "2023-10-30T20:00:00") falls within 
+  # the available period determined by the start and end times.
+  FILTER(?startTime <= "2023-10-30T20:00:00"^^xsd:dateTime &&
+         ?endTime >= "2023-10-30T20:00:00"^^xsd:dateTime)
+}

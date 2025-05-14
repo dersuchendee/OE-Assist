@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?eventLabel ?startTime ?endTime
+WHERE {
+  ?event a :FilmEvent ;
+         rdfs:label ?eventLabel ;
+         :hasStartTime ?startTime .
+
+  OPTIONAL { ?event :hasEndTime ?endTime . }
+
+  FILTER(regex(?eventLabel, "X-men Sneak Preview", "i"))
+}
+```

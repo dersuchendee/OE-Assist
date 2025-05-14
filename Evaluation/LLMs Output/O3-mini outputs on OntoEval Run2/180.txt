@@ -1,0 +1,18 @@
+**Yes**
+
+One can extract the country for a given city (e.g., Rome) using the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?countryName
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityName "Rome" .
+  ?city :inCountry ?country .
+  ?country :countryName ?countryName .
+}
+--------------------------------------------------
+
+This query demonstrates that the competency question “In what country is a certain city located?” is answerable using the ontology by retrieving the country via the :inCountry property.

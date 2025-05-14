@@ -1,0 +1,12 @@
+**Yes**
+
+Assuming that the ontology uses the class for live performances (e.g. :Cl_LivePerformance) and the data property :hasLocation to record the performance’s location, the CQ "Where did a certain performance take place?" is fully answerable. Under the closed world assumption the following SPARQL query would retrieve each performance along with its location:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_LivePerformance .
+  ?performance :hasLocation ?location .
+}

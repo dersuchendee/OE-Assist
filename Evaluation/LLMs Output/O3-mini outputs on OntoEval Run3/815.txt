@@ -1,0 +1,21 @@
+**No**
+
+The ontology does allow us to extract a person’s first employment date via the :hasFirstEmployment and :hasStartDate properties and to check which hospitals employ a person (via the :employs property). However, there is no explicit connection between a person’s first employment instance and a specific hospital. In other words, while we can tell when a person was first employed and separately which hospital employs that person, the ontology does not relate the “first employment” instance directly to a hospital. Under a closed‐world assumption, we can only return a partial answer that shows a person’s first employment date provided that the person is employed by the hospital. For example, a SPARQL query that retrieves a person’s first employment start date for a hospital that (currently) employs that person is:
+
+--------------------------------------------------
+PREFIX : <http://example.org/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?hospital ?hospitalLabel ?startDate
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  ?hospital :employs ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?person :hasFirstEmployment ?firstEmployment .
+  ?firstEmployment :hasStartDate ?startDate .
+}
+--------------------------------------------------
+
+This query returns, for each person employed by a hospital, the start date of their first employment. However, notice that it does not guarantee that the first employment instance is specifically associated with that hospital, which is why the overall competency question is only partially answerable with the given ontology.

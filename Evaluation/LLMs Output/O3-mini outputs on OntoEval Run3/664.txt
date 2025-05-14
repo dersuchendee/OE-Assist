@@ -1,0 +1,19 @@
+**Yes**
+Below is one example of a SPARQL query that retrieves, for each performance, its date along with its location (city, region and country) under a closed‐world assumption:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?city ?region ?country
+WHERE {
+  ?performance rdf:type :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :performanceLocation ?city .
+  ?city rdf:type :Cl_City ;
+        :locatedInRegion ?region .
+  ?region :locatedInCountry ?country .
+}
+ORDER BY ?performance
+
+This query shows that the ontology fully supports the competency question (via extracting a performance’s location details).

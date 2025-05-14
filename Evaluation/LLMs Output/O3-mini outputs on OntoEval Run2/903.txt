@@ -1,0 +1,38 @@
+**Yes**
+
+Below is a SPARQL query that, given a target date (here represented as ?targetDate), returns for each person their union group and union role when that target date falls within the membership’s start‐ and (if present) end–dates:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?unionGroup ?unionGroupLabel ?role ?roleLabel ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasRoleMembership ?membership .
+  ?membership a :Cl_UnionRoleMembership .
+  
+  ?membership :roleMembershipIn ?unionGroup .
+  OPTIONAL { ?unionGroup rdfs:label ?unionGroupLabel . }
+  
+  ?membership :roleOfMembership ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?membership :roleStartDate ?roleStartDate .
+  OPTIONAL { ?membership :roleEndDate ?roleEndDate . }
+  
+  # Replace the literal below with the desired point in time.
+  BIND("2002-06-15"^^xsd:date AS ?targetDate)
+  
+  FILTER(
+    (?targetDate >= ?roleStartDate) &&
+    ( !bound(?roleEndDate) || ?targetDate <= ?roleEndDate )
+  )
+}
+ORDER BY ?person ?unionGroup
+------------------------------------------------------------
+
+This query uses the reified union role membership (instances of :Cl_UnionRoleMembership) to connect a person, a union group, and a union role, and then applies a filter to ensure that the membership is valid at the given ?targetDate.

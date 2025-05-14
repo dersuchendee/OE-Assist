@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves for a given play the number of acts it contains. In this example we use “The Merchant of Venice” (assuming it is identified by the individual :TheMerchantOfVenice):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasActInformation ?actInfo .
+  ?actInfo :actCount ?actCount .
+  FILTER(?play = :TheMerchantOfVenice)
+}
+
+This query works under the closed world assumption in our ontology, since the act count is provided via reified play act information.

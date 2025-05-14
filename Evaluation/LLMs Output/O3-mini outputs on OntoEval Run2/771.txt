@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for a given person, all degrees that are instances of MedicalDegree, along with their names and dates:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeName ?degreeDate
+WHERE {
+  # Replace <PersonURI> with the URI of the person in question 
+  <PersonURI> a :Person ;
+              :hasDegree ?degree .
+  ?degree a :MedicalDegree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+  OPTIONAL { ?degree :degreeDate ?degreeDate . }
+}
+--------------------------------------------------
+
+This query assumes that the ontology models medical degrees as instances of the class MedicalDegree obtained via the property hasDegree from a Person. The closed world assumption means if no such degree is asserted for the given person, it won’t appear in the results.

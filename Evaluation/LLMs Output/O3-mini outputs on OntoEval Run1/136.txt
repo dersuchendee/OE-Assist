@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves the names of plays that have been attached to a theatre festival through the reified class Cl_FestivalPlays.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival :hasPlay ?festivalPlays .
+  ?festivalPlays :playName ?playName .
+}
+ORDER BY ?festival
+--------------------------------------------------
+
+This query answers the competency question "What plays could be seen during a certain theatre festival?" by extracting festival instances together with their associated plays (via the :hasPlay property pointing to instances of Cl_FestivalPlays) whose play names are provided by the :playName data property.

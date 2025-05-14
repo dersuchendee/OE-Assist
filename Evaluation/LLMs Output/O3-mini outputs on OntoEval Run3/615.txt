@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming we want to extract the critique given by a specific critic (e.g. :Crian_Hiatt) about a specific record (e.g. :Stadium_Arcadium), here is a SPARQL query that retrieves the critique text:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?critiqueText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?record a :Cl_Album .
+  ?critique a :Cl_Critique .
+  
+  ?critic :madeCritique ?critique .
+  ?critique :critiqueOf ?record .
+  ?critique :critiqueText ?critiqueText .
+  
+  # Filter for a specific critic and record (using closed world assumption, only data in the ontology)
+  FILTER(?critic = :Crian_Hiatt && ?record = :Stadium_Arcadium)
+}
+------------------------------------------------
+
+This query shows that the ontology indeed supports the competency question “What does a certain critic say about a certain record?” by allowing extraction of the critique text made by the critic about the record.

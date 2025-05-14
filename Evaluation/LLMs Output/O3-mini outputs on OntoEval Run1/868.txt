@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the country information for a given city (using the closed‐world assumption):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?cityName ?countryName
+WHERE {
+  ?city a :Cl_Location ;
+        :cityName ?cityName ;
+        :isInCountry ?country .
+  ?country :countryName ?countryName .
+  # Filter for a specific city, e.g., "Nocera Inferiore"
+  FILTER(STR(?cityName) = "Nocera Inferiore")
+}
+--------------------------------------------------

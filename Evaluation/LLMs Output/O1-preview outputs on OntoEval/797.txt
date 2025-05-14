@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+SELECT ?studyStartDate ?studyEndDate
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :studiedFor ?studyPeriod .
+  ?studyPeriod :degree ?degree .
+  ?degree rdf:type :Cl_Degree .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+  FILTER (?person = :GivenPerson && ?degree = :GivenDegree)
+}
+```

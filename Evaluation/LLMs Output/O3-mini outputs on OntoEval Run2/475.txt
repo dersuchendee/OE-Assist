@@ -1,0 +1,31 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the reified “band role” information – that is, given a specific person, band, and time period the query returns the role that person had in that band. (Here we assume that the role information is modeled via the reified class Cl_BandRole, which is linked to Cl_Person via :hasRole, linked to Cl_Band via :roleOf, and associated to a time period via :rolePeriod.) You can further refine the FILTER conditions to bind the “certain person”, “certain band” and “certain point in time” as needed.
+
+------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?band ?bandLabel ?bandRole ?roleLabel ?timePeriod
+WHERE {
+  ?person a :Cl_Person ;
+          :hasRole ?bandRole .
+  ?bandRole a :Cl_BandRole ;
+            :roleOf ?band ;
+            :rolePeriod ?timePeriod .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?band rdfs:label ?bandLabel. }
+  OPTIONAL { ?bandRole rdfs:label ?roleLabel. }
+  
+  # Closed world assumption: Only explicitly stated roles are returned.
+  # Replace the IRIs below with the specific person, band, and (or) time period of interest.
+  FILTER (?person = <http://www.example.org/test#SpecificPerson>
+          && ?band = <http://www.example.org/test#SpecificBand>
+          && ?timePeriod = <http://www.example.org/test#SpecificTimePeriod> )
+}
+ORDER BY ?person ?band
+
+------------------------------------------------
+
+This query demonstrates that the competency question is answerable because all the necessary entities – the person, the band, the role (via Cl_BandRole) and the time period – are explicitly reified in the ontology.

@@ -1,0 +1,22 @@
+**Yes**
+Below is one example SPARQL query that, given a specific book or CD (here represented by the IRI :SpecificMedia), retrieves the articles it contains via the :containsArticle property:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  # Identify the specific media (a book or CD)
+  VALUES ?media { :SpecificMedia } .
+  ?media a ?mediaType .
+  FILTER(?mediaType = :Cl_Book || ?mediaType = :Cl_CD)
+  
+  # Retrieve the articles (instances of Cl_Article) contained in the media
+  ?media :containsArticle ?article .
+  ?article a :Cl_Article .
+  OPTIONAL { ?article rdfs:label ?articleLabel }
+}
+------------------------------------------------------------
+
+Under the closed‐world assumption, we assume that only those individuals explicitly asserted in the ontology exist. This query answers the CQ by extracting all articles that a specific book or CD is composed of.

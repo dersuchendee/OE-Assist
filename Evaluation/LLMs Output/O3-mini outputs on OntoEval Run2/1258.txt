@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, retrieves the quality of a flow at a given time by using the reified FlowQualityAssessment:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?quality ?time
+WHERE {
+  ?assessment a :FlowQualityAssessment .
+  ?assessment :assessesFlow ?flow .
+  ?assessment :hasQuality ?quality .
+  ?assessment :atTime ?time .
+  FILTER(?time = "2023-01-01T00:00:00"^^xsd:dateTime)  # replace with the specific time as needed
+}
+--------------------------------------------------
+
+This query shows that the ontology effectively reifies the relation between a flow and its quality at a specific time, making it possible to extract an answer for the competency question.

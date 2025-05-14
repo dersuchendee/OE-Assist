@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?seminar ?seminarLabel (COUNT(?article) AS ?numPresentedArticles)
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  
+  ?seminar ns1:hasPresentation ?presentation .
+  ?presentation ns1:presentedArticle ?article .
+}
+GROUP BY ?seminar ?seminarLabel
+HAVING (COUNT(?article) >= 1)
+```

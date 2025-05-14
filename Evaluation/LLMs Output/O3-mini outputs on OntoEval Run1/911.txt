@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, selects the role a given person holds in a given union during the period that covers a specified point in time. In this example we assume that the person and union are specified by their IRIs (here “PasqualeDiGennaro” and “MaleNursesUnion”) and that the “certain point in time” (for example, “2003-01-01”) should fall between the role’s start and end dates.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?roleName ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasRole ?role .
+  ?role :roleInUnion ?union ;
+        :roleName ?roleName ;
+        :roleStartDate ?roleStartDate ;
+        :roleEndDate ?roleEndDate .
+        
+  # Closed-world filtering: only return the role if the given instant is within the role period,
+  # and if the person and union match the ones of interest.
+  FILTER (
+    ?person = <http://www.example.org/test#PasqualeDiGennaro> &&
+    ?union  = <http://www.example.org/test#MaleNursesUnion> &&
+    xsd:date("2003-01-01") >= ?roleStartDate &&
+    xsd:date("2003-01-01") <= ?roleEndDate
+  )
+}
+-----------------------------------------------------------
+
+Explanation:
+• We select the individual (?person) that is an instance of :Cl_Person and its associated role (?role) via the property :hasRole.
+• The role is connected to the union group using the property :roleInUnion and provides its meaning (name) through :roleName.
+• We also require the role to have associated start and end dates.
+• The FILTER clause implements the closed world assumption by ensuring that (a) only the specified person and union are considered and (b) the given “point in time” (here 2003‐01‐01) lies between the role’s start and end dates.
+
+This SPARQL query shows that the CQ “What role does a certain person have within a certain union group at a certain point in time?” is fully supported by the ontology.

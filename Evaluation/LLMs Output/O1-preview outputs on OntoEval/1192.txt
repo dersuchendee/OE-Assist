@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?agent ?agentLabel ?event ?eventLabel
+WHERE {
+  ?agent a :Agent .
+  ?agent :paidToSupport ?event .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+```

@@ -1,0 +1,16 @@
+**No**  
+The ontology does not specifically model organ movements (e.g. reified events or actions directly indicating that “an organ is moved to another location” with associated temporal information). However, one may retrieve some related temporal information from the projects or tasks that include time intervals and places. For example, one can run a partial query that retrieves the time intervals of projects connected to organs: 
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/arco/ontology/core/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?project ?timeInterval 
+WHERE {
+  ?organ a organs:Organ .
+  ?organ core:isDescribedBy ?project .
+  ?project core:hasTimeInterval ?timeInterval .
+}  
+
+This query provides a partial answer by extracting some temporal information related to projects (which might include processes such as restoration or movement) but does not fully answer “When is an organ moved to another location?” due to the lack of an explicit modelling of organ movement in the ontology.

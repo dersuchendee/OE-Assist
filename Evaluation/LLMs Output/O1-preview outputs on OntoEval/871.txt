@@ -1,0 +1,11 @@
+**Answer: Yes**
+
+```sparql
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+    ?city rdf:type :Cl_City .
+    OPTIONAL { ?city rdfs:label ?cityLabel . }
+    ?city :cityLocatedIn ?country .
+    OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```

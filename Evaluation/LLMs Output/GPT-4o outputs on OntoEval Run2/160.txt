@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the city in which a specific theatre is located. The ontology includes classes and properties related to theatre festivals, plays, productions, and other related entities, but it lacks a direct connection between a theatre and its city. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL {
+    ?theatre :locatedIn ?city .
+  }
+}
+```
+
+This query attempts to find theatres and their associated cities, but without a direct connection in the ontology, it may not return complete results.

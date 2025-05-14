@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate songs with specific performances. The ontology includes classes and properties for musical groups, albums, tracks, and performances, but it lacks a direct connection between performances and the specific songs played during those performances. Here's a SPARQL query to extract a partial answer, which lists performances and their associated musical groups:
+
+```sparql
+SELECT ?performance ?performanceDate ?musicGroup
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :hasPerformanceDate ?performanceDate .
+  ?performance :performedBy ?musicGroup .
+}
+```

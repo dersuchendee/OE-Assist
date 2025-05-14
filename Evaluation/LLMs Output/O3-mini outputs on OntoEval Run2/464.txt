@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the persons who are members of a given band at a specified point in time. In this query the band (here illustrated as <http://www.example.org/test#RedHotChiliPeppers>) and the time point (e.g. "2004-10-01"^^xsd:date) are provided, and the query selects memberships (instances of :Cl_Membership) with a starting date before (or equal to) and either no ending date or an ending date after the given point. The query then retrieves the associated person via the reification relation (:hasMembership):
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?start ?end
+WHERE {
+  ?membership a :Cl_Membership ;
+              :membershipInBand <http://www.example.org/test#RedHotChiliPeppers> ;
+              :membershipStart ?start .
+  OPTIONAL { ?membership :membershipEnd ?end . }
+  ?person :hasMembership ?membership .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  FILTER ( xsd:date("2004-10-01") >= ?start &&
+           ( !bound(?end) || xsd:date("2004-10-01") <= ?end ) )
+}
+---------------------------------------------------------------
+
+This query models the CQ under a closed world assumption using the reified membership information in the ontology.

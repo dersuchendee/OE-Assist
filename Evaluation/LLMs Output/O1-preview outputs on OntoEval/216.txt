@@ -1,0 +1,42 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question. Specifically, it models ensembles, members, memberships, and the times at which memberships occur through the following classes and properties:
+
+- **Classes**:
+  - `:Cl_Ensemble` – Represents ensembles.
+  - `:Cl_Member` – Represents members.
+  - `:Cl_Membership` – Represents the membership relationship.
+  - `:Cl_Time` – Represents points in time.
+
+- **Object Properties**:
+  - `:ensembleInMembership` – Links a membership to an ensemble.
+  - `:memberInMembership` – Links a membership to a member.
+  - `:atTime` – Associates a membership with a specific time.
+
+**SPARQL Query:**
+
+Here's a SPARQL query that retrieves the members of a certain ensemble at a certain point in time. Replace `<ensemble_URI>` with the URI of the ensemble you're interested in, and `<time_value>` with the specific time (e.g., `"2007-01-15"^^xsd:date`).
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :ensembleInMembership <ensemble_URI> .
+  ?membership :memberInMembership ?member .
+  ?membership :atTime <time_value> .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+```
+
+**Explanation:**
+
+- The query looks for instances of `:Cl_Membership` where:
+  - The membership is associated with the specified ensemble (`<ensemble_URI>`).
+  - The membership occurred at the specified time (`<time_value>`).
+- It retrieves the members (`?member`) involved in these memberships.
+- Optionally, it fetches labels for the members if available (`?memberLabel`).
+
+**Note:** Ensure that the ontology data includes the specific ensemble and time you're querying for, and that the data adheres to the structure defined in the ontology. If the ensemble or time does not exist in the data, the query will return no results.

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, extracts the date for each theatre festival instance from the ontology:
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?dateValue
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  ?festival :hasDate ?dateInstance .
+  ?dateInstance :dateValue ?dateValue .
+}
+-------------------------
+
+In this query, we assume that the individual(s) corresponding to the “certain theatre festival” are explicitly typed as :Cl_TheatreFestival and that the festival’s date is provided via the :hasDate property linking to a :Cl_Date instance whose :dateValue holds the actual date.

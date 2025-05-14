@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+
+SELECT ?source ?type
+WHERE {
+  ?source a :Source .
+  ?source :hasType ?type .
+}
+```
+
+The competency question "Which is the type of a source?" can be answered using the given ontology. The ontology defines a property `:hasType` that connects a `:Source` to its `:Type`. The SPARQL query above selects all sources and their associated types by querying instances of `:Source` and retrieving their `:hasType` values.

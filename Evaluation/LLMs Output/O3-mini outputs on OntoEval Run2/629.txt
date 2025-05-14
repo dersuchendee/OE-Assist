@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer “When did a certain performance take place?” using the ontology because a performance event is modelled (for example with an individual of type :Cl_PerformanceEvent having a data property :hasPerformanceDate). For instance, you can query for the performance date of a given performance (or all performances) as shown below:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_PerformanceEvent ;
+               :hasPerformanceDate ?performanceDate .
+  # Optionally, filter by a specific performance if needed:
+  # FILTER(STR(?performance) = "http://www.example.org/test#PerformancePortland")
+}
+------------------------------------------------------------
+
+Under the closed world assumption this query retrieves exactly the performance events with their associated date values.

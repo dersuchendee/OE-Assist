@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :isReviewedIn ?review .
+  ?review :starRating ?starRating .
+  
+  ?newspaper a :Cl_Newspaper .
+  ?newspaper :hasReview ?review .
+  
+  # Optional filters to select a specific production and newspaper
+  # FILTER(?production = <http://www.example.org/test#SpecificProduction>)
+  # FILTER(?newspaper = <http://www.example.org/test#SpecificNewspaper>)
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?site ?siteLabel ?area ?areaLabel ?time
+WHERE {
+  ?site a :ContaminatedSite .
+  OPTIONAL { ?site rdfs:label ?siteLabel . }
+  
+  ?site :locatedIn ?area .
+  OPTIONAL { ?area rdfs:label ?areaLabel . }
+  
+  ?site :hasObservation ?observation .
+  ?observation :hasRecordedTime ?time .
+}
+ORDER BY ?site ?time
+```

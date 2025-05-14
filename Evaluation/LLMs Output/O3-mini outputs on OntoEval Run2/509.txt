@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given album, its recording session start and end dates (i.e. the time period during which it was recorded):
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStartDate ?recordingEndDate
+WHERE {
+  ?album a :Cl_Album ;
+         :hasRecordingSession ?session .
+  ?session :recordingStartDate ?recordingStartDate ;
+           :recordingEndDate ?recordingEndDate .
+}
+ORDER BY ?album
+-----------------------------------------------------------
+
+This query is possible because the ontology defines the class :Cl_Album together with the property :hasRecordingSession that links an album to its recording session, and the session provides the properties :recordingStartDate and :recordingEndDate.

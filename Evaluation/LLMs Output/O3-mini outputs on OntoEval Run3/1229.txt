@@ -1,0 +1,21 @@
+**Yes**
+Below is one SPARQL query that, under the closed‐world assumption, retrieves the role that Rubisco plays in the CO₂ fixation process by “following” the restrictions encoded in the ontology. In particular, we require that Rubisco has a restriction on the property “hasRole” (yielding the candidate role) and that Rubisco also has a restriction on “catalyzesProcess” whose value is the CO₂ fixation process. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role
+WHERE {
+  # Find the restriction linking Rubisco with its role
+  :Rubisco rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :hasRole ;
+               owl:someValuesFrom ?role .
+
+  # Ensure Rubisco also has a restriction tying it to CO2 fixation process
+  :Rubisco rdfs:subClassOf ?procRestriction .
+  ?procRestriction owl:onProperty :catalyzesProcess ;
+                   owl:someValuesFrom :CO2FixationProcess .
+}
+
+This query returns the role (expected to be the Catalyst Role) that Rubisco is defined to play in the CO₂ fixation process according to the ontology.

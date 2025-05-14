@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track .
+  # Assuming we're querying for a specific track; specify it here
+  # FILTER (?track = :SpecificTrackURI) .
+  ?track :recordingOf ?trackRecording .
+  ?trackRecording a :Cl_TrackRecording .
+  ?song :songRecorded ?trackRecording .
+  ?song a :Cl_Song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```

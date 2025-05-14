@@ -1,0 +1,14 @@
+**Answer: Yes**.
+
+The competency question "Which is the subject of a source?" can be answered since it is a Reification CQ. The classes involved, `Cl_Source` and `Cl_Subject`, are connected through the reified class `Cl_SourceSubject` in the ontology. This allows us to retrieve the subjects associated with each source via the reification properties.
+
+Here is the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?source ?subject
+WHERE {
+  ?source a :Cl_Source .
+  ?source :op_hasSourceSubject ?sourceSubject .
+  ?sourceSubject :op_subjectOf ?subject .
+}
+```

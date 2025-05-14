@@ -1,0 +1,26 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each source and its production context, including the creation date, creation place, goal, the creator, and any related events:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?creationDate ?creationPlace ?goal ?creator ?event
+WHERE {
+  ?source a :Cl_Source ;
+          :hasContext ?context .
+  
+  OPTIONAL { ?context :hasCreationDate ?creationDate . }
+  OPTIONAL { ?context :hasCreationPlace ?creationPlace . }
+  OPTIONAL { ?context :hasGoal ?goal . }
+  OPTIONAL { ?context :createdBy ?creator . }
+  OPTIONAL { ?context :relatesToEvent ?event . }
+}
+ORDER BY ?source
+----------------------------------------------------
+
+This query uses the closed world assumption on the provided ontology by retrieving only those triples explicitly asserted in it.

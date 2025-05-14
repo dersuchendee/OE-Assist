@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to associate a band with its members at a specific point in time. The ontology includes classes and properties for bands, people, and memberships, but it lacks a mechanism to query the members of a band at a specific time. The membership class has start and end dates, but there is no direct way to filter memberships based on a specific date in a SPARQL query.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?band ?person ?membershipStart ?membershipEnd
+WHERE {
+  ?person :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+}
+```
+
+This query retrieves the bands, their members, and the start and end dates of their memberships, but it does not filter by a specific point in time.

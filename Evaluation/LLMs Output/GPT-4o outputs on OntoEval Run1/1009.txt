@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "When was a certain book or CD published?" can be answered using the ontology provided. The ontology includes the `:publicationDate` property for both `:Cl_Book` and `:Cl_CD` classes, which allows us to query the publication date of books and CDs.
+
+Here is a SPARQL query to extract the publication date of books and CDs:
+
+```sparql
+SELECT ?item ?itemLabel ?publicationDate
+WHERE {
+  ?item a ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD)) .
+  ?item :publicationDate ?publicationDate .
+  OPTIONAL { ?item rdfs:label ?itemLabel . }
+}
+ORDER BY ?item
+```
+
+This query retrieves the publication date of each book or CD, along with their labels if available.

@@ -1,0 +1,33 @@
+**Yes**
+
+We can answer the competency question "Which is the credibility of a source?" using the given ontology. The ontology defines classes and properties that allow us to link a `Source` to its `CredibilityAssessment`, which includes the credibility score and explanation. Below is a SPARQL query that retrieves the credibility information for each source.
+
+```sparql
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?sourceLabel ?credibilityScore ?credibilityExplanation ?expertLabel
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+
+  ?source :hasCredibilityAssessment ?assessment .
+
+  ?assessment :hasCredibilityScore ?credibilityScore .
+  OPTIONAL { ?assessment :hasCredibilityExplanation ?credibilityExplanation . }
+  OPTIONAL { 
+    ?assessment :assessedBy ?expert .
+    OPTIONAL { ?expert rdfs:label ?expertLabel . }
+  }
+}
+```
+
+This query performs the following:
+
+- Selects all individuals of type `:Source`.
+- Retrieves the optional label of the source (`?sourceLabel`).
+- Finds the associated `:CredibilityAssessment` via the property `:hasCredibilityAssessment`.
+- Retrieves the credibility score (`?credibilityScore`) and optional explanation (`?credibilityExplanation`).
+- Optionally retrieves the expert who made the assessment and their label (`?expertLabel`).
+
+This query will provide the credibility of each source as defined in the ontology.

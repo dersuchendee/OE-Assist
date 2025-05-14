@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves a given city’s country by following the ontology’s explicit connection from a city (an instance of Cl_City) via the property locatedInCountry to a country location and then via the property country to what is considered the country:
+
+————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  
+  ?city :locatedInCountry ?countryLocation .
+  ?countryLocation :country ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+  
+  # Optionally, filter by a specific city label if needed:
+  # FILTER (str(?cityLabel) = "Specific City Name")
+}
+————————————
+
+This query uses the available classes and properties to fully answer the competency question “In what country is a certain city located?” under a closed world assumption.

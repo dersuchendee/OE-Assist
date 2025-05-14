@@ -1,0 +1,22 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?event ?eventLabel ?startTime ?endTime
+WHERE {
+  ?availability a :Cl_Availability .
+  ?availability :hasEvent ?event .
+  ?event a :Cl_Movie .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime .
+  ?timePeriod :hasEndTime ?endTime .
+  
+  # Optional: Filter to a specific time period
+  # Replace "desiredStartTime" and "desiredEndTime" with actual dateTime literals
+  FILTER ( 
+    ?startTime <= "2023-10-01T23:59:59"^^xsd:dateTime &&
+    ?endTime >= "2023-10-01T00:00:00"^^xsd:dateTime
+  )
+}
+```

@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel
+WHERE {
+  ?lineUp a :LineUp ;
+          :partOfBand ?band ;
+          :activeDuring ?timePeriod ;
+          :hasMember ?member .
+  ?band rdfs:label ?bandLabel .
+  ?timePeriod rdfs:label ?timeLabel .
+  
+  FILTER (?bandLabel = "Red Hot Chili Peppers" && ?timeLabel = "2004") .
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+```

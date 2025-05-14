@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that uses the reification structure (via the pivot class Cl_PersonRoleInProduction) to return, for a given person, production, and time, the roles that person has:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personName ?productionTitle ?roleName ?time
+WHERE {
+  ?person a :Cl_Person ;
+          :hasName ?personName ;
+          :hasPersonRoleInProduction ?pr.
+  ?pr :withRole ?role ;
+      :inProduction ?production ;
+      :atTime ?time.
+  OPTIONAL { ?production :hasTitle ?productionTitle. }
+  OPTIONAL { ?role :hasRoleName ?roleName. }
+  
+  # Any specific filtering can be done here. For example, if looking for a particular person, production, and time:
+  # FILTER(?person = <http://www.example.org/test#FabioBianchi>)
+  # FILTER(?production = <http://www.example.org/test#The_Merchant_of_Venice>)
+  # FILTER(?time = "2009-09-07T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?time
+-----------------------------------------------------
+
+This query extracts the roles (with associated labels) that a person has in a given production at a particular point in time, demonstrating that the competency question is answerable by the ontology under the closed world assumption.

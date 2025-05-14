@@ -1,0 +1,17 @@
+**No**  
+The ontology does allow us to determine which persons are union members via the reified union membership structure, but there is no time information (e.g. start and end dates) associated with the union membership to enable filtering “at a certain point in time.” Thus, while we can partially answer “Who are the members of a certain union?” we cannot apply the temporal constraint as required by the CQ.
+
+A partial answer extracting union members (ignoring the time dimension) would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?membership a :Cl_PersonUnionMembership .
+  ?membership :unionHasMember <http://www.example.org/test#TheSpecifiedUnion> .
+  ?membership :personMemberOfUnion ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+
+This query returns the persons associated with the given union via its reified union membership but does not account for when the membership was valid.

@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not include any information about the start and end times of events directly. It only defines the structure for associating events with event times, but there is no data or instances provided to extract specific start and end times for any event. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?event ?startTime ?endTime
+WHERE {
+  ?event a :Cl_Event .
+  ?event :op_hasEventTime ?eventTime .
+  OPTIONAL { ?eventTime :dp_startTime ?startTime . }
+  OPTIONAL { ?eventTime :dp_endTime ?endTime . }
+}
+```

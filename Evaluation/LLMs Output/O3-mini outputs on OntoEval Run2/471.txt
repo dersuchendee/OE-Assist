@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the reified band membership – including the person’s role – valid at a given point in time. (Replace the sample date with the desired time.) 
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?membership ?person ?band ?role ?start ?end
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :membership_artist ?person .
+  ?membership :membership_band ?band .
+  ?membership :hasRole ?role .
+  ?membership :membership_startDate ?start .
+  ?membership :membership_endDate ?end .
+  # Filter: only include memberships active at the specified date (e.g., 2006-01-01)
+  FILTER(xsd:date("2006-01-01") >= ?start && xsd:date("2006-01-01") <= ?end)
+}
+-----------------------------------------------------------

@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves, for each seminar in the ontology, at least one article that was presented:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+  ?presentation a :Cl_SeminarPresentation ;
+                :presentedIn ?seminar ;
+                :presentationOf ?article .
+  ?article a :Cl_Article ;
+           :articleTitle ?articleTitle .
+}
+ORDER BY ?seminar ?seminarDate
+--------------------------------------------------
+
+Under the closed‐world assumption, if a seminar were missing any associated article presentation, it would not appear in this query result. This confirms that the ontology encodes the competency question “At least one article is always presented at each seminar” via the reification of seminar presentations.

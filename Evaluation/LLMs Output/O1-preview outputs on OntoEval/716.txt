@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?country
+WHERE {
+  :YourRegion a :Cl_Region .
+  :YourRegion :isInCountry ?country .
+}
+```
+
+This query retrieves the country associated with a specific region (`:YourRegion`). Replace `:YourRegion` with the URI of the region you're inquiring about. The ontology supports this competency question as it includes the classes `:Cl_Region` and `:Cl_Country`, and the property `:isInCountry` that relates a region to the country it is located in.

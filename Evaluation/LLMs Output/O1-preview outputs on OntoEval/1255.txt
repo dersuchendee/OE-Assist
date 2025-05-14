@@ -1,0 +1,12 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question. The class `:ChemicalMeasurement` is linked to `:Water` via the `:inMedium` property, and it has the `:hasConcentrationValue` property with `xsd:float` values. Therefore, we can query for chemical measurements in water and extract their concentration values.
+
+```sparql
+SELECT ?measurement ?value
+WHERE {
+  ?measurement a :ChemicalMeasurement .
+  ?measurement :inMedium :Water .
+  ?measurement :hasConcentrationValue ?value .
+}
+```

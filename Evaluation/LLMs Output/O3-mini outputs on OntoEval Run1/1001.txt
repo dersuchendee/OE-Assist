@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves a publication’s title and its publication date when the publication is either a Book or a CD:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?title ?pubDate
+WHERE {
+  { ?publication a :Book }
+  UNION
+  { ?publication a :CD }
+  ?publication :publicationDate ?pubDate .
+  OPTIONAL { ?publication :title ?title . }
+}
+ORDER BY ?publication

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the number of pages of a particular book. The ontology includes a property `:numberOfPages` with domain `:Cl_Book`, but there is no direct connection between a specific book instance and this property in the provided ontology. Therefore, a partial answer can be extracted by querying for books and their number of pages, but it won't be specific to a particular book without additional information.
+
+```sparql
+SELECT ?book ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :numberOfPages ?numberOfPages .
+}
+```

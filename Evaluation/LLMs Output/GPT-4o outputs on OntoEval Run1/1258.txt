@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What is the quality of a flow at a specific time?" can be answered using the given ontology. The ontology includes the necessary classes and properties to relate a flow to its quality at a specific time through the `FlowQualityAssessment` class.
+
+```sparql
+SELECT ?flow ?quality ?time
+WHERE {
+  ?assessment a :FlowQualityAssessment .
+  ?assessment :assessesFlow ?flow .
+  ?assessment :hasQuality ?quality .
+  ?assessment :atTime ?time .
+}
+```

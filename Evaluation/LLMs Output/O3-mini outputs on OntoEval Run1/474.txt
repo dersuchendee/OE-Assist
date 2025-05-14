@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one example of a SPARQL query that answers the CQ. In this ontology the reified “band‐role” connects a person with a band, a role, and the time period during which that role applied. Under a closed world assumption (i.e. if no information is stated then nothing holds), the following query retrieves for each person the band role they have (which by inheritance is also a band membership) together with the corresponding role and time period.
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?bandRole ?role ?roleLabel ?timePeriod
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :hasRoleInBand ?bandRole .
+  ?bandRole a :Cl_BandRole .      # reified band role (which represents the membership + role + time period)
+  
+  ?bandRole :roleInBand ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?bandRole :rolePeriod ?timePeriod .
+}
+ORDER BY ?person ?timePeriod
+----------------------------------
+
+This query extracts the role that each person has in a given band at a given time period (as expressed by a Cl_BandRole instance).

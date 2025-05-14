@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves the publication date of any resource that is either a book or a CD:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?item ?pubDate
+WHERE {
+  { ?item rdf:type :Cl_Book .
+    ?item :publicationDate ?pubDate . }
+  UNION
+  { ?item rdf:type :Cl_CD .
+    ?item :publicationDate ?pubDate . }
+}
+---------------------------------------------------
+
+This query shows that the ontology supports the competency question "When was a certain book or CD published?" by allowing extraction of the publication dates for individuals classified as either :Cl_Book or :Cl_CD.

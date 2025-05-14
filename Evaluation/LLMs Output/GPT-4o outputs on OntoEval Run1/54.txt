@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What are the actors involved in this value network?" can be answered using the ontology provided. The ontology defines the class `:Actor` and its relationships with roles and material flows, which allows us to query for actors involved in the value network.
+
+```sparql
+SELECT ?actor ?actorLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```

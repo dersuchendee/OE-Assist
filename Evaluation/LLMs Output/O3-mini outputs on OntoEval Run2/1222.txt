@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, extracts the characteristics of rare species found in a specific aquifer:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?species ?speciesLabel ?aquifer ?aquiferLabel ?characteristic ?characteristicLabel
+WHERE {
+  ?species a :RareSpecies .
+  ?species :isFoundIn ?aquifer .
+  ?aquifer a :Aquifer .
+  ?species :hasCharacteristic ?characteristic .
+
+  OPTIONAL { ?species rdfs:label ?speciesLabel. }
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel. }
+  OPTIONAL { ?characteristic rdfs:label ?characteristicLabel. }
+}
+---------------------------------------------------
+
+This query finds all individuals that are classified as RareSpecies, ensures they are found in an Aquifer (thus a specific aquifer of interest), and retrieves their associated characteristics along with any available labels.

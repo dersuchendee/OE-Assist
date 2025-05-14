@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption and using the ontology’s reified performance setlist structure, retrieves the songs played in a given performance:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  # Identify a performance of interest
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+
+  # Find the associated setlist linking the performance to the songs played
+  ?setlist a :Cl_PerformanceSetlist ;
+           :performedDuring ?performance ;
+           :includesSong ?song .
+
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance
+---------------------------------
+
+This query answers the CQ "What songs were played in a certain performance?" by linking a given performance to its setlist (via :performedDuring) and then retrieving all songs included in that setlist (using :includesSong).

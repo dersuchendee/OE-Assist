@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine if an event was a celebration, festival, or private event. The ontology defines these as subclasses of `EventType`, but there is no direct link between an `Event` and its specific type (Celebration, Festival, or PrivateEvent) in the provided ontology. Therefore, a partial answer can be extracted by querying for events and their types, but it won't specify if they are celebrations, festivals, or private events.
+
+```sparql
+SELECT ?event ?eventType
+WHERE {
+  ?event a :Event .
+  ?event :hasEventType ?eventType .
+}
+```

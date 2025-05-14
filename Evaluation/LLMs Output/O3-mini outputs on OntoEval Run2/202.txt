@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that uses the production’s connection via its play‐basis property to retrieve the underlying play:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPlayBasis ?playBasis .
+  ?playBasis :playBasis ?play .
+  OPTIONAL { ?production rdfs:label ?productionLabel. }
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+-------------------------------------------------
+
+Under the closed world assumption, we assume that only explicitly stated knowledge counts; since the ontology directly asserts the connection from a production to its play‐basis (and then to the play) the CQ “What play is the basis of this production?” is answerable.

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the recording time period (start and end dates) for an album:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album ;
+         :recordedDuring ?recording .
+  ?recording :recordingStart ?recordingStart ;
+             :recordingEnd ?recordingEnd .
+} 
+
+This query extracts the album(s) and its associated recording period as modelled in the ontology.

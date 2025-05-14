@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that extracts the city where a given festival (for example, “Roma Loves Shakespeare”) took place:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :TheatreFestival ;
+            rdfs:label "Roma Loves Shakespeare" ;
+            :tookPlaceIn ?city .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+-------------------------------------------------
+
+Under the closed world assumption, since the ontology explicitly connects the festival with its location via the :tookPlaceIn property, the competency question is fully answerable by the ontology.

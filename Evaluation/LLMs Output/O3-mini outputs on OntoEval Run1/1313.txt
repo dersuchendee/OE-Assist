@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+SELECT ?aquiferFungus ?cycle ?aquifer
+WHERE {
+  ?aquiferFungus a :AquiferFungi .
+  ?aquiferFungus :hasRoleInCycle ?cycle .
+  ?cycle :occursIn ?aquifer .
+  ?aquifer a :Aquifer .
+}
+ORDER BY ?aquiferFungus ?cycle ?aquifer
+```

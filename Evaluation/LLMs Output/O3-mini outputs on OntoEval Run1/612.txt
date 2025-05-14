@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming you know the URIs of the specific critic and record (album), you can run a query like this:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?reviewText 
+WHERE {
+  ?critic a :Cl_Critic .
+  ?review a :Cl_CriticReview ;
+          :reviewText ?reviewText ;
+          :reviewedAlbum ?album .
+  ?critic :reviewsAlbum ?review .
+  FILTER (?critic = <http://www.example.org/test#YourCriticURI> && 
+          ?album = <http://www.example.org/test#YourRecordURI>)
+}
+--------------------------------
+
+This query retrieves the text of the review written by the specific critic about the specific record, showing that the ontology fully supports the competency question.

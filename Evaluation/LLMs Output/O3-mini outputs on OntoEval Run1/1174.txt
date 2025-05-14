@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?action ?actionLabel ?potentialReboundEffect ?potentialReboundEffectLabel
+WHERE {
+  ?action a :Action .
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+  ?action :hasPotentialReboundEffect ?potentialReboundEffect .
+  OPTIONAL { ?potentialReboundEffect rdfs:label ?potentialReboundEffectLabel . }
+}
+```
+
+This query retrieves all instances of actions (including processes, since :Process is a subclass of :Action) along with their potential rebound effects, which directly addresses the competency question.

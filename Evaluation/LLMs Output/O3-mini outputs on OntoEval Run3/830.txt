@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer this competency question using the employment reification in the ontology. In this ontology an instance of the reification class :Cl_PersonHospitalEmployment represents a person’s employment event at a hospital (it is a subclass of both :Cl_Person and :Cl_Hospital) and has a data property :employmentStartDate. Under the closed‐world assumption we assume that every employment event is explicitly stated. For a given person and hospital the SPARQL query can extract the earliest (first) employment date as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?employment a :Cl_PersonHospitalEmployment ;
+              :employmentStartDate ?employmentDate ;
+              :employedAt ?hospital .
+  ?employment a :Cl_Person .   # The employment event also acts as the person instance
+  FILTER(?hospital = <http://www.example.org/test#Ospedale_Riunito_delle_Tre_Valli> &&
+         ?employment = <http://www.example.org/test#Pasquale_Di_Gennaro>)
+}
+  
+
+In this query we assume that the URI <http://www.example.org/test#Pasquale_Di_Gennaro> denotes the person in question and that <http://www.example.org/test#Ospedale_Riunito_delle_Tre_Valli> denotes the hospital. Adjust the URIs as needed.

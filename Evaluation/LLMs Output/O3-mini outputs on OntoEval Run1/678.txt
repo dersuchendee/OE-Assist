@@ -1,0 +1,17 @@
+**Yes**  
+Below is one SPARQL query that extracts the locations (of type Cl_Place) where a performance (an instance of Cl_PerformanceEvent) took place, using the isLocationOfPerformance property:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performanceEvent ?place
+WHERE {
+  ?place a :Cl_Place .
+  ?place :isLocationOfPerformance ?performanceEvent .
+}
+--------------------------------------------------
+
+In a closed-world scenario, we assume that all individuals of Cl_Place and Cl_PerformanceEvent are completely specified, so the query retrieves the performance events along with their associated locations as modelled by the ontology.

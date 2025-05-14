@@ -1,0 +1,31 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, returns the union role (its name and the valid time interval) held by a given person within a given union, filtering for a specific point in time. (Replace the URIs in the FILTER and VALUES clause as appropriate for your data.)
+
+—————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleStart ?roleEnd
+WHERE {
+  ?unionRole a :Cl_PersonUnionRole .
+  ?unionRole :personMemberOfUnion <http://www.example.org/test#Person_Example> .
+  ?unionRole :unionHasMember <http://www.example.org/test#Union_Example> .
+  ?unionRole :roleName ?roleName .
+  ?unionRole :roleStart ?roleStart .
+  ?unionRole :roleEnd ?roleEnd .
+  
+  # Filter for a given time point; adjust the literal to the point in time of interest.
+  FILTER ( "2002-01-01T00:00:00"^^xsd:dateTime >= ?roleStart &&
+           "2002-01-01T00:00:00"^^xsd:dateTime <= ?roleEnd )
+}
+ORDER BY ?roleStart
+—————————————
+
+In this query:
+• We assume that the reified union role instance (of class :Cl_PersonUnionRole) is connected to a person via the property :personMemberOfUnion, and to the union via :unionHasMember.
+• The data properties :roleName, :roleStart and :roleEnd (with xsd:dateTime values) capture the role's label and its effective time period.
+• The FILTER clause restricts the results to those role instances that are valid at the given time point (here “2002-01-01T00:00:00”).
+• Replace <http://www.example.org/test#Person_Example> and <http://www.example.org/test#Union_Example> with the URIs of the person and union group you are interested in.
+
+This query fully answers the competency question “What role does a certain person have within a certain union group at a certain point in time?” using the modelling provided by the ontology.

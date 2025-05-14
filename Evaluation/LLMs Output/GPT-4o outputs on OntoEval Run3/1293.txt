@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query for the places where musicians played, as it lacks a direct connection between musicians and places outside of events. However, we can extract a partial answer by querying for events and their locations, which indirectly involves musicians.
+
+```sparql
+SELECT ?event ?place
+WHERE {
+  ?event a :Event .
+  ?event :hasLocation ?place .
+}
+```

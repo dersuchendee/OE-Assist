@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question "During what time period was a certain play written?" can be answered using the ontology provided. The ontology includes the class `Play` and the object property `wasWrittenDuring` which relates a play to a `TimeInterval`. The `TimeInterval` class has properties `hasStartDate` and `hasEndDate` which can be used to determine the time period during which a play was written.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?play ?title ?startYear ?endYear
+WHERE {
+  ?play a :Play .
+  ?play :hasTitle ?title .
+  ?play :wasWrittenDuring ?timeInterval .
+  ?timeInterval :hasStartDate ?startYear .
+  ?timeInterval :hasEndDate ?endYear .
+}
+```

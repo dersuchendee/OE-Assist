@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct relationship between a city and a country. The ontology only provides a relationship between a hospital and a city, and a city and a country. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying the city in which a hospital is located.
+
+```sparql
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityLocatedIn ?country .
+}
+```

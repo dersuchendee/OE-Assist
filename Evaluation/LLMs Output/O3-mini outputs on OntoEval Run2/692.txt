@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, extracts the performance and its associated location:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?performance :performanceLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}

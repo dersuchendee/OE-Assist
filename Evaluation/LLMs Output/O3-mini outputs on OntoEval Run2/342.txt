@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the star rating associated with a review, linking a production and the newspaper that reviewed it. (In a real use‐case you might supply or further filter the specific production and newspaper of interest.)
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?review a :Cl_Review ;
+          :hasProduction ?production ;
+          :hasNewspaper ?newspaper ;
+          :hasStarRating ?starRating .
+  # Example filters for a particular production and newspaper:
+  FILTER(?production = :Production_GrandTheatre_MerchantOfVenice &&
+         ?newspaper = :Newspaper_IlGazzettino)
+}
+-------------------------------------------------------
+
+This query shows that the ontology supports answering the CQ under the closed world assumption.

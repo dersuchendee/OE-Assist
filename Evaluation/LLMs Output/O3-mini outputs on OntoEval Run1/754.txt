@@ -1,0 +1,23 @@
+**Yes**
+
+The ontology models the CQ “A record always contains at least one track” since every instance of a record (here, class Cl_Record) is defined to have a restriction that it must have a :containsTrack relation with some instance of Cl_Track. Under the closed world assumption, we can extract those records that satisfy this property.
+
+For example, the following SPARQL query retrieves all records along with at least one track:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a :Cl_Record .
+  ?record :containsTrack ?track .
+}
+ORDER BY ?record ?track
+
+─────────────────────────────
+
+This query confirms that every record in the ontology indeed contains at least one track, which fully supports the competency question.

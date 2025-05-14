@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that, given a person and a production (and optionally filtering on a specific time), retrieves the actor’s role names and the time at which these roles are assigned:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?roleName ?atTime ?production
+WHERE {
+  ?person a :Cl_Actor .
+  ?person :hasRole ?roleAssignment .
+  ?roleAssignment :roleName ?roleName .
+  ?roleAssignment :atTime ?atTime .
+  ?roleAssignment :roleInProduction ?production .
+  # For a given actor, production, and time, you could add filters. For example:
+  # FILTER(?person = :FabioBianchi && ?production = :MerchantOfVeniceProduction && ?atTime = "2009-09-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?atTime
+-------------------------------------------------------
+
+In this query, the actor’s role assignments (the reification class :Cl_RoleAssignment) link the actor with a production via the property :roleInProduction, include a role name via :roleName, and record the temporal context through the property :atTime. This demonstrates that the ontology can fully answer the competency question under the closed world assumption.

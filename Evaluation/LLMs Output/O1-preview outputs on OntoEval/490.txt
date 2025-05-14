@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+
+SELECT ?albumLabel ?startDate ?endDate
+WHERE {
+  ?album a :Album ;
+         rdfs:label ?albumLabel ;
+         :recordedDuring ?recordingSession .
+  ?recordingSession :hasStartDate ?startDate .
+  ?recordingSession :hasEndDate ?endDate .
+}
+```

@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that—under a closed‐world assumption—retrieves for each theatre festival all the plays that were seen. For example, in our ontology each festival has an occurrence that “hasPlayParticipation” where the property “participatedPlay” links to a play:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?festival ?festivalLabel ?occur ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :hasFestivalOccurrence ?occur .
+  ?occur :hasPlayParticipation ?participation .
+  ?participation :participatedPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+--------------------------------
+
+This query extracts the plays associated to each theatre festival via the festival occurrences and play participations, thus fully answering the competency question.

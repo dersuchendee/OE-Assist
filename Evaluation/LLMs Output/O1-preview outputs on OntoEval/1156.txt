@@ -1,0 +1,41 @@
+**Yes**
+
+The competency question "What are the attribute values for this event?" can be answered using the given ontology. Specifically, we can retrieve the attribute values of the event `:XmenPreview`, which represents the sneak preview event mentioned in the story.
+
+Here's a SPARQL query to extract the attribute values for the event:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?property ?value
+WHERE {
+  :XmenPreview ?property ?value .
+  FILTER (?property != rdf:type)
+}
+```
+
+This query will retrieve all properties and their corresponding values associated with `:XmenPreview`, excluding the `rdf:type` property.
+
+If you want to get more specific information, such as the title of the film, the start time of the event, and the cinema where it's happening, you can use the following query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?previewedFilmTitle ?startTime ?cinemaName
+WHERE {
+  :XmenPreview :hasPreview ?film .
+  ?film :hasTitle ?previewedFilmTitle .
+  :XmenPreview :hasStartTime ?startTime .
+  :XmenPreview :previewAt ?cinema .
+  OPTIONAL { ?cinema rdfs:label ?cinemaName . }
+}
+```
+
+This query retrieves:
+- `?previewedFilmTitle`: The title of the film being previewed.
+- `?startTime`: The start time of the event.
+- `?cinemaName`: The name of the cinema where the event is taking place (if available).
+
+**Therefore, the ontology supports the competency question, and the required information can be extracted using the provided SPARQL queries.**

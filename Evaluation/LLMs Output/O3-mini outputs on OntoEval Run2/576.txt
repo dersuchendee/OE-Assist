@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that, assuming the track in question is indicated by a given URI or value, retrieves the song that the track is a recording of:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track .
+  ?track :trackOf ?song .
+  # Optionally, if you have a specific track URI, you can uncomment the following line:
+  # FILTER(?track = <http://www.example.org/test#YourTrackURI>)
+}
+-------------------------------------------------
+
+This query answers the CQ under the closed world assumption by directly linking a track (instance of Cl_Track) to its song (via the trackOf property).

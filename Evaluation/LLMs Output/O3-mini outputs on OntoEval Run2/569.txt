@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that answers the CQ by retrieving, for each track (or a specific track if further filtered), the song that the track is a recording of:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+  ?track :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+--------------------------------------------------
+
+This query directly relies on the object property ":isRecordingOf" (whose domain is :Cl_Track and range is :Cl_Song) as specified in the ontology, and under the closed world assumption it returns a complete answer to the CQ.

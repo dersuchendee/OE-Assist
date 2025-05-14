@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+  
+  ?monitoringPoint :hasMeasurement ?measurement .
+  
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+  
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+```
+
+The competency question asks for physical parameters recorded at each monitoring point and how these measurements vary over time. The provided ontology includes classes and properties that model monitoring points (`:MonitoringPoint`), measurements (`:Measurement`), physical parameters (`:PhysicalParameter`), and the relationships between them (`:hasMeasurement`, `:measuresParameter`, `:hasTime`, `:hasValue`).
+
+By querying instances of `:MonitoringPoint`, their associated measurements, the physical parameters measured, and the time and value of each measurement, we can obtain the desired information. Therefore, the competency question is supported by the ontology under the closed world assumption.

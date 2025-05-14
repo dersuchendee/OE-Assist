@@ -1,0 +1,22 @@
+**Yes**
+
+The ontology supports this competency question because it models book and CD entities (using classes :Cl_Book and :Cl_CD) that are linked via the property :containsArticle to content entities (modeled as :Cl_Content, a subclass of :Cl_Article). This allows us to query for the articles (contents) that compose a specific book or CD.
+
+For example, the following SPARQL query retrieves, for each book or CD, the articles it is composed of:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookOrCD ?bookLabel ?article ?articleLabel
+WHERE {
+  { ?bookOrCD a :Cl_Book }
+  UNION
+  { ?bookOrCD a :Cl_CD } .
+  
+  OPTIONAL { ?bookOrCD rdfs:label ?bookLabel . }
+  ?bookOrCD :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?bookOrCD ?article
+
+This query shows that the competency question “What articles is a specific book or CD composed of?” can be fully answered via the ontology under the closed world assumption.

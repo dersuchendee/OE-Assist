@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminarClass ?minCardinality
+WHERE {
+  ?seminarClass rdfs:subClassOf ?restriction .
+  ?restriction rdf:type owl:Restriction .
+  ?restriction owl:onProperty :hasPresentedArticle .
+  ?restriction owl:minCardinality ?minCardinality .
+  FILTER(xsd:integer(?minCardinality) >= 1)
+}
+```
+
+The competency question "At least one article is always presented at each seminar" is modeled in the ontology. The ontology defines the class `:Cl_Seminar` as a subclass of a restriction that specifies a minimum cardinality of 1 on the property `:hasPresentedArticle`. This means that every instance of `:Cl_Seminar` must be associated with at least one article via the `:hasPresentedArticle` property.
+
+The provided SPARQL query retrieves classes that are subclasses of a restriction enforcing that they have at least one `:hasPresentedArticle` property, confirming that the ontology models the competency question.

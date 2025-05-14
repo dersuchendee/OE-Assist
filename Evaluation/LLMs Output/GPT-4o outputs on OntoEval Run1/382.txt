@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with their roles within a specific production at a specific point in time. The ontology includes classes and properties related to actors, productions, and roles, but it lacks a direct connection between a person, their roles, and the time they performed those roles within a specific production.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?actor ?role ?production
+WHERE {
+  ?actorRole a :Cl_ActorRole .
+  ?actorRole :playedBy ?actor .
+  ?actorRole :inProduction ?production .
+  OPTIONAL { ?actorRole :date ?date . }
+}
+```

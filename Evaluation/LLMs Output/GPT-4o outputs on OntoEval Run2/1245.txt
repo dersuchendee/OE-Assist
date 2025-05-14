@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "Who records the amount of microbiological substances in surface waters in time?" can be answered using the given ontology. The ontology includes classes and properties that relate agents to observations of microbiological substances in surface waters, along with the time of observation. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?agent ?observation ?time
+WHERE {
+  ?agent a :Agent .
+  ?agent :records ?observation .
+  ?observation a :MicrobiologicalSubstanceAmountObservation .
+  ?observation :atTime ?time .
+}
+```

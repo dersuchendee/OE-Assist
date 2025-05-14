@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct property or class that associates a theatre with a city. The closest property is `:isLocatedIn`, which associates a theatre with a city, but there is no direct way to query for the city of a specific theatre using the given ontology. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :isLocatedIn ?city .
+}
+```

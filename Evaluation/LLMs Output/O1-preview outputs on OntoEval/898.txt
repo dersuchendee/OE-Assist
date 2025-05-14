@@ -1,0 +1,22 @@
+**No**
+
+The CQ cannot be fully answered with the given ontology because there is no explicit representation of the membership period (start and end dates) associated with union membership for persons. The ontology includes time properties (`:roleStart`, `:roleEnd`) associated with union roles (`:Cl_UnionRole`), but not directly with union memberships (`:Cl_UnionMembership`). Therefore, we can only extract partial information about union members who have held specific roles during certain periods.
+
+Here's a SPARQL query that retrieves persons who held a union role at a specified point in time (replace `"specifiedDate"` with the actual date of interest):
+
+```sparql
+SELECT ?person ?union ?role ?roleStart ?roleEnd
+WHERE {
+    ?membership rdf:type :Cl_PersonUnionRole .
+    ?membership :roleOfPerson ?personUnionMembership .
+    ?membership :roleDuring ?unionRole .
+    ?unionRole :roleName ?role .
+    ?unionRole :roleStart ?roleStart .
+    ?unionRole :roleEnd ?roleEnd .
+    ?personUnionMembership :personMemberOfUnion ?person .
+    ?personUnionMembership :unionHasMember ?union .
+    FILTER (?roleStart <= "specifiedDate"^^xsd:date && ?roleEnd >= "specifiedDate"^^xsd:date)
+}
+```
+
+This query retrieves the persons who had a union role during the specified date, along with the union they are part of and the details of their role. It does not retrieve all union members at a specific point in time, only those with roles, because the ontology lacks temporal data for general union membership without roles.

@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "During what time period was a certain play written?" can be answered using the ontology provided. The ontology includes information about plays, their authors, and the time periods during which they were written. Specifically, the ontology contains the `theatre:hasTimePeriod` property that links a play to a time period, and the `theatre:hasStartDate` and `theatre:hasEndDate` properties that define the start and end dates of the time period.
+
+Here is a SPARQL query to extract the time period during which a specific play was written:
+
+```sparql
+SELECT ?play ?startDate ?endDate
+WHERE {
+  ?play a theatre:Play .
+  ?play theatre:hasTimePeriod ?timePeriod .
+  ?timePeriod theatre:hasStartDate ?startDate .
+  ?timePeriod theatre:hasEndDate ?endDate .
+}
+```
+
+This query retrieves the start and end dates of the time period for each play in the ontology, allowing us to determine when a specific play was written.

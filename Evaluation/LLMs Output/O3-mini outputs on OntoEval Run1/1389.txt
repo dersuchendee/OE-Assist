@@ -1,0 +1,19 @@
+**No**
+
+The ontology defines collections (for instance, as classes such as TuneFamily and LyricsFamily which are subclasses of core:Collection) but it does not explicitly model a property or relation that “places” collections within a specific tune family instance. Consequently, while one can query for all individuals (or classes) of type core:Collection, the answer to “What are all collections in this tune family?” cannot be fully extracted because there is no explicit connection linking a particular tune family with the collections under it.
+
+A partial answer can be extracted by listing all resources typed as core:Collection (or by their known subclasses), for example:
+
+--------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?label
+WHERE {
+  ?collection a core:Collection .
+  OPTIONAL { ?collection rdfs:label ?label . }
+}
+--------------------------------------------------
+
+This query returns all collections as modelled in the ontology without distinguishing which ones belong to a specific tune family as that relationship is not represented.

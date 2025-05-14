@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves for each monitoring point the physical parameters that have been recorded together with the time (and associated value) of each measurement:
+
+—————————————————————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringPoint ?parameter ?measurementTime ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  ?monitoringPoint :hasMeasurement ?measurement .
+  ?measurement :measuresParameter ?parameter .
+  ?measurement :hasTime ?measurementTime .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?measurementTime
+—————————————————————————————————————————————
+
+This query extracts, for every monitoring point, each measurement’s associated physical parameter, the time of the measurement, and its recorded value. This fully answers the competency question.

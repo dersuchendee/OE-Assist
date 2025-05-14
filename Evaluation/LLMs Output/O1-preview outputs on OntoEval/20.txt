@@ -1,0 +1,15 @@
+**No**
+
+Under the closed world assumption, the ontology does not provide a direct relation between an `InstrumentRealization` and the person who built it using `Op_builtBy`. The property `Op_builtBy` connects `MusicalInstrument` to `Person`, but there is no `builtBy` property for `InstrumentRealization`. Therefore, we cannot fully answer the competency question "Who built an instrument realization?" with the given ontology.
+
+However, we can provide a partial answer by finding out who realized the instrument realization using `Op_realizedBy`:
+
+```sparql
+SELECT ?instrumentRealization ?person
+WHERE {
+  ?instrumentRealization a :Cl_InstrumentRealization .
+  ?instrumentRealization :Op_realizedBy ?person .
+}
+```
+
+This query retrieves the instrument realizations and the persons who realized them, which may partially address the competency question, albeit not precisely answering who built the instrument realization.

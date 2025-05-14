@@ -1,0 +1,42 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the role (with its name) that a given person holds in a specified union group at a particular point in time. Here we assume that the union membership is reified in the ontology via the Cl_UnionMembership class and that the relevant properties (hasUnionMembership, hasUnionRole, partOfUnionGroup, unionMembershipDuring along with the time properties startTime and endTime) are used to express the necessary information. In a closed‐world fashion we also assume that the absence of such triples means the person holds no such role at that time.
+
+For example, you might parameterize the query with a specific person URI, a union group URI, and a time point (as an xsd:dateTime literal):
+
+----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleName
+WHERE {
+  # Restrict to a specific person (change URI accordingly)
+  VALUES ?person { <http://www.example.org/test#PasqualeDiGennaro> }
+  
+  # Restrict to a specific union group (change URI accordingly)
+  VALUES ?unionGroup { <http://www.example.org/test#SomeUnionGroup> }
+  
+  # Define the point in time we are interested in.
+  BIND("2005-01-01T00:00:00"^^xsd:dateTime AS ?timePoint)
+  
+  # Get the union membership instance linked to the person.
+  ?person :hasUnionMembership ?membership .
+  
+  # Get the role that is linked with the membership.
+  ?membership :hasUnionRole ?role .
+  ?role :roleName ?roleName .
+  
+  # Ensure this membership corresponds to the specified union group.
+  ?membership :partOfUnionGroup ?unionGroup .
+  
+  # Get the time period during which the membership (and hence the role assignment) is valid.
+  ?membership :unionMembershipDuring ?period .
+  ?period :startTime ?start .
+  ?period :endTime ?end .
+  
+  # Check that the specified time point falls within the membership period.
+  FILTER(?timePoint >= ?start && ?timePoint <= ?end)
+}
+----------------------------------------------------------
+
+This query returns the role (and its name) that the specified person holds in the specified union group at the given point in time.

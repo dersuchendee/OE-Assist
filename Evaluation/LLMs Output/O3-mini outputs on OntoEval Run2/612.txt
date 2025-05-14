@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the review text a given critic has provided for a given record (album):
+
+─────────────────────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?reviewText
+WHERE {
+  # Identify the critic who made the review
+  ?critic a :Cl_Critic ;
+          :reviewsAlbum ?criticReview .
+  
+  # The critic’s review connects to the album (record)
+  ?criticReview :reviewedAlbum ?record ;
+                :reviewText ?reviewText .
+
+  # Filters: replace these IRIs with the specific critic and record identifiers
+  FILTER (?critic = <http://www.example.org/test#SpecificCritic>)
+  FILTER (?record = <http://www.example.org/test#SpecificRecord>)
+}
+
+─────────────────────────────────────────────
+
+This query works under the closed world assumption on the provided ontology, and it shows how to extract the answer to the competency question: “What does a certain critic say about a certain record?”

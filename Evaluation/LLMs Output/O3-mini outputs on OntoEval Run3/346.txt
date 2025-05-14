@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the star rating given by a specific newspaper for a specific production:
+
+----------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?starRating 
+WHERE {
+  # Identify the given newspaper and its published review
+  ?newspaper a :Cl_Newspaper ;
+             :publishedReview ?review .
+             
+  # Ensure the review concerns the specified production
+  ?review :reviews ?production ;
+          :starRating ?starRating .
+          
+  # Filter for the concrete newspaper and production (use appropriate URIs)
+  FILTER(?newspaper = <http://www.example.org/test#Newspaper1> &&
+         ?production = <http://www.example.org/test#Production1>)
+}
+---------- 
+
+In this query, replace <http://www.example.org/test#Newspaper1> and <http://www.example.org/test#Production1> with the actual URIs identifying the newspaper and production in question. 
+
+This CQ is answerable because the ontology reifies the review information—linking a newspaper (domain Cl_Newspaper) to a review (via :publishedReview), and then from the review to a production (via :reviews) and its star rating (via :starRating).

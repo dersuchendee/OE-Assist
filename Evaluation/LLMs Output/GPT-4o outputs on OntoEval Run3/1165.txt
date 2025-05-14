@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "From what source does this data originate?" can be answered using the ontology provided. The ontology includes a class `Data` with a property `originatesFrom` that links it to a `Source`. Therefore, we can write a SPARQL query to extract the source of each data instance.
+
+```sparql
+SELECT ?data ?source
+WHERE {
+  ?data a :Data .
+  ?data :originatesFrom ?source .
+}
+```

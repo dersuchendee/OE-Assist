@@ -1,0 +1,14 @@
+**Yes**  
+```sparql
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?ratingValue
+WHERE {
+  ?production a :TheatreProduction .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production :hasStarRating ?starRating .
+  ?starRating :givenBy ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+  
+  ?starRating :hasRatingValue ?ratingValue .
+}
+```

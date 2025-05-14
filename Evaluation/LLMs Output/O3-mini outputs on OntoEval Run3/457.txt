@@ -1,0 +1,23 @@
+**Yes**
+Below is an example SPARQL query that extracts each performance’s location by following the chain from a performance through its associated city, region, and country:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :performanceLocation ?city .
+  ?city a :Cl_City ;
+        :locatedInRegion ?region .
+  ?region a :Cl_Region ;
+          :locatedInCountry ?country .
+}
+ORDER BY ?performanceDate
+---------------------------------------------------------
+
+This query shows that the ontology supports the competency question regarding the location of performances by retrieving the performance along with its associated city, region, and country.

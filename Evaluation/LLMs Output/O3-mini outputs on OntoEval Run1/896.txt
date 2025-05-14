@@ -1,0 +1,28 @@
+**Yes**
+
+The following SPARQL query finds the persons who are union members (via a reified union membership class) for a given union at a specified point in time. In this query the date "2002-06-01" is used as the point in time. (This date can be replaced by any desired value.)
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membership ?union ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOf ?union ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  # Filter for memberships active at the specified date (e.g., 2002-06-01)
+  FILTER (
+    xsd:date("2002-06-01") >= ?membershipStartDate &&
+    (
+      !bound(?membershipEndDate) || xsd:date("2002-06-01") <= ?membershipEndDate
+    )
+  )
+}
+------------------------------------------------------------
+
+In this way, the CQ “Who are the members of a certain union at a certain point in time?” is fully answerable by the ontology.

@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  # Assuming a specific CVN instance :thisCVN
+  # Replace :thisCVN with the actual CVN instance you're querying
+  ?participation rdf:type actor:CVNParticipation .
+  ?participation actorODP:participationIn :thisCVN .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```

@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not model any property related to the weight of a bell. Under the closed world assumption, if a property for the weight (for example, bells:hasWeight) is not defined (or asserted) in the data, then it is not answerable. We can, however, write a partial query that retrieves all bells and attempts to retrieve a weight if such a property were present in the data.
+
+For example:
+
+--------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bell ?bellLabel ?weight
+WHERE {
+  ?bell rdf:type bells:Bell .
+  OPTIONAL { ?bell rdfs:label ?bellLabel. }
+  OPTIONAL { ?bell bells:hasWeight ?weight. }
+}
+--------------------------------
+
+This query retrieves all instances of bells:Bell along with their labels and an optional weight value. Since the ontology does not include a defined property for weight, this query will likely return no weight values.

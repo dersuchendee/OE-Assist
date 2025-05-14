@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology explicitly models a track recording (using the class Cl_TrackRecording) and links it to the musical work (song) it is a recording of via the object property op_isRecordingOf. Therefore, we can write a SPARQL query that, given a specific track, retrieves the musical work (song) it is a recording of.
+
+For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?musicalWork
+WHERE {
+  ?track rdf:type :Cl_TrackRecording .
+  ?track :op_isRecordingOf ?musicalWork .
+  # Optionally, if you want to filter for a specific track, you can add:
+  # FILTER(?track = :ind_HumpDeBumpTrack)
+}
+
+This query answers the CQ by extracting the song (musical work) that a given track recording is a recording of.

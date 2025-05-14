@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each play, the time period (via its time period value) during which it was written. Under a closed world assumption the query only returns plays that explicitly have the property :writtenDuring:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?timePeriodValue
+WHERE {
+  ?play a :Cl_Play .
+  ?play :writtenDuring ?timePeriod .
+  ?timePeriod :timePeriodValue ?timePeriodValue .
+}
+ORDER BY ?play

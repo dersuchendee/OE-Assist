@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringSite ?measurementDate
+WHERE {
+  ?obs a :WaterQualityObservation ;
+       :hasParameter ?parameter ;
+       :registeredAtSite ?monitoringSite ;
+       :measurementDate ?measurementDate .
+  VALUES ?parameter { <http://www.example.org/test#YourSpecifiedWaterQualityParameter> }
+}
+ORDER BY ?monitoringSite ?measurementDate
+```

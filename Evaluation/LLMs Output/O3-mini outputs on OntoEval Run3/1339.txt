@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each contaminated site along with its associated geographical area and the recorded time from its contamination observation:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?site ?siteLabel ?area ?areaLabel ?recordedTime
+WHERE {
+  ?site a :ContaminatedSite .
+  OPTIONAL { ?site rdfs:label ?siteLabel . }
+  
+  ?site :locatedIn ?area .
+  OPTIONAL { ?area rdfs:label ?areaLabel . }
+  
+  ?site :hasObservation ?obs .
+  ?obs :hasRecordedTime ?recordedTime .
+}
+ORDER BY ?site ?recordedTime
+-------------------------------------------------------
+
+Under the closed world assumption, this query extracts the contaminated sites modeled in the ontology along with the geographical area they are located in and the time at which each observation was recorded, thereby fully supporting the competency question.

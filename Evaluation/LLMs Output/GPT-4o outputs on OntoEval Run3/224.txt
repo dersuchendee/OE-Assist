@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "Who are the members of a certain ensemble at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to query for ensemble memberships and their associated actors and times.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?ensemble ?actor ?membershipTime
+WHERE {
+  ?ensembleMembership a :Cl_EnsembleMembership ;
+                      :hasMember ?actor ;
+                      :atTime ?membershipTime .
+  ?actor :performedIn ?ensemble .
+}
+ORDER BY ?ensemble ?membershipTime
+```
+
+This query retrieves the ensemble, the actor who is a member, and the time of membership, which aligns with the competency question.

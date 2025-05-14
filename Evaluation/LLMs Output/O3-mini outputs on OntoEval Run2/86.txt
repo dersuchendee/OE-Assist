@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that each theatre festival is linked (by naming convention or an implicit association) to a reified occurrence that records its date, we can answer the CQ with a query like this:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?occurrence a :Cl_FestivalOccurrence ;
+              :hasDate ?date .
+  # Assuming a naming convention (or an implicit link) where the occurrence URI contains the festival URI,
+  # we join a festival with its occurrence.
+  FILTER(CONTAINS(STR(?occurrence), STR(?festival)))
+}
+----------------------------------------------------
+
+Under the closed‐world assumption, we assume that if an occurrence is not linked by such a naming pattern, then it does not exist. This query extracts the date(s) when a given theatre festival (e.g. “RomaLovesShakespeare”) took place.

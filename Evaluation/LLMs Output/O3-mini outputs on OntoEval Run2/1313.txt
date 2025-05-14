@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that individuals of aquifer fungi and their associated roles in biogeochemical cycles are present in the data, the following SPARQL query extracts, for each individual of type AquiferFungi, the biogeochemical cycle in which it participates that occurs in an aquifer (i.e. its habitat):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?aquiferFungi ?fungiLabel ?cycle ?cycleLabel ?aquifer ?aquiferLabel
+WHERE {
+  ?aquiferFungi a :AquiferFungi .
+  OPTIONAL { ?aquiferFungi rdfs:label ?fungiLabel . }
+  
+  ?aquiferFungi :hasRoleInCycle ?cycle .
+  OPTIONAL { ?cycle rdfs:label ?cycleLabel . }
+  
+  ?cycle :occursIn ?aquifer .
+  ?aquifer a :Aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+}
+ORDER BY ?aquiferFungi ?cycle
+
+Under the closed world assumption, only explicitly asserted individuals and properties are returned. This query fully supports the competency question by retrieving what role (the cycle via the property :hasRoleInCycle) aquifer fungi play in biogeochemical cycling that happens specifically in aquifers.

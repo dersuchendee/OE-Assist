@@ -1,0 +1,19 @@
+**Yes**
+
+We can retrieve a composer’s network by querying for composers and their related network members using the property “hasNetworkMember” as specified in the ontology. For example:
+
+-----------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?composer ?composerLabel ?network ?networkLabel
+WHERE {
+  ?composer a :Composer .
+  OPTIONAL { ?composer rdfs:label ?composerLabel. }
+  
+  ?composer :hasNetworkMember ?network .
+  OPTIONAL { ?network rdfs:label ?networkLabel. }
+}
+-----------------------------
+
+Under the closed world assumption, we assume that all relevant network associations are explicitly present in the data, so this query retrieves the complete set of network members (such as patrons, institutions, etc.) associated with each composer.

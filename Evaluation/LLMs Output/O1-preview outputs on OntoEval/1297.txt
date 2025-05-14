@@ -1,0 +1,27 @@
+**Yes**
+
+We can answer the competency question "Who built and/or renovated an organ?" using the given ontology. The ontology contains classes and properties that allow us to retrieve organ builders who have either built or renovated an organ.
+
+Here's a SPARQL query that retrieves organ builders who built or renovated organs:
+
+```sparql
+SELECT DISTINCT ?organBuilder ?organBuilderLabel ?organ ?organLabel ?role
+WHERE {
+  {
+    ?organ a :Organ ;
+           :hasBuilder ?organBuilder .
+    BIND("Builder" AS ?role)
+  }
+  UNION
+  {
+    ?organ a :Organ ;
+           :hasRestoration ?restoration .
+    ?restoration :hasRenovator ?organBuilder .
+    BIND("Renovator" AS ?role)
+  }
+  OPTIONAL { ?organBuilder rdfs:label ?organBuilderLabel . }
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+}
+```
+
+This query selects organ builders who are either the builder (`:hasBuilder`) or the renovator (`:hasRenovator` through a `:Restoration`) of an organ. The `UNION` clause combines both possibilities, and the `BIND` function assigns the role ("Builder" or "Renovator") accordingly. The optional `rdfs:label` properties are included to retrieve any labels for the organ builders and organs if they are available.

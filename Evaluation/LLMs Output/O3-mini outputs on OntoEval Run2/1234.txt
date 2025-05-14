@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?dissolvedCarbon ?dissolvedCarbonLabel ?cciks ?cciksLabel
+WHERE {
+  ?dissolvedCarbon a :DissolvedCarbon .
+  OPTIONAL { ?dissolvedCarbon rdfs:label ?dissolvedCarbonLabel. }
+  ?dissolvedCarbon :affects ?cciks .
+  OPTIONAL { ?cciks rdfs:label ?cciksLabel. }
+}
+```

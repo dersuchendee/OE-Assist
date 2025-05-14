@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the ontology uses reified classes for location (e.g. a city instance is related via the object property :isLocatedIn to an instance of a country class which carries a data property :countryName), the following SPARQL query retrieves the country for each city:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityName ?countryName
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city :cityName ?cityName . }
+  ?city :isLocatedIn ?country .
+  ?country :countryName ?countryName .
+}
+---------------------------------------
+
+Under closed‐world assumptions, this query will return the answer for a certain city if it has been connected via the reified class structure.

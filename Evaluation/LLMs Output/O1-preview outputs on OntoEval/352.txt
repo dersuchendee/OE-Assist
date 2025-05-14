@@ -1,0 +1,19 @@
+**Yes**
+
+Because the ontology contains the necessary classes and properties to answer the competency question: we can retrieve actors, the theatres they are employed at, and the start date of their employment, as per the data provided.
+
+Here's a SPARQL query to extract the answer:
+
+```sparql
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ns1: <http://example.org/ontology/theatre#>
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?startDate
+WHERE {
+  ?actor a ns1:Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  ?actor ns1:employedAt ?theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?actor ns1:hasEmploymentContract ?contract .
+  ?contract ns1:employmentStartDate ?startDate .
+}
+```

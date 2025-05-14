@@ -1,0 +1,21 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?critic ?criticLabel ?review ?reviewContent ?reviewDate
+WHERE {
+  ?album a :MusicAlbum .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }  
+  ?album :reviewedBy ?critic .
+  OPTIONAL { ?critic rdfs:label ?criticLabel . }
+  ?critic :hasReview ?review .
+  ?review :reviewContent ?reviewContent .
+  ?review :reviewDate ?reviewDate .
+  # Uncomment and set the following filters to restrict to a particular critic and record
+  # FILTER(?critic = :CrianHiatt && ?album = :StadiumArcadium)
+}
+ORDER BY ?reviewDate
+```

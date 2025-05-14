@@ -1,0 +1,14 @@
+**Yes**
+
+Below is one possible SPARQL query that checks the CQ “A record always contains at least one track”. In a complete model that enforces this competency (using a minimum cardinality restriction on :containsTrack for all instances of :Cl_Album), this query should return no results (i.e. no record is missing a track):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album
+WHERE {
+  ?album a :Cl_Album .
+  FILTER NOT EXISTS { ?album :containsTrack ?track . }
+}
+
+If this query returns an empty result set, it confirms that every record (i.e. every instance of :Cl_Album) has at least one associated track, as required by the competency question.

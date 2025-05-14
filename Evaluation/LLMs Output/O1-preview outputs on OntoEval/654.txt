@@ -1,0 +1,32 @@
+**No**
+
+The ontology defines the necessary classes and properties to model performances, bands, and songs, including the relationships between them (e.g., `:hasSong` linking a performance to the songs played). However, the data provided in the ontology does not include any assertions that specify which songs were played during any performance. Under the Closed World Assumption, since there is no information about songs associated with performances, we cannot fully answer the competency question "What songs were played in a certain performance?"
+
+Here's a SPARQL query that attempts to retrieve the songs played in each performance, but it will return empty results due to the lack of data:
+
+```sparql
+SELECT ?performance ?performanceDate ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :hasDate ?performanceDate .
+  
+  ?performance :hasSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```
+
+This query selects performances and their associated songs, but since the `:hasSong` property is not used in the data, no songs will be retrieved.
+
+As a partial answer, we can retrieve the performances and their dates:
+
+```sparql
+SELECT ?performance ?performanceDate ?performanceLabel
+WHERE {
+  ?performance a :Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  ?performance :hasDate ?performanceDate .
+}
+```
+
+This will list the performances and when they occurred, but not the songs played during those performances.

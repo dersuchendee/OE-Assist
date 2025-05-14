@@ -1,0 +1,18 @@
+**Yes**
+Below is one SPARQL query that uses the ontology’s properties (closed world) to extract a performance’s location details:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?venue ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance ;
+               :takesPlaceIn ?venue .
+  OPTIONAL { ?venue :locatedIn ?city . }
+  OPTIONAL { ?city :isLocatedIn ?region . }
+  OPTIONAL { ?region :isPartOf ?country . }
+}
+————————————————————————————
+
+This query retrieves the performance instance along with its directly associated venue and, if available, its city, region, and country—thus answering "Where did a certain performance take place?"

@@ -1,0 +1,13 @@
+**No**
+
+Under the closed world assumption, the ontology lacks the necessary data properties to specify a certain author (e.g., author names or identifiers). Therefore, we cannot fully answer the Competency Question "What plays did a certain author write?" because we cannot specify the particular author within the ontology.
+
+However, we can provide a partial answer that lists all authors and the plays they have written:
+
+```sparql
+SELECT ?author ?play
+WHERE {
+  ?author a :Cl_Author .
+  ?author :hasWritten ?play .
+}
+```

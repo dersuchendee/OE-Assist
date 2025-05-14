@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the employment start date for an actor (e.g., “Fabio Bianchi”) working at a particular theatre (e.g., “The Grand Theatre”). This assumes that persons, theatres, and their employment start dates are explicitly asserted in the ontology:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?theatre ?theatreLabel ?employmentStartDate
+WHERE {
+  ?person a :Cl_Person ;
+          :employedAt ?theatre ;
+          :employmentStartDate ?employmentStartDate .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  
+  # Using filters to select the specific actor and theatre
+  FILTER(regex(?personLabel, "Fabio Bianchi", "i"))
+  FILTER(regex(?theatreLabel, "The Grand Theatre", "i"))
+}
+------------------------------------------------------
+
+Under the closed world assumption, we assume that all necessary facts (such as the specific employment start date) are explicitly present in the ontology, so this CQ is fully answerable.

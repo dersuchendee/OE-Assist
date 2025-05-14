@@ -1,0 +1,19 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?place ?placeLabel
+WHERE {
+  # Find the musician Z by label or URI
+  ?musician a :Musician .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  FILTER (STR(?musicianLabel) = "Z" || STRAFTER(STR(?musician), "#") = "Z")
+
+  # Find the VisitEvents the musician participated in
+  ?musician :participatedIn ?event .
+  ?event a :VisitEvent .
+
+  # Get the places where the events occurred
+  ?event :occursAt ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

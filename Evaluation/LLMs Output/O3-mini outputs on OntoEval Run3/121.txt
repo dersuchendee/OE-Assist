@@ -1,0 +1,19 @@
+**Yes**
+Below is one possible SPARQL query that returns, for a given theatre festival, the names of the plays that were presented. This query assumes that the festival is linked to its productions (using, for example, the property :hasProduction) and that each production is linked to its play via the property :hasPlay, with the play’s name given by the data property :hasName:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasName ?festivalName ;
+            :hasProduction ?production .
+  ?production :hasPlay ?play .
+  ?play :hasName ?playName .
+}
+ORDER BY ?festivalName ?playName
+
+This query is written under the closed-world assumption and uses the reification pattern modeled in the ontology.

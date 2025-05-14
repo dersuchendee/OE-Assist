@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one possible SPARQL query that uses the ontology’s reified structure (specifically the Cl_PersonMedicalDegree and Cl_StudyPeriod classes, together with the :studiedDuring property) to extract the study period (start and end dates) for each person’s degree:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?pmd .
+  ?pmd :degreeOf ?degree .
+  ?pmd :studiedDuring ?studyPeriod .
+  ?studyPeriod :startDate ?startDate .
+  ?studyPeriod :endDate ?endDate .
+  
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?degree rdfs:label ?degreeLabel. }
+}
+ORDER BY ?person ?startDate
+
+--------------------------------------------------
+
+In a closed world setting, this query retrieves only those persons and degrees for which study period data (startDate and endDate) is explicitly available in the ontology.

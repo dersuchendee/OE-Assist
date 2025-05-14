@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What are the potential rebound effects of this action/process?" can be answered using the ontology provided. The ontology includes the class `ReboundEffect` and the property `measuresReboundEffect` which connects `Evaluation` to `ReboundEffect`. Therefore, we can write a SPARQL query to extract the potential rebound effects associated with actions or processes.
+
+```sparql
+SELECT ?action ?evaluation ?reboundEffect
+WHERE {
+  ?action a :Action .
+  ?action :hasEvaluation ?evaluation .
+  ?evaluation :measuresReboundEffect ?reboundEffect .
+}
+```

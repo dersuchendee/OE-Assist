@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between theatre festivals and the plays that can be seen during them. The ontology includes classes and properties related to festivals, festival occurrences, productions, and plays, but it lacks a direct link between a festival occurrence and the specific plays or productions that are part of it. Therefore, a SPARQL query can only provide a partial answer by listing the festivals and their occurrences without specifying the plays.
+
+```sparql
+SELECT ?festival ?occurrence
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalOccurrence ?occurrence .
+}
+```

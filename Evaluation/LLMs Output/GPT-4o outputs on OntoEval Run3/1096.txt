@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to ensure that at least one article is always presented at each seminar. The ontology includes classes and properties related to seminars and articles, but it does not enforce the constraint that every seminar must have at least one article presented. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to list seminars and any articles presented:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL {
+    ?article a :Cl_Article .
+    ?article :presentedIn ?presentation .
+    ?presentation :seminar ?seminar .
+  }
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology includes evaluation statements that are connected to both a doctor (via ns1:providedBy) and an employee (via ns1:evaluates). Under the closed world assumption, we assume that only the data explicitly stated in the ontology is valid. Therefore, you can write a SPARQL query that retrieves the evaluation text (and other related data) given a specific doctor and employee.
+
+For instance, if you want to retrieve the evaluation statement given by a certain doctor (e.g., ns1:DrSmith) for a certain employee (e.g., ns1:PasqualeDiGennaro), you could use the following query:
+
+------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationText ?evaluationDate
+WHERE {
+  ?evaluationStatement ns1:providedBy ns1:DrSmith ;
+                       ns1:evaluates ns1:PasqualeDiGennaro ;
+                       ns1:evaluationText ?evaluationText ;
+                       ns1:evaluationDate ?evaluationDate .
+}
+------------------------------------------------
+
+This query extracts the evaluation statement (text and date) for the given doctor and employee, showing that the CQ is fully supported by the ontology.

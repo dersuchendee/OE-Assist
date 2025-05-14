@@ -1,0 +1,23 @@
+**No**
+
+The CQ is only partially answerable because the intended “role” connection among aquifer fungi, biogeochemical cycles, and aquifers isn’t embedded through a reified intermediary class in the ontology. However, we can partially extract relevant information with the following SPARQL query:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?fungus ?fungusLabel ?cycle ?cycleLabel ?aquifer ?aquiferLabel
+WHERE {
+  ?fungus a :AquiferFungi .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel . }
+  
+  ?fungus :hasRoleInCycle ?cycle .
+  OPTIONAL { ?cycle rdfs:label ?cycleLabel . }
+  
+  ?cycle :occursIn ?aquifer .
+  ?aquifer a :Aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+}
+----------------------------------
+
+This query retrieves individuals classified as AquiferFungi together with the biogeochemical cycles they are connected to (via :hasRoleInCycle) that occur in aquifers (via :occursIn). The answer is partial because the ontology does not reify the role relationship fully as required for the complete modelling of the CQ.

@@ -1,0 +1,19 @@
+**Yes**
+Below is one way to write a SPARQL query that, given a specific theatre festival (e.g. by its IRI), retrieves the date on which it took place:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasDate ?date .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  # If you want to restrict to a specific festival, uncomment and adjust the following line:
+  # FILTER(?festival = <http://www.example.org/test#RomaLovesShakespeare>)
+}
+ORDER BY ?date
+
+With the above query, using the closed world assumption, the ontology supports the competency question "When did a certain theatre festival take place?" by returning the festival date(s) from the triple(s) matching the :hasDate property on instances of :Cl_TheatreFestival.

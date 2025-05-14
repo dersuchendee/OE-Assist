@@ -1,0 +1,20 @@
+**Yes**
+Below is a sample SPARQL query that retrieves the time interval during which a given album (for example, “Stadium Arcadium”) was recorded:
+
+------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumTitle ?startDate ?endDate
+WHERE {
+  ?recording a :Recording ;
+             :recordedAlbum ?album ;
+             :recordedDuring ?interval .
+  ?album :albumTitle ?albumTitle .
+  ?interval :startDate ?startDate ;
+            :endDate ?endDate .
+  FILTER(?album = :StadiumArcadium)
+}
+------------------------------------------------
+
+This query confirms that the CQ “During what time period was a certain album recorded?” is answerable using the ontology under the closed world assumption.

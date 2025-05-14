@@ -1,0 +1,12 @@
+**No**
+
+The competency question "What role does a certain person have within a certain union group at a certain point in time?" is not fully supported by the ontology. The ontology provides information about union membership and roles, but it does not explicitly model the temporal aspect of roles within union groups. Therefore, a partial answer can be extracted without the temporal component.
+
+```sparql
+SELECT ?person ?role ?union
+WHERE {
+  ?person a :Person .
+  ?person :hasRole ?role .
+  ?role :withinUnion ?union .
+}
+```

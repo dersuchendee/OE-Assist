@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate an instrument realization with its builder. The ontology includes the `InstrumentMaker` class and the `madeBy` property, which relates a `MusicalInstrument` to an `InstrumentMaker`, but it does not include a class or property for an "instrument realization" or a similar concept. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract information about musical instruments and their makers:
+
+```sparql
+SELECT ?instrument ?maker
+WHERE {
+  ?instrument a :MusicalInstrument .
+  ?instrument :madeBy ?maker .
+}
+```

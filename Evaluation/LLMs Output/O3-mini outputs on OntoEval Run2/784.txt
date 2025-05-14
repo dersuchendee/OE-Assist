@@ -1,0 +1,37 @@
+**Yes**
+
+Below is one possible SPARQL query using the reified relation (the class :Cl_PersonDegreeStudy) that links a person to a medical degree (via the property :hasMedicalDegree), together with optional study‐period dates:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?medicalDegree ?studyStart ?studyEnd
+WHERE {
+  # Get the person and their medical degree via the direct property.
+  ?person a :Cl_Person ;
+          :hasMedicalDegree ?medicalDegree .
+  # (If you wish to restrict to a certain individual, e.g., Pasquale Di Gennaro, uncomment the following FILTER:)
+  # FILTER(?person = :PasqualeDiGennaro) .
+
+  # Optionally, retrieve the associated study period from the reification class.
+  OPTIONAL {
+    ?reification a :Cl_PersonDegreeStudy .
+    # Because :Cl_PersonDegreeStudy is defined as subclass of both :Cl_Person and :Cl_MedicalDegree,
+    # the same individual appearing as a reified relation connects the person and the degree.
+    FILTER(?reification = ?person)
+    ?reification :hasStudyPeriod ?period .
+    ?period :studyStartDate ?studyStart ;
+            :studyEndDate ?studyEnd .
+  }
+}
+ORDER BY ?person ?studyStart
+-----------------------------------------------------------
+
+Explanation:
+• The triple pattern ?person :hasMedicalDegree ?medicalDegree ensures that the CQ (“What medical degrees does a certain person have?”) is answerable.
+• The OPTIONAL block uses the reification class (:Cl_PersonDegreeStudy) to gather additional study period details (start/end dates) if available.
+• Under a closed‐world assumption no “hidden” facts exist; hence the answer is complete insofar as the ontology explicitly encodes the relevant relationships.
+
+This query shows that the CQ is fully modelled by the ontology.

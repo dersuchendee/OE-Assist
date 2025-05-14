@@ -1,0 +1,21 @@
+Answer: **No**
+
+The given ontology lacks the temporal aspect associated with a person's role within a union. While it defines classes and properties related to `Person`, `Role`, and `Union`, and even temporal properties for membership (`:hasMemberAt`, `:memberOfAt`), there is no property that links a person's role within a union to a specific point in time. 
+
+To extract a partial answer (the role of a person within a union without considering the time), we can use the following SPARQL query:
+
+```sparql
+SELECT ?person ?personName ?role ?roleName ?union ?unionName
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?person :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleName . }
+  
+  ?role :withinUnion ?union .
+  OPTIONAL { ?union rdfs:label ?unionName . }
+}
+```
+
+This query retrieves the person, their role, and the union associated with that role. However, since the ontology does not associate the role with a specific time, we cannot answer the CQ fully.

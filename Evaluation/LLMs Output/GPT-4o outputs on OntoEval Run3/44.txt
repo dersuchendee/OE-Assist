@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not explicitly define a relationship between actors and competencies. While there are classes and properties related to actors, roles, and capabilities, there is no direct link or property that associates an actor with a specific competency. Therefore, the competency question cannot be fully answered with the current ontology.
+
+Partial SPARQL query to extract actors and their roles:
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?participation a actorODP:Participation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole ?role .
+}
+```

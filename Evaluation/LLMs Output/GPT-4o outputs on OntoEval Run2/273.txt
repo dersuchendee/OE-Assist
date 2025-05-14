@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a play was written. The ontology includes information about plays, authors, and various events related to theatre productions, but it lacks specific properties or classes that capture the time period of when a play was written.
+
+However, we can extract partial information about the plays and their authors:
+
+```sparql
+SELECT ?play ?playName ?author ?authorName
+WHERE {
+  ?play a :Cl_Play ;
+        :playName ?playName .
+  OPTIONAL {
+    ?authorPlay a :Cl_AuthorPlay ;
+                :hasPlay ?play ;
+                :hasAuthor ?author .
+    ?author :authorName ?authorName .
+  }
+}
+```

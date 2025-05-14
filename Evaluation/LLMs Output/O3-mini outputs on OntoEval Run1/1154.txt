@@ -1,0 +1,16 @@
+**No**
+
+The event category CQ cannot be fully answered from the provided ontology because the attributes (such as genre and actors) for movies are not all connected to a common reified (pivot) class. We can only partially retrieve information—for example, we can list movies with their title, genre, and actor values—even though the ontology separates the screening information (modeled via Cl_MovieScreening) from the movie’s intrinsic properties.
+
+Below is a SPARQL query that extracts a partial answer by retrieving the available movie attributes:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?movie ?title ?genre ?actor
+WHERE {
+  ?movie a :Cl_Movie .
+  OPTIONAL { ?movie :hasTitle ?title . }
+  OPTIONAL { ?movie :hasGenre ?genre . }
+  OPTIONAL { ?movie :hasActor ?actor . }
+}

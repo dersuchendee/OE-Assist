@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "A record always contains at least one track" is supported by the ontology. The ontology includes a restriction on the class `Cl_Album` that specifies it must contain at least one `Cl_Track`. This is represented by the `owl:someValuesFrom` restriction on the `:containsTrack` property.
+
+Here is a SPARQL query to verify that every album contains at least one track:
+
+```sparql
+SELECT ?album
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+```
+
+This query will return all albums that contain at least one track, confirming that the ontology supports the competency question.

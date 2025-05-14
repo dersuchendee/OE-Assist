@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain any information about performances or songs played during performances. Therefore, the competency question "What songs were played in a certain performance?" cannot be fully answered using the current ontology. However, we can attempt to extract partial information related to tracks and albums, but this will not directly answer the CQ.
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album a :Cl_Album .
+  ?album :hasTrack ?track .
+}
+```

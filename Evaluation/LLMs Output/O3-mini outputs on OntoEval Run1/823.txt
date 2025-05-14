@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a sample SPARQL query that extracts the employment start date (the first employment) of the given person at the specified hospital:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  :PasqualeDiGennaro :employedAt ?employment .
+  ?employment :employmentInHospital :OspedaleRiunitoDelleTreValli .
+  ?employment :employmentStartDate ?startDate .
+}
+--------------------------------------------------
+
+This query finds all the employment relationships for Pasquale Di Gennaro that are linked to Ospedale Riunito delle Tre Valli and selects the earliest (minimum) employment start date.

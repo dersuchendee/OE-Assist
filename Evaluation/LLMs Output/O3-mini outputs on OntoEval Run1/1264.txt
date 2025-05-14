@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming individuals exist in the ontology that instantiate these classes, the following SPARQL query retrieves external factors (instances of :ExternalFactor) that affect any instance of :Process, :Actor, or :ValueNetwork. Under the closed world assumption this returns only explicitly asserted links:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?externalFactor ?efLabel ?target ?targetLabel
+WHERE {
+  ?externalFactor a :ExternalFactor .
+  OPTIONAL { ?externalFactor rdfs:label ?efLabel . }
+  
+  ?externalFactor :affects ?target .
+  ?target a ?targetType .
+  FILTER(?targetType = :Process || ?targetType = :Actor || ?targetType = :ValueNetwork)
+  
+  OPTIONAL { ?target rdfs:label ?targetLabel . }
+}
+ORDER BY ?externalFactor ?target

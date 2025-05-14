@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not explicitly model the relationship between seminars and the articles presented at them in a way that guarantees at least one article is always presented at each seminar. The ontology includes a `hasPresentation` property that associates seminars with presentations, and a `presentedArticle` property that associates presentations with articles. However, there is no constraint or rule in the ontology that ensures every seminar has at least one presentation or that every presentation includes an article.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?seminar ?presentation ?article
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL {
+    ?seminar ns1:hasPresentation ?presentation .
+    OPTIONAL {
+      ?presentation ns1:presentedArticle ?article .
+    }
+  }
+}
+```
+
+This query retrieves seminars, their presentations, and the articles presented, if any. However, it does not enforce the constraint that every seminar must have at least one article presented.

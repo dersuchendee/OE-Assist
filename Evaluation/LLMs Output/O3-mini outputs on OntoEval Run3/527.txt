@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves, for each album (an instance of Cl_Album), the number of tracks (using the property containsTrack) associated with it. This query addresses the competency question “How many tracks does an album contain?” by exploiting the modelling of Cl_Album as having a minimum cardinality of 1 for the property containsTrack.
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+
+─────────────────────────────
+
+By running the above query, one can check for each album how many associated track individuals there are. This shows that the ontology is indeed modelled to support the competency question with a closed world assumption (we assume that only the tracks explicitly asserted are present).

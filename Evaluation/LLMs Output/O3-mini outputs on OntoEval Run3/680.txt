@@ -1,0 +1,18 @@
+**Yes**
+Below is one example query that retrieves the location (here assumed to be given by its “locationName”) for a given performance event (from the reified class Cl_PerformanceEvent):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?locationName
+WHERE {
+  ?performance a :Cl_PerformanceEvent .
+  ?performance :performedAt ?location .
+  ?location :locationName ?locationName .
+  # Uncomment and adjust the following FILTER if you need to restrict to a specific performance event:
+  # FILTER(?performance = <http://www.example.org/test#SpecificPerformanceID>)
+}
+--------------------------------------------------
+
+Under the closed world assumption, we assume that only those performance events with an explicitly stated location (via the performedAt property) will be returned. This SPARQL query shows that the ontology fully supports the competency question.

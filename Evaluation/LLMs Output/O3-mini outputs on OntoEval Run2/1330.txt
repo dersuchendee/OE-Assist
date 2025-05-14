@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that returns all transport processes where dissolved carbon is the transported substance along with their source and destination environmental compartments. Under a closed world assumption, only explicitly stated information is returned.
+
+------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?transportProcess ?source ?destination
+WHERE {
+  ?transportProcess a :TransportProcess ;
+                    :transportsSubstance :DissolvedCarbon ;
+                    :hasSource ?source ;
+                    :hasDestination ?destination .
+  
+  # Optionally, restrict to processes involving compartments of interest (Soil or Groundwater)
+  FILTER ( ?source = :Soil || ?source = :Groundwater || ?destination = :Soil || ?destination = :Groundwater )
+}
+ORDER BY ?transportProcess

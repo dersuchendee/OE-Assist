@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, retrieves for each area the counts of chemical and physical measurements recorded:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?area 
+       (COUNT(DISTINCT ?chemMeasurement) AS ?chemicalCount)
+       (COUNT(DISTINCT ?physMeasurement) AS ?physicalCount)
+WHERE {
+  ?area a :Area .
+  OPTIONAL { ?area :hasChemicalMeasurement ?chemMeasurement . }
+  OPTIONAL { ?area :hasPhysicalMeasurement ?physMeasurement . }
+}
+GROUP BY ?area
+ORDER BY ?area
+---------------------------------------------------
+
+This query answers the competency question – "How are chemical and physical measurements distributed spatially across different areas?" – by retrieving each area (representing a spatial location) along with the number (distribution) of chemical and physical measurements associated with it.

@@ -1,0 +1,20 @@
+**Yes**
+Below is one example of a SPARQL query that, under a closed‐world reading of the ontology, retrieves for each material the “composition” information – that is, the mandatory properties and provenance (as required by the material’s restrictions):
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?material ?materialLabel ?property ?propertyLabel ?provenance ?provenanceLabel
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+  
+  ?material :hasProperty ?property .
+  OPTIONAL { ?property rdfs:label ?propertyLabel . }
+  
+  ?material :hasProvenance ?provenance .
+  OPTIONAL { ?provenance rdfs:label ?provenanceLabel . }
+}
+ORDER BY ?material
+
+This query answers the competency question “What is the composition of this material?” by returning, for each Material instance, the associated Property and Provenance information.

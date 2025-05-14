@@ -1,0 +1,31 @@
+**Yes**
+
+Assuming that “a certain actor” and “a specific theatre” are identified (for example via their URIs or labels) and given that the ontology models the employment of an actor through the pivot class Cl_Employment (which is a subclass of both Cl_Actor and Cl_Theatre) and the data property employmentStartDate (with domain Cl_Employment), we can extract the employment start date by “following” the property isEmployedAt from the actor to the employment instance that “belongs to” the theatre. Under a closed‐world assumption, absence of a triple is interpreted as false.
+
+For example, if we assume that the actor is identified by <http://www.example.org/test#FabioBianchi> and the theatre by <http://www.example.org/test#TheGrandTheatre>, the following SPARQL query retrieves the start date:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  # The actor is connected via isEmployedAt to an employment instance.
+  <http://www.example.org/test#FabioBianchi> :isEmployedAt ?employment .
+  
+  # The employment instance has the start date.
+  ?employment :employmentStartDate ?startDate .
+  
+  # And, by construction, the employment instance is also of type Cl_Theatre.
+  ?employment a :Cl_Theatre .
+  
+  # This same employment instance represents the theatre employment.
+  # We equate it to the specific theatre of interest.
+  FILTER(?employment = <http://www.example.org/test#TheGrandTheatre>)
+  
+  BIND(<http://www.example.org/test#FabioBianchi> AS ?actor)
+  BIND(<http://www.example.org/test#TheGrandTheatre> AS ?theatre)
+}
+-----------------------------------------------------------
+
+This query returns the actor, the theatre, and the employment start date—thus it demonstrates that the CQ “At what time did a certain actor start working for a specific theatre?” is answerable given the ontology.

@@ -1,0 +1,36 @@
+**Yes**
+
+Assuming that instances of the reification pivot class :Cl_PersonRoleInProductionAtTime are used to record a person’s role in a production at a given time, you can answer the CQ with a query like the following. (In this query we assume that the production’s overall start and end dates are used as a rough time‐filter and that the pivot instance also “is” the person participating.)
+
+For example, if you have a particular person (e.g. <http://www.example.org/test#Person1>), a particular production (e.g. <http://www.example.org/test#Production1>) and a specific target date, then you can write:
+
+—————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  BIND(<http://www.example.org/test#Person1> AS ?person) .
+  BIND(<http://www.example.org/test#Production1> AS ?production) .
+  BIND("2009-09-15"^^xsd:date AS ?targetDate) .
+  
+  # Given a production, get its reified participations linking person, role and time 
+  ?production :hasPersonRoleInProductionAtTime ?participation .
+  ?participation a :Cl_PersonRoleInProductionAtTime .
+  
+  # Filter out the participation record for the given person 
+  FILTER(?participation = ?person) .
+  
+  # Extract the role from that participation record
+  ?participation :hasRoleInProduction ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # (Optionally) Check if the production was active at the target time.
+  ?production :startDate ?startDate .
+  ?production :endDate ?endDate .
+  FILTER(?targetDate >= ?startDate && ?targetDate <= ?endDate)
+}
+—————
+
+This query shows that the ontology supports answering the competency question (under a closed‐world assumption) by reifying the “person–role–production–time” association.

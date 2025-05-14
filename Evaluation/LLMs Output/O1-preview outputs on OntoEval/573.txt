@@ -1,0 +1,11 @@
+Answer: **Yes**.
+
+We can answer the competency question because the ontology includes the property `:recordingOf` linking tracks (`:Cl_Track`) to songs (`:Cl_Song`), and instances of tracks are related to songs via this property.
+
+```sparql
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_Track .
+  ?track :recordingOf ?song .
+}
+```

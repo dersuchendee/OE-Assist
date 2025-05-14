@@ -1,0 +1,31 @@
+**Yes**
+
+Below is a SPARQL query that, given a particular person, a particular band, and a specific time instant, returns the role of that person in that band at that time (based on the reified Cl_Membership information):
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?membershipStart ?membershipEnd
+WHERE {
+  # The given individual person and band (replace the URIs with the actual ones)
+  VALUES ?person { <http://www.example.org/test#SomePerson> }
+  VALUES ?band { <http://www.example.org/test#SomeBand> }
+  # The time point for which we want to check the membership (replace with actual date)
+  BIND("2004-09-01"^^xsd:date AS ?time)
+  
+  # Retrieve the membership record connecting the person to the band
+  ?person :hasMembership ?membership .
+  ?membership :membershipIn ?band .
+  ?membership :hasRole ?role .
+  ?membership :membershipStart ?membershipStart .
+  ?membership :membershipEnd ?membershipEnd .
+  
+  # Ensure that the given time falls within the membership start and end dates
+  FILTER(?time >= ?membershipStart && ?time <= ?membershipEnd)
+}
+ORDER BY ?membershipStart
+-----------------------------------------------
+
+This query demonstrates that the ontology fully supports answering the competency question under the closed world assumption.

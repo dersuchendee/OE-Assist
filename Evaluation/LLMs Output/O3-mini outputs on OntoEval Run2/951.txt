@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves for each specific book or CD the articles that compose it using the property op_composedOf:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?article ?articleTitle
+WHERE {
+  # Select publications which are either books or CDs
+  ?publication a ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD) .
+  OPTIONAL { ?publication :dp_hasTitle ?publicationTitle . }
+  
+  # Retrieve the articles that the publication is composed of
+  ?publication :op_composedOf ?article .
+  OPTIONAL { ?article :dp_hasTitle ?articleTitle . }
+}
+ORDER BY ?publication ?article
+----------------------------------------------------------------
+
+This query answers the competency question “What articles is a specific book or CD composed of?” by extracting the relevant articles for each publication (either a book or a CD) defined in the ontology.

@@ -1,0 +1,28 @@
+**Yes**
+
+The competency question is supported by the ontology, as it includes the necessary classes and properties to determine the role of a person within a union group at a specific point in time. Here is a SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.semanticweb.org/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?union ?unionLabel ?role ?roleLabel ?start ?end
+WHERE {
+  ?person a :Person ;
+          rdfs:label ?personLabel ;
+          :hasRole ?role ;
+          :memberOfUnion ?union .
+
+  ?union rdfs:label ?unionLabel .
+
+  ?role a :UnionRepresentativeRole ;
+        rdfs:label ?roleLabel ;
+        :roleActiveDuring ?interval .
+
+  ?interval time:hasBeginning ?start ;
+            time:hasEnd ?end .
+
+  FILTER (?start <= "2002-01-01T00:00:00Z"^^xsd:dateTime && ?end >= "2002-01-01T00:00:00Z"^^xsd:dateTime)
+}
+```

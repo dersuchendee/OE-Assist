@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves all individuals of type BeechForest (which, by inheritance from ForestEcosystem, must have a primary CO2 fixation pathway) along with their associated CO2 fixation pathway:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?beechForestLabel ?pathway ?pathwayLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?beechForestLabel . }
+  
+  ?beechForest :hasPrimaryCO2FixationPathway ?pathway .
+  OPTIONAL { ?pathway rdfs:label ?pathwayLabel . }
+}
+ORDER BY ?beechForest
+-------------------------------------------------
+
+Under a closed world assumption, only explicitly declared individuals of :BeechForest and their asserted primary CO2 fixation pathways will be returned. This query fully supports the competency question "What are the primary CO2 fixation pathways in forest ecosystems, specifically in beech forests?" because it selects beech forests (a subclass of forest ecosystems) and extracts the associated CO2 fixation pathways defined by the property :hasPrimaryCO2FixationPathway.

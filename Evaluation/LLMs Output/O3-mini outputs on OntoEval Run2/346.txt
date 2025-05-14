@@ -1,0 +1,24 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the star rating given by a newspaper for a production:
+
+─────────────────────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?newspaper ?production ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper ;
+             :publishedReview ?review .
+  ?review a :Cl_Review ;
+          :starRating ?starRating ;
+          :reviews ?production .
+  
+  # Optionally, to get a “certain” newspaper or production, add FILTER clauses. For example:
+  # FILTER(?newspaper = <http://www.example.org/test#IlGazzettino> && ?production = <http://www.example.org/test#SomeProduction>)
+}
+ORDER BY ?newspaper ?production
+
+─────────────────────────────────────────────
+
+With the relationships defined in the ontology—where a newspaper publishes a review (using :publishedReview), the review has a star rating (via the :starRating data property), and the review is linked to a production (through :reviews)—this CQ is answerable under the closed world assumption.

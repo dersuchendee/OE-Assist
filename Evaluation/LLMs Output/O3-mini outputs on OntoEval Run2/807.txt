@@ -1,0 +1,23 @@
+**Yes**
+
+We can answer the CQ “During what time period did a certain person study for a specific degree?” because the ontology reifies the study relationship in the class Cl_PersonDegreeStudy. This class (a subclass of both Cl_Person and Cl_MedicalDegree) is linked—via the property :hasStudyPeriod—to an individual of type Cl_StudyPeriod, and that node provides the study start and end dates (using the properties :studyStartDate and :studyEndDate).
+
+For example, a SPARQL query to extract the study period for each (person, degree) study record could be:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?studyRecord ?studyLabel ?startDate ?endDate
+WHERE {
+  ?studyRecord a :Cl_PersonDegreeStudy .
+  ?studyRecord :hasStudyPeriod ?period .
+  ?period :studyStartDate ?startDate ;
+          :studyEndDate ?endDate .
+  OPTIONAL { ?studyRecord rdfs:label ?studyLabel . }
+}
+ORDER BY ?studyRecord
+------------------------------------------------
+
+In this query each instance of Cl_PersonDegreeStudy represents the reified study for a person and their degree, and we retrieve the associated study period dates.

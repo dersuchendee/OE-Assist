@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves the review text written by a specific critic on a specific record by joining the critic’s madeReview and the record’s hasReview (i.e. the same critic review instance):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?reviewText
+WHERE {
+  ?critic a :Cl_Critic ;
+          rdfs:label "Crian Hiatt" ;      # Replace with the desired critic identifier
+          :madeReview ?review .
+  
+  ?record a :Cl_Record ;
+          rdfs:label "Stadium Arcadium" ;  # Replace with the desired record identifier
+          :hasReview ?review .
+  
+  ?review :reviewText ?reviewText .
+}

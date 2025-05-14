@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to extract the places where the meetups took place. The ontology defines a `hasPlace` property for `Meetup`, but it does not provide specific instances or data about the places. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?meetup ?place
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasPlace ?place .
+}
+```

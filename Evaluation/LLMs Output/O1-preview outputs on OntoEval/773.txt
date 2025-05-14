@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degreeName
+WHERE {
+  ?person a :Cl_Person ;
+          rdfs:label "Pasquale Di Gennaro" ;
+          :hasMedicalDegree ?degree .
+  ?degree a :Cl_MedicalDegree ;
+          :degreeName ?degreeName .
+}
+```

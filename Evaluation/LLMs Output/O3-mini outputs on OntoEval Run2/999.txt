@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming we know that books and CDs are represented as subclasses of ArticleCollection and they have a publication date asserted via the property :hasPublicationDate, you can extract the publication date for any Book or CD. For example, the following SPARQL query retrieves the publication date of any resource that is either a Book or a CD:
+
+PREFIX ac: <http://example.org/articlecollection#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?pubDate
+WHERE {
+  ?collection a ?type .
+  FILTER(?type = ac:Book || ?type = ac:CD)
+  ?collection ac:hasPublicationDate ?pubDate .
+}
+
+This query directly answers the CQ “When was a certain book or CD published?” by extracting the publication date from the ontology.

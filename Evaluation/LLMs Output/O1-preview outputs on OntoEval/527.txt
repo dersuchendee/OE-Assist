@@ -1,0 +1,14 @@
+**Answer: No**
+
+The ontology provided does not have the necessary data to answer the competency question "How many tracks does a particular album contain?" Specifically, there are no relationships connecting albums to tracks via the `:containsTrack` property as defined in the ontology. Therefore, we cannot write a SPARQL query that retrieves the number of tracks for a specific album.
+
+Here's a SPARQL query that attempts to extract a partial answer by listing all tracks, although we cannot associate them with any album:
+
+```sparql
+SELECT ?track
+WHERE {
+  ?track a :Cl_Track .
+}
+```
+
+This query will list all individuals of type `:Cl_Track` in the ontology. However, without connections to albums, we cannot determine how many tracks a particular album contains.

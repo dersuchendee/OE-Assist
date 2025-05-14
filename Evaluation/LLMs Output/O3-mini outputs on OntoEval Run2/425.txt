@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that answers the CQ "What instruments does a certain person play?" assuming that the person is specified (here represented as :SomePerson):
+
+----------------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?instrument ?instrumentName 
+WHERE {
+  ?person a :Person ;
+          :playsInstrument ?instrument ;
+          :personName ?personName .
+  OPTIONAL { ?instrument :instrumentName ?instrumentName . }
+  
+  # Replace :SomePerson with the individual of interest (for example, :JohnFrusciante)
+  FILTER(?person = :SomePerson)
+}
+----------------------------------------------------------
+
+This query retrieves the specified person’s identifier, name, and all musical instruments they play along with each instrument’s name.

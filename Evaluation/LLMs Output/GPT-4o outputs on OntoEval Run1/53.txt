@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What are the actors involved in this value network?" can be answered using the ontology provided. The ontology includes classes and properties that relate actors to value networks, specifically through the `op_involvedIn` property. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT DISTINCT ?actor
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :op_involvedIn ?valueNetwork .
+}
+```

@@ -1,0 +1,27 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName
+WHERE {
+  # Select persons and their names
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+
+  # Get the memberships of the person
+  ?person :hasMembership ?membership .
+  ?membership a :Cl_Membership .
+
+  # Membership details
+  ?membership :membershipIn :GivenBand .
+  ?membership :membershipStart ?membershipStart .
+  ?membership :membershipEnd ?membershipEnd .
+
+  # Filter memberships active at the given date
+  FILTER ( xsd:date(?membershipStart) <= xsd:date("GivenDate")
+       && xsd:date(?membershipEnd)   >= xsd:date("GivenDate") )
+}
+```
+Replace `:GivenBand` with the specific band URI (e.g., `:RedHotChiliPeppers`), and `"GivenDate"` with the specific date (e.g., `"2006-08-11"`). This query retrieves all persons who were members of the given band at the specified point in time based on the membership information provided in the ontology.

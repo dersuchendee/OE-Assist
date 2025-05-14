@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ by “mining” the TBox restrictions that state that every BeechForest has a CO2 fixation pathway coming from the PrimaryCO2FixationPathway class. Under a closed‐world assumption, the query below extracts the CO2 fixation pathway defined in the restriction on the :BeechForest class:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?pathway
+WHERE {
+  :BeechForest rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :hasCO2FixationPathway;
+               owl:someValuesFrom ?pathway .
+}
+--------------------------------------------------
+
+In this query the CQ “What are the primary CO2 fixation pathways in forest ecosystems, specifically in beech forests?” is answered by retrieving the pathway specified on the :BeechForest class (which is the Primary CO2 fixation pathway as modelled in the ontology).

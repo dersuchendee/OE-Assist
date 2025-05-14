@@ -1,0 +1,20 @@
+**Yes**
+Below is one SPARQL query that, under a closed‐world assumption, counts for each album the number of tracks connected via the “hasTrack” property:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumName (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :albumName ?albumName . }
+  OPTIONAL { ?album :hasTrack ?track . }
+}
+GROUP BY ?album ?albumName
+ORDER BY ?album
+-------------------------------------------------
+
+This query retrieves each album (optionally with its name) and counts its associated tracks, thereby answering the CQ "How many tracks does a particular album contain?"

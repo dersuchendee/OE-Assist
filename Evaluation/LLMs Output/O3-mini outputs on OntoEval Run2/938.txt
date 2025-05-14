@@ -1,0 +1,29 @@
+**Yes**
+
+Assuming that evaluation statements are modelled by the reified class Cl_EvaluationStatement—with employees having evaluations via the property :hasEvaluation and each evaluation linked to the doctor (its evaluator) via :evaluationByDoctor (and the text provided via :evaluationText)—we can answer this competency question. Under a closed‐world assumption only those employees with such evaluations (and where the evaluation was made by the specified doctor) will be returned.
+
+For example, given parameters for a specific employee (e.g. :SomeEmployee) and a specific doctor (e.g. :SomeDoctor), you can extract the evaluation text with the following SPARQL query:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?employeeLabel ?doctor ?doctorLabel ?evaluationText
+WHERE {
+  ?employee a :Cl_Person .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  
+  ?employee :hasEvaluation ?evaluation .
+  ?evaluation :evaluationByDoctor ?doctor .
+  OPTIONAL { ?doctor rdfs:label ?doctorLabel . }
+  
+  ?evaluation :evaluationText ?evaluationText .
+  
+  # Replace :SomeEmployee and :SomeDoctor with the actual individuals you need 
+  FILTER(?employee = :SomeEmployee && ?doctor = :SomeDoctor)
+}
+---------------------------------------------------------
+
+This query returns the employee and doctor (with their optional labels) along with the evaluation statement text as stored in the ontology.

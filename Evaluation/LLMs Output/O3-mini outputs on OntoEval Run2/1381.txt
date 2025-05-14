@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not model payment or sponsorship details (i.e. there is no property or role indicating that someone "paid to support" an event). However, we can partially answer the query by retrieving the participants involved in each meetup event.
+
+Partial SPARQL query:
+
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?meetup ?participant ?role
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  OPTIONAL { ?participant mtps:hasRole ?role . }
+}
+
+This query extracts the meetups and their participants (and their roles, if available) but does not capture any notion of "payment" or "support" due to the lack of such modelling in the ontology under the closed world assumption.

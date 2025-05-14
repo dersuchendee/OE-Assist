@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming a specific performance is identified by its association with a venue via the property :performedAt, the following SPARQL query fully extracts the answer to the competency question under the closed world assumption:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?venue ?venueLabel
+WHERE {
+  ?performance a :Performance .
+  ?performance :performedAt ?venue .
+
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?venue rdfs:label ?venueLabel . }
+}
+------------------------------------------------
+
+This query retrieves all performances along with their associated venues, thereby answering "Where did a certain performance take place?" by linking each performance to its venue.

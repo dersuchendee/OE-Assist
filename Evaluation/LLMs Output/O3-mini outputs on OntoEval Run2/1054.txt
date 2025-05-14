@@ -1,0 +1,13 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves all articles presented in a specific seminar (e.g. the seminar instance :SeminarOnNursePractices):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  ?article a :Cl_Article ;
+           :presentedIn :SeminarOnNursePractices ;
+           :articleTitle ?articleTitle .
+}

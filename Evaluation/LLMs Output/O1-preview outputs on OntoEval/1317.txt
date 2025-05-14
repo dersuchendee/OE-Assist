@@ -1,0 +1,32 @@
+**No**
+
+```sparql
+SELECT ?species ?speciesLabel ?aquifer ?aquiferLabel ?conservationStatus ?habitatType ?populationTrend
+WHERE {
+  ?observation a :SpeciesAquiferCharacteristic .
+  ?observation :hasSpecies ?species .
+  OPTIONAL { ?species rdfs:label ?speciesLabel . }
+  
+  ?observation :locatedInAquifer ?aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+  
+  OPTIONAL { ?observation :hasConservationStatus ?conservationStatus . }
+  OPTIONAL { ?observation :hasHabitatType ?habitatType . }
+  OPTIONAL { ?observation :hasPopulationTrend ?populationTrend . }
+  
+  # Unable to filter for 'rare' species due to absence of specific conservation status in ontology
+  # Unable to specify a specific aquifer without instance data
+}
+```
+
+The competency question is **not fully supported** by the provided ontology because there is no explicit representation of "rare" species within the `:ConservationStatus` class, nor are there specific instances or subclasses indicating rarity. Additionally, the ontology lacks instance data for specific aquifers, making it impossible to query for species in a particular aquifer.
+
+However, the above SPARQL query provides a **partial answer** by retrieving species associated with any aquifer and their characteristics as defined in the ontology. It extracts the species, aquifer, conservation status, habitat type, and population trend from the `:SpeciesAquiferCharacteristic` observations.
+
+To fully answer the competency question, the ontology would need:
+
+- **Instances or subclasses** under `:ConservationStatus` representing "rare" species.
+- **Instance data** for specific aquifers to allow querying for species in a particular aquifer.
+- **Data properties or further classifications** that define what constitutes rarity in the context of conservation status.
+
+By enhancing the ontology with these elements, we could write a SPARQL query that accurately filters for rare species in a specific aquifer and retrieves their characteristics.

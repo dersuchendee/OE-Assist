@@ -1,0 +1,12 @@
+**Yes**
+
+We can answer this CQ using the ontology. For example, the following SPARQL query retrieves each seminar along with its associated hospital (i.e. the location where it took place):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?hospital
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarLocation ?hospital .
+}

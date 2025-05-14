@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the role that a given person has in a given band when a specified date falls within the membership’s time interval. (In this example, replace the example individual IRIs and target date as needed.)
+
+-----------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?membership ?personName ?bandName ?roleName ?startDate ?endDate
+WHERE {
+  ?membership a :BandMembership ;
+              :involvesMember ?person ;
+              :hasBand ?band ;
+              :hasRole ?role ;
+              :hasTimeInterval ?interval .
+  
+  ?person :personName ?personName .
+  ?band  :bandName ?bandName .
+  ?role  :roleName ?roleName .
+  ?interval :startDate ?startDate ;
+            :endDate ?endDate .
+  
+  # Replace with the specific person, band, and time of interest.
+  FILTER(?person = :JohnFrusciante && ?band = :RedHotChiliPeppers &&
+         "1989-01-01"^^xsd:date >= ?startDate && "1989-01-01"^^xsd:date <= ?endDate)
+}
+ORDER BY ?startDate
+-----------------------------------------
+
+This query obtains the BandMembership instance(s) for the specified person (here JohnFrusciante) in the specified band (here RedHotChiliPeppers) whose associated membership time interval contains the given date (here 1989‑01‑01).

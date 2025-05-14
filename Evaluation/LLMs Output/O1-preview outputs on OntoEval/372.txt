@@ -1,0 +1,33 @@
+**Yes**
+
+The competency question is answerable because the ontology includes all necessary classes and properties connected through the reified class `Cl_PersonRoleInProduction`. This class models the relationship between a person, their role, the production, and the time, which aligns with the elements required to answer the CQ.
+
+Here is the SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?role ?roleName ?production ?productionTitle ?time
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :hasName ?personName . }
+  
+  ?person :hasPersonRoleInProduction ?personRoleInProd .
+  ?personRoleInProd :withRole ?role .
+  OPTIONAL { ?role :hasTitle ?roleName . }
+  
+  ?personRoleInProd :inProduction ?production .
+  OPTIONAL { ?production :hasTitle ?productionTitle . }
+
+  ?personRoleInProd :atTime ?time .
+
+  # To specify a certain person, production, and time, you can include filters like:
+  # ?person :hasName "Fabio Bianchi" .
+  # ?production :hasTitle "The Merchant of Venice" .
+  # FILTER (?time = "2009-09-15T20:00:00"^^xsd:dateTime)
+}
+ORDER BY ?person ?production ?time
+```
+
+This query retrieves the roles that a certain person has within a certain production at a certain point in time by traversing the relationships defined in the ontology. You can uncomment and adjust the filter conditions to specify the particular person, production, and time you are interested in.

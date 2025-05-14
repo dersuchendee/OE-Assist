@@ -1,0 +1,22 @@
+**Yes**
+
+This competency question can be answered using the ontology. In this ontology, employment records (of type Cl_Employment) link a person to a hospital via the properties :employmentOf and :employedAt, and the employment start date is recorded using the data property :employmentStartDate. Under the closed-world assumption, we assume that if no employment record is found, then the person was never employed at that hospital.
+
+For example, for a specific person (here :PasqualeDiGennaro) and a specific hospital (here :OspedaleRiunitoDelleTreValli), you can retrieve the first employment start date with the following SPARQL query:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?employmentStartDate
+WHERE {
+  ?employment a :Cl_Employment ;
+              :employmentOf :PasqualeDiGennaro ;
+              :employedAt :OspedaleRiunitoDelleTreValli ;
+              :employmentStartDate ?employmentStartDate .
+}
+ORDER BY ?employmentStartDate
+LIMIT 1
+-------------------------------------------------------
+
+This query retrieves the employment start date (which answers “When was the certain person first employed at the given hospital?”).

@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the plays seen at a given theatre festival by utilizing the connections defined in the ontology—from a theatre festival to its productions and from each production to the play. Under the closed‐world assumption, if a festival has no production (or if no play is attached to a production) then no results will be returned. One SPARQL query that returns all festivals with their productions’ plays is:
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  ?festival theatre:hasProduction ?production .
+  ?production theatre:hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+ORDER BY ?festival ?playLabel
+
+This query uses the object properties (theatre:hasProduction and theatre:hasPlay) defined in the ontology to “chain” from a festival to the plays presented within it.

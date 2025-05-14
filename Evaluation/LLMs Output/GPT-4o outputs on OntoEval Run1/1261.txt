@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to trace the complete path of a material through all processes it undergoes. While it does allow for the identification of a material's origin and the processes it undergoes, it lacks a mechanism to trace the entire sequence of processes in a connected manner. Here's a SPARQL query to extract a partial answer, focusing on the origin and the first process a material undergoes:
+
+```sparql
+SELECT ?material ?origin ?firstProcess
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material :hasOrigin ?origin . }
+  OPTIONAL { ?material :undergoesProcess ?firstProcess . }
+}
+```

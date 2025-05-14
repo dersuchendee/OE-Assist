@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?date
+WHERE {
+  ?employmentLink rdf:type :Cl_PersonHospitalEmployment .
+  ?employmentLink :personEmployedAtHospital ?person .
+  ?employmentLink :hospitalHasEmployee ?hospital .
+  ?employmentLink :employmentStartedOn ?employment .
+  ?employment :employmentDate ?date .
+  
+  FILTER (?person = :Person_X && ?hospital = :Hospital_Y)
+}
+ORDER BY ?date ASC
+LIMIT 1
+```
+
+This query retrieves the earliest employment date of a specific person (`:Person_X`) at a specific hospital (`:Hospital_Y`). It navigates through the reification class `:Cl_PersonHospitalEmployment` to connect the person, hospital, and employment date, fulfilling the competency question.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide specific instances of events or their occurrences on specific days or times. It defines the classes and properties but lacks the necessary data to answer the competency question directly. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?event ?day ?time
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event :occursOn ?day . }
+  OPTIONAL { ?event :hasTime ?time . }
+}
+```

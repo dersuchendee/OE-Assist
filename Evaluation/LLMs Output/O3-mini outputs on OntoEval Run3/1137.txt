@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming the ontology’s TBox is taken under a closed world view, we can answer the CQ because we can extract the devices (and their functionalities) that provide weather information. For instance, devices that have the property :displaysWeather (e.g. SmartMirror) are used to display content, while those with :announcesWeather (e.g. SmartSpeaker) announce content.
+
+Below is a SPARQL query that retrieves the smart bathroom devices along with the functionality used to deliver the content:
+
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?device ?deviceLabel ?functionality ?functionalityLabel
+WHERE {
+  ?device a :SmartBathroomDevice .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+  
+  { ?device :displaysWeather ?functionality . }
+  UNION
+  { ?device :announcesWeather ?functionality . }
+  
+  OPTIONAL { ?functionality rdfs:label ?functionalityLabel . }
+}
+
+This query extracts each smart bathroom device that supports weather content delivery and the associated functionality (display or audio) used for that purpose.

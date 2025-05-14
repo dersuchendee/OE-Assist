@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+SELECT ?publication ?pubTitle ?article ?articleTitle
+WHERE {
+  ?publication a ?pubType .
+  FILTER(?pubType IN (:Cl_Book, :Cl_CD)) .
+  
+  ?publication :contains ?article .
+  
+  OPTIONAL { ?publication :publicationTitle ?pubTitle . }
+  OPTIONAL { ?article :hasTitle ?articleTitle . }
+}
+```

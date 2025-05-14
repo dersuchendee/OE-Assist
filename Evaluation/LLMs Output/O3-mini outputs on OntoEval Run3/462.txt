@@ -1,0 +1,34 @@
+**Yes**
+Below is one way to write a SPARQL query that, under a closed‐world assumption, retrieves the persons (members) who were members of a given band at a specified point in time. (In this query, you supply the band’s IRI and the time point as parameters.)
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel ?membershipStart ?membershipEnd
+WHERE {
+  # Find memberships that join a person with a band
+  ?membership a :Cl_Membership .
+  ?membership :membershipIn ?band .
+  ?member :hasMembership ?membership .
+  
+  # Get the membership start time (mandatory) and end time if available
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd. }
+  
+  # Filter by the specific band and time point.
+  # Replace <BandIRI> with the band’s IRI (e.g., RedHotChiliPeppers)
+  # Replace "YYYY-MM-DD" with the desired date
+  FILTER (
+    ?band = <BandIRI> &&
+    xsd:date("YYYY-MM-DD") >= ?membershipStart &&
+      ( !BOUND(?membershipEnd) || xsd:date("YYYY-MM-DD") <= ?membershipEnd )
+  )
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+}
+ORDER BY ?membershipStart
+────────────────────────────
+
+In this query the FILTER clause checks that the supplied date (here represented as xsd:date("YYYY-MM-DD")) falls on or after the membership’s start date and, if an end date is given, before or on the membership’s end date. Thus, the question “What are the members of a certain band at a certain point in time?” is supported by the ontology.

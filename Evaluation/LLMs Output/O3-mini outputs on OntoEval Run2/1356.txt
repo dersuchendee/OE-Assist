@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not explicitly capture the notion of “original parts” of an organ. We can retrieve the parts of an organ (via the core:hasPart property), but it is not possible (under the closed world assumption) to distinguish original parts from later alterations. Here is a SPARQL query that returns parts of an organ—which is only a partial answer to the CQ:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/0.1#>
+
+SELECT ?organ ?part
+WHERE {
+  ?organ a organs:Organ .
+  ?organ core:hasPart ?part .
+}
+ORDER BY ?organ ?part

@@ -1,0 +1,18 @@
+**No**
+
+The ontology provided does not include any properties or classes that directly relate to the role of a person in a band at a specific point in time. The ontology includes classes and properties for persons, bands, memberships, roles, and time periods, but it does not explicitly connect these elements in a way that would allow us to query for a person's role in a band at a specific time.
+
+Here's a SPARQL query to extract a partial answer, which would list the memberships and roles of persons in bands, but without the specific time context:
+
+```sparql
+SELECT ?person ?band ?role
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :hasRole ?roleEntity .
+  ?roleEntity :roleName ?role .
+}
+```
+
+This query retrieves the person, band, and role, but it does not include the specific point in time, as the ontology does not support this level of detail.

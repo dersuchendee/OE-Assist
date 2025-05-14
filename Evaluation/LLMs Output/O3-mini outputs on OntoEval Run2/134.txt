@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer this CQ using the provided ontology because each theatre festival instance has an associated set of plays through the property :hasPlay, and each play has its name given by the data property :playName. Under a closed world assumption, we assume that all relevant instances are fully available. For example, running the following SPARQL query will return the plays that could be seen at each festival:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasPlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?festivalName ?playName
+---------------------------------
+
+This query extracts the theatre festival instances along with the names of the plays they feature, which directly answers the competency question "What plays could be seen during a certain theatre festival?"

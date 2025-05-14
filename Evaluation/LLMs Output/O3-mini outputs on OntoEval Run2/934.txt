@@ -1,0 +1,21 @@
+**Yes**
+
+The ontology provides a modeling of evaluations through the Cl_Evaluation class and properties (evaluatedBy linking a Cl_Employee to a Cl_Evaluation, evaluator linking a Cl_Evaluation to a Cl_Doctor, and evaluationStatement holding the written evaluation). Under a closed world assumption, only those evaluations explicitly asserted in the data will be returned. Here is an appropriate SPARQL query to extract the evaluation statement given by a particular doctor for a particular employee:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?doctor ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee .
+  ?employee :evaluatedBy ?evaluation .
+  ?evaluation :evaluator ?doctor .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+  # Replace the URIs below with the specific doctor and employee as needed:
+  FILTER(?employee = <http://www.example.org/test#Employee123> && 
+         ?doctor   = <http://www.example.org/test#DoctorABC>)
+}
+--------------------------------------------------
+
+This query shows that for a given employee and a given doctor, the ontology supports extracting the evaluation statement, thus confirming that the CQ is modelled by the ontology.

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that “holding information” means that an actor is related—in a resource relation—to some resource of type resourceODP:Information, you can extract the actors holding this information with a query like:
+
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX resourceODP: <http://w3id.org/CEON/ontology/resourceODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  ?relation a actorODP:ResourceRelation .
+  ?relation actorODP:participatingActor ?actor .
+  ?relation actorODP:participatingResource ?resource .
+  ?resource a resourceODP:Information .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+
+This query returns the actors that “hold” information (i.e. are linked via a resource relation to an instance of resourceODP:Information).

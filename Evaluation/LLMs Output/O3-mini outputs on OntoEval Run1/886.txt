@@ -1,0 +1,31 @@
+**Yes**
+
+Assuming that the ontology’s class :UnionMembership models the engagement of a person as a member of a union during a specific time interval (using the properties :hasMember, :hasUnion, and :hasTimeInterval with associated start and end dates), we can answer the competency question “Who are the members of a certain union at a certain point in time?” under a closed world assumption. For example, given a specific union URI (e.g., <http://example.org/ontology#SomeUnion>) and a point in time (provided as a dateTime value), the following SPARQL query retrieves the persons who are members of that union at that time:
+
+------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?start ?end
+WHERE {
+  ?membership a :UnionMembership ;
+              :hasUnion <http://example.org/ontology#SomeUnion> ;
+              :hasMember ?person ;
+              :hasTimeInterval ?interval .
+  
+  ?interval :startDate ?start ;
+            :endDate ?end .
+  
+  # Specify the point in time for which we want to query membership
+  BIND("2008-05-01T00:00:00"^^xsd:dateTime AS ?pointInTime) .
+
+  # Check that the specified time is within the membership interval
+  FILTER(?pointInTime >= ?start && ?pointInTime <= ?end)
+
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?person
+------------------------------------------------------------
+
+This query extracts the members (and optionally their labels) whose union membership time interval (between ?start and ?end) covers the given "?pointInTime".

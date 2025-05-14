@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer the question “When was a certain book or CD published?” using the ontology because it provides classes for books and CDs (Cl_Book and Cl_CD) along with the property :published (which links a publication to a book or CD) and the datatype property :publicationDate to capture the publication date.
+
+For example, the following SPARQL query retrieves the publication date for every instance of a book or CD in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication (?pubDate AS ?PublicationDate)
+WHERE {
+  {
+    ?publication rdf:type :Cl_Book .
+  } UNION {
+    ?publication rdf:type :Cl_CD .
+  }
+  ?publication :published ?pubResource .
+  ?pubResource :publicationDate ?pubDate .
+}
+--------------------------------------------------
+
+This query ensures that for any instance of a book or a CD, we extract its publication date via the linking publication resource, making the CQ answerable under a closed world assumption.

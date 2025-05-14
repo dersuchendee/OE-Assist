@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming a book or CD is an instance of :Cl_Book or :Cl_CD and that articles are linked via the property :containsArticle, you can extract the articles that compose the book/CD using the following SPARQL query (with a closed world assumption):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookOrCD ?article
+WHERE {
+  ?bookOrCD a ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD))
+  ?bookOrCD :containsArticle ?article .
+}
+--------------------------------------------------
+
+This query retrieves each instance of a book or CD along with the articles it contains, answering the CQ fully.

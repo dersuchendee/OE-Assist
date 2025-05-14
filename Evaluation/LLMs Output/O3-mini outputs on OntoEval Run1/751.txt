@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that “checks” the competency question. Under the closed‐world assumption the idea is to list any record that does not have at least one track linked via the property “containsTrack”. If the query returns no results then every record does indeed have at least one track.
+
+For example, you can run:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?record a :Cl_Record .
+  OPTIONAL { ?record :containsTrack ?track . }
+}
+GROUP BY ?record
+HAVING (?numTracks < 1)
+----------------------------------------------------------------
+
+If this query returns an empty set then the CQ “A record always contains at least one track” is supported by the ontology.

@@ -1,0 +1,18 @@
+**Yes**
+Below is an example SPARQL query that retrieves an album and its associated recording time period (via the recordedDuring relation):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?timePeriod ?timePeriodLabel
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :recordedDuring ?timePeriod .
+  OPTIONAL { ?timePeriod rdfs:label ?timePeriodLabel . }
+  
+  # If you want to restrict to a specific album (e.g., Stadium Arcadium), you could use:
+  # FILTER(regex(?albumLabel, "Stadium Arcadium", "i"))
+}
+ORDER BY ?album ?timePeriod

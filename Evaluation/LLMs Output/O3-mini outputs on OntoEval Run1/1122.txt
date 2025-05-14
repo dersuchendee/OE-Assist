@@ -1,0 +1,15 @@
+**No**
+
+The current ontology supports querying a user’s location through the Cl_User → hasLocation → Cl_Location → locatedIn chain, but it does not model any explicit information about where “the system” (or weather display) runs.
+
+A partial answer—which retrieves the user’s location—is given by the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?locationValue 
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasLocation ?location .
+  ?location :locatedIn ?locationValue .
+}

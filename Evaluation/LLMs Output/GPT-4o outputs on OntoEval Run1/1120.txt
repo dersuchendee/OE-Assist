@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the current "abstract time" for a particular user. The ontology defines abstract times and their start and end times, but it does not include any information about the current time or how to associate a user with the current abstract time.
+
+Partial answer:
+```sparql
+SELECT ?abstractTime ?startTime ?endTime
+WHERE {
+  ?abstractTime a :Cl_AbstractTime .
+  ?abstractTime :dp_hasStartTime ?startTime .
+  ?abstractTime :dp_hasEndTime ?endTime .
+}
+```

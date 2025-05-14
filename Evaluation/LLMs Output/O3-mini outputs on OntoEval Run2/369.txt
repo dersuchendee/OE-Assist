@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology captures actor employment through the :Cl_Person class having a data property :employmentStartDate and an object property :employedAt pointing to a :Cl_Theatre. Thus, one can write a SPARQL query to extract the employment start date for a given actor working at a specific theatre.
+
+Example SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Person .
+  ?actor :employedAt ?theatre .
+  ?actor :employmentStartDate ?employmentStartDate .
+}
+ORDER BY ?actor ?theatre ?employmentStartDate

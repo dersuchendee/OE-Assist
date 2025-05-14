@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" can be answered using the ontology provided. The ontology includes classes and properties that relate seminars to seminar presentations and articles. The restriction on the `Cl_Seminar` class ensures that each seminar has at least one associated seminar presentation, which in turn is linked to an article.
+
+Here is a SPARQL query to verify that each seminar has at least one article presented:
+
+```sparql
+SELECT ?seminar ?seminarDate ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+  ?presentation a :Cl_SeminarPresentation .
+  ?presentation :presentationOf ?seminar .
+  ?article :presentedIn ?presentation .
+}
+```
+
+This query retrieves seminars, their dates, and the articles presented in them, ensuring that each seminar has at least one article associated with it.

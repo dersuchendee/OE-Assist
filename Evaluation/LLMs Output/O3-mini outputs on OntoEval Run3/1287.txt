@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?event ?payer ?payerLabel
+WHERE {
+  ?payment a :Payment .
+  ?payment :supportsEvent ?event .
+  ?payment :hasPayer ?payer .
+  OPTIONAL { ?payer rdfs:label ?payerLabel . }
+}
+```
+
+This query retrieves each event along with its associated payment’s payer, thus answering the competency question "Who paid to support the event?" based on the given ontology under the closed world assumption.

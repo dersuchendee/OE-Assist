@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain any direct relationships or properties that connect a person to a production and a role at a specific point in time. The ontology includes classes and properties related to theatre festivals, plays, productions, and roles, but it lacks the necessary connections to answer the competency question directly. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?roleName ?production
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRoleInProduction ?role .
+  ?role :roleName ?roleName .
+  ?role a :Cl_ProductionRole .
+  ?role a ?production .
+}
+```
+
+This query attempts to retrieve persons, their roles, and associated productions, but it does not include a specific point in time due to the lack of temporal properties in the ontology.

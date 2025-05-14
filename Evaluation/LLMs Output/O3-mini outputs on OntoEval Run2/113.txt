@@ -1,0 +1,17 @@
+**Yes**
+Below is a SPARQL query that, under the closed‐world assumption, retrieves the location (using the data property :locationName of the reified class :Cl_FestivalLocation) for each festival (of type :Cl_TheatreFestival):
+
+---------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?locationName
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  ?festival :hasLocation ?festLoc .
+  ?festLoc :locationName ?locationName .
+}
+---------------------------------------------------------------------
+
+This query answers the competency question "Where did a certain festival take place?" by returning each festival together with its recorded location.

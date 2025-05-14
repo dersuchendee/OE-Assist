@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to associate a doctor with an evaluation statement for a specific employee. The ontology includes classes and properties related to evaluation statements, doctors, and employees, but it lacks the specific relationships needed to answer the competency question directly.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?doctor ?evaluationStatement ?evaluationText ?evaluationDate ?employee
+WHERE {
+  ?doctor a :Cl_Doctor .
+  ?doctor :hasEvaluationStatement ?evaluationStatement .
+  ?evaluationStatement :evaluationText ?evaluationText .
+  ?evaluationStatement :evaluationDate ?evaluationDate .
+  ?evaluationStatement :evaluates ?employee .
+}
+```
+
+This query retrieves evaluation statements made by doctors, including the text and date of the evaluation, but it does not specify the connection to a particular employee as required by the competency question.

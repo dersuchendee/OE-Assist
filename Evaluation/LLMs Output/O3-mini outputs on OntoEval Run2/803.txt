@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves, for each person‐medical degree instance, the degree name and the corresponding study period (start and end dates):
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName ?studyStartDate ?studyEndDate
+WHERE {
+  ?pmDegree a :Cl_PersonMedicalDegree ;
+            :personWithDegree ?person ;
+            :degreeOf ?degree ;
+            :hasStudyPeriod ?studyPeriod .
+  ?degree :degreeName ?degreeName .
+  ?studyPeriod :studyStartDate ?studyStartDate ;
+               :studyEndDate   ?studyEndDate .
+}
+ORDER BY ?person ?studyStartDate
+----------------------------------
+
+This query answers the competency question: “During what time period did a certain person study for a specific degree?” by retrieving each person’s reified degree instance along with its associated study period data.

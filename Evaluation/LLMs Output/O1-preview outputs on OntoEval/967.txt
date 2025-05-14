@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?article
+WHERE {
+    # Replace :SpecificBookOrCD with the IRI of the specific book or CD
+    :SpecificBookOrCD :containsArticle ?article .
+}
+```
+
+This query fetches all articles contained in a specific book or CD (`:SpecificBookOrCD`) using the `:containsArticle` property defined in the ontology. The ontology supports this competency question because it includes the `:containsArticle` object property that relates instances of `:Cl_Book` or `:Cl_CD` to instances of `:Cl_Article`.

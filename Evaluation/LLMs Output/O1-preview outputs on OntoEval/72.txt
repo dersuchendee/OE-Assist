@@ -1,0 +1,27 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology/recycling#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX partof: <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#>
+PREFIX collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#>
+
+SELECT ?item ?itemLabel ?material ?materialLabel
+WHERE {
+  {
+    ?item a :Component .
+    ?item :isMadeOf ?material .
+    OPTIONAL { ?item rdfs:label ?itemLabel . }
+    OPTIONAL { ?material rdfs:label ?materialLabel . }
+  }
+  UNION
+  {
+    ?item a :Product .
+    ?item collectionentity:hasMember ?material .
+    OPTIONAL { ?item rdfs:label ?itemLabel . }
+    OPTIONAL { ?material rdfs:label ?materialLabel . }
+  }
+}
+```
+
+This query retrieves the materials associated with each component or product. For components, it uses the `:isMadeOf` property to find the materials. For products, it uses the `collectionentity:hasMember` property to retrieve the materials that are members of the product. The `UNION` operator allows the query to handle both classes (`:Component` and `:Product`) in a single result set. The `OPTIONAL` clauses are used to fetch labels if they are available, enhancing the readability of the results.

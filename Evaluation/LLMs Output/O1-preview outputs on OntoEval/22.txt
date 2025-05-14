@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+# SPARQL query to find water bodies that belong to a specific water basin
+# Replace :SpecificWaterBasin with the URI of the water basin of interest
+
+SELECT ?waterBody
+WHERE {
+   ?waterBody a :Cl_WaterBody .
+   ?waterBody :op_belongsTo :SpecificWaterBasin .
+}
+```
+
+This SPARQL query selects all instances of `:Cl_WaterBody` that have a relationship `:op_belongsTo` to a specific water basin (`:SpecificWaterBasin`). You can replace `:SpecificWaterBasin` with the URI of the water basin you're interested in to retrieve the corresponding water bodies.

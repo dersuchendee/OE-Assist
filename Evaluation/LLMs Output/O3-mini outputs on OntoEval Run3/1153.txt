@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?filmEvent ?startTime ?endTime
+WHERE {
+  ?filmEvent a :FilmEvent ;
+             rdfs:label ?label ;
+             :hasStartTime ?startTime ;
+             :hasEndTime ?endTime .
+  # Filter to find the 'X-men' event, assuming its label contains "X-men"
+  FILTER(CONTAINS(lcase(?label), "x-men"))
+}
+```

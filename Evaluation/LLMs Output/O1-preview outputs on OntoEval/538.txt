@@ -1,0 +1,34 @@
+**Yes**
+
+The competency question "When was a certain album released?" can be answered using the provided ontology. The ontology includes the class `ns1:Album` and the datatype property `ns1:hasReleaseDate`, which stores the release date of an album. Therefore, we can write a SPARQL query to retrieve the release date of any album.
+
+Here's a SPARQL query to find the release date of a specific album (e.g., "Stadium Arcadium"):
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?releaseDate
+WHERE {
+  ?album a ns1:Album ;
+         rdfs:label ?albumLabel ;
+         ns1:hasReleaseDate ?releaseDate .
+  FILTER (LCASE(STR(?albumLabel)) = LCASE("Stadium Arcadium"))
+}
+```
+
+If you want to retrieve the release dates of all albums in the ontology, you can use the following query:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?albumLabel ?releaseDate
+WHERE {
+  ?album a ns1:Album ;
+         rdfs:label ?albumLabel ;
+         ns1:hasReleaseDate ?releaseDate .
+}
+```
+
+This query selects all instances of `ns1:Album`, retrieves their labels and release dates, and provides the information needed to answer the competency question.

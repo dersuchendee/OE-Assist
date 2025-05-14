@@ -1,0 +1,17 @@
+**Yes**
+
+We can retrieve a hospital’s city by querying for its linked location and extracting the city name. For example, assuming that hospitals are typed as :Cl_Hospital, the location is linked via the property :locatedIn and has a data property :cityName, the following SPARQL query answers the competency question:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?cityName
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?location .
+  ?location :cityName ?cityName .
+}
+----------------------------------
+
+Under the closed world assumption, this query will extract the city (e.g. "Nocera Inferiore") where the hospital (e.g. OspedaleRiunitoDelleTreValli) is located.

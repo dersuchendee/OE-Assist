@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one possible SPARQL query that—in a closed‐world view—retrieves for each actor (participating in a network) the roles they hold. Note that we rely on the ontology’s modelling of participation in a circular value network (using, for instance, the class actor:CVNParticipation, the property actorODP:participatingActor for the actor, and actorODP:participantRole for the role):
+
+────────────────────────────
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+
+SELECT DISTINCT ?actor ?actorLabel ?role ?roleLabel ?network ?networkLabel
+WHERE {
+  ?participation a actor:CVNParticipation ;
+                 actorODP:participatingActor ?actor ;
+                 actorODP:participantRole ?role ;
+                 actorODP:participationIn ?network .
+                 
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?network rdfs:label ?networkLabel . }
+}
+ORDER BY ?actor ?role
+────────────────────────────
+
+This query extracts for each actor (i.e. an instance of a participation relation in the network) the role they have in that network. Thus, the competency question “What are the roles of this actor in this network?” is answerable with the ontology.

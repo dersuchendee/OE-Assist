@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one valid SPARQL query that, given a specific book or CD, retrieves its constituent articles:
+
+------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  # Assume the specific book or CD is provided via a bound variable (e.g., through VALUES or as a parameter)
+  VALUES ?collection { ns1:NursePracticesInCancerPatientCare }  # example instance
+  
+  # Optional: confirm that ?collection is either a Book or a CD
+  ?collection a ?type .
+  FILTER(?type IN (ns1:Book, ns1:CD))
+  
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  
+  # Retrieve the articles composing the specified ArticleCollection instance
+  ?collection ns1:hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+------------------------------------------------
+
+Under the closed-world assumption (i.e. only the facts in the ontology are taken as true), this query extracts the articles that are part of the specified book or CD, thereby fully supporting the given competency question.

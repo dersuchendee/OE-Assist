@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?flow ?quality ?time
+WHERE {
+  ?fqa a :FlowQualityAssessment .
+  ?fqa :assessesFlow ?flow .
+  ?fqa :hasQuality ?quality .
+  ?fqa :atTime ?time .
+}
+ORDER BY ?time ?flow
+```

@@ -1,0 +1,19 @@
+**Answer: Yes**
+
+**Explanation:**
+The ontology includes the `HospitalizationRate` class, which has a `hasRegistrationDate` property (with range `xsd:date`) and is related to a `Disease` via the `relatesToDisease` property.
+
+Given this, we can retrieve instances of `HospitalizationRate` that are related to a `Disease` and obtain their registration dates.
+
+**SPARQL Query:**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospitalizationRate ?disease ?registrationDate
+WHERE {
+  ?hospitalizationRate a :HospitalizationRate .
+  ?hospitalizationRate :relatesToDisease ?disease .
+  ?hospitalizationRate :hasRegistrationDate ?registrationDate .
+}
+```

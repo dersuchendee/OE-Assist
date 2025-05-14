@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given play (for example, “Merchant of Venice”), its writing period as modelled by the property “hasWritingPeriod” on plays (i.e. instances of Cl_Play):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?writingPeriod
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasWritingPeriod ?writingPeriod .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  
+  # Uncomment and adjust the FILTER if you want to restrict to a certain play:
+  # FILTER(CONTAINS(LCASE(?playLabel), "merchant of venice"))
+}
+-------------------------------------------------
+
+This query shows that the competency question “During what time period was a certain play written?” is fully answerable given the ontology.

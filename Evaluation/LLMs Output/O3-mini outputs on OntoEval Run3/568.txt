@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming the specific track is identified by a URI (for example, :SpecificTrack), we can retrieve the song that the track is a recording of by following the reified connection. In this ontology, a track (instance of :Cl_Track) is linked via the property :isRecordingOf to an instance of :Cl_TrackRecording, and a song (instance of :Cl_Song) is linked via the inverse property :hasRecording to that same recording.
+
+A SPARQL query that answers the CQ is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  :SpecificTrack :isRecordingOf ?recording .
+  ?song :hasRecording ?recording .
+  OPTIONAL { ?song rdfs:label ?songLabel }
+}
+
+This query returns the song (and its label, if available) that the specific track (i.e. :SpecificTrack) is a recording of.

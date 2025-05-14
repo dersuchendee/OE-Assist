@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each theatre, its location’s city name:
+
+‾‾‾sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre :isLocatedIn ?location .
+  ?location :cityName ?cityName .
+}
+‾‾‾

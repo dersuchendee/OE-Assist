@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the roles a person has within a production at a specific time, which can be extracted using the reified class `Cl_PersonRoleInProduction`. Here's the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?personName ?role ?production ?productionTitle ?time
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasName ?personName .
+
+  ?person :hasPersonRoleInProduction ?personRoleInProduction .
+  ?personRoleInProduction :withRole ?role .
+  ?personRoleInProduction :inProduction ?production .
+  ?personRoleInProduction :atTime ?time .
+
+  ?production :hasTitle ?productionTitle .
+}
+ORDER BY ?person ?production ?time
+```

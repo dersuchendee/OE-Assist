@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Where did a certain festival take place?" can be answered using the ontology provided. The ontology includes classes and properties that relate festivals to their occurrences and the cities where they take place. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?festival ?city
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :takesPlaceIn ?city .
+}
+```

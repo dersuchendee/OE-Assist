@@ -1,0 +1,11 @@
+Answer: **No**
+
+Because the current ontology does not provide sufficient connections to determine the actual place (e.g., hospital or city) where the seminar took place. We can only retrieve the seminar and its associated seminar location, without further details about the physical location.
+
+```sparql
+SELECT ?seminar ?seminarLocation
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :tookPlaceAt ?seminarLocation .
+}
+```

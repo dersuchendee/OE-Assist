@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide specific classes or properties to directly determine if a meetup was a celebration, festival, or private event. The closest related concept is the `mtps:Purpose` class, which includes individuals like `mtps:PublicCelebration`, but it does not cover all the types mentioned in the CQ. Therefore, a partial answer can be extracted based on the available purposes.
+
+```sparql
+SELECT ?meetup ?purpose
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose ?purpose .
+  FILTER(?purpose = mtps:PublicCelebration)
+}
+```

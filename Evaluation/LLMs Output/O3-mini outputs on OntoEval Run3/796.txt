@@ -1,0 +1,18 @@
+**Yes**  
+Below is an example SPARQL query that extracts the study period for a given person and degree:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?fromDate ?toDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :studiedDuring ?studyPeriod .
+  ?studyPeriod :fromDate ?fromDate ;
+               :toDate ?toDate ;
+               :forDegree ?degree .
+}
+------------------------------------------------
+
+This query assumes that the ontology reifies the relationship by linking a person via the property :studiedDuring to a study period (instance of :Cl_StudyPeriod) that is associated with a degree via :forDegree and has date properties given by :fromDate and :toDate. Under the closed world assumption (i.e. only asserted facts are taken into account), this query retrieves the time period during which a particular person studied for the specified degree.

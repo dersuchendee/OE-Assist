@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is answerable because the ontology includes the necessary classes and properties to retrieve the medical degrees that a person has. Specifically, the `:Cl_Person` and `:Cl_MedicalDegree` classes are connected via the `:hasMedicalDegree` property. Additionally, the `:degreeTitle` and `:degreeObtainedDate` data properties allow us to retrieve details about each medical degree.
+
+```sparql
+SELECT ?person ?degree ?degreeTitle ?degreeDate
+WHERE {
+   ?person a :Cl_Person .
+   ?person :hasMedicalDegree ?degree .
+   OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+   OPTIONAL { ?degree :degreeObtainedDate ?degreeDate . }
+}
+```

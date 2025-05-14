@@ -1,0 +1,32 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the role (via its roleName) for a given person in a given band at a specified time. (You would substitute the IRI for the person, the band, and the date value for the time point as needed.)
+
+---------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?roleName ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?band a :Cl_Band .
+
+  ?person :membership ?membership .
+  ?membership :membershipBand ?band .
+  ?membership :hasRole ?role .
+  ?role :roleName ?roleName .
+
+  ?membership :membershipStartDate ?membershipStartDate .
+  ?membership :membershipEndDate ?membershipEndDate .
+
+  # Filtering for a specific person, band, and time point.
+  # Replace <PersonIRI>, <BandIRI>, and "YYYY-MM-DD"^^xsd:date with your parameters.
+  FILTER (?person = <http://www.example.org/test#PersonIRI> &&
+          ?band = <http://www.example.org/test#BandIRI> &&
+          xsd:date("YYYY-MM-DD") >= ?membershipStartDate &&
+          xsd:date("YYYY-MM-DD") <= ?membershipEndDate )
+}
+ORDER BY ?person ?band ?membershipStartDate
+---------------------------------------------
+
+This query answers the competency question “What role does a certain person have in a certain band at a certain point in time?” by retrieving the role (roleName) and the membership interval for the given person and band such that the specified time lies between the membership start and end dates.

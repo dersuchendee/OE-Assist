@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly support querying which actors hold a specific competency. The ontology defines relationships between actors, competencies, and work, but it does not provide a direct link from competencies to actors. A partial answer can be obtained by querying actors and their competencies through the `actorHasCompetency` and `competencyOfActor` properties.
+
+```sparql
+SELECT ?actor ?competency
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :actorHasCompetency ?actorCompetency .
+  ?actorCompetency :competencyOfActor ?competency .
+}
+```

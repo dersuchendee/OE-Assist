@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to connect plays to specific theatre festivals, which is necessary to answer the competency question. However, we can extract partial information about theatre festivals and productions.
+
+```sparql
+SELECT ?festival ?festivalName ?production
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival :festivalName ?festivalName . }
+  ?festival :hasFestivalProduction ?production .
+}
+```

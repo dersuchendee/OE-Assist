@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves the persons (members) associated with a given band and time period, via the reified band membership class.
+
+Note: In this query the user must supply the specific band (e.g., a URI for “RedHotChiliPeppers”) and the time period (e.g., a URI representing the point in time of interest).
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel
+WHERE {
+  ?membership a :Cl_BandMembership .
+  ?membership :hasMember ?band .            # The band that has this membership
+  ?membership :memberOfBand ?person .         # The person who is a member via this membership
+  ?membership :duringTimePeriod ?tp .         # The time period during which the membership is valid
+
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Filter for a specific band and time condition:
+  FILTER (
+         ?band = <http://www.example.org/test#RedHotChiliPeppers> &&
+         ?tp = <http://www.example.org/test#TimePeriod_2006>
+         )
+}
+-------------------------------------------------
+
+This query is answerable from the ontology (via the reification pattern for band membership) and hence the competency question is supported.

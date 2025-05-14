@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming a closed‐world interpretation, we can consider two habitats “equivalent” when they share the same (unique) microbial and fungal community composition instances. For example, the following SPARQL query retrieves pairs of habitats that have both the same microbial and the same fungal community composition:
+
+-----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?habitat1 ?habitat2
+WHERE {
+  ?habitat1 a :Habitat .
+  ?habitat2 a :Habitat .
+  
+  ?habitat1 :hasMicrobialCommunityComposition ?mcc .
+  ?habitat1 :hasFungalCommunityComposition ?fcc .
+  
+  ?habitat2 :hasMicrobialCommunityComposition ?mcc .
+  ?habitat2 :hasFungalCommunityComposition ?fcc .
+  
+  FILTER(?habitat1 < ?habitat2)
+}
+-----------------------------------
+
+This query answers the competency question by extracting habitat pairs with identical microbial and fungal compositions.

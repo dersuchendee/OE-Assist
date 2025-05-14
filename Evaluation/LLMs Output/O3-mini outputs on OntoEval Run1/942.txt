@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?doctor ?employee ?evaluationStatement
+WHERE {
+  ?evaluation rdf:type :Cl_Evaluation .
+  ?evaluation :evaluatedBy ?doctor .
+  ?evaluation :evaluates ?employee .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+ORDER BY ?doctor ?employee
+```

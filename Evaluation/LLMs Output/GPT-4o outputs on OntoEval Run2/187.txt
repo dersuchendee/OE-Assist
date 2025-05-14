@@ -1,0 +1,11 @@
+**No**
+
+The ontology provided does not contain any direct information about countries or their relationship with cities. Therefore, the competency question "In what country is a certain city located?" cannot be fully answered using the given ontology. However, we can extract partial information about cities.
+
+```sparql
+SELECT ?city ?cityName
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city :cityName ?cityName . }
+}
+```

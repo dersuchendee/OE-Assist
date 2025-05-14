@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that “a certain theatre festival” is represented as an instance of :Cl_TheatreFestival that “hasOccurrence” a reified occurrence (an instance of :Cl_FestivalOccurrence) with the data property :occurrenceDate (of type xsd:date), the CQ is answerable under the closed world assumption. For example, you can use the following SPARQL query to extract the festival’s occurrence date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+}
+ORDER BY ?occurrenceDate
+
+This query retrieves each theatre festival along with the date(s) in which it took place.

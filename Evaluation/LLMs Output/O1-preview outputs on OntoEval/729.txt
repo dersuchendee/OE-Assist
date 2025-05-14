@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+
+  ?region :locatedInCountry ?regionCountry .
+  ?regionCountry a :Cl_Country .
+  OPTIONAL { ?regionCountry rdfs:label ?countryLabel . }
+}
+```

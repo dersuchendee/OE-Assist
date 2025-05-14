@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate a theatre with a city. The `isLocatedIn` property connects a theatre to a city, but there is no direct class or property that represents a city in the ontology. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying theatres and their locations.
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a ns1:Theatre .
+  ?theatre ns1:isLocatedIn ?city .
+}
+```

@@ -1,0 +1,13 @@
+**No**
+
+The competency question "Which are the measures of the bell?" is not fully supported by the ontology. The ontology provides information about the weight, height, and diameter of a bell, but it does not specify which specific measure is being asked for in the competency question. Therefore, a partial answer can be extracted by querying for all available measures of the bell.
+
+```sparql
+SELECT ?bell ?weight ?height ?diameter
+WHERE {
+  ?bell a :Bell .
+  OPTIONAL { ?bell :hasWeight ?weight . }
+  OPTIONAL { ?bell :hasHeight ?height . }
+  OPTIONAL { ?bell :hasDiameter ?diameter . }
+}
+```

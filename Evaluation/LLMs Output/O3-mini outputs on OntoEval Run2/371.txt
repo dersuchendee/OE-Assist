@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that, under the closed‑world assumption, retrieves for a given actor and theatre the employment start date using the reified employment information:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :isEmployedAt ?employment .
+  ?employment a :Cl_Employment, :Cl_Theatre ;
+              :employmentStartDate ?employmentStartDate .
+  # Optionally, add filters to select the specific actor and theatre.
+  # For example:
+  # FILTER(?actor = <http://www.example.org/test#FabioBianchi>)
+}
+ORDER BY ?actor
+—————————————————————————————
+
+In this query the employment is modelled via the reification class :Cl_Employment (which is also a subclass of :Cl_Theatre and :Cl_Date), and the data property :employmentStartDate captures the time when the actor started working at the theatre.

@@ -1,0 +1,43 @@
+**Yes**
+
+Here, the Competency Question (CQ) is answerable because all the necessary classes and properties are present in the ontology, and they are appropriately connected to model the required information. Specifically:
+
+- **Hospital** instances are linked to **AverageLengthOfStayObservation** instances via the `:hasObservation` property.
+- **AverageLengthOfStayObservation** instances are associated with exactly one **Hospital** and one **DiseaseCategory** through the `:isObservationOfHospital` and `:isObservationOfDiseaseCategory` properties, respectively.
+- Each **AverageLengthOfStayObservation** has exactly one average length of stay value captured by the `:hasAverageLengthOfStay` datatype property.
+
+This structure allows us to query for hospitals, their associated average lengths of stay for a particular disease category, and identify the hospital with the longest average length of stay.
+
+Here is the SPARQL query to find the hospital with the longest average length of stay for a particular disease category:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Replace :someDiseaseCategory with the specific disease category URI you're interested in
+SELECT ?hospital ?hospitalLabel ?alLengthOfStay
+WHERE {
+    BIND(:someDiseaseCategory AS ?givenDiseaseCategory)
+    
+    ?observation a :AverageLengthOfStayObservation ;
+                 :isObservationOfDiseaseCategory ?givenDiseaseCategory ;
+                 :isObservationOfHospital ?hospital ;
+                 :hasAverageLengthOfStay ?alLengthOfStay .
+    
+    OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+ORDER BY DESC(?alLengthOfStay)
+LIMIT 1
+```
+
+**Explanation:**
+
+- **BIND(:someDiseaseCategory AS ?givenDiseaseCategory):** Replace `:someDiseaseCategory` with the specific disease category you are investigating.
+- **?observation a :AverageLengthOfStayObservation; ...**: We retrieve observations that are average length of stay observations.
+- **:isObservationOfDiseaseCategory ?givenDiseaseCategory**: We ensure the observation is for the specific disease category.
+- **:isObservationOfHospital ?hospital**: We get the hospital associated with the observation.
+- **:hasAverageLengthOfStay ?alLengthOfStay**: We get the average length of stay value.
+- **OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }**: Optionally retrieve the hospital's label for readability.
+- **ORDER BY DESC(?alLengthOfStay) LIMIT 1**: We order the results by the average length of stay in descending order and limit the results to the top one, which gives us the hospital with the longest average length of stay for the specified disease category.
+
+**Note:** This query assumes that you have instances of **DiseaseCategory**, **Hospital**, and **AverageLengthOfStayObservation** in your dataset, and that the properties connect them as per the ontology definition.

@@ -1,0 +1,56 @@
+Answer: **Yes**
+
+The competency question is supported by the ontology because the ontology includes classes and properties that represent actors, roles, productions, role assignments, and the time periods during which these roles are assigned. This allows us to query the roles a specific person has within a specific production at a specific point in time.
+
+Here is a SPARQL query that retrieves the roles of a certain person within a certain production at a certain point in time. Replace `:SpecifiedPerson`, `:SpecifiedProduction`, and `"specified-date"^^xsd:date` with the actual URIs and date you are inquiring about.
+
+```sparql
+SELECT ?roleLabel
+WHERE {
+  # Replace :SpecifiedPerson with the URI of the person.
+  # Replace :SpecifiedProduction with the URI of the production.
+  # Replace "specified-date"^^xsd:date with the specific date.
+
+  ?roleAssignment a :Cl_ActorRoleAssignment ;
+                  :roleActor :SpecifiedPerson ;
+                  :role ?role ;
+                  :roleStartDate ?startDate ;
+                  :roleEndDate ?endDate .
+
+  FILTER ( ?startDate <= "specified-date"^^xsd:date && "specified-date"^^xsd:date <= ?endDate )
+
+  :SpecifiedProduction :hasRoleAssignment ?roleAssignment .
+
+  ?role rdfs:label ?roleLabel .
+}
+```
+
+If the `:roleEndDate` is not specified (the role is ongoing), the query can be adjusted to handle optional end dates:
+
+```sparql
+SELECT ?roleLabel
+WHERE {
+  ?roleAssignment a :Cl_ActorRoleAssignment ;
+                  :roleActor :SpecifiedPerson ;
+                  :role ?role ;
+                  :roleStartDate ?startDate .
+
+  OPTIONAL { ?roleAssignment :roleEndDate ?endDate . }
+
+  FILTER ( ?startDate <= "specified-date"^^xsd:date &&
+           ( !bound(?endDate) || "specified-date"^^xsd:date <= ?endDate ) )
+
+  :SpecifiedProduction :hasRoleAssignment ?roleAssignment .
+
+  ?role rdfs:label ?roleLabel .
+}
+```
+
+This query works by:
+
+- Selecting role assignments where the actor is the specified person.
+- Ensuring the role assignment is associated with the specified production.
+- Filtering role assignments that are active on the specified date.
+- Retrieving the labels of the roles played.
+
+This query will return the roles that the specified person has within the specified production at the specified point in time.

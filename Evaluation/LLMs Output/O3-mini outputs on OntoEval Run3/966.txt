@@ -1,0 +1,24 @@
+**No**  
+The ontology does include classes representing books, article collections, and articles, and even a property (:containsArticle) for linking an article collection with its articles. However, there is no explicit connection (reification) linking a specific book or CD to the article collection it contains. In other words, although you could (partially) list all articles in any article collection, you cannot “join” a specific book (or CD) with its composition of articles. Under the closed world assumption the CQ is only partially answerable.
+
+A partial SPARQL query extracting article information from available article collections (and books) is for example:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?bookTitle ?article ?articleTitle
+WHERE {
+  ?book rdf:type :Cl_Book ;
+        :bookTitle ?bookTitle .
+  # (Note: the link between the book and its underlying article collection is not defined.)
+  ?collection rdf:type :Cl_ArticleCollection ;
+              :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+}
+ORDER BY ?bookTitle ?articleTitle
+-------------------------------------------------------
+
+This query returns (partial) results but does not guarantee that the articles retrieved are the ones composing the given book or CD.

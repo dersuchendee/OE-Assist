@@ -1,0 +1,23 @@
+Answer: **Yes**
+
+The given ontology defines `:Event` as a union of `:ReligiousEvent` and `:SecularEvent`. Each event instance is classified as either a `:ReligiousEvent` or a `:SecularEvent`, and these two classes are disjoint. This means we can determine whether an event is religious or secular by checking its class membership.
+
+Here is a SPARQL query that retrieves events and identifies whether they are religious or secular:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventTypeLabel
+WHERE {
+  ?event a ?eventType .
+  FILTER(?eventType IN (:ReligiousEvent, :SecularEvent))
+  OPTIONAL { ?eventType rdfs:label ?eventTypeLabel . }
+}
+```
+
+This query does the following:
+- Selects all instances `?event` that are typed as either `:ReligiousEvent` or `:SecularEvent`.
+- Retrieves the label of the event type (`?eventTypeLabel`) if available, which will indicate whether the event is religious or secular.
+
+Since the ontology provides the necessary classifications to distinguish between religious and secular events, and we can write a SPARQL query to retrieve this information, the competency question is supported by the ontology.

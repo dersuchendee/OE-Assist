@@ -1,0 +1,16 @@
+**No**
+
+The current ontology does not represent any property or mechanism to indicate whether a bell (or a set of bells) is played manually, electrically, or using both methods. However, we can partially answer the query by retrieving available sets of bells from the ontology.
+
+Below is a SPARQL query that extracts instances of bell sets (using the bell:SetOfBells class), which would be the starting point for the enquiry:
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX bell: <https://w3id.org/polifonia/ontology/bell/>
+
+SELECT ?setOfBells ?label
+WHERE {
+  ?setOfBells a bell:SetOfBells .
+  OPTIONAL { ?setOfBells rdfs:label ?label . }
+}
+
+This query retrieves all known sets of bells, but note that the ontology does not capture any details on the playing mode (manual, electrical, or both).

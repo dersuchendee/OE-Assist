@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the location (with its name) for the performance that took place on 2006‑08‑11 (as described in the story):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?locationName
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate "2006-08-11T00:00:00"^^xsd:dateTime ;
+               :tookPlaceAt ?location .
+  ?location :locationName ?locationName .
+}
+—————————————————————————————
+
+In this query we assume that the competency question is “What is the geographic location of the performance?” which is answerable using the provided ontology (under a closed world assumption).

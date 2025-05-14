@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that “extracts the answer” from the ontology under closed‐world assumptions. In this example we assume that the competency question is something like “Which performances took place in a given location (for example, Portland) and what is the location hierarchy (city, region, country) associated with them?” The query joins the performance with its performance date and location:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :performanceLocation ?city .
+  ?city a :Cl_City ;
+        :locatedInRegion ?region .
+  ?region a :Cl_Region ;
+         :locatedInCountry ?country .
+  FILTER(?city = :Portland)
+}
+-----------------------------------------------------
+
+This query shows that the ontology supports the competency question, because we can extract complete answers regarding the performance (its date and its hierarchical location) for a given city using the available classes and properties.

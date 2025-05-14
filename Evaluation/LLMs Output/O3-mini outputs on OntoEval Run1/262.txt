@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+SELECT ?play ?playLabel ?startDate ?endDate
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :hasWritingEvent ?writingEvent .
+  ?writingEvent :hasStartDate ?startDate .
+  ?writingEvent :hasEndDate ?endDate .
+}
+ORDER BY ?play
+```

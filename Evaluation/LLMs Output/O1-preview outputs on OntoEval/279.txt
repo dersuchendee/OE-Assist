@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not directly connect `:Cl_Play` to any property that provides the play's title, making it impossible to specify a certain play by name in the query. However, we can retrieve the creation periods of plays in general.
+
+```sparql
+SELECT ?play ?creationPeriod
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :wasWrittenDuring ?creation .
+  ?creation :creationPeriod ?creationPeriod .
+}
+```
+
+This query retrieves plays and their associated creation periods, but without the ability to identify a specific play by title, we cannot fully answer the competency question.

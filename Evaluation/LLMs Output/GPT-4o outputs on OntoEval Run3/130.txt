@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to link plays to a specific theatre festival. The ontology includes classes and properties related to festivals, plays, and their appearances, but it lacks a direct connection between a specific festival and the plays that can be seen during it. Here's a SPARQL query to extract a partial answer, which lists the plays and their appearances, but not linked to a specific festival:
+
+```sparql
+SELECT ?play ?title
+WHERE {
+  ?playAppearance a :Cl_PlayAppearance .
+  ?playAppearance :isPlayOf ?play .
+  ?play :hasTitle ?title .
+}
+```

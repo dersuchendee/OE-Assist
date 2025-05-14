@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed‐world view, we can “check” that every production (i.e. every instance of :Cl_Production) is associated with exactly one premier date via the property :hasPremierDate. For example, the following SPARQL query returns those productions that meet the “exactly one premier” constraint:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierDate ?premierDate .
+}
+GROUP BY ?production ?premierDate
+HAVING (COUNT(?premierDate)=1)
+--------------------------------------------------
+
+Under the closed‐world assumption the query assumes all premier dates are explicitly listed in the ontology. Hence the competency question “A production has exactly one premier” is fully answerable with this SPARQL query.

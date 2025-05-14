@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a role in a band at a specific point in time. The ontology includes classes for Person, Band, Role, and BandMembership, but it lacks a direct connection between these classes that would allow for querying the role of a person in a band at a specific time. The BandMembership class is a subclass of Person, Band, and Role, but it does not have properties that connect these entities in a way that would allow for the desired query.
+
+Partial answer:
+```sparql
+SELECT ?person ?band ?role
+WHERE {
+  ?membership a :Cl_BandMembership .
+  ?membership :membershipOfPerson ?person .
+  ?membership :membershipInBand ?band .
+  ?membership :playsRole ?role .
+}
+```

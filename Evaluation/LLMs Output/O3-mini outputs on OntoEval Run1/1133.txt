@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?indoorLocation ?indoorLabel ?device ?deviceLabel
+WHERE {
+  ?indoorLocation a :IndoorLocation .
+  OPTIONAL { ?indoorLocation rdfs:label ?indoorLabel . }
+  ?indoorLocation :hasDevice ?device .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+}
+```
+
+The query retrieves all indoor locations and their associated devices, which answers the competency question "What devices are available in this indoor location?" under a closed world assumption on the given ontology.

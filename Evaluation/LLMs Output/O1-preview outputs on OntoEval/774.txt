@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+The competency question "What medical degrees does a certain person have?" is supported by the ontology because it includes the necessary classes (`Cl_Person`, `Cl_MedicalDegree`) and the property `hasMedicalDegree` that relates a person to their medical degrees. Additionally, the datatype property `degreeName` allows us to retrieve the names of these degrees.
+
+```sparql
+SELECT ?person ?medicalDegree ?degreeName
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?medicalDegree .
+  ?medicalDegree :degreeName ?degreeName .
+}
+```
+
+This SPARQL query selects all persons and their associated medical degrees, retrieving the degree names for each. It leverages the `hasMedicalDegree` property to link a person with their medical degrees as defined in the ontology.

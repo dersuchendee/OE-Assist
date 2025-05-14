@@ -1,0 +1,39 @@
+**No**
+
+The ontology does include classes and properties for persons, union membership, and union roles (via :hasRole and :memberOf), but it does not explicitly link a union role instance to a specific union group. In our CQ the answer must “know” the role that a person holds within a specific union group at a given time. Although we can retrieve a person’s union role from the :hasRole property (with associated roleStartDate and roleEndDate for the temporal aspect) and a person’s union membership from the :memberOf property (with the linked :union identifying the union group), there is no specified connection in the ontology between the union role (in :Cl_UnionRole) and the union group (in :Cl_Union) via the membership. As a consequence the CQ is only partially answerable: one can extract the role a person holds and then separately the union the person is a member of, but the ontology does not “model” that the specific role applies to that union membership.
+
+A partial SPARQL query that attempts to extract the available answer might be as follows (assuming closed‐world reasoning and that the given person and union group are provided by their URIs):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :union ?union .
+  
+  OPTIONAL {
+    ?person :hasRole ?unionRole .
+    ?unionRole :role ?role .
+    ?unionRole :roleStartDate ?roleStartDate .
+    ?unionRole :roleEndDate ?roleEndDate .
+    FILTER (
+      ?givenTime >= ?roleStartDate && ?givenTime <= ?roleEndDate
+    )
+  }
+  
+  FILTER( ?person = <http://www.example.org/test#PasqualeDiGennaro> &&
+          ?union = <http://www.example.org/test#MaleNursesUnion> )
+  
+  BIND( "2002-01-01T00:00:00"^^xsd:dateTime AS ?givenTime )
+}
+------------------------------------------------------------
+
+In this query we try to:
+1. Retrieve a specific person (e.g., Pasquale Di Gennaro).
+2. Retrieve his union membership with a union group (e.g., MaleNursesUnion).
+3. Optionally, retrieve his union role (and its temporal boundaries) that falls on the given time.
+
+Because the connection between the union role and the union group is not explicitly modeled, the query only produces a partial answer.

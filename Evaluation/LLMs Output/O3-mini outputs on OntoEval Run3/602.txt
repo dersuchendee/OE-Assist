@@ -1,0 +1,14 @@
+**No**  
+Even though the ontology contains the class for songs (:Cl_Song) and a data property for the composed date (:composedDate), there isn’t a reified construct (i.e. a dedicated reification class linking all relevant aspects) that fully captures the CQ “When was a certain song composed?” under the intended reification pattern. Under the closed‐world assumption, we can only extract a partial answer directly via the property attached to the song.
+
+Partial answer SPARQL query:
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?composedDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedDate ?composedDate .
+}
+----------------------------------------------------------------

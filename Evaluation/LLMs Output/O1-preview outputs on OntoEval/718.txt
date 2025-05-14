@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+The competency question can be answered using the ontology provided because cities are connected to regions through the properties `:locatedInRegion` and `:regionIncludes`. Here is the SPARQL query to retrieve the regions in which cities are located:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedInRegion ?cityRegion .
+  ?cityRegion :regionIncludes ?region .
+}
+```

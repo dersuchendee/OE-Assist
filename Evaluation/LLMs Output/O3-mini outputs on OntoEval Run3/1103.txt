@@ -1,0 +1,17 @@
+**Yes**
+Below is one possible SPARQL query that, under the closed‐world assumption, returns every seminar (of type :Cl_Seminar) along with the articles that were presented in it—thus showing that each seminar has at least one article presented.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar (COUNT(?article) AS ?articleCount)
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article :presentedIn ?seminar .
+}
+GROUP BY ?seminar
+HAVING (?articleCount >= 1)
+------------------------------------------------
+
+Because the ontology includes an OWL restriction on :Cl_Seminar stating a minimum cardinality of 1 for the property :presentedIn, the CQ “At least one article is always presented at each seminar” is indeed answerable by the ontology.

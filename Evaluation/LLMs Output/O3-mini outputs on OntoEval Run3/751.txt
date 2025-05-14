@@ -1,0 +1,18 @@
+**No**
+
+The ontology does define a record class (:Cl_Record) and a property (:containsTrack) that relates records with tracks (via :Cl_RecordTrack), but it does not entail (under a closed‐world assumption) that every record must have at least one track. In other words, there is no cardinality/restriction axiom ensuring that every instance of :Cl_Record is linked via :containsTrack to at least one instance. 
+
+A partial check of this competency question could be done by finding records that do not have any track. For example, the following SPARQL query retrieves all records that lack a track association:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record
+WHERE {
+  ?record a :Cl_Record .
+  FILTER NOT EXISTS { ?record :containsTrack ?track . }
+}
+-------------------------------------------------
+
+If any records are returned by this query, then the CQ “A record always contains at least one track” is not fully supported by the ontology.

@@ -1,0 +1,20 @@
+**Answer: Yes**
+
+The competency question is answerable because the ontology includes the necessary classes and properties to retrieve the number of acts a play contains. Specifically, the ontology defines the `:containsActs` object property linking `:Cl_Play` to `:Cl_PlayActs`, and the data property `:numberOfActs` to obtain the number of acts.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?playName ?numberOfActs
+WHERE {
+  ?play rdf:type :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  ?play :containsActs ?acts .
+  ?acts :numberOfActs ?numberOfActs .
+}
+```
+
+This query selects plays, their names (if available), and the number of acts they contain by navigating the relationships defined in the ontology.

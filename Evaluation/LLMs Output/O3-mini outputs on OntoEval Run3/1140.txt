@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming a designated instance (e.g., :CurrentUser) represents the current user, the following SPARQL query retrieves the preferred movie categories (using the reification class Cl_UserPreference) for the current user:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?categoryName
+WHERE {
+  :CurrentUser :hasPreference ?preference .
+  ?preference :prefersMovieCategory ?movieCategory .
+  ?movieCategory :hasCategoryName ?categoryName .
+}
+------------------------------------------------
+
+This query meets the competency question by extracting the movie categories preferred by the current user based on the ontology’s reification structure.

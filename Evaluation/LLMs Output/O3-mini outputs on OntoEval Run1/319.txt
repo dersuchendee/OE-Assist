@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the production premiere date of a particular production (e.g. “The Merchant of Venice at The Grand Theatre”) by retrieving instances of the class production premier and their associated premier date:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?premiere ?productionName ?premierDate
+WHERE {
+  ?premiere a :Cl_ProductionPremier ;
+            :hasPremierDate ?premierDate ;
+            :hasProduction ?production .
+  OPTIONAL { ?production :productionName ?productionName . }
+}
+ORDER BY ?premierDate
+--------------------------------------------------
+
+This query uses the property :hasPremierDate (modeled on the Cl_ProductionPremier class) to extract the premiere date of productions as modeled in the ontology.

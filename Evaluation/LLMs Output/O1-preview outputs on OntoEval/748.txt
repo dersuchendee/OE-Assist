@@ -1,0 +1,53 @@
+**Yes**
+
+The competency question "A record always contains at least one track" is supported by the ontology. In the ontology, the class `:Album` is defined with a minimum cardinality restriction on the `:hasTrack` property, ensuring that every album must have at least one track. Specifically:
+
+```turtle
+:Album a owl:Class ;
+    rdfs:label "Album" ;
+    rdfs:comment "An Album is a collection of Tracks released together under a single title." ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasTrack ;
+        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass :Track
+    ] .
+```
+
+This means that any instance of `:Album` must be associated with at least one `:Track` via the `:hasTrack` property.
+
+Here is a SPARQL query to retrieve all albums and their tracks, confirming that every album has at least one track:
+
+```sparql
+SELECT ?album ?albumTitle (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :hasTrack ?track .
+}
+GROUP BY ?album ?albumTitle
+HAVING (COUNT(?track) >= 1)
+```
+
+This query selects all albums, their titles, and counts the number of associated tracks. The `HAVING` clause ensures that only albums with one or more tracks are included. Since the ontology enforces that every album must have at least one track, this query will return all albums in the dataset, demonstrating that the competency question is satisfied.
+
+Alternatively, to check for any albums that might violate this rule (which should not exist due to the ontology's constraints), you can use the following query:
+
+```sparql
+SELECT ?album ?albumTitle
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle .
+  FILTER NOT EXISTS { ?album :hasTrack ?track . }
+}
+```
+
+If this query returns no results, it confirms that there are no albums without tracks, which aligns with the competency question.
+
+**Explanation:**
+
+- The ontology uses a **minimum cardinality restriction** on the `:hasTrack` property for the `:Album` class, enforcing that every album must be related to at least one track.
+- Under the **closed world assumption**, we consider the provided data to be complete. As such, the ontology and dataset adequately represent that all albums contain at least one track.
+- The SPARQL queries verify this by attempting to find albums without tracks (returning none) and listing albums with their track counts (confirming one or more tracks per album).
+
+**Therefore, the competency question is fully supported by the ontology.**

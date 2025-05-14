@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?festivalName ?dateValue
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName .
+  ?festivalDate a :Cl_FestivalDate ;
+                :hasFestival ?festival ;
+                :hasDate ?date .
+  ?date :festivalDate ?dateValue .
+}
+```

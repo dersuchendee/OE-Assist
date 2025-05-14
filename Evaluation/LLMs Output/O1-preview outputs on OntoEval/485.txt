@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?role
+WHERE {
+  # Bind the specific person, band, and time
+  BIND(:PersonX AS ?person) .
+  BIND(:BandY AS ?band) .
+  BIND("2021-01-01"^^xsd:date AS ?time) .
+
+  # Find the membership of the person in the band
+  ?person :hasMembership ?membership .
+  ?membership :membershipIn ?band .
+  ?membership :hasRole ?role .
+  ?membership :membershipStart ?startDate .
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+
+  # Check if the membership was active at the given time
+  FILTER (
+    ?startDate <= ?time &&
+    ( !bound(?endDate) || ?endDate >= ?time )
+  )
+}
+```

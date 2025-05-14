@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology defines a class for songs (Cl_Song) and a data property (compositionDate) with domain Cl_Song. Therefore, we can extract the composition date for a song (e.g., “Hump de Bump”) using a SPARQL query under the closed world assumption. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song rdf:type :Cl_Song .
+  ?song :compositionDate ?compositionDate .
+  FILTER(?song = :HumpDeBump)
+}
+
+This query returns the composition date for the specified song, which answers the competency question "When was a certain song composed?"

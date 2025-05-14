@@ -1,0 +1,31 @@
+**Answer: Yes**
+
+The competency question "When was a certain book or CD published?" is supported by the ontology. This is because the ontology includes classes for `:Cl_Book`, `:Cl_CD`, and `:Cl_ArticleCollection`, where `:Cl_ArticleCollection` is a subclass of both `:Cl_Book` and `:Cl_CD`. Additionally, the ontology defines the data property `:publicationDate` for instances of `:Cl_ArticleCollection`.
+
+Here is a SPARQL query to retrieve books or CDs and their publication dates:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  # Find items that are instances of classes related to Cl_Book or Cl_CD
+  ?item a ?type .
+  ?type rdfs:subClassOf* ?superType .
+  FILTER (?superType = :Cl_Book || ?superType = :Cl_CD) .
+
+  # Get the publication date of the item
+  ?item :publicationDate ?publicationDate .
+}
+```
+
+This query works as follows:
+
+- It selects all `?item` that are instances of a class `?type` which is a subclass (direct or indirect) of `:Cl_Book` or `:Cl_CD`. The `rdfs:subClassOf*` path expression is used to include all subclasses recursively.
+- It filters the results to ensure that the superclasses are either `:Cl_Book` or `:Cl_CD`.
+- It retrieves the `:publicationDate` of each `?item`.
+
+**Explanation:**
+
+Given the sample data in the ontology, the query would return `:Book_1` along with its publication date `"2008-01-01"^^xsd:date`, since `:Book_1` is an instance of `:Cl_ArticleCollection`, which is a subclass of both `:Cl_Book` and `:Cl_CD`.

@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?person ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrumentPlaying .
+  ?instrumentPlaying a :Cl_InstrumentPlaying .
+  ?instrument :playedBy ?instrumentPlaying .
+  ?instrument a :Cl_Instrument .
+}
+```

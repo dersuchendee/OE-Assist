@@ -1,0 +1,25 @@
+**Yes**
+
+The ontology includes a reified membership class (Cl_Membership) that links an ensemble (Cl_Ensemble) with its members (Cl_Member) at a given time (Cl_Time) using the properties :ensembleInMembership, :memberInMembership, and :atTime. Under the closed world assumption, we assume that only the explicitly asserted facts are true. That makes it possible to query for the members that belong to a given ensemble at a specific time.
+
+For example, here’s a SPARQL query where you need to supply the ensemble identifier (e.g., :SomeEnsemble) and a given time (e.g., "2009-09-15"^^xsd:date):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel
+WHERE {
+  ?membership a :Cl_Membership ;
+              :ensembleInMembership :SomeEnsemble ;
+              :atTime ?time ;
+              :memberInMembership ?member .
+  FILTER ( ?time = "2009-09-15"^^xsd:date )
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+----------------------------------------------------------------
+
+This query extracts all the members associated with the specified ensemble at the given time, thereby answering the competency question.

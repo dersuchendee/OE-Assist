@@ -1,0 +1,22 @@
+**Yes**
+Below is an example SPARQL query that retrieves where a specific performance took place by following the links from a Cl_Performance instance to its venue and further location details:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?venue ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :takesPlaceIn ?venue .
+  OPTIONAL { ?venue :locatedIn ?city . }
+  OPTIONAL { ?city :isLocatedIn ?region . }
+  OPTIONAL { ?region :isPartOf ?country . }
+  
+  # For a particular performance, e.g., PortlandPerformance:
+  FILTER(?performance = :PortlandPerformance)
+}
+---------------------------------------
+
+This query demonstrates that the ontology supports answering the competency question "Where did a certain performance take place?" under a closed world assumption.

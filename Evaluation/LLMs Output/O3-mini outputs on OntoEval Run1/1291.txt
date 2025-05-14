@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not explicitly model or reify the relation among participants—that is, it does not provide specific properties or classes describing the nature or characteristics of the relationship between participants apart from their common involvement in events. Under a closed world assumption, we can only partially answer the CQ by retrieving pairs of persons that have participated in the same event.
+
+Below is a SPARQL query that extracts pairs of different participants who co-participated in the same event:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?event ?p1 ?p1Label ?p2 ?p2Label
+WHERE {
+  ?event a :Event .
+  ?event :hasParticipant ?p1 .
+  ?event :hasParticipant ?p2 .
+  FILTER(?p1 != ?p2)
+  OPTIONAL { ?p1 rdfs:label ?p1Label . }
+  OPTIONAL { ?p2 rdfs:label ?p2Label . }
+}
+ORDER BY ?event ?p1 ?p2
+
+This query provides a partial answer by listing events along with participant pairs, but it does not fully capture “how” their relation is characterized (e.g., nature, quality, or type of interaction) as that information is not modeled in the ontology.

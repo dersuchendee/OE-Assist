@@ -1,0 +1,23 @@
+**Yes**
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the text (and date) of a review written by a given critic about a specific record. In this example we assume that the critic’s name and the record’s identifier (or label) are available.
+
+For instance, if we want to know what review text critic “Crian Hiatt” provided about record “Stadium Arcadium,” the query could be written as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?reviewText ?reviewDate
+WHERE {
+  ?review a :Cl_Review ;
+          :reviewText ?reviewText ;
+          :reviewDate ?reviewDate ;
+          :givenBy ?critic ;
+          :about ?record .
+  ?critic :name ?criticName .
+  ?record :albumName ?recordName .
+  FILTER(?criticName = "Crian Hiatt" && ?recordName = "Stadium Arcadium")
+}
+------------------------------------------------
+
+This query works because the ontology models reviews through the class Cl_Review and links reviews to critics (via :givenBy) and records (via :about). Thus, the competency question “What does a certain critic say about a certain record?” is fully answerable using the ontology.

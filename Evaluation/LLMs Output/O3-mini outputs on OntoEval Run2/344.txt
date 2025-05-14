@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for each production, the star rating provided by a specific newspaper (for example “Il Gazzettino”). (Note: Under the closed‐world assumption, only those productions that explicitly have a newspaper rating will be returned.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :ratedBy ?rating .
+  ?rating a :Cl_NewspaperRating .
+  ?rating :starRating ?starRating .
+  ?rating rdfs:label ?newspaper .
+  FILTER(?newspaper = "Il Gazzettino")
+}
+
+In this query the property “ratedBy” connects a production to an instance of the reified class Cl_NewspaperRating. The data property “starRating” on that rating instance provides the star rating. The query further filters the ratings to only those given by the specific newspaper “Il Gazzettino.”

@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a play was written. The ontology includes information about plays, authors, and various events related to theatre productions, but it lacks specific properties or classes that capture the time period of when a play was written.
+
+However, we can extract partial information about the play "The Merchant of Venice" and its associated time period using the available data:
+
+```sparql
+SELECT ?play ?playName ?startDate ?endDate
+WHERE {
+  ?play rdf:type :Cl_PlayTimePeriod .
+  ?play :hasPlay :Play_TheMerchantOfVenice .
+  ?play :hasTimePeriod ?timePeriod .
+  ?timePeriod :festivalDate ?startDate, ?endDate .
+  :Play_TheMerchantOfVenice :playName ?playName .
+}
+```
+
+This query retrieves the play "The Merchant of Venice" and its associated time period, but it does not directly answer the competency question about the time period during which the play was written.

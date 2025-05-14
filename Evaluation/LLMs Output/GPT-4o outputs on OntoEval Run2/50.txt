@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What are the actors involved in this circular value network?" can be answered using the ontology provided. The ontology defines a `ValueNetwork` class and an `Actor` class, with an object property `hasActor` that relates a value network to its actors. Therefore, we can write a SPARQL query to extract the actors involved in a circular value network.
+
+```sparql
+SELECT ?valueNetwork ?actor
+WHERE {
+  ?valueNetwork a :ValueNetwork .
+  ?valueNetwork :hasActor ?actor .
+}
+```

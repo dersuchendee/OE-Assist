@@ -1,0 +1,42 @@
+**Yes**
+
+The competency question, "When was a certain person first employed at a certain hospital?", is answerable using the provided ontology. The ontology contains the necessary classes and properties to model persons, hospitals, employments, and employment start dates.
+
+Here's a SPARQL query that retrieves the earliest employment start date of a specific person at a specific hospital:
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?firstEmploymentDate
+WHERE {
+  ?employment a :Employment ;
+              :hasEmployee :PersonX ;
+              :hasEmployer :HospitalY ;
+              :employmentStartDate ?startDate .
+}
+ORDER BY ?startDate
+LIMIT 1
+```
+
+Replace `:PersonX` with the URI of the specific person (e.g., `:Pasquale_Di_Gennaro`), and `:HospitalY` with the URI of the specific hospital (e.g., `:Ospedale_Riunito_delle_Tre_Valli`). This query retrieves the earliest (first) employment start date of the person at the hospital by ordering the start dates and limiting the result to the first entry.
+
+**Explanation:**
+
+- **Classes Used:**
+  - `:Person`: Represents individuals.
+  - `:Hospital`: Represents hospitals and is a subclass of `:Organization`.
+  - `:Employment`: Represents employment events linking a person to an organization with a start date.
+
+- **Properties Used:**
+  - `:hasEmployee`: Relates an employment to the person who is employed.
+  - `:hasEmployer`: Relates an employment to the organization (hospital) that employs.
+  - `:employmentStartDate`: The date when the employment began.
+
+- **Query Logic:**
+  - Find all employment instances where the `:hasEmployee` is the specific person and `:hasEmployer` is the specific hospital.
+  - Retrieve the `:employmentStartDate` for these employments.
+  - Order the results by `?startDate` to get the earliest date.
+  - Use `LIMIT 1` to get the first (earliest) employment start date.
+
+This query leverages the ontology's structure to directly answer the competency question, satisfying the requirement under the closed-world assumption.

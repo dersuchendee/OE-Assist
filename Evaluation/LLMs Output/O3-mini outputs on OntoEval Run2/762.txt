@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves, for every monitoring point, the physical parameters measured and the measurement time and value, thereby answering the competency question under the closed‐world assumption:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+  
+  ?monitoringPoint :hasMeasurement ?measurement .
+  
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+  
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+--------------------------------------------------
+
+This query uses the ontology’s definitions for MonitoringPoint, Measurement, and PhysicalParameter to extract the recording times, values, and associated physical parameters at each monitoring point, and thus fully supports the given competency question.

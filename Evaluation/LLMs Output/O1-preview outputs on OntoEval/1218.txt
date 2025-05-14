@@ -1,0 +1,22 @@
+Answer: **Yes**
+
+The competency question is supported by the ontology because we can query which processes (roles) aquifer fungi play in the biogeochemical cycling within aquifers. Specifically, the ontology defines that "Fungi" (which are microbes occupying aquifers) play a role in "Biogeochemical Cycle in Aquifer."
+
+Here is the SPARQL query to extract this information:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?processLabel
+WHERE {
+  :Fungi rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty :playsRoleIn ;
+               owl:someValuesFrom ?process .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+}
+```
+
+This query retrieves the process(es) that "Fungi" play a role in, which, according to the ontology, is "Biogeochemical Cycle in Aquifer." The `rdfs:label` provides a human-readable label of the process.

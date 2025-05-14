@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming closed-world reasoning, the ontology explicitly models seminars using the class Cl_Seminar and indicates where a seminar is held via the property heldIn—for example, the individual :SeminarOnNursePractices is linked to the hospital :OspedaleRiunitoDelleTreValli. Based on this, the following SPARQL query retrieves the venue of seminars:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?venue ?venueLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :heldIn ?venue .
+  OPTIONAL { ?venue rdfs:label ?venueLabel . }
+}  
+
+This query answers the CQ “Where did a certain seminar take place?” by returning the seminars and the venues at which they are held.

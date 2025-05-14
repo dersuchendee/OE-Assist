@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?publication ?publicationLabel ?article ?articleLabel
+WHERE {
+    # Find books or CDs
+    ?publication a ?publicationType .
+    VALUES ?publicationType (:Cl_Book :Cl_CD) .
+    OPTIONAL { ?publication rdfs:label ?publicationLabel . }
+    
+    # Find articles contained in the book or CD
+    ?publication :containsArticle ?article .
+    OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+This SPARQL query retrieves the articles that each specific book or CD is composed of, utilizing the `:containsArticle` property defined in the ontology. The query filters for instances that are either `:Cl_Book` or `:Cl_CD` and retrieves their associated articles. It aligns directly with the given competency question, demonstrating that the ontology adequately models the required information.

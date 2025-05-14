@@ -1,0 +1,18 @@
+**Yes**
+
+We can extract the premier date(s) of a production by using the link between a production, its premier, and the premier’s date. For example, assuming that each production in the ontology has one premier (as modelled by the ProductionWithOnePremier restriction), one SPARQL query is:
+
+--------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?premierDate
+WHERE {
+  ?production a theatre:Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production theatre:hasPremier ?premier .
+  ?premier theatre:hasPremierDate ?premierDate .
+}
+--------------------------------------------------
+
+This query returns, for each production, the date of its premier. Under the closed world assumption all the information needed is asserted, so the CQ “When was the premier of a certain production?” is fully supported by the ontology.

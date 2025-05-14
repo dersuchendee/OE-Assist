@@ -1,0 +1,25 @@
+**No**
+
+The ontology only captures calendar events and their associated time periods (with startTime and endTime) but it does not explicitly represent "free" time periods. Under the closed world assumption, we can extract the busy intervals (i.e. the events) and then deduce that any time outside of these intervals (within the day) is free. However, the ontology lacks the constructs to directly infer or compute these free time intervals.
+
+Below is a SPARQL query that extracts the busy time periods for a user's calendar, which provides partial information relevant to the CQ:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?calendar ?start ?end
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasEvent ?event .
+  ?event :eventTime ?timePeriod .
+  ?timePeriod :startTime ?start ;
+              :endTime ?end .
+  FILTER (STRSTARTS(STR(?start), "T") && STRSTARTS(STR(?end), "T"))
+}
+ORDER BY ?user ?start
+-------------------------------------------------
+
+This query lists the events with their startTime and endTime. From these results, the free time periods would need to be deduced externally.

@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+```
+
+This query retrieves each seminar along with an article that was presented there. Under the closed world assumption, if a seminar appears in the data without any presented article, it would violate the intended modeling constraint that every seminar must present at least one article.

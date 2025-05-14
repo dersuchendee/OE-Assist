@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world interpretation, retrieves for a given person the medical degrees they hold. In this ontology the association between a person and a medical degree is modelled both directly (using the property “:hasMedicalDegree” with domain :Cl_Person and range :Cl_MedicalDegree) and via reification (through the reified class “:Cl_PersonDegreeStudy” that is a subclass of both :Cl_Person and :Cl_MedicalDegree and is linked to a study period). One acceptable query is to retrieve the direct relation (which is “in sync” with the reified information):
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?degree ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasMedicalDegree ?degree .
+  OPTIONAL {
+    ?studyRecord a :Cl_PersonDegreeStudy ;
+                 :hasStudyPeriod ?studyPeriod ;
+                 :hasMedicalDegree ?degree .
+    ?studyPeriod :studyStartDate ?studyStartDate ;
+                 :studyEndDate ?studyEndDate .
+    # Assume that the reification record is associated with the person,
+    # for example via a data property or assertion (if explicitly modelled)
+  }
+}
+---------------------------------------------------------------
+
+This query returns for each person (or “a certain person” you may further filter by a known identifier or label) the medical degree(s) registered along with study period details (if available). Since every class and datatype mentioned in the CQ is connected to a reification class (here, :Cl_PersonDegreeStudy), the competency question – “What medical degrees does a certain person have?” – is fully answerable by this ontology.

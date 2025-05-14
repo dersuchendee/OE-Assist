@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What events of a specific event category, e.g. movies, are available during a certain time period?" can be answered using the given ontology. The ontology provides classes and properties to represent events, event categories, and time periods, which are necessary to formulate a SPARQL query to extract the required information.
+
+```sparql
+SELECT ?event ?eventLabel ?startTime ?endTime
+WHERE {
+  ?event a :Movie .
+  ?event :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime .
+  ?timePeriod :hasEndTime ?endTime .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+```

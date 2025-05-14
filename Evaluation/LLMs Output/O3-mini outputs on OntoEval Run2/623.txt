@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?critiqueText
+WHERE {
+  ?critic rdf:type :Cl_Critic .
+  ?critic :criticizes ?critique .
+  ?critique :critiqueOf ?record .
+  ?critique :critiqueText ?critiqueText .
+  
+  # Replace with the specific critic and record IRIs as necessary:
+  FILTER(?critic = :Crian_Hiatt && ?record = :RecordX)
+}
+```

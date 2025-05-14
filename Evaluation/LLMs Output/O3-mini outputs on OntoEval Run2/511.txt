@@ -1,0 +1,15 @@
+**Yes**
+Below is one possible SPARQL query that retrieves, for a given album, the time period during which it was recorded:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recordingTimePeriod ?timePeriodLabel
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+
+  ?album :recordedDuring ?albumRecording .
+  ?albumRecording :recordingTimePeriod ?recordingTimePeriod .
+  OPTIONAL { ?recordingTimePeriod rdfs:label ?timePeriodLabel. }
+}

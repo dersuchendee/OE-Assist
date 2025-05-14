@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?seminar ?hospital ?city ?country
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :takesPlaceAt ?hospital .
+  OPTIONAL {
+    ?hospital :locatedIn ?city .
+    OPTIONAL {
+      ?city :locatedIn ?country .
+    }
+  }
+}
+```

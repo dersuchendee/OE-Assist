@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that retrieves performances and their associated time (using the “performedDuring” property):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?time
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedDuring ?time .
+}
+ORDER BY ?time
+-------------------------------------------------
+
+This query shows that the ontology supports the competency question “When did a certain performance take place?” since the performance’s date is explicitly modelled with the “performedDuring” property.

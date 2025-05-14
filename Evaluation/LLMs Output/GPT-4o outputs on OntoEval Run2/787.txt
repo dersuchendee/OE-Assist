@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for specific medical degrees associated with a person. The ontology includes a class for medical degrees and a reification class for person-degree relationships, but it lacks a direct property or connection to query specific degrees for a person. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?degreeTitle
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasDegree ?personDegree .
+  ?personDegree :degreeType ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+}
+```

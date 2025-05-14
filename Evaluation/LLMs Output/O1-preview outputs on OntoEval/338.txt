@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?starRating
+WHERE {
+  ?production rdf:type :Cl_TheatreProduction .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production :op_hasReview ?review .
+  ?review :op_reviewedBy ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+  
+  ?review :dp_starRating ?starRating .
+}
+```

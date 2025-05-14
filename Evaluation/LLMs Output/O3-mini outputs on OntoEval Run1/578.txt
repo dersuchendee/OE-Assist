@@ -1,0 +1,12 @@
+**Yes**
+
+A SPARQL query that retrieves, for each track, the song it is recorded from is as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track rdf:type :Cl_Track .
+  ?track :isRecordingOf ?song .
+}

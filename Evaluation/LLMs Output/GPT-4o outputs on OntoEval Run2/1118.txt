@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate specific events with both a time and a day of the week. The ontology includes classes for events, time intervals, and days of the week, but it lacks a direct connection between these elements to answer the competency question fully. Here's a SPARQL query to extract a partial answer, focusing on events and their associated time intervals:
+
+```sparql
+SELECT ?event ?timeInterval
+WHERE {
+  ?event a :Cl_BathroomEvent .
+  ?event :op_hasTime ?timeInterval .
+}
+```

@@ -1,0 +1,20 @@
+**No**
+
+The ontology provided lacks the necessary connections and properties to fully support the competency question: *"Who are the members of a certain union at a certain point in time?"* Specifically, the ontology does not adequately link employees to unions with explicit time periods for their memberships.
+
+Here's a SPARQL query to extract a partial answer (listing employees and the unions they are associated with, without time constraints):
+
+```sparql
+SELECT ?employee ?union
+WHERE {
+  ?employee rdf:type :Cl_Employee .
+  ?union rdf:type :Cl_Union .
+  ?union :hasMember ?member .
+  ?member :memberOf ?union .
+  ?employee :hasUnionMembership ?membership .
+  ?membership a :Cl_UnionMembership .
+  ?membership :hasMember ?member .
+}
+```
+
+This query retrieves employees and the unions they are associated with but does not factor in the time periods of their membership due to the missing connections in the ontology.

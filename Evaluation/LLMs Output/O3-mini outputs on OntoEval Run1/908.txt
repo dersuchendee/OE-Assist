@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query. In this query we assume that a given person, a given union group, and a time‐point are provided (using placeholder IRIs and a literal for the time). The query uses the reified union role assignment (i.e. instances of :Cl_UnionRoleAssignment) to find the role that the person holds in that union group that is effective at the given time (assuming that an assignment is “active” if its start date is before the queried time):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?startDate
+WHERE {
+  # Select the person of interest
+  ?person a :Cl_Person ;
+          :hasUnionRoleAssignment ?assignment .
+  
+  # The union role assignment connects the person to a union group
+  ?assignment :isAssignmentInUnionGroup ?unionGroup ;
+              :isAssignmentOfRole ?role ;
+              :startDate ?startDate .
+
+  # Apply the closed-world filter: check that the person and union group are the ones we are interested in
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro> &&
+         ?unionGroup = <http://www.example.org/test#MaleNurseUnion> &&
+         # Check that the queried time is on or after the assignment start date
+         "2003-01-01T00:00:00"^^xsd:dateTime >= ?startDate)
+}
+---------------------------------
+
+Replace the URIs (<http://www.example.org/test#PasqualeDiGennaro> and <http://www.example.org/test#MaleNurseUnion>) and the time literal with the appropriate values for your query context.

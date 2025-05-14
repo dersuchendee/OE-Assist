@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" is modeled by the ontology. The ontology includes an OWL restriction that specifies that every instance of `:Seminar` must have at least one `:hasArticle` relationship to an `:Article`. This is represented by the `owl:someValuesFrom` restriction on the `:hasArticle` property for the `:Seminar` class.
+
+Here is a SPARQL query that retrieves all seminars and their associated articles, confirming that each seminar has at least one article:
+
+```sparql
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasArticle ?article .
+}
+```
+
+This query selects all instances of `:Seminar` and their associated `:Article` instances via the `:hasArticle` property. Under the closed world assumption, if all seminars return at least one article, it confirms that the ontology successfully models the competency question.

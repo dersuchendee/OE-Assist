@@ -1,0 +1,27 @@
+**Yes**
+
+The competency question "Who built and/or renovated an organ?" is answerable by the ontology because it includes the relevant classes and properties to model this query. Specifically:
+
+- The ontology defines the class `:Organ`.
+- It includes the object properties `:builtBy` (linking an `:Organ` to an `:OrganBuilder`) and `:renovatedBy` (linking an `:Organ` to a `:Person`).
+- The classes `:OrganBuilder` (a subclass of `:Person`) and `:Person` are defined.
+
+These elements allow us to construct a SPARQL query to retrieve organs along with their builders and renovators.
+
+```sparql
+SELECT DISTINCT ?organ ?organLabel ?builder ?builderLabel ?renovator ?renovatorLabel
+WHERE {
+    ?organ a :Organ .
+    OPTIONAL { ?organ rdfs:label ?organLabel . }
+    OPTIONAL { 
+        ?organ :builtBy ?builder .
+        OPTIONAL { ?builder rdfs:label ?builderLabel . }
+    }
+    OPTIONAL { 
+        ?organ :renovatedBy ?renovator .
+        OPTIONAL { ?renovator rdfs:label ?renovatorLabel . }
+    }
+}
+```
+
+This query retrieves all instances of `:Organ` and, where available, their associated builders and renovators, including any labels for better readability.

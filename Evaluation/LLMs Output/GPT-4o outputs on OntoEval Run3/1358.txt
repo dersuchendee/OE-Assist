@@ -1,0 +1,19 @@
+**No**
+
+The ontology provided does not contain any properties or classes that directly relate to the movement of an organ to another location. The ontology primarily describes the structure and components of organs, as well as their relationships and roles. There is no explicit mention of actions or events related to moving organs.
+
+Partial SPARQL query to extract related information:
+
+```sparql
+SELECT ?organ ?action ?location
+WHERE {
+  ?organ a <https://w3id.org/polifonia/ontology/organs/Organ> .
+  OPTIONAL {
+    ?organ <https://w3id.org/arco/ontology/core/includesPart> ?action .
+    ?action a <https://w3id.org/polifonia/ontology/organs/Action> .
+    ?action <https://w3id.org/polifonia/ontology/organs/hasConsoleLocation> ?location .
+  }
+}
+```
+
+This query attempts to extract any actions related to organs and their console locations, but it does not directly address the movement of organs to different locations.

@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology provides a class for MeetingEvent that carries the “isAccidental” property (thereby answering “Was the meeting accidental?”) and the Participation class that links a person with an event and uses the “hasInvited” property (thereby answering “Were they invited?”). Under the closed world assumption, we can assume that if those properties are not explicitly stated, they are false.
+
+The following SPARQL query retrieves meeting events along with the accidental flag and, for each participation in the event, whether the person was invited:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?wasAccidental ?person ?wasInvited
+WHERE {
+  ?event a :MeetingEvent .
+  ?event :isAccidental ?wasAccidental .
+  ?event :hasParticipation ?participation .
+  ?participation :involvesPerson ?person .
+  ?participation :hasInvited ?wasInvited .
+}
+ORDER BY ?event ?person

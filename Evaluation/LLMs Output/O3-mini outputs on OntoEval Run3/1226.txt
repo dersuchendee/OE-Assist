@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?annotationProperty ?label
+WHERE {
+  ?annotationProperty a owl:AnnotationProperty .
+  ?annotationProperty :appliesToClass :RareSpecies .
+  OPTIONAL { ?annotationProperty rdfs:label ?label . }
+}
+```
+
+This query retrieves the annotation properties (and their labels, if any) that are explicitly associated with documenting rare species via the property "appliesToClass".

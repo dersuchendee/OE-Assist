@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for every production, its unique premier along with the premier’s date:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+-----------------------------------------------------------
+
+This query extracts the answer to the competency question "A production has exactly one premier" by finding each production and its associated premier (and premier date) as defined in the ontology under the closed world assumption.

@@ -1,0 +1,25 @@
+**Yes**
+
+The following SPARQL query retrieves the LegalCondition individuals (and their governed Legislation) that are connected via properties to an Actor, Object, or Process:
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?legalCondition ?legislation ?affectedEntity
+WHERE {
+  ?legalCondition a :LegalCondition ;
+                  :governedBy ?legislation .
+  { ?legalCondition :affectsActor ?affectedEntity . }
+  UNION
+  { ?legalCondition :affectsObject ?affectedEntity . }
+  UNION
+  { ?legalCondition :affectsProcess ?affectedEntity . }
+}
+
+--------------------------------------------------
+
+Under the closed world assumption, entities not explicitly connected by one of these properties are assumed not to be affected by any LegalCondition.

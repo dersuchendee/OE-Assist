@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology, as it involves identifying the entity that records microbiological substances in surface waters over time. The ontology provides the necessary classes and properties to answer this question.
+
+```sparql
+SELECT ?recorder
+WHERE {
+  ?measurement a :Measurement .
+  ?measurement :recordedBy ?recorder .
+  ?measurement :measuresSubstance ?substance .
+  ?measurement :hasLocation ?location .
+  ?measurement :hasTime ?time .
+}
+```

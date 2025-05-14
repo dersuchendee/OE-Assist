@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology explicitly models cities (instances of :Cl_City), regions (instances of :Cl_Region), and the relation linking them (:op_isLocatedIn). Under the closed world assumption, a query can be written to retrieve the region for a given city. For example, assuming a particular city we want to investigate (e.g., identified by IRI :SomeCity), you could use the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :op_isLocatedIn ?region .
+  FILTER(?city = :SomeCity)
+}
+--------------------------------------------------
+
+This query retrieves the region in which the specified city (:SomeCity) is located.

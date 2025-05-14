@@ -1,0 +1,22 @@
+**Yes**
+
+The ontology provides a reified representation of a production’s premiere. For example, a production (of type :Cl_Production) is linked via the object property :hasPremierDate to a reified premier event (of type :Cl_ProductionPremierDate) that carries the actual premiere date via the data property :premierDate. This modeling allows us to write a SPARQL query to extract the premiere date of a production.
+
+Below is an example SPARQL query that answers the CQ “When was the premier of a certain production?”:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionTitle ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasTitle ?productionTitle . }
+  
+  ?production :hasPremierDate ?premierEvent .
+  ?premierEvent :premierDate ?premierDate .
+}
+------------------------------------------------------------
+
+This query retrieves each production with its title (if available) and the corresponding premiere date, thus fully answering the competency question.

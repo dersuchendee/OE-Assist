@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the medical degrees (with title and the obtained date, when available) associated with the specified person (here, PasqualeDiGennaro):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate. }
+}
+ORDER BY ?degreeTitle
+------------------------------------------------
+
+This query extracts the medical degrees recorded for the person and is answerable using the provided ontology.

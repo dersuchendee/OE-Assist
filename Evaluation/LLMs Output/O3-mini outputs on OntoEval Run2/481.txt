@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a sample SPARQL query that retrieves each album and the tracks it contains:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?track 
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :containsTrack ?track .
+}
+ORDER BY ?album ?track
+-----------------------------------------
+
+In the ontology the class :Cl_Album is defined with a restriction requiring at least one :containsTrack property. Therefore this competency question (to list which albums have tracks) is fully modelled by the ontology.

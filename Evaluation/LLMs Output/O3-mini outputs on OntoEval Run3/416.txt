@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology includes a restriction on :hasPremier stating that any instance of :Cl_Production must have exactly one premier (a :Cl_Date). Assuming a closed world, you can extract the premier for each production with the following SPARQL query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+ORDER BY ?production
+------------------------------------------------
+
+This query returns each production along with its single premier date, thereby satisfying the competency question.

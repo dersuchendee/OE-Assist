@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festivalLabel ?playLabel
+WHERE {
+  ?festival a theatre:TheatreFestival ;
+            rdfs:label ?festivalLabel ;
+            theatre:hasPlayInFestival ?play .
+
+  ?play rdfs:label ?playLabel .
+}
+```
+
+This SPARQL query retrieves the plays that could be seen during each theatre festival by utilizing the `theatre:hasPlayInFestival` property, which connects festivals to plays through their productions. Under the closed world assumption, the ontology provides sufficient information to answer the competency question by returning the plays associated with each festival.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about the time period during which an album was recorded. It only contains information about the release date of the album. Therefore, the competency question cannot be fully answered with the given ontology. However, we can extract partial information about the album and its release date.
+
+```sparql
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Album .
+  ?album :hasRelease ?release .
+  ?release :hasReleaseDate ?releaseDate .
+}
+```

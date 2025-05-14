@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct property linking a `Cl_PersonHospitalEmployment` instance to a `Cl_Person`. Without this connection, we cannot retrieve the person associated with the employment, and thus cannot fully answer the competency question. However, we can extract partial information about hospitals and employment start dates.
+
+```sparql
+SELECT ?hospital ?startDate
+WHERE {
+  ?employment rdf:type :Cl_PersonHospitalEmployment .
+  ?employment :employedAt ?hospital .
+  ?employment :employmentStartDate ?startDate .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific track, retrieves the song that the track is a recording of:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackTitle ?song ?songTitle
+WHERE {
+  ?track a :Track .
+  ?track :trackTitle ?trackTitle .
+  ?track :isRecordingOf ?song .
+  ?song :songTitle ?songTitle .
+  # To restrict to a specific track, uncomment and adjust the following FILTER:
+  # FILTER(?track = :HumpDeBump_Track)
+}
+--------------------------------------------------
+
+In this query, the property :isRecordingOf connects a Track to the Song it is a recording of, so the CQ is fully answerable by the ontology.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that, given a specific actor and network, retrieves the roles that the actor holds in that network using the Cl_ActorRole reification:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  ?actorRole a :Cl_ActorRole ;
+              :actorInNetwork ?actor ;
+              :roleInNetwork ?role ;
+              :materialFlowOfNetwork ?network .
+
+  # Replace the IRIs below with the real actor and network identifiers 
+  FILTER(?actor = <http://www.example.org/test#ThisActor> && ?network = <http://www.example.org/test#ThisNetwork>)
+
+  OPTIONAL { ?role rdfs:label ?roleLabel. }
+}
+--------------------------------------------------
+
+In this query, by replacing <http://www.example.org/test#ThisActor> and <http://www.example.org/test#ThisNetwork> with the actual IRIs for the actor and the network in question, the competency question is fully answered by extracting the desired roles from the ontology.

@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming you have a specific critic and record in mind (e.g., as URIs), you can extract the critique content with a query like this:
+
+---------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?critiqueContent
+WHERE {
+  ?critique a :Cl_Critique .
+  ?critique :critiqueMadeBy ?critic .
+  ?critique :critiqueOfRecord ?record .
+  ?critique :critiqueContent ?critiqueContent .
+  FILTER(?critic = <http://www.example.org/test#YourCriticURI> &&
+         ?record  = <http://www.example.org/test#YourRecordURI>)
+}
+---------------------------
+
+This query is answerable under the closed world assumption using the given reified model that connects a critique, its critic, and the record being critiqued.

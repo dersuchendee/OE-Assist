@@ -1,0 +1,42 @@
+**Yes**
+
+Assuming that the ontology “reifies” an actor’s participation in a production as an individual of type Cl_ActorRole – which has the properties “hasRole” (linking it to a Cl_Play) and “hasRoleDate” (indicating when the role was played) – and that a production relates to its play through “isBasedOn”, the following SPARQL query shows how one can retrieve the roles that a given actor (person) has within a given production at a specific point in time (applying a closed‐world understanding that only explicitly asserted data holds):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorRole ?play ?roleDate ?production
+WHERE {
+  # The given actor (a person and, when performing, also an actor role)
+  # For example, we assume the individual :Fabio_Bianchi is the actor in question.
+  :Fabio_Bianchi a :Cl_Actor .
+  
+  # We assume that the actor’s participation in a production is reified as an individual of type Cl_ActorRole.
+  ?actorRole a :Cl_ActorRole .
+  # Under the closed‐world assumption, we assume that the actor’s role individual is explicitly linked (e.g. by identity,
+  # or via an asserted relation—if one existed—to the actor; here we assume the role individual is chosen from the known set).
+  # (Alternatively, if a property like :hasActorRole already linked :Fabio_Bianchi to his role instance, one could add:
+  #   :Fabio_Bianchi :hasActorRole ?actorRole .)
+  
+  # The actor role indicates which play is performed via :hasRole.
+  ?actorRole :hasRole ?play .
+  
+  # Link the production (of type Cl_Production) with its play (via property isBasedOn)
+  ?production a :Cl_Production ;
+              :isBasedOn ?play .
+
+  # The role is performed at a specific time indicated by :hasRoleDate.
+  ?actorRole :hasRoleDate ?roleDate .
+  
+  # Filter to the given production and point in time.
+  FILTER(?production = :Certain_Production) .
+  FILTER(?roleDate = "2009-09-07"^^xsd:date)
+  
+  # (Optionally, one could filter by the actor if an explicit linking property exists.)
+}
+ORDER BY ?roleDate
+------------------------------------------------------------
+
+This query extracts, for the given actor (e.g. :Fabio_Bianchi), the role instance (actorRole) which specifies the play (via :hasRole) and the date when it is/was performed, and then confirms that the play belongs to a specific production (via the production’s :isBasedOn relation). Hence, the competency question is fully answerable by the ontology.

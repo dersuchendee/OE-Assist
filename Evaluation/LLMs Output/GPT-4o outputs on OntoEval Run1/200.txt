@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What play is the basis of this production?" is supported by the ontology. The ontology includes the class `Cl_TheatreProduction` and the object property `op_isBasedOnPlay`, which connects a theatre production to the play it is based on. Therefore, we can write a SPARQL query to extract the answer.
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :op_isBasedOnPlay ?play .
+}
+```

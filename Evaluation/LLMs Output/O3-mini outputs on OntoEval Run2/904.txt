@@ -1,0 +1,32 @@
+**Yes**
+Below is one SPARQL query that, under the closed‐world assumption, returns the role a given person has in a given union at a specific point in time. In this example the query checks for Pasquale Di Gennaro’s role in the Union of Male Nurses valid on a chosen date (e.g. “2003-06-15T00:00:00Z”):
+
+--------------------------------------------------
+PREFIX : <http://www.semanticweb.org/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?union ?unionLabel ?role ?roleLabel ?begin ?end
+WHERE {
+  VALUES ?person { :PasqualeDiGennaro }
+  VALUES ?union { :UnionOfMaleNurses }
+  
+  ?person rdfs:label ?personLabel .
+  ?union rdfs:label ?unionLabel .
+
+  ?person :hasRole ?role .
+  ?role rdfs:label ?roleLabel .
+  ?union :hasUnionRepresentative ?role .
+
+  ?role :roleActiveDuring ?interval .
+  ?interval time:hasBeginning ?begin ;
+            time:hasEnd ?end .
+
+  # Check if the specific point in time falls within the active interval of the role
+  FILTER("2003-06-15T00:00:00Z"^^xsd:dateTime >= ?begin && "2003-06-15T00:00:00Z"^^xsd:dateTime <= ?end)
+}
+ORDER BY ?person ?union
+--------------------------------------------------
+
+This query extracts the answer to the competency question “What role does a certain person have within a certain union group at a certain point in time?” by linking the person’s role (via :hasRole) and the union’s representative role (via :hasUnionRepresentative), along with the time interval specified by :roleActiveDuring.

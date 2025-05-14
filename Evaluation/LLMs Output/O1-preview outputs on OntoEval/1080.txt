@@ -1,0 +1,35 @@
+**Yes**
+
+The competency question is answerable because the ontology includes information about seminars and their locations through the `:seminarLocation` property, linking instances of `:Cl_Seminar` to instances of `:Cl_Hospital`. The data provided includes a seminar (`:Seminar_1`) and its associated location (`:Ospedale_Riunito_delle_Tre_Valli`).
+
+Here is a SPARQL query to retrieve the locations of seminars:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?seminar ?seminarDate ?location ?city ?country
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  ?seminar :seminarLocation ?hospital .
+  OPTIONAL {
+    ?hospital rdfs:label ?location .
+    FILTER(lang(?location) = "" || langMatches(lang(?location), "en"))
+  }
+  OPTIONAL {
+    ?hospital :locatedIn ?cityResource .
+    OPTIONAL {
+      ?cityResource rdfs:label ?city .
+      FILTER(lang(?city) = "" || langMatches(lang(?city), "en"))
+    }
+    OPTIONAL {
+      ?cityResource :cityInCountry ?countryResource .
+      OPTIONAL {
+        ?countryResource rdfs:label ?country .
+        FILTER(lang(?country) = "" || langMatches(lang(?country), "en"))
+      }
+    }
+  }
+}
+```
+
+This query retrieves seminars along with their dates and locations, including the city and country where the seminar took place, if available.

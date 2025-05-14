@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to link a product to its manufacturer. However, we can extract partial information about products and actors involved in processes, which might include manufacturers.
+
+```sparql
+SELECT ?product ?actor
+WHERE {
+  ?process a processODP:Process .
+  ?process process:resultingProduct ?product .
+  ?participation actorODP:participationIn ?process .
+  ?participation actorODP:participatingActor ?actor .
+}
+```

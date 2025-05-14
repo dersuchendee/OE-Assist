@@ -1,0 +1,24 @@
+Answer: **Yes**.
+
+The CQ can be answered since the ontology provides the necessary classes and properties to retrieve the customizable ticket options for each event, including seat selection and time of show.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?ticketOption ?showDateTime ?seatNumber
+WHERE {
+  ?event a :Cl_Event .
+  ?event :hasTicketOption ?ticketOption .
+  
+  OPTIONAL {
+    ?ticketOption :hasShowTime ?showTime .
+    ?showTime :showDateTime ?showDateTime .
+  }
+  
+  OPTIONAL {
+    ?ticketOption :hasSeat ?seat .
+    ?seat :seatNumber ?seatNumber .
+  }
+}
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+We can retrieve the location for a seminar using the property that relates seminars to their location. For example, using the ontology that defines a seminar class (Cl_Seminar) and a property (seminarTookPlaceAt) with range Cl_Location, we can write the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?location ?locationLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarTookPlaceAt ?location .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+
+This query will return all seminars along with their dates (if available) and the locations (and optionally the location labels) where they took place, thereby effectively answering the competency question.

@@ -1,0 +1,26 @@
+**Yes**
+
+You can answer the competency question using the following SPARQL query:
+
+```sparql
+SELECT ?performance ?song
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :hasSetlist ?setlist .
+  ?setlist :includesSong ?song .
+}
+```
+
+This query retrieves all performances along with the songs played during each performance.
+
+If you want to find the songs played in a specific performance, for example, `:PerformanceStadiumArcadiumPortland`, you can modify the query as follows:
+
+```sparql
+SELECT ?song
+WHERE {
+  :PerformanceStadiumArcadiumPortland :hasSetlist ?setlist .
+  ?setlist :includesSong ?song .
+}
+```
+
+This query will return all songs that were included in the setlist of the specified performance.

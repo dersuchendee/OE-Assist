@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not contain any information about ensembles or their members at specific points in time. The ontology primarily focuses on theatre festivals, plays, productions, and related entities, but it lacks the necessary structure to represent ensembles and their temporal memberships.
+
+However, we can extract partial information about productions and their associated plays:
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPlayBasis ?playBasis .
+  ?playBasis :playBasis ?play .
+}
+```

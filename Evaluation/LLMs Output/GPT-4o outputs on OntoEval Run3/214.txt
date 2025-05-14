@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to associate ensembles with specific productions at specific points in time. The ontology includes classes and properties for productions, roles, and time-indexed roles, but it lacks a direct connection between ensembles and the productions they participate in at specific times. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?ensemble ?member ?role ?production ?time
+WHERE {
+  ?ensemble a ns1:Ensemble .
+  ?ensemble ns1:hasMember ?member .
+  ?member ns1:performsRole ?role .
+  ?role ns1:inProduction ?production .
+  OPTIONAL {
+    ?member ns1:hasTimeInterval ?interval .
+    ?interval ns1:startTime ?startTime .
+    ?interval ns1:endTime ?endTime .
+  }
+}
+```

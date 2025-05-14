@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the plays that participated in a given theatre festival (here using any festival instance, with the possibility to restrict to “a certain” one by its URI):
+
+------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?occurrence ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalOccurrence ?occurrence .
+  ?occurrence :hasPlayParticipation ?participation .
+  ?participation :participatedPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+ORDER BY ?festival ?occurrence ?play
+------------------------------------------------------------------
+
+If you wish to filter for a specific festival (for example, Festival_RomaLovesShakespeare), you can add:
+
+  FILTER(?festival = :Festival_RomaLovesShakespeare)
+
+This query leverages the relationships defined in the ontology (from a festival to its occurrence(s), and from the occurrence to each play participation via the property participatedPlay) to answer the competency question under a closed-world assumption.

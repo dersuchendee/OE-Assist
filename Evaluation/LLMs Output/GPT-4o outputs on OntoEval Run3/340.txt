@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not contain any information about newspapers or star ratings for productions. However, we can extract partial information about productions and their premieres.
+
+```sparql
+SELECT ?production ?premiereDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremiere ?premiere .
+  ?premiere :premiereDate ?premiereDate .
+}
+```

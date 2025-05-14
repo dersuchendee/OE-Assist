@@ -1,0 +1,14 @@
+**Yes**
+
+We can answer this competency question because the ontology includes a class for books (Cl_Book) along with a data property (:hasPageCount) defined with domain Cl_Book and range xsd:integer. Under the closed world assumption, we consider that every book instance that has a page count is explicitly represented in the data.
+
+Example SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?pageCount
+WHERE {
+  ?book rdf:type :Cl_Book .
+  ?book :hasPageCount ?pageCount .
+}

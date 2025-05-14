@@ -1,0 +1,28 @@
+**No**
+Below is a SPARQL query that will extract a partial answer by retrieving the instruments a given person plays using the direct properties (i.e. via :plays and :playsInstrument), even though the relationship is not reified with a dedicated membership class:
+
+────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?instrument ?instrumentName
+WHERE {
+  # Select the specific person by name (adjust the literal as needed)
+  ?person a :Cl_Person ;
+          :name "Flea" .
+
+  {
+    ?person :plays ?instrument .
+    OPTIONAL { ?instrument :instrumentName ?instrumentName . }
+  }
+  UNION
+  {
+    ?person a :Cl_Instrumentalist ;
+            :playsInstrument ?instrument .
+    OPTIONAL { ?instrument :instrumentName ?instrumentName . }
+  }
+}
+────────────────────────────────────────────
+
+In this ontology, the relationship between a person and the instrument they play is modeled by direct object properties (:plays or :playsInstrument) rather than by a reified intermediary (such as a Cl_Membership). Thus, while we can extract the instruments played using the query above, the CQ is only partially supported from the perspective of reification.

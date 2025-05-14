@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves for each bell its weight, height, and diameter—i.e. the measures of the bell—as modeled in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bell ?weight ?height ?diameter
+WHERE {
+  ?bell a :Bell .
+  OPTIONAL { ?bell :hasWeight ?weight. }
+  OPTIONAL { ?bell :hasHeight ?height. }
+  OPTIONAL { ?bell :hasDiameter ?diameter. }
+}
+
+This query answers the competency question by extracting the measurement properties (weight, height, diameter) defined for the class Bell under the closed world assumption.

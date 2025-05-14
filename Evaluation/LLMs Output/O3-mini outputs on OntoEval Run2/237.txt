@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for every author, the plays they wrote using the ns1:wrotePlay property:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorName ?play ?playName
+WHERE {
+  ?author a ns1:Author .
+  ?author ns1:wrotePlay ?play .
+  OPTIONAL { ?author rdfs:label ?authorName . }
+  OPTIONAL { ?play rdfs:label ?playName . }
+}
+
+This query shows that the ontology supports the competency question “What plays did a certain author write?” under the closed world assumption.

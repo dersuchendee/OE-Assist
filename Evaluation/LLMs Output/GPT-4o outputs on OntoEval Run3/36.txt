@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct connection between actors and processes. The object property `op_involvedIn` connects `Cl_Actor` to `Cl_WorkProcess`, and `op_outlines` connects `Cl_WorkProcess` to `Cl_Process`. However, there is no direct way to query for actors involved in a specific process without additional information or properties that directly link `Cl_Actor` to `Cl_Process`.
+
+Partial answer:
+```sparql
+SELECT ?actor
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :op_involvedIn ?workProcess .
+}
+```

@@ -1,0 +1,11 @@
+**No**
+```sparql
+SELECT ?product ?manufacturer
+WHERE {
+  ?relation a actorODP:ResourceRelation .
+  ?relation actorODP:participantRole :manufacturer .
+  ?relation actorODP:participatingActor ?manufacturer .
+  ?relation actorODP:participatingResource ?product .
+}
+```
+The competency question "Who is the manufacturer of a certain product?" cannot be fully answered with the given ontology. While the ontology defines the `:manufacturer` role and the concept of a `ResourceRelation`, it does not provide direct connections between products and their manufacturers. The SPARQL query above attempts to extract a partial answer by looking for resource relations where an actor has the role of `:manufacturer` in relation to a product, but without actual instances or explicit properties linking manufacturers to products, the query cannot retrieve complete answers.

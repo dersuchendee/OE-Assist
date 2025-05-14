@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer this CQ using the ontology’s reified structure that ties a theatre festival (instance of Cl_TheatreFestival) with its plays (instances of Cl_FestivalPlays via the :hasPlay property) and each play’s name (via :playName). Under the closed‐world assumption, if an instance of Cl_TheatreFestival has at least one associated Cl_FestivalPlays, then those plays are the ones that “could be seen” at that festival. The following SPARQL query selects each theatre festival’s URI (and optional label) along with the plays played and the play names:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival :hasPlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?festival ?playName
+---------------------------------------------------------
+
+This query returns the list of play names associated with each theatre festival, thereby answering the CQ fully.

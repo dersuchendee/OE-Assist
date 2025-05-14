@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalName . }
+
+  ?festival :hasFestivalParticipation ?festivalParticipation .
+
+  ?festivalParticipation ^:hasProductionParticipation ?production .
+
+  ?production :isProductionOf ?play .
+  OPTIONAL { ?play rdfs:label ?playName . }
+}
+```

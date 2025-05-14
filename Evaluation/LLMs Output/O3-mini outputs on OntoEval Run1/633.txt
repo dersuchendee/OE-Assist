@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer this CQ by querying for performances and retrieving their associated time interval’s start and end dates. For example, if you have a performance instance (such as a live performance record), you can write a query similar to the following:
+
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?startDate ?endDate
+WHERE {
+  ?performance a :Performance .
+  ?performance :hasTimeInterval ?ti .
+  ?ti :startDate ?startDate .
+  ?ti :endDate ?endDate .
+}
+
+This query assumes a closed world where only the individuals defined in the ontology are available. It extracts the start and end dates (the time interval) for each performance, thus answering the competency question “When did a certain performance take place?”

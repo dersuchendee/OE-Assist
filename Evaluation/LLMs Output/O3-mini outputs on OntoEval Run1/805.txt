@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each person and each of their medical degrees, the study period (start and end dates) during which they pursued that degree:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasMedicalDegree ?degree .
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate ;
+               :studyEndDate   ?studyEndDate .
+}
+------------------------------------------------------------
+
+Assuming a closed world where only explicitly asserted facts are available, this query extracts the complete answer to the CQ "During what time period did a certain person study for a specific degree?" from the ontology.

@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+    ?article rdf:type :Cl_Article .
+    ?article :presentedIn ?seminar .
+    OPTIONAL { ?article :articleTitle ?articleTitle . }
+    FILTER (?seminar = :SeminarOnNursePractices)
+}
+```

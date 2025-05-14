@@ -1,0 +1,34 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given water basin (specified by its IRI), the water bodies that belong to it using the direct property association:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?waterBody ?wbLabel
+WHERE {
+  ?waterBody a :Cl_WaterBody .
+  ?waterBody :op_belongsTo ?waterBasin .
+  FILTER(?waterBasin = <http://www.example.org/test#YourWaterBasinIRI>)
+  OPTIONAL { ?waterBody rdfs:label ?wbLabel. }
+}
+-----------------------------------------------------
+
+If reification is used (via the reified role class Cl_WaterBodyInBasin) to record the membership relation, then the query below provides an alternative method:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?waterBody ?wbLabel
+WHERE {
+  ?membership a :Cl_WaterBodyInBasin .
+  ?membership :op_isWaterBodyOf ?waterBody .
+  ?membership :op_isPartOfBasin ?waterBasin .
+  FILTER(?waterBasin = <http://www.example.org/test#YourWaterBasinIRI>)
+  OPTIONAL { ?waterBody rdfs:label ?wbLabel. }
+}
+-----------------------------------------------------
+
+Either query answers the CQ using the closed world assumption on the ontology.

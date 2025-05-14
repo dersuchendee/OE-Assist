@@ -1,0 +1,24 @@
+**No**
+
+The union membership information is only partially modelled. The ontology provides a way to link an employee to a union via the property “representsUnion” (and a union representative’s starting date via “unionRepresentativeSince”), and also models union memberships as a collection (class UnionMembership) but does not connect a specific union instance to its membership collection. Thus, while we can extract the union‐representative employees (a subset of union members) at a given point in time, we cannot fully answer “Who are the members of a certain union at a certain point in time?” for all members.
+
+A partial SPARQL query that retrieves union representatives valid on a given date (here, “2002-01-01”) is given below:
+
+--------------------------------------------------
+PREFIX : <http://www.hospitalontology.org/ontologies/hospital.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?employee ?employeeLabel ?union ?unionLabel ?unionRepSince
+WHERE {
+  ?employee a :Employee .
+  ?employee :representsUnion ?union .
+  ?employee :unionRepresentativeSince ?unionRepSince .
+  # Closed World Assumption: if an employee does not have unionRepresentativeSince, they are not included.
+  FILTER(xsd:date("2002-01-01") >= ?unionRepSince) .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+}
+--------------------------------------------------
+
+This query returns a partial answer by listing employees who represent a union and whose union representative start date is on or before the given date.

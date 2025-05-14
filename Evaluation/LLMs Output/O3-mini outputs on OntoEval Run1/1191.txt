@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+SELECT ?event (IF(BOUND(?religious), "Religious", "Secular") AS ?eventType)
+WHERE {
+  ?event a :Event .
+  {
+    ?event a :ReligiousEvent .
+    BIND(true AS ?religious)
+  }
+  UNION
+  {
+    ?event a :SecularEvent .
+  }
+}
+```
+
+Under the closed world assumption we assume that every event explicitly classified in the data is either a :ReligiousEvent or a :SecularEvent. This query retrieves every event instance and labels it "Religious" if it is explicitly typed as a :ReligiousEvent; otherwise, if it is not in that branch, we assume it belongs to :SecularEvent.

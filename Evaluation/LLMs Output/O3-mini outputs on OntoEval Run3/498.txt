@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, retrieves the time period during which a given album was recorded:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :recordedDuring ?albumRecording .
+  ?albumRecording :recordingPeriod ?recordingPeriod .
+}
+ORDER BY ?album
+
+This query extracts all albums with their corresponding recording period as modelled in the ontology, thus answering the CQ "During what time period was a certain album recorded?"

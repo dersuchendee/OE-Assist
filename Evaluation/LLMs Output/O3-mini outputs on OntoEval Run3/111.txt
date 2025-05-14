@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the festival name and the name of the location where the festival took place (e.g. “Roma Loves Shakespeare” in “Rome”). Under a closed‐world assumption, this query will extract the complete answer for the CQ "Where did a certain festival take place?" 
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName ;
+            :hasLocation ?location .
+  ?location :locationName ?locationName .
+  FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+------------------------------------------------
+
+This query extracts the location (“Rome”) for the given festival, thereby showing that the competency question is supported by the ontology.

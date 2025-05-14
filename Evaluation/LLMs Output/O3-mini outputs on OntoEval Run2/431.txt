@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a sample SPARQL query that, under the closed‐world assumption enforced by the ontology’s assertions, retrieves the instruments played by a specified person (here represented as ?person, which you can bind to a particular individual):
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?instrument
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+  # Optionally, to restrict to a specific person (e.g., Anthony_Kiedis), uncomment the next line:
+  # FILTER(?person = :Anthony_Kiedis)
+}
+-----------------------------------------------------------
+
+This query directly exploits the object property “playsInstrument” defined in the ontology to answer the competency question "What instruments does a certain person play?"

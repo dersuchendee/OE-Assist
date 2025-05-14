@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the members (actors) of each ensemble at the specific time associated with that ensemble. (A production system may require filtering by a given ensemble or time point; here we assume that ensembles are reified as instances of theatre:EnsembleAtTime that carry a theatre:hasMember property and an associated time via theatre:atTime.)
+
+------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleLabel ?member ?memberLabel ?time
+WHERE {
+  ?ensemble a theatre:EnsembleAtTime .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel. }
+  ?ensemble theatre:hasMember ?member .
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+  ?ensemble theatre:atTime ?time .
+  # If you want to select one specific ensemble at a certain time, you could add a FILTER:
+  # FILTER(?ensemble = <http://.../YourEnsembleURI> && ?time = "2007-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?ensemble ?time
+------------------------------------------------
+
+This query leverages the reified ensemble concept (here realized as theatre:EnsembleAtTime) to answer “Who are the members of a certain ensemble at a certain point in time?” under the closed world assumption.

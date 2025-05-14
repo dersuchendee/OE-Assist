@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?mc ?fc (GROUP_CONCAT(DISTINCT ?habitat; separator=", ") AS ?equivalentHabitats)
+WHERE {
+  ?habitat a :Habitat .
+  ?habitat :hasComposition ?composition .
+  ?composition :hasMicrobialCommunity ?mc .
+  ?composition :hasFungalCommunity ?fc .
+}
+GROUP BY ?mc ?fc
+HAVING (COUNT(DISTINCT ?habitat) > 1)
+```

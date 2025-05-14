@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the union role held by a given person (here, Pasquale Di Gennaro) within a specified union (here, Union_Male_Nurses) at a particular point in time (e.g. 2002-06-01). The query uses the available properties—:hasUnionRole, :roleHolder, :roleName, :roleStartDate, and optional :roleEndDate—to check that the given date falls within the period during which the role is active.
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?roleName ?roleStartDate ?roleEndDate
+WHERE {
+  :Pasquale_Di_Gennaro :hasUnionRole ?role .
+  ?role :hasUnionRole :Union_Male_Nurses ;
+        :roleName ?roleName ;
+        :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+  
+  BIND(xsd:date("2002-06-01") AS ?queryTime)
+  FILTER(?queryTime >= ?roleStartDate &&
+         (!BOUND(?roleEndDate) || ?queryTime <= ?roleEndDate))
+}
+-------------------------------------------------
+
+This query returns the name of the role (e.g., "Union Representative") along with its start and end dates (if any) for the specified person, union, and point in time.

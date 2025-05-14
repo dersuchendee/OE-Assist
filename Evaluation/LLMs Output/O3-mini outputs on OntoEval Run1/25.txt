@@ -1,0 +1,15 @@
+**No**  
+The ontology does not explicitly model a relation linking a product with the manufacturer. Under the closed world assumption, we cannot deduce from the available axioms that a product “has” a manufacturer even though the OS (story) requires that information. However, we can provide a partial answer query that lists all products along with any individual explicitly typed as manufacturer.
+
+For example, a SPARQL query to extract this partial information is:
+
+PREFIX prod: <http://w3id.org/CEON/ontology/product/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+
+SELECT ?product ?manufacturer
+WHERE {
+  ?product a prod:Product .
+  ?manufacturer a actor:manufacturer .
+}
+
+This query does not capture an explicit connection between a given product and its manufacturer—and that is why the CQ is only partially answerable from the provided ontology.

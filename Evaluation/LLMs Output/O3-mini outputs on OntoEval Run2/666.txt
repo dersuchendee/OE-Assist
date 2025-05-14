@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one example SPARQL query that, under the closed‐world assumption, retrieves for every performance the songs that were played (via the reified performance–song relationship):
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  
+  ?perfSong a :Cl_PerformanceSong .
+  ?perfSong :performedAt ?performance .
+  ?perfSong :performedSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance
+-----------------------------------------------
+
+This query shows that the ontology supports the competency question "What songs were played in a certain performance?" by retrieving the songs (and, optionally, their labels) associated with each performance via the :performedAt and :performedSong properties.

@@ -1,0 +1,12 @@
+**No**
+
+Because the competency question cannot be directly answered via SPARQL over the data. The CQ refers to a modeling constraint specified in OWL class definitions, which cannot be queried directly with SPARQL. We can, however, extract partial information about albums and their tracks.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?album ?track
+WHERE {
+    ?album a :Cl_MusicAlbum .
+    OPTIONAL { ?album :hasTrack ?track . }
+}
+```

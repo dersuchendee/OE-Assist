@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a sample SPARQL query that—for every seminar in the ontology—retrieves the articles presented at that seminar via their seminar presentations:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel. }
+  
+  # Retrieve articles that are presented in this seminar
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :presentationOf ?seminar .
+  OPTIONAL { ?article :articleTitle ?articleTitle. }
+}
+ORDER BY ?seminar ?article
+---------------------------------
+
+This query will list each seminar (with an optional label) along with the articles presented during that seminar. Under the closed world assumption, the result should confirm that every seminar (i.e. every instance of :Cl_Seminar) has at least one associated :Cl_Article presented in it, as required by the competency question "At least one article is always presented at each seminar."

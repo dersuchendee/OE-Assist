@@ -1,0 +1,18 @@
+**No**
+The ontology does not support the notion of “rare species” as required by the CQ. However, using a closed world assumption, we can extract the available characteristics (species observations recorded in an aquifer) without filtering for rarity.
+
+Below is a SPARQL query that returns, for a specific aquifer (which you can replace with the actual individual or value), the species and their related characteristics:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?observation ?species ?aquifer ?consStatus ?habitat ?popTrend
+WHERE {
+  ?observation a :SpeciesAquiferCharacteristic .
+  ?observation :locatedInAquifer ?aquifer .
+  FILTER(?aquifer = <http://www.example.org/test#YourAquifer>)   # Replace YourAquifer with the specific aquifer
+  ?observation :hasSpecies ?species .
+  OPTIONAL { ?observation :hasConservationStatus ?consStatus . }
+  OPTIONAL { ?observation :hasHabitatType ?habitat . }
+  OPTIONAL { ?observation :hasPopulationTrend ?popTrend . }
+}

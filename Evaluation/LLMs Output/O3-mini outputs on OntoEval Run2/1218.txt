@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that “asks” the ontology for the role specified for fungi that are, by definition, aquifer‐inhabitants. In our ontology the class Fungi is defined with two restrictions: one ensuring that any instance “occupiesHabitat” some Aquifer, and one stating that it “playsRoleIn” some BiogeochemicalCycleInAquifer. Assuming you have a reasoner or a mechanism to treat these TBox restrictions as available answer patterns under the closed world assumption, you can run the following query:
+
+-----------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  # Ensure Fungi are aquifer inhabitants (i.e. have an occupiesHabitat restriction to Aquifer)
+  :Fungi rdfs:subClassOf ?occRestriction .
+  ?occRestriction owl:onProperty :occupiesHabitat ;
+                  owl:someValuesFrom :Aquifer .
+
+  # Retrieve the role imposed by the playsRoleIn restriction 
+  :Fungi rdfs:subClassOf ?roleRestriction .
+  ?roleRestriction owl:onProperty :playsRoleIn ;
+                   owl:someValuesFrom ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+-----------------------------------------------
+
+This query returns the class (and an optional label) that represents the role that aquifer fungi have in biogeochemical cycling, which according to the ontology is “Biogeochemical Cycle in Aquifer.”

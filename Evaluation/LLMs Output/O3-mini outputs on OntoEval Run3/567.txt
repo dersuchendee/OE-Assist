@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming the ontology contains individuals that are instances of :Cl_Track, and tracks “record” a song via an intermediate recording instance (using the object properties :recordingOf and :songRecorded), a SPARQL query to answer “What song is a specific track a recording of?” could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  ?track a :Cl_Track ;
+         :recordingOf ?rec .
+  ?song :songRecorded ?rec .
+  # Use a filter or bound value to select a specific track if needed, e.g.:
+  # FILTER(?track = <http://www.example.org/test#SpecificTrackIRI>)
+}
+
+This query, under a closed‐world assumption (only explicitly given individuals and properties are considered), retrieves the song that the specified track is a recording of.

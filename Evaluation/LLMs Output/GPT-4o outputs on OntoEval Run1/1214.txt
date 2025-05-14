@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for specific chemical characteristics associated with aquatic microbe species. The ontology defines a relationship between aquatic microbe species and environments with chemical characteristics, but it does not specify how to query for specific chemical characteristics.
+
+Partial answer:
+```sparql
+SELECT ?microbeSpecies ?environment
+WHERE {
+  ?microbeSpecies a :AquaticMicrobeSpecies .
+  ?microbeSpecies :isFoundInEnvironment ?environment .
+}
+```

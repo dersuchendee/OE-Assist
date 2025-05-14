@@ -1,0 +1,25 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of a band at a specific point in time. The ontology includes information about band memberships and time intervals, but it lacks a direct connection between these elements that would allow for querying the members of a band at a specific time.
+
+However, a partial answer can be extracted by querying the band memberships and their associated time intervals:
+
+```sparql
+SELECT ?band ?bandName ?member ?memberName ?role ?roleName ?startDate ?endDate
+WHERE {
+  ?membership a :BandMembership ;
+              :hasBand ?band ;
+              :involvesMember ?member ;
+              :hasRole ?role ;
+              :hasTimeInterval ?timeInterval .
+
+  ?band :bandName ?bandName .
+  ?member :personName ?memberName .
+  ?role :roleName ?roleName .
+  ?timeInterval :startDate ?startDate ;
+                :endDate ?endDate .
+}
+ORDER BY ?band ?startDate
+```
+
+This query retrieves the band memberships, including the band, member, role, and time interval, but it does not filter for a specific point in time. To fully answer the competency question, additional logic would be needed to filter memberships based on a given date.

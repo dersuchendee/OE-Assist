@@ -1,0 +1,29 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the persons (i.e. union members) who are a member of a given union (here represented by a placeholder IRI :SpecificUnionIdentifier) at a given point in time (here “2002‑06‑01” as an example). Note that we assume that union membership is recorded via a reification individual of type :Cl_PersonUnionMembership which “inherits” the person identity, and that the membership period is given by the data properties :membershipStartDate and optionally :membershipEndDate. Under the closed‐world assumption, if no end date is present then the membership is assumed to still be active.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?start ?end
+WHERE {
+  ?person a :Cl_PersonUnionMembership ;
+          :memberOf ?union ;
+          :membershipStartDate ?start .
+  OPTIONAL { ?person :membershipEndDate ?end . }
+  
+  # Filter for the specific union – replace :SpecificUnionIdentifier with the actual union IRI
+  FILTER (?union = :SpecificUnionIdentifier) .
+  
+  # Filter for a given point in time (here using 2002-06-01 as an example)
+  FILTER (xsd:date("2002-06-01") >= ?start && 
+         ( !bound(?end) || xsd:date("2002-06-01") <= ?end ))
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?person
+------------------------------------------------------------
+
+This query shows that the competency question “Who are the members of a certain union at a certain point in time?” is answerable with the ontology as the necessary reification class (:Cl_PersonUnionMembership), property (:memberOf) and period properties (:membershipStartDate and :membershipEndDate) are available to extract the answer.

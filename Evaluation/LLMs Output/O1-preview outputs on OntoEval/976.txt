@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided lacks properties to uniquely identify a particular book (e.g., by title or identifier). Without a way to specify which book we're referring to, we cannot extract the number of pages for a specific book as required by the competency question. However, we can write a partial SPARQL query that retrieves the number of pages for all books defined in the ontology.
+
+```sparql
+SELECT ?book ?pageNumber
+WHERE {
+  ?book a :Book .
+  ?book :pageNumber ?pageNumber .
+}
+```
+
+This query will retrieve all books and their respective page numbers, but it doesn't allow us to focus on a particular book due to the absence of identifiers or distinguishing properties in the ontology.

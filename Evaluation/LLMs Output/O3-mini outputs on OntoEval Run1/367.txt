@@ -1,0 +1,25 @@
+**Yes**  
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the employment start date for an actor working at a specific theatre. In this ontology the employment details are reified as instances of Cl_ActorEmployment (which, by design, is also a kind of Cl_Theatre and Cl_Date). The query assumes that the actor is linked via the “employedAt” property and that the employment instance carries an “employmentStartDate” property. You may filter by a given actor (e.g. :FabioBianchi) and theatre (e.g. :TheGrandTheatre) as needed.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :employedAt ?employment .
+  ?employment a :Cl_ActorEmployment ;
+              :employmentStartDate ?startDate .
+  ?theatre a :Cl_Theatre .
+  # Under our modelling the employment instance is also considered an instance of the theatre.
+  ?employment a :Cl_Theatre .
+  
+  # To restrict to a specific actor and theatre, you can add for example:
+  # FILTER(?actor = :FabioBianchi && ?theatre = :TheGrandTheatre)
+}
+ORDER BY ?actor ?startDate
+------------------------------------------------
+
+This query demonstrates that the CQ “At what time did a certain actor start working for a specific theatre?” is fully answerable using the ontology.

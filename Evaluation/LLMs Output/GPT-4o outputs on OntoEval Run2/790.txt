@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide explicit information about the study periods for specific degrees. The ontology includes classes and properties related to persons, degrees, and study periods, but it lacks the necessary connections to determine the time period during which a person studied for a specific degree.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?degree ?degreeTitle
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_hasDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+}
+```

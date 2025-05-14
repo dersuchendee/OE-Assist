@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that tests the competency question “A record always contains at least one track.” Under a closed‐world assumption, if any album (record) is missing a track (i.e. does not have at least one :containsTrack triple), it will be returned by the query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album
+WHERE {
+  ?album a :Cl_Album .
+  FILTER NOT EXISTS { ?album :containsTrack ?track . }
+}
+------------------------------------------------
+
+If the query returns no results then every album indeed has at least one track, which confirms that the ontology answers the competency question.

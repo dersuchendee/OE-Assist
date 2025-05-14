@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question "What articles were presented in a certain seminar?" can be answered using the given ontology. The ontology provides the necessary classes and properties to associate articles with seminars, specifically through the `:presentedAt` and `:hasPresentedArticle` properties.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?seminar ?seminarLabel ?article ?articleTitle
+WHERE {
+  ?seminar a :Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+
+  ?article a :PresentedArticle .
+  ?article :presentedAt ?seminar .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+ORDER BY ?seminar ?article
+```

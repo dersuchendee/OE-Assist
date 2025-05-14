@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?organ ?fromLocation ?toLocation ?atTime
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasMovementEvent ?movementEvent .
+  ?movementEvent :fromLocation ?fromLocation .
+  ?movementEvent :toLocation ?toLocation .
+  ?movementEvent :atTime ?atTime .
+}
+ORDER BY ?organ ?atTime
+```

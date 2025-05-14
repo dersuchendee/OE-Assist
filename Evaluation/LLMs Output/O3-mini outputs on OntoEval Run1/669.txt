@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer this CQ because the ontology provides a class for performances (Cl_Performance) and an object property (:featuresSong) linking a performance to the songs (Cl_Song) featured. Under a closed world assumption, if a performance has hosted songs, they will be connected via the :featuresSong property.
+
+Below is a SPARQL query that extracts, for a given performance (or all performances), the songs that were played along with their optional labels:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :featuresSong ?song .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance ?song
+
+This query returns the instances of performances and the songs featured in each, which answers the competency question "What songs were played in a certain performance?"

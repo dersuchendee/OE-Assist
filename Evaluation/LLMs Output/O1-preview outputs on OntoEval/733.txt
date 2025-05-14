@@ -1,0 +1,15 @@
+**Yes**
+
+Here is the SPARQL query to answer the competency question:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?region ?country
+WHERE {
+  ?region rdf:type :Cl_Region .
+  ?region :locatedInCountry ?country .
+}
+```
+
+This query retrieves each region and its corresponding country from the ontology, utilizing the `:locatedInCountry` property that connects `:Cl_Region` instances to `:Cl_Country` instances.

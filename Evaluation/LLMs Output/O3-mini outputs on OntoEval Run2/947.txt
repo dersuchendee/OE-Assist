@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that the particular doctor and employee are identified by URIs (for example, :Doctor1 and :Employee1), a SPARQL query based on the ontology could be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluationAssignment rdf:type :Cl_EvaluationAssignment .
+  ?evaluationAssignment :evaluatedBy :Doctor1 .
+  ?evaluationAssignment :evaluates :Employee1 .
+  ?evaluationAssignment :evaluationStatement ?evaluationStatement .
+}
+
+This query extracts the evaluation statement given by the doctor (:Doctor1) for the employee (:Employee1), which demonstrates that the CQ is answerable using the provided ontology under the closed world assumption.

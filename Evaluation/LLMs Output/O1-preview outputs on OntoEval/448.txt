@@ -1,0 +1,54 @@
+Answer: **Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" is answerable using the given ontology. The ontology models band memberships over time through the `BandMembership` class, which relates `Person`, `Band`, `Role`, and `TimeInterval`. Each `BandMembership` instance includes a member, the band they are part of, the role they play, and the time interval during which they are active in the band.
+
+Here is a SPARQL query that retrieves the members of a specific band at a given date:
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberName ?roleName
+WHERE {
+  # Specify the band name
+  ?band a :Band ;
+        rdfs:label ?bandName .
+  FILTER ( ?bandName = "Red Hot Chili Peppers" )  # Replace with the desired band name
+
+  # Retrieve band memberships associated with the band
+  ?bandMembership :hasBand ?band ;
+                  :involvesMember ?member ;
+                  :hasRole ?role ;
+                  :hasTimeInterval ?ti .
+
+  # Get the time interval of the membership
+  ?ti :startDate ?startDate ;
+      :endDate ?endDate .
+
+  # Specify the date of interest
+  BIND ( "2006-08-11"^^xsd:date AS ?date )  # Replace with the desired date
+
+  # Check if the date falls within the membership interval
+  FILTER ( ?startDate <= ?date && ?date <= ?endDate )
+
+  # Get member and role names
+  ?member rdfs:label ?memberName .
+  ?role rdfs:label ?roleName .
+}
+```
+
+**Explanation:**
+
+- **Prefixes**: We declare the necessary prefixes for the ontology and XML Schema datatypes.
+- **Band Selection**: We select the band of interest by filtering on its name.
+- **Band Memberships**: We find all `BandMembership` instances associated with the band, involving members, roles, and time intervals.
+- **Time Interval Filtering**: We specify the date of interest and filter memberships whose time intervals include this date.
+- **Result Variables**: We retrieve the names of the members and their roles during that time.
+
+**Usage**:
+
+- Replace `"Red Hot Chili Peppers"` in the `FILTER` clause with the name of the band you're interested in.
+- Replace `"2006-08-11"^^xsd:date` in the `BIND` clause with the date you're querying for.
+
+This query will return all members of the specified band who were active on the given date, along with the roles they played in the band at that time.

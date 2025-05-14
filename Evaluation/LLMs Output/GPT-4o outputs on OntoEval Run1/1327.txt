@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What are the different forms of carbon fixation in forest soils?" can be answered using the given ontology. The ontology includes the class `CarbonFixationForm` which is related to `ForestSoil` through the property `occursIn`. Therefore, we can write a SPARQL query to extract the different forms of carbon fixation in forest soils.
+
+```sparql
+SELECT DISTINCT ?carbonFixationForm
+WHERE {
+  ?carbonFixationForm a :CarbonFixationForm .
+  ?carbonFixationForm :occursIn :ForestSoil .
+}
+```

@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the composition details for a given (specific) resource. (Replace :YourSpecificResource with the resource identifier of interest.)
+
+----------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?resourceLabel ?composition ?element ?elementLabel
+WHERE {
+  # Select the specific resource
+  VALUES ?resource { :YourSpecificResource }
+  OPTIONAL { ?resource rdfs:label ?resourceLabel. }
+  
+  # Get the composition associated with the resource
+  ?resource :hasComposition ?composition.
+  
+  # Retrieve each element (material or component) that composes the resource
+  ?composition :isComposedOf ?element.
+  OPTIONAL { ?element rdfs:label ?elementLabel. }
+}
+----------------------------------------------------
+
+In this query the ontology is used under a closed-world assumption where only explicitly stated triples are considered. It directly exploits the modeling: a Resource has a Composition (via :hasComposition) and that Composition is made up of Materials or Components (via :isComposedOf).

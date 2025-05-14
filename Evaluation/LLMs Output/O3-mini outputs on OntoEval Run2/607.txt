@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, extracts the review content provided by a specific critic (e.g., ns1:CrianHiatt) about a specific record (e.g., ns1:StadiumArcadium):
+
+-----------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?critic ?criticLabel ?record ?recordLabel ?reviewContent
+WHERE {
+  ?review ns1:reviewedBy ?critic ;
+          ns1:reviewOf ?record ;
+          ns1:hasContent ?reviewContent .
+  OPTIONAL { ?critic rdfs:label ?criticLabel . }
+  OPTIONAL { ?record rdfs:label ?recordLabel . }
+  FILTER(?critic = ns1:CrianHiatt && ?record = ns1:StadiumArcadium)
+}
+-----------------------------------------------------
+
+This query retrieves the critic, record information, and what that critic said (the review content), thus fully answering the competency question: "What does a certain critic say about a certain record?"

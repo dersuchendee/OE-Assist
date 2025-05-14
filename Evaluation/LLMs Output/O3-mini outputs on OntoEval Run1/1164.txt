@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?flowLabel ?time ?quantityValue
+WHERE {
+  ?flow a :Flow .
+  OPTIONAL { ?flow rdfs:label ?flowLabel . }
+  ?flow :hasFlowObservation ?obs .
+  ?obs :atTime ?time .
+  ?obs :hasQuantityValue ?quantityValue .
+}
+ORDER BY ?flow ?time
+```

@@ -1,0 +1,27 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  # Find roles associated with Denitrifying Bacteria through hasRole property
+  :DenitrifyingBacteria rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty :hasRole ;
+               owl:someValuesFrom ?role .
+
+  # Ensure the role is connected to Denitrification Process via roleInProcess property
+  ?role rdfs:subClassOf ?roleRestriction .
+  ?roleRestriction a owl:Restriction ;
+                   owl:onProperty :roleInProcess ;
+                   owl:someValuesFrom :DenitrificationProcess .
+
+  # Optional: Get the label of the role for readability
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+```
+
+This query retrieves the role that **Denitrifying Bacteria** have in the **Denitrification Process** by navigating the class hierarchy and property restrictions defined in the ontology. It finds the `DenitrifierRole` associated with `DenitrifyingBacteria` through the `hasRole` property and confirms that this role is connected to the `DenitrificationProcess` via the `roleInProcess` property. The `OPTIONAL` clause fetches the label of the role for better understanding.

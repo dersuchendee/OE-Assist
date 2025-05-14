@@ -1,0 +1,23 @@
+**No**
+
+The CQ asks “What are the recordings involving a bell or set of bells?” but the provided ontology only models bells, bell towers, and sets of bells. There is no representation of “recordings” (or any related properties/classes such as sound practices, documents of musical performances, etc.) in the ontology. Under a closed world assumption, we cannot assume that any recordings exist or are modelled unless explicitly specified. Therefore, we can only partially answer the CQ by retrieving bells and sets of bells. For example, a partial SPARQL query is:
+
+───────────────────────────── 
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?entity ?label
+WHERE {
+  {
+    ?entity a bells:Bell .
+    OPTIONAL { ?entity rdfs:label ?label . }
+  }
+  UNION
+  {
+    ?entity a bells:SetOfBells .
+    OPTIONAL { ?entity rdfs:label ?label . }
+  }
+}
+───────────────────────────── 
+
+This query returns instances of bells and sets of bells, but does not include information about recordings since the ontology does not model them.

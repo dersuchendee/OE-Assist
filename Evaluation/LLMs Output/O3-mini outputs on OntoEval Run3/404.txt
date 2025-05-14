@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not enforce that a production has exactly one premier (it only provides the property :hasPremier without a cardinality restriction). Under the closed‐world assumption, we can still check the available data and see if any production violates the “exactly one premier” rule. This partial SPARQL query retrieves productions whose number of associated premiers is not equal to one:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production (COUNT(?premier) AS ?PremierCount)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremier ?premier . }
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) != 1)
+
+This query provides a partial answer by identifying productions that do not have exactly one premier, which indicates that the CQ is not fully supported by the ontology.

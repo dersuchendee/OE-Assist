@@ -1,0 +1,12 @@
+**No**
+
+Although the ontology defines that any forest ecosystem (and in particular any beech forest) must have at least one primary CO₂ fixation pathway (via the hasPrimaryCO2FixationPathway property) and restricts CO₂ fixation pathways to those that are part of carbon cycling, there is no reified construct (a linking “membership” class) connecting beech forests with specific pathway instances. In other words, while the TBox gives the necessary restrictions, it does not “reify” the measurement or record of a pathway for an individual beech forest. Under the closed world assumption, without explicit individual assertions (or a reified structure) we cannot fully extract the intended answer. A partial answer can be obtained with the query below.
+
+```sparql
+SELECT ?beechForest ?pathway
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest :hasPrimaryCO2FixationPathway ?pathway . }
+}
+ORDER BY ?beechForest
+```

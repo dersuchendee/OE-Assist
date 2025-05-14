@@ -1,0 +1,22 @@
+**Yes**
+
+The ontology provides two properties (hasMicrobialCommunityComposition and hasFungalCommunityComposition) for each Habitat, so under the closed world assumption we can identify habitats that share the same microbial and fungal community composition values. For example, the following SPARQL query retrieves pairs of distinct habitats that are equivalent in that sense:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?habitat1 ?habitat2
+WHERE {
+  ?habitat1 a :Habitat ;
+            :hasMicrobialCommunityComposition ?microbial ;
+            :hasFungalCommunityComposition ?fungal .
+  ?habitat2 a :Habitat ;
+            :hasMicrobialCommunityComposition ?microbial ;
+            :hasFungalCommunityComposition ?fungal .
+  FILTER(?habitat1 != ?habitat2)
+}
+ORDER BY ?habitat1 ?habitat2
+-------------------------------------------------
+
+This query finds pairs of habitats with identical microbial and fungal compositions, thus answering the competency question.

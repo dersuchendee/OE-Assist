@@ -1,0 +1,15 @@
+**Yes**
+
+Below is one SPARQL query that retrieves for each play the corresponding time period (with its start and end times) when the play was written:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?timePeriod ?startTime ?endTime
+WHERE {
+  ?play a ns1:Play ;
+        ns1:wasWrittenDuring ?timePeriod .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?timePeriod ns1:hasStartTime ?startTime ;
+              ns1:hasEndTime ?endTime .
+}

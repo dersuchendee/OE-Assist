@@ -1,0 +1,22 @@
+**No**
+Because the ontology lacks a direct way to associate the employment of an actor with a specific theatre. The `Cl_Employment` class is a subclass of both `Cl_Actor` and `Cl_Theatre`, but there is no object property that directly links a specific employment instance to a specific theatre. Therefore, we cannot fully answer the competency question with the given ontology.
+
+Here's a SPARQL query to extract partial information about actors and their employment start dates:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorName ?startDate
+WHERE {
+  ?actor a :Cl_Actor .
+  OPTIONAL { ?actor rdfs:label ?actorName . }
+  
+  ?actor :isEmployedAt ?employment .
+  ?employment a :Cl_Employment .
+  ?employment :employmentStartDate ?startDate .
+}
+```
+
+This query retrieves actors and the dates they started employment, but it does not link the employment to a specific theatre due to the modeling limitations of the ontology.

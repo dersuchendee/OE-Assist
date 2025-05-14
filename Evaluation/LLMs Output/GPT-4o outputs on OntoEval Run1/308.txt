@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific date with the premier of a production. The ontology includes classes and properties related to productions, premier events, and dates, but it lacks a direct connection between a specific production and its premier date. Therefore, a partial answer can be extracted by identifying productions and their associated premier events, but without the specific date.
+
+```sparql
+SELECT ?production ?premierEvent
+WHERE {
+  ?production a :Cl_Production .
+  ?premierEvent a :Cl_PremierEvent .
+  ?premierEvent :productionOf ?production .
+}
+```

@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not contain information about the specific location where a festival took place. It includes classes and properties related to festivals, dates, locations, plays, and other related entities, but it does not explicitly connect a festival to a specific location instance. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?festival ?festivalName ?location ?locationName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :festivalName ?festivalName .
+  OPTIONAL {
+    ?festivalLocation a :Cl_FestivalLocation ;
+                      :hasFestival ?festival ;
+                      :hasLocation ?location .
+    ?location :locationName ?locationName .
+  }
+}
+```

@@ -1,0 +1,19 @@
+**No**  
+Although the ontology defines a class for Collaborate and Align Processes with a restriction stating that such actions “requiresInformation” from some Information, it does not provide individuals or a detailed breakdown of the specific pieces of information needed. In other words, the needed information is only specified as some instance of the class Information, making the query only partially answerable. Under the closed-world assumption, we cannot extract a full list of concrete information items.
+
+A partial answer can be extracted by inspecting the restriction on the class CollaborateAndAlignProcesses. For example, the following SPARQL query retrieves the filler of the owl:someValuesFrom restriction for the property requiresInformation on the class CollaborateAndAlignProcesses:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?requiredInformation
+WHERE {
+  :CollaborateAndAlignProcesses rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :requiresInformation ;
+               owl:someValuesFrom ?requiredInformation .
+}
+----------------------------------------------------------------
+
+This query will return the class (in this case, the Information class) that is required—but it does not list specific information items, which reflects the only partial answerability of the competency question by the given ontology.

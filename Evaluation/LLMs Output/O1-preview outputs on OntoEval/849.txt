@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide a direct connection between the main hospital individual `:Ospedale_Riunito_delle_Tre_Valli` and the city `:Nocera_Inferiore` via the `:locatedIn` property. Since there's no explicit `:locatedIn` relationship connecting the hospital to its city, we cannot answer the competency question under the closed world assumption.
+
+However, we can extract the hospitals and attempt to find any associated locations:
+
+```sparql
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL {
+    ?hospital :locatedIn ?city .
+    OPTIONAL { ?city rdfs:label ?cityLabel . }
+  }
+}
+```
+
+This query retrieves hospitals and any associated cities if the `:locatedIn` property is available. In this case, it may only return partial data due to the missing `:locatedIn` relationship for the main hospital individual.

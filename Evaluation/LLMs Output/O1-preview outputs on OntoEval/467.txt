@@ -1,0 +1,20 @@
+Answer: **No**
+
+While the ontology allows us to identify the roles that persons have in bands, it does not include temporal information to specify the roles at specific points in time. Here's a SPARQL query to retrieve the roles of persons in bands without the time dimension:
+
+```sparql
+PREFIX ex: <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?personName ?bandName ?roleLabel
+WHERE {
+  ?person a ex:Person ;
+          ex:hasName ?personName ;
+          ex:hasRole ?role .
+  ?role rdfs:label ?roleLabel .
+  ?band a ex:Band ;
+          ex:hasMember ?person .
+  
+  OPTIONAL { ?band rdfs:label ?bandName . }
+}
+```

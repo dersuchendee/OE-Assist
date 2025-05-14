@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the songs played in each performance by using the setlist information:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?song
+WHERE {
+  ?setlist a :Cl_PerformanceSetlist ;
+           :performedDuring ?performance ;
+           :includesSong ?song .
+}
+-----------------------------------------------------------
+
+In a closed‐world setting we assume that all relevant instances have been asserted, so the query above fully answers the competency question "What songs were played in a certain performance?"

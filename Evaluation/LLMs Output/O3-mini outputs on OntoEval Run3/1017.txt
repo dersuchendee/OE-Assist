@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  { ?item a :Cl_Book }
+  UNION
+  { ?item a :Cl_CD }
+  ?item :publicationDate ?publicationDate .
+}
+```
+
+This query retrieves the publication dates for all individuals that are modeled as either a Book or a CD, thereby answering the competency question "When was a certain book or CD published?" under the closed world assumption.

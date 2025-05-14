@@ -1,0 +1,19 @@
+**No**
+
+The ontology provided lacks temporal information related to admissions, such as dates or durations, which are necessary to compute an average over a specific period. Without this temporal data, we cannot determine the average number of admissions per hospital for a given diagnosis code. However, we can extract the total number of admissions per hospital per diagnosis code. Here's a SPARQL query to obtain this partial information:
+
+```sparql
+SELECT ?hospital ?hospitalLabel ?diagnosisCode ?diagnosisCodeLabel (COUNT(?admission) AS ?numAdmissions)
+WHERE {
+  ?hospital a :Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+
+  ?hospital :hasAdmission ?admission .
+  
+  ?admission :hasDiagnosisCode ?diagnosisCode .
+  OPTIONAL { ?diagnosisCode rdfs:label ?diagnosisCodeLabel . }
+}
+GROUP BY ?hospital ?hospitalLabel ?diagnosisCode ?diagnosisCodeLabel
+```
+
+This query retrieves each hospital and diagnosis code pair along with the total number of admissions associated with them. Without temporal data, we cannot compute the average admissions over time.

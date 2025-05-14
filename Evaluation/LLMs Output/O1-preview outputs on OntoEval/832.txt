@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question is supported by the ontology because we can use the `:Cl_Employment` class, which relates a person to a hospital with an employment start date. This allows us to query for the first employment date of a specific person at a specific hospital.
+
+Here is the SPARQL query to extract the answer:
+
+```sparql
+SELECT (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?employment a :Cl_Employment .
+  ?employment :hasEmployee ?person .
+  ?person rdfs:label "Pasquale Di Gennaro" .
+  ?employment :employedAt ?hospital .
+  ?hospital rdfs:label "Ospedale Riunito delle Tre Valli" .
+  ?employment :employmentStartDate ?startDate .
+}
+```
+
+This query retrieves the earliest (`MIN`) employment start date (`?startDate`) for the person named "Pasquale Di Gennaro" at the hospital named "Ospedale Riunito delle Tre Valli".

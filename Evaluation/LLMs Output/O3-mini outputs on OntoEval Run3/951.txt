@@ -1,0 +1,18 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the articles composing a specified book or CD (here we assume the instance is known or provided):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bookOrCD ?bookTitle ?article ?articleTitle
+WHERE {
+  ?bookOrCD a ?collectionType .
+  FILTER(?collectionType IN (:Cl_Book, :Cl_CD))
+  OPTIONAL { ?bookOrCD :dp_hasTitle ?bookTitle. }
+  ?bookOrCD :op_composedOf ?article.
+  ?article :dp_hasTitle ?articleTitle.
+}
+--------------------------------------------------
+
+This query finds all individuals classified as either a book or a CD (from the article collection classes) and then retrieves the articles they are composed of along with their titles.

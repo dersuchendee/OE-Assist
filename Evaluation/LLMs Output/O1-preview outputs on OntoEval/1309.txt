@@ -1,0 +1,24 @@
+**Yes**
+
+The competency question is answerable because the ontology provides the necessary classes and properties to link aquatic microbes to environments with specific chemical characteristics. Specifically, we can navigate from `:AquaticMicrobe` via `:isFoundIn` to `:Environment`, and from there via `:hasChemicalCharacteristic` to `:ChemicalCharacteristic`, which has the datatype properties `:hasType` and `:hasValue`.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbe ?microbeLabel ?environment ?environmentLabel ?type ?value
+WHERE {
+  ?microbe a :AquaticMicrobe .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel . }
+
+  ?microbe :isFoundIn ?environment .
+  OPTIONAL { ?environment rdfs:label ?environmentLabel . }
+
+  ?environment :hasChemicalCharacteristic ?chemicalCharacteristic .
+  
+  ?chemicalCharacteristic :hasType ?type .
+  ?chemicalCharacteristic :hasValue ?value .
+}
+```
+
+This query retrieves all aquatic microbe species, the environments they are found in, and the specific chemical characteristics of those environments, satisfying the competency question.

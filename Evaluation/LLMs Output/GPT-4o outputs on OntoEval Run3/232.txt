@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query for the members of an ensemble at a certain point in time. The ontology includes classes and properties related to ensembles and memberships, but it lacks a direct connection to a specific point in time for ensemble membership. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?ensemble ?member
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership :member ?member .
+}
+```

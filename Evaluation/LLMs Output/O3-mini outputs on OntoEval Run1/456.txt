@@ -1,0 +1,29 @@
+**Yes**
+Below is one example SPARQL query that uses the reified membership information (via the Cl_Membership class) to return the band’s members that were “active” at a given point in time. In this example the band is hard‐coded as :RedHotChiliPeppers and the point in time is provided as a literal date (for example "2005-01-01"). You can parameterize these as needed.
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel ?membershipStart ?membershipEnd
+WHERE {
+  ?membership a :Cl_Membership ;
+              :memberOf :RedHotChiliPeppers ;
+              :bandMembership ?member ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Check that the given point falls after the membership started 
+  # and (if an end date is provided) before (or on) the membership end.
+  FILTER (
+    xsd:date("2005-01-01") >= ?membershipStart &&
+    ( !bound(?membershipEnd) || xsd:date("2005-01-01") <= ?membershipEnd)
+  )
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+ORDER BY ?member
+----------------------------------
+
+In this query the closed world assumption is used so that when no membershipEnd is provided we assume the membership is still in effect.

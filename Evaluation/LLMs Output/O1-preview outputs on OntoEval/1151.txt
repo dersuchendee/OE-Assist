@@ -1,0 +1,35 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?event ?eventLabel
+WHERE {
+  # Specify the user
+  ?user rdf:type :User .
+  ?user rdfs:label "John Doe"@en .
+
+  # User has preference
+  ?user :hasPreference ?preference .
+
+  # User has calendar with free time slots
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasFreeTimeSlot ?timePeriod .
+
+  # Time period has weather condition
+  ?timePeriod :hasWeatherCondition ?weatherCondition .
+
+  # Find events occurring during that time period
+  ?event rdf:type :Event .
+  ?event :occursDuring ?timePeriod .
+
+  # Event is suitable for user
+  ?event :isSuitableFor ?user .
+
+  # Optional labels
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+```

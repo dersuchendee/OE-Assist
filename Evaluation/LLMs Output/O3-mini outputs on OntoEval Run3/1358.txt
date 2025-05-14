@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not explicitly model an event or state change corresponding to “an organ moved to another location” (with a dedicated event type or property to indicate a move, and an associated time). However, one might partially approximate an answer by retrieving, for example, projects linked to an organ that include time intervals and places (under the assumption that some projects might involve relocation). Under a closed‐world assumption, the SPARQL query below returns such associations as a partial answer:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco:   <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?project ?timeInterval ?place
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+  ?project a arco:Project .
+  ?project arco:hasTimeInterval ?timeInterval .
+  ?project arco:hasPlace ?place .
+}
+
+This query attempts to extract information on when (timeInterval) and where (place) an organ (Organ) might be involved in a project (Project). However, because the ontology does not directly model “an organ moved” events, this answer is only partial.

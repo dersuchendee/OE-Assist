@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer this CQ using the ontology because seminars are defined as a subclass of :Event and the event date is captured by the :eventDate datatype property. Under the closed world assumption, we assume that every seminar instance has exactly one event date recorded. For a specific seminar (e.g. by its title), the following SPARQL query extracts the seminar’s event date:
+
+--------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?title ?eventDate
+WHERE {
+  ?seminar a :Seminar ;
+           :eventDate ?eventDate .
+  OPTIONAL { ?seminar :title ?title . }
+  # You can add a filter to specify the seminar of interest, for example:
+  # FILTER(CONTAINS(LCASE(?title), "certain seminar title"))
+}
+--------------------------------------------------
+
+This query retrieves the seminar instance, its optional title, and the event date, which fully models the CQ "When did a certain seminar take place?"

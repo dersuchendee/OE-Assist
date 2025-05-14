@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the geographic location of the original parts of an organ. The ontology includes classes and properties related to organs and their parts, but it does not specify how to associate these parts with a specific geographic location. The `:isLocatedIn` property connects `OrganPart` to `Location`, but there is no information on how to retrieve the specific location of original parts.
+
+Partial SPARQL query to extract information about original parts:
+
+```sparql
+SELECT ?organ ?originalPart
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasOriginalPart ?originalPart .
+}
+```

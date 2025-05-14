@@ -1,0 +1,9 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?exchange ?isSuccessful
+WHERE {
+  { ?exchange a :MaterialExchange } UNION { ?exchange a :InformationExchange } .
+  ?exchange :hasEvaluation ?evaluation .
+  ?evaluation :isSuccessful ?isSuccessful .
+}
+```

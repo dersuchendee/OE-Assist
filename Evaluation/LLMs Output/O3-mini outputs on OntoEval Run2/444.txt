@@ -1,0 +1,40 @@
+**Yes**
+
+For example, if you want to retrieve the members of a given band (say, "RedHotChiliPeppers") that were active at a specific point in time (passed as a date), you could use a query like this. In this query we assume that each membership has a start date (and optionally an end date) via the properties :membershipStart and :membershipEnd. We then filter to select only those memberships where the given time falls within the membership period.
+
+(Note: Adjust the band URI and the given time as needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?role ?membershipStart ?membershipEnd
+WHERE {
+  # Find a band membership instance for a person that relates the person to a band.
+  ?member a :Cl_Person .
+  ?member :memberOf ?membership .
+  
+  # The membership is linked to the band (e.g. RedHotChiliPeppers)
+  ?membership :hasMembership :RedHotChiliPeppers .
+  
+  # Get the time bounds of the membership.
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Optionally, get the member's name and role if available.
+  OPTIONAL { ?member :hasName ?memberName . }
+  OPTIONAL { ?membership :hasRole ?role . }
+  
+  # Define the point in time we are interested in.
+  # Here "2000-01-01"^^xsd:date is an example; replace it with the desired date.
+  FILTER (
+    xsd:date("2000-01-01") >= ?membershipStart &&
+    ( !bound(?membershipEnd) || xsd:date("2000-01-01") < ?membershipEnd )
+  )
+}
+ORDER BY ?member
+--------------------------------------------------
+
+This query demonstrates that the ontology has been modeled using a reification approach (the :Cl_BandMembership class along with properties such as :membershipStart, :membershipEnd, and :hasMembership) and therefore fully supports answering the CQ "What are the members of a certain band at a certain point in time?" under the closed world assumption.

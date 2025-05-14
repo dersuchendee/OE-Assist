@@ -1,0 +1,19 @@
+**Yes**
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the beech forests (a subtype of forest ecosystems) that affect either carbon or nitrogen cycling and shows in which groundwater systems these cycling processes occur:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?forestLabel ?cyclingProcess ?cyclingLabel ?groundwater ?gwLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?forestLabel . }
+  
+  ?beechForest :affectsCycling ?cyclingProcess .
+  FILTER (?cyclingProcess = :CarbonCycling || ?cyclingProcess = :NitrogenCycling)
+  OPTIONAL { ?cyclingProcess rdfs:label ?cyclingLabel . }
+  
+  ?cyclingProcess :occursIn ?groundwater .
+  OPTIONAL { ?groundwater rdfs:label ?gwLabel . }
+}
+ORDER BY ?beechForest ?cyclingProcess

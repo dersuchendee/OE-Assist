@@ -1,0 +1,26 @@
+**No**
+The provided ontology does not model any property or construct that explicitly relates a composition (or tune) to a tune family via an assignment process or that records the agent (i.e., who did the assignment). Consequently, while one might be able to extract partial information (for example, retrieving instances of Tune and TuneFamily), there is no way under the closed‐world assumption to determine “who assigned” composition X to tune family Y.
+
+A partial SPARQL query that attempts to retrieve any such relationship (assuming an assignment association were recorded) might be:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX mm: <https://w3id.org/polifonia/ontology/music-meta/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel ?tuneFamily ?tuneFamilyLabel ?agent
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+  
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?tuneFamilyLabel . }
+  
+  # Attempt to find an assignment triple, if any exists.
+  ?assignment a :Assignment .
+  ?assignment :assignedComposition ?tune .
+  ?assignment :assignedToTuneFamily ?tuneFamily .
+  OPTIONAL { ?assignment :assignedBy ?agent . }
+}
+
+This query extracts available associations between tunes and tune families via an (assumed) assignment class and properties. However, since the ontology does not include such an "Assignment" relation (or properties :assignedComposition, :assignedToTuneFamily, and :assignedBy), only partial information can be returned.

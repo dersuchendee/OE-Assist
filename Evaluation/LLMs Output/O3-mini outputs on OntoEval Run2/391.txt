@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one example SPARQL query that, using the reified class for representing a person’s role—which in our ontology is the class Cl_PersonRole (a subclass of Cl_Person, Cl_Role, Cl_Production, and Cl_Date)—retrieves the roles a specified person has in a specified production at a given point in time. (Here we assume that the individual URIs for the person and production are known, and that the date is given as a literal.)
+
+For example, the query below assumes that:
+• the individual representing the person is <http://www.example.org/test#FabioBianchi>;
+• the individual representing the production is <http://www.example.org/test#Production_MerchantOfVenice>;
+• and the “point in time” is provided as “2009-09-15”^^xsd:date.
+
+You can adjust these IRIs and the date filter as needed.
+
+–––––––––––––––
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?roleName ?roleDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasRole ?roleAssignment ;
+          :memberName ?personName .
+  ?roleAssignment a :Cl_PersonRole, :Cl_Production ;
+                  :roleName ?roleName ;
+                  :roleDate ?roleDate .
+  # Filter to only roles for the given person, production, and on the given day
+  FILTER(?person = <http://www.example.org/test#FabioBianchi> &&
+         ?roleAssignment = <http://www.example.org/test#Production_MerchantOfVenice> &&
+         ?roleDate = "2009-09-15"^^xsd:date)
+}
+–––––––––––––––
+
+This query shows that the ontology does indeed model the competency question (allowing one to “extract” the roles that a given person has in a given production at a given time under the closed‐world assumption).

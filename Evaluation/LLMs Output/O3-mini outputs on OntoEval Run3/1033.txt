@@ -1,0 +1,16 @@
+**Yes**
+Below is an example SPARQL query that retrieves the date when the seminar took place (using the individual that represents the seminar in the ontology):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+}
+--------------------------------------------------
+
+This query uses the property :seminarDate (defined with domain :Cl_Seminar and range xsd:date) and returns all seminars along with their dates. In the closed world of the ontology, the seminar held in December 2008 (e.g. :Seminar_December_2008) is explicitly modelled, thus the CQ “When did a certain seminar take place?” is fully supported by the ontology.

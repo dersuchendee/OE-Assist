@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly support querying which play is the basis of a production. The ontology includes a class `Cl_ProductionBasedOnPlay` and properties `basedOn` and `hasBasis`, but these are not directly connected to `Cl_Production` in a way that allows querying the basis of a production. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasBasis ?productionBasedOnPlay .
+  ?productionBasedOnPlay :basedOn ?play .
+}
+```

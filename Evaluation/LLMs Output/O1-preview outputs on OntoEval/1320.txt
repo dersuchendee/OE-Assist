@@ -1,0 +1,31 @@
+**Yes**
+
+The competency question can be answered using the provided ontology. The ontology defines the necessary classes and properties to represent interactions where aquatic fungi influence the abundance and activity of heterotrophs in aquifers. Here is a SPARQL query that retrieves this information:
+
+```sparql
+SELECT ?fungi ?fungiLabel ?heterotroph ?heterotrophLabel ?aquifer ?aquiferLabel ?abundanceEffect ?activityEffect
+WHERE {
+  ?interaction a :Interaction .
+
+  ?interaction :hasInfluencer ?fungi .
+  OPTIONAL { ?fungi rdfs:label ?fungiLabel . }
+
+  ?interaction :hasInfluenced ?heterotroph .
+  OPTIONAL { ?heterotroph rdfs:label ?heterotrophLabel . }
+
+  ?interaction :occursIn ?aquifer .
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+
+  ?interaction :affectsAbundance ?abundanceEffect .
+  ?interaction :affectsActivity ?activityEffect .
+}
+```
+
+This query retrieves:
+- The aquatic fungi (`?fungi`) involved in the interaction.
+- The heterotrophs (`?heterotroph`) being influenced.
+- The aquifer (`?aquifer`) where the interaction occurs.
+- The effects on abundance (`?abundanceEffect`).
+- The effects on activity (`?activityEffect`).
+
+The optional label retrieval allows for human-readable names if labels are available in the ontology.

@@ -1,0 +1,18 @@
+**Yes**
+
+The ontology models power relations between persons, including the patronage relationship between patrons and musicians, as well as supervision relationships. Thus, the competency question "Was there a power relation? (e.g., Patron / Musician)" is answerable using the ontology.
+
+Here is a SPARQL query that retrieves instances of power relations:
+
+```sparql
+SELECT ?person1 ?relationLabel ?person2
+WHERE {
+  ?person1 a :Person .
+  ?person2 a :Person .
+  ?person1 ?relation ?person2 .
+  ?relation rdfs:subPropertyOf+ :hasPowerOver .
+  OPTIONAL { ?relation rdfs:label ?relationLabel . }
+}
+```
+
+This query selects pairs of individuals (`?person1`, `?person2`) connected by a property (`?relation`) that is a subproperty of `:hasPowerOver`, along with the label of the relation for readability. It will retrieve all instances where a person has some form of power over another person, such as through patronage or supervision relationships defined in the ontology.

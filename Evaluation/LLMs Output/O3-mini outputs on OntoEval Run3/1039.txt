@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves the seminar and its date using the class Cl_Seminar and its data property seminarDate:
+
+----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+----------------
+
+In a closed-world assumption, because the ontology explicitly provides a class for seminars with a seminarDate property, the competency question "When did a certain seminar take place?" is fully answerable.

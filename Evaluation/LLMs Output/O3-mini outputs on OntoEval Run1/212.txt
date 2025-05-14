@@ -1,0 +1,12 @@
+**No**
+The provided ontology does not model ensemble membership with an associated time component. We can retrieve the members of an ensemble, but we cannot filter them “at a certain point in time.” A partial answer can be obtained with the following query:
+
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?ensemble ?member ?name
+WHERE {
+  ?ensemble rdf:type :Ensemble .
+  ?ensemble :hasMember ?member .
+  OPTIONAL { ?member :hasName ?name . }
+}

@@ -1,0 +1,14 @@
+**Yes**
+
+We can answer the CQ ("When was a certain album released?") using the ontology because the album’s release date is modelled as a datatype property (e.g. :releaseDate) on the album instance (of class :Cl_Album). Under the closed world assumption we assume that all available data is explicitly asserted. For example, the album :StadiumArcadium has the release date "2006-05-05". The following SPARQL query returns the release date for all albums (or you can restrict it to a specific album):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  ?album :releaseDate ?releaseDate .
+}
+
+This query answers the CQ by extracting the album release date from the ontology.

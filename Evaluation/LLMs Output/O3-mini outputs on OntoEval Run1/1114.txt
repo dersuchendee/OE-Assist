@@ -1,0 +1,19 @@
+**Yes**
+
+We can extract the user's current activity from the ontology by querying for individuals of type Cl_Person and then following the op_isDoing property that links a person to a Cl_BathroomActivity (which includes the reified class Cl_BrushingTeeth). For example, under the closed world assumption (i.e. assuming that if a triple is not present then the fact does not hold), the following SPARQL query returns the activity (and any recognition flag) that the user is doing now:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?activity ?activityRecognized
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_isDoing ?activity .
+  OPTIONAL {
+    ?activity :dp_recognizesActivity ?activityRecognized .
+  }
+}
+-------------------------------------------------
+
+This query retrieves for each person their current bathroom activity (e.g., brushing teeth) as represented in the ontology.

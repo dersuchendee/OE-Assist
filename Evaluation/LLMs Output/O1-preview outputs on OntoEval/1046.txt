@@ -1,0 +1,37 @@
+**Yes**
+
+Here, the CQ "What articles were presented in a certain seminar?" is answerable because the ontology includes classes and properties that relate seminars to articles using the property `:hasPresentedArticle`. The class `:Cl_Seminar` has a relationship with `:Cl_Article` through this property, allowing us to retrieve the articles presented at any seminar.
+
+Here's a SPARQL query that retrieves articles presented at seminars, optionally filtering by a specific seminar based on date and location as mentioned in the OS:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :hasPresentedArticle ?article .
+  OPTIONAL { ?article :title ?articleTitle . }
+  
+  ?seminarEvent a :Cl_SeminarEvent ;
+                :P_isOccurrenceOf ?seminar ;
+                :P_occursAt ?location ;
+                :P_hasDate ?date .
+  
+  # Adjust the date as per the specific seminar
+  FILTER (?date = "2008-12-01"^^xsd:date) 
+  
+  ?location a :Cl_Hospital ;
+            :P_isInCity ?city .
+  
+  ?city :cityName "Nocera Inferiore" .
+}
+```
+
+This query does the following:
+- Selects articles (`?article`) and their titles (`?articleTitle`) presented at seminars.
+- Filters seminars (`?seminar`) that have occurrences (`?seminarEvent`) on a specific date and location.
+- Uses the properties `:hasPresentedArticle`, `:P_isOccurrenceOf`, `:P_occursAt`, and `:P_hasDate` to navigate the ontology.
+
+By executing this query, we can retrieve all articles presented in the seminar held on the specified date at Ospedale Riunito delle Tre Valli in Nocera Inferiore, effectively answering the competency question.

@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the start date of the study period for a specific degree. The ontology includes the end date for the study period for the Certified Nurse Degree, but the start date is not specified. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?degree ?endDate
+WHERE {
+  ?person a ns1:Person .
+  ?person ns1:hasStudyPeriod ?studyPeriod .
+  ?studyPeriod ns1:studiesFor ?degree .
+  ?studyPeriod ns1:hasEndDate ?endDate .
+}
+```

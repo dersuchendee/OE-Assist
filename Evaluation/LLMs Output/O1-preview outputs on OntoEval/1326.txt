@@ -1,0 +1,14 @@
+Answer: **Yes**.
+
+The ontology provides the necessary classes and properties to answer the competency question. We can retrieve the microbial communities involved in CO2 fixation processes occurring in groundwater ecosystems using the following SPARQL query:
+
+```sparql
+SELECT ?microbialCommunity
+WHERE {
+  ?microbialCommunity a :MicrobialCommunity .
+  ?microbialCommunity :involvedIn ?process .
+  ?process a :CO2Fixation .
+  ?process :occursIn ?ecosystem .
+  ?ecosystem a :GroundwaterEcosystem .
+}
+```

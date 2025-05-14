@@ -1,0 +1,28 @@
+Answer: **Yes**
+
+The competency question "At least one article is always presented at each seminar" is modeled by the ontology through the restriction that specifies every seminar must contain at least one presentation of an article. This is represented using an OWL restriction in the ontology.
+
+Here is a SPARQL query that retrieves this restriction from the ontology:
+
+```sparql
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?restriction
+WHERE {
+  ?restriction rdf:type owl:Restriction ;
+               owl:onProperty :containsPresentationOf ;
+               owl:someValuesFrom :Cl_Article ;
+               rdfs:subClassOf :Cl_Seminar .
+}
+```
+
+This query searches for any OWL restrictions that:
+
+- Are of type `owl:Restriction`.
+- Use the `:containsPresentationOf` property.
+- Have `owl:someValuesFrom` set to `:Cl_Article`.
+- Are subclasses of `:Cl_Seminar`.
+
+If such a restriction exists, it confirms that the ontology enforces that every seminar must have at least one article presented, thus answering the competency question positively.

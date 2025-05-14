@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology supports the competency question because it models the relationships between a person, their role, the band, and the time through the `:Cl_PersonRoleBandTime` class and associated properties `:hasPerson`, `:hasRole`, `:hasBand`, and `:hasTime`.
+
+Here is a SPARQL query to retrieve the role a certain person has in a certain band at a certain point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?Person ?PersonName ?Role ?RoleName ?Band ?BandName ?Time
+WHERE {
+    ?PersonRoleBandTime a :Cl_PersonRoleBandTime ;
+        :hasPerson ?Person ;
+        :hasRole ?Role ;
+        :hasBand ?Band ;
+        :hasTime ?Time .
+    OPTIONAL { ?Person rdfs:label ?PersonName . }
+    OPTIONAL { ?Role rdfs:label ?RoleName . }
+    OPTIONAL { ?Band rdfs:label ?BandName . }
+}
+```
+
+This query retrieves all instances where a person has a role in a band at a specific time, effectively answering the competency question.

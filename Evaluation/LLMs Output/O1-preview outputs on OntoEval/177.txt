@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+The competency question is supported by the ontology because cities are represented as instances of `:Cl_City` and their countries are specified using the data property `:dp_country`.
+
+Here's the SPARQL query to retrieve the country of a certain city:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?city ?country
+WHERE {
+    ?city rdf:type :Cl_City .
+    ?city :dp_country ?country .
+}
+```

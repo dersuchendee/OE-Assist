@@ -1,0 +1,18 @@
+**Yes**
+
+One can answer the CQ “In what region is a certain city located?” using the classes Cl_City and Cl_Region together with the object property :locatedIn. For example, the following SPARQL query returns, for each city, the region it is located in:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedIn ?region .
+}
+--------------------------------------------------
+
+This query extracts the answer to the competency question under the closed world assumption with the given ontology.

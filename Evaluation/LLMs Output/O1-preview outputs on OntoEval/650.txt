@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?song ?songName
+WHERE {
+  # Replace :specifiedPerformance with the URI of the performance you're interested in
+  :specifiedPerformance a :Cl_Performance .
+  :specifiedPerformance :includesSong ?song .
+  OPTIONAL { ?song :hasName ?songName . }
+}
+```

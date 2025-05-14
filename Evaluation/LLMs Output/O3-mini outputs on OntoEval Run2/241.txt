@@ -1,0 +1,18 @@
+**Yes**
+Below is one possible SPARQL query to retrieve, for a given author, the plays they wrote:
+
+────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?playName
+WHERE {
+  ?author a :Cl_Author ;
+          :wrotePlay ?play .
+  OPTIONAL { ?play :playName ?playName. }
+  # Replace <AuthorURI> with the URI of the specific author you are interested in
+  FILTER (?author = <AuthorURI>)
+}
+────────────────────────────────────────────
+
+Under the closed‐world assumption, only those authors and plays explicitly asserted in the ontology will be returned.

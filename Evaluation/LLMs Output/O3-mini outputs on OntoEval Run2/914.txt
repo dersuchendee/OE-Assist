@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming we use the provided ontology where a person’s union membership is linked to a union role (with properties such as :roleTitle and :roleStartDate), we can query the role held by a given person in a given union at a specified point in time. For instance, if we want to know the role of :PasqualeDiGennaro in :UnionOfMaleNurses as of 2003‑01‑01, we could write:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?roleTitle ?roleStartDate
+WHERE {
+  :PasqualeDiGennaro :hasUnionMembership ?membership .
+  ?membership :memberOf :UnionOfMaleNurses .
+  ?membership :hasUnionRole ?role .
+  ?role :roleTitle ?roleTitle .
+  ?role :roleStartDate ?roleStartDate .
+  FILTER(xsd:date("2003-01-01") >= ?roleStartDate)
+}
+
+This query returns the union role information for the given person and union, filtered by the specified time condition.

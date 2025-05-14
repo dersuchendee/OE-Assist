@@ -1,0 +1,21 @@
+**Yes**
+Below is one SPARQL query that, under the closed‐world assumption, retrieves the songs played in a given performance. (In this query you can supply the identifier of the performance of interest.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?song ?songName
+WHERE {
+  # Identify a performance instance that records played songs.
+  ?performance a :Cl_PlayedSong .
+  
+  # Get the song(s) played in that performance via the reified relation.
+  ?performance :hasSong ?song .
+  
+  # Optionally, get a human‐readable name for the song.
+  OPTIONAL { ?song :songName ?songName . }
+  
+  # Uncomment to restrict to a particular performance instance:
+  # FILTER(?performance = <http://www.example.org/test#YourPerformanceID>)
+}
+

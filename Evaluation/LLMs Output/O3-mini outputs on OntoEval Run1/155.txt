@@ -1,0 +1,13 @@
+**Yes**
+
+We can answer this CQ by checking for individuals of type :Cl_Theatre that are linked via the property :locatedIn to a city. Under the closed‐world assumption, only explicitly stated locations are returned. For example, the following SPARQL query retrieves each theatre and the city in which it is located:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre ;
+           :locatedIn ?city .
+}
+ORDER BY ?theatre

@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one example SPARQL query that extracts the songs played in a given performance (using a reification class that connects the performance with the played song):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?perfDate ?song ?songTitle
+WHERE {
+  # The reified association that relates a performance and a song played
+  ?perfSong a :Cl_PerformanceSong ;
+            :performanceOf ?performance ;
+            :songPlayed ?song .
+  
+  # Optionally retrieve song title and performance date
+  OPTIONAL { ?song :hasTitle ?songTitle . }
+  OPTIONAL { ?performance :hasPerformanceDate ?perfDate . }
+  
+  # Example: restrict to a certain performance (e.g., by its known URI)
+  FILTER(?performance = :PortlandPerformance)
+}
+ORDER BY ?songTitle
+------------------------------------------------
+
+In this query we assume that the performance of interest (for instance, the live performance in Portland) is identified by :PortlandPerformance. The query uses the reification class (:Cl_PerformanceSong) to “model” the fact that a song was played in that particular performance, so the CQ is fully answerable via the ontology.

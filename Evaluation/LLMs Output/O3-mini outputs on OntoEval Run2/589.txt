@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedSong ?songComposition .
+  ?songComposition :compositionDate ?compositionDate .
+}
+```
+
+In this query we extract the composition date for each song by following the relationship between Cl_Song and its associated Cl_SongComposition, which holds the date through the property :compositionDate.

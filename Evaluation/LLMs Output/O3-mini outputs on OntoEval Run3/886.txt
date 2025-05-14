@@ -1,0 +1,34 @@
+**Yes**
+
+Assuming that the union memberships are reified through the class :UnionMembership (which connects a :Person, the :Union they belong to, and a :TimeInterval indicating when the membership is valid), we can answer the CQ “Who are the members of a certain union at a certain point in time?” under the closed world assumption. For example, using a given union URI (here indicated as ?targetUnion) and a fixed evaluation time (here provided as a dateTime value in the query), one may write a query as follows:
+
+------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personName
+WHERE {
+  # Find union memberships
+  ?membership a :UnionMembership .
+  ?membership :hasUnion ?union .
+  ?membership :hasMember ?person .
+  ?membership :hasTimeInterval ?timeInterval .
+  ?timeInterval :startDate ?start .
+
+  # Optionally the membership has an endDate (if not given, we assume membership is still active)
+  OPTIONAL { ?timeInterval :endDate ?end . }
+  
+  # Evaluate the given query parameters:
+  # Assume that the target union is given as a URI (e.g., <http://example.org/ontology#MaleNursesUnion>)
+  # and the point of time is specified as a dateTime:
+  FILTER(?union = <http://example.org/ontology#MaleNursesUnion>)
+  
+  BIND("2003-06-15T00:00:00"^^xsd:dateTime AS ?givenTime)
+  FILTER(?givenTime >= ?start && (!bound(?end) || ?givenTime <= ?end))
+  
+  # Optionally retrieve the person’s name if provided
+  OPTIONAL { ?person rdfs:label ?personName . }
+}
+------------------------------------------------------------
+
+This query retrieves each :Person who is (via a :UnionMembership instance) a member of the specified union at the given time (here "2003-06-15T00:00:00"). Adjust the union URI and the time parameter as needed.

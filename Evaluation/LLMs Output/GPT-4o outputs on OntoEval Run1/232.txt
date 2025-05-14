@@ -1,0 +1,22 @@
+**Yes**
+
+The competency question "Who are the members of a certain ensemble at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties related to ensembles, ensemble memberships, and persons, as well as a membership date property that can be used to filter members by a specific point in time.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?ensemble ?person ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :member ?person .
+  ?membership :membershipDate ?membershipDate .
+  
+  # Filter for a specific point in time, e.g., "2007-01-01"
+  FILTER(?membershipDate <= "2007-01-01"^^xsd:date)
+}
+ORDER BY ?ensemble ?membershipDate
+```
+
+This query retrieves the members of ensembles and their membership dates, allowing you to determine who was a member at a specific point in time. Adjust the date in the FILTER clause to match the desired point in time.

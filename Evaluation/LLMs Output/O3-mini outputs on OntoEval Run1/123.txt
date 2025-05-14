@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for any given theatre festival, the plays offered (by following the production–play links):
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival theatre:hasProduction ?production .
+  ?production theatre:hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+} 
+
+ORDER BY ?festival ?play
+
+Under the closed world assumption this query extracts the plays scheduled as part of each theatre festival from the given ontology.

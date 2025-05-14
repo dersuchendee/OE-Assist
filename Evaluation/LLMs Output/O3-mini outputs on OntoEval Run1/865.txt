@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer the CQ “In what country is a certain city located?” based on the ontology. In the ontology an instance of the class Cl_City is related to a Cl_CountryLocation via the property locatedInCountry, and then that location is linked to a Cl_Country via the property inCountry. For example, a SPARQL query under the closed‐world assumption is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :locatedInCountry ?loc .
+  ?loc :inCountry ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+} 
+
+This query retrieves the country for each city instance, thus fully addressing the CQ.

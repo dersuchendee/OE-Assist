@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with the instruments they play. The ontology includes classes and properties related to musical groups, albums, tracks, and performances, but it lacks a specific property or class that connects a person to the instruments they play. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?person ?name ?band
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasName ?name .
+  ?person :memberOf ?bandMembership .
+  ?bandMembership :hasMembership ?band .
+}
+```
+
+This query retrieves the names of persons and the bands they are members of, but it does not provide information about the instruments they play.

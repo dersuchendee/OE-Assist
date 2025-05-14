@@ -1,0 +1,23 @@
+**No**
+
+The competency question cannot be fully answered because there is no explicit link between a person and their TimeIndexedRoles in the ontology. Specifically, while the ontology defines the property `ns1:hasTimeIndexedRole` to associate a `ns1:Person` with a `ns1:TimeIndexedRole`, there are no assertions in the data that use this property to connect a person to their roles.
+
+However, we can extract partial information about the roles within productions at certain times, even though we cannot associate these roles with specific persons.
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+
+SELECT ?role ?roleLabel ?production ?productionLabel ?time
+WHERE {
+  ?timeIndexedRole a ns1:TimeIndexedRole .
+  ?timeIndexedRole ns1:hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  ?role ns1:inProduction ?production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+
+  ?timeIndexedRole ns1:atTime ?time .
+}
+```
+
+This query retrieves the roles, their associated productions, and the times at which they occur, but it does not include the person performing the role due to the missing links in the ontology.

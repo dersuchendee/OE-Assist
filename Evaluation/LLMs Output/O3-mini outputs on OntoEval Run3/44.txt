@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that “competency” is represented by instances of actorODP:Capability and that an actor holding a competency is linked via the property actorODP:capabilityOf, here is a SPARQL query that retrieves the capabilities (competencies) and the actors that hold them:
+
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?capability ?capabilityLabel ?actor ?actorLabel
+WHERE {
+  ?capability a actorODP:Capability .
+  ?capability actorODP:capabilityOf ?actor .
+  OPTIONAL { ?capability rdfs:label ?capabilityLabel . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+ORDER BY ?actor

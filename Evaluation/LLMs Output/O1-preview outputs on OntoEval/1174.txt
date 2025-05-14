@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?action ?actionLabel ?reboundEffect ?reboundEffectLabel
+WHERE {
+  ?action a :Action .
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+
+  ?action :hasPotentialReboundEffect ?reboundEffect .
+  OPTIONAL { ?reboundEffect rdfs:label ?reboundEffectLabel . }
+}
+```
+
+This SPARQL query retrieves all actions (including processes, since `:Process` is a subclass of `:Action`) and their associated potential rebound effects by leveraging the `:hasPotentialReboundEffect` property defined in the ontology. The query selects the action and potential rebound effect instances along with their labels, if available.

@@ -1,0 +1,20 @@
+**Yes**
+
+We can fully answer the CQ using the ontology. In this case, the ontology models a premier event as an instance of Cl_ProductionPremier that links to the related production (via the property premierOf) and specifies its premier date (via premierDate). Under the closed world assumption, if a production’s premier information is asserted, we can extract it completely. Here’s a SPARQL query that retrieves the production and its premier date:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?premierDate
+WHERE {
+  ?premierInstance a :Cl_ProductionPremier .
+  ?premierInstance :premierOf ?production .
+  ?premierInstance :premierDate ?premierDate .
+  OPTIONAL { ?production rdfs:label ?productionLabel. }
+}
+ORDER BY ?premierDate
+-----------------------------------------------------------
+
+This query extracts for each premier instance the production it is associated with and the premier date, thereby fully supporting the CQ "When was the premier of a certain production?"

@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasEmployment ?employment .
+  ?employment a :Cl_PersonHospitalEmployment .
+  ?employment :hasHospital ?hospital .
+  ?hospital a :Cl_Hospital .
+  ?employment :employmentStartDate ?startDate .
+}
+GROUP BY ?person ?hospital
+ORDER BY ?person ?hospital
+```
+
+This SPARQL query retrieves the earliest employment start date (`?firstEmploymentDate`) for each person-hospital pair. It leverages the ontology's classes and properties:
+
+- `:Cl_Person` represents persons.
+- `:Cl_Hospital` represents hospitals.
+- `:Cl_PersonHospitalEmployment` reifies the employment relationship between a person and a hospital.
+- `:hasEmployment` links a person to their employment(s).
+- `:hasHospital` links an employment to the hospital.
+- `:employmentStartDate` captures the start date of the employment.
+
+By grouping the results by `?person` and `?hospital`, and using `MIN(?startDate)`, the query finds the earliest start date for each person at each hospital, thus answering the competency question.

@@ -1,0 +1,18 @@
+**Yes**
+Below is an example SPARQL query. In this query we assume that the “certain doctor” and “certain employee” are provided (or known by their URIs) as input. The query retrieves the evaluation statements (instances of :Evaluation) that link the given doctor via :givenBy and the given employee via :givenFor.
+
+--------------------------------------------------
+PREFIX : <http://example.org/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?evaluation
+WHERE {
+  ?evaluation a :Evaluation ;
+              :givenBy ?doctor ;
+              :givenFor ?employee .
+  FILTER(?doctor = <http://example.org/hospital#SomeDoctor>
+         && ?employee = <http://example.org/hospital#SomeEmployee>)
+}
+--------------------------------------------------
+
+Under the closed world assumption, only those evaluation statements explicitly stated in the ontology (and associated with the specific doctor and employee) will be returned.

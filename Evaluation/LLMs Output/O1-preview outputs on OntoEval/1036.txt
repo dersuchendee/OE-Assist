@@ -1,0 +1,13 @@
+**Yes**
+
+The CQ "When did a certain seminar take place?" is supported by the ontology because it includes a class `:Cl_Seminar` and a data property `:seminarDate` associated with it. This allows us to query for seminars and their dates.
+
+Here is the SPARQL query to extract the date of seminars:
+
+```sparql
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?date .
+}
+```

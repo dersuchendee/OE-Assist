@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the articles (and optionally their titles) presented in a given seminar. In this example the seminar is identified by its individual (e.g. :SeminarOnNursePractices):
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle ?seminar ?seminarDate
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :presentationOf ?seminar .
+  ?seminar a :Cl_Seminar .
+  
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  
+  FILTER(?seminar = :SeminarOnNursePractices)
+}
+ORDER BY ?seminarDate
+------------------------------------------------------
+
+This query shows that the ontology provides sufficient connections—in particular through the properties :presentedIn and :presentationOf—to answer the competency question "What articles were presented in a certain seminar?" under a closed world assumption.

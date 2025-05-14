@@ -1,0 +1,23 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?suggestion ?event ?time ?preference ?weather
+WHERE {
+  ?suggestion a :Cl_EventSuggestion ;
+              :hasEvent ?event ;
+              :hasSuggestedTime ?time ;
+              :hasUserPreference ?preference ;
+              :hasWeatherDuringEvent ?weather .
+              
+  # Ensure that the time period corresponds to an evening.
+  ?time :isEvening "true"^^xsd:boolean .
+  
+  # Ensure that the weather condition indicates raining.
+  ?weather :isRaining "true"^^xsd:boolean .
+  
+  # Ensure that the user's preference indicates a liking for movies.
+  ?preference :likesMovies "true"^^xsd:boolean .
+}
+```

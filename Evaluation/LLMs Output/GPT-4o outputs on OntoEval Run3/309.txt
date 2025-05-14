@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query the premiere date of a specific theatre production. The ontology includes a `TheatreProduction` class with a `hasPremiere` object property that relates a production to a `Premiere` event, but it does not include a datatype property for the premiere date itself. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?production ?premiere
+WHERE {
+  ?production a :TheatreProduction .
+  ?production :hasPremiere ?premiere .
+}
+```

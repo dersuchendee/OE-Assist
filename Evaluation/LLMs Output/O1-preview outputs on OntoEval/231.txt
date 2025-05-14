@@ -1,0 +1,25 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personName WHERE {
+  ?ensemble a :Cl_Ensemble .
+  # Filter for the specific ensemble (replace :SpecificEnsemble with your ensemble URI)
+  # FILTER(?ensemble = :SpecificEnsemble) 
+
+  ?ensemble :hasMember ?person .
+  ?person :hasRole ?role .
+  ?role :roleAtTime ?roleDate .
+  ?roleDate :dateValue ?dateValue .
+
+  # Filter for the specific date (replace "YYYY-MM-DD" with your date)
+  FILTER (?dateValue = "YYYY-MM-DD"^^xsd:date)
+
+  # Optional: Get the person's name
+  OPTIONAL { ?person rdfs:label ?personName . }
+}
+```
+
+This query retrieves all persons who are members of a given ensemble and have roles at a specific point in time (date). Replace `:SpecificEnsemble` with the URI of the ensemble you're interested in, and `"YYYY-MM-DD"` with the date you're querying for.

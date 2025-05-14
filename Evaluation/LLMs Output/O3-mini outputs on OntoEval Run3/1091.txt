@@ -1,0 +1,14 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves each seminar along with at least one article presented in it. This demonstrates that every seminar in the ontology indeed has at least one associated article via the property “:presents” (as required by the minCardinality restriction):
+
+PREFIX : <http://example.org/seminar#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :presents ?article .
+} 
+
+This query shows that for every seminar there is at least one article presented, confirming that the competency question "At least one article is always presented at each seminar" is supported by the ontology.

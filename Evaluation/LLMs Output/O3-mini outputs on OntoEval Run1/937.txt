@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the evaluation statement issued by a doctor for an employee, based on the ontology’s reified representation of evaluation statements:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?employee ?evaluationText
+WHERE {
+  ?evaluation a :Cl_EvaluationStatement ;
+              :givenBy ?doctor ;
+              :givenTo ?employee ;
+              :evaluationText ?evaluationText .
+}
+-----------------------------------------------------
+
+In this query, the ontology’s classes and properties (such as :Cl_EvaluationStatement, :givenBy, :givenTo, and :evaluationText) are used to answer the competency question under the closed world assumption.

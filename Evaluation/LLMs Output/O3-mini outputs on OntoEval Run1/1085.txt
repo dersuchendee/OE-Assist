@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?seminar ?seminarLabel ?hospital ?hospitalLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarLocatedIn ?hospital .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+```
+
+This query extracts all seminars and the hospitals in which they are located, directly answering the competency question "Where did a certain seminar take place?" based on the provided ontology using the closed world assumption.

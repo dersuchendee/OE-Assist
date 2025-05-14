@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that the ontology uses a reification pattern where an author’s “wrotePlay” relation points to an instance of Cl_Authorship—and that Cl_Authorship is a subclass of Cl_Play (thereby “reifying” the connection between a Cl_Author and the play they wrote)—we can extract the answer with the following SPARQL query. (Under the closed‐world assumption the query returns only those authors that have explicit authored play information.)
+
+For example, to get the play names written by a given author (here using a placeholder “?authorName”), you can run:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?authorName ?play ?playName
+WHERE {
+  ?author a :Cl_Author ;
+          :authorName ?authorName ;
+          :wrotePlay ?authorship .
+  
+  ?authorship a :Cl_Authorship ;
+              :playName ?playName .
+  # Since Cl_Authorship is a reified connection and subclass of Cl_Play,
+  # we can consider ?authorship as the written play.
+  BIND(?authorship AS ?play)
+}
+--------------------------------------------------
+
+You can add a FILTER or VALUES clause on ?authorName if you need to restrict to a specific author (e.g. William Shakespeare).

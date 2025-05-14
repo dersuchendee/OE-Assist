@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that answers the CQ by retrieving, for each flow, its measurement’s quantity value at a given specific time (to be provided as a parameter):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?measurementTime ?quantityValue
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasMeasurement ?measurement .
+  ?measurement :hasTime ?measurementTime .
+  ?measurement :hasQuantityValue ?quantityValue .
+  FILTER(?measurementTime = "2023-01-01T00:00:00"^^xsd:dateTime)
+}
+
+In this query you would replace the fixed date "2023-01-01T00:00:00"^^xsd:dateTime with the specific time you want to query.

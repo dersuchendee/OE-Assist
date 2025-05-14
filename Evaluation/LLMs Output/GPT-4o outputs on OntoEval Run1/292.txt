@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain information about the number of acts in a play. However, we can extract partial information about the plays and their authors.
+
+```sparql
+SELECT ?play ?author
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL {
+    ?author :op_hasWritten ?play .
+  }
+}
+```

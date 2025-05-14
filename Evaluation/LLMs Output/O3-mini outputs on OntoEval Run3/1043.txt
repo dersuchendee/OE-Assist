@@ -1,0 +1,38 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given seminar, the articles presented. In this ontology the seminar is linked to a “presentation event” (a reification class) which in turn “presents” an article. We use the closed world assumption and only consider those individuals explicitly in the ontology.
+
+For example, to list all seminars and the articles presented in each seminar, you can use:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :hasSeminarDate ?seminarDate ;
+           :hasPresentationEvent ?presentationEvent .
+  ?presentationEvent :presentationOfArticle ?article .
+  OPTIONAL { 
+    ?article :hasTitle ?articleTitle .
+  }
+}
+ORDER BY ?seminarDate
+
+If you want to restrict the query to a “certain seminar” (for example, a seminar held on December 1, 2008), you could add a FILTER:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :hasSeminarDate ?date ;
+           :hasPresentationEvent ?presentationEvent .
+  FILTER(?date = "2008-12-01"^^xsd:date)
+  
+  ?presentationEvent :presentationOfArticle ?article .
+  OPTIONAL { ?article :hasTitle ?articleTitle . }
+}
+
+This query shows that the ontology supports the competency question “What articles were presented in a certain seminar?” under the closed world assumption.

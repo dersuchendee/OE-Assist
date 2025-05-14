@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves for each seminar the articles that are presented (either directly via the property presentsArticle or via the reified relation using hasPresentationEvent and presentationOfArticle). If every seminar has at least one presentation, then no seminar will be returned without an article.
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?seminar ?article ?title
+WHERE {
+  ?seminar a :Cl_Seminar .
+  {
+    ?seminar :presentsArticle ?article .
+  }
+  UNION
+  {
+    ?seminar :hasPresentationEvent ?pe .
+    ?pe :presentationOfArticle ?article .
+  }
+  OPTIONAL { ?article :hasTitle ?title . }
+}
+ORDER BY ?seminar ?article
+----------------------------------------
+
+This query returns each seminar along with at least one article that is presented at that seminar, thus satisfying the competency question "At least one article is always presented at each seminar."

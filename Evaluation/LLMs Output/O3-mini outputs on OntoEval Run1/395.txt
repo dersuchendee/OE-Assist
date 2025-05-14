@@ -1,0 +1,27 @@
+**Yes**
+
+Assuming that specific individuals for the person, production, and time are provided (or bound via parameters), you can extract the roles from the reification class :Cl_RoleAssignment that “connects” a person, a production, and a date. For example, the following SPARQL query returns the role name and its date for a given person (here, using <http://www.example.org/test#Fabio_Bianchi> as an example), in the context of a production (here, using <http://www.example.org/test#Merchant_of_Venice> as the production instance) and at a specified point in time (here filtered by a sample date):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?roleName ?roleDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRoleInProduction ?roleAssignment .
+  ?roleAssignment a :Cl_RoleAssignment ;
+                  :roleName ?roleName ;
+                  :roleDate ?roleDate .
+  ?roleAssignment a :Cl_Production .  # role assignment also typed as a production
+
+  # Filter by a specific person and production instance
+  FILTER(?person = <http://www.example.org/test#Fabio_Bianchi>)
+  FILTER(?roleAssignment = <http://www.example.org/test#Merchant_of_Venice>)
+  
+  # Optionally, filter by a specific point in time
+  FILTER(?roleDate = "2009-09-07"^^xsd:date)
+}
+----------------------------------------------------------------
+
+Here the ontology supports the competency question because we can extract the answer (i.e. the roles for a certain person within a given production at a particular date) by using the reified role assignment that is connected to the classes Cl_Person, Cl_Production, and Cl_Date.

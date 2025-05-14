@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology contains a reification class (Cl_PlayCreation) linked to plays by the property wasWrittenDuring and provides the data property creationPeriod. In other words, for a given play (an instance of Cl_Play), you can retrieve the time period in which it was written using these properties. Under a closed world assumption, this enables writing a SPARQL query that returns the creation period for a play.
+
+For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title ?creationPeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :wasWrittenDuring ?playCreation .
+  ?playCreation :creationPeriod ?creationPeriod .
+  OPTIONAL { ?play :playTitle ?title. }
+}
+
+This query retrieves each play along with its title and the time period during which it was written.

@@ -1,0 +1,19 @@
+**Yes**
+
+You can retrieve the evaluation statement that links a doctor (the evaluator) to an employee (the evaluated) from the evaluation individual. For example, assuming that you know the individuals for the doctor and the employee (which you may pass as parameters), you could use a query like this:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement 
+WHERE {
+  ?evaluation a :Cl_Evaluation ;
+              :evaluationStatement ?evaluationStatement ;
+              :evaluatedBy ?doctor ;
+              :evaluationOf ?employee .
+  FILTER (?doctor = :SomeDoctorIndividual && ?employee = :SomeEmployeeIndividual)
+}
+————————————————————————————
+
+Under the closed‐world assumption, if the ontology contains an evaluation individual with the appropriate properties, this query will return the complete evaluation statement.

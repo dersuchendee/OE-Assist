@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, retrieves albums and their release dates by following the reification pattern used in the ontology:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :releasedOn ?albumRelease .
+  ?albumRelease :releaseDate ?releaseDate .
+}
+-----------------------------------------
+
+This query answers the competency question "When was a certain album released?" by retrieving the album (optionally with a label) and its release date via the reified album release information.

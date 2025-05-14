@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for each person, the instruments they play (using the playsInstrument property):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :hasName ?personName. }
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentName. }
+}
+--------------------------------------------------
+
+This query shows that the competency question "What instruments does a certain person play?" is modelled correctly in the ontology because we can directly extract relevant instrument information from a :Cl_Person via the :playsInstrument property.

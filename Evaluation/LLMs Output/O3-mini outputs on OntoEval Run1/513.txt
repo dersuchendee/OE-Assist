@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?title ?trackCount
+WHERE {
+  ?album a :MusicAlbum .
+  ?album rdfs:label ?title .
+  ?album :trackCount ?trackCount .
+  FILTER(?title = "Stadium Arcadium")
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+
+Under the closed‐world assumption we can assume that every “first employment” of a person is explicitly recorded using the property :hasFirstEmployment (whose range is the class :FirstEmployment that carries a start date via :hasStartDate), and that the hospital employing the person is related via the :employs property. With these modeling assumptions we can extract the first employment start date for a specific person at a specific hospital. For example, given the identifiers for a person and a hospital, the following SPARQL query answers “When was a certain person first employed at a certain hospital?”:
+
+PREFIX : <http://example.org/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital ?startDate
+WHERE {
+  ?person a :Person .
+  ?person :hasFirstEmployment ?firstEmployment .
+  ?firstEmployment :hasStartDate ?startDate .
+  
+  ?hospital a :Hospital .
+  ?hospital :employs ?person .
+  
+  # Optionally filter for the specific person and hospital 
+  # FILTER(?person = <http://example.org/hospital#PasqualeDiGennaro> && 
+  #        ?hospital = <http://example.org/hospital#OspedaleRiunitoDelleTreValli>)
+}
+ORDER BY ?person ?startDate
+
+This query retrieves the start date of the first employment for each person employed by a hospital, thereby answering the competency question.

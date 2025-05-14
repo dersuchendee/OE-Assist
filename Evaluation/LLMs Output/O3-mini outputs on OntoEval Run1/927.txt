@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that, given the IRIs of a specific doctor and a specific employee, retrieves the evaluation statement the doctor has provided for that employee:
+
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?doctor a :Doctor ;
+          :hasEvaluation ?evaluationStatement .
+  ?evaluationStatement :evaluationOf ?employee .
+  
+  # Replace the IRIs below with the actual IRIs for the certain doctor and employee
+  FILTER (?doctor = <http://example.org/doctor/DoctorID> && ?employee = <http://example.org/employee/EmployeeID>)
+}

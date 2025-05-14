@@ -1,0 +1,24 @@
+**Yes**
+
+```sparql
+SELECT (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :atHospital ?hospital .
+  ?employment :employmentDate ?employmentDate .
+  FILTER (?person = :CertainPerson)
+  FILTER (?hospital = :CertainHospital)
+}
+```
+
+This query retrieves the earliest employment date (`?firstEmploymentDate`) of a specific person (`:CertainPerson`) at a specific hospital (`:CertainHospital`). The ontology provides the necessary classes and properties to answer the CQ:
+
+- `:Cl_Person` class represents persons.
+- `:Cl_Employment` class represents employment instances.
+- `:Cl_Hospital` class represents hospitals.
+- `:employedAt` property links a person to their employment(s).
+- `:atHospital` property links an employment to a hospital.
+- `:employmentDate` property provides the date of employment.
+
+By querying these properties and applying the `MIN` function, we obtain the earliest (first) employment date of the person at the hospital, thus answering the competency question.

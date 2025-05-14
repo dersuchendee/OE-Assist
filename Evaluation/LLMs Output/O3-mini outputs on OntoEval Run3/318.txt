@@ -1,0 +1,24 @@
+**Yes**
+
+The production’s premier is modelled via the relationship between a production (instance of Cl_Production) and its premier (instance of Cl_ProductionPremier), with the premier date captured by the data property (premierDateValue) on an instance of Cl_PremierDate. For example, the production “The Merchant of Venice at The Grand Theatre” has a premier represented by the resource Premier_GrandTheatre_MerchantOfVenice_Sept7 whose premierDateValue is "2009-09-07". Under the closed world assumption, we can assume that any production with a premier must have that association explicitly modeled.
+
+A SPARQL query to answer the CQ “When was the premier of a certain production?” is as follows:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?premierDateValue
+WHERE {
+  ?production rdf:type :Cl_Production ;
+              :productionName ?productionName ;
+              :hasPremier ?premier .
+  ?premier :premierDate ?premierDateResource .
+  ?premierDateResource :premierDateValue ?premierDateValue .
+  # Filter to a specific production if needed – remove/comment the filter for all
+  FILTER(?productionName = "The Merchant of Venice at The Grand Theatre")
+}
+-------------------------------------------------------------
+
+This query retrieves the production’s name and its premier date, thereby fully supporting the CQ.

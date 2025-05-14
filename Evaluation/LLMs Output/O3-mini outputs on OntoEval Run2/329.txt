@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves the star rating given by a particular newspaper for a given production. In this query, we use parameters (FILTER conditions) to specify the production and the newspaper of interest.
+
+─────────────────────────────
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?starRating
+WHERE {
+  ?production ns1:hasReview ?review .
+  ?review ns1:starRating ?starRating .
+  ?review ns1:publishedBy ?newspaper .
+  
+  OPTIONAL { ?production rdfs:label ?productionLabel. }
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel. }
+  
+  # Specify the production and newspaper of interest
+  FILTER(?production = ns1:MerchantOfVenice_GrandTheatre && ?newspaper = ns1:IlGazzettino)
+}
+  
+─────────────────────────────
+
+This query extracts the production, its label, the newspaper that published the review, its label, and the star rating given—all based on the ontology’s representation of reviews, productions, and newspapers.

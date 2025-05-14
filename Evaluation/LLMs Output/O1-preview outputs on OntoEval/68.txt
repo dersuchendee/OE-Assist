@@ -1,0 +1,27 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/circular_value_network#>
+
+SELECT ?type ?composition ?usedInProcess ?inputToProcess ?outputFromProcess
+WHERE {
+  # Get the type(s) of the resource, excluding the general :Resource class
+  OPTIONAL { :thisResource a ?type . FILTER(?type != :Resource) }
+
+  # Get the composition of the resource
+  OPTIONAL { :thisResource :hasComposition ?composition . }
+
+  # Find process steps where the resource is used
+  OPTIONAL { :thisResource :isUsedIn ?usedInProcess . }
+
+  # Find process steps where the resource is an input
+  OPTIONAL { ?inputToProcess :hasInput :thisResource . }
+
+  # Find process steps where the resource is an output
+  OPTIONAL { ?outputFromProcess :hasOutput :thisResource . }
+}
+```
+
+The competency question "Give me information about this resource" is supported by the ontology. The ontology defines the class `:Resource` and various properties that describe a resource's type (`:hasType`), its composition (`:hasComposition`), and its involvement in process steps (`:isUsedIn`, `:hasInput`, `:hasOutput`). 
+
+In the SPARQL query above, replace `:thisResource` with the specific resource you are inquiring about. The query will retrieve all relevant information defined in the ontology about that resource, such as its type (e.g., `:Product`, `:Component`, `:Material`), its composition, and the process steps it is associated with. This demonstrates that the ontology can adequately answer the competency question by providing the necessary data structure to represent and query information about resources.

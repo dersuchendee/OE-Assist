@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "What are the free time periods in the user’s calendar today?" can be answered using the given ontology. The ontology includes classes and properties that represent events and free time periods within a calendar, along with their start and end times. We can write a SPARQL query to extract the free time periods from the user's calendar for a specific day.
+
+```sparql
+SELECT ?freeTimePeriod ?startTime ?endTime
+WHERE {
+  :MyCalendar :hasFreeTimePeriod ?freeTimePeriod .
+  ?freeTimePeriod a :FreeTimePeriod ;
+                  :startTime ?startTime ;
+                  :endTime ?endTime .
+  FILTER (STRSTARTS(STR(?startTime), "2023-04-01"))
+}
+ORDER BY ?startTime
+```

@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What are the attribute values for this event?" can be answered using the ontology provided. The ontology includes classes and properties that describe film preview events, including the film title, cinema location, and start time. Here is a SPARQL query to extract the attribute values for the event:
+
+```sparql
+SELECT ?filmTitle ?cinema ?startTime
+WHERE {
+  ?event a :Cl_FilmPreviewEvent .
+  ?event :hasPreview ?film .
+  ?film :hasTitle ?filmTitle .
+  ?event :previewAt ?cinema .
+  ?event :hasStartTime ?startTime .
+}
+```

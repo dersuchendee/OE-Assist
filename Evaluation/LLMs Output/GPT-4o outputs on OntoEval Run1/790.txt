@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a person studied for a specific degree. The ontology includes classes and properties related to persons, degrees, and study periods, but it lacks the necessary connections to directly answer the competency question. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?degree ?degreeTitle ?obtainedDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?obtainedDate . }
+}
+```
+
+This query retrieves the person, the degree they obtained, and the title of the degree, along with the date the degree was obtained if available. However, it does not provide the study period, as the ontology does not model this information.

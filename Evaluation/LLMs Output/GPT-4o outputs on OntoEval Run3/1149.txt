@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes classes and properties that allow us to query for events of a specific category (e.g., movies) available during a certain time period. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?event ?eventLabel ?startTime ?endTime
+WHERE {
+  ?event a :Movie .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime .
+  ?timePeriod :hasEndTime ?endTime .
+  
+  FILTER (?startTime >= "2023-04-01T00:00:00Z"^^xsd:dateTime && ?endTime <= "2023-04-01T23:59:59Z"^^xsd:dateTime)
+}
+ORDER BY ?startTime
+```

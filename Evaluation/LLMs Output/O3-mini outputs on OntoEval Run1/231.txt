@@ -1,0 +1,18 @@
+**No**
+
+The current ontology connects ensembles and persons via the property :hasMember but does not link the membership with time information. In other words, although we can retrieve the members of an ensemble, there is no modelling of the temporal aspect (i.e. “at a certain point in time”) for when a person is member of that ensemble. Under our closed‐world assumption this means that the CQ is only partially answerable. For example, a partial answer can be obtained with:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?member .
+  # Note: no time filtering is possible since ensemble membership lacks temporal
+  # qualification in the ontology.
+}
+————————————————————————————
+
+This query returns the ensemble–member associations but does not allow filtering by a specific point in time.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that – under a closed‐world assumption – retrieves all productions that have exactly one associated premier. In this query we count the number of :hasPremier links for each production and return only those with a single premier along with its premier date.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (SAMPLE(?premierDate) AS ?premierDate)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+-----------------------------------------------------------
+
+This query demonstrates that the ontology supports the competency question “A production has exactly one premier” because we can extract (and check) that for each production there is exactly one premier (and its date).

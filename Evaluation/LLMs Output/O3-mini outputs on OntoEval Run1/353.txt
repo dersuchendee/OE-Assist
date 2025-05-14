@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the employment start date for each actor along with the theatre where they work:
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?startDate
+WHERE {
+  ?actor a theatre:Actor .
+  ?actor theatre:hasEmployment ?employment .
+  ?employment theatre:hasStartDate ?startDate .
+  ?employment theatre:hasTheatre ?theatre .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+}
+ORDER BY ?actor
+
+This query answers the competency question "At what time did a certain actor start working for a specific theatre?" by retrieving, for each actor, the associated employment start date and the theatre at which they are employed.

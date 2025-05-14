@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the CQ with the ontology because the ensemble class (Cl_Ensemble) carries a date property and a “hasMember” property that connects it to actor instances. Hence, given an ensemble instance and a specific date, we can select its members. For example, if we want to retrieve the members of an ensemble at a specific date, the following SPARQL query can be used:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleDate ?actor ?actorLabel
+WHERE {
+  ?ensemble a :Cl_Ensemble ;
+            :date ?ensembleDate ;
+            :hasMember ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  # Replace "2009-09-07" with the point-in-time of interest:
+  FILTER(?ensembleDate = "2009-09-07"^^xsd:date)
+}
+
+This query retrieves each ensemble that was active on the specific date (here "2009-09-07") along with its members and their optional labels, thereby fully supporting the competency question.

@@ -1,0 +1,36 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName
+WHERE {
+  # Parameters (to be provided when executing the query)
+  # ?union: the specific union of interest (e.g., :SomeUnion)
+  # ?date: the specific date of interest (e.g., "2002-01-01"^^xsd:date)
+
+  ?membership rdf:type :Cl_UnionMembership ;
+              :hasUnion ?union ;
+              :hasPerson ?person ;
+              :membershipStartDate ?startDate .
+
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  OPTIONAL { ?person rdfs:label ?personName . }
+
+  FILTER (
+    xsd:date(?startDate) <= xsd:date(?date) &&
+    ( !BOUND(?endDate) || xsd:date(?endDate) >= xsd:date(?date) )
+  )
+}
+```
+
+This SPARQL query retrieves all persons who are members of a specific union at a specific point in time. The ontology supports this query because it includes the classes and properties related to union membership, specifically:
+
+- `:Cl_UnionMembership` represents the membership instances.
+- `:hasUnion` links a membership instance to a union.
+- `:hasPerson` links a membership instance to a person.
+- `:membershipStartDate` and `:membershipEndDate` provide the temporal validity of the membership.
+
+By querying the `:Cl_UnionMembership` class and filtering based on the provided date, we can accurately determine the members of a union at that time, satisfying the competency question under the closed-world assumption.

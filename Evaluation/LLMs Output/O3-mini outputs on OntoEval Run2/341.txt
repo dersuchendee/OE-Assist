@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the star rating given by a specific newspaper (e.g. "Il Gazzettino") for a specific production (e.g. "The Merchant of Venice at The Grand Theatre"). This query makes use of the reviewRating, reviewedBy, and production-related properties provided by the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?productionName ?newspaperName ?rating
+WHERE {
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :hasReview ?review .
+  
+  ?review :reviewRating ?rating ;
+          :reviewedBy ?newspaper .
+  
+  ?newspaper :newspaperName ?newspaperName .
+  
+  FILTER(?productionName = "The Merchant of Venice at The Grand Theatre" &&
+         ?newspaperName = "Il Gazzettino")
+}
+
+This query shows that the competency question “What is the ‘star rating’ given by a certain newspaper for a certain production?” is fully answerable via the ontology.

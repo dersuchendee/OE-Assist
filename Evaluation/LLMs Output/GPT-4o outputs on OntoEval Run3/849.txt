@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "In what city is a certain hospital located?" can be answered using the ontology provided. The ontology includes classes and properties that relate hospitals to cities through the `locatedIn` object property. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+```

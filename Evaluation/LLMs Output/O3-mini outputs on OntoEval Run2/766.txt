@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the medical degrees of the specified person (in this case, Pasquale Di Gennaro):
+
+---------------------------------
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?degree ?degreeLabel
+WHERE {
+  :PasqualeDiGennaro :hasDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel }
+}
+---------------------------------
+
+This query answers the CQ "What medical degrees does a certain person have?" by extracting all degrees linked to the given person via the :hasDegree property.

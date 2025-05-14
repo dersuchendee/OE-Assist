@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "In what country is a certain region located?" can be answered using the ontology provided. The ontology includes classes and properties that relate regions to countries through the `:isPartOf` property. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  ?region :isPartOf ?country .
+  ?country a :Cl_Country .
+}
+```

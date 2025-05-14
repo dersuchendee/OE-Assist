@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with the specific date they were first employed at a hospital. The ontology includes an `employmentStartDate` property, but it is associated with the `Employment` class, not directly with a `Person` or `Hospital`. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?person ?hospital ?employmentStartDate
+WHERE {
+  ?person a ns1:Person .
+  ?person ns1:hasEmployment ?employment .
+  ?employment ns1:employedAt ?hospital .
+  ?employment ns1:employmentStartDate ?employmentStartDate .
+}
+```

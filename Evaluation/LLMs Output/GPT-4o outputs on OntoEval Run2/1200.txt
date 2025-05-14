@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not include any information about events or meetings of musicians, which is necessary to determine the time relationship between different musicians. The ontology only includes information about musicians and their working periods. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information about musicians and their working periods:
+
+```sparql
+SELECT ?musician ?startYear ?endYear
+WHERE {
+  ?musician a :Musician .
+  ?musician :hasWorkingPeriod ?workingPeriod .
+  ?workingPeriod :startYear ?startYear .
+  OPTIONAL { ?workingPeriod :endYear ?endYear . }
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+Below is an example SPARQL query that, given a person’s name (e.g. “Pasquale Di Gennaro”), retrieves the medical degrees (via the reified Cl_PersonDegree relationship) along with degree dates:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?degreeDate
+WHERE {
+  ?person a :Cl_Person ;
+          rdfs:label ?personLabel .
+  FILTER regex(?personLabel, "Pasquale Di Gennaro", "i")
+  
+  ?membership a :Cl_PersonDegree ;
+              :hasPerson ?person ;
+              :hasDegree ?degree ;
+              :degreeDate ?degreeDate .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+}
+ORDER BY ?degreeDate

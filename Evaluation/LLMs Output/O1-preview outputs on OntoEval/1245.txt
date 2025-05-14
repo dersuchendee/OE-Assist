@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+SELECT ?agent ?agentLabel ?substance ?waterBody ?time ?amount
+WHERE {
+  ?agent a :Agent .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+  
+  ?agent :records ?observation .
+  ?observation a :MicrobiologicalSubstanceAmountObservation .
+  
+  ?observation :observesSubstance ?substance .
+  ?observation :inWaterBody ?waterBody .
+  ?observation :atTime ?time .
+  ?observation :hasAmount ?amount .
+}
+```

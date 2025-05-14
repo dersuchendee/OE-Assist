@@ -1,0 +1,17 @@
+**Answer: No**
+
+The given ontology does not support the competency question "A record always contains at least one track" because there is no property connecting the class `:Cl_Record` to the class `:Cl_Track`. Without such a relationship, we cannot write a SPARQL query to verify if every instance of `:Cl_Record` contains at least one `:Cl_Track`.
+
+However, we can extract partial information from the ontology about albums and their tracks since the ontology does model a relationship between `:Cl_Album` and `:Cl_Track` through the property `:albumContainsTrack`. Although this does not fully answer the competency question, it provides some relevant information.
+
+Here is a SPARQL query to retrieve albums and their tracks:
+
+```sparql
+SELECT ?album ?track
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :albumContainsTrack ?track .
+}
+```
+
+This query selects albums and their associated tracks, but it does not involve records (`:Cl_Record`) since they are not connected to tracks in the ontology.

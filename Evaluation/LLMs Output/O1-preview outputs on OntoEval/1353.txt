@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not fully support the competency question as it lacks the necessary temporal properties to associate organ parts with specific points in time. While the ontology defines the `Parthood` class and associates it with `Organ` and `TimeInterval`, there is no property linking `Parthood` instances directly to the parts. Therefore, we cannot retrieve the parts of an organ at a specific point in time. However, we can extract the parts of an organ without temporal information using the following partial SPARQL query:
+
+```sparql
+SELECT ?organ ?part
+WHERE {
+    ?organ a <https://w3id.org/polifonia/ontology/organs/Organ> .
+    ?organ <https://w3id.org/arco/ontology/core/includesPart> ?part .
+}
+```

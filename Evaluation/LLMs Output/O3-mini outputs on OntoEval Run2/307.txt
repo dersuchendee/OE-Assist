@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the premier date for a given production (here we use the production “Grand Theatre Rome Production” as the certain production referenced in the competency question):
+
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?premierDate
+WHERE {
+  ?production a theatre:Production .
+  ?production rdfs:label ?productionLabel .
+  ?production theatre:hasPremier ?premier .
+  ?premier theatre:hasPremierDate ?premierDate .
+  
+  FILTER(?production = theatre:GrandTheatreRomeProduction)
+} 
+
+This query shows that the ontology models the CQ “When was the premier of a certain production?” since it is possible to extract the premier date of the specified production.

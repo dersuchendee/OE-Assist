@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one SPARQL query that returns each performance and its location (with city, and, if available, its region and country):
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?city ?region ?country
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :performanceLocation ?city .
+  OPTIONAL { ?city :locatedInRegion ?region . }
+  OPTIONAL { ?region :locatedInCountry ?country . }
+}
+ORDER BY ?performanceDate
+-----------------------------------------------------------
+
+In a closed‐world setting, this query will return performances that have an explicitly asserted location (city) and, when present, their region and country.

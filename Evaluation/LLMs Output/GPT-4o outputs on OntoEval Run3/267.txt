@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine the time period during which a play was written. The closest property available is `:hasWritingPeriod`, which is a datatype property associated with `:Cl_Play`. However, the ontology does not specify how this property is populated or used to determine the writing period of a play.
+
+Partial answer:
+```sparql
+SELECT ?play ?writingPeriod
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :hasWritingPeriod ?writingPeriod . }
+}
+```

@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that authorship is captured by the reified construct linking an author to a play via the property :wrotePlay (with the reification class :Cl_Authorship playing the role of “play”), you can answer the CQ with a SPARQL query such as:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?authorName ?playName
+WHERE {
+  ?author a :Cl_Author ;
+          :authorName ?authorName ;
+          :wrotePlay ?authorship .
+  ?authorship a :Cl_Authorship ;
+              :playName ?playName .
+  # Use a filter to target a certain author (if needed)
+  FILTER(str(?authorName) = "William Shakespeare")
+}
+------------------------------------------------------------
+
+Under the closed world assumption the lack of other plays for the given author is taken as absence of information. This query thus extracts the plays written by the specified author.

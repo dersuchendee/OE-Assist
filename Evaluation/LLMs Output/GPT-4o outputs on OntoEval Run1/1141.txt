@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What are the preferred movie categories of the current user?" can be answered using the ontology provided. The ontology includes the `hasPreference` property that links a `User` to a `MovieCategory`, and the individual `CurrentUser` has a preference for `ActionMovie`. Therefore, we can write a SPARQL query to extract this information.
+
+```sparql
+SELECT ?movieCategory ?categoryLabel
+WHERE {
+  :CurrentUser :hasPreference ?movieCategory .
+  OPTIONAL { ?movieCategory rdfs:label ?categoryLabel . }
+}
+```

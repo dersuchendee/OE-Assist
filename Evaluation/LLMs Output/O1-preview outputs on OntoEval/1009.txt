@@ -1,0 +1,13 @@
+**Yes**
+
+The ontology includes classes `:Cl_Book` and `:Cl_CD`, both associated with the datatype property `:publicationDate`. Since instances of these classes (e.g., `:Book_Nurse_Practices`) have publication dates recorded, we can write a SPARQL query to answer the competency question.
+
+```sparql
+SELECT ?bookOrCD ?bookOrCDLabel ?publicationDate
+WHERE {
+   ?bookOrCD a ?type .
+   FILTER (?type = :Cl_Book || ?type = :Cl_CD) .
+   OPTIONAL { ?bookOrCD rdfs:label ?bookOrCDLabel . }
+   ?bookOrCD :publicationDate ?publicationDate .
+}
+```

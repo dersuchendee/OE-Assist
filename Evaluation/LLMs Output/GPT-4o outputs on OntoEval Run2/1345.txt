@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question is supported by the ontology, as it is possible to write a SPARQL query to extract the answer. The ontology includes classes and properties that allow us to determine the hospital with the longest average length of stay for a particular disease category.
+
+```sparql
+SELECT ?hospital ?hospitalLabel (MAX(?averageLengthOfStay) AS ?maxAverageLengthOfStay)
+WHERE {
+  ?statistic a :HospitalStatistic .
+  ?statistic :forDiseaseCategory ?diseaseCategory .
+  ?statistic :hasAverageLengthOfStay ?averageLengthOfStay .
+  ?statistic :recordedBy ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+GROUP BY ?hospital ?hospitalLabel
+ORDER BY DESC(?maxAverageLengthOfStay)
+LIMIT 1
+```

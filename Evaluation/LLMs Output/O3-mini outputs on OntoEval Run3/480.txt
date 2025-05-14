@@ -1,0 +1,21 @@
+**Yes**
+
+The ontology includes a reified class (Cl_BandRole) that links a person (via :roleOf), a band (via :roleInBand), a role (via :hasRole) and a timestamp (via :roleTime). This fully supports answering the competency question “What role does a certain person have in a certain band at a certain point in time?” under a closed‐world assumption.
+
+For example, a SPARQL query to retrieve the role information for a given person (e.g. :John_Frusciante) in a given band (e.g. :Red_Hot_Chili_Peppers) is:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?time
+WHERE {
+  ?bandRole a :Cl_BandRole ;
+            :roleOf :John_Frusciante ;
+            :hasRole ?role ;
+            :roleInBand :Red_Hot_Chili_Peppers ;
+            :roleTime ?time .
+}
+------------------------------------------------------------
+
+This query extracts the role and the time at which that role was recorded, showing that the competency question is modeled in the ontology.

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one way to write a SPARQL query that, under the closed‐world assumption, retrieves the song (which is modelled as a track that is also an instance of ns1:Song) along with its label and composition date for the specific track (in this example, ns1:HumpDeBump):
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?track ?songLabel ?composedOn
+WHERE {
+  VALUES ?track { ns1:HumpDeBump } .
+  ?track a ns1:Track, ns1:Song ;
+         rdfs:label ?songLabel ;
+         ns1:composedOn ?composedOn .
+}
+
+This query answers the competency question by extracting the information for the specific track (here, Hump de Bump) that is recorded as a song in the ontology.

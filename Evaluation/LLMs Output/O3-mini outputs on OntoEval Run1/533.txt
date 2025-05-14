@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one way to write a SPARQL query that counts the tracks contained in an album (using a closed‐world reading of the ontology):
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  # Each album must contain at least one track (using the restriction via :containsTrack).
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album ?albumLabel
+------------------------------------------------------
+
+This query retrieves each album along with its (optional) label and counts the number of associated tracks via the :containsTrack property.

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, using the reified evaluation class, returns the evaluation statement given by a specific doctor for a specific employee. (Replace the placeholders for the specific doctor and employee IRIs as needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?evaluation a :Cl_DoctorEmployeeEvaluation .
+  ?evaluation :evaluatedBy <http://www.example.org/test#SpecificDoctor> .
+  ?evaluation :evaluates <http://www.example.org/test#SpecificEmployee> .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+--------------------------------------------------
+
+This query works under the closed world assumption and makes use of the reification class for evaluation (Cl_DoctorEmployeeEvaluation) to connect the doctor and employee with their evaluation statement.

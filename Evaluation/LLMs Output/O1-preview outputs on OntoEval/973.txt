@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+SELECT ?book ?bookTitle ?numPages
+WHERE {
+  ?book a :Book .
+  OPTIONAL { ?book rdfs:label ?bookTitle . }
+  ?book :hasNumberOfPages ?numPages .
+}
+```
+
+The competency question "How many pages does a particular book contain?" can be answered using the provided ontology because it includes:
+
+- The class `:Book`, representing books.
+- The datatype property `:hasNumberOfPages`, which associates a book with its number of pages.
+
+The SPARQL query above selects all books and retrieves their titles (if available) and the number of pages they contain. If you are interested in a specific book, for example, "Nurse Practices in Cancer Patient Care – longitudinal studies at Italian hospitals," you can modify the query as follows:
+
+```sparql
+SELECT ?numPages
+WHERE {
+  :NursePracticesInCancerPatientCare :hasNumberOfPages ?numPages .
+}
+```
+
+This query directly retrieves the number of pages for the specific book identified by `:NursePracticesInCancerPatientCare`.

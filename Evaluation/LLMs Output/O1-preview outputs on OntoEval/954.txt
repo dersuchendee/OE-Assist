@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+  # Match the specific book or CD
+  ?publication a ?pubType .
+  FILTER( ?pubType IN (:Cl_Book, :Cl_CD) ) .
+  # If you know the URI of the specific book or CD, you can specify it directly:
+  # FILTER ( ?publication = :SpecificBookOrCD ) .
+  # Alternatively, filter by title:
+  ?publication :title "Specific Publication Title" .
+  
+  # Find the articles contained in the publication
+  ?publication :containsArticle ?article .
+  
+  # Get the title of each article
+  OPTIONAL { ?article :title ?articleTitle . }
+}
+```
+
+This query retrieves the articles (`?article`) contained in a specific book or CD (`?publication`). It filters for publications that are instances of `:Cl_Book` or `:Cl_CD`, matches the specific publication by its title `"Specific Publication Title"`, and then finds all articles associated with it via the `:containsArticle` property. The titles of the articles are retrieved if available.

@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+# Replace :SpecificPublication with the specific book or CD of interest
+SELECT ?article ?articleTitle
+WHERE {
+    :SpecificPublication :composedOf ?article .
+    OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+```

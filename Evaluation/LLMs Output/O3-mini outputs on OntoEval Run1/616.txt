@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example SPARQL query that, under a closed‐world assumption, retrieves the critic’s statement about a given record by “joining” the review, its critic, and the record:
+
+--------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?statement
+WHERE {
+  ?review a :Cl_CriticReview .
+  ?review :madeByCritic ?critic .
+  ?review :reviewOf ?record .
+  ?review :criticStatement ?statement .
+}
+--------------------------------------------------------
+
+In this query, the ontology models a “record” (as a member of Cl_Record) via its relationship (for example, through album tracks or reifications) and connects it to the critic’s review via the properties :reviewOf and :madeByCritic. Thus the competency question “What does a certain critic say about a certain record?” is fully supported by the ontology.

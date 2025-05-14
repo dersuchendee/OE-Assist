@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one example SPARQL query that, given a city (e.g. “Nocera Inferiore”), returns the country in which the city is located:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city a :Cl_Location ;
+        :cityName ?cityName ;
+        :isInCountry ?country .
+  ?country :countryName ?countryName .
+  FILTER(?cityName = "Nocera Inferiore"^^xsd:string)
+}
+--------------------------------
+
+This query answers the CQ “In what country is a certain city located?” by retrieving the country information for the provided city.

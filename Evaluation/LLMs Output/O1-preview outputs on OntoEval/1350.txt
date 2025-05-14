@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?monitoringPoint ?parameter ?time ?value
+WHERE {
+  ?measurement a :Measurement .
+  ?measurement :monitoredAt ?monitoringPoint .
+  ?measurement :measuresParameter ?parameter .
+  ?measurement :hasTimestamp ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?parameter ?time
+```

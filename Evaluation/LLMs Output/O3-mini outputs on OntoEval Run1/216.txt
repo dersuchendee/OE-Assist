@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the members of a given ensemble at a specified point in time. (Replace the placeholder IRI for the ensemble and the literal for the time with your actual values.)
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member
+WHERE {
+  ?membership a :Cl_Membership ;
+              :ensembleInMembership :YourEnsembleIRI ;  # Replace with the specific ensemble
+              :memberInMembership ?member ;
+              :atTime ?time .
+  FILTER(?time = "2021-09-15T00:00:00"^^xsd:dateTime)    # Replace with the specific point in time
+}
+----------------------------------------------------------------
+
+This query is answerable because the ontology links ensemble memberships (via the :Cl_Membership class) with both the ensemble (using :ensembleInMembership) and the temporal context (using :atTime), allowing us to retrieve the members at a specific time.

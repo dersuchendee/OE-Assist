@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question is supported by the ontology. The ontology models the concept that at least one article is always presented at each seminar through the `owl:Restriction` on the `:Cl_Seminar` class, specifying a minimum cardinality of 1 on the `:presentedIn` property.
+
+Here is the SPARQL query to retrieve all seminars and their presented articles:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?article rdf:type :Cl_SeminarArticle .
+  ?article :presentedIn ?seminar .
+}
+```
+
+This query selects all seminars and the articles presented in them, ensuring that each seminar has at least one article associated with it, as modeled in the ontology.

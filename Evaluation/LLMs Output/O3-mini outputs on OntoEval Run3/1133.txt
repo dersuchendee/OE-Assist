@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the indoor locations along with the devices available in each location:
+
+------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?indoorLocation ?locationLabel ?device ?deviceLabel
+WHERE {
+  ?indoorLocation a :IndoorLocation .
+  OPTIONAL { ?indoorLocation rdfs:label ?locationLabel . }
+  
+  ?indoorLocation :hasDevice ?device .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+}
+------------------------------------------------------------
+
+This query extracts the answer to the competency question "What devices are available in this indoor location?" based on the provided ontology under the closed world assumption.

@@ -1,0 +1,19 @@
+**No**
+
+The current ontology does not model any explicit relationships (nor properties or restrictions) that capture how one TuneFamily is related to another based on a similarity measure (Y). Therefore, it is not possible to fully answer the CQ by directly retrieving, for a given TuneFamily X, its related tune families using similarity measure Y. However, a partial answer may be obtained by listing all TuneFamily instances (excluding X), which might then be filtered externally or enriched with additional similarity information (if available in another part of the system).
+
+Below is a SPARQL query that partially answers the CQ by retrieving all TuneFamilies (while excluding the given one, assumed here to be identified by :tuneFamilyX):
+
+------------------------------------------------
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tuneFamily ?label
+WHERE {
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?label. }
+  FILTER(?tuneFamily != :tuneFamilyX)
+}
+------------------------------------------------
+
+In a closed world assumption, we assume that no additional (hidden) similarity assertions exist; thus, further relating :tuneFamilyX to others based on a similarity measure Y is not supported by the ontology as provided.

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that a production’s reviews are linked via the property :reviews and that each review (of type :Cl_ProductionReview) has a numeric star rating (via the :starRating property) and is associated with a newspaper (via the :reviewedBy property), the following SPARQL query shows how one could extract, for a given production and newspaper, the star rating:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :reviews ?review .
+  ?review a :Cl_ProductionReview .
+  ?review :starRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  # Replace the following IRIs with the specific production and newspaper URIs:
+  FILTER(?production = <http://www.example.org/test#Production123> && 
+         ?newspaper = <http://www.example.org/test#NewspaperABC>)
+}

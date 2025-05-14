@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Was the (material, information) exchange successful?" can be answered using the ontology provided. The ontology includes classes for `MaterialExchange` and `InformationExchange`, both of which are subclasses of `Exchange`. The `Exchange` class has a property `hasSuccessStatus` that indicates whether the exchange was successful. Therefore, we can write a SPARQL query to extract this information.
+
+```sparql
+SELECT ?exchange ?exchangeType ?successStatus
+WHERE {
+  ?exchange a ?exchangeType .
+  FILTER(?exchangeType IN (:MaterialExchange, :InformationExchange))
+  ?exchange :hasSuccessStatus ?successStatus .
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the articles a given book or CD is composed of:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bookOrCD ?article ?articleLabel
+WHERE {
+  ?bookOrCD a ?type .
+  FILTER(?type = :Cl_Book || ?type = :Cl_CD) .
+  ?bookOrCD :composedOf ?articleCollection .
+  ?articleCollection :article ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+--------------------------------------------------
+
+In this query, we:
+1. Select individuals of type Cl_Book or Cl_CD.
+2. Follow the property :composedOf to the associated article collection.
+3. Retrieve the articles via the property :article.
+4. Optionally include labels for the articles.

@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not explicitly model the relationship between seminars and the articles presented at them. While there are classes and properties related to seminars and articles, there is no direct connection that ensures at least one article is always presented at each seminar. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract information about seminars and articles:
+
+```sparql
+SELECT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :hasSeminarDate ?seminarDate . }
+  
+  ?article a :Cl_Article .
+  OPTIONAL { ?article :hasTitle ?articleTitle . }
+}
+```

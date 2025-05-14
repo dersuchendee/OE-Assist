@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "When was the premier of a certain production?" can be answered using the ontology provided. The ontology includes the `:premierDate` property associated with the `:Cl_Production` class, which allows us to query the premier date of a production.
+
+Here is a SPARQL query to extract the premier date of a specific production:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+}
+```

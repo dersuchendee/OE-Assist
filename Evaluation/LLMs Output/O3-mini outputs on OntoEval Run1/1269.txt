@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?action ?actionLabel ?evaluation ?reboundEffect ?rebLabel
+WHERE {
+  ?action a :Action .
+  OPTIONAL { ?action rdfs:label ?actionLabel . }
+  
+  ?action :hasEvaluation ?evaluation .
+  ?evaluation :measuresReboundEffect ?reboundEffect .
+  OPTIONAL { ?reboundEffect rdfs:label ?rebLabel . }
+}
+```

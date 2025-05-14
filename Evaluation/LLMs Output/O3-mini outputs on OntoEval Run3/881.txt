@@ -1,0 +1,25 @@
+**No**
+
+The ontology does not fully model the temporal dimension of union membership. While it provides properties that relate employees to unions (through :representsUnion) and indicates when an employee became a union representative (via :unionRepresentativeSince), it does not generally capture union membership with associated validity periods. Therefore, we can only extract a partial answer—namely, employees who represent a union and whose representation started before a given point in time.
+
+Below is a SPARQL query that, given an input date (here exemplified as "2005-01-01"), returns employees representing a union as of that date. (You can replace the fixed date with a parameter if needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.hospitalontology.org/ontologies/hospital.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?employee ?employeeLabel ?union ?unionLabel ?unionRepSince
+WHERE {
+  ?employee a :Employee ;
+            :representsUnion ?union ;
+            :unionRepresentativeSince ?unionRepSince .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel . }
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  
+  FILTER(xsd:date(?unionRepSince) <= xsd:date("2005-01-01"))
+}
+ORDER BY ?employee
+--------------------------------------------------
+
+This query only partially answers the original CQ by extracting union representatives with the necessary temporal condition, not all union members.

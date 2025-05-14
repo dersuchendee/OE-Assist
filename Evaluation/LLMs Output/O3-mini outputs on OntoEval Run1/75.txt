@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the date of a given theatre festival (here assumed to be identified via its name, for example “Roma Loves Shakespeare”) by exploiting the reified occurrence information (using the Cl_FestivalOccurrence class and the :hasDate property):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festivalName ?date
+WHERE {
+  ?occurrence a :Cl_FestivalOccurrence ;
+              :hasDate ?date .
+  ?occurrence :hasName ?festivalName .
+  FILTER(CONTAINS(LCASE(?festivalName), "roma loves shakespeare"))
+}
+
+In a closed‐world scenario this query will only return those occurrences explicitly asserted in the ontology. This shows that the competency question “When did a certain theatre festival take place?” is modelled by the ontology.

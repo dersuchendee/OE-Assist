@@ -1,0 +1,28 @@
+**Yes**
+Below is a SPARQL query that retrieves each microbial community involved in carbon or nitrogen cycling, along with the associated energy metabolism and its influencing carbon–nitrogen ratio.
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?microbialCommunity ?mcLabel ?energyMetabolism ?metabolismLabel ?cnRatio ?cnLabel
+WHERE {
+  ?microbialCommunity a :MicrobialCommunity .
+  OPTIONAL { ?microbialCommunity rdfs:label ?mcLabel . }
+  
+  # Restrict to communities involved in carbon or nitrogen cycling
+  ?microbialCommunity :participatesIn ?cycling .
+  FILTER(?cycling IN (:CarbonCycling, :NitrogenCycling))
+
+  # Get the energy metabolism of the community
+  ?microbialCommunity :hasEnergyMetabolism ?energyMetabolism .
+  OPTIONAL { ?energyMetabolism rdfs:label ?metabolismLabel . }
+
+  # Get the carbon–nitrogen ratio that influences the energy metabolism
+  ?energyMetabolism :influencedBy ?cnRatio .
+  OPTIONAL { ?cnRatio rdfs:label ?cnLabel . }
+}
+ORDER BY ?microbialCommunity ?energyMetabolism
+------------------------------------------------------
+
+This query extracts the chains linking a microbial community (that participates in either carbon or nitrogen cycling) to its energy metabolism and then shows how that metabolism is influenced by a carbon–nitrogen ratio, thereby answering the competency question.

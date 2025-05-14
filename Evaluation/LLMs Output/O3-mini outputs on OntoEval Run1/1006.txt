@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‑world assumption, retrieves the publication date of resources that are either a book or a CD (using the classes :Cl_Book and :Cl_CD) along with their titles:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?title ?publicationDate
+WHERE {
+  { ?publication a :Cl_Book }
+  UNION
+  { ?publication a :Cl_CD } .
+  ?publication :publicationTitle ?title .
+  ?publication :publicationDate ?publicationDate .
+}
+ORDER BY ?publication
+
+This query answers the competency question "When was a certain book or CD published?" by extracting the publication date (and title) of all individuals that are instances of either :Cl_Book or :Cl_CD.

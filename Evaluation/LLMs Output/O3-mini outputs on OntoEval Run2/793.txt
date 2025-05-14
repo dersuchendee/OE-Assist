@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one example of a SPARQL query that extracts the study period for a given person and degree by linking the person’s participation in a study event (for which the degree is the studied degree) with the time period of that event:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?degree a :Cl_Degree .
+
+  # Retrieve the study event that connects the person and the degree
+  ?person :participatedInStudyEvent ?studyEvent .
+  ?degree :isDegreeOfStudyEvent ?studyEvent .
+
+  # Retrieve the time period associated with that study event
+  ?timePeriod a :Cl_TimePeriod ;
+              :isPeriodOfStudyEvent ?studyEvent ;
+              :hasStartDate ?startDate ;
+              :hasEndDate ?endDate .
+}
+-------------------------------------------------------
+
+Under the closed world assumption, only explicitly asserted individuals (and property assertions) will be returned. This query shows that the ontology explicitly supports the CQ "During what time period did a certain person study for a specific degree?"

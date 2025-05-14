@@ -1,0 +1,36 @@
+**Yes**
+Below is one example SPARQL query that uses the reified role information to retrieve the role a given person had in a given band at a particular time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?time ?role ?roleLabel
+WHERE {
+  # These VALUES can be replaced by the IRI of the person, band, and a concrete point in time.
+  VALUES ?givenPerson { <http://www.example.org/test#JohnFrusciante> }
+  VALUES ?givenBand   { <http://www.example.org/test#RedHotChiliPeppers> }
+  VALUES ?givenTime   { "2005-01-01T00:00:00"^^xsd:dateTime }
+
+  # The reified band role instance connects the person to its role in a band.
+  ?givenPerson :hasRoleInBand ?bandRole .
+  
+  # In the ontology, instances of Cl_BandRole are also members of the band.
+  ?givenBand :hasMember ?bandRole .
+
+  # The band role instance records the played role and the associated time period.
+  ?bandRole :playsRole ?role .
+  ?bandRole :roleDuring ?time .
+
+  # Select the role valid at the specified point in time.
+  FILTER(?time = ?givenTime)
+
+  OPTIONAL { ?role rdfs:label ?roleLabel }
+  
+  BIND(?givenPerson AS ?person)
+  BIND(?givenBand AS ?band)
+}
+--------------------------------------------------
+
+In this query the parameters ?givenPerson, ?givenBand, and ?givenTime can be adjusted to target “a certain person”, “a certain band”, and “a certain point in time” as required by the competency question.

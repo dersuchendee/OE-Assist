@@ -1,0 +1,24 @@
+**No**
+
+The ontology provided does not include any information about roles that a person might have within a production. The ontology includes classes and properties related to theatre festivals, plays, productions, actors, and their employment, but it lacks a direct connection between a person, their role, and a specific production at a certain point in time.
+
+Here's a SPARQL query to extract a partial answer, focusing on actors and their associated productions:
+
+```sparql
+SELECT ?actorName ?productionName
+WHERE {
+  ?actor rdf:type :Cl_Actor .
+  ?actor :actorName ?actorName .
+  
+  ?ensembleMembership rdf:type :Cl_EnsembleMembership .
+  ?ensembleMembership :hasMember ?actor .
+  
+  ?production rdf:type :Cl_Production .
+  ?production :productionName ?productionName .
+  
+  ?productionPlay rdf:type :Cl_ProductionPlay .
+  ?productionPlay :hasProduction ?production .
+}
+```
+
+This query retrieves actors and the productions they are associated with, but it does not provide information about specific roles or time periods within those productions.

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?productionName ?newspaperName ?reviewRating
+WHERE {
+  ?production rdf:type :Cl_Production ;
+              :productionName ?productionName ;
+              :hasReview ?review .
+  ?review rdf:type :Cl_ProductionReview ;
+          :reviewedBy ?newspaper ;
+          :reviewRating ?reviewRating .
+  ?newspaper rdf:type :Cl_Newspaper ;
+             :newspaperName ?newspaperName .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+One way to answer “A production has exactly one premier” is to write a query that, under the closed world assumption, returns each production and counts its associated premier. If the count is exactly 1 then the CQ is satisfied. For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premier) AS ?premierCount)
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production :hasPremier ?premier . }
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+--------------------------------------------------
+
+This query returns only those productions where exactly one premier is recorded.

@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that uses the reified BandMembership (with its associated time interval) to retrieve the members of a given band at a specific point in time. (In the example below the band is “Red Hot Chili Peppers” and the specific point in time is given as “2006-08-11”—you can replace these values with the desired band IRI and time value.)
+
+────────────────────────────
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?role ?roleName ?startDate ?endDate
+WHERE {
+  ?membership a :BandMembership ;
+              :hasBand :RedHotChiliPeppers ;       # change this to the target band
+              :involvesMember ?member ;
+              :hasTimeInterval ?ti .
+  ?ti :startDate ?startDate ;
+      :endDate ?endDate .
+
+  # Ensure the given point in time falls within the membership's time interval.
+  FILTER("2006-08-11"^^xsd:date >= ?startDate && "2006-08-11"^^xsd:date <= ?endDate)
+
+  OPTIONAL { ?member :personName ?memberName . }
+  OPTIONAL { ?membership :hasRole ?role .
+             ?role :roleName ?roleName . }
+}
+ORDER BY ?member
+────────────────────────────
+
+This query verifies that the ontology models the competency question since it is able (under a closed‐world assumption) to extract which individuals (members) were part of a band (given by a reified BandMembership with an associated time interval) at the specified time.

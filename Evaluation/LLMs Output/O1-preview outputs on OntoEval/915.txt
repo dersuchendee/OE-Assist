@@ -1,0 +1,27 @@
+**Yes**
+
+```sparql
+SELECT ?person ?personName ?union ?unionName ?role ?roleTitle ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?person :isMemberOf ?unionMembership .
+  ?unionMembership :membershipInUnion ?union .
+  OPTIONAL { ?union rdfs:label ?unionName . }
+  
+  ?unionMembership :hasUnionRole ?role .
+  ?role :unionRoleTitle ?roleTitle .
+  ?role :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+
+  # Assume we are querying for a specific date
+  BIND("2003-01-01"^^xsd:date AS ?queryDate)
+
+  # Filter roles that are active at the query date
+  FILTER(?queryDate >= ?roleStartDate && 
+         (!BOUND(?roleEndDate) || ?queryDate <= ?roleEndDate))
+}
+```
+
+In this query, we're selecting the person, their role within the union group, and ensuring that the role is valid at the specified point in time (`?queryDate`). The ontology provides the necessary classes and properties (`:Cl_Person`, `:isMemberOf`, `:membershipInUnion`, `:hasUnionRole`, `:unionRoleTitle`, `:roleStartDate`, `:roleEndDate`) to answer the competency question.

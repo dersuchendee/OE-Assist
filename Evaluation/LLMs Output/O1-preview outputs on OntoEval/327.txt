@@ -1,0 +1,48 @@
+**Yes**
+
+The competency question "What is the 'star rating' given by a certain newspaper for a certain production?" is answerable using the provided ontology. The ontology includes classes and properties that relate newspapers, theatre productions, and star ratings, allowing us to retrieve the required information via SPARQL.
+
+Here is a SPARQL query that retrieves the star rating given by each newspaper for each production:
+
+```sparql
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?ratingValue
+WHERE {
+  ?production a :TheatreProduction .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production :hasStarRating ?starRating .
+  ?starRating :hasRatingValue ?ratingValue .
+  
+  ?starRating :givenBy ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+}
+```
+
+This query retrieves:
+
+- `?production`: The theatre production.
+- `?productionLabel`: The label of the theatre production (if available).
+- `?newspaper`: The newspaper that gave the star rating.
+- `?newspaperLabel`: The label of the newspaper (if available).
+- `?ratingValue`: The value of the star rating.
+
+**Explanation:**
+
+- We select all theatre productions (`?production a :TheatreProduction`).
+- For each production, we find the associated star rating (`?production :hasStarRating ?starRating`).
+- We retrieve the rating value (`?starRating :hasRatingValue ?ratingValue`).
+- We find the newspaper that gave the rating (`?starRating :givenBy ?newspaper`).
+- Optional labels are included for readability.
+
+**Example Result:**
+
+Assuming the data provided in the ontology, the query would return:
+
+| production                                   | productionLabel                             | newspaper       | newspaperLabel | ratingValue |
+|----------------------------------------------|---------------------------------------------|-----------------|----------------|-------------|
+| :TheMerchantOfVenice_GrandTheatre            | "The Merchant of Venice at The Grand Theatre" | :IlGazzettino  | "Il Gazzettino" | 5           |
+
+This result shows that "Il Gazzettino" gave a star rating of 5 to "The Merchant of Venice at The Grand Theatre".

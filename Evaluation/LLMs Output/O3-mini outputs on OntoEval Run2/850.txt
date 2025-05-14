@@ -1,0 +1,18 @@
+**Yes**
+
+You can answer this competency question using the ontology classes and properties since the hospital class (:Cl_Hospital) is linked via the property (:locatedIn) to a city (:Cl_City). Under the closed‐world assumption, only those hospitals that explicitly state a location (city) will be returned. For example, you could use the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital rdf:type :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+ORDER BY ?hospital
+
+This query retrieves all individuals of type Cl_Hospital that have a specified locatedIn property pointing to a city, optionally returning labels where available.

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the title of a play along with the time period during which it was written (using the :writtenDuring property):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?title ?writtenPeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :hasTitle ?title ;
+        :writtenDuring ?writtenPeriod .
+  # You can filter for the specific play if needed, e.g.,
+  # FILTER(?title = "The Merchant of Venice")
+}
+
+This query shows that the ontology supports answering the competency question under a closed world assumption.

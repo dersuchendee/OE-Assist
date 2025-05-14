@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that “a certain union” is provided via its URI (e.g. :UnionOfMaleNurses) and that a membership is considered active at the given date if its membershipStartDate is on or before that date, a query to retrieve the persons who are members of that union at a chosen point in time (e.g. 2005‑01‑01) can be written as follows:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipStartDate
+WHERE {
+  ?person :isMemberOf ?membership .
+  ?membership :memberOf :UnionOfMaleNurses .
+  ?membership :membershipStartDate ?membershipStartDate .
+  FILTER ( ?membershipStartDate <= "2005-01-01"^^xsd:date )
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+------------------------------------------------------------
+
+This query returns all persons with a union membership (with a start date on or before 2005‑01‑01) for the union :UnionOfMaleNurses. (You can replace the union URI and the date literal with your parameters.)

@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?cityName
+WHERE {
+    :SeminarOnNursePractices :heldAt ?hospital .
+    ?hospital :locatedIn ?city .
+    ?city :cityName ?cityName .
+}
+```

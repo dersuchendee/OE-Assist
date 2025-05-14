@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that “asks” for the role held by a given person in a given band at a particular instant. (In this query we assume that the reified membership is modelled as an individual of type :Cl_Membership (or a subclass such as :Cl_BandMembership) with properties linking it to the person (via :bandMembership), to the band (via :memberOf), to the role (via :hasRole) and to the interval of the membership via :membershipStart and optionally :membershipEnd. In a closed‐world setting we assume that if no end date is given the membership continues.)
+
+For example, if you want to know which role was held by :JohnFrusciante in :RedHotChiliPeppers on a given date (here represented by “1989-01-01”), you may use:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :bandMembership :JohnFrusciante .
+  ?membership :memberOf :RedHotChiliPeppers .
+  ?membership :hasRole ?role .
+  ?membership :membershipStart ?start .
+  OPTIONAL { ?membership :membershipEnd ?end . }
+  FILTER (
+    xsd:date("1989-01-01") >= ?start &&
+    ( !bound(?end) || xsd:date("1989-01-01") <= ?end )
+  )
+}
+—————————————————————————————
+
+This query returns the role (e.g. “Guitar” or other instrument/role) that the chosen person held in the band at the specified date, thus showing that the CQ is answerable by the ontology.

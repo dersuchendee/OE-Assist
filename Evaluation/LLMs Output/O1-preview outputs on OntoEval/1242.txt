@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?agent ?agentLabel ?disease ?diseaseLabel ?area ?areaLabel
+WHERE {
+  ?agent a :Agent .
+  OPTIONAL { ?agent rdfs:label ?agentLabel . }
+
+  ?agent :monitors ?hospitalization .
+  ?hospitalization a :Hospitalization .
+
+  ?hospitalization :hasDisease ?disease .
+  OPTIONAL { ?disease rdfs:label ?diseaseLabel . }
+
+  ?hospitalization :occursIn ?area .
+  OPTIONAL { ?area rdfs:label ?areaLabel . }
+}
+```

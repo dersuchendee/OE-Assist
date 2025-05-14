@@ -1,0 +1,26 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a ns1:TheatreFestival ;
+            rdfs:label ?festivalLabel ;
+            ns1:featuredProduction ?production .
+
+  ?production ns1:hasPlay ?play .
+  ?play rdfs:label ?playLabel .
+}
+ORDER BY ?festivalLabel ?playLabel
+```
+
+This query retrieves all plays that could be seen during each theatre festival by:
+
+- Selecting festivals (`?festival`) of type `ns1:TheatreFestival`.
+- Retrieving the productions (`?production`) featured in each festival via `ns1:featuredProduction`.
+- Obtaining the plays (`?play`) associated with each production using `ns1:hasPlay`.
+- Gathering labels (`?festivalLabel`, `?playLabel`) for readability.
+
+The ontology supports this query because it models the relationships between festivals, productions, and plays through the properties `ns1:featuredProduction` and `ns1:hasPlay`, allowing us to directly query for the plays featured in each festival.

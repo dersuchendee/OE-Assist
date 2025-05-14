@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?abstractTime ?abstractTimeLabel
+WHERE {
+  :User1234 :hasAbstractTimeDefinition ?abstractTime .
+  ?abstractTime rdfs:label ?abstractTimeLabel .
+  ?abstractTime :hasStartTime ?startTime .
+  ?abstractTime :hasEndTime ?endTime .
+  
+  # Extract current time as xsd:time
+  BIND (xsd:time(SUBSTR(STR(NOW()),12,8)) AS ?currentTime)
+  
+  FILTER (?currentTime >= ?startTime && ?currentTime <= ?endTime)
+}
+```
+
+This query retrieves the abstract time concept (e.g., "Morning") that currently applies according to User1234's definition. It compares the current time (`?currentTime`) with the `hasStartTime` and `hasEndTime` properties of the user's abstract time definitions to determine which time period the current time falls into.

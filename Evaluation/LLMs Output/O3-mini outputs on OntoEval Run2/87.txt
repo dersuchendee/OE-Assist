@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that extracts the date associated with a given theatre festival (here exemplified with “Festival_RomaLovesShakespeare”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalOccurrence ?occurrence .
+  ?occurrence :festivalDate ?date .
+  # Optionally filter by label (if the festival has a specific label property)
+  # ?festival rdfs:label ?label .
+  # FILTER regex(?label, "Roma Loves Shakespeare", "i")
+}
+ORDER BY ?date
+
+This query answerably retrieves when a theatre festival (i.e. its festival occurrence date) took place, demonstrating that the CQ “When did a certain theatre festival take place?” is modelled in the ontology.

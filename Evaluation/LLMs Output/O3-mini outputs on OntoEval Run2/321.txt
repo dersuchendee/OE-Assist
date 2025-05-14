@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption in our ontology, retrieves the production and its premier date:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :hasPremier ?premierInstance .
+  ?premierInstance :premierDate ?premierDate .
+}
+-----------------------------------------------------------
+
+This query extracts, for each production, the date stored in the premier instance associated via the property :hasPremier.

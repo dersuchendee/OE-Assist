@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?location .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

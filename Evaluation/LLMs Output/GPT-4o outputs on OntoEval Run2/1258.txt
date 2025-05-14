@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific quality with a flow at a specific time. The ontology defines a `FlowQualityAssessment` class that connects a flow, its quality, and a time, but it does not provide a direct way to query the quality of a flow at a specific time without additional data or properties that specify which flow is being assessed at which time.
+
+Partial answer:
+```sparql
+SELECT ?flow ?quality ?time
+WHERE {
+  ?assessment a :FlowQualityAssessment .
+  ?assessment :assessesFlow ?flow .
+  ?assessment :hasQuality ?quality .
+  ?assessment :atTime ?time .
+}
+```

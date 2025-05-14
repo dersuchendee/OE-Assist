@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the production along with the play that forms its basis (via the production’s play basis link):
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPlayBasis ?playBasis .
+  ?playBasis :playBasis ?play .
+  OPTIONAL { ?production rdfs:label ?productionLabel. }
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+ORDER BY ?production ?play
+--------------------------------------------------------------
+
+This query extracts, for each production (instance of Cl_Production), the associated play basis (using the property :hasPlayBasis and then :playBasis) and returns the play’s identifier and label (if available).

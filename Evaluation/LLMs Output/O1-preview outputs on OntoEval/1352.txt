@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide information linking `ChemicalMeasurement` to "water" or specify that the measurements are taken in water. Therefore, we cannot fully answer the competency question. However, we can retrieve the units of measure used in chemical measurements in general:
+
+```sparql
+SELECT DISTINCT ?unitOfMeasure
+WHERE {
+    ?measurement a :ChemicalMeasurement .
+    ?measurement :hasUnit ?unitOfMeasure .
+}
+```

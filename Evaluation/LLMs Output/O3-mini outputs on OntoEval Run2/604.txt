@@ -1,0 +1,26 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the review a given critic (e.g., "Crian Hiatt") made about a given record (album, e.g., "Stadium Arcadium"). In our ontology the reified critic review is represented by the class Cl_CriticReview and linked to a critic via the property :hasCritic and to the album via :concernsAlbum (and indirectly via the album’s :reviewedBy relation). Assuming that albums and critics have labels (using rdfs:label), you can use the following query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?critic ?criticLabel ?review ?reviewDate
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :reviewedBy ?reviewObj .
+  ?reviewObj :hasCritic ?critic .
+  OPTIONAL { ?critic rdfs:label ?criticLabel . }
+  
+  ?reviewObj :hasReview ?review .
+  OPTIONAL { ?reviewObj :hasReviewDate ?reviewDate . }
+  
+  FILTER(?criticLabel = "Crian Hiatt")
+  FILTER(?albumLabel = "Stadium Arcadium")
+}
+------------------------------------------------
+
+This query answers the competency question “What does a certain critic say about a certain record?” by extracting the review text along with optional review date, given the critic and album are identified via their labels.

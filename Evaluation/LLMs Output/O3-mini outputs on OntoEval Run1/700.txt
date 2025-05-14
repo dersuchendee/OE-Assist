@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isPartOf ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+```
+
+This query retrieves each city and the region it is part of, which directly answers the competency question.

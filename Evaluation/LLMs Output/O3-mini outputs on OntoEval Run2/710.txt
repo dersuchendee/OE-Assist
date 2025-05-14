@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the location hosting the most recent RHCP performance by ordering the performances by their performance date in descending order and selecting the top result:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performanceDate ?location
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :performanceLocation ?location .
+}
+ORDER BY DESC(?performanceDate)
+LIMIT 1
+------------------------------------------------
+
+This query works under the closed world assumption of the ontology and returns the location associated with the latest performance date.

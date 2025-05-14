@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+SELECT ?article ?title
+WHERE {
+  # Specify the seminar that we are interested in (e.g., ind_Seminar2008)
+  FILTER (?seminar = :Ind_Seminar2008)
+  ?seminar a :Cl_Seminar .
+  
+  # Find the seminar presentation that presents this seminar
+  ?presentation a :Cl_SeminarPresentation ;
+                :op_presents ?seminar .
+  
+  # Find articles that have been presented in that seminar presentation
+  ?article a :Cl_Article ;
+           :op_presentedIn ?presentation ;
+           :dp_title ?title .
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each performance, the songs that were played. Note that under the closed world assumption, we assume that only the explicitly asserted triples are true.
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+
+  ?performance :performedSong ?performanceSong .
+  ?performanceSong :songPerformed ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+ORDER BY ?performance
+—————————————————————————————
+
+This query shows that the ontology models the CQ “What songs were played in a certain performance?” by allowing one to extract the relationship between a performance and the songs played.

@@ -1,0 +1,19 @@
+**Yes**
+Below is a SPARQL query that retrieves articles (and optionally their labels) that were presented in a given seminar. In this query the seminar is specified via a filter (using its IRI):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel ?seminar ?seminarLabel
+WHERE {
+  ?article a :Cl_Article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  ?article :presentedIn ?seminarPresentation .
+  ?seminarPresentation :seminar ?seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  FILTER (?seminar = <http://www.example.org/test#YourSeminarIRI>)  .
+}
+------------------------------------------------
+
+This query is answerable given the ontology, which defines the reified connection between a Cl_Article, a Cl_SeminarPresentation (using the property :presentedIn) and a Cl_Seminar (using the property :seminar). Under the closed world assumption, only those articles connected through the reification path to the specified seminar IRI will be returned as the answer.

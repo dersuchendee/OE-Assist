@@ -1,0 +1,33 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world interpretation, will retrieve for a given person (and a given union group and a given time point) the union role that that person holds. In this example the query uses a fixed test time (e.g. 2003‑01‑01), but in a real setting you could pass that as a parameter. Note that the query looks up a union membership (linking a person to a union via the property “:membershipOf” and “:memberOf”) and then “joins” that membership with its role (using “:hasRole”) while filtering on the valid role’s time interval (i.e. the role’s start and, if provided, end date).
+
+────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?roleTitle ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?membership a :Cl_UnionMembership ;
+              :membershipOf ?person ;
+              :memberOf ?union .
+  ?role a :Cl_UnionRole ;
+        :hasRole ?membership ;
+        :roleTitle ?roleTitle ;
+        :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+  
+  # For a given point in time (here “2003-01-01”) we check that:
+  #   - that time is on or after the role start date and
+  #   - if a roleEndDate is given then the time is on or before the role end.
+  FILTER(
+    xsd:date("2003-01-01") >= ?roleStartDate &&
+    ( !bound(?roleEndDate) || xsd:date("2003-01-01") <= ?roleEndDate )
+  )
+}
+ORDER BY ?person ?union
+────────────────────────────────────────────
+
+In this way the ontology supports the competency question “What role does a certain person have within a certain union group at a certain point in time?” because we can extract the answer by querying the reified relationship (union membership and its associated union role) along with the temporal constraints.

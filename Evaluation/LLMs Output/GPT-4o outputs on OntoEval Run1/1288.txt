@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the provenance of event attendees, which is represented in the ontology through the classes and properties related to `Event`, `Attendee`, and `Provenance`. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?event ?attendee ?provenance ?source ?reason ?mechanism
+WHERE {
+  ?event a :Event .
+  ?event :hasAttendee ?attendee .
+
+  ?attendee :hasProvenance ?provenance .
+
+  ?provenance :documentedBy ?source .
+  ?provenance :hasReason ?reason .
+  ?provenance :hasMechanism ?mechanism .
+}
+```

@@ -1,0 +1,28 @@
+**Yes**
+
+The ontology models this competency question using the reification class Cl_PersonRoleInProduction. You can retrieve the roles that a person holds in a production at a given time by querying the pivot class. For example:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?production ?productionTitle ?role ?time
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :hasName ?personName . }
+
+  ?person :hasPersonRoleInProduction ?pr .
+  ?pr :withRole ?role .
+  ?pr :inProduction ?production .
+  ?pr :atTime ?time .
+  OPTIONAL { ?production :hasTitle ?productionTitle . }
+
+  # OPTIONAL filters can be applied to restrict to a certain person, production, or point in time, e.g.:
+  # FILTER(?person = <http://www.example.org/test#FabioBianchi>)
+  # FILTER(?production = <http://www.example.org/test#MerchantOfVeniceProduction>)
+  # FILTER(?time = "2009-09-07T00:00:00"^^xsd:dateTime)
+}
+-------------------------------------------------------------
+
+This query extracts the person, their name, the production (with its title), the role they play, and the time at which that role is assigned.

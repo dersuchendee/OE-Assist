@@ -1,0 +1,18 @@
+**Yes**
+Below is one SPARQL query that retrieves the city in which a given hospital (here “OspedaleRiunitoDelleTreValli”) is located, based on the ontology’s classes and properties:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?cityName
+WHERE {
+  ?loc a :Cl_HospitalLocation .
+  ?loc :locationOf ?hospital .
+  ?loc :locatedIn ?city .
+  ?city :cityName ?cityName .
+  FILTER(?hospital = :OspedaleRiunitoDelleTreValli)
+}
+--------------------------------
+
+This query uses the reified location information from the ontology (via :Cl_HospitalLocation) to connect the hospital with its city, satisfying the competency question.

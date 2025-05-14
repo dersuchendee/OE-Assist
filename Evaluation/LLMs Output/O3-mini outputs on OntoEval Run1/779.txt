@@ -1,0 +1,17 @@
+**Yes**
+
+We can retrieve the medical degrees of a person (for example, Pasquale Di Gennaro) using the property that links a person to his medical degrees. For example, the following SPARQL query returns the degrees and (optionally) their labels:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?degree ?degreeLabel
+WHERE {
+  :Pasquale_Di_Gennaro a :Cl_Person ;
+                        :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel. }
+}
+-----------------------------------------------------------
+
+Under the closed world assumption, since any degree not explicitly stated does not exist, this query fully answers the competency question "What medical degrees does a certain person have?"

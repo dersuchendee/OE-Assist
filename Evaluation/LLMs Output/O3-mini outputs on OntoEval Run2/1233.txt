@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves Beech Forests, their associated Carbon Sequestration process, and the Carbon Cycle to which that process contributes:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?beechLabel ?process ?processLabel ?carbonCycle ?cycleLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?beechLabel . }
+  
+  ?beechForest :hasProcess ?process .
+  ?process a :CarbonSequestration .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  
+  ?process :contributesTo ?carbonCycle .
+  ?carbonCycle a :CarbonCycle .
+  OPTIONAL { ?carbonCycle rdfs:label ?cycleLabel . }
+}
+ORDER BY ?beechForest
+-----------------------------------------------------------
+
+Under the closed world assumption, we assume that only the asserted facts in the ontology exist. Since the ontology states that Beech Forests have a process (specifically Carbon Sequestration) which contributes to the Carbon Cycle, the CQ is properly modelled and answerable by this query.

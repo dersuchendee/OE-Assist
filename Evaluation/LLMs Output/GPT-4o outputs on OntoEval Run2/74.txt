@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query the specific dates when a theatre festival took place. The ontology includes a `hasDate` property for `TheatreFestival`, but it is not used in the provided individuals to specify the exact dates of the festivals. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?festival ?festivalName ?date
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :hasName ?festivalName .
+  OPTIONAL { ?festival :hasDate ?date . }
+}
+```

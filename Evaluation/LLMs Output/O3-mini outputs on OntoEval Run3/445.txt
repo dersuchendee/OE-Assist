@@ -1,0 +1,26 @@
+**Yes**
+Below is one way to extract the answer under the closed world assumption. In this query, we assume that the band of interest and the point in time are provided (here, for example, ns1:RedHotChiliPeppers and "2005-01-01"^^xsd:date). The query finds persons that have a band membership for that band and whose membership time interval (indicated by ns1:memberDuring along with the begin and end dates) covers the given time.
+
+--------------------------------------------------
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  ?person a ns1:Person ;
+          rdfs:label ?personLabel ;
+          ns1:hasMembership ?membership .
+  ?membership ns1:membershipInBand ?band ;
+              ns1:memberDuring ?interval .
+  ?interval ns1:hasBeginDate ?begin ;
+            ns1:hasEndDate ?end .
+  FILTER(?band = ns1:RedHotChiliPeppers &&
+         "2005-01-01"^^xsd:date >= ?begin &&
+         "2005-01-01"^^xsd:date <= ?end)
+}
+
+--------------------------------------------------
+
+This query answers the competency question "What are the members of a certain band at a certain point in time?" based on the provided ontology and story.

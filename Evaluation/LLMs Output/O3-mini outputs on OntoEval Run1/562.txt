@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the song that a specific track’s recording is of:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :MusicTrack .
+  OPTIONAL { ?track rdfs:label ?trackLabel. }
+  ?track :isMusicTrackOf ?recording .
+  ?recording :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+}
+--------------------------------------------------
+
+This query starts from any MusicTrack (e.g. the specific track you’re interested in) and follows its relations to the Recording and then to the Song that the Recording is of.

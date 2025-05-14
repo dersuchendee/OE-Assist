@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that individual seminars are asserted as instances of the class :Seminar (which is a subclass of :Event) and that events have a property :takesPlaceAt relating them to a :Place, the following SPARQL query will extract the location at which a given seminar took place:
+
+--------------------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarTitle ?place ?placeLabel
+WHERE {
+  ?seminar a :Seminar .
+  OPTIONAL { ?seminar :title ?seminarTitle . }
+  ?seminar :takesPlaceAt ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+--------------------------------------------------------------
+
+In a closed world view, if the data is complete for each seminar instance, this query will return the specific place (e.g., the hospital or city) where the seminar took place, thus showing that the CQ is fully answerable via the ontology.

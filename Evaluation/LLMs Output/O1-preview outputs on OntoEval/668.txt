@@ -1,0 +1,19 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?song
+WHERE {
+  # Specify the performance of interest
+  # Replace :SpecificPerformance with the URI of the performance you're interested in
+  ?performance rdf:type :Cl_Performance .
+  
+  # If you have a specific performance, you can uncomment the following line and specify it
+  # FILTER(?performance = :SpecificPerformance) 
+
+  # Find the songs included in the performance
+  ?performance :includesSong ?performedSong .
+  
+  # Get the song performed
+  ?performedSong :songPerformed ?song .
+}
+```

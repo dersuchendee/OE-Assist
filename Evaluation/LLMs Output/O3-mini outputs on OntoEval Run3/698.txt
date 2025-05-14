@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one example SPARQL query that uses the ontology’s :Cl_City, :Cl_Region classes and the :op_isLocatedIn property to answer the CQ "In what region is a certain city located?":
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?region
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :op_isLocatedIn ?region .
+}
+-------------------------------------------------
+
+This query retrieves each city (of type :Cl_City) and its associated region (via :op_isLocatedIn), fulfilling the competency question under the closed world assumption.

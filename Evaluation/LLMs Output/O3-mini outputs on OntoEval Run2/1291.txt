@@ -1,0 +1,22 @@
+**No**
+
+The ontology does include Persons participating in Events (via properties like participatesIn and hasParticipant), but it does not reify or explicitly characterize the nature of the relation among participants (e.g. specifying the type or strength of the connection when they share an event, or any metadata about that connection). Under the closed‐world assumption we can extract a partial answer that shows pairs of participants who co-occur in the same event – a proxy for “relation among the participants”. For example, the following SPARQL query retrieves pairs of persons who participated in at least one common event and counts how many events they shared:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?person1 ?person1Name ?person2 ?person2Name (COUNT(?event) AS ?sharedEvents)
+WHERE {
+  ?event a :Event .
+  ?event :hasParticipant ?person1 .
+  ?event :hasParticipant ?person2 .
+  FILTER(?person1 != ?person2)
+  OPTIONAL { ?person1 rdfs:label ?person1Name. }
+  OPTIONAL { ?person2 rdfs:label ?person2Name. }
+}
+GROUP BY ?event ?person1 ?person1Name ?person2 ?person2Name
+ORDER BY DESC(?sharedEvents)
+------------------------------------------------------
+
+This query provides a partial answer by indicating that participants who share at least one event may be related, yet the ontology does not model a reified or enriched “relation” among participants that would fully answer the CQ.

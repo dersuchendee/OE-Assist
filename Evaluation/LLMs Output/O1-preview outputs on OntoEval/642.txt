@@ -1,0 +1,16 @@
+**Answer: Yes**
+
+The competency question is supported by the ontology because it contains information about performances and their dates. We can query for performances and their corresponding dates using the following SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+```
+
+This query retrieves all individuals of type `:Cl_Performance` and their associated `:performanceDate` values, answering the question "When did a certain performance take place?"

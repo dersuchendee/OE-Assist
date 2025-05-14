@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to determine the most suitable event based on the weather, calendar, and user preferences. The ontology lacks the necessary connections between these elements to answer the competency question fully. However, we can extract partial information about user preferences and weather conditions.
+
+```sparql
+SELECT ?event ?timePeriod ?preference ?weatherCondition
+WHERE {
+  ?eventSuggestion a :Cl_EventSuggestion .
+  ?eventSuggestion :hasEvent ?event .
+  ?eventSuggestion :hasSuggestedTime ?timePeriod .
+  ?eventSuggestion :hasUserPreference ?preference .
+  ?eventSuggestion :hasWeatherDuringEvent ?weatherCondition .
+}
+```

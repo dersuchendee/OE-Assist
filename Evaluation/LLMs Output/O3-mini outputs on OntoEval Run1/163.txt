@@ -1,0 +1,11 @@
+**Yes**
+Below is a SPARQL query that returns each theatre and its city (using the closed world assumption):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?theatre ?city
+WHERE {
+  ?theatre rdf:type :Cl_Theatre .
+  ?theatre :isLocatedInCity ?city .
+}

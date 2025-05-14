@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What is the data of this energy flow at this point in time?" can be answered using the ontology provided. The ontology includes the `EnergyFlow` class, which has properties `hasData` and `atTime` that connect it to `Data` and `TimePoint` classes, respectively. This allows us to query for the data associated with an energy flow at a specific time point.
+
+```sparql
+SELECT ?energyFlow ?data ?timePoint
+WHERE {
+  ?energyFlow a :EnergyFlow .
+  ?energyFlow :hasData ?data .
+  ?energyFlow :atTime ?timePoint .
+}
+```

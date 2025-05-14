@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide any explicit connection between a specific book or CD (instances of Cl_Book or Cl_CD) and an article collection (instance of Cl_ArticleCollection). Although it does model an article collection via the object property “containsArticle”, there is no property linking a book or CD to its collection. Under the closed world assumption, a query can only return information about article collections but not directly answer “which articles compose a specific book or CD?”
+
+A partial answer can be obtained by retrieving article collections and their articles as follows:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection a :Cl_ArticleCollection .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  ?collection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}

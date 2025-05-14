@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that, given a specific person, returns the instruments that person plays:
+
+PREFIX : <http://www.semanticweb.org/musicontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Person .
+  ?person :PlaysInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  # Replace :SomePerson with the URI of the specific person you are inquiring about:
+  FILTER(?person = :JohnFrusciante)
+}

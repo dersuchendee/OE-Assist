@@ -1,0 +1,26 @@
+**Yes**
+
+We can check the competency “A record always contains at least one track” by writing a query that, under the closed‐world assumption, retrieves every record together with its associated tracks. In an ideal (complete) data instance no record will be missing any track. For example, one way to “test” this rule is to ask for any record that lacks a track. If no such records are found the competency holds. One example query is:
+
+------------------------------------------------
+# This query retrieves all records that do NOT have any associated track.
+# Under the closed world assumption, an empty result implies every record has at least one track.
+SELECT ?record
+WHERE {
+  ?record a :Cl_Record .
+  FILTER NOT EXISTS { ?record :hasTrack ?anyTrack }
+}
+------------------------------------------------
+
+Alternatively, if you wish to list all records together with their tracks (which you expect every record to have at least one), you can run:
+
+------------------------------------------------
+SELECT ?record ?track
+WHERE {
+  ?record a :Cl_Record .
+  ?record :hasTrack ?track .
+}
+ORDER BY ?record
+------------------------------------------------
+
+Either query shows that the ontology makes it possible to check that every record is (reified to be) linked to at least one track.

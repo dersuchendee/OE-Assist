@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer the CQ “In what city is a certain hospital located?” using the ontology. The ontology defines a class for hospitals (:Cl_Hospital), a class for cities (:Cl_City), and the object property (:locatedIn) that connects a hospital to a city. Under a closed‐world assumption, we can assume that if a hospital is not explicitly linked to a city, it is not located in any city.
+
+A suitable SPARQL query would be:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel. }
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+---------------------------------
+
+This query retrieves all hospitals together with their corresponding cities.

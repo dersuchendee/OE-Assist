@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not explicitly record an organ's original geographic location. However, one can partially retrieve associated data by, for example, retrieving the project descriptions of an organ (if available) which link an organ to a “Place” via the property hasPlace. Using a closed‐world assumption, we assume that if an organ is not connected to such a project/place, then its original location is unknown. Consider the following SPARQL query to return available (partial) information:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?place ?placeLabel
+WHERE {
+  ?organ a organs:Organ .
+  OPTIONAL {
+    ?organ arco:isDescribedBy ?project .
+    ?project arco:hasPlace ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+  }
+}
+
+This query returns any place linked via a project description. If no such information exists, then the original location remains unknown within the ontology.

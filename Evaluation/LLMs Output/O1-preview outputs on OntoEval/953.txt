@@ -1,0 +1,17 @@
+**No**
+
+The ontology provides the classes and properties for `ArticleCollection`, `Book`, `CD`, and `Article`, and the relationship `:contains` between them. However, under the Closed World Assumption, since there are no individuals (instances) of specific books, CDs, or articles defined in the ontology, we cannot extract the articles of a specific book or CD. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Here is a SPARQL query that partially answers the question by retrieving any articles contained in any book or CD:
+
+```sparql
+PREFIX : <http://example.org/articlecollection#>
+
+SELECT ?collection ?article
+WHERE {
+  ?collection a :ArticleCollection .
+  ?collection :contains ?article .
+}
+```
+
+This query retrieves all articles contained in any `ArticleCollection` (which includes `Book` and `CD`), but without specific instances, it cannot provide the articles for a specific book or CD.

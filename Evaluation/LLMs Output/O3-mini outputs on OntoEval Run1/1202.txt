@@ -1,0 +1,29 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, retrieves the organ along with the person who built it and, if available, the person who renovated it:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?builder ?builderLabel ?renovator ?renovatorLabel
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  
+  OPTIONAL { 
+    ?organ :builtBy ?builder .
+    OPTIONAL { ?builder rdfs:label ?builderLabel . }
+  }
+  
+  OPTIONAL { 
+    ?organ :renovatedBy ?renovator .
+    OPTIONAL { ?renovator rdfs:label ?renovatorLabel . }
+  }
+  
+  # Ensuring we only show organs where either the builder or renovator is present.
+  FILTER (bound(?builder) || bound(?renovator))
+}
+-----------------------------------------------------
+
+This query answers the competency question “Who built and/or renovated an organ?” by retrieving the relevant relationships from the ontology.

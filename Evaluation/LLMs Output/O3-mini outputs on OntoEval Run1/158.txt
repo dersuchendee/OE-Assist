@@ -1,0 +1,39 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, extracts complete information about productions that have a premier (using :Cl_ProductionPremier) along with the theatre where they played and any associated review (including newspaper and star rating). This query answers a competency question such as “Which productions at a given theatre have a recorded premiere date and what are the review details (star rating and newspaper)?” by linking productions, their premier information, and review data.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?productionName ?premierDate ?theatreName ?starRating ?newspaperName
+WHERE {
+  # Get productions that have premier information
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :hasPremier ?premier .
+  ?premier :hasPremierDate ?premierDate .
+  
+  # Link to the theatre information via an ActorEmployment or TheatreLocation.
+  # Here we assume the production is associated with a theatre location via the production premiered production.
+  ?theatreLoc a :Cl_TheatreLocation ;
+              :hasTheatre ?theatre .
+  ?theatre :theatreName ?theatreName .
+  # We restrict to a specific theatre (e.g. "The Grand Theatre") – adjust as needed
+  FILTER(?theatreName = "The Grand Theatre")
+  
+  # Optionally, get review details if available
+  OPTIONAL {
+    ?review a :Cl_Review ;
+            :hasProduction ?production ;
+            :hasStarRating ?starRating ;
+            :hasNewspaper ?newspaper .
+    ?newspaper :newspaperName ?newspaperName .
+  }
+}
+ORDER BY ?premierDate
+--------------------------------------------------
+
+This query demonstrates that the ontology supports a CQ linking production premier details with theatre and review information.

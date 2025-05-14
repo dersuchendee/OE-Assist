@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+SELECT ?user ?ticketOption ?defaultValue
+WHERE {
+  ?user a :Cl_User .
+  ?user :hasTicketOption ?ticketOption .
+
+  ?ticketOption :hasShowTime ?showTime .
+  ?ticketOption :hasSeat ?seat .
+
+  ?ticketOrderingOption a :Cl_TicketOrderingOption .
+  ?ticketOrderingOption :hasTicketOption ?ticketOption .
+  ?ticketOrderingOption :hasDefaultOptionValue ?defaultValue .
+}
+```

@@ -1,0 +1,39 @@
+**Yes**
+
+Below is an example SPARQL query that “answers” a competency question asking for the details of the album StadiumArcadium – its release date, the tracks it contains, any review text, and performance details (date and location) – as modelled in the ontology:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?releaseDate ?track ?reviewText ?performanceDate ?locationName
+WHERE {
+  # Get the album StadiumArcadium and its release date and tracks
+  :StadiumArcadium a :Cl_Album ;
+                  :releaseDate ?releaseDate ;
+                  :containsTrack ?track .
+  
+  # Optionally get a review for the album
+  OPTIONAL {
+    ?review a :Cl_Review ;
+            :reviewedRecord :StadiumArcadium ;
+            :reviewText ?reviewText .
+  }
+  
+  # Optionally get a performance related to the album –
+  # (via the recording period or performance event that may be linked to album context)
+  OPTIONAL {
+    # Here we assume a performance that took place (possibly during promotion or live performance)
+    ?performance a :Cl_Performance ;
+                 :performanceDate ?performanceDate ;
+                 :tookPlaceAt ?loc .
+    ?loc :locationName ?locationName .
+  }
+}
+ORDER BY ?track
+--------------------------------------------------
+
+In this query the closed‐world assumption is applied so that only explicitly asserted data (such as the release date, track membership, review text, or performance information) is returned. This query shows how the ontology connects the album to its components and related review/performance information, thus supporting the competency question.

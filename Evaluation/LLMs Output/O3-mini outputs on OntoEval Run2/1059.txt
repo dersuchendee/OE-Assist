@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that a “certain seminar” is identified (for example, via its URI or other criteria), we can extract the articles presented in that seminar by linking the seminar to its seminar presentations and then the presentations to the articles. For instance, one possible SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?presentation ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  # Optionally, filter by a given seminar (e.g., by label or URI):
+  # FILTER(?seminar = <http://www.example.org/test#SomeSeminarURI>)
+
+  ?seminar :seminarIncludesPresentation ?presentation .
+  ?article a :Cl_Article .
+  ?article :presentedInSeminar ?presentation .
+
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+ORDER BY ?seminar ?presentation
+
+This query demonstrates that the CQ is fully supported by the ontology under the closed world assumption.

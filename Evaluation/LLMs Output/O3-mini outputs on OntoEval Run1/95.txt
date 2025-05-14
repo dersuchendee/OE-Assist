@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the occurrence date(s) for theatre festivals using the reification structure in the ontology:
+
+————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrenceOccurrence .
+  ?occurrenceOccurrence :occurrenceDate ?occurrenceDate .
+  # Optionally, if you want a specific festival (e.g., "Roma Loves Shakespeare"),
+  # you could add a FILTER or use rdfs:label if available:
+  # ?festival rdfs:label "Roma Loves Shakespeare" .
+}
+ORDER BY ?occurrenceDate
+————————————————————————————
+
+This query shows that the CQ “When did a certain theatre festival take place?” is answerable via the connection between :Cl_TheatreFestival, its occurrence (:Cl_FestivalOccurrence), and the data property :occurrenceDate.

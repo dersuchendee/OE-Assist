@@ -1,0 +1,20 @@
+Answer: **No**
+
+The provided ontology does not include properties or relationships that specify the union an employee is a member of, nor does it include temporal data about union memberships to determine membership at a certain point in time. Therefore, the competency question cannot be fully answered using the ontology.
+
+Here is a partial SPARQL query that retrieves employees who have union memberships, but it cannot filter by a certain union or point in time:
+
+```sparql
+PREFIX : <http://www.hospitalontology.org/ontologies/hospital.owl#>
+PREFIX collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?employee ?employeeName ?unionMembership
+WHERE {
+  ?employee a :Employee .
+  OPTIONAL { ?employee rdfs:label ?employeeName . }
+  ?employee :hasUnionMembership ?unionMembership .
+}
+```
+
+This query retrieves the employees and their union memberships but lacks the necessary temporal and union-specific information to fully answer the competency question.

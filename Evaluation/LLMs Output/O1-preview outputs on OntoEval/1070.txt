@@ -1,0 +1,20 @@
+**Answer: Yes**
+
+The competency question "Where did a certain seminar take place?" is supported by the ontology. The ontology includes concepts such as `Seminar`, `Event`, `Place`, `takesPlaceAt`, and `isLocatedIn`, which allow us to model seminars and their locations.
+
+Here is the SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?place ?placeLabel
+WHERE {
+    ?seminar a :Seminar .
+    OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+    ?seminar :takesPlaceAt ?place .
+    OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```
+
+This query retrieves seminars and the places where they took place by utilizing the `takesPlaceAt` object property defined in the ontology.

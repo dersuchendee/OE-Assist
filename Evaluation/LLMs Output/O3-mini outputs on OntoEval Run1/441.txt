@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, retrieves for a given person (or for all persons) the instruments they play as modelled in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+
+This query returns all instances of persons (of type Cl_Person) together with the instruments (of type Cl_Instrument) they play according to the relation “playsInstrument.”

@@ -1,0 +1,13 @@
+**Yes**  
+Below is one SPARQL query that extracts, via the reified PerformanceSong relationship, the songs played in a given performance (replace <Performance_URI> with the specific performance’s URI):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songName
+WHERE {
+  ?ps a :Cl_PerformanceSong ;
+      :performanceOf <Performance_URI> ;
+      :songPlayed ?song .
+  OPTIONAL { ?song :hasName ?songName. }
+}

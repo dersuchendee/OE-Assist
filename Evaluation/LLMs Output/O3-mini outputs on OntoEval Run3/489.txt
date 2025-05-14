@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that album recordings are captured through the class Cl_AlbumRecording (a subclass of Cl_Album) and that the recording period is modelled via the data properties dp_recordingStartDate and dp_recordingEndDate, we can answer the CQ “During what time period was a certain album recorded?” by querying those properties on the album‐recording instance. Note that under the closed‐world assumption any missing assertion means the fact is false, so only the explicitly provided album recordings are returned.
+
+For example, to get the recording period for the album recording instance for “Stadium Arcadium” (here represented as :ind_StadiumArcadiumRecording) use:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?albumRecording ?recordingStart ?recordingEnd
+WHERE {
+  ?albumRecording a :Cl_AlbumRecording .
+  ?albumRecording :dp_recordingStartDate ?recordingStart .
+  ?albumRecording :dp_recordingEndDate ?recordingEnd .
+  
+  # Restrict to a certain album recording instance, e.g., Stadium Arcadium Recording
+  FILTER(?albumRecording = :ind_StadiumArcadiumRecording)
+}
+-------------------------------------------------------
+
+This query extracts the recording start and end dates for the album recording instance matching the “certain album” described in the CQ.

@@ -1,0 +1,16 @@
+**No**
+
+The given ontology does not provide any classes, properties, or reification‐connection between “record” and “track” that would allow us to write a query confirming that every record has at least one track. In a closed‐world view, since there is no explicit relation (for example, a class like :Record with an object property such as :hasTrack relating to a :Track), we cannot answer the competency question in full. We can nonetheless write a SPARQL query that extracts any available links from records to tracks (a partial answer):
+
+------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?track
+WHERE {
+  ?record rdf:type :Record .
+  OPTIONAL { ?record :hasTrack ?track. }
+}
+------------------------------
+
+Because the ontology lacks a reification (or explicit modelling) connecting records and tracks, we cannot verify that every record contains at least one track.

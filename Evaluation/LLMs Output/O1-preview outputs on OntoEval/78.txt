@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+SELECT ?festival ?festivalName ?occurDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalOccurrence ?occurrence .
+  ?occurrence :occurredOnDate ?occurDate .
+  
+  OPTIONAL { ?festival rdfs:label ?festivalName . }
+  
+  # Optionally, filter by a specific festival name
+  # FILTER(?festivalName = "Roma Loves Shakespeare")
+}
+```

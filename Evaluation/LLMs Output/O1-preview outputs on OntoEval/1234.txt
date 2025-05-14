@@ -1,0 +1,22 @@
+Answer: **Yes**
+
+Here the Competency Question (CQ) "What is the relationship between dissolved carbon in water and carbon cycling in karst systems?" is answerable with the given ontology. The ontology defines the relationship between `:DissolvedCarbon` and `:CarbonCyclingInKarstSystem` through the property `:affects`. We can extract this relationship by querying the ontology's schema.
+
+SPARQL Query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?relationshipLabel
+WHERE {
+  :DissolvedCarbon rdfs:subClassOf ?restriction .
+  ?restriction a owl:Restriction ;
+               owl:onProperty ?relationship ;
+               owl:someValuesFrom :CarbonCyclingInKarstSystem .
+  ?relationship rdfs:label ?relationshipLabel .
+}
+```
+
+This query retrieves the label of the relationship that connects `:DissolvedCarbon` to `:CarbonCyclingInKarstSystem`, which in this ontology is the property `:affects`.

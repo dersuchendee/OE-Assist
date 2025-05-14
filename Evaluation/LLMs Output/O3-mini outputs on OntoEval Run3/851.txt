@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one example SPARQL query that uses the reified hospital‐location structure in the ontology to answer the competency question “In what city is a certain hospital located?” under a closed‐world assumption:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityName
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  ?location a :Cl_HospitalLocation ;
+            :locationOf ?hospital ;
+            :locatedIn ?city .
+  ?city :cityName ?cityName .
+  
+  # (Optional) To restrict to a “certain hospital,” uncomment and adjust the filter below:
+  # FILTER(?hospital = :OspedaleRiunitoDelleTreValli)
+}
+-------------------------------------------------------------
+
+This query retrieves, for each hospital, its associated hospital location object, and from that the city (identified by the data property :cityName). Under a closed world assumption, only explicitly asserted values (e.g. the specific hospital location and corresponding city) are returned.

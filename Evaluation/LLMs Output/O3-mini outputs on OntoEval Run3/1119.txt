@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventLabel ?dayOfWeek ?dayLabel ?timeOfDay ?timeLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :occursOn ?dayOfWeek .
+  OPTIONAL { ?dayOfWeek rdfs:label ?dayLabel . }
+  
+  ?event :hasTime ?timeOfDay .
+  OPTIONAL { ?timeOfDay rdfs:label ?timeLabel . }
+}
+```

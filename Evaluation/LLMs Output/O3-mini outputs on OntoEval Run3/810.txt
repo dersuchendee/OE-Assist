@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed world assumption, extracts the study period (start and end dates) for a person’s degree. In this query, the person and the degree in question are connected through the reified class Cl_PersonDegree.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasDegree ?personDegree .
+          
+  ?personDegree :degreeType ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  
+  ?personDegree :studyStartDate ?studyStartDate ;
+                :studyEndDate ?studyEndDate .
+}
+------------------------------------------------
+
+This query answers the CQ “During what time period did a certain person study for a specific degree?” by retrieving the study start and end dates associated with the degree that the person pursued.

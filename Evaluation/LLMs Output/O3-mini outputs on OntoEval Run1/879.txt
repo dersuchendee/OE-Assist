@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one example of a SPARQL query that extracts the country for a given city (here filtering by the city “Nocera Inferiore” as mentioned in the story):
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :cityInCountry ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+  FILTER(?cityLabel = "Nocera Inferiore")
+}
+  
+─────────────────────────────
+
+This query uses the property :cityInCountry, which is defined in the ontology, to retrieve the country for the city. Under the closed world assumption, the ontology provides all needed connections.

@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :op_composedDuring ?compositionEvent .
+  ?compositionEvent :dp_compositionDate ?compositionDate .
+  # Optionally, filter for a specific song if needed, e.g.,
+  # FILTER(?song = :ind_HumpDeBump)
+}
+```

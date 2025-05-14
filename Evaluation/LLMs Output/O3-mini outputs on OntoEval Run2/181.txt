@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for each city, its name together with the name of the country in which that city is located:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :cityName ?cityName .
+  
+  ?cityCountry rdf:type :Cl_CityCountry ;
+               :hasCity ?city ;
+               :hasCountry ?country .
+  ?country :countryName ?countryName .
+}

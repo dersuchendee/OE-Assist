@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?attributeLabel ?value
+WHERE {
+  :YrNoWeatherService ?property ?value .
+  FILTER (?property != rdf:type)
+  OPTIONAL { ?property rdfs:label ?attributeLabel . }
+}
+```
+
+This query retrieves all the attributes of the `:YrNoWeatherService`, excluding its type declaration, along with the labels of those attributes for better readability. It will provide information such as the service's name and the locations it provides forecasts for.

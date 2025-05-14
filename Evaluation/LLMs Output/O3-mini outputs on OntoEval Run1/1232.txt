@@ -1,0 +1,22 @@
+**No**
+
+The ontology only defines the classes and restrictions (i.e. the intended conceptual link between carbon fixation and forest soil via subclassing and restrictions) rather than providing reified instances of different forms of carbon fixation. Thus, we cannot directly extract instance‐level answers to “What are the different forms of carbon fixation in forest soils?” under a closed world assumption. However, we can partially answer by querying for any class that has a restriction indicating that it occurs in forest soil.
+
+Below is a SPARQL query that retrieves the classes (together with their labels, if available) which have an “occursIn” restriction with “ForestSoil” as its filler:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?form ?formLabel
+WHERE {
+  ?form a owl:Class ;
+        rdfs:subClassOf ?restriction .
+  ?restriction owl:onProperty :occursIn ;
+               owl:someValuesFrom :ForestSoil .
+  OPTIONAL { ?form rdfs:label ?formLabel. }
+}
+----------------------------------------------------------------
+
+This query extracts a partial answer by listing those classes that are constrained to occur in forest soil.

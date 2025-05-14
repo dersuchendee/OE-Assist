@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves a given publication (of type “Book” or “CD”) along with the articles it is composed of:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?pubTitle ?article ?articleTitle
+WHERE {
+  ?publication a :Cl_Publication ;
+               :publicationTitle ?pubTitle ;
+               :publicationType ?pubType .
+  FILTER(?pubType = "Book" || ?pubType = "CD")
+  
+  OPTIONAL {
+    ?publication :composedOfArticles ?article .
+    OPTIONAL { ?article :articleTitle ?articleTitle. }
+  }
+}
+---------------------------------------------------------------
+
+This query answers the competency question by extracting, for a specified publication (book or CD), the articles it is composed of based on the ontology’s properties.

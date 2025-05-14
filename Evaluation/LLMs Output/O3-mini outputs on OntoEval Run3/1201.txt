@@ -1,0 +1,38 @@
+**Yes**
+
+Below is one example of a SPARQL query that retrieves a composer’s network by uniting the properties defined in the ontology (i.e. patrons, institutions they work for, and other composers they collaborated with):
+
+————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composer ?composerName ?network ?networkName ?relationType
+WHERE {
+  {
+    ?composer a :Composer .
+    OPTIONAL { ?composer rdfs:label ?composerName . }
+    ?composer :hasPatron ?network .
+    OPTIONAL { ?network rdfs:label ?networkName . }
+    BIND("Patron" AS ?relationType)
+  }
+  UNION
+  {
+    ?composer a :Composer .
+    OPTIONAL { ?composer rdfs:label ?composerName . }
+    ?composer :worksForInstitution ?network .
+    OPTIONAL { ?network rdfs:label ?networkName . }
+    BIND("Institution" AS ?relationType)
+  }
+  UNION
+  {
+    ?composer a :Composer .
+    OPTIONAL { ?composer rdfs:label ?composerName . }
+    ?composer :collaboratedWith ?network .
+    OPTIONAL { ?network rdfs:label ?networkName . }
+    BIND("Collaborator" AS ?relationType)
+  }
+}
+ORDER BY ?composer ?relationType
+————————————————————
+
+Under the closed world assumption this query extracts all explicitly stated network relationships for each composer in the ontology.

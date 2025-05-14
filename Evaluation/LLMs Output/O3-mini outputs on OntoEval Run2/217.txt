@@ -1,0 +1,30 @@
+**Yes**
+
+Assuming that a specific ensemble (for example, with URI :EnsembleX) is given and that the point in time is provided as a dateTime value, the following SPARQL query retrieves the actors (members)
+whose ensemble memberships (modeled by the reified class :EnsembleMembership) hold for a time interval that covers the given moment:
+
+------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorName ?membership ?interval ?start ?end
+WHERE {
+  ?membership a :EnsembleMembership ;
+              :ensemble :EnsembleX ;    # Replace with the URI of the ensemble of interest
+              :member ?actor ;
+              :during ?interval .
+  ?interval :hasStartDate ?start ;
+            :hasEndDate ?end .
+  
+  # The given time point - supply it here (adjust the literal value as needed):
+  FILTER ("2009-09-15T00:00:00"^^xsd:dateTime >= ?start && "2009-09-15T00:00:00"^^xsd:dateTime <= ?end) .
+  
+  OPTIONAL { ?actor rdfs:label ?actorName . }
+}
+ORDER BY ?actorName
+------------------------------------------------
+
+In this query we:
+• Select ensemble memberships whose associated time interval (with properties :hasStartDate and :hasEndDate) includes the given time point.
+• Filter the results so that only members whose membership interval covers the supplied time ("2009-09-15T00:00:00" in this example) are returned.

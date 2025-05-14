@@ -1,0 +1,36 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under the closed‐world assumption, retrieves the role held by a given person (in this example Pasquale Di Gennaro) within a given union (here, Union_Male_Nurses) at a specified date (represented by ?pointTime). (You can replace the URIs and the fixed date with variables as needed.)
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleStartDate ?roleEndDate
+WHERE {
+  # Find the union membership of the person for the given union
+  ?membership a :Cl_UnionMembership ;
+              :unionMember :Pasquale_Di_Gennaro ;
+              :memberOf :Union_Male_Nurses ;
+              :membershipStartDate ?membershipStartDate .
+  
+  # Find the role (reified in the union role class) held by the same person in that union
+  ?role a :Cl_UnionRole ;
+        :roleHeldBy :Pasquale_Di_Gennaro ;
+        :roleInUnion :Union_Male_Nurses ;
+        :roleName ?roleName ;
+        :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+  
+  # Define the point in time at which the role is being checked.
+  BIND("2003-01-01"^^xsd:date AS ?pointTime) .
+  
+  # The role is considered active at ?pointTime if it started on or before ?pointTime 
+  # and either has no end date or ended on or after ?pointTime.
+  FILTER ( ?pointTime >= ?roleStartDate 
+            && ( !BOUND(?roleEndDate) || ?pointTime <= ?roleEndDate ) )
+}
+ORDER BY ?roleStartDate
+----------------------------------------------------------------
+
+In this query the role of Pasquale Di Gennaro within the union "Union_Male_Nurses" is extracted if it is active on the date “2003-01-01”. Adjust the person, union, and the ?pointTime value as needed.

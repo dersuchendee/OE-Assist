@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide information about the time period during which a play was written. It only includes information about the writing period of "The Merchant of Venice" but does not generalize this to other plays. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?play ?writingStartDate ?writingEndDate
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL {
+    ?play :hasWritingPeriod ?writingPeriod .
+    ?writingPeriod :writingStartDate ?writingStartDate .
+    ?writingPeriod :writingEndDate ?writingEndDate .
+  }
+}
+```

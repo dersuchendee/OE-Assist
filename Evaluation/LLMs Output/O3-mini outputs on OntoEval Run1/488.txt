@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given person and band, the role the person played and the time period the role was active. (Note that in this ontology the reified “band role” is modeled as an instance of Cl_BandRole – which is defined as a subclass of Cl_Person, Cl_Band, Cl_TimePeriod, and Cl_Role – and that the property :hasRoleInBand connects a person to their band role; the property :playsRole gives the role; and :roleDuring links the role with its time period.) 
+
+For example, the query below returns all such associations. You can further filter by specifying a particular person, band, or time (using FILTER statements or providing the concrete URIs as values):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?person ?band ?role ?time
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasRoleInBand ?bandRole .
+  ?bandRole a :Cl_BandRole .
+  ?bandRole :playsRole ?role .
+  ?bandRole :roleDuring ?time .
+
+  # In this ontology, the band affiliation is captured because
+  # Cl_BandRole is also a subclass of Cl_Band.
+  BIND(?bandRole AS ?band)
+}
+ORDER BY ?person ?time
+--------------------------------------------------
+
+This query uses the closed world assumption on the ontology and demonstrates that the competency question – “What role does a certain person have in a certain band at a certain point in time?” – is answerable from the provided ontology.

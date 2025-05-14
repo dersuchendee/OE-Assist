@@ -1,0 +1,15 @@
+**Yes**
+
+The given Ontology includes the necessary classes and properties to model the concepts in the competency question. The class `:Cl_Production` represents productions, `:Cl_Play` represents plays, and the property `:isBasedOn` connects a production to the play it is based on.
+
+Here is the SPARQL query to answer the competency question:
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :isBasedOn ?play .
+}
+```
+
+This query retrieves all productions and their associated plays by leveraging the `:isBasedOn` property defined in the Ontology.

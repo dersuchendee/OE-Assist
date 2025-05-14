@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the ontology is populated with individuals and using a closed world view, we can fully answer the CQ by retrieving the recording date along with the associated chemical substance and water body. For example, the following SPARQL query extracts the recording date from individuals of the ChemicalLevelRecording class:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?recording ?hasRecordingDate ?chemicalSubstance ?waterBody
+WHERE {
+  ?recording a :ChemicalLevelRecording .
+  ?recording :hasRecordingDate ?hasRecordingDate .
+  ?recording :recordsChemical ?chemicalSubstance .
+  ?recording :recordedIn ?waterBody .
+}
+ORDER BY ?hasRecordingDate
+
+This query ensures that we only retrieve recordings which include a recording date (when the level is recorded), along with the relevant chemical substance and water body, fully satisfying the competency question.

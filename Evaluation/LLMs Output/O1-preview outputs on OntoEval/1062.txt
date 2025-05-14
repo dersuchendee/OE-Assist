@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question "What articles were presented in a certain seminar?". Specifically, it includes:
+
+- Class `:Cl_Article` representing articles.
+- Class `:Cl_Seminar` representing seminars.
+- Object properties `:presentedIn` and `:hasArticle` linking articles to seminars.
+
+Here is a SPARQL query that retrieves the articles presented in each seminar:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasArticle ?article .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+This query selects all seminars and their associated articles, retrieving optional labels for better readability.

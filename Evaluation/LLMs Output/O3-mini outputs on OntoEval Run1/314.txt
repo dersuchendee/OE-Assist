@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production ;
+              :premierDate ?premierDate .
+}
+```
+
+This query returns all productions along with the date of their premier, which directly answers the competency question "When was the premier of a certain production?" under the closed world assumption.

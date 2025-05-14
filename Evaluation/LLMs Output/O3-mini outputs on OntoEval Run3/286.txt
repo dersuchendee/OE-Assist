@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that a play’s acts are related via the property (for example, via :hasAct), the following SPARQL query returns, for a given play (or for all plays), the number of acts it contains under a closed‐world assumption:
+
+--------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play (COUNT(?act) AS ?numberOfActs)
+WHERE {
+  ?play a :Play .
+  OPTIONAL { ?play :hasAct ?act . }
+  # (If you want a specific play, you can add a FILTER below)
+  # FILTER(?play = :MerchantOfVenice)
+}
+GROUP BY ?play
+--------------------------------------
+
+This query counts the instances of acts linked to each play, which, under the closed-world assumption, provides the complete number of acts for each play.

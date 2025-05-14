@@ -1,0 +1,12 @@
+**No**
+
+Because the ontology lacks a data property to identify a specific festival (e.g., no `:festivalName`), we cannot fully answer the CQ "When did a certain theatre festival take place?" However, we can extract the occurrence dates of all festivals.
+
+```sparql
+SELECT ?festival ?occurrenceDate
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :occurrenceDate ?occurrenceDate .
+}
+```

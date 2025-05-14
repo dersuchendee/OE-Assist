@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology, as the ontology provides the necessary classes and properties to determine the writing period of a play. The play "Merchant of Venice" is linked to its writing period through the object property `op_hasWritingPeriod`, and the writing period is defined by the data properties `dp_startYear` and `dp_endYear`.
+
+```sparql
+SELECT ?play ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  ?play :op_hasWritingPeriod ?writingPeriod .
+  ?writingPeriod :dp_startYear ?startYear .
+  ?writingPeriod :dp_endYear ?endYear .
+}
+```

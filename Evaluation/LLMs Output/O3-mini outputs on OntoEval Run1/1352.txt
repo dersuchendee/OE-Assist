@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not capture any concept or property regarding “water” so we cannot filter chemical measurements specifically "in water". However, a partial answer can be obtained by extracting the units associated with chemical measurements. For example:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?chemicalMeasurement ?unit ?chemicalMeasurementLabel ?unitLabel
+WHERE {
+  ?chemicalMeasurement a :ChemicalMeasurement .
+  OPTIONAL { ?chemicalMeasurement rdfs:label ?chemicalMeasurementLabel . }
+  
+  ?chemicalMeasurement :hasUnit ?unit .
+  OPTIONAL { ?unit rdfs:label ?unitLabel . }
+}
+-----------------------------------------------------------
+
+This query retrieves all units linked to chemical measurements, but note that the "in water" context is not represented in the ontology.

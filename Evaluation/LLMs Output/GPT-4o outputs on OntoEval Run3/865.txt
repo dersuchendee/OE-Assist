@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a city and a country. The closest we have is a city being located in a `Cl_CountryLocation`, but there is no direct link from `Cl_CountryLocation` to `Cl_Country`. Therefore, we cannot fully answer the competency question. However, we can provide a partial answer by identifying the `Cl_CountryLocation` for a given city.
+
+```sparql
+SELECT ?city ?countryLocation
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedInCountry ?countryLocation .
+}
+```

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?person ?degree ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_studiedDuring ?studyPeriod .
+  ?studyPeriod :op_forDegree ?degree .
+  ?studyPeriod :dp_studyStartDate ?studyStartDate .
+  ?studyPeriod :dp_studyEndDate ?studyEndDate .
+}
+```

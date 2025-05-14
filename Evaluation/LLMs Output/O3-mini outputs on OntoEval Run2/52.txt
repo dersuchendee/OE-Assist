@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/cvn_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?process ?processLabel ?cvn ?cvnLabel
+WHERE {
+  ?process a :Process .
+  ?process :isProcessOf ?cvn .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+}
+ORDER BY ?process ?cvn
+```

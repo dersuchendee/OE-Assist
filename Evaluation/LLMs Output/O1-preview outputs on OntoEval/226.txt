@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?actorName
+WHERE {
+  ?ensemble rdf:type :Cl_Ensemble .
+  ?ensemble :hasEnsembleMembership ?membership .
+  ?membership :hasMember ?actor .
+  ?membership :hasTimePeriod ?time .
+  ?time :timePeriod ?givenTimePeriod .
+  ?actor :actorName ?actorName .
+  FILTER (?ensemble = :Ensemble_GrandTheatre_MerchantOfVenice)
+  FILTER (?givenTimePeriod = "September 2009")
+}
+```

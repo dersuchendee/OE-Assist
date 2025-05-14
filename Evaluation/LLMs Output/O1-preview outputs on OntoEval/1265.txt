@@ -1,0 +1,39 @@
+**Yes**
+
+```sparql
+SELECT ?entity ?entityType ?legalCondition ?legislation
+WHERE {
+  {
+    ?legalCondition a :LegalCondition .
+    ?legalCondition :affectsActor ?entity .
+    ?entity a :Actor .
+    BIND("Actor" AS ?entityType)
+  }
+  UNION
+  {
+    ?legalCondition a :LegalCondition .
+    ?legalCondition :affectsObject ?entity .
+    ?entity a :Object .
+    BIND("Object" AS ?entityType)
+  }
+  UNION
+  {
+    ?legalCondition a :LegalCondition .
+    ?legalCondition :affectsProcess ?entity .
+    ?entity a :Process .
+    BIND("Process" AS ?entityType)
+  }
+  OPTIONAL {
+    ?legalCondition :governedBy ?legislation .
+  }
+}
+```
+
+The competency question "What is the legal conditions and legislation affecting this actor/object/process?" is modeled by the ontology provided. The SPARQL query above retrieves all `Actor`, `Object`, or `Process` instances (`?entity`) that are affected by a `LegalCondition` (`?legalCondition`) via the properties `:affectsActor`, `:affectsObject`, or `:affectsProcess`. It also retrieves the `Legislation` (`?legislation`) that governs each `LegalCondition` through the property `:governedBy`.
+
+This query effectively answers the competency question by leveraging the relationships defined in the ontology:
+
+- `LegalCondition` affects `Actor`, `Object`, or `Process` via the respective properties.
+- Each `LegalCondition` may be governed by some `Legislation`.
+
+By querying these relationships, we can extract the necessary information to determine which legal conditions and legislations are affecting specific actors, objects, or processes within the domain described by the ontology.

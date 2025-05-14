@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ “At least one article is always presented at each seminar” by checking for each instance of a seminar (instances of Cl_Seminar) that there is some article linked to it via the presentation chain. Under the closed world assumption, if a seminar has no such associated article, then the CQ would fail. Since the ontology builds in the OWL restriction on Cl_Seminar requiring at least one related presentation (and the presentation links an article to the seminar), the CQ is indeed modeled by the ontology. One SPARQL query that extracts for each seminar the articles presented is:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?seminarDate ?article ?articleTitle
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :presentationOf ?seminar .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+ORDER BY ?seminar
+--------------------------------
+
+This query returns, for each seminar, at least one article that is presented in it.

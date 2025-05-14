@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?diseaseCategory ?diseaseCategoryLabel ?code ?codeValue
+WHERE {
+  ?diseaseCategory a :DiseaseCategory .
+  OPTIONAL { ?diseaseCategory rdfs:label ?diseaseCategoryLabel . }
+  ?diseaseCategory :hasCode ?code .
+  ?code :codeValue ?codeValue .
+}
+ORDER BY ?diseaseCategory
+```

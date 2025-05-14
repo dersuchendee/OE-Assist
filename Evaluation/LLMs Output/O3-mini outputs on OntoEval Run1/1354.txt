@@ -1,0 +1,17 @@
+**No**
+
+It is not possible to fully answer “Who built and/or renovated an organ?” with the given ontology because no explicit statements or properties capture construction or renovation activities (or roles such as builder, renovator, etc.). In the ontology, we do have generic properties (for example, a Project has agents and an organ is linked to projects via isDescribedBy) that might indirectly suggest involvement in an organ’s documentation or maintenance. However, there is no explicit modeling of building or renovation actions.
+
+A partial SPARQL query that at least retrieves the agents associated with projects that describe organs is given below. Under the closed world assumption, this query returns agents who are linked via projects—but note that without further refinement of the ontology, the query does not distinguish if those agents built or renovated an organ:
+
+-------------------------------------
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT DISTINCT ?organ ?project ?agent
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+  ?project arco:hasAgent ?agent .
+}
+-------------------------------------

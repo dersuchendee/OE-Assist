@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that a given seminar instance is identified by its URI (e.g., <http://www.example.org/test#SeminarInstance>), the following query retrieves those articles that were presented in that seminar. In our ontology, an article is linked to a seminar presentation via the property presentedIn, and seminar presentations are modeled as subclasses of Cl_Seminar (as well as Cl_Article). Under a closed‐world assumption, we query only for those articles that carry the presentedIn relation with the target seminar instance.
+
+Below is one possible SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  ?article a :Cl_Article ;
+           :presentedIn ?seminarPres .
+  ?seminarPres a :Cl_Seminar .
+  FILTER(?seminarPres = <http://www.example.org/test#SeminarInstance>)
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+
+In this query, we assume that the target seminar is identified by <http://www.example.org/test#SeminarInstance> and we retrieve all articles (of type Cl_Article) that are linked via the property presentedIn to a resource that is also (by inheritance) a Cl_Seminar.

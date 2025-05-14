@@ -1,0 +1,28 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?role
+WHERE {
+  ?person a :Cl_Person ;
+          :memberOf ?membership .
+  
+  ?membership a :Cl_BandMembership ;
+              :hasMembership :RedHotChiliPeppers ;
+              :membershipStart ?startDate .
+  
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+  OPTIONAL { ?person :hasName ?personName . }
+  OPTIONAL { ?membership :hasRole ?role . }
+  
+  # Replace "TARGET_DATE" with the date you're interested in
+  FILTER (
+    ?startDate <= "TARGET_DATE"^^xsd:date &&
+    ( !BOUND(?endDate) || ?endDate >= "TARGET_DATE"^^xsd:date )
+  )
+}
+```
+
+This query retrieves the members of the `:RedHotChiliPeppers` at a specific point in time (`"TARGET_DATE"`). It checks for memberships where the `membershipStart` date is on or before the target date and, if a `membershipEnd` date exists, that it is on or after the target date.

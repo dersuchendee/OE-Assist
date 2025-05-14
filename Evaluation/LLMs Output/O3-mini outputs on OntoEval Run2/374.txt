@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+SELECT ?person ?personName ?production ?productionTitle ?role ?roleName ?time
+WHERE {
+  ?person a :Cl_Person ;
+          :hasName ?personName ;
+          :hasPersonRoleInProduction ?personRole .
+  ?personRole :withRole ?role ;
+              :inProduction ?production ;
+              :atTime ?time .
+  ?production :hasTitle ?productionTitle .
+  ?role rdfs:label ?roleName .
+  
+  # Replace the following values with the desired person and production identifiers
+  FILTER(?person = :FabioBianchi && ?production = :TheMerchantOfVenice_GrandTheatre)
+}
+ORDER BY ?time
+```

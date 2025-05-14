@@ -1,0 +1,15 @@
+**No**
+
+The competency question "What devices are available in this indoor location?" cannot be fully answered by the ontology because there is no instance or specific class representing "this indoor location" (e.g., a particular room like the bathroom). The ontology defines the class `:Cl_IndoorLocation` but doesn't provide instances or subclasses for specific locations.
+
+However, we can write a partial SPARQL query to retrieve devices associated with any indoor location:
+
+```sparql
+SELECT ?indoorLocation ?device
+WHERE {
+    ?indoorLocation a :Cl_IndoorLocation .
+    ?indoorLocation :hasDevice ?device .
+}
+```
+
+This query retrieves devices available in all indoor locations defined in the ontology but does not specify "this indoor location" as requested in the competency question.

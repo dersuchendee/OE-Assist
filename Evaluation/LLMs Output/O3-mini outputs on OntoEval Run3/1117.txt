@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the current activity performed by the user together with the activity that immediately preceded it (using the :previousActivity property):
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?currentActivity ?currentLabel ?prevActivity ?prevLabel
+WHERE {
+  # Find a current activity performed by the user that has a previous activity.
+  ?currentActivity a :Activity ;
+                   :performedBy :User ;
+                   :previousActivity ?prevActivity .
+  OPTIONAL { ?currentActivity rdfs:label ?currentLabel . }
+  OPTIONAL { ?prevActivity rdfs:label ?prevLabel . }
+}
+
+  
+This query directly uses the :previousActivity relation defined in the ontology to answer the competency question "What did the user do previously?" under the closed world assumption.

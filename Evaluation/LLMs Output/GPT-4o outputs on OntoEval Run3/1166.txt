@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to trace the complete path of a material from its origin through all processes it has undergone. The ontology only provides information about the origin of a material and the process that produced it, but not a complete trace of all processes involved.
+
+Partial SPARQL query to extract some information about the origin and the process that produced the material:
+
+```sparql
+SELECT ?material ?origin ?process
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material :hasOrigin ?origin . }
+  OPTIONAL { ?material :producedByProcess ?process . }
+}
+```

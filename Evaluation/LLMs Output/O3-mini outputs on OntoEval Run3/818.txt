@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed world assumption, retrieves the earliest (first) employment date for a given person at a given hospital:
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Employee .
+  ?hospital a :Cl_Hospital .
+
+  # Both the person and hospital are connected to the same employment instance.
+  ?person :hasEmployment ?employment .
+  ?hospital :hasEmployment ?employment .
+
+  ?employment :employmentDate ?employmentDate .
+
+  # To focus on a specific person and hospital, you can use FILTERs:
+  FILTER(?person = :Pasquale_Di_Gennaro)
+  FILTER(?hospital = :Ospedale_Riunito_delle_Tre_Valli)
+}
+GROUP BY ?person ?hospital
+---------------------------------------------------
+
+This query selects the person and hospital and computes the minimum (earliest) employment date from the employment instances linking them, thus answering the CQ "When was a certain person first employed at a certain hospital?"

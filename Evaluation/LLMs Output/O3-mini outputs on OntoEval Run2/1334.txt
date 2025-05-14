@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves instances of Beech Forests, the cycling processes they affect (specifically carbon and nitrogen cycling), and the groundwater systems in which these processes occur:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?beechForest ?forestLabel ?cyclingProcess ?cyclingLabel ?groundwater ?groundwaterLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?forestLabel . }
+  
+  ?beechForest :affectsCycling ?cyclingProcess .
+  OPTIONAL { ?cyclingProcess rdfs:label ?cyclingLabel . }
+  FILTER(?cyclingProcess = :CarbonCycling || ?cyclingProcess = :NitrogenCycling) .
+  
+  ?cyclingProcess :occursIn ?groundwater .
+  OPTIONAL { ?groundwater rdfs:label ?groundwaterLabel . }
+}
+ORDER BY ?forestLabel
+---------------------------------
+
+This query shows that the ontology supports the competency question by linking beech forest instances to the specific cycling processes (carbon and nitrogen) and the associated groundwater systems, making it possible under a closed world assumption to answer the CQ.

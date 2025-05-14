@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology, as it is possible to extract the required information using a SPARQL query. The ontology provides classes and properties that allow us to retrieve the attribute values for the weather service, including the preferred service, location, and time period.
+
+```sparql
+SELECT ?service ?location ?timePeriod
+WHERE {
+  ?userPref rdf:type :UserPreference .
+  ?userPref :preferredService ?service .
+  ?userPref :preferredLocation ?location .
+  ?userPref :preferredTimePeriod ?timePeriod .
+}
+```

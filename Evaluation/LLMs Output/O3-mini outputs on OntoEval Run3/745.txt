@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not enforce or capture the constraint that every record (e.g. a CD) must have at least one track. In the provided ontology, although there is a class ns1:CD (representing a compact disc) and a property ns1:hasArticle (from an article collection to its members), there is no cardinality restriction (or similar axiom) stating that a CD must contain at least one track (or article). Therefore, while you might extract some information about CDs and their articles, the CQ “A record always contains at least one track” is not fully answerable using the given ontology.
+
+A partial SPARQL query that retrieves CDs along with the number of associated articles (tracks) is given below. This query could be used to check for CDs that do not have any associated track:
+
+--------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?cd (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?cd a ns1:CD .
+  OPTIONAL { ?cd ns1:hasArticle ?track . }
+}
+GROUP BY ?cd
+HAVING (?trackCount < 1)
+--------------------------------------------------
+
+This query lists all CDs that do not have any associated track, indicating that the desired constraint is not fully reflected in the ontology.

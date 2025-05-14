@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, retrieves the instruments played by a specified person using the ontology’s classes and properties:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person ;
+          :hasName ?name ;
+          :playsInstrument ?instrument .
+  FILTER(?name = "NameOfPerson") .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+------------------------------------------------------------
+
+In this query you replace "NameOfPerson" with the specific person’s name you are interested in. The query uses the object property :playsInstrument that connects a person (member of Cl_Person) to an instrument (member of Cl_Instrument), which together with the reification provided by :Cl_InstrumentPlaying confirms that the competency question is fully supported.

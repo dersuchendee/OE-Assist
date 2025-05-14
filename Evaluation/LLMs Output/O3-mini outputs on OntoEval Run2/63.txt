@@ -1,0 +1,22 @@
+**Yes**
+Below is one SPARQL query that retrieves the type of a given resource (here represented by a chosen IRI) along with any data properties indicating if it is a product, component or material:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?resource ?resourceType ?isProduct ?isComponent ?isMaterial
+WHERE {
+  # Replace the IRI below with the specific resource of interest
+  VALUES ?resource { <http://www.example.org/test#SpecificResource> }
+  
+  ?resource a :Cl_Resource ;
+            :hasType ?resourceType .
+
+  OPTIONAL { ?resourceType :isProduct ?isProduct . }
+  OPTIONAL { ?resourceType :isComponent ?isComponent . }
+  OPTIONAL { ?resourceType :isMaterial ?isMaterial . }
+}
+--------------------------------------------------
+
+Under the closed world assumption, this query extracts the complete typed information associated with the specific resource as modelled by the ontology.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not include any properties or classes related to newspaper reviews or star ratings for productions. Therefore, the competency question cannot be fully answered using the given ontology. However, a partial answer can be extracted by identifying productions and their associated plays.
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPlayBasis ?playBasis .
+  ?playBasis :playBasis ?play .
+}
+```

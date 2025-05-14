@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate a theatre with a city. The closest relationship is between a theatre and a city through the `:locatedIn` property, but there is no direct connection to a specific theatre instance or its location in a city. Therefore, a partial answer can be extracted by querying for theatres and their associated cities, but it won't provide the specific city for a given theatre.
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :locatedIn ?city .
+}
+```

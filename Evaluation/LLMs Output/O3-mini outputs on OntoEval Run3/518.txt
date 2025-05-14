@@ -1,0 +1,17 @@
+**Yes**
+
+A competency question asking “How many tracks does a particular album contain?” is answerable using the ontology since the Album class is linked to its tracks via the :hasTrack property. Under the closed world assumption, if an album does not have any tracks explicitly asserted, it is assumed to have none. Here is a SPARQL query that counts the tracks for a particular album (for example, “Stadium Arcadium”):
+
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumTitle (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :hasTrack ?track .
+  FILTER(?albumTitle = "Stadium Arcadium")
+}
+GROUP BY ?album ?albumTitle
+
+This query retrieves the album, its title, and counts all tracks connected via the :hasTrack property.

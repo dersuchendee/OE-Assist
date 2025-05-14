@@ -1,0 +1,21 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?fungus ?fungusLabel ?heterotroph ?heterotrophLabel ?abundance ?activity
+WHERE {
+  ?fungus a :AquaticFungus .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel . }
+  
+  ?fungus :influencesAbundanceOf ?heterotroph .
+  ?fungus :influencesActivityOf ?heterotroph .
+  OPTIONAL { ?heterotroph rdfs:label ?heterotrophLabel . }
+  
+  ?heterotroph :hasAbundance ?abundance .
+  ?heterotroph :hasActivityLevel ?activity .
+  
+  # Restrict to aquifers using livesIn relations for both fungus and heterotroph.
+  ?fungus :livesIn ?aquifer .
+  ?aquifer a :Aquifer .
+  ?heterotroph :livesIn ?aquifer2 .
+  ?aquifer2 a :Aquifer .
+}
+```

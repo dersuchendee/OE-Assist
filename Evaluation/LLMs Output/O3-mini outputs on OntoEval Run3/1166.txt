@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world reading, retrieves for each material its declared origin and – using a recursive property path – its production chain (the “trace”) by following the process links:
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?material ?origin ?traceMaterial
+WHERE {
+  ?material a :Material ;
+            :hasOrigin ?origin .
+  # Follow the chain: from a material produced by a process,
+  # that process consumes some precursor material, which in turn is produced by another process, etc.
+  OPTIONAL {
+    ?material :producedByProcess/(:consumesMaterial/:producesMaterial)+ ?traceMaterial .
+  }
+}
+ORDER BY ?material ?traceMaterial
+----------------------------------------
+
+Explanation:
+• The query selects each ?material, its associated ?origin (via the :hasOrigin property), and any ?traceMaterial that is reached by one or more steps along the chain producedByProcess/consumesMaterial then producesMaterial.
+• The use of the "+" in the property path ensures that, if available, at least one step is taken to retrieve precursor material(s), thereby capturing the “complete trace” of the material.
+• Under the closed‐world assumption, if some parts of a material’s chain are not asserted, they won’t appear in the results.

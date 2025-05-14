@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to query union membership at a specific point in time. The ontology includes classes and properties related to union membership, but it lacks a mechanism to filter or specify the time period for membership. Therefore, the competency question cannot be fully answered using the current ontology structure.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?person ?union ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?unionMembership a :Cl_UnionMembership .
+  ?unionMembership :hasMember ?person .
+  ?unionMembership :memberOf ?union .
+  OPTIONAL { ?unionMembership :membershipStartDate ?membershipStartDate . }
+  OPTIONAL { ?unionMembership :membershipEndDate ?membershipEndDate . }
+}
+```
+
+This query retrieves union membership information, including the start and end dates, but it does not filter by a specific point in time.

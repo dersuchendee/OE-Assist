@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology provides a Cl_Performance class and a :hasLocation property (linking a performance to a Cl_Location, with further location details available via properties such as :isLocatedIn and :isPartOf). Under the closed‐world assumption, we can query for performances and retrieve their associated locations.
+
+For example, the following SPARQL query returns each performance’s identifier (and optionally its performance date if available) along with its immediate location:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance ;
+               :hasLocation ?location .
+  OPTIONAL { ?performance :performanceDate ?performanceDate . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+
+This query demonstrates how the competency question “Where did a certain performance take place?” is answerable using the ontology.

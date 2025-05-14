@@ -1,0 +1,33 @@
+**Yes**
+
+The following SPARQL query retrieves every theatre production along with its (one and only) premier date. Under the closed‐world assumption the absence of additional values means that each production has exactly one premier.
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :dp_premierDate ?premierDate .
+}
+-------------------------------------------------------
+
+Alternatively, to explicitly check that each production has exactly one premier, you could use a grouping and a HAVING clause:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (SAMPLE(?premierDate) AS ?premierDate)
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  OPTIONAL { ?production :dp_premierDate ?premierDate . }
+}
+GROUP BY ?production
+HAVING (COUNT(?premierDate) = 1)
+-------------------------------------------------------
+
+Both queries answer the competency question "A production has exactly one premier" based on the ontology.

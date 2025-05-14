@@ -1,0 +1,40 @@
+**Yes**
+
+The Competency Question (CQ) "What is the data of this energy flow at this point in time?" is answerable using the provided ontology. The ontology defines the necessary classes and properties to link an `EnergyFlow` to its corresponding `EnergyData` at a specific timestamp. Specifically, the `:hasData` object property connects an `EnergyFlow` to `EnergyData`, and the `:hasTimestamp` datatype property associates `EnergyData` instances with a timestamp.
+
+Here is a SPARQL query that retrieves the data of a specific energy flow at a given point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?energyData
+WHERE {
+  # Specify the energy flow of interest
+  BIND (:EnergyFlow1 AS ?energyFlow)  # Replace :EnergyFlow1 with the specific energy flow URI
+  
+  # Specify the timestamp of interest
+  BIND ("2023-10-01T10:00:00"^^xsd:dateTime AS ?desiredTimestamp)  # Replace with the desired timestamp
+  
+  ?energyFlow :hasData ?energyData .
+  ?energyData :hasTimestamp ?timestamp .
+  
+  FILTER (?timestamp = ?desiredTimestamp)
+}
+```
+
+Replace `:EnergyFlow1` with the URI of the specific energy flow you're interested in, and `"2023-10-01T10:00:00"^^xsd:dateTime` with the specific point in time.
+
+This query works as follows:
+
+- It binds a specific `EnergyFlow` instance to `?energyFlow`.
+- It binds the desired timestamp to `?desiredTimestamp`.
+- It retrieves all `?energyData` associated with that `?energyFlow`.
+- It filters the results to only include the `?energyData` that has the specified timestamp.
+
+This query leverages the relationships defined in the ontology:
+
+- `:EnergyFlow` instances have `:hasData` properties linking to `:EnergyData`.
+- `:EnergyData` instances have a `:hasTimestamp` property.
+
+Thus, we can retrieve the data of a particular energy flow at a specific point in time, fully answering the CQ using the ontology.

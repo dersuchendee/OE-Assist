@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that individuals of the relevant classes are present in the data (and under the closed‐world assumption), the ontology does model the relationship described in the CQ. For example, instances of EnergyMetabolism (which—by definition—contribute to some CO2FixationPathway and occur in an AquaticEcosystem) can be queried as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?energyMetabolism ?emLabel ?co2Fixation ?co2Label ?ecosystem ?ecoLabel
+WHERE {
+  ?energyMetabolism a :EnergyMetabolism .
+  OPTIONAL { ?energyMetabolism rdfs:label ?emLabel . }
+  
+  ?energyMetabolism :occursIn ?ecosystem .
+  ?ecosystem a :AquaticEcosystem .
+  OPTIONAL { ?ecosystem rdfs:label ?ecoLabel . }
+  
+  ?energyMetabolism :contributesTo ?co2Fixation .
+  ?co2Fixation a :CO2FixationPathway .
+  OPTIONAL { ?co2Fixation rdfs:label ?co2Label . }
+}
+ORDER BY ?energyMetabolism
+------------------------------------------------
+
+This query returns energy metabolism instances along with the aquatic ecosystem in which they occur and the CO2 fixation pathways to which they contribute, thus providing an answer to the competency question.

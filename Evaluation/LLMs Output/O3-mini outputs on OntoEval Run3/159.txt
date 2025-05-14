@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the city name for a given theatre by following the “locatedIn” relationship and then reading the city name from the associated location entity:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?theatre ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :locatedIn ?location .
+  ?location :cityName ?cityName .
+  
+  # Optionally, if you need to restrict the query to a specific theatre, uncomment and adjust:
+  # FILTER(?theatre = :YourTheatreInstance)
+}
+—————————————————————————————
+
+This query shows that the competency question “In what city is a certain theatre located?” is fully supported by the ontology.

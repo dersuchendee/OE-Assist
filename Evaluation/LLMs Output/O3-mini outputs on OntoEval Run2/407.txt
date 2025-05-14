@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ “A production has exactly one premier” using the OWL modeling in the ontology. In the ontology, the class :Cl_Production is constrained by a cardinality restriction on the property :premierDate (cardinality exactly 1). This means that each production should have one—and only one—premier date. Under the closed‐world assumption, we assume that if a :Cl_Production has a recorded premier date it is complete.
+
+A SPARQL query to verify that every production has exactly one premier date is as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (COUNT(?premier) AS ?premierCount) (SAMPLE(?premier) AS ?premier)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premier .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+------------------------------------------------
+
+This query retrieves each production along with its premier date and ensures (using HAVING) that exactly one premier date is recorded per production.

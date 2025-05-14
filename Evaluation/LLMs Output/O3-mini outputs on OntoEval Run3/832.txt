@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that the individual is represented as an instance of :Cl_Person and the hospital as an instance of :Cl_Hospital, we can use the employment reification class (:Cl_Employment) with the properties :hasEmployee, :employedAt, and the data property :employmentStartDate. Under the closed world assumption, we can then extract the earliest employment date for a given person at a given hospital. For example, if we have the IRIs for the person and hospital, the SPARQL query could be:
+
+--------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?firstEmploymentDate
+WHERE {
+  ?employment a :Cl_Employment ;
+              :hasEmployee ?person ;
+              :employedAt ?hospital ;
+              :employmentStartDate ?date .
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro> &&
+         ?hospital = <http://www.example.org/test#OspedaleRiunitoDelleTreValli>)
+}
+ORDER BY ASC(?date)
+LIMIT 1
+--------------------------------------------
+
+This query returns the earliest start date (i.e. when the person was first employed) at the specified hospital.

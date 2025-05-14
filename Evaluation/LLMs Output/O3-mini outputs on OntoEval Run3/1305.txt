@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed world assumption, extracts for a given tune family “X” and a given measure type “Y” the measure values associated with each composition. (Replace "X" and "Y" with the literal value or use appropriate IRIs as needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel ?measureValue
+WHERE {
+  ?composition a :Composition ;
+               :belongsToTuneFamily ?tuneFamily ;
+               :hasMeasure ?measure .
+  ?tuneFamily rdfs:label ?tuneFamilyLabel .
+  FILTER(?tuneFamilyLabel = "X")
+  
+  ?measure :measureType ?measureType ;
+           :measureValue ?measureValue .
+  ?measureType rdfs:label ?measureTypeLabel .
+  FILTER(?measureTypeLabel = "Y")
+  
+  OPTIONAL { ?composition rdfs:label ?compositionLabel }
+}
+ORDER BY ?composition
+--------------------------------------------------
+
+This query retrieves all compositions in the given tune family X along with their measure values for measure type Y. By comparing the ?measureValue across compositions, one can assess similarities and differences as required by the CQ.

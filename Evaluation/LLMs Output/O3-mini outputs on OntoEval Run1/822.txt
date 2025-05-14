@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that returns, for each person and hospital, the earliest employment start date:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?date) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasEmployment ?employment .
+  ?employment :employedAt ?hospital .
+  ?employment :employmentStartDate ?date .
+}
+GROUP BY ?person ?hospital
+--------------------------------------------------
+
+This query answers the competency question “When was a certain person first employed at a certain hospital?” by retrieving, for each person–hospital combination, the minimum (earliest) employment start date from the ontology.

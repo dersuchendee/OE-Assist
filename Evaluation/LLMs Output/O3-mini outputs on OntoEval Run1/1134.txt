@@ -1,0 +1,24 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?device ?deviceType ?functionalityType ?isEnabled
+WHERE {
+  { 
+    ?device a :Cl_Mirror .
+    BIND("Mirror" AS ?deviceType)
+    ?device :providesWeatherGraphics ?weatherDisplay .
+    BIND("Graphic" AS ?functionalityType)
+    OPTIONAL { ?weatherDisplay :isGraphicDisplay ?isEnabled . }
+  }
+  UNION
+  { 
+    ?device a :Cl_Loudspeaker .
+    BIND("Loudspeaker" AS ?deviceType)
+    ?device :providesWeatherAudio ?weatherDisplay .
+    BIND("Audio" AS ?functionalityType)
+    OPTIONAL { ?weatherDisplay :isAudioDisplay ?isEnabled . }
+  }
+}
+```

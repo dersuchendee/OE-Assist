@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName
+WHERE {
+  ?roleAssignment rdf:type :Cl_RoleAssignment ;
+                  :hasActor :Person ;
+                  :roleInProduction :Production ;
+                  :roleName ?roleName ;
+                  :atTime ?time .
+  FILTER ( ?time = xsd:dateTime("Time") )
+}
+```

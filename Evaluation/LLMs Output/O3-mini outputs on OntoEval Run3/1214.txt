@@ -1,0 +1,21 @@
+**Yes**
+
+We can retrieve the aquatic microbe species that are found in an environment having at least one chemical characteristic using the structure defined in the ontology. Under a closed world assumption, we assume that if an individual is not stated, it does not exist, so the query below finds AquaticMicrobeSpecies that are linked via the :isFoundInEnvironment property to an environment which in turn is connected (via :hasChemicalCharacteristic) to a ChemicalCharacteristic.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbe ?microbeLabel ?environment ?envLabel ?chemical ?chemicalLabel
+WHERE {
+  ?microbe a :AquaticMicrobeSpecies .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel . }
+  
+  ?microbe :isFoundInEnvironment ?environment .
+  OPTIONAL { ?environment rdfs:label ?envLabel . }
+  
+  ?environment :hasChemicalCharacteristic ?chemical .
+  OPTIONAL { ?chemical rdfs:label ?chemicalLabel . }
+}
+ORDER BY ?microbe
+```

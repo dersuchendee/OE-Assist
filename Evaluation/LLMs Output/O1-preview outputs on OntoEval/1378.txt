@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?meetup ?meetupLabel ?purpose ?purposeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  OPTIONAL { ?meetup rdfs:label ?meetupLabel . }
+  ?meetup mtps:hasAPurpose ?purpose .
+  OPTIONAL { ?purpose rdfs:label ?purposeLabel . }
+}
+```

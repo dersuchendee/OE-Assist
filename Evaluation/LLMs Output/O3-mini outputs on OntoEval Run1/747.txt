@@ -1,0 +1,16 @@
+**No**
+
+The provided ontology does not include classes or properties to model music records (albums) or their constituent tracks. Therefore, while the story describes an album containing tracks, you cannot fully answer the CQ “A record always contains at least one track” with the ontology. However, a partial answer – trying to extract instances of records (if any were modelled as, for example, an :Album with a relation to a :Track) – could be attempted with a query like:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a :Album .
+  OPTIONAL { ?record :hasTrack ?track . }
+}
+----------------------------------
+
+Since the ontology does not provide the terms :Album or :hasTrack, this partial query will only extract information if such modeling exists as a by‐product of some external annotation.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under closed‐world assumptions, retrieves for a given region the country in which the region is located:
+
+------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?region ?regionName ?country ?countryName
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region :locationName ?regionName. }
+  
+  ?region :regionInCountry ?country .
+  ?country a :Cl_Country .
+  OPTIONAL { ?country :locationName ?countryName. }
+}
+------------------
+
+This query shows that the ontology supports the competency question "In what country is a certain region located?" by linking a region (an instance of Cl_Region) through the property regionInCountry to a country (an instance of Cl_Country).

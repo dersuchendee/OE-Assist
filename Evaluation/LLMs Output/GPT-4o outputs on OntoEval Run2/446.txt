@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to associate a specific band lineup with a specific point in time. The ontology includes classes and properties for bands, musicians, and lineups, but it lacks a mechanism to specify the time period during which a particular lineup was active. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?band ?lineup ?musician
+WHERE {
+  ?band a :Band .
+  ?lineup a :LineUp .
+  ?lineup :partOfBand ?band .
+  ?lineup :hasMember ?musician .
+}
+```

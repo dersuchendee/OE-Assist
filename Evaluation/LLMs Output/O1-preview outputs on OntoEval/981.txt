@@ -1,0 +1,14 @@
+Answer: **No**
+
+The competency question cannot be fully answered because the ontology lacks a property to identify a particular book (e.g., a 'title' property). Without the ability to specify which book we are referring to, we cannot determine the number of pages of a particular book.
+
+Partial SPARQL query to retrieve the number of pages for all books:
+
+```sparql
+SELECT ?book ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :hasDetails ?bookDetails .
+  ?bookDetails :numberOfPages ?numberOfPages .
+}
+```

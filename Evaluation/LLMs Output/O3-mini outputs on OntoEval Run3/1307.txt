@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?beechForest ?beechForestLabel ?primaryPathway ?primaryPathwayLabel
+WHERE {
+  ?beechForest a :BeechForest .
+  OPTIONAL { ?beechForest rdfs:label ?beechForestLabel . }
+  ?beechForest :hasPrimaryCO2FixationPathway ?primaryPathway .
+  OPTIONAL { ?primaryPathway rdfs:label ?primaryPathwayLabel . }
+}
+```

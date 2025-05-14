@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+SELECT ?festival ?festivalName ?startDate ?endDate
+WHERE {
+  ?festival a :TheatreFestival .
+  ?festival :hasName ?festivalName .
+  ?festival :takesPlaceDuring ?timePeriod .
+  ?timePeriod :hasStartDate ?startDate .
+  ?timePeriod :hasEndDate ?endDate .
+}
+```

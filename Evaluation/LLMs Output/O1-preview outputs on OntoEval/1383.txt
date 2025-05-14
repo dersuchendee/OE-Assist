@@ -1,0 +1,15 @@
+**Answer:** **No**
+
+The Competency Question cannot be fully answered because the ontology does not represent information about whether participants were invited. However, we can partially answer the question "Was the meeting accidental?" by checking if a meetup has a purpose of `mtps:Coincidence`, which indicates accidental meetings.
+
+Here's a SPARQL query to retrieve meetups that were accidental:
+
+```sparql
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+
+SELECT ?meetup
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasAPurpose mtps:Coincidence .
+}
+```

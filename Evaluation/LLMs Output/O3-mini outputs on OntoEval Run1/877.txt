@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that instances of cities are typed as :Cl_City and their country is linked by the property :isLocatedInCountry, the following SPARQL query returns for each city its associated country:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isLocatedInCountry ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+--------------------------------
+
+Under the closed world assumption, if a city is not explicitly linked to a country via the :isLocatedInCountry property, it is assumed that no such country exists.

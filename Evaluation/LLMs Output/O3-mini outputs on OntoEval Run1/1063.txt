@@ -1,0 +1,21 @@
+**Yes**
+Below is a SPARQL query that retrieves, for a given seminar, the articles that were presented in that seminar.
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  # Specify the seminar of interest. Replace :SeminarXYZ with the desired seminar IRI.
+  :SeminarXYZ a :Cl_Seminar .
+
+  # Find articles that are connected via the property :presentedIn.
+  ?article a :Cl_Article ;
+           :presentedIn :SeminarXYZ .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+----------------------------------------------------
+
+In this query the competency question "What articles were presented in a certain seminar?" is answerable by the ontology since the classes and object property (presentedIn) allow one to directly link a seminar (an instance of :Cl_Seminar) with the articles (instances of :Cl_Article) that were presented during that seminar.

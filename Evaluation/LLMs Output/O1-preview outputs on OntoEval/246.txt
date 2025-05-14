@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?play
+WHERE {
+  ?author rdf:type :Cl_Author .
+  ?author :op_hasWritten ?play .
+  FILTER (?author = :WilliamShakespeare)
+}
+```

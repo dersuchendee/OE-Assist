@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not include any properties or classes related to "confidence" or "variant" that would allow us to determine the level of confidence with which a composition is considered a variant in a tune family. Therefore, the competency question cannot be fully answered with the given ontology. However, we can extract partial information about compositions and their tune families.
+
+```sparql
+SELECT ?composition ?tuneFamily
+WHERE {
+  ?composition a :Tune .
+  ?composition core:isInvolvedIn ?tuneFamily .
+  ?tuneFamily a :TuneFamily .
+}
+```

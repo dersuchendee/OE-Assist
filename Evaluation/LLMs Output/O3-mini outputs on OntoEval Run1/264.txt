@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that each play instance is linked to an instance of the play time period via the property :hasPlayTimePeriod—with datatype properties :startYear and :endYear defining the period during which the play was written—you can extract the answer with the following SPARQL query:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  ?play :playName ?playName .
+  ?play :hasPlayTimePeriod ?timePeriod .
+  ?timePeriod :startYear ?startYear .
+  ?timePeriod :endYear ?endYear .
+  # Optionally, filter for a specific play, e.g. "The Merchant of Venice":
+  # FILTER(?playName = "The Merchant of Venice")
+}
+---------------------------------
+
+In a closed-world reading of the ontology, the play’s writing period is modelled explicitly via the pivot class :Cl_PlayTimePeriod and its properties.

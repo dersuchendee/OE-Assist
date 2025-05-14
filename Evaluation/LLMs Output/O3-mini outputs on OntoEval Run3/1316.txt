@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves interactions among microbial functional guilds occurring in aquifers that are nutrient‑poor. In this query we assume that a nutrient‑poor aquifer is represented as an individual of type :Aquifer having the property :hasNutrientLevel with the literal value "poor". The query returns each interaction along with its optional interaction type and lists the participating microbial functional guild(s):
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?interaction ?interactionType ?aquifer ?aquiferLabel ?guild ?guildLabel
+WHERE {
+  ?aquifer a :Aquifer ;
+           :hasNutrientLevel "poor" .
+  ?interaction a :Interaction ;
+               :occursIn ?aquifer ;
+               :hasParticipant ?guild .
+  OPTIONAL { ?interaction :hasInteractionType ?interactionType . }
+  OPTIONAL { ?aquifer rdfs:label ?aquiferLabel . }
+  OPTIONAL { ?guild rdfs:label ?guildLabel . }
+}
+ORDER BY ?aquifer ?interaction
+----------------------------------------------------
+
+This query shows that the competency question “How do different microbial functional guilds (e.g., autotrophs, heterotrophs) interact in nutrient‑poor aquifers?” is fully supported by the ontology.

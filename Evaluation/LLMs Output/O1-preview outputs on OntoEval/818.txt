@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+SELECT ?person ?hospital ?employmentDate
+WHERE {
+  ?person a :Cl_Employee .
+  ?person :hasEmployment ?employment .
+  ?hospital a :Cl_Hospital .
+  ?hospital :hasEmployment ?employment .
+  ?employment a :Cl_Employment .
+  ?employment :employmentDate ?employmentDate .
+}
+```
+
+This query retrieves the employment date (`?employmentDate`) for each person (`?person`) employed at a specific hospital (`?hospital`). It leverages the `:hasEmployment` object property linking both `:Cl_Employee` and `:Cl_Hospital` to instances of `:Cl_Employment`, which contain the `:employmentDate` data property. Thus, the competency question "When was a certain person first employed at a certain hospital?" is answerable using the provided ontology.

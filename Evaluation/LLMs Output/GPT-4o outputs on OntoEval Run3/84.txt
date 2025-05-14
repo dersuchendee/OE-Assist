@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not contain any direct information about the specific dates when theatre festivals took place. However, we can extract partial information about the festivals and their occurrences.
+
+```sparql
+SELECT ?festival ?occurrence ?date
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence a :Cl_FestivalOccurrence .
+  OPTIONAL { ?occurrence :hasDate ?date . }
+}
+```

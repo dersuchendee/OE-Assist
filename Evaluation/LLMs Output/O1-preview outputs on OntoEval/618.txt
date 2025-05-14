@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?critic ?record ?reviewText
+WHERE {
+    ?review rdf:type :Cl_Review .
+    ?review :reviewedBy ?critic .
+    ?review :reviewOf ?record .
+    ?review :reviewText ?reviewText .
+}
+```
+
+This SPARQL query retrieves the critic, the record, and the review text from the ontology. It effectively answers the competency question "What does a certain critic say about a certain record?" by extracting the relevant information from the `Cl_Review` instances, connecting them with the critic (`:reviewedBy`), the record (`:reviewOf`), and fetching the review content (`:reviewText`).

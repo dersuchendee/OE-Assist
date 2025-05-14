@@ -1,0 +1,13 @@
+Answer: **No**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?production ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :ratedBy ?rating .
+  ?rating a :Cl_NewspaperRating .
+  ?rating :starRating ?starRating .
+}
+```

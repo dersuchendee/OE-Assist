@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What are the roles of this actor in this network?" can be answered using the ontology provided. The ontology includes classes and properties related to actors, roles, and their participation in networks. Here's a SPARQL query to extract the roles of an actor in a network:
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?participation a actorODP:CollaborationParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole ?role .
+}
+```
+
+This query retrieves the roles associated with each actor participating in a collaboration within the network.

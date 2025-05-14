@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming we have an individual representing “a certain person” (for example, :JohnDoe) of type :Cl_Person, we can directly retrieve the instruments that person plays via the :playsInstrument property. For instance, under the closed world assumption the following SPARQL query extracts the instruments (and their labels, if available):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  :JohnDoe a :Cl_Person ;
+           :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+
+This query answers the competency question “What instruments does a certain person play?” using the ontology’s modelling.

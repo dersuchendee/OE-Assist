@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide specific properties or classes to directly capture the time period during which an album was recorded. However, we can extract partial information about albums and their recording start and end dates if they exist.
+
+```sparql
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album :recordingStart ?recordingStart . }
+  OPTIONAL { ?album :recordingEnd ?recordingEnd . }
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+We can fully answer this CQ with the ontology by querying for the medical degrees that are related to a given person (e.g. PasqualeDiGennaro). For example, the following SPARQL query shows the degree titles and, if available, the date the degree was obtained:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+ORDER BY ?degreeTitle

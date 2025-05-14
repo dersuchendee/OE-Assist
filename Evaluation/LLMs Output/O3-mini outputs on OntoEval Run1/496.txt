@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that the ontology models album recordings via the class Cl_Recording (and its subclass Cl_AlbumRecording) and relates an album to its recording(s) using the property hasRecording, with the recording’s time captured in the recordingPeriod property, one can extract the time period during which a certain album was recorded. For example, to get the recording period for an album with the album name "Stadium Arcadium", you can use the following SPARQL query:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album .
+  ?album :albumName "Stadium Arcadium" .
+  ?album :hasRecording ?recording .
+  ?recording :recordingPeriod ?recordingPeriod .
+}
+------------------------------------------------
+
+This query joins the album (of type Cl_Album) with its recording (via :hasRecording) and retrieves the associated recording period (via :recordingPeriod). Thus, the CQ “During what time period was a certain album recorded?” is answerable by the ontology.

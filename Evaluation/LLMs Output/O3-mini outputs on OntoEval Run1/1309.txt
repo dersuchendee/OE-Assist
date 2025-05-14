@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?microbe ?microbeLabel ?environment ?envLabel ?chemChar ?type ?value
+WHERE {
+  ?microbe a :AquaticMicrobe .
+  OPTIONAL { ?microbe rdfs:label ?microbeLabel . }
+  ?microbe :isFoundIn ?environment .
+  OPTIONAL { ?environment rdfs:label ?envLabel . }
+  ?environment :hasChemicalCharacteristic ?chemChar .
+  ?chemChar :hasType ?type .
+  ?chemChar :hasValue ?value .
+}
+```

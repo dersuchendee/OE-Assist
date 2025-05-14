@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to associate an album with a specific time period during which it was recorded. The ontology includes classes and properties related to albums, tracks, and recording periods, but it lacks a direct connection between an album and its recording period.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL {
+    ?album :recordedAlbum ?albumRecording .
+    ?albumRecording :recordingPeriod ?recordingPeriod .
+  }
+}
+```

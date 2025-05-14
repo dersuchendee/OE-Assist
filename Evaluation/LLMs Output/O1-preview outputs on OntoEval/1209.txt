@@ -1,0 +1,15 @@
+**No**
+
+While the ontology defines the classes `:Composition` and `:TuneFamily`, and the property `:hasTuneFamily` linking them, it lacks a way to uniquely identify or specify a particular TuneFamily "X". There are no labels, identifiers, or properties associated with `:TuneFamily` instances that allow us to refer to a specific tune family in a query. As a result, we cannot answer the competency question "What are all compositions in tune family X?" because we cannot specify or filter for the particular tune family "X".
+
+However, we can provide a partial answer by retrieving all compositions and their associated tune families:
+
+```sparql
+SELECT ?composition ?tuneFamily
+WHERE {
+  ?composition a :Composition .
+  ?composition :hasTuneFamily ?tuneFamily .
+}
+```
+
+This query retrieves all compositions and the tune families they belong to, but it does not filter for a specific tune family due to the lack of identifying properties in the ontology.

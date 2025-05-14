@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves each book along with its page count. In this ontology the book is represented as an instance of Cl_Book and its number of pages is captured by the property :pageCount.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :pageCount ?pageCount .
+}
+------------------------------------------------
+
+This query answers the competency question "How many pages does a particular book contain?" by extracting the page count information associated with each book in the ontology.

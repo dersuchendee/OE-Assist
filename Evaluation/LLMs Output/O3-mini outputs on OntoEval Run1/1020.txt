@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the seminar and its held date:
+
+-----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?heldOnDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :heldOnDate ?heldOnDate .
+}
+-----------------------------------
+
+Explanation:
+The ontology models seminars as instances of the class :Cl_Seminar with the data property :heldOnDate. Therefore, the competency question "When did a certain seminar take place?" is fully answerable using the information provided by the ontology.

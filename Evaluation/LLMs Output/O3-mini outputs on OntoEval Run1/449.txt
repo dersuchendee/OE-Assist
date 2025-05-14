@@ -1,0 +1,40 @@
+**Yes**
+Below is a SPARQL query that, under the closed‐world assumption, returns the members of a given band (e.g., “Red Hot Chili Peppers”) who held membership at a specific point in time. In this example the query uses a parameter date (here “2004-09-01”) that you can change as needed.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?band ?bandName ?member ?memberName ?startDate ?endDate
+WHERE {
+  ?band a :Cl_Band .
+  OPTIONAL { ?band :bandName ?bandName . }
+  
+  ?membership a :Cl_Membership ;
+              :memberOf ?band ;
+              :member ?member ;
+              :startDate ?startDate .
+  OPTIONAL { ?membership :endDate ?endDate . }
+  OPTIONAL { ?member :name ?memberName . }
+
+  # Apply the closed-world condition:
+  # A member’s membership is valid at the given date if:
+  #   - its startDate is on or before the target date AND
+  #   - either there is no endDate recorded or the target date is on or before the endDate.
+  FILTER(
+      xsd:date(?startDate) <= xsd:date("2004-09-01"^^xsd:date)
+      &&
+      (
+         !bound(?endDate)
+         ||
+         xsd:date("2004-09-01"^^xsd:date) <= xsd:date(?endDate)
+      )
+  )
+
+  # Example: select the band Red Hot Chili Peppers.
+  FILTER (?bandName = "Red Hot Chili Peppers")
+}
+ORDER BY ?memberName
+------------------------------------------------------------
+
+This query is answerable by the ontology because the reified membership information in class Cl_Membership (with properties :startDate and :endDate) allows us to check which musicians were members of a band at a specific point in time.

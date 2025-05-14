@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that by “a certain city” we bind a specific instance of a city that has an asserted (or inferable under the closed‐world assumption) :locatedInRegion relation pointing to an instance of a region (via a :Cl_CityRegion that is also a :Cl_Region), we can extract the answer with a query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  
+  ?city :locatedInRegion ?cityRegion .
+  ?cityRegion a :Cl_Region .
+  BIND(?cityRegion AS ?region)
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+  
+This query returns, for each city in the ontology that is linked via the :locatedInRegion property to an instance that (by construction) is a region (since :Cl_CityRegion is a subclass of both :Cl_City and :Cl_Region), the associated region.

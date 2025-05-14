@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to associate a user with a specific context or to determine the default value of an option for a user in a given context. The ontology lacks the necessary properties or classes to represent the context or to link a user to a specific ticket ordering option with a default value.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?user ?ticketOption ?defaultValue
+WHERE {
+  ?user :hasTicketOption ?ticketOption .
+  ?ticketOption a :Cl_TicketOption .
+  OPTIONAL {
+    ?ticketOption :hasDefaultOptionValue ?defaultValue .
+  }
+}
+```

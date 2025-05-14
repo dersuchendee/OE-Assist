@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the employment start date for an actor working at a given theatre. (You can replace the IRI values for the actor and the theatre with the appropriate ones for your query.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?employmentStartDate
+WHERE {
+  ?employment a :Cl_ActorEmployment ;
+              :employmentActor ?actor ;
+              :employedAt ?theatre ;
+              :employmentStartDate ?employmentStartDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  
+  # For a specific actor and theatre, you can add filters. For example, if you want the employment start date for Fabio Bianchi at The Grand Theatre:
+  FILTER(?actor = :Actor_FabioBianchi && ?theatre = :Theatre_GrandTheatre)
+}
+--------------------------------------------------
+
+This query shows how the ontology models the employment of an actor (using the property :employedAt and the datatype property :employmentStartDate from a :Cl_ActorEmployment instance) so that the CQ “At what time did a certain actor start working for a specific theatre?” can indeed be answered.

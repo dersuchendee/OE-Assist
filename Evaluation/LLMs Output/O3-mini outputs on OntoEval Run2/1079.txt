@@ -1,0 +1,22 @@
+**Yes**
+
+We can answer the CQ “Where did a certain seminar take place?” using the ontology. In this ontology the seminar is modelled as an instance of Cl_Seminar which has a data property :seminarDate and an object property :seminarLocation (with range Cl_Hospital). Furthermore, to refine the answer we can also look up the hospital’s label and its associated geographic location (using the :locatedIn property). Assuming we want the location info for a specific seminar (e.g. :Seminar_December_2008), here is one possible SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate ;
+           :seminarLocation ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL {
+    ?hospital :locatedIn ?city .
+    OPTIONAL { ?city rdfs:label ?cityLabel . }
+  }
+  FILTER(?seminar = :Seminar_December_2008)
+}
+
+This query retrieves the seminar along with its date, the hospital where it took place (and its label) and, if available, the city in which the hospital is located.

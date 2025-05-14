@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to query the members of a band and their membership time intervals.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?band ?bandLabel ?musician ?musicianName ?membershipTime
+WHERE {
+  ?band a :Band .
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+
+  ?musician a :Musician .
+  ?musician :memberOf ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :membershipTime ?membershipTime .
+
+  OPTIONAL { ?musician :hasName ?musicianName . }
+}
+ORDER BY ?band ?membershipTime
+```
+
+This query retrieves the band, its members, and the time intervals during which the musicians were members of the band.

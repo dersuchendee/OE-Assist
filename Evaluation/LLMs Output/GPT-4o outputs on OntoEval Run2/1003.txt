@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the publication date of a book or CD. However, we can extract partial information about media and their associated publications.
+
+```sparql
+SELECT ?media ?publication
+WHERE {
+  ?media a :Cl_Media .
+  OPTIONAL { ?media :published ?publication . }
+}
+```

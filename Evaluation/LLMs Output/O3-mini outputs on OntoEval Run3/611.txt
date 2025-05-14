@@ -1,0 +1,21 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the review text (and review date) provided by a given critic about a given record:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?reviewText ?reviewDate
+WHERE {
+  ?review a :Cl_Review .
+  ?review :givenBy ?critic .
+  ?review :about ?record .
+  ?review :reviewText ?reviewText .
+  OPTIONAL { ?review :reviewDate ?reviewDate . }
+  FILTER(?critic = <http://www.example.org/test#SomeCritic> &&
+         ?record  = <http://www.example.org/test#SomeRecord>)
+}
+------------------------------------------------------------
+
+In this query the URIs <http://www.example.org/test#SomeCritic> and <http://www.example.org/test#SomeRecord> act as placeholders for the specific critic and record of interest. By replacing these with the appropriate individuals from your data, the competency question is fully answerable using the ontology under the closed world assumption.

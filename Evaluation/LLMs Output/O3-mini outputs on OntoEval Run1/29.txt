@@ -1,0 +1,15 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/construction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?role ?roleLabel
+WHERE {
+  ?actor a :Actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  ?actor :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  # If you want to filter for a specific actor, uncomment and modify the following line:
+  # FILTER(?actor = :SpecificActor)
+}
+```

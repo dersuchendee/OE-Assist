@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "What are the characteristics of rare species found in a specific aquifer?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to query for species characteristics, their conservation status, habitat type, and population trend, all of which are related to a specific aquifer.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?species ?conservationStatus ?habitatType ?populationTrend
+WHERE {
+  ?characteristic a :SpeciesAquiferCharacteristic .
+  ?characteristic :hasSpecies ?species .
+  ?characteristic :locatedInAquifer ?aquifer .
+  ?characteristic :hasConservationStatus ?conservationStatus .
+  ?characteristic :hasHabitatType ?habitatType .
+  ?characteristic :hasPopulationTrend ?populationTrend .
+}
+```

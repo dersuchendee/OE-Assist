@@ -1,0 +1,29 @@
+**Yes**
+
+Below is an example SPARQL query that – under a closed‐world interpretation – retrieves the performance details (date and location) and the songs performed (with their composition dates) for the album “StadiumArcadium”. (In our ontology “StadiumArcadium” is an individual of Cl_Album and related performances, performance-songs, locations, etc. The query below assumes that the performance taking place at “Portland, Oregon, US” is the one of interest.) 
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate ?locationName ?performedSong ?compositionDate
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate ;
+               :tookPlaceAt ?location .
+  ?location :locationName ?locationName .
+  ?ps a :Cl_PerformanceSong ;
+      :performedIn ?performance ;
+      :performedSong ?performedSong .
+  ?performedSong a :Cl_Song ;
+                 :compositionDate ?compositionDate .
+  
+  # restrict to performances at Portland (closed-world: assume string match)
+  FILTER(CONTAINS(LCASE(?locationName), "portland"))
+}
+ORDER BY ?performanceDate
+------------------------------------------------------
+
+This query shows that the ontology (together with its associated story details) supports the competency question, by extracting the location details of the performance as well as which song (and its composition date) was performed.

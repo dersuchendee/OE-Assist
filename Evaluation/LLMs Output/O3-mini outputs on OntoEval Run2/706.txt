@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming a particular city is provided (for example, via its URI), we can extract its region by following the reified relationship modeled in the ontology. In this ontology an instance of a city (of type Cl_City) is linked via the property :locatedInRegion to an instance of Cl_CityRegion, which (by subclassing both Cl_City and Cl_Region) serves as the region in which the city is located.
+
+Under the closed‐world assumption, if a given city has a triple using :locatedInRegion, that triple provides the answer. For example, a SPARQL query to retrieve the region given a specific city URI (e.g. :SomeCity) would be:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  FILTER(?city = :SomeCity) .
+  ?city :locatedInRegion ?region .
+  ?region a :Cl_Region .
+}
+-------------------------------------------------
+
+This query selects the given city and retrieves the region (an instance of Cl_Region) linked via the :locatedInRegion property.

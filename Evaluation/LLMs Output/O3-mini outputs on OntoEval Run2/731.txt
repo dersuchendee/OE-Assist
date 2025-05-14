@@ -1,0 +1,14 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the country in which each region (including the “certain region”) is located by using the property “:regionInCountry” defined in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?region ?country
+WHERE {
+  ?region rdf:type :Cl_Region .
+  ?region :regionInCountry ?country .
+}
+
+This query answers the CQ “In what country is a certain region located?” using the closed world assumption over the provided ontology.

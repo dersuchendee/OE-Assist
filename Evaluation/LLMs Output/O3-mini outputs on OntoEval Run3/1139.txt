@@ -1,0 +1,30 @@
+**Yes**
+Below is one possible SPARQL query that “chooses” the presentation mode based on the user’s location (and thereby context):
+
+--------------------------------------------------
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?locationLabel ?activityLabel ?device ?presentationMethod
+WHERE {
+  ?user a :User ;
+        :hasLocation ?location ;
+        :hasActivity ?activity .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  OPTIONAL { ?activity rdfs:label ?activityLabel . }
+  
+  {
+    FILTER(?location = :InFrontOfMirror)
+    ?device a :SmartMirror .
+    BIND("display as graphics on the mirror" AS ?presentationMethod)
+  }
+  UNION
+  {
+    FILTER(?location = :WalkingAround)
+    ?device a :SmartSpeaker .
+    BIND("read out through speakers" AS ?presentationMethod)
+  }
+}
+--------------------------------------------------
+
+Under the closed world assumption, we expect that if the user’s location is explicitly defined as either InFrontOfMirror or WalkingAround then the query correctly determines which device (SmartMirror or SmartSpeaker) is appropriate and how the weather content should be presented.

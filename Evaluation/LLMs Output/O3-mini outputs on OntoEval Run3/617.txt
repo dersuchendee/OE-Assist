@@ -1,0 +1,16 @@
+**Yes**
+Below is one possible SPARQL query that retrieves the statement a given critic (e.g., :CrianHiatt) made about a given record (e.g., :StadiumArcadium):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?critic ?statement
+WHERE {
+  ?record rdf:type :Cl_Album .
+  ?record :reviewedBy ?review .
+  ?review :madeBy ?critic ;
+          :statement ?statement .
+  FILTER (?critic = :CrianHiatt && ?record = :StadiumArcadium)
+}
+
+This query shows that the CQ “What does a certain critic say about a certain record?” can be answered using the ontology.

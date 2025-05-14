@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine which specific articles a book or CD is composed of. The ontology includes classes and properties related to articles, article collections, and media, but it does not explicitly connect a specific book or CD to the articles it contains. Therefore, a partial answer can be extracted by identifying article collections and their articles, but not directly linking them to a specific book or CD.
+
+```sparql
+SELECT ?articleCollection ?article
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  ?articleCollection :containsArticle ?article .
+}
+```

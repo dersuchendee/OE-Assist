@@ -1,0 +1,25 @@
+**No**
+
+The CQ “Which articles is a specific book or CD composed of?” would ideally require the ontology to directly relate a published book (or CD) with the articles it contains. Although the ontology does include classes for books (and, by name, CDs could be modeled similarly) as well as articles and an object property (containsArticle) linking an Article Collection to Article, there is no explicit link between a book (or CD) instance and an article collection instance. As a result, a SPARQL query can only partially answer this CQ by listing articles known to be contained in any article collection, without being able to “bind” those articles to a given book or CD.
+
+A partial answer query might be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?book ?article ?articleTitle
+WHERE {
+  ?book a :Cl_Book .
+  # (No explicit link in the ontology between a book (or CD) and an article collection)
+  # So we retrieve any article collection that has articles.
+  OPTIONAL {
+    ?collection a :Cl_ArticleCollection ;
+                :containsArticle ?article .
+    OPTIONAL { ?article :articleTitle ?articleTitle . }
+  }
+}
+--------------------------------------------------
+
+This query will retrieve all books and, when available, list articles contained in any article collection—but since the intended relationship between a specific book (or CD) and its composition (article collection) is not modelled, the answer is only partial.

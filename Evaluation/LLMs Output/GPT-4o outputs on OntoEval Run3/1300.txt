@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the geographic location of the original parts of an organ. The ontology includes classes and properties related to organs, organ parts, and their locations, but it does not specify how to extract the geographic location of original parts specifically. Here's a SPARQL query to extract a partial answer, which lists the original parts and their current locations:
+
+```sparql
+SELECT ?organ ?originalPart ?location
+WHERE {
+  ?organ a :Organ .
+  ?originalPart a :OriginalPart .
+  ?originalPart :originalPartOf ?organ .
+  ?originalPart :currentLocation ?location .
+}
+```

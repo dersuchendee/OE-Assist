@@ -1,0 +1,63 @@
+**Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" is answerable using the provided ontology. The ontology models memberships of persons in bands through the `Cl_Membership` class, which includes the properties `membershipStart` and `membershipEnd` to capture the time period of the membership. This allows us to query for members of a band at a specific point in time.
+
+Below is a SPARQL query that retrieves the members of a specified band at a given date:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName
+WHERE {
+  # Specify the band of interest by its name
+  ?band a :Cl_Band ;
+        rdfs:label ?bandName .
+  FILTER (STR(?bandName) = "Red Hot Chili Peppers")  # Replace with the desired band name
+  
+  # Specify the date of interest
+  BIND ("2006-08-11"^^xsd:date AS ?date)  # Replace with the desired date
+  
+  # Find persons who have a membership in the band
+  ?person a :Cl_Person ;
+          rdfs:label ?personName ;
+          :hasMembership ?membership .
+  
+  ?membership a :Cl_Membership ;
+              :membershipIn ?band ;
+              :membershipStart ?startDate .
+  
+  # The membershipEnd is optional (may not be present for current members)
+  OPTIONAL { ?membership :membershipEnd ?endDate . }
+  
+  # Check if the membership was active on the specified date
+  FILTER (
+    ?startDate <= ?date && ( !BOUND(?endDate) || ?endDate >= ?date )
+  )
+}
+```
+
+**Explanation:**
+
+- **Prefixes:** We define the necessary prefixes for our ontology and XML schema datatypes.
+  
+- **SELECT Clause:** We select the person and their name (`?person`, `?personName`) who are members of the band at the specified date.
+  
+- **Band Specification:**
+  - We retrieve the band of interest by matching its label (`?bandName`). Replace `"Red Hot Chili Peppers"` with the desired band name.
+  
+- **Date Specification:**
+  - We bind the date of interest to the variable `?date`. Replace `"2006-08-11"` with the desired date in `YYYY-MM-DD` format.
+  
+- **Membership Details:**
+  - We find all persons (`?person`) who have a membership (`?membership`) in the band (`?band`).
+  - We retrieve the `membershipStart` date and optionally the `membershipEnd` date.
+  
+- **FILTER Condition:**
+  - We use a filter to ensure that the membership was active on the specified date:
+    - `?startDate <= ?date` ensures the membership started on or before the date.
+    - `!BOUND(?endDate) || ?endDate >= ?date` handles two cases:
+      - If `?endDate` is not bound (the membership is ongoing), the condition is true.
+      - If `?endDate` is bound, we check that it is on or after the date.
+
+**Note:** Make sure to replace `"Red Hot Chili Peppers"` and `"2006-08-11"` with the actual band name and date you're interested in when executing the query.

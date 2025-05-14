@@ -1,0 +1,18 @@
+**Yes**
+
+The following SPARQL query returns the plays written by a specified author. In this ontology the author is linked through a reified Authorship (a subclass of both Cl_Author and Cl_Play) via the property :hasWritten. Adjust the FILTER condition with the appropriate author identifier or label as needed.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author ?playTitle
+WHERE {
+  ?author a :Cl_Author ;
+          :hasWritten ?authorship .
+  ?authorship :playTitle ?playTitle .
+  # Optionally, if authors have labels, you can filter by a given author name:
+  # ?author rdfs:label ?authorLabel .
+  # FILTER(CONTAINS(LCASE(?authorLabel), "shakespeare")) 
+}
+--------------------------------------------------

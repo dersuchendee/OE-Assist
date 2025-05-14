@@ -1,0 +1,36 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, retrieves for each disease category the hospital that has the maximum average length of stay:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?diseaseCategory ?hospital ?avgLOS
+WHERE {
+  {
+    SELECT ?diseaseCategory (MAX(?value) AS ?maxAvgLOS)
+    WHERE {
+      ?hospital a :Hospital ;
+                :hasObservation ?obs .
+      ?obs a :AverageLengthOfStayObservation ;
+           :hasAverageLengthOfStay ?value ;
+           :isObservationOfDiseaseCategory ?diseaseCategory .
+    }
+    GROUP BY ?diseaseCategory
+  }
+  
+  ?hospital a :Hospital ;
+            :hasObservation ?obs .
+  ?obs a :AverageLengthOfStayObservation ;
+       :hasAverageLengthOfStay ?avgLOS ;
+       :isObservationOfDiseaseCategory ?diseaseCategory .
+  
+  FILTER(?avgLOS = ?maxAvgLOS)
+}
+ORDER BY ?diseaseCategory
+—————————————————————————————
+
+This query first calculates the maximum average length of stay (maxAvgLOS) for each disease category, then selects the hospital(s) whose observation has that value, thereby answering the CQ.

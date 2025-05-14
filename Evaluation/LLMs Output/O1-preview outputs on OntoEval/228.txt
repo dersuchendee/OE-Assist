@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide sufficient properties to relate an actor to an ensemble at a specific point in time because there is no clear way to determine if an actor is still a member of the ensemble at that time. The `Cl_EnsembleMembership` class is a subclass of `Cl_Ensemble`, `Cl_Actor`, and `Cl_Date`, but there are no properties that connect an actor's membership start and end dates to allow for filtering by a specific time.
+
+Here is a SPARQL query to extract the actors who are members of an ensemble, but it cannot filter by a specific point in time:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?ensemble ?actorName
+WHERE {
+  ?ensemble rdf:type :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership rdf:type :Cl_EnsembleMembership .
+  ?membership :actorName ?actorName .
+}
+```

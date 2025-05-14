@@ -1,0 +1,17 @@
+**Yes**
+Below is one example of a SPARQL query that retrieves the attribute values for film preview events (i.e. the reified events):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?startTime ?film ?title ?cinema
+WHERE {
+  ?event a :Cl_FilmPreviewEvent .
+  OPTIONAL { ?event :hasStartTime ?startTime . }
+  OPTIONAL {
+    ?event :hasPreview ?film .
+    OPTIONAL { ?film :hasTitle ?title . }
+  }
+  OPTIONAL { ?event :previewAt ?cinema . }
+}

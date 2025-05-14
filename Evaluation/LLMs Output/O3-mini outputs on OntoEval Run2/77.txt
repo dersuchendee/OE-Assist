@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?startDate ?endDate
+WHERE {
+  ?festival a theatre:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  OPTIONAL { ?festival theatre:hasStartDate ?startDate . }
+  OPTIONAL { ?festival theatre:hasEndDate ?endDate . }
+}
+```

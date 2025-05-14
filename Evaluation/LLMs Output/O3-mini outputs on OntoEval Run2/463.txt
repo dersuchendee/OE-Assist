@@ -1,0 +1,25 @@
+**Yes**
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves the members of a given band valid at a specified point in time. In this query, replace VALUE_FOR_BAND and VALUE_FOR_TIME with the specific band identifier (e.g. an IRI from your data) and the desired moment (in xsd:dateTime format).
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStartDate ?membershipEndDate
+FROM <your-data-graph>
+WHERE {
+  ?band a :Cl_Band .
+  FILTER(?band = VALUE_FOR_BAND) .
+
+  ?band :hasMember ?membership .
+  ?membership a :Cl_BandMembership .
+  ?membership :isMember ?person .
+  ?membership :membershipStartDate ?membershipStartDate .
+  ?membership :membershipEndDate ?membershipEndDate .
+
+  # The given time must fall within the membership period.
+  FILTER(xsd:dateTime(?membershipStartDate) <= VALUE_FOR_TIME &&
+         xsd:dateTime(?membershipEndDate) >= VALUE_FOR_TIME)
+}
+ORDER BY ?membershipStartDate
+
+This query shows that the ontology models the competency question by capturing band memberships with valid start and end dates, allowing us to answer “What are the members of a certain band at a certain point in time?”

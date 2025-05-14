@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine which articles a specific book or CD is composed of. However, we can extract partial information about articles and their collections.
+
+```sparql
+SELECT ?articleCollection ?article ?articleTitle
+WHERE {
+  ?articleCollection a :Cl_ArticleCollection .
+  ?articleCollection :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, retrieves the employment date (i.e. the start time) for an actor (represented by an instance of Cl_ActorEmployment) together with the theatre they work for:
+
+————————————————————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorEmployment ?actorName ?theatre ?theatreName ?employmentDate
+WHERE {
+  ?actorEmployment a :Cl_ActorEmployment ;
+                   :hasEmploymentDate ?employmentDate ;
+                   :worksForTheatre ?theatre ;
+                   rdfs:label ?actorName .
+  ?theatre rdfs:label ?theatreName .
+}
+ORDER BY ?employmentDate
+————————————————————————————————————————————
+
+In this query we assume that an employment record (of type Cl_ActorEmployment) connects an actor (its label holds the actor’s name) to a theatre via the :worksForTheatre property and carries the starting date via the :hasEmploymentDate property.

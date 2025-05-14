@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a role in a band at a specific point in time. While the ontology includes classes and properties related to persons, bands, roles, and time intervals, it lacks a mechanism to link these elements together in a way that answers the competency question. Specifically, the ontology does not have a class or property that represents the concept of a person playing a role in a band during a specific time interval.
+
+However, we can extract partial information about the roles of persons in bands without the time aspect:
+
+```sparql
+SELECT ?person ?personName ?band ?bandName ?role ?roleName
+WHERE {
+  ?person a :Person ;
+          :personName ?personName ;
+          :isMemberOf ?band ;
+          :hasRole ?role .
+  ?band a :Band ;
+        :bandName ?bandName .
+  ?role a :Role ;
+        :roleName ?roleName .
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that extracts all individuals defined as Major Processes – which, according to the ontology, are processes involved in the Nitrogen Cycle and that occur in Beech Forest Ecosystems.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?majorProcess ?label
+WHERE {
+  ?majorProcess a :MajorProcess .
+  OPTIONAL { ?majorProcess rdfs:label ?label. }
+}
+------------------------------------------------
+
+This query answers the competency question by retrieving all instances of MajorProcess, which by the ontology’s definitions are exactly those processes that are involved in the Nitrogen Cycle and occur in Beech Forest Ecosystems (closed world assumption applied).

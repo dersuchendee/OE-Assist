@@ -1,0 +1,43 @@
+**Yes**
+
+```sparql
+SELECT ?album ?albumName ?releaseDate
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasReleaseDate ?releaseDate .
+  OPTIONAL { ?album :hasName ?albumName . }
+}
+```
+
+**Explanation:**
+
+The competency question asks: "**When was a certain album released?**"
+
+From the provided ontology, we have the class `:Cl_MusicAlbum` representing music albums. Albums have the data property `:hasReleaseDate`, which provides the release date of the album. Additionally, albums may have a `:hasName` property that gives the album's name.
+
+Here's how the ontology supports the CQ:
+
+- **Classes and Properties:**
+  - `:Cl_MusicAlbum`: Represents albums.
+  - `:hasReleaseDate`: A datatype property linking an album to its release date (`xsd:date`).
+  - `:hasName`: An optional property giving the name of the album.
+
+- **Individuals (Example):**
+  ```turtle
+  :StadiumArcadium rdf:type :Cl_MusicAlbum ;
+                   :hasName "Stadium Arcadium" ;
+                   :hasReleaseDate "2006-05-05"^^xsd:date .
+  ```
+
+The SPARQL query retrieves all albums along with their names and release dates. If you have a specific album in mind, you can modify the query to filter by the album's name:
+
+```sparql
+SELECT ?releaseDate
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasReleaseDate ?releaseDate .
+  ?album :hasName "Stadium Arcadium" .
+}
+```
+
+This provides the release date for "Stadium Arcadium".

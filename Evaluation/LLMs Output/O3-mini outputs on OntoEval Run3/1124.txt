@@ -1,0 +1,29 @@
+**Yes**
+
+Analysis:
+The ontology includes a pivot class :Cl_UserPreferredAction that connects a user (:Cl_User) to a preferred system action (:Cl_SystemAction) within a specific context (:Cl_Context). The competency question "What is the system action preferred by this user in this particular context?" is answerable because we can identify a user’s preferred action by joining the user with the preferred action and filtering by the context details (e.g., location “Berlin” and a specific time period corresponding to the morning).
+
+Assuming the closed world assumption, we treat only explicitly stated assertions as true. Therefore, if the context indicates a location of "Berlin" and a time in the morning, we can extract the system action preferred by the user.
+
+Below is a corresponding SPARQL query:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?systemAction ?systemActionLabel ?time
+WHERE {
+  ?user a :Cl_User ;
+        :op_prefers ?upa .
+  ?upa :op_hasPreferredAction ?systemAction ;
+       :op_inContext ?context .
+  ?context :dp_hasLocation "Berlin" ;
+           :dp_hasTime ?time .
+  # Assuming morning time is defined as from 06:00:00 to 12:00:00
+  FILTER ( ?time >= "06:00:00"^^xsd:time && ?time < "12:00:00"^^xsd:time )
+  OPTIONAL { ?systemAction rdfs:label ?systemActionLabel . }
+}
+----------------------------------
+
+This query identifies each user along with their preferred system action whose associated context has the location “Berlin” and a time within the morning period.

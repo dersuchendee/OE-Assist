@@ -1,0 +1,15 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, retrieves the articles presented in a specified seminar (here, for instance, using the individual :Seminar_2008):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  :Seminar_2008 a :Cl_Seminar ;
+                :presentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+--------------------------------------------------

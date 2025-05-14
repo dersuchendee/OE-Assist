@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a region and a country. The ontology includes classes and properties related to cities, regions, and countries, but the competency question requires a direct relationship between a region and a country, which is not explicitly modeled in the ontology. However, a partial answer can be extracted by connecting regions to countries through cities.
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?city :locatedIn ?region .
+  ?region :regionInCountry ?country .
+}
+```

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly support the competency question as it lacks a direct connection between a product and the materials it consists of. The ontology uses a reification approach with the `Cl_ProductComposition` class, but the competency question asks for a direct relationship between products and materials. Here's a SPARQL query to extract a partial answer using the existing ontology structure:
+
+```sparql
+SELECT ?product ?material
+WHERE {
+  ?product a :Cl_Product .
+  ?product :consistsOf ?composition .
+  ?composition :hasMaterial ?material .
+}
+```

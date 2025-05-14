@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the review (i.e. what a critic says) about a given record. You can replace the values for ?critic and ?record with the specific critic and record you are interested in:
+
+--------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?criticName ?recordName ?reviewContent
+WHERE {
+  ?review ns1:reviewedBy ?critic ;
+          ns1:reviewOf ?record ;
+          ns1:hasContent ?reviewContent .
+  
+  ?critic rdfs:label ?criticName .
+  ?record rdfs:label ?recordName .
+  
+  FILTER (?critic = ns1:CrianHiatt && ?record = ns1:StadiumArcadium)
+}
+--------------------------------------------------
+
+This query uses the properties ns1:reviewedBy and ns1:reviewOf to reify the relationship between the critic and the record along with ns1:hasContent to retrieve exactly what the critic said.

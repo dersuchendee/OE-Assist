@@ -1,0 +1,33 @@
+**Yes**
+
+Assuming that “at a certain point in time” means we want to retrieve members of an ensemble whose membership date indicates they were already part of the ensemble by that date, we can write a SPARQL query. For example, if we want to find the members of a given ensemble that were members on (or before) a parameterized date (say, ?pointTime), the query would be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?member .
+  ?member :hasMembershipDate ?membershipDate .
+  FILTER(?membershipDate <= ?pointTime)
+}
+--------------------------------------------------
+
+In a concrete execution you could bind ?pointTime; for instance, if you want the status as of September 15, 2009, add:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?member .
+  ?member :hasMembershipDate ?membershipDate .
+  FILTER(?membershipDate <= "2009-09-15"^^xsd:date)
+}
+--------------------------------------------------
+
+This query extracts the members (and their membership dates) of each ensemble that were valid as of the specified point in time. With the closed world assumption applied (meaning we assume that if no better information is available the membership recorded is all there is), the query fully answers the competency question.

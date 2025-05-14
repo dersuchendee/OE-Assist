@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a performance. The ontology includes classes and properties related to performances, bands, and locations, but it lacks a direct connection between a specific performance and its location. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL {
+    ?performance :performedAt ?location .
+  }
+}
+```

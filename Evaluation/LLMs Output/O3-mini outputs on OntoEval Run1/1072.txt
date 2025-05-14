@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming the ontology represents seminars with the class Cl_Seminar and the location of a seminar is indicated through a two‐step relation—first via the property tookPlaceAt linking the seminar to an instance of Cl_SeminarLocation, and then via the property seminarLocation linking that instance to a Cl_Location—you can extract the seminar’s location with a query such as:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLocation ?location
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :tookPlaceAt ?seminarLocation .
+  ?seminarLocation :seminarLocation ?location .
+}
+------------------------------------------------
+
+This query retrieves each seminar, its associated seminar location instance, and the linked location (e.g., a hospital or other place) where the seminar took place, thus fully answering the competency question under a closed world assumption.

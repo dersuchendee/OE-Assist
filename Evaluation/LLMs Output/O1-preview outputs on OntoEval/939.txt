@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?doctor ?employee ?evaluationText
+WHERE {
+    ?doctor a :Cl_Doctor .
+    ?doctor :hasEvaluationStatement ?evaluation .
+    ?evaluation :evaluates ?employee .
+    ?employee a :Cl_Employee .
+    ?evaluation :evaluationText ?evaluationText .
+}
+```

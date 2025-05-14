@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming the ontology is complete under a closed world assumption and the book is represented as an instance of :Cl_Book with associated properties (such as :bookTitle and :numberOfPages), you can retrieve the number of pages for a book (or all books) with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?bookTitle ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :bookTitle ?bookTitle .
+  ?book :numberOfPages ?numberOfPages .
+}
+
+This query extracts the title and the number of pages for each book in the ontology, which answers the CQ "How many pages does a particular book contain?"

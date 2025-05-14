@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not explicitly model whether a sound is produced "by hand" or "by electric means." Although it relates a BellTower to a SoundPractice (via the :currentSoundPractice property) and further from SoundPractice to SoundMethod (via the :hasMethod property), there is no explicit encoding of the mechanism (i.e. manual vs. electric) in the ontology. Therefore, a complete answer to the CQ isn’t fully supported. However, we can write a SPARQL query that retrieves the SoundMethod information for each BellTower as a partial answer:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?bellTowerLabel ?soundMethod ?soundMethodLabel
+WHERE {
+  ?bellTower a :BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?bellTowerLabel . }
+  
+  ?bellTower :currentSoundPractice ?soundPractice .
+  ?soundPractice :hasMethod ?soundMethod .
+  OPTIONAL { ?soundMethod rdfs:label ?soundMethodLabel . }
+}
+
+This query will list each BellTower together with its associated SoundMethod. It does not determine if the method is manual or electric because this distinction is not specified in the ontology.

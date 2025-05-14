@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that retrieves any Meeting where an individual of type Musician labeled “Musician X” and an individual of type Performer labeled “Performer Y” were both participants, along with the meeting’s location, time, and reason.
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?meeting ?location ?time ?reason
+WHERE {
+  ?meeting a :Meeting ;
+           :hasLocation ?location ;
+           :hasTime ?time ;
+           :hasReason ?reason ;
+           :hasParticipant ?participant1 ;
+           :hasParticipant ?participant2 .
+  
+  ?participant1 a :Musician ;
+                rdfs:label "Musician X" .
+  ?participant2 a :Performer ;
+                rdfs:label "Performer Y" .
+} 
+
+--------------------------------------------------
+
+This query works under the closed world assumption: if there is no meeting recorded where these two individuals participated, the query will simply return no results.

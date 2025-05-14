@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the book or CD in question is represented by an article collection (as in the case of “Nurse practices in cancer patient care – longitudinal studies at Italian hospitals”, which is published as a book but modeled as an article collection that “containsArticle” the individual articles), we can write a query that, given the specific book‐identifier (here, for example, the article collection is associated with the book value) retrieves the articles it is composed of. Under a closed‐world reading we assume that if the book is indeed “composed” of articles then there is an article collection that “containsArticle” the articles. For example:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle
+WHERE {
+  # Here we assume that the article collection corresponding to the book (or CD)
+  # is known. In our example, the article collection is :NursePracticesInCancerPatientCare.
+  BIND(:NursePracticesInCancerPatientCare AS ?collection) .
+  
+  ?collection :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+}
+------------------------------------------------
+
+This query returns the articles (and their titles) that are contained in the article collection linked to the specific book/CD.

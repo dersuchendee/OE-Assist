@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that we want to retrieve the employment start date for a specific actor working at a specific theatre, we can use the properties defined in the ontology. For example, the ontology defines that an actor (instance of Cl_Actor) has an employment record (via the property hasEmployment) of type Cl_ActorEmployment that in turn has an employment date (hasEmploymentDate) and an association to a theatre (isEmployedIn). Under a closed‑world assumption, we assume that all relevant employment data are explicitly stated. The following SPARQL query answers the CQ by retrieving the employment date for a given actor at a given theatre:
+
+-----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?employmentDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :hasEmployment ?employment .
+  ?employment :hasEmploymentDate ?employmentDate ;
+              :isEmployedIn ?theatre .
+  FILTER(?actor = <http://www.example.org/test#FabioBianchi> &&
+         ?theatre = <http://www.example.org/test#SpecificTheatre>)
+}
+-----------------------------------------------------
+
+In this query replace <http://www.example.org/test#FabioBianchi> and <http://www.example.org/test#SpecificTheatre> with the appropriate IRIs for the actor and theatre in question.

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a ns1:Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production ns1:hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```
+This query retrieves the play that is the basis of each production by utilizing the `ns1:hasPlay` property, which associates productions with their corresponding plays in the ontology.

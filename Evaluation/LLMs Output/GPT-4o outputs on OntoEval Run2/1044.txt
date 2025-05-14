@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate articles with seminars. While there is a `ns1:presentedArticle` property that links a `ns1:Presentation` to an `ns1:Article`, and a `ns1:partOfSeminar` property that links a `ns1:Presentation` to a `ns1:Seminar`, there is no direct property or class that represents the concept of an "article presented in a seminar." Therefore, the competency question cannot be fully answered with the given ontology.
+
+However, a partial answer can be extracted by identifying the presentations that are part of a seminar and the articles associated with those presentations:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a ns1:Seminar .
+  ?presentation ns1:partOfSeminar ?seminar .
+  ?presentation ns1:presentedArticle ?article .
+}
+```

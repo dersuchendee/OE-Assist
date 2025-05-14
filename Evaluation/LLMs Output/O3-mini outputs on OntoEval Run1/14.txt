@@ -1,0 +1,28 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each musical instrument, its inventor by either following the direct object property or via the reification (invention event):
+
+-------------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?musicalInstrument ?instrumentLabel ?inventor ?inventorLabel
+WHERE {
+  {
+    ?musicalInstrument a :Cl_MusicalInstrument .
+    ?musicalInstrument :Op_inventedBy ?inventor .
+  }
+  UNION
+  {
+    ?inventionEvent a :Cl_InventionEvent .
+    ?inventionEvent :Op_inventionEvent ?musicalInstrument .
+    ?inventionEvent :Op_inventor ?inventor .
+  }
+  OPTIONAL { ?musicalInstrument rdfs:label ?instrumentLabel . }
+  OPTIONAL { ?inventor rdfs:label ?inventorLabel . }
+}
+
+-------------------------------------------------------
+
+This query answers the question "Who invented an instrument?" by retrieving each musical instrument with its associated inventor based on the ontology's modelling.

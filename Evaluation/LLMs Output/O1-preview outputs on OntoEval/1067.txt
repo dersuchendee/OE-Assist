@@ -1,0 +1,45 @@
+**Yes**
+
+The competency question "Where did a certain seminar take place?" can be answered using the ontology provided. The ontology contains information about seminars, the hospitals where they take place, and the locations of those hospitals.
+
+Here is a SPARQL query that retrieves the seminar and its location:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?hospital ?hospitalLabel ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  
+  ?seminar ns1:takesPlaceAt ?hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  OPTIONAL {
+    ?hospital ns1:locatedIn ?city .
+    OPTIONAL { ?city rdfs:label ?cityLabel . }
+    
+    OPTIONAL {
+      ?city ns1:isLocatedIn ?country .
+      OPTIONAL { ?country rdfs:label ?countryLabel . }
+    }
+  }
+}
+```
+
+This query will return the seminar (`?seminar`), its label (`?seminarLabel`), the hospital where it took place (`?hospital`), the hospital's label (`?hospitalLabel`), the city (`?city`), the city's label (`?cityLabel`), the country (`?country`), and the country's label (`?countryLabel`).
+
+**Explanation:**
+
+- **Seminar Retrieval**: The query starts by selecting instances of `ns1:Seminar`.
+- **Label Retrieval**: The `OPTIONAL` clauses are used to fetch labels if they are available.
+- **Location Association**:
+  - The `ns1:takesPlaceAt` property associates the seminar with a hospital.
+  - The `ns1:locatedIn` property associates the hospital with a city.
+  - The `ns1:isLocatedIn` property associates the city with a country.
+- **Hierarchical Location**: By traversing from the seminar to the hospital, then to the city, and finally to the country, we extract the full location information.
+
+**Result:**
+
+Using this query on the provided ontology will yield that the seminar took place at **Ospedale Riunito delle Tre Valli** in **Nocera Inferiore**, **Italy**, which aligns with the information given in the ontology and the ontological story.

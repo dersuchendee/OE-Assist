@@ -1,0 +1,17 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, retrieves the articles presented at a specific seminar (here using the individual :Seminar_Dec2008 as an example):
+
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?articleTitle ?articlePageCount ?seminarDate
+WHERE {
+  ?seminar a :Seminar ;
+           :seminarDate ?seminarDate ;
+           :hasPresentedArticle ?article .
+  ?article :articleTitle ?articleTitle .
+  OPTIONAL { ?article :articlePageCount ?articlePageCount . }
+  FILTER(?seminar = :Seminar_Dec2008)
+}
+ORDER BY ?articleTitle

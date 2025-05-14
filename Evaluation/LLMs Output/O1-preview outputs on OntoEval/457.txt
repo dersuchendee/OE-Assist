@@ -1,0 +1,22 @@
+**No**
+
+We cannot fully answer the competency question because the ontology lacks information about when band members left the band. The ontology provides the start time of each member's band membership but does not specify an end time. Therefore, we cannot accurately determine who was a member at a specific point in time.
+
+However, we can provide a partial answer by retrieving the members who joined the band on or before the specified time. Here's a SPARQL query to extract this partial information:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?membershipStart
+WHERE {
+  ?bandMembership a :Cl_BandMembership ;
+                  :hasMember ?member ;
+                  :memberOf :Red_Hot_Chili_Peppers ;
+                  :membershipTime ?membershipStart .
+  FILTER (?membershipStart <= "1988-01-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?membershipStart
+```
+
+This query retrieves members of the "Red Hot Chili Peppers" who began their membership on or before January 1, 1988. Since we do not have end dates for memberships, we cannot determine if they were still members at that specific point in time.

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the number of tracks for a given album (using its label as identification):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?numTracks
+WHERE {
+  ?album a :Cl_Album .
+  ?album :numberOfTracks ?numTracks .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  FILTER(?albumLabel = "Stadium Arcadium")
+}
+
+This query works under the closed world assumption because the ontology explicitly defines the :numberOfTracks property for albums.

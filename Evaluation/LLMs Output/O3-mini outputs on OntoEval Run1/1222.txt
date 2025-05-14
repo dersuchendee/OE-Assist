@@ -1,0 +1,22 @@
+**Yes**
+Below is an example SPARQL query that uses the ontology to extract the characteristics of rare species found in a specific aquifer. (In this query, the specific aquifer is identified by its IRI; replace <http://www.example.org/test#SpecificAquifer> with the desired aquifer’s IRI.) 
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?species ?speciesLabel ?aquifer ?aquiferLabel ?characteristic ?characteristicLabel
+WHERE {
+  ?aquifer a :Aquifer .
+  ?aquifer rdfs:label ?aquiferLabel .
+  FILTER (?aquifer = <http://www.example.org/test#SpecificAquifer>) .
+  
+  ?species a :RareSpecies ;
+           :isFoundIn ?aquifer ;
+           :hasCharacteristic ?characteristic .
+  OPTIONAL { ?species rdfs:label ?speciesLabel . }
+  OPTIONAL { ?characteristic rdfs:label ?characteristicLabel . }
+}
+--------------------------------------------------
+
+This query retrieves rare species (i.e. those that satisfy the restrictions for RareSpecies) that are found in the specified aquifer along with their characteristics.

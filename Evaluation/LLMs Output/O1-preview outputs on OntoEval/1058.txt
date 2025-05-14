@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+  ?presentation :presentedIn :SeminarInDecember2008 ;
+                :presentationOf ?article .
+  ?article a :Cl_Article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+```

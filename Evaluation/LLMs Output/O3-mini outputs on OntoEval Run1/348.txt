@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that reviews are modelled in the ontology as reifications that are simultaneously instances of both Cl_Newspaper and Cl_Production (via the subclass Cl_NewspaperReview), we can extract the star rating given by a newspaper for a production. Under a closed‐world assumption, only the explicitly asserted triples are considered, so if a certain newspaper “hasReview” a review (which is also typed as a production) and that review has a starRating value, the following SPARQL query returns the answer:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?newspaper ?production ?starRating
+WHERE {
+  ?newspaper a :Cl_Newspaper .
+  ?newspaper :hasReview ?production .
+  ?production a :Cl_NewspaperReview .
+  ?production :starRating ?starRating .
+}
+-----------------------------------------------------------
+
+In this query the variable ?production represents the review instance (which is also an instance of Cl_Production because of the reification) that carries the starRating given by the newspaper.

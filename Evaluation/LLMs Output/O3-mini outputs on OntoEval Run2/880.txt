@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming we interpret “a certain union” and “a certain point in time” as parameters, the ontology supports this CQ via the reified union membership information (the class Cl_UnionMembership linking a staff member, a union via the :hasUnion property, and the membership start date via :hasStartDate). For example, the following SPARQL query retrieves the members of a specified union (here provided as the IRI for that union) whose membership had started on or before a given point in time.
+
+Replace <UNION_IRI> with the IRI of the union and "YYYY-MM-DD" with the desired date.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel ?startDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion <UNION_IRI> ;
+              :hasMember ?member ;
+              :hasStartDate ?startDate .
+  FILTER (?startDate <= "YYYY-MM-DD"^^xsd:date)
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+--------------------------------------------------
+
+Under the closed world assumption (i.e. only the explicitly stated memberships are considered valid), this query will correctly extract the answer to the CQ: “Who are the members of a certain union at a certain point in time?”

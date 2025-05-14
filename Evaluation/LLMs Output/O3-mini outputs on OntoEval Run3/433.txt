@@ -1,0 +1,20 @@
+**Yes**
+
+The following SPARQL query answers the competency question by using the reification construct (the Cl_PersonInstrument class) to link a person to the instruments they play. In this example the query is parameterized for a specific person (e.g. John_Frusciante); you can substitute this value by any individual of Cl_Person.
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  ?pi a :Cl_PersonInstrument ;
+      :playedBy ?person ;
+      :plays ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+  FILTER(?person = :John_Frusciante)
+}
+-------------------------------------------------------------
+
+This query retrieves all instruments that the specified person plays based on the reified person–instrument relationships modeled in the ontology.

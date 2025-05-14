@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?product ?productLabel ?material ?materialLabel
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+  ?product :consistsOf ?material .
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+}
+ORDER BY ?product ?material
+```

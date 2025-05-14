@@ -1,0 +1,24 @@
+Answer: **No**
+
+The ontology does not represent the “variant” aspect of a composition—i.e. it does not explicitly model a relationship (or a reified membership) linking a specific composition (a :Tune) to its status as a variant member of a tune family. Under the closed world assumption, without an explicit property for “identified as variant,” we can only partially answer by retrieving tunes that are members of a tune family (assuming that membership would indicate a possible variant relationship if it were modelled).
+
+A partial SPARQL query might be:
+
+PREFIX : <https://w3id.org/polifonia/ontology/tunes/>
+PREFIX core: <https://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tune ?tuneLabel ?tuneFamily ?familyLabel
+WHERE {
+  ?tune a :Tune .
+  OPTIONAL { ?tune rdfs:label ?tuneLabel . }
+  
+  ?tuneFamily a :TuneFamily .
+  OPTIONAL { ?tuneFamily rdfs:label ?familyLabel . }
+  
+  # In a fully modelled ontology, one might expect an explicit membership relation such as:
+  ?tuneFamily core:hasMember ?tune .
+}
+ORDER BY ?tuneFamily ?tune
+
+This query “partially” answers the CQ by listing tunes that are asserted as members of tune families, but it does not capture the notion of “variant” because that concept is not modelled in the ontology.

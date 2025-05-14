@@ -1,0 +1,18 @@
+Answer: **No**
+
+The ontology provided does not model the temporal aspects of ensemble membership. Specifically, it lacks the necessary properties and axioms to represent how membership of an ensemble changes over time. Therefore, it's not possible to answer the competency question "Who are the members of a certain ensemble at a certain point in time?" fully using this ontology.
+
+However, we can provide a partial answer by retrieving the members of ensembles, without considering the time dimension:
+
+```sparql
+PREFIX : <http://www.example.org/theatre_ontology#>
+
+SELECT ?ensemble ?member ?memberName
+WHERE {
+  ?ensemble rdf:type :Ensemble .
+  ?ensemble :hasMember ?member .
+  OPTIONAL { ?member :hasName ?memberName . }
+}
+```
+
+This query retrieves the ensembles and their members but does not account for the temporal aspect of membership.

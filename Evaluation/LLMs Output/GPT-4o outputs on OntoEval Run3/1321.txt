@@ -1,0 +1,12 @@
+**Yes**
+
+The CQ is supported by the ontology as it specifically asks for annotation properties used to document rare species, and the ontology provides several annotation properties related to rare species. Here is a SPARQL query to extract the specific annotation properties:
+
+```sparql
+SELECT DISTINCT ?annotationProperty ?label
+WHERE {
+  ?annotationProperty a owl:AnnotationProperty .
+  ?annotationProperty rdfs:domain :RareSpecies .
+  OPTIONAL { ?annotationProperty rdfs:label ?label . }
+}
+```

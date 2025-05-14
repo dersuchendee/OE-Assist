@@ -1,0 +1,19 @@
+**Yes**.
+
+The ontology provides sufficient information to answer the competency question "When did a certain seminar take place?" The classes and properties in the ontology allow us to retrieve seminars and their dates.
+
+Here is the SPARQL query to extract the dates of seminars:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?seminarEvent rdf:type :Cl_SeminarOccurrence .
+  ?seminarEvent :relatesToSeminar ?seminar .
+  ?seminarEvent :hasDate ?date .
+}
+```
+
+This query selects seminars and their associated dates by navigating through the `:Cl_SeminarOccurrence` class, which is linked to the seminar via the `:relatesToSeminar` property and has a date specified by the `:hasDate` property.

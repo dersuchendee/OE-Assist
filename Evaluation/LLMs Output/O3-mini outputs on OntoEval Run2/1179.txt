@@ -1,0 +1,33 @@
+**Yes**
+
+Below is one example SPARQL query that, under a closed world assumption, retrieves each instance of a set of bells along with the play methods applied—determining whether a set of bells is played manually, electrically, or both:
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?setOfBells
+       (IF(BOUND(?manual) && BOUND(?electric), "both",
+         IF(BOUND(?manual), "manually",
+           IF(BOUND(?electric), "electrically", "none")
+         )
+       ) AS ?playMode)
+WHERE {
+  ?setOfBells a :SetOfBells .
+  
+  OPTIONAL {
+    ?setOfBells :hasPlayMethod ?pmManual .
+    ?pmManual a :ManualPlayMethod .
+    BIND(?pmManual AS ?manual)
+  }
+  OPTIONAL {
+    ?setOfBells :hasPlayMethod ?pmElectric .
+    ?pmElectric a :ElectricPlayMethod .
+    BIND(?pmElectric AS ?electric)
+  }
+}
+--------------------------------------------------------------
+
+This query gathers every instance of :SetOfBells (the basic set) and checks for associated play methods. The OPTIONAL patterns determine whether the set is played manually (by checking for an instance of :ManualPlayMethod), electrically (checking for an instance of :ElectricPlayMethod), or both—thus answering the competency question.

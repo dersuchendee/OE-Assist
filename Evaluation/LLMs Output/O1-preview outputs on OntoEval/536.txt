@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+The competency question can be answered because the ontology includes information about music albums and their release dates through the `:releaseDate` property associated with instances of `:MusicAlbum`.
+
+Here's a SPARQL query to retrieve the release date of each album:
+
+```sparql
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :MusicAlbum .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :releaseDate ?releaseDate .
+}
+```
+
+This query selects all albums in the ontology, along with their labels (if available), and their release dates.

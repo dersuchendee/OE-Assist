@@ -1,0 +1,17 @@
+**Yes**
+Below is one SPARQL query that uses the properties defined in the ontology (namely, :recordingStart and :recordingEnd on a Cl_Album) to extract the recording period for a given album (for example, “Stadium Arcadium”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album ;
+         :recordingStart ?recordingStart ;
+         :recordingEnd ?recordingEnd ;
+         rdfs:label ?label .
+  FILTER(?label = "Stadium Arcadium")
+}
+
+This query correctly returns the time period during which the specified album was recorded, thus demonstrating that the CQ is fully supported by the ontology under a closed world assumption.

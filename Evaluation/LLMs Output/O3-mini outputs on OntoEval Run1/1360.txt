@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not appear to explicitly model the concept of “sources” of a project—even though it links an organ to a project (via the isDescribedBy property), it does not capture any information about sources (for example, bibliographic references or source records) that a project was derived from. Under the closed world assumption, we can only partially answer the CQ by listing the projects an organ is involved in.
+
+A partial SPARQL query could be:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?organ ?organLabel ?project ?projectLabel
+WHERE {
+  ?organ a organs:Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  ?organ arco:isDescribedBy ?project .
+  OPTIONAL { ?project rdfs:label ?projectLabel . }
+}
+ORDER BY ?organ ?project
+
+This query retrieves the projects that an organ is involved in, which is a partial answer to the original CQ.

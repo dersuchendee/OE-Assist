@@ -1,0 +1,18 @@
+**Yes**
+
+Since the ontology includes a restriction on the Seminar class requiring that each seminar must have at least one article via the :hasArticle property, we can model the competency question with the following SPARQL query. This query retrieves each seminar along with the articles presented, confirming that every seminar has at least one article.
+
+-----------------------------
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar (COUNT(?article) AS ?numArticles)
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasArticle ?article .
+}
+GROUP BY ?seminar
+HAVING (COUNT(?article) >= 1)
+-----------------------------
+
+Under the closed world assumption, if any Seminar lacked an associated article, it would be returned by a complementary query. However, in this ontology, each Seminar is required (via its owl:Restriction) to have at least one associated Article, so the competency question is fully modeled.

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :City .
+  ?city :isLocatedIn ?country .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+ORDER BY ?city
+```

@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming a closed‐world view, the ontology explicitly connects an album with its recording period by means of a reified recording event (an instance of Cl_AlbumRecording) that carries a recording period (an instance of Cl_TimePeriod). For example, the following SPARQL query retrieves, for each album, its associated recording period:
+
+----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_Album .
+  ?album :recordedAlbum ?albumRecording .
+  ?albumRecording :recordingPeriod ?recordingPeriod .
+}
+----------------
+
+This query shows that the competency question "During what time period was a certain album recorded?" is answerable using the provided ontology.

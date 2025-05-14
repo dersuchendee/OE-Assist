@@ -1,0 +1,41 @@
+**Yes**
+
+The competency question is answerable using the given ontology. The ontology includes classes and properties that model persons, unions, union memberships, roles within unions, and membership periods with start and end dates. This allows us to query for the role a certain person has within a certain union group at a certain point in time.
+
+Here is a SPARQL query that retrieves the role of a person within a union at a given date:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personName ?unionName ?roleName
+WHERE {
+  # Bind the specific person, union, and date you're interested in
+  BIND(:Pasquale_Di_Gennaro AS ?person) .
+  BIND(:Union_Male_Nurses AS ?union) .
+  BIND("2003-01-01"^^xsd:date AS ?date) .
+  
+  # Retrieve the person's name
+  ?person rdfs:label ?personName .
+  
+  # Union membership details
+  ?membership a :Cl_UnionMembership ;
+              :unionMember ?person ;
+              :memberOfUnion ?union ;
+              :hasUnionRole ?role ;
+              :membershipStartDate ?startDate .
+  OPTIONAL { ?membership :membershipEndDate ?endDate . }
+  
+  # Retrieve the union's name
+  ?union rdfs:label ?unionName .
+  
+  # Retrieve the role's name
+  ?role :roleName ?roleName .
+  
+  # Filter memberships active at the given date
+  FILTER ( ?startDate <= ?date )
+  FILTER ( !BOUND(?endDate) || ?endDate >= ?date )
+}
+```
+
+This query can be adjusted by binding different values to `?person`, `?union`, and `?date` to answer the question for any specific person, union, and date.

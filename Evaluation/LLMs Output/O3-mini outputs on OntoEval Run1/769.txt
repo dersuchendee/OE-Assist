@@ -1,0 +1,16 @@
+**Yes**
+Assuming that the individual is identified (for example, by the IRI :PasqualeDiGennaro), you can use a query like the following to retrieve all the medical degrees (including nursing degrees as a subclass) that a person has:
+
+---------------------------------------------------------
+PREFIX : <http://example.org/medical_degrees#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?degree ?degreeLabel
+WHERE {
+  :PasqualeDiGennaro a :Person ;
+                      :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+}
+---------------------------------------------------------
+
+Under the closed world assumption, if no triples assert a given medical degree for this person then the person has none. This SPARQL query demonstrates that the competency question “What medical degrees does a certain person have?” is modelled by the ontology.

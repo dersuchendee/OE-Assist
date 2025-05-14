@@ -1,0 +1,17 @@
+**No**
+
+The ontology provided does not include any classes or properties that directly relate to ensembles or their members. The ontology primarily focuses on events, locations, theatre productions, plays, and roles, but it lacks the necessary structure to represent ensemble memberships or the association of actors with ensembles over time.
+
+A partial SPARQL query to extract information about theatre productions and roles could look like this:
+
+```sparql
+SELECT ?production ?role ?actor
+WHERE {
+  ?roleAssignment a :RoleAssignment .
+  ?roleAssignment :inProduction ?production .
+  ?roleAssignment :assignedRole ?role .
+  ?roleAssignment :assignedPerson ?actor .
+}
+```
+
+This query retrieves information about role assignments within theatre productions, but it does not address ensemble memberships as the ontology does not support this concept.

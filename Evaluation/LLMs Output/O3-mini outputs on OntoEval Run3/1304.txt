@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves all compositions for a given tune family “X” (assuming that “X” is represented as an individual or can be identified by an rdfs:label):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel
+WHERE {
+  ?composition a :Composition ;
+               :memberOf ?tuneFamily .
+  # Either compare the tune family directly if its URI is known, e.g., :X:
+  FILTER(?tuneFamily = :X)
+  
+  OPTIONAL {
+    ?composition rdfs:label ?compositionLabel .
+  }
+} 
+
+In the above query, we assume a closed‐world perspective where all relevant information is explicitly stated. This query returns the compositions that are members of the specified tune family X, thereby fully capturing the competency question.

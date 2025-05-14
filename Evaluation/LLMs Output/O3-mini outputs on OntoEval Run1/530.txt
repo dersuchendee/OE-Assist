@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that an album instance is connected to its recorded tracks through either a data property (:numberOfTracks) or via an object property (:containsTrack), the following SPARQL query retrieves the number of tracks for each album. Under the closed‐world assumption, if an album does not explicitly have a :numberOfTracks value, we count how many :containsTrack links exist.
+
+For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel 
+       (COALESCE(?storedCount, COUNT(?track)) AS ?tracksCount)
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  OPTIONAL { ?album :numberOfTracks ?storedCount . }
+  
+  OPTIONAL { ?album :containsTrack ?track . }
+}
+GROUP BY ?album ?albumLabel ?storedCount
+ORDER BY ?album
+
+This query returns each album’s URI, its label (if available), and the number of tracks by using the stored count if available, otherwise counting the related tracks via the :containsTrack property.

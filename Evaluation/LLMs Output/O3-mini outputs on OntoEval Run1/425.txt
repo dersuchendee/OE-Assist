@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‑world assumption, retrieves each person’s instruments (using the playsInstrument property and the associated instrument name):
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Person .
+  ?person :personName ?personName .
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?instrument :instrumentName ?instrumentName. }
+}
+ORDER BY ?personName
+--------------------------------------------------
+
+This query shows that the ontology does indeed provide for answering “What instruments does a certain person play?”

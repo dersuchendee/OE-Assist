@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct connection between the user and the sensor data. The ontology describes the user, their location, and the object they are using, but it does not specify which sensor data is associated with the user's context. Therefore, a partial answer can be extracted by querying the available sensor data and its detected activity.
+
+```sparql
+SELECT ?sensor ?sensorData ?activity
+WHERE {
+  ?sensor a :Sensor .
+  ?sensor :hasSensorData ?sensorData .
+  ?sensorData :detectedActivity ?activity .
+}
+```

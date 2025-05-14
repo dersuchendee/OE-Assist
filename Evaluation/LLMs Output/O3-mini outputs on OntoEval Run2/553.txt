@@ -1,0 +1,34 @@
+**Yes**
+
+The ontology provides a class for albums (e.g., :Cl_Album) and a data property for the release date (e.g., :releaseDate). Under the closed world assumption, you can extract the release date for a specific album (e.g., filtering by its label if needed). For example, the following SPARQL query extracts the release date for all albums:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+}
+-------------------------------------------------
+
+If you wish to query a specific album (such as “Stadium Arcadium”), you can add a filter:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Cl_Album ;
+         :releaseDate ?releaseDate ;
+         rdfs:label ?albumLabel .
+  FILTER (STR(?albumLabel) = "Stadium Arcadium")
+}
+-------------------------------------------------
+
+This query shows that the competency question “When was a certain album released?” is answerable by the ontology.

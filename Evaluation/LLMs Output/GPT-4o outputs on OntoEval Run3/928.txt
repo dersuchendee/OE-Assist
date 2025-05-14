@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to query for evaluation statements given by a specific doctor for a specific employee. The ontology includes classes and properties related to employees, doctors, and evaluation statements, but it lacks a direct connection between a specific doctor and the evaluation statement they have given for a specific employee.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?doctor ?employee ?evaluationContent
+WHERE {
+  ?evaluation rdf:type :Cl_EvaluationStatement .
+  ?evaluation :evaluatesEmployee ?employee .
+  ?evaluation :hasEvaluationContent ?evaluationContent .
+}
+```
+
+This query retrieves evaluation statements and their content, but it does not specify which doctor gave the evaluation for a specific employee.

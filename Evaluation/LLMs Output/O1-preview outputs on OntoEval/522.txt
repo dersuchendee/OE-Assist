@@ -1,0 +1,15 @@
+**No**
+
+The competency question "How many tracks does a particular album contain?" cannot be fully answered by the given ontology because the relationship between albums and tracks and the `:numberOfTracks` property are not modeled correctly to provide the exact count of tracks for an album.
+
+However, we can extract partial information about which tracks are contained in an album:
+
+```sparql
+SELECT ?album ?albumTrack
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTracks ?albumTrack .
+}
+```
+
+This query retrieves albums and their associated tracks but does not provide the count of tracks per album since the `:numberOfTracks` property is not properly connected to the album instances in a way that allows counting the tracks for a particular album.

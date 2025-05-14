@@ -1,0 +1,18 @@
+Answer: **Yes**.
+
+The competency question is answerable because the ontology includes the necessary classes and relationships to associate a hospital with a city via the hospital's location.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?hospital ?city ?cityName
+WHERE {
+  ?hospital rdf:type :Cl_Hospital .
+
+  ?hospitalLocation :locationOf ?hospital .
+  ?hospitalLocation :locatedIn ?city .
+
+  ?city :cityName ?cityName .
+}
+```

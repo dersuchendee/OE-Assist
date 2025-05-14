@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that the ontology models seminars and articles via seminar presentations (a seminar includes one or more presentations and each presentation is both a seminar and an article), we can write a SPARQL query that, given a specific seminar, retrieves the articles (i.e. seminar presentations) that were presented in it. Under the closed‐world assumption the absence of a stated relationship is taken as “false.”
+
+For example, you could use this query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarIncludesPresentation ?presentation .
+  ?presentation a :Cl_Article .
+  BIND(?presentation AS ?article)
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  
+  # Filter for a certain seminar (replace <specific_seminar_URI> with the seminar URI)
+  FILTER(?seminar = <specific_seminar_URI>)
+}
+ORDER BY ?article
+
+This query confirms that the competency question "What articles were presented in a certain seminar?" is modelled by the ontology.

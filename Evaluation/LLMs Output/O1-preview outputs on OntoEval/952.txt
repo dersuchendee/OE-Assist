@@ -1,0 +1,37 @@
+**Yes**
+
+The CQ is answerable since the ontology models Books and CDs (as `ns1:ArticleCollection`) and uses the `ns1:hasArticle` property to associate them with their constituent articles. Therefore, we can write a SPARQL query to extract the articles that compose a specific book or CD.
+
+Here's a SPARQL query to retrieve the articles contained in a specific book or CD:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  # Replace the URI below with the specific book or CD you're interested in
+  ns1:NursePracticesInCancerPatientCare ns1:hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+To generalize for any book or CD, you can use the following query:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection rdf:type ?collectionType .
+  VALUES ?collectionType { ns1:Book ns1:CD } .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+
+  ?collection ns1:hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+This query retrieves all books and CDs along with their associated articles. The `VALUES` clause specifies that we're interested in individuals of type `ns1:Book` or `ns1:CD`. The `ns1:hasArticle` property is used to find the articles contained within each collection.

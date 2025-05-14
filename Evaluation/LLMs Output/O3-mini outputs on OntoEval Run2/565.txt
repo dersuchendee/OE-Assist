@@ -1,0 +1,18 @@
+**No**
+
+The given ontology does not include an explicit property or structure that connects a specific track (an instance of :Cl_Track) to the song that it is a recording of. In other words, there is no property such as :isRecordingOf or a reified relationship that explicitly states “this track records that song.” Under the closed world assumption, we cannot assume any implicit connection between :Cl_Track and :Cl_Song.
+
+Below is a SPARQL query that returns the available details about tracks. Although it does not return the associated song (since that relation is not modelled), it provides a partial answer by listing the tracks and any associated labels:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel
+WHERE {
+  ?track a :Cl_Track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+}
+-------------------------------------------------
+
+This query retrieves all instances of :Cl_Track and their labels (if provided), which is a partial answer given the missing connection between tracks and songs in the ontology.

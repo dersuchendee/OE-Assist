@@ -1,0 +1,31 @@
+**Yes**
+
+The ontology models the options available for events through the properties and restrictions associated with `TicketOption`. We can write a SPARQL query to extract the available options (e.g., seat selection and show time) for each event.
+
+Here's the SPARQL query:
+
+```sparql
+PREFIX : <http://example.org/ontology/ticketing#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventLabel ?ticketOption ?optionLabel ?propertyLabel ?valueLabel
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+  
+  ?event :hasTicketOption ?ticketOption .
+  OPTIONAL { ?ticketOption rdfs:label ?optionLabel . }
+  
+  ?ticketOption ?property ?value .
+  FILTER (?property IN (:hasSeat, :hasShowTime))
+  
+  OPTIONAL { ?property rdfs:label ?propertyLabel . }
+  OPTIONAL { ?value rdfs:label ?valueLabel . }
+}
+```
+
+This query retrieves each event and its associated ticket options, specifically focusing on the customizable options like seat selection and show time. It filters the properties to include only `:hasSeat` and `:hasShowTime`, which represent the customizable options available to the user.
+
+The ontology's structure, with classes and properties linking `Event`, `TicketOption`, `Seat`, and `ShowTime`, allows us to extract this information, satisfying the competency question.

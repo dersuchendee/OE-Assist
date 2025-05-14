@@ -1,0 +1,12 @@
+**Yes**
+
+Because the ontology includes classes `:Cl_City` and `:Cl_Region`, and an object property `:locatedIn` connecting `:Cl_City` to `:Cl_Region`. Therefore, we can write a SPARQL query to retrieve the regions where cities are located.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?region .
+}
+```

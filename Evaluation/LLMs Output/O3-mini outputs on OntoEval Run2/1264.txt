@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?externalFactor ?extLabel ?entity ?entityLabel
+WHERE {
+  ?externalFactor a :ExternalFactor .
+  OPTIONAL { ?externalFactor rdfs:label ?extLabel. }
+  
+  ?externalFactor :affects ?entity .
+  {
+    ?entity a :Process .
+  } UNION {
+    ?entity a :Actor .
+  } UNION {
+    ?entity a :ValueNetwork .
+  }
+  OPTIONAL { ?entity rdfs:label ?entityLabel. }
+}
+ORDER BY ?externalFactor
+```

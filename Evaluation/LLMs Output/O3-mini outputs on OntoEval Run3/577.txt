@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the CQ because the ontology contains a direct relationship between a track (an instance of :Cl_Track) and the song it is a recording of (an instance of :Cl_Song) via the property :isRecordingOf. Under the closed world assumption, given a specific track, we can query the ontology to retrieve the song that the track is a recording of.
+
+For example, assuming you have the URI of the specific track (here represented as <SPECIFIC_TRACK_URI>), the following SPARQL query will extract the song:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+  ?track :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  FILTER(?track = <SPECIFIC_TRACK_URI>)
+}
+
+This query returns the track details and the corresponding song it recorded, fulfilling the competency question.

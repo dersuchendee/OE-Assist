@@ -1,0 +1,35 @@
+**Yes**
+
+Assuming that an actor’s role is represented by an instance of Cl_ActorRole (which is a subclass of Cl_Actor) that “has a role” (via the property :hasRole) in a play, and that a production is “based on” a play (via :isBasedOn), we can write a query that, for a given actor, production and point in time, retrieves the matching role assignment. Under the closed‐world assumption (only explicitly stated data is true), the following SPARQL query extracts the answer:
+
+—————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?play ?roleDate ?production 
+WHERE {
+  # Parameters: replace these with the concrete IRIs or values for the given actor, production and date.
+  BIND(<http://www.example.org/test#FabioBianchi> AS ?actor) .
+  BIND(<http://www.example.org/test#Production123> AS ?production) .
+  BIND("2009-09-15"^^xsd:date AS ?pointInTime) .
+  
+  ?actor rdfs:label ?actorName .
+  
+  # An actor (who is also an instance of Cl_ActorRole) has a recorded role (linked to a play)
+  ?actorRole a :Cl_ActorRole ;
+             :hasRole ?play ;
+             :hasRoleDate ?roleDate .
+  # Since Cl_ActorRole is a subclass of Cl_Actor, we require that the role assigned is that of the given actor.
+  FILTER(?actorRole = ?actor) .
+  
+  # The production must be based on the same play that the actor’s role references.
+  ?production :isBasedOn ?play .
+  
+  # The role date should match the specified point in time.
+  FILTER(?roleDate = ?pointInTime)
+}
+ORDER BY ?actor ?roleDate
+—————
+
+This query answers the CQ “What roles does a certain person have within a certain production at a certain point in time?” by retrieving for the given actor (person) and production all roles (via their underlying play) that are recorded on the specified date.

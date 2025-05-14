@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query. In this query the union of interest and the point in time are treated as parameters. Under the closed world assumption—and noting that our ontology only captures a membership’s start date—we assume that a union membership is valid from its start date onward (unless there is additional information to mark its termination). Thus, a membership is considered active at a given date if its start date is less than or equal to that date.
+
+Assuming you have a specific union (e.g., :UnionOfMaleNurses) and a target date (e.g., "2003-01-01"^^xsd:date), the query is as follows:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?startDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion :UnionOfMaleNurses ;
+              :hasMember ?member ;
+              :hasStartDate ?startDate .
+  FILTER (?startDate <= "2003-01-01"^^xsd:date)
+}
+ORDER BY ?member
+--------------------------------------------------
+
+This query extracts the members (?member) along with their start dates (?startDate) for the specified union whose membership started on or before the given date, thereby answering the competency question.

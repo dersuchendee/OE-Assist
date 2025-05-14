@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to extract actors involved in a process. The ontology defines a relationship between actors and work processes, and between work processes and processes, but it does not directly connect actors to processes. Therefore, a partial answer can be extracted by identifying actors involved in work processes.
+
+```sparql
+SELECT ?actor
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :op_involvedIn ?workProcess .
+}
+```

@@ -1,0 +1,11 @@
+**Yes**
+
+The ontology provides the necessary information to determine the country in which a city is located through the `isInCountry` property. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?city ?country
+WHERE {
+  ?city a ns1:City .
+  ?city ns1:isInCountry ?country .
+}
+```

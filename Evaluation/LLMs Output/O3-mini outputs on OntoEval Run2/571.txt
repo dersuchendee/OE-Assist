@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed world assumption, returns the song that the specific track is a recording of:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?track ?song
+WHERE {
+  :TrackHumpDeBump rdf:type :Cl_Track .
+  :TrackHumpDeBump :isRecordingOf ?song .
+}
+--------------------------------------------------
+
+This query assumes that the individual :TrackHumpDeBump represents the specific track in question and that the object property :isRecordingOf links it to the corresponding song.

@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?product ?manufacturer
+WHERE {
+  # Find manufacturing processes that produce the product
+  ?manufacturingProcess a process:ManufacturingProcess .
+  ?manufacturingProcess process:resultingProduct ?product .
+
+  # Find the actor participating as manufacturer in the manufacturing process
+  ?processParticipation a actor:ProcessParticipation .
+  ?processParticipation actorODP:participationIn ?manufacturingProcess .
+  ?processParticipation actorODP:participatingActor ?manufacturer .
+  ?processParticipation actorODP:participantRole actor:manufacturer .
+}
+```
+
+This SPARQL query retrieves the manufacturer of a certain product by finding the actor who participates in the manufacturing process that results in the product, with the role of a manufacturer.

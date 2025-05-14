@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?article ?articleLabel
+WHERE {
+  ?presentation rdf:type :Cl_SeminarArticlePresentation .
+  ?presentation :articlePresented ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  ?presentation :presentedIn ?seminar .
+  # Replace :Seminar_December_2008 with the specific seminar you're interested in
+  FILTER (?seminar = :Seminar_December_2008)
+}
+```

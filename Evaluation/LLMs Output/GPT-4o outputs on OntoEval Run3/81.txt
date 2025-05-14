@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the specific dates when a theatre festival took place. The ontology includes a `hasDate` property, but it is not clear if it is used to specify the start and end dates of a festival. Therefore, a partial answer can be extracted by querying for any available date information related to theatre festivals.
+
+```sparql
+SELECT ?theatreFestival ?date
+WHERE {
+  ?theatreFestival a :Cl_TheatreFestival .
+  OPTIONAL { ?theatreFestival :hasDate ?date . }
+}
+```

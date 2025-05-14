@@ -1,0 +1,20 @@
+**Yes**
+Below is an example SPARQL query that, given a specific track, retrieves the song of which it is a recording:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?song ?songLabel
+WHERE {
+  ?track a :Cl_Track .
+  ?track :isRecordingOf ?trackRecording .
+  ?trackRecording :recordedSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  
+  # Replace the URI below with the specific track you wish to query
+  FILTER(?track = <http://www.example.org/test#SpecificTrack>)
+}
+--------------------------------
+
+In this query, a track (of type Cl_Track) is linked via the property isRecordingOf to a reified track recording instance; then the property recordedSong is used to retrieve the song. This shows that the CQ is fully supported by the ontology.

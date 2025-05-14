@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that each performance is modelled as an instance of :Cl_Performance and the date of the performance is recorded with the property :performanceDate, you can answer the CQ “When did a certain performance take place?” by retrieving the date associated with a performance instance. The following SPARQL query extracts the performance and its date under the closed world assumption:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+
+This query will return all performance instances and the dates on which they took place, thereby satisfying the CQ.

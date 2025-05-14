@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question is supported by the ontology. We can write a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?agent ?observation ?time ?amount
+WHERE {
+  ?agent a :Agent .
+  ?agent :records ?observation .
+
+  ?observation a :MicrobiologicalSubstanceAmountObservation .
+  ?observation :atTime ?time .
+  ?observation :hasAmount ?amount .
+}
+```

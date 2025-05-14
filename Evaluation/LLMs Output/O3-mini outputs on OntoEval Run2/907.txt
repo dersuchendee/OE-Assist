@@ -1,0 +1,24 @@
+**No**
+
+The ontology provides classes and properties relating a Person to a Role (via the property :hasRole) and connects a Role to a Union (via :withinUnion). It also represents time‐based membership information using properties like :hasMemberAt and :memberOfAt. However, there is no explicit modelling of a “role at a certain point in time.” In other words, while you can retrieve a person’s union role and the union to which it applies, you cannot filter or bind that role to a specific time instance using the current vocabulary. This leads to a partial answer for the CQ.
+
+Below is a SPARQL query that extracts the person’s role and the union the role belongs to (ignoring the time aspect):
+
+-------------------------------------------------
+PREFIX : <http://example.org/unionrole#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?role ?roleLabel ?union ?unionLabel
+WHERE {
+  ?person a :Person .
+  ?person :hasRole ?role .
+  ?role :withinUnion ?union .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+  # Example filter for a specific person and union (replace IRIs as needed)
+  FILTER(?person = <http://example.org/unionrole#Pasquale_Di_Gennaro>)
+  FILTER(?union = <http://example.org/unionrole#MaleNursesUnion>)
+}
+-------------------------------------------------
+
+Because the ontology does not represent the temporal dimension of the role explicitly, this query returns a partial answer to the competency question.

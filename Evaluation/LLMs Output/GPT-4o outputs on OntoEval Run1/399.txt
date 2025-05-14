@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology includes the class `ns1:TheatreProduction` with the property `ns1:hasPremier`, which associates a theatre production with its premier. The ontology also defines the class `ns1:Premier` with a cardinality restriction of 1 on the property `ns1:premierDate`, ensuring that each production has exactly one premier date.
+
+Here is a SPARQL query to extract the productions and their corresponding premier dates:
+
+```sparql
+SELECT ?production ?premier ?premierDate
+WHERE {
+  ?production a ns1:TheatreProduction .
+  ?production ns1:hasPremier ?premier .
+  ?premier ns1:premierDate ?premierDate .
+}
+```

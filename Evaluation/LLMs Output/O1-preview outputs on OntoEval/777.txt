@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+The CQ is answerable because the ontology contains the necessary classes and properties to associate a person with their medical degrees.
+
+```sparql
+SELECT ?degree ?degreeTitle ?degreeObtainedDate
+WHERE {
+  :PasqualeDiGennaro :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+  OPTIONAL { ?degree :degreeObtainedDate ?degreeObtainedDate . }
+}
+```

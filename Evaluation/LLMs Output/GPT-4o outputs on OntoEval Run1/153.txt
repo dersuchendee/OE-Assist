@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct relationship between a theatre and a city. The closest relationship is between a theatre and a city through the `:locatedIn` property, but it does not specify the city for each theatre. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying theatres and their locations if available.
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre :locatedIn ?city . }
+}
+```

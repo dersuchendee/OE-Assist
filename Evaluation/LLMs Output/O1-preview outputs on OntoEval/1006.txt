@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?publication ?publicationTitle ?publicationDate
+WHERE {
+  ?publication rdf:type ?pubType ;
+               :publicationTitle ?publicationTitle ;
+               :publicationDate ?publicationDate .
+  FILTER (?pubType = :Cl_Book || ?pubType = :Cl_CD)
+}
+```

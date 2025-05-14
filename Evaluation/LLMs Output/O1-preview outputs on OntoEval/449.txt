@@ -1,0 +1,84 @@
+**Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" can be answered using the provided ontology. The ontology models the membership of persons in bands over time through the `:Cl_Membership` class, which includes `:startDate` and `:endDate` properties. This allows us to query for members of a band at a specific point in time.
+
+Here is a SPARQL query that retrieves the members of a specific band at a given date:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName
+WHERE {
+  # Input parameters:
+  # Replace :SpecificBand with the band you're interested in
+  # Replace "YYYY-MM-DD"^^xsd:date with the specific date
+
+  :SpecificBand a :Cl_Band .
+
+  ?membership a :Cl_Membership .
+  ?membership :memberOf :SpecificBand .
+  ?membership :member ?member .
+  ?membership :startDate ?startDate .
+  OPTIONAL { ?membership :endDate ?endDate . }
+
+  ?member a :Cl_Person .
+  ?member :name ?memberName .
+
+  FILTER (
+    xsd:date(?startDate) <= "YYYY-MM-DD"^^xsd:date &&
+    (
+      !bound(?endDate) || "YYYY-MM-DD"^^xsd:date <= xsd:date(?endDate)
+    )
+  )
+}
+```
+
+**Explanation:**
+
+- **Prefixes**: We declare the necessary prefixes for the ontology and XML schema datatypes.
+- **Input Parameters**:
+  - Replace `:SpecificBand` with the URI of the band you're querying (e.g., `:RedHotChiliPeppers`).
+  - Replace `"YYYY-MM-DD"^^xsd:date` with the specific date you're interested in (e.g., `"2006-05-05"^^xsd:date`).
+- **Query Structure**:
+  - We select the `?member` (person URI) and their `?memberName`.
+  - We ensure that `:SpecificBand` is a band in the ontology.
+  - We find `?membership` instances where the membership is associated with the specific band and a member.
+  - We retrieve the start and optional end dates of the membership.
+  - We get the name of the member using the `:name` property.
+- **Filter Condition**:
+  - We check that the `?startDate` is on or before the specified date.
+  - We also check that the `?endDate` is either not bound (membership is ongoing) or the specified date is on or before the `?endDate`.
+  - This ensures that we only get members who were part of the band at the specified point in time.
+
+**Example Usage:**
+
+To find the members of the "Red Hot Chili Peppers" on May 5, 2006, you would replace `:SpecificBand` with `:RedHotChiliPeppers` and `"YYYY-MM-DD"^^xsd:date` with `"2006-05-05"^^xsd:date`:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName
+WHERE {
+  :RedHotChiliPeppers a :Cl_Band .
+
+  ?membership a :Cl_Membership .
+  ?membership :memberOf :RedHotChiliPeppers .
+  ?membership :member ?member .
+  ?membership :startDate ?startDate .
+  OPTIONAL { ?membership :endDate ?endDate . }
+
+  ?member a :Cl_Person .
+  ?member :name ?memberName .
+
+  FILTER (
+    xsd:date(?startDate) <= "2006-05-05"^^xsd:date &&
+    (
+      !bound(?endDate) || "2006-05-05"^^xsd:date <= xsd:date(?endDate)
+    )
+  )
+}
+```
+
+This query will return all members who were part of the Red Hot Chili Peppers on May 5, 2006, according to the data modeled in the ontology.

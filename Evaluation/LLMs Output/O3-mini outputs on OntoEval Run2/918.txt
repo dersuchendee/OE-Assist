@@ -1,0 +1,27 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the role held by a given person in a specific union at a given time. In this example we assume the “certain person” is Pasquale Di Gennaro, the “certain union group” is Union_Male_Nurses, and the time of interest is represented by a fixed date (e.g. 2003‑01‑01). Under the closed‑world assumption, the query selects only those union memberships whose start date is no later than the given date and (if an end date is provided) whose end date is no earlier than the given date.
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :unionMember :Pasquale_Di_Gennaro ;
+              :memberOfUnion :Union_Male_Nurses ;
+              :hasUnionRole ?role ;
+              :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  # Filter to include only those memberships active at the given time:
+  FILTER (
+    xsd:date("2003-01-01") >= ?membershipStartDate &&
+    ( !bound(?membershipEndDate) || xsd:date("2003-01-01") <= ?membershipEndDate )
+  )
+  BIND(:Pasquale_Di_Gennaro AS ?person)
+  BIND(:Union_Male_Nurses AS ?union)
+}
+------------------------------------------------
+
+This query shows that the ontology supports the competency question "What role does a certain person have within a certain union group at a certain point in time?" by retrieving the union member’s role together with the relevant time constraints.

@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question is supported by the ontology as it is possible to write a SPARQL query to extract the answer. The ontology provides the necessary classes and properties to retrieve the time of energy data changes and their detailed breakdown.
+
+```sparql
+SELECT ?energyData ?timestamp ?energyConsumption ?carbonEmission ?materialFlow ?directEffect ?indirectEffect ?reboundEffect ?economicValue ?environmentalValue ?socialValue ?valueCreated ?valueMissed ?valueDestroyed
+WHERE {
+  ?energyData a :EnergyData .
+  ?energyData :hasChange ?change .
+
+  ?change :hasTimestamp ?timestamp .
+  OPTIONAL { ?change :hasEnergyConsumption ?energyConsumption . }
+  OPTIONAL { ?change :hasCarbonEmission ?carbonEmission . }
+  OPTIONAL { ?change :hasMaterialFlow ?materialFlow . }
+  OPTIONAL { ?change :hasDirectEffect ?directEffect . }
+  OPTIONAL { ?change :hasIndirectEffect ?indirectEffect . }
+  OPTIONAL { ?change :hasReboundEffect ?reboundEffect . }
+  OPTIONAL { ?change :hasEconomicValue ?economicValue . }
+  OPTIONAL { ?change :hasEnvironmentalValue ?environmentalValue . }
+  OPTIONAL { ?change :hasSocialValue ?socialValue . }
+  OPTIONAL { ?change :hasValueCreated ?valueCreated . }
+  OPTIONAL { ?change :hasValueMissed ?valueMissed . }
+  OPTIONAL { ?change :hasValueDestroyed ?valueDestroyed . }
+}
+ORDER BY ?timestamp
+```

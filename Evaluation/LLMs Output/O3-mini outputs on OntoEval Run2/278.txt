@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that the intended play’s writing period is modelled by the data property “writtenDuring” on class Cl_Play, we can extract the time period in which a given play was written. For example, the following SPARQL query retrieves all plays and their “writtenDuring” value (the time period during which the play was written):
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?writtenDuring
+WHERE {
+  ?play a :Cl_Play .
+  ?play :writtenDuring ?writtenDuring .
+}
+--------------------------------
+
+This query shows that the competency question “During what time period was a certain play written?” is fully supported by the ontology.

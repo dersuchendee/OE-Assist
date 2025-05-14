@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to count distinct disease categories. However, we can extract a partial answer by listing all disease categories associated with diseases.
+
+```sparql
+SELECT DISTINCT ?diseaseCategory
+WHERE {
+  ?disease a :Disease .
+  ?disease :hasCategory ?diseaseCategory .
+}
+```

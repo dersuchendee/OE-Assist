@@ -1,0 +1,29 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, returns for a given person the union group and the union role they hold at a specified point in time. In this query we assume that the reified membership is captured by the class Cl_UnionRoleMembership, which links a person, a union group (via property roleMembershipIn), and a union role (via property roleOfMembership) with its start and (optionally) an end date.
+
+For example, to check the role of a person at the date "2002-06-01", you can use:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?unionGroup ?role ?startDate ?endDate
+WHERE {
+  ?membership a :Cl_UnionRoleMembership ;
+              :roleMembershipIn ?unionGroup ;
+              :roleOfMembership ?role ;
+              :roleStartDate ?startDate .
+  OPTIONAL { ?membership :roleEndDate ?endDate . }
+  ?person :hasRoleMembership ?membership .
+
+  # Filter membership to those valid at the given date (e.g., "2002-06-01")
+  FILTER (
+      "2002-06-01"^^xsd:date >= ?startDate &&
+      ( !bound(?endDate) || "2002-06-01"^^xsd:date <= ?endDate )
+  )
+}
+ORDER BY ?person ?unionGroup
+--------------------------------
+
+This query shows that the ontology reifies the union role membership—connecting a Cl_Person, a Cl_UnionGroup, and a Cl_UnionRole with a time interval—so the competency question is fully modelled.

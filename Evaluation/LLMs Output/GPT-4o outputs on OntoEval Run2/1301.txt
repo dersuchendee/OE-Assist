@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "Where is an organ located originally?" can be answered using the ontology provided. The ontology includes the class `Organ` with a property `hasOriginalLocation` that links it to a `Church`, which represents the original location of the organ.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?organ ?church
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasOriginalLocation ?church .
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific record and critic (assumed to be identified by their URIs), extracts the review text describing what that critic said about that record. (Note: under the closed‐world assumption, we assume that all needed assertions are explicitly stated.)
+
+For example, if the record is identified as :StadiumArcadium and the critic as :CrianHiatt, the query would be:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?reviewText
+WHERE {
+  :StadiumArcadium a :Cl_Record .
+  :StadiumArcadium :reviewedBy ?review .
+  ?review a :Cl_CriticReview .
+  FILTER(?review = :CrianHiatt)
+  ?review :reviewText ?reviewText .
+}
+-----------------------------------------------------------
+
+In this query, we retrieve the data property ?reviewText from the reified critic-review instance (which is also the critic, thanks to the reification design) that links the record with the critic’s comment. This demonstrates that the competency question “What does a certain critic say about a certain record?” is fully modeled by the ontology.

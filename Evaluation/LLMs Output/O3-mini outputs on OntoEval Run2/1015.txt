@@ -1,0 +1,15 @@
+**Yes**
+Below is a SPARQL query that retrieves the publication date for any individual that is either a book or a CD (using the classes Cl_Book and Cl_CD), which answers the CQ “When was a certain book or CD published?” under the closed world assumption:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationDate
+WHERE {
+  ?publication a ?pubType .
+  FILTER(?pubType = :Cl_Book || ?pubType = :Cl_CD)
+  ?publication :publicationDate ?publicationDate .
+}
+
+This query will extract the publication date of each instance of Cl_Book or Cl_CD defined in the ontology.

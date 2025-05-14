@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct connection between a theatre and its city location. The ontology includes classes and properties related to theatre festivals, plays, and locations, but it does not explicitly model the relationship between a theatre and the city it is located in. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?theatre ?city
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :locatedIn ?location .
+  ?location a :Cl_TheatreLocation .
+  ?location :cityName ?city .
+}
+```

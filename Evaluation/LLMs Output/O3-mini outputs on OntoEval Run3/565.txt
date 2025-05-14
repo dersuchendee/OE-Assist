@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ with the following SPARQL query. Notice that the ontology includes a reified “track recording” class (Cl_TrackRecording, a subclass of Cl_Track) and the object property :hasSong linking a track recording to a song. This allows us – under the closed world assumption – to extract which song a given track (of type Cl_TrackRecording) is a recording of.
+
+For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?track ?trackName ?song ?songName
+WHERE {
+  ?track a :Cl_TrackRecording .
+  OPTIONAL { ?track :trackName ?trackName . }
+  ?track :hasSong ?song .
+  OPTIONAL { ?song :songName ?songName . }
+}
+
+This query retrieves tracks of type Cl_TrackRecording, their optional names, and the associated song (with its name) recorded by that track.

@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves each production (instance of Cl_ProductionPlay or similar) along with the play that forms the basis of that production:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?productionPlay a :Cl_ProductionPlay ;
+                  :hasProduction ?production ;
+                  :hasPlay ?play .
+  OPTIONAL { ?production :productionName ?productionName . }
+  OPTIONAL { ?play :playName ?playName . }
+}
+ORDER BY ?production
+-----------------------------------------------------------
+
+This query “walks” the relationship defined by the ontology—from a production play instance (which links a production with its underlying play) to the actual production and play—and retrieves their names. Under the closed world assumption, only those productions and plays explicitly stated in the ontology will be returned.

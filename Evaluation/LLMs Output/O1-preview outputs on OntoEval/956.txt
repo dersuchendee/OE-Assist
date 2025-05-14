@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+    :SpecificBookOrCD a ?pubType .
+    VALUES ?pubType { :Cl_Book :Cl_CD } .
+    :SpecificBookOrCD :contains ?article .
+    OPTIONAL { ?article :title ?articleTitle. }
+}
+```

@@ -1,0 +1,23 @@
+**Yes**
+Below is a SPARQL query that, given a specific date (here “2021-01-01” as an example), retrieves the organ along with its disposition and base stops recorded at that point in time:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?organ ?organLabel ?disposition ?date ?baseStop
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ rdfs:label ?organLabel . }
+  
+  ?organ :hasDisposition ?disposition .
+  ?disposition :hasDate ?date .
+  FILTER(?date = "2021-01-01"^^xsd:date) .
+  
+  ?disposition :hasBaseStop ?baseStop .
+}
+-----------------------------------------
+
+In this query the competency question "What was the disposition of the organ at a specific point in time?" is addressed by filtering the disposition records for a given date.

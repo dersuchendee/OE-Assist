@@ -1,0 +1,26 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world interpretation of the ontology, retrieves the articles (and their titles) that have been presented in a given seminar – for example, by filtering on a seminar individual such as :Ind_Seminar2008:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?title ?seminar ?date
+WHERE {
+  ?article a :Cl_Article ;
+           :dp_title ?title ;
+           :op_presentedIn ?presentation .
+           
+  ?presentation a :Cl_SeminarPresentation ;
+                :op_presents ?seminar .
+                
+  ?seminar a :Cl_Seminar ;
+           :dp_date ?date .
+           
+  # Specify the particular seminar (adjust as needed)
+  FILTER(?seminar = :Ind_Seminar2008)
+}
+ORDER BY ?article
+
+In this query the link from the article (:Cl_Article) to the presentation event (:Cl_SeminarPresentation) and then to the seminar (:Cl_Seminar) allows us to extract exactly the data asked by the CQ.

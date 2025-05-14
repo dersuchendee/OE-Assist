@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.ontologydesignpatterns.org/ont/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Hospital ;
+            rdfs:label ?hospitalLabel ;
+            :isLocatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  # Assuming "a certain hospital" is identified by its label:
+  FILTER(?hospitalLabel = "Ospedale Riunito delle Tre Valli")
+}
+```

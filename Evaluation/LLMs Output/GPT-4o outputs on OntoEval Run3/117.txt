@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate a festival with a specific location. The `hasLocation` property is defined for `Cl_TheatreFestival`, but there is no instance data or connection to specific festivals in the ontology. Therefore, a partial answer can be extracted by querying for festivals and their locations, but it will not provide specific festival instances or their locations.
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival :hasLocation ?location . }
+}
+```

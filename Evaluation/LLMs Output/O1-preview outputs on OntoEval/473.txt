@@ -1,0 +1,20 @@
+Answer: **No**
+
+```sparql
+SELECT ?person ?personName ?roleName
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :name ?personName .
+  
+  ?person :hasRole ?memberRole .
+  ?memberRole :roleName ?roleName .
+  
+  OPTIONAL {
+    ?memberRole :atTime ?timePeriod .
+    ?timePeriod :startDate ?startDate .
+    ?timePeriod :endDate ?endDate .
+  }
+}
+```
+
+This query extracts the roles associated with each person and any time periods if available. However, since the ontology does not link the `Cl_MemberRole` class to the `Cl_Band` class, we cannot determine the role a person has in a specific band at a certain point in time.

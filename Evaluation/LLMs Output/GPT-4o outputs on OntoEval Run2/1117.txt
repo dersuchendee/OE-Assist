@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to query for the previous activity performed by the user. The ontology includes a `previousActivity` property, but there is no data or structure in the ontology that indicates a sequence of activities or links between different activity instances to determine what was done previously.
+
+Partial SPARQL query to extract activities performed by the user:
+
+```sparql
+SELECT ?activity ?activityType
+WHERE {
+  ?activity a ?activityType .
+  ?activity :performedBy :User .
+}
+```

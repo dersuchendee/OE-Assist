@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "In what country is a certain region located?" can be answered using the provided ontology. The property `:isPartOf` connects regions to countries, allowing us to retrieve the country in which a region is located.
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region rdf:type :Cl_Region .
+  ?region :isPartOf ?country .
+}
+```
+
+This query selects all regions and their corresponding countries by utilizing the `:isPartOf` property, which relates instances of `:Cl_Region` to instances of `:Cl_Country`.

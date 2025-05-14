@@ -1,0 +1,16 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  ?production :reviews ?review .
+  ?review a :Cl_ProductionReview .
+  ?review :starRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+}
+```
+
+This SPARQL query retrieves the star ratings given by newspapers for productions. It queries for productions (`:Cl_Production`), their associated reviews (`:reviews`), the star ratings of those reviews (`:starRating`), and the newspapers that reviewed them (`:reviewedBy`). Optional labels for productions and newspapers are included for readability.

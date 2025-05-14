@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "During what time period was a certain album recorded?" can be answered using the ontology provided. The ontology includes classes and properties related to albums and their recording periods. Here's a SPARQL query to extract the recording period for a specific album:
+
+```sparql
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?recording rdf:type :Cl_Recording .
+  ?recording :recorded ?album .
+  ?recording :recordingStart ?recordingStart .
+  ?recording :recordingEnd ?recordingEnd .
+}
+```

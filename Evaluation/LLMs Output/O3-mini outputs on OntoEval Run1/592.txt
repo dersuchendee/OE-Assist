@@ -1,0 +1,18 @@
+**Yes**
+
+We can answer the CQ “When was a certain song composed?” by directly retrieving the composition date (using the :composedOn property) for songs in the ontology. For example, if we want to check the composition date of all songs (and then select the particular one of interest), a SPARQL query using a closed-world assumption can be written as follows:
+
+———————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?composedOn
+WHERE {
+  ?song rdf:type :Cl_Song ;
+        :composedOn ?composedOn .
+}
+ORDER BY ?song
+———————————————
+
+This query retrieves every song along with its composition date. For a “certain song,” you could add a FILTER or specify the song’s IRI (for example, if you know it’s :Hump_de_Bump).

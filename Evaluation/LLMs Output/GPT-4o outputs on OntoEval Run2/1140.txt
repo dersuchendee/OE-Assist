@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide a direct way to associate a user with their preferred movie categories. The ontology includes classes for users, movie categories, and user preferences, but it lacks a direct connection between a user and their preferred movie categories. The ontology uses a reification class `Cl_UserPreference` to connect users to movie categories, but there is no data property or object property that directly links a user to their preferred movie categories.
+
+Here is a SPARQL query to extract a partial answer, which would list user preferences and associated movie categories, but it does not directly answer the CQ:
+
+```sparql
+SELECT ?user ?categoryName
+WHERE {
+  ?user :hasPreference ?preference .
+  ?preference :prefersMovieCategory ?category .
+  ?category :hasCategoryName ?categoryName .
+}
+```

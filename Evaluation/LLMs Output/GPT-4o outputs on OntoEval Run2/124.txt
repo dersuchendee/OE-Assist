@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not contain any direct relationships or properties that connect plays to theatre festivals. Therefore, it is not possible to directly answer the competency question "What plays could be seen during a certain theatre festival?" using the given ontology. However, we can extract partial information about theatre festivals and productions, but not directly link them to specific plays.
+
+```sparql
+SELECT ?festival ?production
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalParticipation ?participation .
+  ?participation :hasProductionParticipation ?productionParticipation .
+  ?productionParticipation :isProductionOf ?production .
+}
+```

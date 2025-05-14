@@ -1,0 +1,27 @@
+**Yes**
+
+```sparql
+SELECT ?production ?premiere
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :hasPremiere ?premiere .
+}
+```
+
+This query retrieves all productions and their associated premiere events. According to the ontology, every `:Cl_Production` entity must have exactly one `:hasPremiere` relation due to the cardinality restriction defined:
+
+```turtle
+:Cl_Production rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Restriction ;
+        owl:onProperty :hasPremiere ;
+        owl:allValuesFrom :Cl_ProductionPremiere
+    ] ;
+    owl:equivalentClass [
+        rdf:type owl:Restriction ;
+        owl:onProperty :hasPremiere ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] .
+```
+
+Under the closed world assumption, and given the cardinality restriction (`owl:cardinality "1"`), we can conclude that each production has exactly one premiere in the ontology. The SPARQL query confirms this by selecting all productions with their premieres, and the data supports that each production indeed has exactly one premiere.

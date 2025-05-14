@@ -1,0 +1,18 @@
+**No**
+
+The ontology lacks sufficient definitions and relationships to fully answer the competency question "What is the user doing now?" Specifically, the ontology does not enable inferring the user's activity (e.g., brushing teeth) based on the provided properties such as being in the bathroom, facing the mirror, and holding an electric toothbrush.
+
+However, we can extract partial information about the user's current state:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?person ?location ?object ?facing
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :op_isIn ?location . }
+  OPTIONAL { ?person :op_isFacing ?facing . }
+  OPTIONAL { ?person :op_hasInHand ?object . }
+}
+```
+
+This query retrieves the person, their location, what they are facing, and what they have in hand. While it doesn't directly provide the activity they're engaged in, it gathers relevant information that could be used to infer the activity with additional reasoning not supported by the current ontology.

@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+The competency question "Which are the measures of the bell?" can be answered using the ontology provided. The ontology includes the `:Bell` class with associated properties for `:hasWeight`, `:hasHeight`, `:hasDiameter`, and `:hasThickness`, which represent the measures of the bell. Therefore, we can construct a SPARQL query to retrieve these measurements for any instances of `:Bell`.
+
+Here is the SPARQL query:
+
+```sparql
+SELECT ?bell ?weight ?height ?diameter ?thickness
+WHERE {
+  ?bell a :Bell .
+  OPTIONAL { ?bell :hasWeight ?weight . }
+  OPTIONAL { ?bell :hasHeight ?height . }
+  OPTIONAL { ?bell :hasDiameter ?diameter . }
+  OPTIONAL { ?bell :hasThickness ?thickness . }
+}
+```
+
+This query selects all instances of `:Bell` and retrieves their weight, height, diameter, and thickness if available. The `OPTIONAL` clauses ensure that the query does not fail if some measurements are missing, allowing for partial data retrieval in line with the closed world assumption.

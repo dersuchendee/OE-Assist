@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+```
+
+Explanation:
+The ontology includes the class Cl_Seminar and the data property seminarDate. Under the closed world assumption, we assume that only those seminars with an explicitly provided seminarDate have occurred. Thus, this SPARQL query can extract the date(s) when a seminar took place.

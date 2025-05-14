@@ -1,0 +1,17 @@
+**No**
+
+The ontology provides information about productions and their premiers through the `:hasPremier` property and the `:Cl_ProductionPremier` class. However, it does not specify that a production has **exactly one** premier—there are no cardinality constraints (like `owl:cardinality 1`) on the `:hasPremier` property. Under the closed-world assumption, we cannot conclude that each production has exactly one premier based solely on the ontology.
+
+Here's a SPARQL query to extract the productions and their premier dates:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+```
+
+This query retrieves productions and their associated premier dates, but it does not confirm that there is exactly one premier per production.

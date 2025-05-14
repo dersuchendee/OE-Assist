@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine which articles a specific book or CD is composed of. The ontology includes classes for publications, books, CDs, and articles, and there is a property `:containsArticle` that relates publications to articles. However, there is no specific property or class that directly links a specific book or CD to the articles it contains. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract some information about publications and articles:
+
+```sparql
+SELECT ?publication ?article
+WHERE {
+  ?publication a :Cl_Publication .
+  ?publication :containsArticle ?article .
+}
+```

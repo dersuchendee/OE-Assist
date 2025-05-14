@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/articlecollection#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?book ?title ?pageNumber
+WHERE {
+  ?book a :Book .
+  OPTIONAL { ?book rdfs:label ?title . }
+  ?book :pageNumber ?pageNumber .
+}
+```

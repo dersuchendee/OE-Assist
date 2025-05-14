@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?track ?musicalWork ?compositionDate
+WHERE {
+  # Specify the particular track of interest; here we use the individual :ind_HumpDeBumpTrack
+  :ind_HumpDeBumpTrack a :Cl_TrackRecording ;
+                       :op_isRecordingOf ?musicalWork .
+  OPTIONAL { ?musicalWork :dp_compositionDate ?compositionDate . }
+}
+```

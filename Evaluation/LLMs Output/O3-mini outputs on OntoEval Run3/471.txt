@@ -1,0 +1,30 @@
+**Yes**
+Below is an example SPARQL query that retrieves the role that a given person has in a given band at a specified point in time. (Replace the placeholder IRIs and date value with the actual ones from your data.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?startDate ?endDate
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :hasPerson <http://www.example.org/test#SomePerson> ;
+              :hasBand <http://www.example.org/test#SomeBand> ;
+              :hasRole ?role ;
+              :hasTimePeriod ?tp .
+              
+  ?tp :startDate ?startDate ;
+      :endDate ?endDate .
+  
+  # Check that the given date falls within the membership period
+  FILTER(xsd:date("2004-09-01") >= xsd:date(?startDate) &&
+         xsd:date("2004-09-01") <= xsd:date(?endDate))
+}
+--------------------------------------------------
+
+This query assumes that:
+• The reified membership is modelled via the class Cl_BandMembership.
+• The membership record includes a time period (with properties :startDate and :endDate) that bounds the period during which the role was valid.
+• You will substitute <http://www.example.org/test#SomePerson> and <http://www.example.org/test#SomeBand> with the IRIs corresponding to the queried person and band, and the date "2004-09-01" with the desired point in time.
+
+Under the closed world assumption, this query directly returns the role (and optionally the date bounds) for the person’s band membership valid at the specified time.

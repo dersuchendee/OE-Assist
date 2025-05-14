@@ -1,0 +1,19 @@
+**No**
+
+The given ontology lacks the necessary constructs to answer the competency question fully. Specifically, it does not include instance data for users, does not represent the current time, and lacks mechanisms to compare time values to determine if the current time falls within an abstract time defined by a user.
+
+However, we can extract a partial answer by listing the abstract times and their start and end times defined in the ontology.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?abstractTime ?startTime ?endTime
+WHERE {
+  ?abstractTime a :Cl_AbstractTime .
+  OPTIONAL { ?abstractTime :dp_hasStartTime ?startTime . }
+  OPTIONAL { ?abstractTime :dp_hasEndTime ?endTime . }
+}
+```
+
+This query retrieves all `Cl_AbstractTime` instances along with their start and end times. However, it does not determine the current abstract time according to a particular user.

@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology models the CQ “At least one article is always presented at each seminar” since seminar instances are linked (via reification) to articles through properties such as presentedIn (via a seminar presentation) or directly through presentedAt. Under the closed‐world assumption, we can query for each seminar the article(s) that are presented. For example, the following SPARQL query returns, for each seminar, the articles presented (using both modelling approaches):
+
+----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article a :Cl_Article .
+  {
+    ?article :presentedIn ?presentation .
+    ?presentation :seminar ?seminar .
+  }
+  UNION
+  {
+    ?article :presentedAt ?seminar .
+  }
+}
+----------------
+
+This query ensures that for every seminar found in the ontology there is at least one associated article, thereby supporting the CQ.

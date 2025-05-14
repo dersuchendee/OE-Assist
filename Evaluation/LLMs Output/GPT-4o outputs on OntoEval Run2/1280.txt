@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct connection between a musician and the location of their performance. The ontology defines a `PerformanceEvent` class that is associated with a `Location` through the `performedAt` property, but there is no direct link between a `Musician` and a `Location`. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract performance events and their locations:
+
+```sparql
+SELECT ?performanceEvent ?location
+WHERE {
+  ?performanceEvent a :PerformanceEvent .
+  ?performanceEvent :performedAt ?location .
+}
+```

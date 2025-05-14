@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that—assuming the ontology’s use of the Cl_Performance class and the object property featuresSong (which links a performance to its played songs)—retrieves the songs played in a specified performance:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance ;
+               :featuresSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+  # Filter to a specific performance (replace :Performance1 with the URI of the performance in question)
+  FILTER (?performance = :Performance1)
+}
+------------------------------------------------
+
+In a closed-world scenario, only those songs explicitly related via the :featuresSong property will be returned.

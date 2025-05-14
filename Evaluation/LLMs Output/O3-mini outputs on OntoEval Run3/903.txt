@@ -1,0 +1,42 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed world assumption, retrieves the union role membership information (i.e. the role a person has within a union group during given dates). Note that in this query you can substitute a specific person, union group, and a time point for filtering as needed.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?group ?groupLabel ?role ?roleLabel ?membership ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Link person with its union role membership
+  ?person :hasRoleMembership ?membership .
+  ?membership a :Cl_UnionRoleMembership .
+  
+  # Retrieve the union role and the union group from the membership
+  ?membership :roleOfMembership ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?membership :roleMembershipIn ?group .
+  OPTIONAL { ?group rdfs:label ?groupLabel . }
+  
+  # Get the times
+  ?membership :roleStartDate ?roleStartDate .
+  OPTIONAL { ?membership :roleEndDate ?roleEndDate . }
+  
+  # Filter to a specific time point (e.g., "2001-09-21") if desired.
+  # The following filter ensures that the given date lies after the roleStartDate 
+  # and (if available) before the roleEndDate.
+  FILTER ( "2001-09-21"^^xsd:date >= ?roleStartDate 
+           && ( !bound(?roleEndDate) || "2001-09-21"^^xsd:date <= ?roleEndDate ) )
+  
+  # If you want to narrow down to a specific person or union, add filters. For example:
+  # FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  # FILTER(?group = <http://www.example.org/test#OspedaleRiunitoDelleTreValli>)
+}
+--------------------------------------------------
+
+In this query the ontology supports the competency question because the reified union membership (modeled by the class Cl_UnionRoleMembership) connects a person, a union group, and a union role along with the time interval during which the role was held.

@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to associate water bodies with specific water basins through a property or class that directly answers the competency question. The ontology includes classes and properties related to water bodies and basins, but the relationship between a specific water body and a specific water basin is not explicitly defined in a way that can be queried directly.
+
+Partial answer:
+```sparql
+SELECT ?waterBody ?waterBasin
+WHERE {
+  ?waterBody a :Cl_WaterBody .
+  ?waterBody :op_belongsTo ?waterBasin .
+}
+```

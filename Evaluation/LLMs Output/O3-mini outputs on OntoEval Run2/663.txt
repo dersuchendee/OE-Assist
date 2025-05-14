@@ -1,0 +1,27 @@
+**Yes**
+
+The following SPARQL query retrieves the songs that were played in a specific performance. In this example the performance is assumed to be known (here :PortlandPerformance), from which the query finds the associated performance setlist, and then extracts the songs included:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceLabel ?song ?songLabel
+WHERE {
+  # A performance setlist links a performance with its songs
+  ?setlist a :Cl_PerformanceSetlist ;
+           :performedIn ?performance ;
+           :includesSong ?song .
+  
+  # Optionally retrieve human‐readable labels
+  OPTIONAL { ?performance rdfs:label ?performanceLabel. }
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+  
+  # Filter for a specific performance (e.g., PortlandPerformance)
+  FILTER(?performance = :PortlandPerformance)
+}
+ORDER BY ?songLabel
+----------------------------------
+
+In a closed world scenario, if no songs are asserted for a given performance the query returns no results, effectively showing complete information available from the ontology.

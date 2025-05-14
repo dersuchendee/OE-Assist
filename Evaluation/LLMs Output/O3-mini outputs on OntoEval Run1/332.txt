@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the star rating given by a specific newspaper for a specific theatre production. In this query, you would replace the placeholder IRI (or string) for the newspaper and production as needed.
+
+------------------------------------------------
+PREFIX : <http://example.org/theatreontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?starRating ?newspaper ?newspaperName
+WHERE {
+  ?production a :TheatreProduction .
+  OPTIONAL { ?production :hasName ?productionName . }
+  
+  ?production :hasReview ?review .
+  ?review :hasStarRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  OPTIONAL { ?newspaper :hasName ?newspaperName . }
+  
+  # Filter for a specific newspaper and/or production
+  FILTER(?newspaper = <http://example.org/theatreontology#SomeNewspaperIRI>)
+  FILTER(?production = <http://example.org/theatreontology#SomeProductionIRI>)
+}
+------------------------------------------------
+
+This query assumes that the ontology provides the classes and properties (:TheatreProduction, :hasReview, :hasStarRating, and :reviewedBy) required to answer the CQ under the closed world assumption.

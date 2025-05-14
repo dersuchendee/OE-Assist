@@ -1,0 +1,31 @@
+**Yes**
+
+Assuming that the “certain band” is represented by an instance (or variable) of :Cl_Band and that membership over time is modelled using the reified class :Cl_Membership with properties :membershipStart, :membershipEnd, and :membershipIn (linking the membership to the band) as well as linking persons to their memberships via :hasMembership, we can write a SPARQL query to extract the band members at a given point in time. Under the closed world assumption, only those memberships with explicit start and end dates are considered.
+
+For example, given a band (specified via ?band) and a time parameter ?time (an xsd:date), the query would be:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?membership ?start ?end
+WHERE {
+  ?membership a :Cl_Membership .
+  ?membership :membershipIn ?band .
+  ?membership :membershipStart ?start .
+  ?membership :membershipEnd ?end .
+  FILTER(?start <= ?time && ?time <= ?end) .
+
+  ?person :hasMembership ?membership .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+}
+--------------------------------------------------
+
+In this query:
+• ?band is the band of interest.
+• ?time is the specific date (of type xsd:date) at which we want to know the band members.
+• We select those memberships whose start is on or before ?time and whose end is on or after ?time.
+• Then we retrieve the corresponding persons (band members).
+
+Thus, the ontology supports the competency question "What are the members of a certain band at a certain point in time?" under the closed world assumption.

@@ -1,0 +1,15 @@
+**Yes**
+
+We can answer the CQ from the ontology by retrieving all individuals of type Recording that are related to one or more Bells via the property :involvesBell. For example, using a GROUP_CONCAT to collect the bells per recording:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?recording (GROUP_CONCAT(?bell; separator=", ") AS ?bells)
+WHERE {
+  ?recording a :Recording .
+  ?recording :involvesBell ?bell .
+}
+GROUP BY ?recording
+----------------------------------------------------

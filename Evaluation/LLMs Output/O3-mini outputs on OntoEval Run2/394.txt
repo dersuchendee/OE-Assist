@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that the ontology’s Cl_RoleAssignment is used to capture a person’s role in a production (via the object property “assignedRole” from Cl_Production to Cl_RoleAssignment, and with Cl_RoleAssignment relating to a Cl_Person via “roleOf” and carrying the role’s name as “roleName” and the date associated with the role as “roleDate”), we can write a SPARQL query that—given a specific person, a specific production, and a certain date—extracts that person’s roles.
+
+For example, if we use placeholder URIs for the target person and production and a given date, the query might look like this:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleDate
+WHERE {
+  ?production a :Cl_Production ;
+              :assignedRole ?roleAssignment .
+  ?roleAssignment :roleOf ?person ;
+                  :roleName ?roleName ;
+                  :roleDate ?roleDate .
+  FILTER(?person = <http://www.example.org/test#TargetPerson> &&
+         ?production = <http://www.example.org/test#TargetProduction> &&
+         ?roleDate = "2009-09-14"^^xsd:date)
+}
+----------------------------------------------------------------
+
+In this query replace <http://www.example.org/test#TargetPerson>, <http://www.example.org/test#TargetProduction>, and the date "2009-09-14" with the specific person, production, and point in time required by the competency question.

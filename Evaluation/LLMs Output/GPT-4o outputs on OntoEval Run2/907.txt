@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role within a union at a specific point in time. The ontology includes classes and properties related to unions, roles, and time, but it lacks a direct connection between a person, their role, and the time at which they hold that role within a union.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?union ?role
+WHERE {
+  ?person a :Person .
+  ?person :hasRole ?role .
+  ?role a :UnionRole .
+  ?role :withinUnion ?union .
+}
+```
+
+This query retrieves the person, their role, and the union they are associated with, but it does not include the specific point in time when the role is held.

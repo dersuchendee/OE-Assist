@@ -1,0 +1,34 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific person, band, and point in time, retrieves the role held by that person in that band during that time:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?roleName ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person .
+  ?band a :Cl_Band .
+
+  ?person :hasMembership ?membership .
+  ?membership :membershipInBand ?band .
+  ?membership :membershipStart ?membershipStart .
+  ?membership :membershipEnd ?membershipEnd .
+  ?membership :hasRole ?role .
+  ?role :roleName ?roleName .
+
+  # Assume the query input time is passed as ?pointInTime.
+  # For example, you may bind ?pointInTime externally or use a literal:
+  FILTER( ?pointInTime >= ?membershipStart && ?pointInTime <= ?membershipEnd )
+}
+------------------------------------------------
+
+In this query the following holds under the closed world assumption:
+
+• A person’s memberships are explicitly recorded via the :hasMembership property.
+• Each membership associates the person to a band via :membershipInBand.
+• The time-bounds for a membership are given by :membershipStart and :membershipEnd.
+• The role for that membership is indicated by the :hasRole property and its associated :roleName.
+
+Thus, the ontology fully supports the competency question.

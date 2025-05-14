@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What play is the basis of this production?" can be answered using the ontology provided. The ontology includes the class `Cl_Production` and the object property `basedOn` which links a production to a play (`Cl_Play`). Therefore, we can write a SPARQL query to extract the play that is the basis of a given production.
+
+```sparql
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOn ?play .
+}
+```

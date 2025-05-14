@@ -1,0 +1,17 @@
+**No**
+
+While the ontology defines a class for cities (Cl_City) and properties that relate a city to a country‐location (locatedInCountry) and from there to a country (country), these pieces are not connected through a reified class (e.g. Cl_Membership) that would fully model the CQ. Therefore, under a closed‐world assumption the CQ “In what country is a certain city located?” cannot be completely answered, but we can retrieve a partial answer with the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?country
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :locatedInCountry ?countryLocation .
+  ?countryLocation :country ?country .
+}
+--------------------------------------------------
+
+This query returns the cities along with the country information available in the ontology.

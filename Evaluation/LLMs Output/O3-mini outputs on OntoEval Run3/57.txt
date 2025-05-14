@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming that “this material” is provided (for example, as a URI in the query), we can answer the CQ by retrieving the reified material composition (an instance of Cl_MaterialComposition) that links the given material with its associated property and provenance. Under the closed‐world assumption (i.e. only the explicitly asserted triples hold), the following SPARQL query extracts the full composition details for a given material:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?composition ?property ?provenance
+WHERE {
+  ?composition a :Cl_MaterialComposition .
+  ?composition :hasMaterial ?material .
+  FILTER(?material = <http://www.example.org/test#YourMaterialInstance>) .
+  OPTIONAL { ?composition :hasProperty ?property . }
+  OPTIONAL { ?composition :hasProvenance ?provenance . }
+}
+------------------------------------------------
+
+Replace <http://www.example.org/test#YourMaterialInstance> with the specific material instance URI of interest. This query returns the composition (the reified instance), along with its associated property and provenance, which together describe the composition of the given material.

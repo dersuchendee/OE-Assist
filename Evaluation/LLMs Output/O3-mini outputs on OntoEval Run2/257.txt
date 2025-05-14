@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  ?play :op_hasWritingPeriod ?wp .
+  ?wp :dp_startYear ?startYear ;
+      :dp_endYear ?endYear .
+}
+```

@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the medical degrees for a given person (by name) using both the direct object property and the reified study‐for‐degree pattern. Under the closed world assumption, we assume that the individual “Pasquale Di Gennaro” is explicitly represented (by a label or URI) in the ontology.
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?degree ?degreeLabel ?studyStart ?studyEnd
+WHERE {
+  {
+    # Direct modeling: the person has a medical degree via :hasMedicalDegree
+    ?person a :Cl_Person ;
+            rdfs:label "Pasquale Di Gennaro" ;
+            :hasMedicalDegree ?degree .
+    OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  }
+  UNION
+  {
+    # Reification modeling: the study period for the degree
+    ?study a :Cl_StudyForDegree ;
+           :hasStudent ?person ;
+           :hasDegree ?degree .
+    ?person rdfs:label "Pasquale Di Gennaro" .
+    OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+    OPTIONAL { ?study :studyStartDate ?studyStart . }
+    OPTIONAL { ?study :studyEndDate ?studyEnd . }
+  }
+}
+ORDER BY ?degree
+—————————————————————————————
+
+This query shows that the competency question “What medical degrees does a certain person have?” is answerable using the given ontology.

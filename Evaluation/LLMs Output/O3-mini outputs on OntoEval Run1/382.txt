@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the roles held by a given actor in a given production at a specified date:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?role ?roleLabel ?production ?productionLabel ?roleDate
+WHERE {
+  ?role a :Cl_ActorRole ;
+        :playedBy ?actor ;
+        :inProduction ?production ;
+        :date ?roleDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  # Replace the values below with the actual IRIs and date for your query:
+  FILTER (?actor = :Fabio_Bianchi)
+  FILTER (?production = :MerchantOfVenice_Production)
+  FILTER (?roleDate = "2009-09-07"^^xsd:date)
+}
+ORDER BY ?roleDate
+---------------------------------
+
+In this query the reified role instance (?role) connects a person (via :playedBy), a production (via :inProduction), and the time when that role was performed (via :date). This fully supports the competency question.

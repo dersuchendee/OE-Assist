@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming the ontology is modeled (using the class Cl_UnionMembership, along with properties memberOf, union, membershipStartDate, and membershipEndDate) and applying a closed‐world view, you can answer “Who are the members of a certain union at a certain point in time?” by selecting persons whose union membership is active at that given time. For example, given a specific union (e.g. the union’s URI provided as ?givenUnion) and a particular time (provided as ?pointTime), the following SPARQL query returns the persons whose membership covers that point:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person 
+WHERE {
+  ?person a :Cl_Person ;
+          :memberOf ?membership .
+  ?membership :union ?union ;
+              :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  FILTER( ?union = <http://www.example.org/test#givenUnion> &&
+          xsd:dateTime(?pointTime) >= xsd:dateTime(?start) &&
+          ( !bound(?end) || xsd:dateTime(?pointTime) <= xsd:dateTime(?end) ) )
+}
+------------------------------------------------
+
+In this query, you would replace <http://www.example.org/test#givenUnion> with the actual union resource and bind ?pointTime (e.g. "2003-01-01T00:00:00"^^xsd:dateTime) to the time at which you want to check membership.

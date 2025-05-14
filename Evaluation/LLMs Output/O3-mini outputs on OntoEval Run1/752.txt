@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming a closed‐world view (i.e. if a record is present then the absence of an explicit track means it really has none), we can check that every instance of a record (of type :Cl_Record) has an associated track by the reified property :containsTrack linking to an instance of :Cl_RecordTrack (which is a subclass of both :Cl_Record and :Cl_Track). For example, the following SPARQL query retrieves each record along with its track instance:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?record ?recordTrack
+WHERE {
+  ?record a :Cl_Record.
+  ?record :containsTrack ?recordTrack.
+  ?recordTrack a :Cl_RecordTrack.
+  ?recordTrack :containedInRecord ?record.
+}
+ORDER BY ?record
+--------------------------------------------------
+
+This query shows that each record has at least one associated track, thereby answering the competency question.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, returns the actors (members) of a chosen ensemble at a specific date. (Replace <targetEnsembleURI> with the URI of the ensemble of interest and “YYYY‐MM‐DD” with the desired date.)
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?membership ?actorName ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership ;
+              :actorName ?actorName ;
+              :membershipDate ?membershipDate .
+  
+  # Restrict to a specific ensemble and a given membership date (the “point in time”)
+  FILTER(?ensemble = <targetEnsembleURI>)
+  FILTER(?membershipDate = "YYYY-MM-DD"^^xsd:date)
+}
+—————————————————————————————
+
+This query shows that the ontology models the competency question “Who are the members of a certain ensemble at a certain point in time?” by retrieving, for a given ensemble, the actor names (via the reified membership instances) whose membership date matches the specified date.

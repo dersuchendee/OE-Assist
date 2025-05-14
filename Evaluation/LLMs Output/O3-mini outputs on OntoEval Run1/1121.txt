@@ -1,0 +1,15 @@
+**No**
+
+The ontology only associates a user with their abstract time definitions (e.g., the start and end times for “Morning”), but it does not provide a mechanism (or include the current time) to determine which abstract time applies “now.” Under a closed world assumption, we cannot determine the current abstract time without additional explicit data linking the current time to one of the defined abstract time intervals. The following partial SPARQL query retrieves the abstract time definition for a particular user:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?abstractTime ?abstractTimeLabel ?startTime ?endTime
+WHERE {
+  :User1234 :hasAbstractTimeDefinition ?abstractTime .
+  ?abstractTime rdfs:label ?abstractTimeLabel .
+  ?abstractTime :hasStartTime ?startTime .
+  ?abstractTime :hasEndTime ?endTime .
+}

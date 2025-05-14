@@ -1,0 +1,29 @@
+**Yes**
+
+Below is a SPARQL query that, when given a particular person, a particular production, and a specific date, returns the roles that person held during that production at that point in time. In this query the production is linked via the property :hasRoleAssignment, and each assignment provides a :roleActor, a :role, and the start/end dates of the role assignment. The time check is done by ensuring that the given date is later than or equal to the role’s :roleStartDate and, if an end date is specified, earlier than or equal to the :roleEndDate.
+
+For example, to check for the roles of a given actor (replace <Actor_URI>) in a specific production (replace <Production_URI>) at a given date (for example, "2009-09-10"), the query is:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleStartDate ?roleEndDate
+WHERE {
+  ?production :hasRoleAssignment ?assignment .
+  ?assignment :roleActor ?person ;
+              :role ?role ;
+              :roleStartDate ?roleStartDate .
+  OPTIONAL { ?assignment :roleEndDate ?roleEndDate . }
+  FILTER(
+      ?person = <http://www.example.org/test#Actor_FabioBianchi> &&
+      ?production = <http://www.example.org/test#Production_GrandTheatre_MerchantOfVenice> &&
+      "2009-09-10"^^xsd:date >= ?roleStartDate &&
+      ( !bound(?roleEndDate) || "2009-09-10"^^xsd:date <= ?roleEndDate )
+  )
+}
+ORDER BY ?roleStartDate
+---------------------------------
+
+This query answers the CQ “What roles does a certain person have within a certain production at a certain point in time?” using the actor role assignments modeled in the ontology.

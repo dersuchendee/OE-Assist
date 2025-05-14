@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves theatre festivals along with their occurrence’s location:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?occurrence ?city ?cityLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasFestivalOccurrence ?occurrence .
+  ?occurrence :festivalLocation ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel }
+}
+-------------------------------------------------------------
+
+This query assumes the closed world perspective where all relevant relationships (like a festival’s occurrence and its associated location) are explicitly stated in the ontology.

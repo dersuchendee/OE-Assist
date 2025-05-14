@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves each album’s name together with the number of tracks it contains:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumName ?trackCount
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasName ?albumName .
+
+  # The ontology models the track count via a reified class,
+  # where the album is linked to an album track info individual that holds the track count
+  ?album :hasTrackCount ?trackInfo .
+  ?trackInfo :hasTrackCount ?trackCount .
+}
+ORDER BY ?albumName
+--------------------------------------------------
+
+This query answers the competency question “How many tracks does a particular album contain?” by selecting albums with their corresponding track count.

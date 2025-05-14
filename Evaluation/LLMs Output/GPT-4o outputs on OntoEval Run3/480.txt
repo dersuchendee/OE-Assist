@@ -1,0 +1,16 @@
+**No**
+
+The competency question asks for the role of a certain person in a certain band at a certain point in time. The ontology provides information about band membership and roles, but it does not explicitly connect a person's role to a specific point in time. The ontology includes `Cl_BandRole` and `roleTime`, but it does not provide a direct way to query for a person's role at a specific time.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?role ?band ?roleTime
+WHERE {
+  ?bandRole a :Cl_BandRole ;
+            :roleOf ?person ;
+            :hasRole ?role ;
+            :roleInBand ?band ;
+            :roleTime ?roleTime .
+}
+```

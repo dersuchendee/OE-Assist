@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/ticketing#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?ticketOption ?defaultValue
+WHERE {
+  ?user a :User .
+  ?user :hasUserPreference ?preference .
+  ?preference :appliesTo ?ticketOption .
+  ?preference :hasDefaultValue ?defaultValue .
+}
+```

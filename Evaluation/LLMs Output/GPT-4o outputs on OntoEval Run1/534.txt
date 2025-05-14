@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "How many tracks does a particular album contain?" can be answered using the ontology provided. The ontology includes the class `Cl_AlbumTrackCount` which is a subclass of `Cl_Album`, and it has a datatype property `trackCount` that specifies the number of tracks in an album. Therefore, we can write a SPARQL query to extract the number of tracks for a particular album.
+
+```sparql
+SELECT ?album ?trackCount
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTracks ?trackCountInfo .
+  ?trackCountInfo :trackCount ?trackCount .
+}
+```

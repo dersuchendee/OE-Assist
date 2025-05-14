@@ -1,0 +1,21 @@
+**Yes**
+
+The competency question is supported by the ontology, as it involves retrieving monitoring sites that have registered observations for a specified water quality parameter and the times when these measurements were recorded. The ontology provides the necessary classes and properties to construct a SPARQL query to answer this question.
+
+```sparql
+SELECT ?monitoringSite ?observation ?time
+WHERE {
+  ?monitoringSite a :MonitoringSite .
+  ?monitoringSite :hasObservation ?observation .
+
+  ?observation a :WaterQualityObservation .
+  ?observation :observesParameter ?parameter .
+  ?observation :recordedAtTime ?time .
+
+  # Filter for the specified water quality parameter
+  FILTER(?parameter = <specified_water_quality_parameter_URI>)
+}
+ORDER BY ?monitoringSite ?time
+```
+
+Replace `<specified_water_quality_parameter_URI>` with the actual URI of the water quality parameter you are interested in. This query retrieves the monitoring sites, their observations, and the times when these observations were recorded for the specified parameter.

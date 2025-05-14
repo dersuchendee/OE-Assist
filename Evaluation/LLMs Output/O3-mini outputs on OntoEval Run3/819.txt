@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that individuals in the ontology are correctly instantiated (for example, Pasquale Di Gennaro as an instance of :Cl_Person and Ospedale Riunito delle Tre Valli as an instance of :Cl_Hospital) and that employment events are recorded as instances of :Cl_Employment with an associated date via the property :employmentDate, the competency question “When was a certain person first employed at a certain hospital?” is answerable. Under the closed world assumption we expect that only recorded employments exist and we can use the SPARQL MIN aggregate function to retrieve the earliest employment date.
+
+For example, you might write a query like the following (replace the instance IRIs with the ones in your data):
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employment .
+  ?employment :atHospital ?hospital .
+  ?employment :employmentDate ?employmentDate .
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  FILTER(?hospital = <http://www.example.org/test#OspedaleRiunitoDelleTreValli>)
+}
+GROUP BY ?person ?hospital
+---------------------------------------
+
+This query finds the employment events relating to the specified person and hospital, and then selects the minimal employment date, which is interpreted as the first employment date.

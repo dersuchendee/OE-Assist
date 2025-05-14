@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What role do aquifer fungi play in the biogeochemical cycling within aquifers?" is supported by the ontology. The ontology defines the class `Fungi` as a subclass of `Microbe` that occupies the habitat `Aquifer` and plays a role in `BiogeochemicalCycleInAquifer`. This allows us to query the role of fungi in the biogeochemical cycling within aquifers.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?fungi ?role
+WHERE {
+  ?fungi a :Fungi .
+  ?fungi :playsRoleIn ?role .
+  ?role a :BiogeochemicalCycleInAquifer .
+}
+```

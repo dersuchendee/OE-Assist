@@ -1,0 +1,20 @@
+**No**
+
+The ontology does not fully support this CQ because the recording period is modelled only for instances of Cl_AlbumRecording and there is no explicit link between a general album (instance of Cl_Album) and its recording period information. Under the closed world assumption, we can only extract recording dates from those albums that are directly typed as Cl_AlbumRecording.
+
+A partial answer can be obtained by the following SPARQL query, which retrieves albums (that are also Cl_AlbumRecording) along with their recording start and end dates:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (SAMPLE(?albumLabel) AS ?label) ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_AlbumRecording ;
+         :dp_recordingStartDate ?recordingStart ;
+         :dp_recordingEndDate ?recordingEnd .
+  OPTIONAL { ?album rdfs:label ?albumLabel. }
+}
+GROUP BY ?album ?recordingStart ?recordingEnd
+
+This query only returns an answer for albums defined as Cl_AlbumRecording, not for all Cl_Album individuals, which is why the CQ is only partially answerable by the given ontology.

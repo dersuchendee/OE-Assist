@@ -1,0 +1,34 @@
+**Yes**
+
+We can answer the CQ using the ontology by retrieving individuals that are members of an ensemble and whose membership (represented by a time interval on the individual via ns1:hasTimeInterval) covers the queried point in time. Under the closed‐world assumption, if an individual lacks an associated time interval, it is not considered a member at that time. For example, given a particular ensemble (e.g. ns1:SomeEnsemble) and a chosen point in time, the query below retrieves the individuals whose membership interval (with properties ns1:startTime and ns1:endTime) contains that time.
+
+Below is an example SPARQL query (you would replace ns1:SomeEnsemble and the fixed point in time with your desired parameters):
+
+-----------------------------------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?individual ?individualLabel ?ensemble ?ensembleLabel ?startTime ?endTime
+WHERE {
+  # Specify the ensemble of interest  
+  BIND(ns1:SomeEnsemble AS ?ensemble) .
+
+  ?individual ns1:memberOf ?ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  
+  ?individual ns1:hasTimeInterval ?interval .
+  ?interval ns1:startTime ?startTime .
+  ?interval ns1:endTime ?endTime .
+  
+  # The chosen point in time (update as needed)
+  BIND("2009-09-10T00:00:00+00:00"^^xsd:dateTime AS ?queryTime) .
+  
+  # Check that the query time falls within the membership interval
+  FILTER(?queryTime >= ?startTime && ?queryTime <= ?endTime) .
+
+  OPTIONAL { ?individual rdfs:label ?individualLabel . }
+}
+-----------------------------------------------------------
+
+This query lists the individuals that are members of the specified ensemble at the given point in time by filtering the membership intervals accordingly.

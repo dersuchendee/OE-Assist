@@ -1,0 +1,24 @@
+**Yes**
+Below is one SPARQL query that “mines” the class‐axioms (using the owl restriction triples) to extract Rubisco’s role—in the context that Rubisco is asserted both to have a role (via :hasRole) and to catalyze the CO2 fixation process (via :catalyzesProcess):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  # Get the restriction on Rubisco indicating its role
+  :Rubisco rdfs:subClassOf ?res1 .
+  ?res1 owl:onProperty :hasRole ;
+        owl:someValuesFrom ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+
+  # Ensure that Rubisco is defined as participating in the CO2 fixation process
+  :Rubisco rdfs:subClassOf ?res2 .
+  ?res2 owl:onProperty :catalyzesProcess ;
+        owl:someValuesFrom :CO2FixationProcess .
+}
+—————————————————————————————
+
+Under the closed world assumption, this query uses the explicit OWL axioms (expressed via blank nodes and restrictions) to show that Rubisco plays the role ?role (typically a :CatalystRole) when it comes to CO2 fixation.

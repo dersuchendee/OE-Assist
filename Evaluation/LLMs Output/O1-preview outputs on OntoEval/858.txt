@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?cityLabel ?countryLabel WHERE {
+  ?city a :City .
+  ?city rdfs:label ?cityLabel .
+  ?city :isLocatedIn ?country .
+  ?country rdfs:label ?countryLabel .
+}
+```

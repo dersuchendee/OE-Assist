@@ -1,0 +1,40 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+SELECT ?starRating
+WHERE {
+  ?review a ns1:Review ;
+          ns1:reviewOf ?production ;
+          ns1:publishedBy ?newspaper ;
+          ns1:starRating ?starRating .
+  FILTER (?production = <http://example.org/ontology/theatre#MerchantOfVenice_GrandTheatre> &&
+          ?newspaper = <http://example.org/ontology/theatre#IlGazzettino>)
+}
+```
+
+This query retrieves the star rating given by a specific newspaper for a specific production by utilizing the relationships defined in the ontology:
+
+- **ns1:Review** represents reviews.
+- **ns1:reviewOf** associates a review with the production it assesses.
+- **ns1:publishedBy** links the review to the newspaper that published it.
+- **ns1:starRating** provides the star rating given in the review.
+
+By specifying the production and newspaper URIs in the FILTER clause, the query focuses on the desired entities. If you want to retrieve star ratings for all productions and newspapers, you can remove the FILTER clause:
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?newspaper ?newspaperLabel ?starRating
+WHERE {
+  ?review a ns1:Review ;
+          ns1:reviewOf ?production ;
+          ns1:publishedBy ?newspaper ;
+          ns1:starRating ?starRating .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  OPTIONAL { ?newspaper rdfs:label ?newspaperLabel . }
+}
+```
+
+This version retrieves all star ratings given by any newspaper for any production, along with their labels for better readability.

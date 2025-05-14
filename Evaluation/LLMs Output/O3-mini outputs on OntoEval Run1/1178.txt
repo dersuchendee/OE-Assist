@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?mountingSystem ?mountingLabel ?executionTechnique ?executionLabel
+WHERE {
+  ?mountingSystem a :MountingSystem .
+  OPTIONAL { ?mountingSystem rdfs:label ?mountingLabel . }
+  ?mountingSystem :hasPossibleExecutionTechnique ?executionTechnique .
+  OPTIONAL { ?executionTechnique rdfs:label ?executionLabel . }
+}
+```

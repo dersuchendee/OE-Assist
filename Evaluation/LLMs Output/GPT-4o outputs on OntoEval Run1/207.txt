@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not have a direct connection between a production and the play it is based on. The ontology includes classes and properties related to productions, plays, and their relationships, but it lacks a direct way to query which play is the basis of a specific production. Here's a SPARQL query to extract a partial answer, focusing on productions and their titles:
+
+```sparql
+SELECT ?production ?playTitle
+WHERE {
+  ?production a :Cl_Production .
+  ?production :isBasedOn ?productionBase .
+  ?productionBase :playTitle ?playTitle .
+}
+```
+
+This query attempts to retrieve the play titles associated with productions, but without a direct link to the specific play that serves as the basis for each production, it cannot fully answer the competency question.

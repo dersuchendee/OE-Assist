@@ -1,0 +1,28 @@
+**Yes**
+
+Below is a SPARQL query that retrieves for each monitoring point the recorded physical parameter(s) along with the time and corresponding value of each measurement. Under the closed‐world assumption (i.e. only explicitly provided assertions are considered), this query lists all monitoring points that have a measurement linking to a physical parameter and includes the measurement’s time and value.
+
+-------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel. }
+  
+  ?monitoringPoint :hasMeasurement ?measurement .
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel. }
+  
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time 
+
+-------------------------------------------------
+
+This query directly extracts the answer to the competency question:
+"What physical parameters have been recorded at each monitoring point, and how do these measurements vary over time?"

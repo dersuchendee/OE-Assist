@@ -1,0 +1,21 @@
+**No**
+
+The ontology does capture some aspects of "resources" (their type, composition, and usage in a circular value network) but the CQ “Give me information about this resource” cannot be fully answered using a reified/pivot structure in the ontology (i.e. a dedicated membership class such as Cl_ResourceUsage linking all the relevant details) as required. A partial answer is possible by querying for the basic resource properties.
+
+For example, a partial SPARQL query extracting available resource details is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?resource ?composition ?compositionLevel ?resourceType ?partOf ?usedIn ?mainFocusOf
+WHERE {
+  ?resource a :Cl_Resource .
+  OPTIONAL { ?resource :hasComposition ?composition. }
+  OPTIONAL { ?resource :hasCompositionLevel ?compositionLevel. }
+  OPTIONAL { ?resource :isTypeOf ?resourceType. }
+  OPTIONAL { ?resource :isPartOf ?partOf. }
+  OPTIONAL { ?resource :usedIn ?usedIn. }
+  OPTIONAL { ?resource :mainFocusOf ?mainFocusOf. }
+} 
+
+# Under the closed world assumption, only explicitly asserted information is returned.

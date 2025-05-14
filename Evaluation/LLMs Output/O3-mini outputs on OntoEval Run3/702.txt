@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ “In what region is a certain city located?” because the geo ontology models cities and regions along with an explicit property (isPartOf) connecting a city to the region it belongs to. Under the closed world assumption, if a city has an explicitly defined isPartOf relation to a region, we are able to extract the information with a SPARQL query. For example, to retrieve the city’s name and its region’s name you could write:
+
+------------------------------------------------
+PREFIX geo: <http://example.org/geo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityName ?region ?regionName
+WHERE {
+  ?city a geo:City ;
+        geo:placeName ?cityName ;
+        geo:isPartOf ?region .
+  ?region a geo:Region ;
+          geo:placeName ?regionName .
+  # Optionally, if you want to filter on a particular city name:
+  # FILTER(LCASE(?cityName) = "portland")
+}
+------------------------------------------------
+
+This query uses the isPartOf relationship defined in the ontology and retrieves both the city (and its label) and the region where that city is located.

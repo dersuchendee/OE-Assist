@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that answers the CQ “What role does a certain person have in a certain band at a certain point in time?” using the reified relationship modeling in the ontology:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?time
+WHERE {
+  ?membership a :Cl_PersonRoleBandTime ;
+              :hasPerson ?person ;
+              :hasBand ?band ;
+              :hasRole ?role ;
+              :hasTime ?time .
+  # Example: Retrieve the role of JohnFrusciante in the RedHotChiliPeppers at the time "1988-01-01T00:00:00"
+  FILTER(?person = :JohnFrusciante && ?band = :RedHotChiliPeppers && ?time = "1988-01-01T00:00:00"^^xsd:dateTime)
+}
+------------------------------------------------------------
+
+This query shows that the ontology reifies the relationship (by means of a class that is a subclass of Cl_PersonRoleBandTime) connecting a person, a role, and a band at a specific time—thus fully supporting the competency question.

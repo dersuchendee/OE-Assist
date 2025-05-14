@@ -1,0 +1,17 @@
+**No**  
+The ontology does not include any explicit modelling of recordings (e.g. a Recording class or a property that links sound documents or recordings to bells). However, a partial answer can be obtained by retrieving the bells and sets of bells available in the ontology, which could then be further investigated for recording-related information if available. For instance:
+
+-------------------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellOrSet ?label
+WHERE {
+  { ?bellOrSet a bells:Bell . }
+  UNION
+  { ?bellOrSet a bells:SetOfBells . }
+  OPTIONAL { ?bellOrSet rdfs:label ?label . }
+}
+-------------------------------------------------------------
+
+This query extracts the instances of Bell and SetOfBells. It provides a partial answer even though recordings have not been modelled in the current ontology.

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?startDate ?endDate
+WHERE {
+  ?album a ns1:Album .
+  ?album ns1:hasRecordingSession ?session .
+  ?session ns1:hasTimeInterval ?interval .
+  ?interval ns1:hasStartDate ?startDate ;
+            ns1:hasEndDate ?endDate .
+}
+```

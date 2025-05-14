@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not enforce that every seminar must have at least one article presented in it. There is no cardinality restriction or axiom ensuring this. Therefore, the CQ is not fully supported by the ontology.
+
+Partial SPARQL query:
+
+```sparql
+SELECT ?seminar ?seminarDate ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar :seminarDate ?seminarDate . }
+  OPTIONAL { ?article :presentedIn ?seminar . }
+}
+```
+
+This query retrieves seminars and any articles presented in them. However, it does not guarantee that every seminar has at least one article, highlighting that the ontology does not fully answer the competency question.

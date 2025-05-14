@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that uses the ontology’s properties to retrieve, for a given theatre festival, the list of plays featured in that festival:
+
+------------------------------------------------------------
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a ns1:TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival ns1:featuredProduction ?production .
+  ?production ns1:hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+------------------------------------------------------------
+
+This query answers the CQ “What plays could be seen during a certain theatre festival?” by selecting each theatre festival, following its featured productions (using ns1:featuredProduction), and then retrieving the play associated with each production (using ns1:hasPlay).

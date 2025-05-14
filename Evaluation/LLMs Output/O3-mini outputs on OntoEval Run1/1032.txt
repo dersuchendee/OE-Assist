@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer this competency question using the ontology. In the ontology there is a class for seminars (Cl_Seminar) that is connected with the data property :seminarDate. For example, one seminar is represented as an individual (:Seminar_2008) with a :seminarDate.
+
+A SPARQL query answering “When did a certain seminar take place?” is for instance:
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate ?label
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           rdfs:label ?label ;
+           :seminarDate ?seminarDate .
+  # Optional filter to target a specific seminar if needed
+  FILTER(CONTAINS(LCASE(?label), "nurse practices"))
+}
+--------------------------------------------------------------
+
+This query retrieves the seminar individual(s), its label, and the date it took place.

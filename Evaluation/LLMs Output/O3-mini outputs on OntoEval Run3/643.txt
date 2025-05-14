@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the performance (of type Cl_Performance) along with its performance date:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+------------------------------------------------
+
+This query assumes a closed‐world interpretation by selecting those individuals explicitly asserted as a Cl_Performance and having an associated :performanceDate.

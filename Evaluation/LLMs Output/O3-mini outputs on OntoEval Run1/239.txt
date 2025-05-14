@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that, given a specific author (e.g., using its IRI), retrieves the plays written by that author:
+ 
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ?writingEvent a :Cl_WritingEvent ;
+                :hasAuthor ?author ;
+                :hasPlay ?play .
+  FILTER(?author = <http://www.example.org/test#WilliamShakespeare>)
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+------------------------------------------------------------
+ 
+Under the closed-world assumption, all information about writing events (linking authors and plays) is explicitly stated in the ontology; thus, this query fully answers the CQ "What plays did a certain author write?"

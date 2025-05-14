@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT DISTINCT ?author ?authorLabel ?play ?playLabel
+WHERE {
+  ?author a :Cl_Author .
+  ?author :wrotePlay ?play .
+  OPTIONAL { ?author rdfs:label ?authorLabel. }
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+```

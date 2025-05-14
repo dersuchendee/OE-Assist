@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given article collection (which may be either a book or a CD), the articles it is composed of:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleTitle ?articleAuthor
+WHERE {
+  ?collection a :Cl_ArticleCollection .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  
+  ?collection :containsArticle ?article .
+  ?article :articleTitle ?articleTitle .
+  OPTIONAL { ?article :articleAuthor ?articleAuthor . }
+}
+------------------------------------------------
+
+This query answers the competency question "What articles is a specific book or CD composed of?" by extracting, from any instance of an article collection (modelled as a subclass of both Cl_Book and Cl_CD), the articles it contains.

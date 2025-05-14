@@ -1,0 +1,32 @@
+Answer: **Yes**
+
+Here's a SPARQL query to find out how many tracks a particular album contains by retrieving the `:trackCount` property:
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?trackCount
+WHERE {
+  ?album a :MusicAlbum .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :trackCount ?trackCount .
+}
+```
+
+Alternatively, if the `:trackCount` property is not available, you can calculate the number of tracks by counting the `:hasTrack` relationships:
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :MusicAlbum .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :hasTrack ?track .
+}
+GROUP BY ?album ?albumLabel
+```
+
+These queries will provide the number of tracks for each music album in the ontology, satisfying the competency question.

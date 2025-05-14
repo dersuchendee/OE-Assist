@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "Who are the members of a certain union at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to query for union memberships, including the members and the start date of their membership. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?staffMember ?union ?startDate
+WHERE {
+  ?membership rdf:type :Cl_UnionMembership .
+  ?membership :hasMember ?staffMember .
+  ?membership :hasUnion ?union .
+  ?membership :hasStartDate ?startDate .
+  FILTER (?startDate <= "2023-10-01"^^xsd:date)  # Assuming the point in time is up to October 2023
+}
+```

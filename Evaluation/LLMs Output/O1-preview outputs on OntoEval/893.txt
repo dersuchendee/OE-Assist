@@ -1,0 +1,24 @@
+**Yes**
+
+The ontology supports querying for members of a certain union at a certain point in time using the union membership information, which includes the membership start date.
+
+Here is a SPARQL query that retrieves the members of a specific union at a given date:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person
+WHERE {
+  ?person rdf:type :Cl_Person .
+  ?person :isMemberOf ?membership .
+  ?membership :memberOf :YourUnionURI .
+  ?membership :membershipStartDate ?startDate .
+  
+  FILTER ( ?startDate <= xsd:date("YourDateOfInterest") )
+}
+```
+
+Replace `:YourUnionURI` with the URI of the union you're interested in (e.g., `:UnionOfMaleNurses`), and `"YourDateOfInterest"` with the date you're querying for (e.g., `"2005-01-01"`).
+
+This query selects all persons whose union membership in the specified union started on or before the given date, effectively retrieving the union members at that point in time.

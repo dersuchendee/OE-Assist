@@ -1,0 +1,17 @@
+**Yes**
+Below is an example SPARQL query that extracts the articles presented in a specified seminar (using a placeholder URI for the seminar):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :hasPresentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+  FILTER(?seminar = <http://www.example.org/test#YourSeminarInstance>)
+}
+--------------------------------------------------
+
+Replace <http://www.example.org/test#YourSeminarInstance> with the URI of the seminar of interest. Under the closed world assumption, this query will only return articles explicitly linked via the :hasPresentedArticle property to that seminar.

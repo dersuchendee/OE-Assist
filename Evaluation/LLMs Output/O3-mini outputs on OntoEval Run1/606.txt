@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the review a specified critic (e.g. “Crian Hiatt”) gave to a given record (here modeled as an album, for example “Stadium Arcadium”). This query assumes that the album is linked via a property (e.g. :reviewedBy) to a critic and that the review text is attached via a data property (e.g. :hasReview):
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?albumTitle ?review ?criticName
+WHERE {
+  ?album a :Cl_Album ;
+         :hasTitle ?albumTitle ;
+         :reviewedBy ?critic ;
+         :hasReview ?review .
+  ?critic a :Cl_Critic ;
+          :hasName ?criticName .
+  
+  FILTER(?criticName = "Crian Hiatt")
+  FILTER(?albumTitle = "Stadium Arcadium")
+}
+---------------------------------
+
+In this query the ontology is used in a closed‐world fashion: only albums that have an explicit review (via :hasReview) and a defined critic (via :reviewedBy) will be returned. Hence the competency question “What does a certain critic say about a certain record?” is fully answerable by the ontology.

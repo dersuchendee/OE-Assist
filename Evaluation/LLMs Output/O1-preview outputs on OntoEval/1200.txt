@@ -1,0 +1,31 @@
+**Yes**
+
+```sparql
+SELECT ?musician1 ?start1 ?end1 ?musician2 ?start2 ?end2
+WHERE {
+  ?musician1 a :Musician .
+  ?musician1 :hasWorkingPeriod ?wp1 .
+  ?wp1 :startYear ?start1_literal .
+  OPTIONAL { ?wp1 :endYear ?end1_literal . }
+
+  ?musician2 a :Musician .
+  FILTER (?musician1 != ?musician2)
+  ?musician2 :hasWorkingPeriod ?wp2 .
+  ?wp2 :startYear ?start2_literal .
+  OPTIONAL { ?wp2 :endYear ?end2_literal . }
+
+  # Cast the start and end years to integers for comparison
+  BIND (xsd:integer(?start1_literal) AS ?start1)
+  BIND (IF(BOUND(?end1_literal), xsd:integer(?end1_literal), 9999) AS ?end1)
+  BIND (xsd:integer(?start2_literal) AS ?start2)
+  BIND (IF(BOUND(?end2_literal), xsd:integer(?end2_literal), 9999) AS ?end2)
+
+  # Check for overlapping working periods
+  FILTER (
+    (?start1 <= ?end2) &&
+    (?start2 <= ?end1)
+  )
+}
+```
+
+This query retrieves pairs of musicians (`?musician1`, `?musician2`) whose working periods overlap in time. It compares the start and end years of their working periods to determine if they were working at the same time. If an end year is not specified (i.e., the musician is still active), it defaults to a high value (`9999`) to indicate an ongoing period.

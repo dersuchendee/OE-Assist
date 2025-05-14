@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one SPARQL query that uses the ontology’s modelling of theatre festivals by selecting instances of Cl_TheatreFestival and retrieving the associated date:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?label ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?label . }
+  ?festival :date ?date .
+}
+----------------------------------
+
+Under the closed‐world assumption this query will return the date(s) for theatre festival instance(s) modeled in the ontology, thereby answering the CQ “When did a certain theatre festival take place?”

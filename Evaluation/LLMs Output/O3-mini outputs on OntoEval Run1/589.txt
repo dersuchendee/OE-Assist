@@ -1,0 +1,17 @@
+**Yes**
+
+We can extract the song’s composition date using the classes and properties provided in the ontology. In particular, the ontology defines a class for songs (:Cl_Song), a subclass for song compositions (:Cl_SongComposition), a property (:composedSong) to relate a song to its composition event and finally the property (:compositionDate) to hold the date. Under the closed‐world assumption, a song (e.g., “Hump de Bump”) must have an explicit triple supplying its composition date. For example, the following query retrieves the composition date for the song “Hump de Bump”:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song rdfs:label "Hump de Bump" .
+  ?song :composedSong ?compositionEvent .
+  ?compositionEvent :compositionDate ?compositionDate .
+}
+
+This query answers the competency question “When was a certain song composed?” by extracting the composition date for the song.

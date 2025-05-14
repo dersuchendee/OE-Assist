@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer the CQ “During what time period was a certain album recorded?” by retrieving the recording start and end dates from instances of Cl_AlbumRecording. Under the closed world assumption, if an album has been recorded, there should be recording dates associated with it. For example, to get these details (optionally for a specific album), one can write the following SPARQL query:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_AlbumRecording ;
+         :dp_recordingStartDate ?recordingStart ;
+         :dp_recordingEndDate ?recordingEnd .
+  # To restrict to a specific album, uncomment and adjust the filter below:
+  # FILTER(?album = :ind_StadiumArcadiumRecording)
+}
+--------------------------------------------------
+
+This query retrieves the album recording instance along with its recording start and end dates, thereby answering the given competency question.

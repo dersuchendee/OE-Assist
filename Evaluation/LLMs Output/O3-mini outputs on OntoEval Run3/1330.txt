@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?transportProcess ?source ?sourceLabel ?destination ?destinationLabel
+WHERE {
+  ?transportProcess a :TransportProcess .
+  ?transportProcess :transportsSubstance ?substance .
+  ?substance a :DissolvedCarbon .
+  ?transportProcess :hasSource ?source .
+  ?transportProcess :hasDestination ?destination .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  OPTIONAL { ?destination rdfs:label ?destinationLabel . }
+}
+```

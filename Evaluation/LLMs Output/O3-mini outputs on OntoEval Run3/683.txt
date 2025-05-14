@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each performance (of type Cl_Performance) along with the location where it took place (using the property tookPlaceAt):
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?location ?locationLabel
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+
+  ?performance :tookPlaceAt ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+----------------------------------------------------
+
+This query shows that the ontology models the competency question "Where did a certain performance take place?" by linking performances to their location via the property tookPlaceAt.

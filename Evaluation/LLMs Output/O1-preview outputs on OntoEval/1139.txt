@@ -1,0 +1,33 @@
+**No**
+```sparql
+SELECT ?userLabel ?locationLabel ?activityLabel ?deviceLabel ?presentationMethod ?contentLabel
+WHERE {
+  ?user a :User .
+  OPTIONAL { ?user rdfs:label ?userLabel . }
+  OPTIONAL { 
+    ?user :hasLocation ?location .
+    ?location rdfs:label ?locationLabel .
+  }
+  OPTIONAL {
+    ?user :hasActivity ?activity .
+    ?activity rdfs:label ?activityLabel .
+  }
+
+  # Devices and their capabilities
+  {
+    ?device a :SmartMirror .
+    ?device :displaysContent ?content .
+    OPTIONAL { ?device rdfs:label ?deviceLabel . }
+    OPTIONAL { ?content rdfs:label ?contentLabel . }
+    BIND("displays" AS ?presentationMethod)
+  }
+  UNION
+  {
+    ?device a :SmartSpeaker .
+    ?device :readsOutContent ?content .
+    OPTIONAL { ?device rdfs:label ?deviceLabel . }
+    OPTIONAL { ?content rdfs:label ?contentLabel . }
+    BIND("reads out" AS ?presentationMethod)
+  }
+}
+```

@@ -1,0 +1,14 @@
+**Yes**
+
+We can extract the answer to the CQ “During what time period was a certain play written?” because the ontology includes a data property (writtenDuring) for the play (an instance of Cl_Play). Under the closed–world assumption, only the plays with a recorded writtenDuring value are returned. For example, to get the time period for each play that has a writtenDuring value, you could use a SPARQL query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?writtenDuring
+WHERE {
+  ?play a :Cl_Play ;
+        :writtenDuring ?writtenDuring .
+}
+
+This query will return, for instance, that the play “MerchantOfVenice” was written during “1596-1598.”

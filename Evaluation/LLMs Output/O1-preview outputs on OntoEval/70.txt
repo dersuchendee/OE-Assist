@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+SELECT ?resource ?componentOrMaterial
+WHERE {
+  ?resource a :Resource .
+  ?resource :hasComposition ?composition .
+  ?composition :isComposedOf ?componentOrMaterial .
+}
+```
+
+This query retrieves the composition of each resource by selecting resources that have a composition and then retrieving the materials or components that constitute that composition. If you have a specific resource in mind, you can modify the query to focus on that resource:
+
+```sparql
+SELECT ?componentOrMaterial
+WHERE {
+  :SpecificResource :hasComposition ?composition .
+  ?composition :isComposedOf ?componentOrMaterial .
+}
+```
+
+Replace `:SpecificResource` with the URI of the resource you're interested in. This query answers the competency question by providing the composition details of the specific resource as defined in the ontology.

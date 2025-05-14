@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given seminar, the articles (and their titles) presented in that seminar:
+
+----------------------------------------------------------------
+PREFIX : <http://example.org/seminararticles#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article ?articleTitle 
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :presents ?article .
+  ?article a :Article .
+  OPTIONAL { ?article :hasArticleTitle ?articleTitle . }
+  # You can further restrict the query to a particular seminar, for example:
+  # FILTER(?seminar = <http://example.org/seminararticles#SpecificSeminar>)
+}
+----------------------------------------------------------------
+
+The ontology models the competency question since articles that are presented in a seminar are connected via the property :presents (and its inverse :presentedIn), enabling us to extract the desired information.

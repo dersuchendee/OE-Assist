@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer this CQ using the reification pattern defined in the ontology. In the ontology, seminars are linked to presentation events (via the property hasPresentationEvent) and each presentation event is linked to an article (via the property presentationOfArticle). In a closed‐world setting, every seminar is expected to have at least one presentation event that in turn presents at least one article.
+
+For example, the following SPARQL query returns each seminar and the articles presented in it:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :hasPresentationEvent ?presentation .
+  ?presentation :presentationOfArticle ?article .
+}
+ORDER BY ?seminar
+
+This query extracts seminars and, via the reification chain, the articles presented in each seminar.

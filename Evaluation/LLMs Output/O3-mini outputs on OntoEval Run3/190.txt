@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that productions are linked to their basis via a reification class (e.g. a production has a basis that “is based on” a play via the properties :hasBasis and :basedOn), a SPARQL query answering “What play is the basis of this production?” can be written as follows:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?play ?playTitle
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasBasis ?prodBased .
+  ?prodBased :basedOn ?play .
+  ?play :dp_title ?playTitle .
+}
+--------------------------------------------------
+
+Under a closed-world assumption, only the explicit assertions in the ontology are considered. Thus if the ontology asserts a connection from a production to its basis and then to a play (with its title given by :dp_title), then this query extracts the answer to the competency question.

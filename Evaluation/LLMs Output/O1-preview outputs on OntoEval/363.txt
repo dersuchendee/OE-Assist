@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+Because the ontology includes ActorEmployment instances that connect actors to theatres, with start dates, the competency question can be answered using the ontology.
+
+```sparql
+SELECT ?actor ?actorName ?theatre ?theatreName ?startDate
+WHERE {
+  ?employment rdf:type :Cl_ActorEmployment .
+  ?employment :employmentActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorName . }
+  ?employment :employedAt ?theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreName . }
+  ?employment :employmentStartDate ?startDate .
+}
+```

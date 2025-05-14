@@ -1,0 +1,28 @@
+**Answer: Yes**
+
+The competency question "A production has exactly one premier" is modeled in the ontology. The class `:Cl_Production` is defined with a qualified cardinality constraint indicating that each production has exactly one premier. This is represented in the ontology with the following restriction:
+
+```ttl
+:Cl_Production rdf:type rdfs:Class ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty :hasPremier ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass :Cl_ProductionPremier
+    ] .
+```
+
+This means every instance of `:Cl_Production` must have exactly one `:hasPremier` relationship to an instance of `:Cl_ProductionPremier`.
+
+**SPARQL Query:**
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+    ?production rdf:type :Cl_Production .
+    ?production :hasPremier ?premier .
+    ?premier :hasPremierDate ?premierDate .
+}
+```
+
+This query retrieves all productions and their associated premier dates, confirming that each production has exactly one premier as specified in the ontology.

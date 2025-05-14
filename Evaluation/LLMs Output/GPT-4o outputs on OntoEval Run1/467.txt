@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role in a band at a specific point in time. The ontology includes classes for `Person`, `Role`, and `Band`, and properties like `hasRole`, but it lacks a temporal component to specify when a person held a particular role in a band. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?personName ?role ?band
+WHERE {
+  ?person a ex:Person ;
+          ex:hasName ?personName ;
+          ex:hasRole ?role .
+  ?band a ex:Band ;
+         ex:hasMember ?person .
+}
+```

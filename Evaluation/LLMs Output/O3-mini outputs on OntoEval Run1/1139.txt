@@ -1,0 +1,35 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves for each user the presentation device (i.e. the SmartMirror or SmartSpeaker) that will supply weather information based on the user’s location. In this example if the user’s location is “InFrontOfMirror” then the mirror displays the weather content as graphics; if the location is “WalkingAround” then the smart speaker reads out the weather content.
+
+-------------------------------------------------
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?userLabel ?location ?locationLabel ?device ?deviceLabel ?weatherContent ?weatherContentLabel
+WHERE {
+  ?user a :User ;
+        :hasLocation ?location .
+  OPTIONAL { ?user rdfs:label ?userLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+  
+  {
+    FILTER(?location = :InFrontOfMirror)
+    ?device a :SmartMirror ;
+            :displaysContent ?weatherContent .
+    OPTIONAL { ?device rdfs:label ?deviceLabel . }
+    OPTIONAL { ?weatherContent rdfs:label ?weatherContentLabel . }
+  }
+  UNION
+  {
+    FILTER(?location = :WalkingAround)
+    ?device a :SmartSpeaker ;
+            :readsOutContent ?weatherContent .
+    OPTIONAL { ?device rdfs:label ?deviceLabel . }
+    OPTIONAL { ?weatherContent rdfs:label ?weatherContentLabel . }
+  }
+}
+ORDER BY ?user
+-------------------------------------------------
+
+This query shows that, given a user’s context (their location), we can extract which device and consequently which mode of presentation (visual graphics on a mirror vs. auditory output from a speaker) will serve the weather content.

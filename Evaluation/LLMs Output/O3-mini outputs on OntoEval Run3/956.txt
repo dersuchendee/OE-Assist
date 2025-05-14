@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one way to query a specific book or CD (replace the value of ?specificPub if needed) and list its articles:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?publication ?pubTitle ?article ?articleTitle
+WHERE {
+  # A specific publication (either a Book or a CD)
+  VALUES ?pubType { :Cl_Book :Cl_CD }
+  ?publication a ?pubType .
+  
+  # (Assuming you know the identifier of the specific publication; 
+  # replace :SpecificPublication with the proper URI)
+  FILTER (?publication = :SpecificPublication)
+  
+  OPTIONAL { ?publication :publicationTitle ?pubTitle . }
+  
+  # The relation stating that the publication is composed of articles
+  ?publication :contains ?article .
+  OPTIONAL { ?article :title ?articleTitle . }
+}
+----------------------------------------------------------------
+
+Applying the closed world assumption, if no other relationships exist, this query will extract the articles that a particular book or CD is composed of.

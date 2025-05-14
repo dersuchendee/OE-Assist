@@ -1,0 +1,21 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each album, its recording session along with its start and end dates:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumLabel ?recordingSession ?startDate ?endDate
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :recordedDuring ?recordingSession .
+  ?recordingSession :hasStartDate ?startDate .
+  ?recordingSession :hasEndDate ?endDate .
+}
+ORDER BY ?album
+--------------------------------------------------
+
+This query answers the competency question "During what time period was a certain album recorded?" by extracting the necessary time period information from the ontology.

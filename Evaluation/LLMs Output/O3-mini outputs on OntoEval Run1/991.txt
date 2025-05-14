@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?book (SAMPLE(?label) AS ?bookLabel) ?pages 
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book rdfs:label ?label . }
+  ?book :hasPageCount ?pages .
+}
+GROUP BY ?book ?pages
+```

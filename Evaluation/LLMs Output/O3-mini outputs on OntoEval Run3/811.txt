@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that extracts the first employment date for a given person at a given hospital:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  :PasqualeDiGennaro :employedAt ?employmentEvent .
+  ?employmentEvent :employmentInHospital :OspedaleRiunitoDelleTreValli .
+  ?employmentEvent :employmentStartDate ?employmentDate .
+}
+------------------------------------------------
+
+This query shows that the ontology models the employment event as a reification, allowing us to retrieve the date when Pasquale Di Gennaro was first employed at Ospedale Riunito delle Tre Valli.

@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not provide a direct way to query for the role of a person within a union group at a specific point in time. The ontology includes classes and properties related to persons, unions, and roles, but it lacks a direct connection or reification that would allow querying for a person's role within a union at a specific time.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?union ?role ?roleName
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?union .
+  ?membership a :Cl_PersonUnionMembership .
+  ?membership :personMemberOfUnion ?person .
+  ?membership :unionHasMember ?union .
+  ?membership :hasUnionRole ?role .
+  ?role :roleName ?roleName .
+}
+```

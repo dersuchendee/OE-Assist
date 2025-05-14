@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one way to write a SPARQL query that, given a specified disease category, returns the hospital with the highest average length of stay:
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?avgLOS
+WHERE {
+  ?obs a :AverageLengthOfStayObservation ;
+       :hasAverageLengthOfStay ?avgLOS ;
+       :isObservationOfDiseaseCategory ?diseaseCategory ;
+       :isObservationOfHospital ?hospital .
+       
+  # Replace the URI below with the specific disease category of interest
+  FILTER(?diseaseCategory = <http://www.example.org/test#SpecifiedDiseaseCategory>)
+  
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+ORDER BY DESC(?avgLOS)
+LIMIT 1
+-----------------------------------------------------------
+
+Explanation:
+• The query selects all observations that are instances of AverageLengthOfStayObservation and obtains their average length of stay value.
+• It then filters observations to those for the specified disease category.
+• For each corresponding hospital (linked via :isObservationOfHospital), the query orders the results in descending order of the average length of stay.
+• LIMIT 1 returns the hospital with the longest (i.e. highest) average length of stay. 
+
+With the closed world assumption on the ontology, we assume that all individuals relevant to this query have been asserted in the knowledge base.

@@ -1,0 +1,12 @@
+**Yes**
+
+Assuming a closed world where the ontology defines all water body types, we can answer the competency question by listing all classes that are (directly or indirectly) sub-classes of Cl_WaterBody. The following SPARQL query lists all such classes:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?waterBodyType 
+WHERE { 
+  ?waterBodyType rdfs:subClassOf* :Cl_WaterBody .
+}
+ORDER BY ?waterBodyType

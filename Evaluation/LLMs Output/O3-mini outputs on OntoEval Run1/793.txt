@@ -1,0 +1,24 @@
+**Yes**
+
+Assuming that the ontology’s second model (with Cl_Person, Cl_Degree, Cl_TimePeriod, and Cl_StudyEvent) is used to capture study events, we can answer the competency question “During what time period did a certain person study for a specific degree?” by linking a person’s participation in a study event, the degree awarded in that event, and the associated time period (with start and end dates). Under a closed-world assumption, only explicitly stated events and properties are considered.
+
+A possible SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person ;
+          :participatedInStudyEvent ?studyEvent .
+  ?degree a :Cl_Degree ;
+          :isDegreeOfStudyEvent ?studyEvent .
+  ?timePeriod a :Cl_TimePeriod ;
+              :isPeriodOfStudyEvent ?studyEvent ;
+              :hasStartDate ?startDate ;
+              :hasEndDate ?endDate .
+}
+
+This query retrieves, for each person and degree linked by the same study event, the corresponding time period (start and end dates) during which the study took place.

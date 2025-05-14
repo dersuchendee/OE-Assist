@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not include explicit individuals or assertions linking specific beech forest instances with their primary CO2 fixation pathways, so under a closed-world assumption the CQ is only partially answerable. Nevertheless, we can extract the information modeled at the TBox level by querying for beech forests and their associated CO2 fixation pathways as mandated by the class restrictions. For example, a partial answer can be obtained by running:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?beechForest ?pathway
+WHERE {
+  ?beechForest a :BeechForest .
+  ?beechForest :hasCO2FixationPathway ?pathway .
+  ?pathway a :PrimaryCO2FixationPathway .
+}
+---------------------------------
+
+This query returns any resources explicitly declared as belonging to the BeechForest class and having a CO2 fixation pathway (of type PrimaryCO2FixationPathway). Since the ontology does not include such instance data, the answer is only partial.

@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that retrieves, for any given city, the country in which it is located. (You can restrict the query to a “certain city” by adding an appropriate FILTER, e.g., FILTER(?city = :Nocera_Inferiore) if that city is the target.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?country ?countryLabel
+WHERE {
+  ?city a :Cl_City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :cityLocatedIn ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+  # To focus on a specific city, e.g., Nocera Inferiore, uncomment the following:
+  # FILTER(?city = :Nocera_Inferiore)
+}

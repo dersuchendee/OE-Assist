@@ -1,0 +1,27 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?diseaseCategory ?dcLabel ?hospital ?hLabel ?maxAvgLOS
+WHERE {
+  {
+    SELECT ?diseaseCategory (MAX(?avgLOS) AS ?maxAvgLOS)
+    WHERE {
+      ?hs a :HospitalStatistic .
+      ?hs :forDiseaseCategory ?diseaseCategory .
+      ?hs :recordedBy ?hospital .
+      ?hs :hasAverageLengthOfStay ?avgLOS .
+    }
+    GROUP BY ?diseaseCategory
+  }
+
+  ?hs a :HospitalStatistic .
+  ?hs :forDiseaseCategory ?diseaseCategory .
+  ?hs :recordedBy ?hospital .
+  ?hs :hasAverageLengthOfStay ?avgLOS .
+  FILTER(?avgLOS = ?maxAvgLOS)
+
+  OPTIONAL { ?diseaseCategory rdfs:label ?dcLabel . }
+  OPTIONAL { ?hospital rdfs:label ?hLabel . }
+}
+ORDER BY ?diseaseCategory ?hospital
+```

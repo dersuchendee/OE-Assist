@@ -1,0 +1,12 @@
+Answer: **Yes**.
+
+```sparql
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasEmployment ?employment .
+  ?employment :employedAt ?hospital .
+  ?employment :employmentStartDate ?startDate .
+}
+GROUP BY ?person ?hospital
+```

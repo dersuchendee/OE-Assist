@@ -1,0 +1,15 @@
+**No**
+
+The competency question "A production has exactly one premier" is not fully supported by the ontology. The ontology does not explicitly model the concept of a "premier" as a distinct event or entity that can be associated with a production. While there are properties like `:hasPremierDate` and `:hasPremierEvent`, they do not fully capture the notion of a premier as a unique event that can be queried for its existence or uniqueness.
+
+Partial SPARQL query to extract productions with a premier date:
+
+```sparql
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierDate ?premierDate .
+}
+```
+
+This query retrieves productions that have a premier date, but it does not ensure that each production has exactly one premier, as the competency question requires.

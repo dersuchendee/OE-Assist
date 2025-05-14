@@ -1,0 +1,34 @@
+**Yes**
+
+Below is a SPARQL query that uses the reified membership information (the class :Cl_Membership with its time‐constraints via :membershipStart and optionally :membershipEnd) to retrieve the members of a chosen band (here :Red_Hot_Chili_Peppers) that were active at a given point in time (which you can supply as a parameter). Under a closed world assumption, we assume that if a band member’s membership record exists, then that record completely determines when the person was a member.
+
+For example, if you want to know the members on a specific date (here “2004-01-01”), you can use:
+
+--------------------------------------------------
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?member ?membershipStart ?membershipEnd
+WHERE {
+  # Get the membership records for the specified band
+  ?membership a :Cl_Membership ;
+              :memberOf :Red_Hot_Chili_Peppers ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Filter memberships active at the given date:
+  FILTER (
+    ?membershipStart <= "2004-01-01"^^xsd:date &&
+    ( !BOUND(?membershipEnd) || ?membershipEnd >= "2004-01-01"^^xsd:date )
+  )
+  
+  # And retrieve the corresponding band member, by joining via the fact that
+  # the band always lists its members through the property :hasMember.
+  :Red_Hot_Chili_Peppers :hasMember ?member .
+  
+  # (Under the closed world assumption, only those persons with a valid membership
+  # record are considered current members at the specified time)
+}
+ORDER BY ?member
+--------------------------------------------------
+
+This query answers the competency question “What are the members of a certain band at a certain point in time?” by extracting those persons whose reified membership for the given band is active at the specified date.

@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to associate songs with a specific performance. The ontology includes classes and properties related to performances and songs, but it lacks a direct connection between a performance and the songs played during that performance. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?performance ?song
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performedSong ?performanceSong .
+  ?performanceSong :songPerformed ?song .
+}
+```
+
+This query retrieves performances and the songs associated with them, but it does not specify which songs were played in a certain performance, as the ontology does not provide a way to specify a particular performance.

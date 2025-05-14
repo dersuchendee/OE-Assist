@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example of a SPARQL query that, given a specific city (here “Nocera Inferiore”), retrieves the country in which that city is located:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?countryName
+WHERE {
+  ?city a :Cl_Location ;
+        :cityName "Nocera Inferiore"^^xsd:string ;
+        :isInCountry ?country .
+  ?country :countryName ?countryName .
+}
+---------------------------------
+
+In a closed world assumption scenario you assume that all necessary facts are available in the ontology so that the CQ “In what country is a certain city located?” is fully answerable.

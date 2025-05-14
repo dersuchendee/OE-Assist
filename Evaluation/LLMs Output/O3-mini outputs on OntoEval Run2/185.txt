@@ -1,0 +1,19 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the country in which a given city is located:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?city ?country
+WHERE {
+  ?city rdf:type :Cl_City .
+  ?city :isLocatedIn ?country .
+  
+  # Optionally, if you want to restrict to a particular city, e.g., Rome, uncomment:
+  # FILTER(?city = :Rome)
+}
+---------------------------------------
+
+This query works under the closed world assumption; it returns a complete answer for the competency question since the ontology explicitly defines the domain (Cl_City) and the property (:isLocatedIn) linking a city to a country.

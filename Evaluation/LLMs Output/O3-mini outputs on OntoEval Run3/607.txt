@@ -1,0 +1,19 @@
+**Yes**
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?criticName ?record ?recordName ?reviewContent
+WHERE {
+  ?review a ns1:Review ;
+          ns1:hasContent ?reviewContent ;
+          ns1:reviewOf ?record ;
+          ns1:reviewedBy ?critic .
+  OPTIONAL { ?critic rdfs:label ?criticName . }
+  OPTIONAL { ?record rdfs:label ?recordName . }
+  
+  # Use FILTER if a particular critic and record are targeted—e.g.,
+  # FILTER(?critic = ns1:CrianHiatt && ?record = ns1:StadiumArcadium)
+}
+```

@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar." is answerable using the provided ontology. The ontology specifies that every instance of `:Seminar` is constrained to have at least one `:presents` relationship to an instance of `:Article` through the following axiom:
+
+```ttl
+:Seminar rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :presents ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+```
+
+This constraint ensures that every seminar must present at least one article.
+
+Here is a SPARQL query that retrieves all seminars along with the number of articles they present:
+
+```sparql
+SELECT ?seminar (COUNT(?article) AS ?numArticles)
+WHERE {
+    ?seminar a :Seminar .
+    ?seminar :presents ?article .
+}
+GROUP BY ?seminar
+```
+
+This query will list all seminars and confirm that each seminar has at least one associated article, satisfying the competency question.

@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?album ?albumLabel ?releaseDate
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :hasRelease ?release .
+  ?release :hasReleaseDate ?releaseDate .
+}
+```

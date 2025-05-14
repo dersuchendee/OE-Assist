@@ -1,0 +1,22 @@
+**No**
+
+The ontology does provide a way to get a person’s “first employment” start date (via the property :hasFirstEmployment and the date property :hasStartDate), and it also indicates that a hospital “employs” a person. However, there is no explicit link between the specific first employment instance and the hospital that employed the person. In other words, while one can query a person’s first employment start date and separately check that a hospital employs that person, there is no modeled relation that guarantees that the first employment is connected to that hospital. Under the closed‐world assumption, we cannot assume such a connection, so the CQ is only partially answerable.
+
+A partial SPARQL query that extracts the available information is:
+
+------------------------------------------------
+PREFIX : <http://example.org/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?hospital ?hospitalLabel ?startDate
+WHERE {
+  ?person :hasFirstEmployment ?fe .
+  ?fe :hasStartDate ?startDate .
+  ?hospital :employs ?person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+}
+------------------------------------------------
+
+This query returns, for each person who has a first employment and is employed by some hospital, the start date—but it does not verify that that hospital is the one at which the person’s first employment occurred.

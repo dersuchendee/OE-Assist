@@ -1,0 +1,19 @@
+**Yes**
+
+Under the closed‐world assumption the ontology guarantees that every individual of type Cl_Album must have at least one triple for the property :containsTrack (as enforced by the minCardinality 1 restriction on Cl_Album). You can verify this by running a SPARQL query that tries to find any album that does not have any track. If the query returns no results then the competency question “A record always contains at least one track” is fully supported.
+
+For example, the following query checks for albums with no track:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album
+WHERE {
+  ?album a :Cl_Album .
+  FILTER NOT EXISTS { ?album :containsTrack ?track . }
+}
+------------------------------------------------------
+
+A result set with no ?album indicates that every album in the ontology has at least one track, confirming the property.

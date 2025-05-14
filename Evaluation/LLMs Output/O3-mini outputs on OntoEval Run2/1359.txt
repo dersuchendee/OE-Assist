@@ -1,0 +1,16 @@
+**No**  
+The current ontology does not explicitly represent the reason (i.e. the “why”) behind an organ’s relocation. However, we can retrieve partial information by examining, for example, the projects (or tasks) associated with an organ and the locations defined in the projects. This may provide clues about a change of location, but not a direct explanation of “why” the organ is moved.
+
+A partial answer can be extracted with a SPARQL query like the following:
+
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?organ ?project ?place
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:isDescribedBy ?project .
+  ?project arco:hasPlace ?place .
+}
+
+In this query we retrieve organs together with their associated project(s) and the project’s place. Although this does not explain the reason for the move, it offers related contextual information given the ontology's current modelling.

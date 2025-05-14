@@ -1,0 +1,15 @@
+**No**
+
+The competency question asks for the members of a certain band at a certain point in time. The ontology provided does not have a direct way to query for band members at a specific time. The ontology includes classes and properties related to band membership and time periods, but it lacks the necessary connections to directly answer the question about band members at a specific time.
+
+Here is a SPARQL query to extract a partial answer, which lists band members without considering the time aspect:
+
+```sparql
+SELECT ?band ?member
+WHERE {
+  ?band a :Cl_Band .
+  ?band :hasMember ?membership .
+  ?membership a :Cl_BandMembership .
+  ?membership :isMemberOfBand ?member .
+}
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that the individual representing the “certain person” (e.g. Pasquale Di Gennaro) is identified (here by its URI), the ontology supports modelling of the relationship between a person and their medical degrees through the reified class Cl_PersonMedicalDegree, which connects a Cl_Person to a Cl_MedicalDegree via the object property hasMedicalDegree (and stores, for example, the date via dateObtained). Under a closed world assumption we can assume that if such assertions are absent then the person does not have any medical degree. 
+
+For example, the following SPARQL query retrieves the medical degrees and the date obtained for the person (here assumed to be identified as <http://www.example.org/test#PasqualeDiGennaro>):
+
+--------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?degree ?dateObtained
+WHERE {
+  ?pmd a :Cl_PersonMedicalDegree .
+  ?pmd :hasPerson <http://www.example.org/test#PasqualeDiGennaro> .
+  ?pmd :hasMedicalDegree ?degree .
+  OPTIONAL { ?pmd :dateObtained ?dateObtained . }
+}
+--------------------------------------
+
+This query extracts the answer to the competency question "What medical degrees does a certain person have?" as the relationship between the person and their recorded medical degrees.

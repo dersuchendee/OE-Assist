@@ -1,0 +1,18 @@
+**Yes**
+Below is an example SPARQL query that retrieves the location where a festival took place by using the property “hasLocation” defined for instances of Cl_TheatreFestival.
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?location ?locationLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+---------------------------------
+
+Under the closed world assumption, only the festivals and their locations explicitly asserted (or inferable) in the ontology will be returned. This query directly answers the competency question "Where did a certain festival take place?" by extracting the location associated with each festival instance.

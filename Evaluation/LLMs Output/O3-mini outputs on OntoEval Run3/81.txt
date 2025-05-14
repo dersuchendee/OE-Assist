@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the “certain theatre festival” is represented as an instance of Cl_TheatreFestival and that its festival date is captured via the :hasDate property, you can extract the answer with a query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :hasDate ?date .
+  # Optionally, if the festival has a name or label, you could further filter or display it:
+  OPTIONAL { ?festival rdfs:label ?label . }
+  # For a “certain” festival, you can filter by its known URI or label.
+  # FILTER(?festival = <http://www.example.org/test#YourFestivalID>)
+}
+
+This query shows that the ontology does model the necessary information to answer the competency question “When did a certain theatre festival take place?” under a closed‐world assumption.

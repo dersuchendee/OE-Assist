@@ -1,0 +1,35 @@
+**Yes**
+
+The ontology includes all necessary classes and properties to model the competency question. Specifically, it represents persons (`:Cl_Person`), degrees (`:Cl_Degree`), study periods (`:Cl_StudyPeriod`), and the relationships between them:
+
+- A person is linked to a study period via `:studiedDuring`.
+- A study period is linked to a degree via `:forDegree`.
+- A study period has start and end dates via `:fromDate` and `:toDate`.
+
+Therefore, we can write a SPARQL query to retrieve the time periods during which a certain person studied for a specific degree.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?degree ?degreeName ?fromDate ?toDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personName . }
+  
+  ?person :studiedDuring ?studyPeriod .
+  ?studyPeriod a :Cl_StudyPeriod .
+  
+  ?studyPeriod :forDegree ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeName . }
+  
+  ?studyPeriod :fromDate ?fromDate .
+  ?studyPeriod :toDate ?toDate .
+  
+  # If you are querying for a specific person and degree, you can add filters like:
+  # FILTER(?person = :SpecificPersonURI)
+  # FILTER(?degree = :SpecificDegreeURI)
+}
+```
+
+This query retrieves all instances where a person studied for a degree, along with the corresponding time periods (`fromDate` and `toDate`). If you have specific individuals or degrees in mind, you can include `FILTER` clauses to narrow down the results to those entities.

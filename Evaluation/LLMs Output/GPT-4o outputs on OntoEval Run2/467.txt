@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role in a band at a certain point in time. The ontology includes classes for `Person`, `Role`, and `Band`, but it lacks a temporal component to capture the role of a person in a band at a specific time. Here's a SPARQL query to extract a partial answer, which lists the roles of persons in bands without the temporal aspect:
+
+```sparql
+SELECT ?person ?personName ?role ?roleLabel
+WHERE {
+  ?person rdf:type ex:Person .
+  ?person ex:hasName ?personName .
+  ?person ex:hasRole ?role .
+  ?role rdfs:label ?roleLabel .
+}
+```

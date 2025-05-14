@@ -1,0 +1,25 @@
+**Yes**
+
+The following SPARQL query uses the closed‐world assumption to retrieve the actors that are members of a specified ensemble (here represented by an IRI, e.g. :MerchantOfVeniceEnsemble) at a given point in time (here given as "2009-09-14T00:00:00"^^xsd:dateTime). It assumes that actor membership is reified via :Cl_EnsembleMembership with properties linking an actor to an ensemble via :hasMembership and :membershipOf, and that membership start and (optionally) membership end dates are recorded via :membershipStart and :membershipEnd, respectively.
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  ?actor a :Cl_Actor ;
+         :hasMembership ?membership .
+  ?membership :membershipOf :MerchantOfVeniceEnsemble ;
+              :membershipStart ?start .
+  OPTIONAL { ?membership :membershipEnd ?end . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  FILTER (
+    xsd:dateTime("2009-09-14T00:00:00") >= ?start &&
+    ( !BOUND(?end) || xsd:dateTime("2009-09-14T00:00:00") <= ?end )
+  )
+}
+-------------------------------------------------------
+
+This query extracts the actors who have a membership in the given ensemble where the specified point in time falls after their membership start date and, if a membership end date is provided, before that end date.

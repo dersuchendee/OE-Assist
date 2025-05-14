@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?actor ?theatre ?startDate
+WHERE {
+    ?employment a :Employment .
+    ?employment :hasActor ?actor .
+    ?employment :employedAt ?theatre .
+    ?employment :employmentStartDate ?startDate .
+}
+```
+
+This SPARQL query retrieves the start date (`?startDate`) of the employment relationship between actors (`?actor`) and theatres (`?theatre`). It utilizes the `:Employment` class and its associated properties (`:hasActor`, `:employedAt`, and `:employmentStartDate`) as defined in the ontology. Under the closed world assumption, since the ontology contains explicit data about actors, theatres, and their employment start dates, the competency question is fully supported by the ontology.

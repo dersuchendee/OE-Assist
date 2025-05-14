@@ -1,0 +1,21 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves, for a given collection (either a book or a CD), the articles that it contains. (In this query you can replace ?collection with a specific URI or add a FILTER condition to select the desired book or CD.)
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  ?collection a ?type .
+  FILTER(?type = :Cl_Book || ?type = :Cl_CD) .
+  
+  OPTIONAL { ?collection rdfs:label ?collectionLabel. }
+  
+  ?collection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+------------------------------------------------------------
+
+This query answers the competency question leveraging the defined object property :containsArticle whose domain is the union of :Cl_Book and :Cl_CD and whose range is :Cl_Article.

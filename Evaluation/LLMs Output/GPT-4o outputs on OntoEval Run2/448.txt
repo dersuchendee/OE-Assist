@@ -1,0 +1,37 @@
+**Yes**
+
+The competency question "What are the members of a certain band at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to query for band memberships, including the members, their roles, and the time intervals during which they were part of the band.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bandName ?memberName ?roleName ?startDate ?endDate
+WHERE {
+  ?band a :Band ;
+        :bandName ?bandName ;
+        :hasMembership ?membership .
+
+  ?membership a :BandMembership ;
+              :involvesMember ?member ;
+              :hasRole ?role ;
+              :hasTimeInterval ?timeInterval .
+
+  ?member a :Person ;
+          :personName ?memberName .
+
+  ?role a :Role ;
+        :roleName ?roleName .
+
+  ?timeInterval a :TimeInterval ;
+                :startDate ?startDate ;
+                :endDate ?endDate .
+
+  FILTER (?startDate <= "2023-10-01"^^xsd:date && ?endDate >= "2023-10-01"^^xsd:date)
+}
+ORDER BY ?bandName ?startDate
+```
+
+This query retrieves the members of bands, their roles, and the time intervals of their memberships, filtered to include only those memberships that are valid at a specific point in time (in this case, October 1, 2023). Adjust the date in the FILTER clause to query for different points in time.

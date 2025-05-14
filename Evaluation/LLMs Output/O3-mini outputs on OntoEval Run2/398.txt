@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming a closed‐world interpretation, we can check that every production has exactly one associated premier event. For instance, the following SPARQL query returns each production along with its premier event only if exactly one premier event is recorded:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production (SAMPLE(?premierEvent) AS ?premierEvent)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierEvent ?premierEvent .
+}
+GROUP BY ?production
+HAVING (COUNT(?premierEvent) = 1)
+------------------------------------------------
+
+In this query, we group by each production and include it in the results only when exactly one premier event is found, which directly models the competency question "A production has exactly one premier."

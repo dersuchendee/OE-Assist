@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, retrieves for each city (or a given city) the country in which it is located, based on the explicit association provided by the instance of Cl_CityCountry:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?country ?countryName
+WHERE {
+  # Identify cities
+  ?city a :Cl_City ;
+        :cityName ?cityName .
+  # Find an instance that links the city to its country
+  ?cityCountry a :Cl_CityCountry ;
+               :hasCity ?city ;
+               :hasCountry ?country .
+  ?country :countryName ?countryName .
+}
+--------------------------------------------------
+
+This query shows that the ontology explicitly models a relationship between a city (of type Cl_City) and its country (via instances of the class Cl_CityCountry and the object property :hasCountry), thereby supporting the CQ "In what country is a certain city located?" under the closed world assumption.

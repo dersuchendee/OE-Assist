@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+SELECT ?meeting ?isAccidental ?participant ?wasInvited
+WHERE {
+  ?meeting a :Meeting .
+  ?meeting :isAccidental ?isAccidental .
+  ?meeting :hasParticipant ?participant .
+  
+  BIND(EXISTS { ?participant :isInvitedTo ?meeting } AS ?wasInvited)
+}
+```

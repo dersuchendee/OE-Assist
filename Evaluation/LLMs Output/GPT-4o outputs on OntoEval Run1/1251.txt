@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "Which codes correspond to each disease category?" can be answered using the given ontology. The ontology defines a `DiseaseCategory` class with a `hasCode` property linking it to a `Code` class. Therefore, we can write a SPARQL query to extract the codes corresponding to each disease category.
+
+```sparql
+SELECT ?diseaseCategory ?diseaseCategoryLabel ?code ?codeValue
+WHERE {
+  ?diseaseCategory a :DiseaseCategory .
+  OPTIONAL { ?diseaseCategory rdfs:label ?diseaseCategoryLabel . }
+
+  ?diseaseCategory :hasCode ?code .
+  OPTIONAL { ?code :codeValue ?codeValue . }
+}
+```

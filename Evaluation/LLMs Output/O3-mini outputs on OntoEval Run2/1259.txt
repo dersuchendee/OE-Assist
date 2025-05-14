@@ -1,0 +1,27 @@
+**Yes**
+
+This competency question can be answered by the ontology, because the ontology defines a FlowMeasurement that records the quantity (via :hasQuantityValue) of a Flow at a specific time (via :hasTime). Under the closed world assumption, we assume that only the stated measurements exist.
+
+Below is a SPARQL query that retrieves each flow, the corresponding measurement time, and the quantity value for that measurement. (Replace the placeholder for the specific time as needed.)
+
+------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?flow ?time ?quantityValue
+WHERE {
+  ?flow a :Flow .
+  ?flow :hasMeasurement ?measurement .
+  
+  ?measurement :hasTime ?time .
+  ?measurement :hasQuantityValue ?quantityValue .
+  
+  # Filter for a specific time; replace the value below with the desired time stamp.
+  FILTER(?time = "2023-10-01T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?flow ?time
+
+------------------------------------------------
+
+This query fully answers the CQ by retrieving the quantity recorded for each flow at the specified time.

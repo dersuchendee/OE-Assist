@@ -1,0 +1,17 @@
+**Yes**
+
+Under a closed‐world assumption we can assume that performances are explicitly asserted (via the class :Cl_BandPerformance) along with their associated performance dates (via the property :performanceDate). Thus, the CQ “When did a certain performance take place?” is answerable by retrieving those entities.
+
+A sample SPARQL query is:
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_BandPerformance ;
+               :performanceDate ?performanceDate .
+}
+ORDER BY ?performanceDate
+---------------------------------------

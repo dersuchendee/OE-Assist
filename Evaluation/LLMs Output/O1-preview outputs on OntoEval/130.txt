@@ -1,0 +1,25 @@
+**Yes**
+
+The competency question "What plays could be seen during a certain theatre festival?" is answerable with the given ontology. The ontology models festivals, festival occurrences, plays, and the relationships between them. Specifically, festival occurrences have play appearances which are linked to plays.
+
+Here is the SPARQL query to retrieve the plays seen during a specific theatre festival (replace `:YourFestivalOccurrenceHere` with the actual festival occurrence you are interested in, e.g., `:RomaLovesShakespeare2007`):
+
+```sparql
+SELECT ?play ?playTitle WHERE {
+  :YourFestivalOccurrenceHere :hasPlayAppearance ?playAppearance .
+  ?playAppearance :isPlayOf ?play .
+  ?play :hasTitle ?playTitle .
+}
+```
+
+For example, to find the plays that could be seen during the "Roma Loves Shakespeare 2007" festival, the query would be:
+
+```sparql
+SELECT ?play ?playTitle WHERE {
+  :RomaLovesShakespeare2007 :hasPlayAppearance ?playAppearance .
+  ?playAppearance :isPlayOf ?play .
+  ?play :hasTitle ?playTitle .
+}
+```
+
+This query retrieves all plays (`?play`) and their titles (`?playTitle`) associated with the play appearances of the specified festival occurrence.

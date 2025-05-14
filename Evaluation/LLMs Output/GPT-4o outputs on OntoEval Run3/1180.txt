@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "Is the sound in a place currently performed by hand or by electric means?" can be answered using the given ontology. The ontology provides the necessary classes and properties to determine the means of performance (manual or electric) for sounds associated with places. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?place ?means
+WHERE {
+  ?place a :Place .
+  ?place :hasSound ?sound .
+  ?sound :isCurrentlyPerformed true^^xsd:boolean .
+  ?sound :hasMeans ?means .
+  FILTER (?means = :ManualPerformance || ?means = :ElectricPerformance)
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/music#>
+SELECT ?criticLabel ?albumLabel ?reviewContent
+WHERE {
+  ?album rdf:type :MusicAlbum ;
+    rdfs:label ?albumLabel ;
+    :reviewedBy ?critic .
+  ?critic rdf:type :Critic ;
+    rdfs:label ?criticLabel ;
+    :hasReview ?review .
+  ?review :reviewContent ?reviewContent .
+}
+```

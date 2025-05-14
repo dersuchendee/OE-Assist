@@ -1,0 +1,22 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the role a given person has in a given band at a specific time. (You can replace the placeholder IRIs and the literal time with the values of interest.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?time
+WHERE {
+  ?roleAssignment a :Cl_BandRole ;
+                  :roleOfPerson ?person ;
+                  :roleInBand ?band ;
+                  :hasRole ?role ;
+                  :roleAtTime ?time .
+  
+  # Replace the following filters with your specific individual and time:
+  FILTER(?person = :SomePerson)
+  FILTER(?band = :SomeBand)
+  FILTER(?time = "1988-01-01T00:00:00Z"^^xsd:dateTime)
+}  
+
+This query can be used under the closed-world assumption to fully answer the competency question.

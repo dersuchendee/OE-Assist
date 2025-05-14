@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology includes a dedicated class for seminars (Cl_Seminar) and a data property (seminarDate) specifying when a seminar took place. For example, to retrieve the date of a given seminar, you could use a query like this:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+}
+-------------------------------------------------
+
+This query returns each seminar instance along with its associated date, thus fully answering the competency question under the closed world assumption.

@@ -1,0 +1,18 @@
+**No**
+
+The ontology does not explicitly model “Record” and “Track” such that every record is required (via a minimum cardinality restriction or analogous modeling) to have at least one track. Without a reified relation or axiom ensuring that every instance of a record has at least one associated track, we cannot fully answer the CQ. Under a closed‐world assumption we can still check which records have any tracks (if provided) and which do not, as a partial answer.
+
+For example, the following SPARQL query lists all records along with the number of associated tracks. One can then inspect whether any record has no track (i.e. count = 0):
+
+-------------------------------------------------
+PREFIX : <http://example.org/yourontology#>
+
+SELECT ?record (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?record a :Record .
+  OPTIONAL { ?record :hasTrack ?track . }
+}
+GROUP BY ?record
+-------------------------------------------------
+
+In this form the CQ is only partially answerable because the ontology does not enforce that a record must have at least one track.

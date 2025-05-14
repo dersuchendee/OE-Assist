@@ -1,0 +1,39 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, returns the persons (i.e. members) linked via an ensemble membership whose membership date qualifies them as being active “at a certain point in time” (for example, before or on a given date). (In this query we assume that if a person’s membership date is on or before the given date, then that person is regarded as a member on that day.)
+
+Assuming the ontology uses the classes and properties below:
+• :Cl_Ensemble represents an ensemble.
+• :hasMember links an ensemble to an instance of :Cl_EnsembleMembership.
+• :membershipDate (with range xsd:date) is a data property on :Cl_EnsembleMembership.
+• :member links an ensemble membership to a person (of type :Cl_Person).
+
+You can write a query such as:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleLabel ?member ?memberLabel ?membershipDate
+WHERE {
+  # Select the ensemble of interest (here filtered by its label; you could also specify by its URI)
+  ?ensemble a :Cl_Ensemble ;
+            rdfs:label ?ensembleLabel .
+  FILTER(?ensembleLabel = "Your Ensemble Name") .
+
+  # Find its membership instances
+  ?ensemble :hasMember ?membership .
+  ?membership :membershipDate ?membershipDate ;
+              :member ?member .
+
+  # Optional: get the member’s label if available.
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  # Return only members that joined on or before the given date (i.e. are active at that time).
+  FILTER(?membershipDate <= "2007-01-01"^^xsd:date)
+}
+ORDER BY ?member
+--------------------------------------------------
+
+This query demonstrates that the ontology models the competency question “Who are the members of a certain ensemble at a certain point in time?” since we can retrieve the ensemble’s members based on the membership date property using a SPARQL query.

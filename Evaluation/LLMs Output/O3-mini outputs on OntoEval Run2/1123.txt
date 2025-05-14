@@ -1,0 +1,13 @@
+**No**  
+The ontology only explicitly provides the user's location through the :hasLocation property. There is no property connecting the system to a geographical location, so we can only partially answer the CQ by extracting the user's location. Under the closed world assumption, if the system’s location is not defined, then it is not answerable. Here is a SPARQL query that extracts the available information:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?userLabel ?location ?locationLabel
+WHERE {
+  ?user a :User .
+  OPTIONAL { ?user rdfs:label ?userLabel. }
+  ?user :hasLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}

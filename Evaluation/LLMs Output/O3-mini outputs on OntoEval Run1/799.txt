@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each person and each of their medical degrees, the corresponding study period (i.e. the start and end dates of the study period):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?degree .
+  OPTIONAL { ?degree :degreeTitle ?degreeTitle . }
+  ?degree :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate .
+  ?studyPeriod :studyEndDate ?studyEndDate .
+} 
+
+This query answers the competency question "During what time period did a certain person study for a specific degree?" by extracting, for each person, the degree(s) they hold and the corresponding study period (start and end dates) linked via the :hasStudyPeriod property.

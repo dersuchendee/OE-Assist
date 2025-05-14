@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# Replace "Person Name" with the actual name of the person of interest
+SELECT ?instrument ?instLabel
+WHERE {
+  ?person a :Cl_Person ;
+          :hasName "Person Name"^^xsd:string ;
+          :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instLabel . }
+}
+```

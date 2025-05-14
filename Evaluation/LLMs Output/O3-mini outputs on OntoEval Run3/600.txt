@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that songs are modelled as individuals of the class :Cl_Song and their composition dates are defined by the data property :composedDate, the CQ “When was a certain song composed?” can be fully answered by the ontology. Under the closed world assumption we can retrieve the composition date for songs.
+
+A sample SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songLabel ?composedDate
+WHERE {
+  ?song a :Cl_Song .
+  OPTIONAL { ?song rdfs:label ?songLabel. }
+  ?song :composedDate ?composedDate .
+}

@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that a "specific track" is identified by its URI (here represented by ?track or a given IRI), the ontology supports the CQ via the property :trackOf which connects a track (of type :Cl_Track) to the song (of type :Cl_Song) it is a recording of. Under the closed world assumption, we can answer the CQ with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?song
+WHERE {
+  ?track a :Cl_Track .
+  ?track :trackOf ?song .
+  FILTER(?track = <http://www.example.org/test#SpecificTrack>)
+}
+
+Replace <http://www.example.org/test#SpecificTrack> with the URI of the track you are investigating.

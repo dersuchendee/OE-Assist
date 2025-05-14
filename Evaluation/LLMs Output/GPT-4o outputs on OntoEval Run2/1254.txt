@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question is supported by the ontology, as it involves retrieving information about physical parameters recorded at monitoring points and how these measurements vary over time. The ontology provides the necessary classes and properties to model this information.
+
+```sparql
+SELECT ?monitoringPoint ?mpLabel ?parameter ?parameterLabel ?time ?value
+WHERE {
+  ?monitoringPoint a :MonitoringPoint .
+  OPTIONAL { ?monitoringPoint rdfs:label ?mpLabel . }
+
+  ?monitoringPoint :hasMeasurement ?measurement .
+
+  ?measurement :measuresParameter ?parameter .
+  OPTIONAL { ?parameter rdfs:label ?parameterLabel . }
+
+  ?measurement :hasTime ?time .
+  ?measurement :hasValue ?value .
+}
+ORDER BY ?monitoringPoint ?time
+```

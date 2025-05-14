@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one valid SPARQL query that returns, for each seminar, at least one article presented—thus verifying that every instance of :Cl_Seminar is associated with at least one :presentedArticle:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :presentedArticle ?article .
+}
+ORDER BY ?seminar
+--------------------------------
+
+Under the closed world assumption, if any seminar had no associated article, it would not appear in the query result and the ontology would be considered incomplete with respect to the CQ.

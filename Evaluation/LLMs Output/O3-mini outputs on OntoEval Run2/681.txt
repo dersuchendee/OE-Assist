@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?performance ?location
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :performanceLocation ?perfLocation .
+  ?perfLocation :locationOfPerformance ?location .
+}
+```
+
+Explanation:
+The ontology defines a class for performances (:Cl_Performance) that has an associated property :performanceLocation (with range :Cl_PerformanceLocation). In turn, :Cl_PerformanceLocation is linked to a concrete location via the property :locationOfPerformance (whose range is :Cl_Location). Under the closed‐world assumption, this query retrieves the corresponding location for any given performance, and hence the competency question "Where did a certain performance take place?" is answerable by the ontology.

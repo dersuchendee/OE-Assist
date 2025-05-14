@@ -1,0 +1,32 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the number of tracks for a given album (here exemplified with “StadiumArcadium”). This query assumes that the ontology models the number of tracks either via a dedicated data property (:numberOfTracks) or by counting the tracks related via the :containsTrack property:
+
+Option 1 – using the explicit number of tracks if provided:
+------------------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?numberOfTracks
+WHERE {
+  ?album a :Album .
+  ?album :numberOfTracks ?numberOfTracks .
+  FILTER(?album = :StadiumArcadium)
+}
+
+Option 2 – counting the track instances linked through the :containsTrack property:
+-------------------------------------------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Album .
+  FILTER(?album = :StadiumArcadium)
+  OPTIONAL {
+    ?album :containsTrack ?track .
+  }
+}
+GROUP BY ?album
+
+Either query answers the competency question “How many tracks does a particular album contain?” under the closed world assumption.

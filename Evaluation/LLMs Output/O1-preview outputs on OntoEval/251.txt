@@ -1,0 +1,30 @@
+**Yes**
+
+In the provided ontology, we can retrieve the plays written by a certain author. The property `:wrotePlay` connects instances of `:Cl_Author` to instances of `:Cl_Authorship`, which is a reification class combining `:Cl_Author` and `:Cl_Play`. Since `:Cl_Authorship` is a subclass of both `:Cl_Author` and `:Cl_Play`, it effectively represents the relationship between an author and a play they wrote.
+
+Here's a SPARQL query to extract the plays written by each author:
+
+```sparql
+SELECT ?author ?authorName ?play ?playName
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author :authorName ?authorName . }
+  
+  ?author :wrotePlay ?authorship .
+  ?authorship a :Cl_Authorship .
+  
+  # Since :Cl_Authorship is a subclass of :Cl_Play, we can treat ?authorship as a play.
+  BIND(?authorship AS ?play) .
+  
+  OPTIONAL { ?play :playName ?playName . }
+}
+```
+
+This query performs the following steps:
+
+- Selects individuals of type `:Cl_Author` and retrieves their names.
+- Finds the `:Cl_Authorship` instances connected via `:wrotePlay`.
+- Binds the `?authorship` to `?play` because `:Cl_Authorship` is a subclass of `:Cl_Play`.
+- Retrieves the names of the plays written by the authors.
+
+This query will return all authors and the plays they have written, as defined in the ontology.

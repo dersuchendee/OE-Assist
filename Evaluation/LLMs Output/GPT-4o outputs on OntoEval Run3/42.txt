@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "What is the type of this actor?" can be answered using the ontology provided. The ontology includes the necessary classes and properties to determine the type of an actor through the `actorHasTypeRole` and `hasActorType` properties.
+
+```sparql
+SELECT ?actor ?actorType
+WHERE {
+  ?actor a :Cl_Actor .
+  ?actor :actorHasTypeRole ?actorTypeRole .
+  ?actorTypeRole :hasActorType ?actorType .
+}
+```

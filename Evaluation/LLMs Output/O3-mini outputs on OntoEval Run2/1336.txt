@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?nitrogenLeaching ?leachingRate ?soilType ?soilLabel
+WHERE {
+  ?nitrogenLeaching a :NitrogenLeaching ;
+                     :hasSoilType ?soilType ;
+                     :hasLeachingRate ?leachingRate ;
+                     :occursIn ?ecosystem .
+  ?ecosystem a :ForestEcosystem .
+
+  OPTIONAL { ?soilType rdfs:label ?soilLabel . }
+}
+ORDER BY ?soilType ?leachingRate
+```

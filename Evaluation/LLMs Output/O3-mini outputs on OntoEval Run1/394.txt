@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific production URI, a specific person URI, and a specific time (e.g. using a FILTER on the roleDate to capture the point in time of interest), retrieves the roles that person has in that production:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?prodLabel ?roleName ?roleDate
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+  
+  ?production :assignedRole ?roleAssignment .
+  ?roleAssignment :roleOf ?person .
+  ?roleAssignment :roleName ?roleName .
+  ?roleAssignment :roleDate ?roleDate .
+  
+  # Restrict to a specified person and production (replace URIs with the ones of interest)
+  FILTER (?person = <http://www.example.org/test#FabioBianchi>)
+  FILTER (?production = <http://www.example.org/test#MerchantOfVeniceProduction>)
+  
+  # Filter for a specific point in time (e.g. the role assignment that is effective on a given date)
+  FILTER (?roleDate <= "2009-09-15"^^xsd:date) 
+  # (Adjust this filter as needed to capture "at a certain point in time")
+}
+------------------------------------------------------------
+
+This query uses the classes and properties defined in the ontology (including :assignedRole, :roleOf, :roleName and :roleDate) to extract the roles of a given person within a given production at a specified point in time under the closed world assumption.

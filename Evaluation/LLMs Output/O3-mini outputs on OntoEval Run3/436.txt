@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that the “certain person” is identified by a URI (for example, :targetPerson), you can run the following query to list all instruments that person plays:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  :targetPerson a :Cl_Person ;
+                :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+
+In a closed‐world setting, this query will return exactly those instruments that are explicitly recorded in the ontology as being played by the person.

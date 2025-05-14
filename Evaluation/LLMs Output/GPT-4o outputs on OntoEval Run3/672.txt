@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain any classes or properties that directly relate to performances or songs played during performances. Therefore, the competency question "What songs were played in a certain performance?" cannot be fully answered using the given ontology. However, we can attempt to extract partial information related to performances and songs, if any, using the following SPARQL query:
+
+```sparql
+SELECT ?performance ?song
+WHERE {
+  ?performance a :Cl_Performance .
+  OPTIONAL {
+    ?performance :performedSongs ?performanceSong .
+    ?performanceSong :includesSong ?song .
+  }
+}
+```
+
+This query attempts to find any performances and associated songs, but without specific data instances or properties directly linking performances to songs, it may not return meaningful results.

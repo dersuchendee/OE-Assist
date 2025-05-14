@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that the particular book is represented as an instance of the class Cl_Book and its number of pages is indicated via the data property :numberOfPages, you can extract the answer with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?numberOfPages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :numberOfPages ?numberOfPages .
+  # Optionally, add a FILTER to select the specific book (e.g., by title or URI)
+}
+                    
+This query retrieves each book and its corresponding page count from the ontology, which fully supports the competency question under the closed world assumption.

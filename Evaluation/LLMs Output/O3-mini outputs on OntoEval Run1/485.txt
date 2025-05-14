@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person ;
+          :hasMembership ?membership .
+  ?membership :membershipIn ?band ;
+              :hasRole ?role ;
+              :membershipStart ?membershipStart ;
+              :membershipEnd ?membershipEnd .
+  FILTER (
+    ?person = <http://www.example.org/test#PersonURI> &&
+    ?band = <http://www.example.org/test#BandURI> &&
+    xsd:date("2023-10-07") >= xsd:date(?membershipStart) &&
+    xsd:date("2023-10-07") <= xsd:date(?membershipEnd)
+  )
+}
+```

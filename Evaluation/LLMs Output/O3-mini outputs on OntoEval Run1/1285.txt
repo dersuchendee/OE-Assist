@@ -1,0 +1,10 @@
+**Yes**
+
+```sparql
+SELECT ?event ?eventType
+WHERE {
+  ?event a :Event .
+  ?event :hasEventType ?eventType .
+  FILTER(?eventType = :Celebration || ?eventType = :Festival || ?eventType = :PrivateEvent)
+}
+```

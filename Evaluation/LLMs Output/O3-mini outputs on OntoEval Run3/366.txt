@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that employment is modelled by a reified instance of actor employment (an instance of Cl_ActorEmployment) that carries the employment start date—and noting that in a closed‐world setting we require explicit links—we can answer the CQ “At what time did a certain actor start working for a specific theatre?” by retrieving the actor’s employment instance (via the employedAt property) and then reading its employmentStartDate (with the added constraint that the employment instance is also an instance of Cl_Theatre, thereby “binding” the employment to a specific theatre). For example, if we want the employment start date of Fabio Bianchi at “The Grand Theatre”, the query could be:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?actorName ?theatreName ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName ;
+         :employedAt ?employment .
+  ?employment a :Cl_ActorEmployment ;
+              :employmentStartDate ?employmentStartDate .
+  ?theatre a :Cl_Theatre ;
+           :theatreName ?theatreName .
+  # Closed world: require that the employment instance also “identifies” the theatre
+  FILTER(?employment = ?theatre)
+  FILTER(?actorName = "Fabio Bianchi" && ?theatreName = "The Grand Theatre")
+}
+------------------------------------------------------------
+
+In this query the FILTER condition ?employment = ?theatre relies on the modelling choice that an employment instance (a Cl_ActorEmployment) is reified so as to be simultaneously an instance of both the actor’s employment record and the theatre (i.e. the specific institution where the actor works). This shows that the ontology supports the CQ under a reified modelling design and closed world interpretation.

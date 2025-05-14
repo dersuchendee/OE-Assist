@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question can be answered by the ontology as it includes classes and properties that describe the play methods of a set of bells, including manual and electric play methods. The ontology also defines a class for sets of bells that are played both manually and electrically.
+
+```sparql
+SELECT ?setOfBells ?playMethod
+WHERE {
+  ?setOfBells a :SetOfBells .
+  ?setOfBells :hasPlayMethod ?playMethod .
+  FILTER(?playMethod IN (:ManualPlayMethod, :ElectricPlayMethod))
+}
+```

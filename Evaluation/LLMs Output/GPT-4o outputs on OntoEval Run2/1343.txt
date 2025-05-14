@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to connect hospitals with the average number of admissions for a given diagnosis code. However, we can extract partial information about hospitals and their admission summaries.
+
+```sparql
+SELECT ?hospital ?diagnosisCode ?averageAdmissions
+WHERE {
+  ?hospital a :Hospital .
+  ?hospital :hasAdmissionSummary ?admissionSummary .
+  ?admissionSummary :appliesToDiagnosisCode ?diagnosisCode .
+  OPTIONAL { ?admissionSummary :averageAdmissions ?averageAdmissions . }
+}
+```

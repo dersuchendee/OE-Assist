@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that hospitals are instances of the class Cl_Hospital and that their location (a city) is provided via the object property :locatedIn (with domain Cl_Hospital and range Cl_City), a SPARQL query to answer “In what city is a certain hospital located?” could be written as follows:
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+----------------------------------------
+
+This query retrieves all hospital instances along with the city where each hospital is located, thus fully addressing the CQ under the closed world assumption.

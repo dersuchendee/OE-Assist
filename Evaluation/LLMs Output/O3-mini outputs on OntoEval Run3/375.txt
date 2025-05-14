@@ -1,0 +1,28 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for a given person, a given production, and a given point in time, the roles that person has. Notice that the ontology reifies the role information in a TimeIndexedRole which connects a Person with a Role (and through that Role with a Production) at a given time.
+
+--------------------------------------------------------------
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?time ?role ?roleLabel
+WHERE {
+  ?person ns1:hasTimeIndexedRole ?timeIndexedRole .
+  ?timeIndexedRole ns1:atTime ?time .
+  ?timeIndexedRole ns1:hasRole ?role .
+  ?role ns1:inProduction ?production .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # Apply closed-world filtering by specifying the person, production, and time of interest.
+  FILTER (
+    ?person = ns1:FabioBianchi &&
+    ?production = ns1:MerchantOfVenice && 
+    ?time = "2009-09-07T00:00:00+00:00"^^xsd:dateTime
+  )
+}
+--------------------------------------------------------------
+
+This query shows that the competency question (CQ) "What roles does a certain person have within a certain production at a certain point in time?" is fully answerable using the given ontology.

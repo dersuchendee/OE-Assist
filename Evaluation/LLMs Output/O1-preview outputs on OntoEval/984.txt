@@ -1,0 +1,18 @@
+**Yes**
+
+The competency question can be answered using the ontology because it includes the class `:Cl_Publication`, the data property `:pageCount`, and individuals representing books with their page counts specified.
+
+Here is a SPARQL query to find out how many pages a particular book contains:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?pageCount
+WHERE {
+  ?book rdf:type :Cl_Publication .
+  ?book :publicationTitle "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" .
+  ?book :pageCount ?pageCount .
+}
+```
+
+This query retrieves the page count of the specific book titled "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals".

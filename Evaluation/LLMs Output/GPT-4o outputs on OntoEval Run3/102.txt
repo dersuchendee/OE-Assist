@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the specific location where a festival took place. The ontology includes classes and properties related to events, locations, and theatre festivals, but it lacks a direct connection between a specific festival and its location. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?festival ?location
+WHERE {
+  ?festival a :TheatreFestival .
+  OPTIONAL { ?festival :takesPlaceIn ?location . }
+}
+```

@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that returns, for each person in the ontology, the instruments they play. (You may add a FILTER clause to focus on a specific person if needed.)
+
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a ns1:Person ;
+          ns1:playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+}
+

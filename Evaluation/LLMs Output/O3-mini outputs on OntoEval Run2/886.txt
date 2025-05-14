@@ -1,0 +1,26 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the members of a given union (here represented as :UnionOfInterest) whose union membership time interval covers a specified time (here provided as the literal ?givenTime). Note that the query uses the information from the reified union membership class and its associated time interval with a start and end date.
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?memberLabel ?membership ?start ?end
+WHERE {
+  ?membership a :UnionMembership ;
+              :hasUnion :UnionOfInterest ;      # Replace with the specific union URI as needed
+              :hasMember ?member ;
+              :hasTimeInterval ?ti .
+  ?ti :startDate ?start ;
+      :endDate ?end .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  
+  # Replace the literal with the time point of interest.
+  FILTER ( "2003-01-01T00:00:00"^^xsd:dateTime >= ?start && "2003-01-01T00:00:00"^^xsd:dateTime <= ?end )
+}
+ORDER BY ?member
+```
+
+In this query, change the union URI (:UnionOfInterest) and the literal date ("2003-01-01T00:00:00"^^xsd:dateTime) to match the union and time point of interest. This effectively answers the competency question, showing that the ontology indeed supports the CQ under the closed world assumption.

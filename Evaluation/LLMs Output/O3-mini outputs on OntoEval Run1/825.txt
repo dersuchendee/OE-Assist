@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the earliest employmentStartDate (i.e. when the person was first employed) for a given person at a specified hospital:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (MIN(?startDate) AS ?firstEmployment)
+WHERE {
+  ?employment a :Cl_Employment ;
+              :employedPerson :Pasquale_Di_Gennaro ;
+              :employedAt :Ospedale_Riunito_delle_Tre_Valli ;
+              :employmentStartDate ?startDate .
+}
+--------------------------------------------------
+
+This query finds the employment instance(s) for the person at the hospital and computes the minimum employmentStartDate, which answers the competency question.

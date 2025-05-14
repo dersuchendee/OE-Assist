@@ -1,0 +1,18 @@
+**No**
+
+The provided ontology does not represent music records or their tracks. In other words, there is no class (e.g., :Record) or property (e.g., :hasTrack) defined in the ontology that connects a record to one or more track entities. Under the closed‐world assumption, if such statements (associating records with tracks) are not in the data, then we must assume they are not true. Therefore, we can only partially extract what might be available (if any records or related properties were to be added later).
+
+A partial SPARQL query that attempts to retrieve records along with any associated track information (if present) is given below:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?record ?track
+WHERE {
+  ?record a :Record .
+  OPTIONAL { ?record :hasTrack ?track . }
+}
+ORDER BY ?record
+--------------------------------------------------
+
+This query returns all individuals of type :Record and, if available, any associated track via the :hasTrack property.

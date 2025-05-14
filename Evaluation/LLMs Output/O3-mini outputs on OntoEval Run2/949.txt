@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that, given a specific book or CD, retrieves the articles it is composed of:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# Replace the IRI below with the specific book or CD you wish to query.
+SELECT ?collection ?collectionTitle ?article ?articleTitle
+WHERE {
+  VALUES ?collectionType { :Cl_Book :Cl_CD }
+  
+  ?collection a ?collectionType .
+  # Optionally filter by a specific collection
+  FILTER (?collection = <http://www.example.org/test#ArticleCollection_NursePractices> 
+          || ?collection = <http://www.example.org/test#CD_ArticleCollection_NursePractices>)
+          
+  OPTIONAL { ?collection :dp_hasTitle ?collectionTitle . }
+  
+  ?collection :op_composedOf ?article .
+  OPTIONAL { ?article :dp_hasTitle ?articleTitle . }
+}
+--------------------------------------------------
+
+In this query we assume a closed-world interpretation: the only article compositions are the ones explicitly linked via the :op_composedOf property from a :Cl_Book or :Cl_CD, making the CQ answerable by retrieving the articles that compose a given book or CD.

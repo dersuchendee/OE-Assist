@@ -1,0 +1,19 @@
+**Yes**
+
+The ontology contains the class `:Cl_Seminar` with the data property `:seminarDate` associated with it. There is an individual `:Seminar_December_2008` of type `:Cl_Seminar`, with a `:seminarDate` value specified. Therefore, we can write a SPARQL query to extract the date of seminars.
+
+Here is the SPARQL query to retrieve the dates of seminars:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?date
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :seminarDate ?date .
+}
+```
+
+This query will return all seminars and their dates. If available, it will also include any labels associated with the seminars.

@@ -1,0 +1,23 @@
+**Yes**
+
+We can answer this competency question because the ontology includes a concrete reification for the plays occurring in a theatre festival. In particular, a festival is modelled as an instance of •Cl_TheatreFestival• which (via the object property •hasPlay•) is linked to a reified instance of •Cl_FestivalPlays• that carries a data property •playName•. Under a closed‐world assumption, we assume the ontology completely represents the plays linked to a festival.
+
+For example, you could write the following SPARQL query to extract the plays for each festival:
+
+-------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalLabel ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :hasPlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?festival ?playName
+-------------------------------------------
+
+This query retrieves each theatre festival and the associated play names, and therefore fully models the competency question.

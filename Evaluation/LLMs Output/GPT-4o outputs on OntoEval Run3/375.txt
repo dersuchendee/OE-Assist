@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to associate a person with a specific role within a production at a specific point in time. The ontology includes classes and properties for roles, productions, and time-indexed roles, but it lacks a direct connection between a person, their role, and the production at a specific time. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?role ?production
+WHERE {
+  ?person a ns1:Person .
+  ?person ns1:hasTimeIndexedRole ?timeIndexedRole .
+  ?timeIndexedRole ns1:hasRole ?role .
+  ?role ns1:inProduction ?production .
+}
+```

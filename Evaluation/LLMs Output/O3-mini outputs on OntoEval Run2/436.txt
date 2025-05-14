@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that, given a particular person in the ontology, retrieves all the instruments they play:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel
+WHERE {
+  :SpecificPerson a :Cl_Person .
+  :SpecificPerson :playsInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+------------------------------------------------
+
+In this query the individual “:SpecificPerson” should be replaced with the URI of the person of interest. This query shows that the ontology fully models the competency question under the closed world assumption.

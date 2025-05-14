@@ -1,0 +1,19 @@
+**Yes**
+
+A SPARQL query that returns the articles contained in a specific article collection (either a book or a CD) could be written as follows:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?collection ?collectionTitle ?article ?articleTitle
+WHERE {
+  ?collection a :Cl_ArticleCollection .
+  OPTIONAL { ?collection rdfs:label ?collectionTitle . }
+  ?collection :containsArticle ?article .
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+}
+------------------------------------------------------
+
+This query answers the competency question "What articles is a specific book or CD composed of?" by retrieving the article collection (the book or CD) along with the articles it contains and their titles, applying the closed world assumption on the provided ontology structure.

@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate hospitals with cities. Although there is a `locatedIn` property that connects hospitals to cities, the ontology does not contain any instances or data that would allow us to answer the competency question directly. Therefore, we can only provide a partial answer.
+
+```sparql
+SELECT ?hospital ?city
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital :locatedIn ?city . }
+}
+```

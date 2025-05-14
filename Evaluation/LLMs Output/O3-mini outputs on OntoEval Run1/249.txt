@@ -1,0 +1,16 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the plays written by a given author (e.g., "William Shakespeare"):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?authorName ?playName
+WHERE {
+  ?author a :Cl_Author ;
+          :authorName ?authorName ;
+          :wrotePlay ?play .
+  ?play :playName ?playName .
+  FILTER(?authorName = "William Shakespeare")
+}

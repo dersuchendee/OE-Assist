@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves the composition date for a specific song (here filtering by the song “Hump_de_Bump”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?composedOn
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedOn ?composedOn .
+  FILTER(regex(str(?song), "Hump_de_Bump", "i"))
+}
+
+This query works under the closed world assumption and extracts the answer to the CQ “When was a certain song composed?” by retrieving the date associated with the property :composedOn.

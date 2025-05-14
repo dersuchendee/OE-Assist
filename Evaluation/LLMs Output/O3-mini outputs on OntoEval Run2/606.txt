@@ -1,0 +1,18 @@
+**Yes**
+Below is one SPARQL query that retrieves the review text provided by a given critic (e.g. “Crian Hiatt”) on a record (album):
+
+──────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ 
+SELECT ?record ?recordName ?review
+WHERE {
+  ?record a :Cl_Album ;
+          :hasReview ?review ;
+          :reviewedBy ?critic .
+  OPTIONAL { ?record :hasName ?recordName . }
+  ?critic :hasName "Crian Hiatt" .
+}
+──────────────────────────────
+
+Under the closed‐world assumption, we assume that only the facts explicitly present in the ontology hold, so this query extracts the answer to “What does a certain critic say about a certain record?” when the critic is "Crian Hiatt."

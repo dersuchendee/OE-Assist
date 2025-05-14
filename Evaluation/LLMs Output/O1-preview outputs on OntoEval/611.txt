@@ -1,0 +1,24 @@
+**Yes**
+
+The competency question "What does a certain critic say about a certain record?" can be answered using the given ontology. The ontology includes classes such as `:Cl_Critic`, `:Cl_Record`, and `:Cl_Review`, and properties that connect them, specifically `:givenBy`, `:about`, and `:reviewText`. This allows us to retrieve the review text that a specific critic has provided about a specific record.
+
+Here's the SPARQL query to extract the answer:
+
+```sparql
+SELECT ?reviewText
+WHERE {
+  ?review a :Cl_Review .
+  ?review :givenBy :CertainCritic .
+  ?review :about :CertainRecord .
+  ?review :reviewText ?reviewText .
+}
+```
+
+**Explanation:**
+
+- `?review a :Cl_Review .` selects all instances of the `:Cl_Review` class.
+- `?review :givenBy :CertainCritic .` filters reviews given by the specific critic (`:CertainCritic`).
+- `?review :about :CertainRecord .` filters reviews that are about the specific record (`:CertainRecord`).
+- `?review :reviewText ?reviewText .` retrieves the text of the review.
+
+Make sure to replace `:CertainCritic` and `:CertainRecord` with the actual URIs of the critic and record you are interested in.

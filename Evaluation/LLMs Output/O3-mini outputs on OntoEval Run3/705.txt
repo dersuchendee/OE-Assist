@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that cities are asserted as instances of :Cl_City and that their administrative region is provided via the property :locatedIn (with its range being the corresponding region class, e.g. :Cl_Region or a subclass such as :Cl_CityRegion), a SPARQL query to extract the region for a given city (or for all cities) would look like:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+-------------------------------------------------
+
+Under the closed–world assumption, if a city is not explicitly linked via :locatedIn to any region, then it is assumed not to be located in any region. This query supports the competency question "In what region is a certain city located?" as required.

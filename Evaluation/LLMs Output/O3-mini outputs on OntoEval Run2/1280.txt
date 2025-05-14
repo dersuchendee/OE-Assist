@@ -1,0 +1,18 @@
+**No**  
+Because the ontology does not include explicit modeling for a specific female musician (or details such as gender or a unique identifier “she”), we cannot be sure which musician is meant by “she.” However, we can write a SPARQL query that partially answers the CQ by listing performance events with their locations for musicians whose label matches “she” (assuming that in some closed‐world instance an individual is labelled “she”). Under the closed world assumption, if no explicit individual “she” is recorded then nothing will be returned.
+
+Below is a SPARQL query for a partial answer:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?musician ?musicianLabel ?performanceEvent ?location
+WHERE {
+  ?performanceEvent a :PerformanceEvent ;
+                    :performedAt ?location ;
+                    :performedBy ?musician .
+  ?musician rdfs:label ?musicianLabel .
+  FILTER (lcase(str(?musicianLabel)) = "she")
+}  
+
+This query retrieves performance events with their locations for any musician whose label exactly equals “she” (case‑insensitively). If the intended “she” is not explicitly modeled by such a label, the answer remains partial.

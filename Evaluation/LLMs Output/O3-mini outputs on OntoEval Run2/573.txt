@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one example SPARQL query that returns the song of a given track (here “:Track1”) by following the “recordingOf” property:
+
+------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?compositionDate
+WHERE {
+  :Track1 :recordingOf ?song .
+  OPTIONAL { ?song :compositionDate ?compositionDate . }
+}
+------------------------------------
+
+This query assumes the closed‐world view of the ontology so that if a track does not have a song related via :recordingOf, it is not returned in the answer.

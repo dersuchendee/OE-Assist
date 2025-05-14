@@ -1,0 +1,17 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?monitoringSite ?siteLabel ?measurementDate
+WHERE {
+  ?obs a :WaterQualityObservation ;
+       :hasParameter ?parameter ;
+       :registeredAtSite ?monitoringSite ;
+       :measurementDate ?measurementDate .
+  OPTIONAL { ?monitoringSite rdfs:label ?siteLabel . }
+  # Replace :SpecifiedParameter with the actual water quality parameter of interest.
+  FILTER (?parameter = :SpecifiedParameter)
+}
+ORDER BY ?monitoringSite ?measurementDate
+```

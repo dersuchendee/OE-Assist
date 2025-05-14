@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "What are the actors involved in the process?" can be answered using the ontology provided. The ontology includes classes and properties related to actors and processes, allowing us to query for actors participating in processes.
+
+```sparql
+SELECT DISTINCT ?actor ?actorLabel
+WHERE {
+  ?participation a actor:ProcessParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```
+
+This query retrieves distinct actors involved in any process participation, along with their labels if available.

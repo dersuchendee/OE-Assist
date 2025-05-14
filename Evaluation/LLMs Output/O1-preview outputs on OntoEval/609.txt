@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?critic ?record ?reviewText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?critic :madeReview ?review .
+  ?review a :Cl_CriticReview .
+  ?record a :Cl_Record .
+  ?record :hasReview ?review .
+  ?review :reviewText ?reviewText .
+  # Optionally, specify the critic and record if known:
+  # FILTER(?critic = :CertainCritic && ?record = :CertainRecord)
+}
+```

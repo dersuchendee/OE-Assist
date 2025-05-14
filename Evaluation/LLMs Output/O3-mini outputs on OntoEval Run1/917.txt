@@ -1,0 +1,25 @@
+**Yes**
+
+We can answer the CQ using the ontology. In the ontology, union roles are reified as instances of :Cl_UnionRole and connect the person (via :roleHolder) with the union group (via :hasUnionRole) and include dates (via :roleStartDate and optionally :roleEndDate) that help determine if the role was active at a given time. Under the closed‐world assumption, if a role exists for the person within the specified union and the queried time falls between :roleStartDate and :roleEndDate (or no end date is specified), then we can extract the role. For example, the following SPARQL query returns the role details for a given person (here :Pasquale_Di_Gennaro) within a specified union (e.g. :Union_Male_Nurses) at a specified point in time (provided as ?queryDate):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?roleName ?roleStartDate ?roleEndDate
+WHERE {
+  ?role a :Cl_UnionRole ;
+        :roleHolder :Pasquale_Di_Gennaro ;
+        :hasUnionRole :Union_Male_Nurses ;
+        :roleName ?roleName ;
+        :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate. }
+  
+  # Check that the query date falls within the role's period.
+  BIND("2005-01-01"^^xsd:date AS ?queryDate)
+  FILTER (?queryDate >= ?roleStartDate &&
+         ( !bound(?roleEndDate) || ?queryDate <= ?roleEndDate ))
+}
+--------------------------------------------------
+
+This query demonstrates that the role CQ is modelled by the ontology.

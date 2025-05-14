@@ -1,0 +1,18 @@
+**No**
+
+The given ontology does not model any property (e.g., a construction date or similar) that would allow us to retrieve the year when a building (e.g., a bell tower) was built. Therefore, while we can list instances of bell towers or buildings, there is no corresponding data on the construction year to fully answer the CQ. Under a closed world assumption, we assume that if the information is not in the ontology then it is not available.
+
+Below is a SPARQL query that retrieves the bell towers (buildings) from the ontology—this is a partial answer because it does not provide any information about the construction year:
+
+-------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?bellTower ?label
+WHERE {
+  ?bellTower a bells:BellTower .
+  OPTIONAL { ?bellTower rdfs:label ?label . }
+}
+-------------------------------------------------
+
+This query lists all bell towers along with their labels, but since no property representing the construction year is modelled, the year when the building was built cannot be retrieved.

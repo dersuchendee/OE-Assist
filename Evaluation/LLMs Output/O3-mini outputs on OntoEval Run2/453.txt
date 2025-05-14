@@ -1,0 +1,41 @@
+**Yes**
+
+Below is one way to write a SPARQL query that—under the closed‐world assumption and using the reified band membership (Cl_BandMembership)—retrieves the persons that were members of a given band at a specific time. (In this query the band and the time point are provided as filter criteria.)
+
+───────────────────────────── Begin SPARQL Query ─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?band ?bandLabel ?membership ?person ?personLabel ?timePeriod
+WHERE {
+  # Assume we are interested in a specific band, e.g., “Red Hot Chili Peppers”
+  ?band a :Cl_Band ;
+        rdfs:label "Red Hot Chili Peppers" ;
+        :hasMember ?membership .
+        
+  # The membership instance connects the band to a person and a time period.
+  ?membership :duringTimePeriod ?timePeriod .
+  ?person :memberOfBand ?membership .
+  
+  OPTIONAL { ?band rdfs:label ?bandLabel . }
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  # Filter for a given point in time.
+  # Here we assume that ?timePeriod denotes a time instance or otherwise is comparable to a given point.
+  # Replace "2005-01-01T00:00:00Z" with the desired point in time.
+  FILTER (?timePeriod = "2005-01-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?person
+
+───────────────────────────── End SPARQL Query ─────────────────────────────
+
+Explanation:
+
+• The ontology models band membership via the reified class Cl_BandMembership. A band (an instance of Cl_Band) is linked via the property :hasMember to a membership instance.
+• Each membership instance is associated with a time period through :duringTimePeriod and linked to a person via :memberOfBand.
+• The query filters the memberships so that only those valid at the given time point are returned.
+• Under the closed‐world assumption, we assume that if there is no assertion relating a membership’s time period to the given point the membership does not hold at that time.
+
+This makes the competency question "What are the members of a certain band at a certain point in time?" answerable by the ontology.

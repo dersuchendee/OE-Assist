@@ -1,0 +1,29 @@
+**Yes**
+
+Assuming that band memberships are reified via the class Cl_BandMembership (with links to Cl_Band, Cl_Person, and Cl_TimePeriod), one can answer the CQ “What are the members of a certain band at a certain point in time?” by retrieving the membership instances that connect a band with its members and a time period. In the query below we assume that the band is identified by a label (for example “Red Hot Chili Peppers”) and that the time period (even if modeled as a reified time object) provides a literal (via rdfs:label or a dedicated property) that we can match against a given date (here represented as “2006-08-11”) under the closed world assumption—that is, only those memberships with an explicitly recorded time period will be returned.
+
+For example, the SPARQL query could be:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?band ?bandLabel ?member ?memberLabel ?timePeriod ?timePeriodLabel
+WHERE {
+  ?band a :Cl_Band ;
+        rdfs:label ?bandLabel .
+  FILTER(?bandLabel = "Red Hot Chili Peppers")
+  
+  ?band :hasMember ?membership .
+  ?membership :duringTimePeriod ?timePeriod .
+  OPTIONAL { ?timePeriod rdfs:label ?timePeriodLabel. }
+  
+  ?member :memberOfBand ?membership .
+  OPTIONAL { ?member rdfs:label ?memberLabel. }
+  
+  # Filter to a specific time point (adjust according to your time representation)
+  FILTER( ?timePeriodLabel = "2006-08-11" )
+}
+----------------------------------------------------------------
+
+This query uses the reified membership model to extract, for a given band and a given time (here “2006-08-11”), the persons (members) that were associated with the band during that time period.

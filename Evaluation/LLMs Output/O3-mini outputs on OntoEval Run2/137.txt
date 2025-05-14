@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves for each theatre festival the plays associated with it (using the reified connection via the property :hasPlay and the data property :playName):
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  
+  ?festival :hasPlay ?play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+ORDER BY ?festival ?playName
+------------------------------------------------------
+
+This query shows that the competency question "What plays could be seen during a certain theatre festival?" is answerable by the ontology as the necessary classes (e.g. :Cl_TheatreFestival, :Cl_Play or its reified form :Cl_FestivalPlays) and properties (e.g. :hasPlay with domain :Cl_TheatreFestival and the data property :playName) allow for retrieving the play information for each festival.

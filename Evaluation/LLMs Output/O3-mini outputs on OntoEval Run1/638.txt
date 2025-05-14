@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate ?performanceDate .
+}
+```
+
+In this query we assume the closed world: performances are explicitly asserted with a performance date (e.g., the live performance of the Red Hot Chili Peppers in Portland). This answers the CQ “When did a certain performance take place?” by retrieving the performance individuals along with their performance dates.

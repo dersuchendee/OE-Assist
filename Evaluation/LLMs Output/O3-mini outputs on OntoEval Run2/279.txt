@@ -1,0 +1,17 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, returns each play together with the time period during which it was written (via the reified Cl_PlayCreation):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playTitle ?creationPeriod
+WHERE {
+  ?play a :Cl_Play ;
+        :wasWrittenDuring ?playCreation .
+  OPTIONAL { ?play :playTitle ?playTitle . }
+  ?playCreation :creationPeriod ?creationPeriod .
+}
+
+This query answers the competency question “During what time period was a certain play written?” by extracting the time period (creationPeriod) associated with each play via the :wasWrittenDuring property.

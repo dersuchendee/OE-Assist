@@ -1,0 +1,14 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?article ?articleTitle
+WHERE {
+  ?publication a :Cl_Publication ;
+               :publicationType ?publicationType ;
+               :publicationTitle "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals" ;
+               :composedOfArticles ?article .
+  FILTER (?publicationType = "Book" || ?publicationType = "CD")
+  ?article a :Cl_Article ;
+           :articleTitle ?articleTitle .
+}
+```

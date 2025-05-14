@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct connection between a region and a country. The `locatedIn` property is defined, but it is not used in the ontology data. Therefore, we cannot directly answer the competency question. However, we can extract a partial answer by identifying regions and their associated countries if such data were available.
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Region .
+  OPTIONAL { ?region :locatedIn ?country . }
+}
+```

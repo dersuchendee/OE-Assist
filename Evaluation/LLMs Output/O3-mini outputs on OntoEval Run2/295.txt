@@ -1,0 +1,14 @@
+**Yes**
+
+Below is a SPARQL query that extracts the number of acts recorded for a specific play (e.g. “The Merchant of Venice”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?playName ?numberOfActs
+WHERE {
+  ?play a :Cl_Play ;
+        :playName "The Merchant of Venice" ;
+        :numberOfActs ?numberOfActs .
+}
+

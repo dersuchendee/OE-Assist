@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question "Who is where in this indoor location?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to determine the location of a person within an indoor environment. Specifically, the `:isLocatedIn` property connects a `:Person` to a `:Bathroom`, and the `:hasLocation` property connects a `:ToothbrushingActivity` to a `:Bathroom`. We can use these properties to determine who is in a specific location.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  ?person a :Person .
+  ?person :isLocatedIn ?location .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```
+
+This query retrieves all individuals of type `:Person` and their associated locations, using the `:isLocatedIn` property. It also retrieves optional labels for the person and location for better readability.

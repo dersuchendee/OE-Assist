@@ -1,0 +1,32 @@
+**Yes**
+
+```sparql
+SELECT ?song ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :composedOn ?composition .
+  ?composition a :Cl_SongComposition .
+  ?composition :compositionDate ?compositionDate .
+}
+```
+
+This query retrieves songs and their composition dates by traversing the relationships defined in the ontology:
+
+- `:Cl_Song` represents songs.
+- `:composedOn` links a song to its composition event.
+- `:Cl_SongComposition` represents the composition event.
+- `:compositionDate` provides the date when the song was composed.
+
+If you are interested in a specific song, for example, "Hump de Bump", you can modify the query as follows:
+
+```sparql
+SELECT ?compositionDate
+WHERE {
+  ?song a :Cl_Song ;
+        rdfs:label "Hump de Bump" ;
+        :composedOn ?composition .
+  ?composition :compositionDate ?compositionDate .
+}
+```
+
+This modified query filters the song by its label to find the composition date of "Hump de Bump".

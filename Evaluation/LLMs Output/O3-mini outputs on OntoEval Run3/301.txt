@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that each play is represented as an instance of :Cl_Play and that its number of acts is recorded by the data property :numberOfActs, the following SPARQL query shows how to retrieve the number of acts for a given play (here using a filter to select a particular play, e.g. one whose identifier contains “MerchantOfVenice”):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play rdf:type :Cl_Play .
+  ?play :numberOfActs ?numberOfActs .
+  FILTER (regex(str(?play), "MerchantOfVenice", "i"))
+}
+
+In a closed-world assumption scenario, it is assumed that if a play exists in the ontology it explicitly has the :numberOfActs property. Therefore, the CQ is fully answerable using the ontology.

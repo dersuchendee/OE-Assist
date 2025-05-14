@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?presentation ?article ?articleLabel
+WHERE {
+  ?seminar a ns1:Seminar .
+  # Optionally, restrict to a specific seminar by its IRI or label:
+  # FILTER(?seminar = ns1:SeminarOnNewArticles)
+  ?seminar ns1:hasPresentation ?presentation .
+  ?presentation ns1:presentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```

@@ -1,0 +1,21 @@
+**Yes**
+
+The CQ is answerable because the ontology models the relationships between seminars, presentations, and articles, allowing us to confirm that at least one article is presented at each seminar present in the ontology. Here's the SPARQL query to retrieve the seminars and check that each has at least one article presented:
+
+```sparql
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel (COUNT(DISTINCT ?article) AS ?numArticles)
+WHERE {
+  ?seminar a ns1:Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+
+  ?seminar ns1:hasPresentation ?presentation .
+  ?presentation ns1:presentedArticle ?article .
+}
+GROUP BY ?seminar ?seminarLabel
+HAVING (?numArticles > 0)
+```
+
+This query retrieves all seminars and counts the number of articles presented at each one. The `HAVING` clause ensures that only seminars with at least one article are considered, confirming that every seminar has at least one article presented.

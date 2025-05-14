@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the review text given a specific critic and a specific record (album):
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?reviewText 
+WHERE {
+  ?critic a :Cl_Critic ;
+          :reviewsAlbum ?criticReview .
+  ?criticReview :reviewText ?reviewText ;
+                  :reviewedAlbum ?record .
+  
+  # Replace the following URIs with the actual identifiers for the critic and the record:
+  FILTER (?critic = <http://www.example.org/test#Critic_Example> &&
+          ?record = <http://www.example.org/test#Record_Example>)
+}
+----------------------------------------------------
+
+This query answers the CQ by extracting what review text (i.e. what the critic says) is associated with the record in question using the critic’s :reviewsAlbum relationship and the properties :reviewText and :reviewedAlbum as defined in the ontology.

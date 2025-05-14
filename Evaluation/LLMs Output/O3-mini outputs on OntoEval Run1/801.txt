@@ -1,0 +1,21 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the study period (start and end dates) for a given person’s specific degree. Under the closed‐world assumption the query only returns a result if the individual degree is linked to a study period via the :hasStudyPeriod property:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeTitle ?studyStartDate ?studyEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle ;
+          :hasStudyPeriod ?studyPeriod .
+  ?studyPeriod :studyStartDate ?studyStartDate ;
+               :studyEndDate ?studyEndDate .
+  # Optionally, filter to a given person and/or degree title:
+  # FILTER(?person = :PasqualeDiGennaro && ?degreeTitle = "Certified Nurse")
+}
+ORDER BY ?person ?degreeTitle
+
+This query shows that the ontology supports the competency question “During what time period did a certain person study for a specific degree?” by directly retrieving the study period information from the reified degree (i.e. the association via the :hasStudyPeriod property).

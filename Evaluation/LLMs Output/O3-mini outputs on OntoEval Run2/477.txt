@@ -1,0 +1,33 @@
+**Yes**
+
+Assuming you supply the person, band, and time of interest (here shown as parameters), you can answer the CQ by joining the person’s role to the band via the reified membership (using the membership start/end dates) and the role’s association to the band. For example, using the closed‐world assumption, you could run a query like:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role
+WHERE {
+  # Bind the given person, band and the point in time
+  BIND(:Anthony_Kiedis AS ?person) .
+  BIND(:Red_Hot_Chili_Peppers AS ?band) .
+  BIND("2005-01-01"^^xsd:date AS ?time) .
+  
+  # Retrieve the role(s) the person has that are linked to the band.
+  ?person :hasRole ?role .
+  ?role :roleInBand ?band .
+  
+  # Optionally check that the person was a member at the given time.
+  # (Assumes an individual membership instance has been created for the person
+  # following a naming convention such as Membership[PersonName].)
+  OPTIONAL {
+    ?membership a :Cl_Membership ;
+                :memberOf ?band ;
+                :membershipStart ?start .
+    OPTIONAL { ?membership :membershipEnd ?end . }
+    FILTER (?time >= ?start && ( !bound(?end) || ?time <= ?end ))
+  }
+}
+---------------------------------------------------------------
+
+This query extracts the role that a specific person (here :Anthony_Kiedis) has in a specified band (here :Red_Hot_Chili_Peppers) at a given point in time, by confirming that the membership (if present) is valid for that time.

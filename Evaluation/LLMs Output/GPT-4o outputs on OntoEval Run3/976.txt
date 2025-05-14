@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the number of pages a book contains. The ontology includes a `pageNumber` datatype property for the `Book` class, but there is no instance data or specific book mentioned in the ontology to query against. Therefore, a partial answer can be extracted by querying for books and their page numbers, but it will not provide the specific answer for a particular book without instance data.
+
+```sparql
+SELECT ?book ?pageNumber
+WHERE {
+  ?book a :Book .
+  ?book :pageNumber ?pageNumber .
+}
+```

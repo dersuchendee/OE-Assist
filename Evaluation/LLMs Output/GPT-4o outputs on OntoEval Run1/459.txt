@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to associate band members with a specific point in time. The ontology includes a `hasTimePeriod` property, but it is not used in a way that allows querying for band members at a specific point in time. Here's a SPARQL query to extract a partial answer, which lists band members without considering the time aspect:
+
+```sparql
+SELECT ?band ?member
+WHERE {
+  ?band a :Cl_Band .
+  ?band :hasMember ?member .
+}
+```

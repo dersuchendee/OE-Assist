@@ -1,0 +1,21 @@
+**No**
+
+The competency question cannot be fully answered with the given ontology because there is no way to determine whether a person is still a member of an ensemble at a specific point in time since the ontology lacks an end date for the membership. We only have the membership start date (`:membershipDate`) but no end date to compute the membership duration.
+
+However, we can provide a partial answer by listing ensemble members who joined on or before the given date.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?ensembleMembership .
+  ?ensembleMembership :member ?member .
+  ?ensembleMembership :membershipDate ?membershipDate .
+  FILTER(?membershipDate <= "SPECIFIC_DATE"^^xsd:date)
+}
+```
+
+Replace `SPECIFIC_DATE` with the date of interest in `YYYY-MM-DD` format to retrieve members who joined the ensemble on or before that date.

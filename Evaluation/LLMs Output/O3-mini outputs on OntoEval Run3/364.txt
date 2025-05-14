@@ -1,0 +1,23 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each actor‐theatre pair, the employment start date by following the reified employment relationship. (In an application you would filter or bind the specific actor and theatre as required.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?theatreName ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName ;
+         :employedAt ?employmentRecord .
+  
+  ?employmentRecord a :Cl_ActorEmployment ;
+                    :employmentStartDate ?employmentStartDate ;
+                    :employmentTheatre ?theatre .
+  
+  ?theatre a :Cl_Theatre ;
+           :theatreName ?theatreName .
+}
+ORDER BY ?actorName ?theatreName

@@ -1,0 +1,24 @@
+Answer: **Yes**
+
+The competency question is answerable because the ontology includes the necessary classes and properties to represent evaluations given by doctors to employees. Specifically, we have:
+
+- `:Cl_Employee` and `:Cl_Doctor` classes representing employees and doctors.
+- `:evaluatedBy` property connecting an employee to an evaluation.
+- `:doctor` property connecting an evaluation to a doctor.
+- `:evaluationStatement` property holding the content of the evaluation.
+
+Here's a SPARQL query to extract the evaluation statements given by doctors for employees:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?employee ?doctor ?evaluationStatement
+WHERE {
+  ?employee a :Cl_Employee .
+  ?employee :evaluatedBy ?evaluation .
+  ?evaluation :doctor ?doctor .
+  ?evaluation :evaluationStatement ?evaluationStatement .
+}
+```
+
+This query retrieves all employees who have been evaluated (`:evaluatedBy`), the evaluations they have received, the doctors who provided these evaluations, and the evaluation statements themselves.

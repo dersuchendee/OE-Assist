@@ -1,0 +1,20 @@
+**No**
+
+The ontology provides classes and properties to capture productions, production reviews, and star ratings (through :Cl_Production, :hasReview, and :hasStarRating on :Cl_ProductionReview). However, there is no explicit property linking a review to the specific newspaper that gave it. In other words, while one can extract the star rating for a production’s review, the information “given by a certain newspaper” is not directly modelled. Under the closed‐world assumption this means the answer can only be partially extracted (i.e. the review’s star rating for a production, without filtering by a particular newspaper).
+
+A partial SPARQL query that extracts the production and its review’s star rating is for example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?starRating
+WHERE {
+  ?production a :Cl_Production ;
+              :hasReview ?review .
+  ?review a :Cl_ProductionReview ;
+          :hasStarRating ?starRating .
+}
+--------------------------------------------------
+
+This query returns the star ratings for production reviews but does not restrict the results to those “given by a certain newspaper”, because that relationship is not explicitly encoded in the ontology.

@@ -1,0 +1,27 @@
+**Yes**
+
+Below is an example SPARQL query that, given a specific union (for example, MaleNursesUnion) and a specific point in time, retrieves the persons who are members of that union at that time. (Under a closed‐world assumption any missing end date is taken to mean that the membership is still active):
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStart ?membershipEnd
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :membershipOf ?person ;
+              :memberOf ?union ;
+              :membershipStartDate ?membershipStart .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEnd . }
+  
+  # Filter for the given union and the membership validity at a given date.
+  # Replace <http://www.example.org/test#MaleNursesUnion> with the union of interest,
+  # and "2003-01-01"^^xsd:date with the point-in-time under investigation.
+  FILTER(
+    ?union = <http://www.example.org/test#MaleNursesUnion> &&
+    "2003-01-01"^^xsd:date >= ?membershipStart &&
+    ( !bound(?membershipEnd) || "2003-01-01"^^xsd:date <= ?membershipEnd )
+  )
+}
+ORDER BY ?membershipStart
+----------------------------------

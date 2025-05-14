@@ -1,0 +1,17 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?denitrifyingBacteria ?bacteriaLabel ?role ?roleLabel
+WHERE {
+  ?denitrifyingBacteria a :DenitrifyingBacteria .
+  OPTIONAL { ?denitrifyingBacteria rdfs:label ?bacteriaLabel . }
+  
+  ?denitrifyingBacteria :hasRole ?role .
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  ?role :roleInProcess :DenitrificationProcess .
+}
+```

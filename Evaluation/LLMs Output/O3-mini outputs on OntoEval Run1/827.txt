@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the ontology’s employment reification connects a person with a hospital via an instance of Cl_Employment that has an employment date via the :employmentDate property, you can answer “When was a certain person first employed at a certain hospital?” by retrieving the minimum employment date for that person–hospital combination (under the closed‐world assumption).
+
+For example, the following SPARQL query returns, for every person and hospital pair, the earliest employment date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?hospital (MIN(?employmentDate) AS ?firstEmploymentDate)
+WHERE {
+  ?employment a :Cl_Employment ;
+              :employee ?person ;
+              :employedAt ?hospital ;
+              :employmentDate ?employmentDate .
+}
+GROUP BY ?person ?hospital
+
+This query extracts the answer to the competency question from the given ontology.

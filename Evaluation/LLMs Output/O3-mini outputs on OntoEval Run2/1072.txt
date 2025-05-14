@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves the location of a seminar by following the ontology’s modeled properties. In this ontology a seminar (of type :Cl_Seminar) is linked to a seminar location (of type :Cl_SeminarLocation) via the property :tookPlaceAt, and the actual location information is given by the property :seminarLocation on that seminar location.
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?location
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :tookPlaceAt ?seminarLocation .
+  ?seminarLocation :seminarLocation ?location .
+}
+---------------------------------------------------
+
+This query answers the competency question “Where did a certain seminar take place?” by extracting the location from the modeled relationships.

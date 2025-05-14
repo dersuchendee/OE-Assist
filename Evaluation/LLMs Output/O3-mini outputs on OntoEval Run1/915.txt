@@ -1,0 +1,27 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the union role held by a person (here, for example, PasqualeDiGennaro) in a particular union (e.g. MaleNursesUnion) valid at a specific date (for example “2003-01-01”). The query extracts the role information (its title and its start/end dates) by following the reified membership relations provided in the ontology.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?roleTitle ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :isMemberOf ?membership .
+  ?membership :membershipInUnion ?union ;
+              :hasUnionRole ?role .
+  ?role :unionRoleTitle ?roleTitle ;
+        :roleStartDate ?roleStartDate .
+  OPTIONAL { ?role :roleEndDate ?roleEndDate . }
+  
+  # For a given person and union, and with a time filter (e.g. point in time "2003-01-01")
+  FILTER(?person = :PasqualeDiGennaro)
+  FILTER(?union = :MaleNursesUnion)
+  FILTER(xsd:date("2003-01-01") >= ?roleStartDate &&
+         ( !bound(?roleEndDate) || xsd:date("2003-01-01") <= ?roleEndDate ))
+}
+--------------------------------------------------
+
+In this query, the filters ensure that only the role active at the chosen time is selected. Adjust the individual, union, and time point as needed.

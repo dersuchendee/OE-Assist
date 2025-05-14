@@ -1,0 +1,22 @@
+**Yes**
+Below is one possible SPARQL query that retrieves, for a given person, the instruments they play by following the reification introduced in the ontology:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  
+  ?person :playsInstrument ?instPlaying .
+  ?instPlaying :playedBy ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  
+  # To restrict the query to a particular person, uncomment the line below and substitute the URI:
+  # FILTER(?person = <http://www.example.org/test#YourPersonURI>)
+}
+-------------------------------------------------
+
+This query uses the ontology’s reified relationship where a Cl_InstrumentPlaying instance connects a person (via :playsInstrument) to an instrument (via :playedBy). Under the closed world assumption, no additional missing relation is expected; therefore, the competency question "What instruments does a certain person play?" is fully answerable.

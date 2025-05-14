@@ -1,0 +1,13 @@
+**No**
+
+The ontology provided does not include any information about the specific types of sources, such as "primary sources" or "official sources," nor does it include any properties or classes that would allow us to determine the type of a source beyond the general "Type" class. Therefore, the competency question "Which is the type of a source?" cannot be fully answered with the given ontology. However, we can extract partial information about the types of sources that are explicitly defined in the ontology.
+
+```sparql
+SELECT ?source ?type
+WHERE {
+  ?source a :Source .
+  OPTIONAL {
+    ?source :hasType ?type .
+  }
+}
+```

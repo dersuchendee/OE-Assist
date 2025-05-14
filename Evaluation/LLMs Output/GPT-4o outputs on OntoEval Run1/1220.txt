@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question "Which microbial functional guilds are present in a specific aquifer ecosystem?" can be answered using the given ontology. The ontology provides the necessary classes and properties to connect aquifer ecosystems with microbial functional guilds through observations. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?aquiferEcosystem ?guild
+WHERE {
+  ?observation a :MicrobialPresenceObservation .
+  ?observation :isObservationOf ?aquiferEcosystem .
+  ?observation :hasObservedGuild ?guild .
+}
+```

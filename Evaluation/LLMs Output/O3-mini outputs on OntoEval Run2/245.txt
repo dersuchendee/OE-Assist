@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that, under the closed‐world assumption, retrieves the plays written by a given author (for example, with the name "William Shakespeare"):
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title 
+WHERE {
+  ?author a :Cl_Author ;
+          :hasName "William Shakespeare" ;
+          :wrotePlay ?play .
+  ?play :hasTitle ?title .
+}
+-------------------------------------------------
+
+This query answers the competency question “What plays did a certain author write?” by using the ontology’s class :Cl_Author and the property :wrotePlay to connect the author to the plays, and then retrieves each play’s title via the :hasTitle property.

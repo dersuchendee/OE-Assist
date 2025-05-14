@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the city (and its name) where “The Grand Theatre” is located. In our ontology the theatre is linked to its location via the “hasTheatre” and “hasCity” properties, and the city’s name is available via the “cityName” data property.
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?theatre ?theatreName ?city ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre ;
+           :theatreName ?theatreName .
+  ?location a :Cl_TheatreLocation ;
+            :hasTheatre ?theatre ;
+            :hasCity ?city .
+  ?city :cityName ?cityName .
+  FILTER(?theatreName = "The Grand Theatre")
+}
+----------------------------------
+
+This query shows that the ontology can answer a competency question such as “In what city is the Grand Theatre located?” by connecting the theatre instance with its location and then extracting the city name.

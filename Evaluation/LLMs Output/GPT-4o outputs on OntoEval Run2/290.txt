@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "How many acts does a particular play contain?" can be answered using the ontology provided. The ontology includes the `:hasNumberOfActs` datatype property, which is associated with the `:Cl_Play` class. This property allows us to query the number of acts for a specific play.
+
+Here is a SPARQL query to extract the number of acts for a particular play:
+
+```sparql
+SELECT ?play ?numberOfActs
+WHERE {
+  ?play a :Cl_Play .
+  ?play :hasNumberOfActs ?numberOfActs .
+}
+```

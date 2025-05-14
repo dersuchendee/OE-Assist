@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer this CQ with a SPARQL query that retrieves hospitals and the associated cities via the “locatedIn” property. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?city .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+
+This query returns the hospitals and for each hospital the city in which it is located.

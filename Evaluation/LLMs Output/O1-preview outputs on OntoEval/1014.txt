@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD :publicationDate ?publicationDate .
+  { ?bookOrCD rdf:type :Cl_Book . }
+  UNION
+  { ?bookOrCD rdf:type :Cl_CD . }
+}
+```

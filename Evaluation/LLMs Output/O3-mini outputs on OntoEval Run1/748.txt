@@ -1,0 +1,16 @@
+**Yes**
+
+We can verify the CQ “A record always contains at least one track” with the ontology that defines :Album with a minimum cardinality restriction on :hasTrack. Under closed‐world assumptions you can check that no Album exists that lacks a track. For example, the following SPARQL query returns all albums that do NOT have any track. If the query returns no results then every record (album) indeed has at least one track.
+
+-------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album
+WHERE {
+  ?album a :Album .
+  FILTER NOT EXISTS { ?album :hasTrack ?track . }
+}
+-------------------------------------------------
+
+If this query yields no results then the CQ is modeled by the ontology.

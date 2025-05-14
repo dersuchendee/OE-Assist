@@ -1,0 +1,19 @@
+**No**
+
+The competency question "What did the user do previously?" cannot be fully answered using the given ontology because there is no mechanism to determine the temporal ordering of actions. Specifically, the ontology lacks properties or data that indicate when an action occurred relative to the current time, making it impossible to identify "previous" actions.
+
+However, we can extract partial information about the actions performed by the user using the following SPARQL query:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?actionType
+WHERE {
+    ?user a :Cl_User ;
+          :op_performedAction ?action .
+    ?action a :Cl_UserAction ;
+            :op_actionType ?actionType .
+}
+```
+
+This query retrieves the types of actions performed by the user but does not specify when these actions took place.

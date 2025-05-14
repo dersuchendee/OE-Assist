@@ -1,0 +1,35 @@
+Answer: **Yes**
+
+Here is a SPARQL query that retrieves the role of a specific person within a specific union group at a certain point in time:
+
+```sparql
+SELECT ?roleName
+WHERE {
+    # Specify the person, union, and date of interest
+    BIND (:Pasquale_Di_Gennaro AS ?person) .
+    BIND (:Union_Male_Nurses AS ?union) .
+    BIND ("2003-01-01"^^xsd:date AS ?date) .
+
+    # Ensure the person and union exist in the dataset
+    ?person rdf:type :Cl_Person .
+    ?union rdf:type :Cl_Union .
+
+    # Find the union role held by the person in the union
+    ?unionRole rdf:type :Cl_UnionRole ;
+               :roleHeldBy ?person ;
+               :roleInUnion ?union ;
+               :roleName ?roleName ;
+               :roleStartDate ?startDate .
+
+    # Optional end date of the role
+    OPTIONAL { ?unionRole :roleEndDate ?endDate . }
+
+    # Filter roles active at the given date
+    FILTER (
+        ?date >= ?startDate &&
+        ( !BOUND(?endDate) || ?date <= ?endDate )
+    )
+}
+```
+
+This query will return the role name(s) that the specified person has within the specified union group at the given date, considering the start and end dates of the role. If the role is ongoing and has no end date, it will be included if the date is after the start date.

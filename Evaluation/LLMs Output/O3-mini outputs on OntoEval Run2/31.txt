@@ -1,0 +1,17 @@
+**Yes**
+Below is a SPARQL query that retrieves, for each viewing event (i.e. an instance of :ViewingResource), the actor who was the viewer and the product (modeled as a resource) that was viewed:
+
+------------------------------------------------
+PREFIX : <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX resource: <http://w3id.org/CEON/ontology/resourceODP/>
+
+SELECT DISTINCT ?viewer ?resource
+WHERE {
+  ?viewing a :ViewingResource .
+  ?viewing actorODP:participatingActor ?viewer .
+  ?viewing actorODP:participatingResource ?resource .
+}
+------------------------------------------------
+
+This query shows that the competency question “Who viewed a product?” is fully answerable from the ontology under the closed world assumption.

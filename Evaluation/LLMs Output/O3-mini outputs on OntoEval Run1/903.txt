@@ -1,0 +1,35 @@
+**Yes**
+Below is an example SPARQL query that, given a specific person, union group, and a point in time, retrieves the role held by that person in that union group at that time. In this query, replace the placeholder values ("[PersonLabel]", "[UnionGroupLabel]", and "[YYYY-MM-DD]") with the actual person’s name, union group’s label, and the date of interest.
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?personLabel ?unionGroupLabel ?roleLabel ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          rdfs:label ?personLabel ;
+          :hasRoleMembership ?membership .
+  FILTER(?personLabel = "[PersonLabel]")
+  
+  ?membership a :Cl_UnionRoleMembership ;
+              :roleMembershipIn ?unionGroup ;
+              :roleOfMembership ?role ;
+              :roleStartDate ?roleStartDate .
+  OPTIONAL { ?membership :roleEndDate ?roleEndDate . }
+  
+  ?unionGroup rdfs:label ?unionGroupLabel .
+  FILTER(?unionGroupLabel = "[UnionGroupLabel]")
+  
+  ?role rdfs:label ?roleLabel .
+
+  BIND(xsd:date("[YYYY-MM-DD]") AS ?givenDate)
+  FILTER(
+      ?givenDate >= ?roleStartDate &&
+      ( !BOUND(?roleEndDate) || ?givenDate <= ?roleEndDate )
+  )
+}
+----------------------------------------
+
+This query uses the closed world assumption by relying only on explicitly stated facts (e.g. role memberships with defined start and optionally end dates) to determine the answer to the competency question.

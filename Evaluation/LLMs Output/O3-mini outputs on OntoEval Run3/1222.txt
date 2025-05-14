@@ -1,0 +1,30 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, extracts the characteristics of rare species found in a specific aquifer (here represented by a placeholder URI that you can replace with the desired aquifer):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?species ?speciesLabel ?characteristic ?characteristicLabel
+WHERE {
+  ?species a :RareSpecies ;
+           :isFoundIn ?aquifer ;
+           :hasCharacteristic ?characteristic .
+  ?aquifer a :Aquifer .
+  
+  OPTIONAL { ?species rdfs:label ?speciesLabel. }
+  OPTIONAL { ?characteristic rdfs:label ?characteristicLabel. }
+  
+  # Restrict to a specific aquifer (replace the URI with the desired aquifer instance)
+  FILTER(?aquifer = <http://www.example.org/test#SpecificAquifer>)
+}
+------------------------------------------------------------
+
+Explanation:
+• The query selects individuals of type RareSpecies (i.e. species with rarity status "rare" as defined in the ontology).
+• It ensures that these species are found in an aquifer by linking via the :isFoundIn property and confirming the aquifer is an instance of :Aquifer.
+• It retrieves their associated characteristics via :hasCharacteristic.
+• A FILTER is used to select a specific aquifer (adjust the URI as needed). 
+
+This demonstrates that the ontology models the competency question.

@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the role of a specified person in a specified union at a specified point in time by querying the reified union role assignment (Cl_UnionRoleAssignment):
+
+---------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?role ?timePoint
+WHERE {
+  ?assignment a :Cl_UnionRoleAssignment .
+  ?assignment :hasPerson <http://www.example.org/test#TargetPerson> .
+  ?assignment :hasUnion <http://www.example.org/test#TargetUnion> .
+  ?assignment :hasRole ?role .
+  ?assignment :timePoint ?timePoint .
+  FILTER(?timePoint = "2002-01-01T00:00:00"^^xsd:dateTime)
+}
+---------------------------------------
+
+In this query, replace <http://www.example.org/test#TargetPerson>, <http://www.example.org/test#TargetUnion>, and the filter value "2002-01-01T00:00:00"^^xsd:dateTime with the actual IRIs and time value as required.

@@ -1,0 +1,16 @@
+**Yes**
+
+We can extract an album’s recording period by querying its recordingStart and recordingEnd data properties. Under the closed world assumption, we assume that if an album recording period isn’t present then it does not exist.
+
+For example, the following SPARQL query returns each album (with its optional label) along with its recording start and end dates:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?recordingStart ?recordingEnd
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :recordingStart ?recordingStart .
+  ?album :recordingEnd ?recordingEnd .
+}

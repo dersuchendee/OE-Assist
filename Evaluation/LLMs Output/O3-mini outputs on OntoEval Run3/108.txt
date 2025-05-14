@@ -1,0 +1,15 @@
+**Yes**
+
+The following SPARQL query retrieves each theatre festival (an instance of Cl_TheatreFestival) along with its recorded location (via the dp_location property). Under the closed world assumption (i.e. we assume that the only location data is what is explicitly stated), this query extracts the answer to “Where did a certain festival take place?”
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :dp_location ?location .
+}
+--------------------------------------------------

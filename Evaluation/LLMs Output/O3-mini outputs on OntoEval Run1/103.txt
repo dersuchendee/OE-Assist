@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming the intended festival is one of the instances of :Cl_Festival (or one of its subclasses, for example a :Cl_TheatreFestival) and that its location is provided either directly via the property :hasLocation (linking a festival to a :Cl_City) or indirectly via :takesPlaceAt (linking a festival to a :Cl_Theatre, which in turn is linked to its city via :located_in), under the closed world assumption we can retrieve the location of the festival if that information is explicitly asserted. One possible SPARQL query (using a filter to pick “Roma Loves Shakespeare” as the certain festival mentioned in the OS) is as follows:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?location
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :name ?festivalName .
+  FILTER(?festivalName = "Roma Loves Shakespeare") .
+
+  {  ?festival :hasLocation ?location .
+  }
+  UNION
+  {  ?festival :takesPlaceAt ?theatre .
+     ?theatre :located_in ?location .
+  }
+}
+---------------------------------------------------------------
+
+This query retrieves the festival instance with the given name and returns its location as explicitly provided (or via the associated theatre).

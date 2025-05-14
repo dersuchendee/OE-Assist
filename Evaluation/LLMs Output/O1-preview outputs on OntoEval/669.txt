@@ -1,0 +1,17 @@
+Answer: **Yes**.
+
+We can answer the competency question "What songs were played in a certain performance?" using the ontology provided, since there is a relationship between performances and songs through the `:featuresSong` object property, which connects `:Cl_Performance` instances to `:Cl_Song` instances.
+
+Here's a SPARQL query that retrieves the songs played in each performance:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?performance ?song
+WHERE {
+  ?performance a :Cl_Performance .
+  ?performance :featuresSong ?song .
+}
+```
+
+This query selects all performances and the songs featured in them by querying instances of `:Cl_Performance` and retrieving the associated `:Cl_Song` instances via the `:featuresSong` property.

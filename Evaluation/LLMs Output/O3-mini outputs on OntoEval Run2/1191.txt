@@ -1,0 +1,25 @@
+**Yes**
+Below is one SPARQL query that returns events along with an indication as to whether the event is religious or secular:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?event ?eventLabel ?eventType
+WHERE {
+  ?event a :Event .
+  OPTIONAL { ?event rdfs:label ?eventLabel. }
+  {
+    ?event a :ReligiousEvent .
+    BIND("Religious" AS ?eventType)
+  }
+  UNION
+  {
+    ?event a :SecularEvent .
+    BIND("Secular" AS ?eventType)
+  }
+}
+ORDER BY ?event
+--------------------------------------------------
+
+Under the closed-world assumption, we assume that if an event is not explicitly asserted as either a ReligiousEvent or a SecularEvent, it is not returned by this query. This query directly answers the CQ "Was it a religious or a secular event?" by classifying each event instance accordingly.

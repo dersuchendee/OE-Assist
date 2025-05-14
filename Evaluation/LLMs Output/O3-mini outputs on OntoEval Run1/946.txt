@@ -1,0 +1,19 @@
+**Yes**  
+Below is an example SPARQL query that retrieves the evaluation statement (its content) along with the evaluation date for an evaluation record provided by a specific doctor for a specific employee. (Replace the placeholder URIs with the actual identifiers from your data.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?doctor ?employee ?evaluationContent ?evaluationDate
+WHERE {
+  ?evaluationRecord a :Cl_EvaluationRecord ;
+                    :hasDoctor ?doctor ;
+                    :hasEmployee ?employee ;
+                    :hasEvaluationStatement ?evaluationStatement .
+
+  ?evaluationStatement :evaluationContent ?evaluationContent .
+  OPTIONAL { ?evaluationRecord :evaluationDate ?evaluationDate . }
+
+  # Assuming you know the specific doctor and employee URIs; substitute accordingly:
+  FILTER(?doctor = :Dr_SpecificDoctor && ?employee = :Emp_SpecificEmployee)
+}

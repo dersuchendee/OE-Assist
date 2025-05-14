@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer the CQ by retrieving for each bell its measurement properties: weight, height, and diameter. Under the closed world assumption, since every instance of Bell is required to have exactly one value for these properties, the following SPARQL query will extract the requested measures:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bell ?weight ?height ?diameter
+WHERE {
+  ?bell a :Bell .
+  ?bell :hasWeight ?weight .
+  ?bell :hasHeight ?height .
+  ?bell :hasDiameter ?diameter .
+}
+ORDER BY ?bell
+--------------------------------------------------

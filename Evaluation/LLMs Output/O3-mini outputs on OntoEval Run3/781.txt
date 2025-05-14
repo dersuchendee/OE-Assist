@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the medical degrees (i.e. the name and date of the degree) for a given person (here, for instance, Pasquale Di Gennaro):
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degreeName ?degreeDate 
+WHERE {
+  ?person a :Cl_Person .
+  ?person :hasMedicalDegree ?pMedDegree .
+  ?pMedDegree :degreeOf ?degree .
+  ?degree :degreeName ?degreeName .
+  ?degree :degreeDate ?degreeDate .
+  FILTER(?person = :Pasquale_Di_Gennaro)
+}
+------------------------------------------------------------
+
+This query correctly follows the ontology’s structure—using the reified medical degree role via Cl_PersonMedicalDegree—and thus shows that the competency question “What medical degrees does a certain person have?” is answerable using the given ontology under a closed world assumption.

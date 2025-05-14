@@ -1,0 +1,25 @@
+**Yes**
+Below is an example SPARQL query that retrieves movie events (i.e. instances of :Cl_Movie) along with their available time periods which (by filtering) include a given time (e.g. tonight at a specified dateTime). Note that the query leverages the reification pivot class :Cl_Availability to connect an event to its availability information.
+
+For example, assuming you want to check availability for the dateTime "2023-10-10T20:00:00" (this value can be replaced by any target dateTime or be parameterized), you can write:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?movie ?startTime ?endTime
+WHERE {
+  ?availability a :Cl_Availability ;
+                :hasEvent ?movie .
+  ?movie a :Cl_Movie ;
+         :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime ;
+              :hasEndTime ?endTime .
+  # Filter for the given time, e.g. a specific moment during the evening:
+  FILTER(?startTime <= "2023-10-10T20:00:00"^^xsd:dateTime &&
+         ?endTime   >= "2023-10-10T20:00:00"^^xsd:dateTime)
+}
+-------------------------------------------------------
+
+This query answers the CQ "What events of a specific event category, e.g. movies, are available during a certain time period?" based on the provided ontology.

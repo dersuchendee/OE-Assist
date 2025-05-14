@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer this CQ using the reified album‐recording information in the ontology. For example, if albums are linked via the property recordedDuring to an instance of Cl_AlbumRecording—and that instance in turn is linked via recordingTimePeriod to a Cl_TimePeriod—we can extract the time period during which a given album was recorded.
+
+Assuming that the album has an rdf:type of :Cl_Album and there is a label property (e.g. rdfs:label) to identify the “certain album” (for instance, "Stadium Arcadium"), we can write a query as follows:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel ?timePeriod
+WHERE {
+  ?album a :Cl_Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  
+  ?album :recordedDuring ?albumRecording .
+  ?albumRecording :recordingTimePeriod ?timePeriod .
+  
+  # Optionally, filter for a particular album by label.
+  FILTER(regex(?albumLabel, "Stadium Arcadium", "i"))
+}
+---------------------------------------------------------------
+
+Under a closed world assumption on the ontology, this query will return the album along with its associated recording time period, thus modeling the competency question.

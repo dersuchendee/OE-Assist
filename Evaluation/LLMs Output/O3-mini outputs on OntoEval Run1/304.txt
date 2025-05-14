@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?prodLabel ?premierDate
+WHERE {
+  ?production a :Production ;
+              :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+  OPTIONAL { ?production rdfs:label ?prodLabel . }
+}
+ORDER BY ?production
+```

@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?degree ?degreeLabel ?startDate ?endDate
+WHERE {
+  ?person a :Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+
+  ?person :studiedDuring ?studyPeriod .
+  
+  ?studyPeriod :degreeObtained ?degree .
+  OPTIONAL { ?degree rdfs:label ?degreeLabel . }
+  
+  OPTIONAL { ?studyPeriod :hasStartDate ?startDate . }
+  OPTIONAL { ?studyPeriod :hasEndDate ?endDate . }
+}
+```

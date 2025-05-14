@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Individual ;
+         :hasName ?actorName ;
+         :employedBy ?theatre ;
+         :hasEmployment ?employment .
+         
+  ?theatre a :Cl_Theatre .
+  ?employment :employmentStartDate ?employmentStartDate .
+}
+```

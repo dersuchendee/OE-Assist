@@ -1,0 +1,20 @@
+Answer: **Yes**
+
+The competency question "What are the materials of this component or product?" can be answered using the ontology provided. The ontology defines the necessary classes and object properties to connect a product to its materials via the material composition. Specifically, a `Cl_Product` has a `op_hasMaterialComposition` that is a `Cl_MaterialComposition`, which in turn `op_composedOf` `Cl_Material`. This pathway allows us to write a SPARQL query that retrieves the materials for each product.
+
+Here's the SPARQL query to extract the answer:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?product ?material
+WHERE {
+  ?product rdf:type :Cl_Product .
+  ?product :op_hasMaterialComposition ?materialComposition .
+  ?materialComposition :op_composedOf ?material .
+  ?material rdf:type :Cl_Material .
+}
+```
+
+This query selects all instances of products and their associated materials by traversing the object properties defined in the ontology.

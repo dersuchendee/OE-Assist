@@ -1,0 +1,18 @@
+**Yes**
+Below is a SPARQL query that, under a closed world assumption, retrieves each music album (which in this ontology is represented as an instance of :Cl_MusicAlbum) together with its associated release event (a reified instance via :Cl_AlbumRelease) that carries the album’s release date via the data property :releaseDate.
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?albumName ?releaseDate
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  OPTIONAL { ?album :albumName ?albumName . }
+  
+  ?album :hasReleaseDate ?releaseEvent .
+  ?releaseEvent :releaseDate ?releaseDate .
+}
+---------------------------------
+
+This query shows that the competency question “When was a certain album released?” is answerable by the ontology through the reified album release event (i.e. the album is linked via :hasReleaseDate to an instance in :Cl_AlbumRelease that provides the release date).

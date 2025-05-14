@@ -1,0 +1,23 @@
+**Yes**
+
+Assuming that “a specific track” is given (for example, ns1:HumpDeBump) and knowing that in this ontology a track is modelled as an individual that is both a ns1:Track and a ns1:Song (as in the case of ns1:HumpDeBump), we can answer the CQ. Under the closed‐world assumption we expect that every track that is a recording of a song is explicitly asserted (here via its dual typing) or linked from an album via ns1:hasTrack.
+
+Below is an example SPARQL query that—given a specific track (here ns1:HumpDeBump)—extracts the song (its label) that the track is a recording of:
+
+------------------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?track ?trackLabel
+WHERE {
+  # Find the track from an album via the hasTrack relation
+  ?album ns1:hasTrack ?track .
+  # Assert that the track is modelled as a Song (i.e. the creative musical work)
+  ?track a ns1:Song .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+  # Specific track filter; replace ns1:HumpDeBump with the desired track URI.
+  FILTER(?track = ns1:HumpDeBump)
+}
+------------------------------------------------------------
+
+This query shows that for a given track, here ns1:HumpDeBump, we can extract its label and thereby answer “What song is a specific track a recording of?”

@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming that a “certain person” is identified by its URI (for example, via a FILTER or by passing a bound value), one can retrieve the instruments that person plays by querying for individuals of class Cl_Person that are connected to an instrument via the playsInstrument property. For example:
+
+———————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :playsInstrument ?instrument .
+  OPTIONAL { ?person rdfs:label ?personLabel }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel }
+  # To answer for a specific person, uncomment the following line and replace <#SomePerson> with the person’s URI:
+  # FILTER(?person = <http://www.example.org/test#SomePerson>)
+}
+———————————————————————————————
+
+Under the closed world assumption, we treat the asserted playsInstrument relationships as complete. This query will return the instruments that a (specified) person plays according to the ontology.

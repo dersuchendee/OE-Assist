@@ -1,0 +1,11 @@
+Answer: **Yes**
+
+```sparql
+SELECT ?production
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+}
+GROUP BY ?production
+HAVING (COUNT(?premier) = 1)
+```

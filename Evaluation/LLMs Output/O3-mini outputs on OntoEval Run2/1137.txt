@@ -1,0 +1,22 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?device ?deviceLabel ?functionality ?functionalityLabel
+WHERE {
+  ?device a :SmartBathroomDevice .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+  
+  {
+    ?device :displaysWeather ?functionality .
+  }
+  UNION
+  {
+    ?device :announcesWeather ?functionality .
+  }
+  OPTIONAL { ?functionality rdfs:label ?functionalityLabel . }
+}
+ORDER BY ?device
+```

@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+The competency question "In what region is a certain city located?" can be answered using the given ontology. The ontology defines the classes `:City` and `:Region`, and the object property `:isLocatedIn` that connects instances of `:City` to instances of `:Region`. Additionally, there are individual instances such as `:Portland_Oregon` and `:Oregon` provided. Therefore, we can write a SPARQL query to retrieve the regions in which cities are located.
+
+```sparql
+PREFIX : <http://www.example.org/ontology/musicproduction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :City .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  ?city :isLocatedIn ?region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+}
+```
+
+This query selects all instances of `:City` and retrieves the regions they are located in using the `:isLocatedIn` property. It also attempts to get labels for better readability.

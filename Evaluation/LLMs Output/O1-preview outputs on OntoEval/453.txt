@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided lacks the necessary details about TimePeriod to specify or filter by a specific point in time. Specifically, `Cl_TimePeriod` does not have properties like start date or end date that would allow us to determine if a person was a member of a band at a certain time. Therefore, we cannot fully answer the competency question. However, we can provide a partial answer by retrieving band members without considering the time period.
+
+```sparql
+SELECT ?band ?bandName ?person ?personName
+WHERE {
+    ?band a :Cl_Band .
+    OPTIONAL { ?band rdfs:label ?bandName . }
+    ?membership a :Cl_BandMembership .
+    ?membership :hasMember ?band .
+    ?membership :memberOfBand ?person .
+    OPTIONAL { ?person rdfs:label ?personName . }
+}
+```

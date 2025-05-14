@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming the “certain author” can be identified via the ontology’s class :Cl_Author and the connection through :hasWritten to the pivot class :Cl_Authorship (which relates both an author and the play they wrote via the data property :playTitle), you can extract the plays written by authors. Here’s a SPARQL query that, under a closed world assumption, returns for each author the titles of plays they have written:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?author ?authorLabel ?playTitle
+WHERE {
+  ?author a :Cl_Author .
+  OPTIONAL { ?author rdfs:label ?authorLabel . }
+  ?author :hasWritten ?authorship .
+  ?authorship :playTitle ?playTitle .
+}
+
+This query will list all authors along with the plays (their titles) that they wrote.

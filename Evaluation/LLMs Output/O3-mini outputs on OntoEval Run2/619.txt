@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the critic, the record (album), and the review text, which shows what a certain critic said about a certain record:
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?reviewText
+WHERE {
+  ?review a :Cl_Review ;
+          :reviewedBy ?critic ;
+          :reviewedRecord ?record ;
+          :reviewText ?reviewText .
+}
+-------------------------------------------------------------
+
+This query assumes the ontology models reviews as instances of :Cl_Review that reify the review relationship between a critic (of type :Cl_Critic) and a record (for example, an instance of :Cl_Album), with the review text captured by the :reviewText property.

@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?place ?placeLabel
+WHERE {
+  :Musician_Z a :Musician ;
+               :participatedIn ?visitEvent .
+  ?visitEvent a :VisitEvent ;
+              :occursAt ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

@@ -1,0 +1,16 @@
+**Yes**
+
+Because the ontology defines the property `:hasPlay` that connects a `:Cl_Production` to its basis `:Cl_Play`.
+
+Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  
+  ?production :hasPlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+}
+```

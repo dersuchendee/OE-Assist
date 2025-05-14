@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?person ?hospital (MIN(?startDate) AS ?firstEmploymentDate)
+WHERE {
+  ?person :employedAt ?employmentEvent .
+  ?employmentEvent :employmentStartDate ?startDate .
+  ?employmentEvent :employmentInHospital ?hospital .
+  FILTER(?person = :PasqualeDiGennaro && ?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?hospital
+```

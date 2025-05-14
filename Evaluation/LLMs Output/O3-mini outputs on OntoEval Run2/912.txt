@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one way to answer the CQ over the ontology. In this query we assume that a person’s current union involvement is modelled by a union membership (via :memberOf and its linked :union) and the person’s role in the union is given by a reified role instance (via :hasRole having properties :role, :roleStartDate, and :roleEndDate). We then filter by a given person, a specified union, and a given time (ensuring that the time falls between the start and end dates of the role).
+
+For example, to ask “What union role does Pasquale Di Gennaro have in the MaleNursesUnion on 2005‑01‑01?” the query could be written as follows:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?union ?role ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :union ?union .
+
+  ?person :hasRole ?unionRole .
+  ?unionRole :role ?role .
+  ?unionRole :roleStartDate ?roleStartDate .
+  ?unionRole :roleEndDate ?roleEndDate .
+
+  # Using parameter placeholders for the specific person and union
+  FILTER (?person = <http://www.example.org/test#PasqualeDiGennaro>)
+  FILTER (?union = <http://www.example.org/test#MaleNursesUnion>)
+
+  # Check that the given time (e.g., "2005-01-01") falls within the role period
+  FILTER (
+    xsd:date("2005-01-01") >= ?roleStartDate &&
+    xsd:date("2005-01-01") <= ?roleEndDate
+  )
+}
+---------------------------------------------------------------
+
+This query extracts the union role held by the person at the specified point in time, fully addressing the competency question.

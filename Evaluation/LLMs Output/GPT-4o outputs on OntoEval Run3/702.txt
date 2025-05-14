@@ -1,0 +1,20 @@
+**No**
+
+The competency question "In what region is a certain city located?" is not fully supported by the given ontology. The ontology provides information about cities and regions, but it does not directly link cities to regions in a way that allows for a straightforward SPARQL query to answer the question. However, a partial answer can be extracted by identifying cities and their associated regions if such relationships were explicitly defined.
+
+Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?city ?cityName ?region ?regionName
+WHERE {
+  ?city a :City .
+  ?city :placeName ?cityName .
+  OPTIONAL {
+    ?city :isPartOf ?region .
+    ?region a :Region .
+    ?region :placeName ?regionName .
+  }
+}
+```
+
+This query attempts to find cities and their associated regions, but it relies on the assumption that such relationships are explicitly defined in the ontology, which is not guaranteed by the provided data.

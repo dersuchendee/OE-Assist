@@ -1,0 +1,30 @@
+**Yes**
+Below is one example of a SPARQL query that, under a closed‐world assumption and using the reified membership class, retrieves for a given band its members active at a given time. In this example the band (e.g. “Red Hot Chili Peppers”) and the point in time (here represented by a time value on the time period instance, for example "2006-08-11T00:00:00") are given as filter parameters. (In your actual data the time–related property might have a different name; adjust accordingly.)
+
+-------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  ?band a :Cl_Band ;
+        rdfs:label ?bandName .
+  FILTER(?bandName = "Red Hot Chili Peppers") .
+
+  ?band :hasMember ?membership .
+  ?membership a :Cl_BandMembership ;
+              :memberOfDuring ?timePeriod .
+              
+  # Assume each time period has a time value via property :hasTimeValue
+  ?timePeriod :hasTimeValue ?timeValue .
+  FILTER(?timeValue = "2006-08-11T00:00:00"^^xsd:dateTime) .
+  
+  ?person a :Cl_Person ;
+          :isMemberOfBand ?membership .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+ORDER BY ?personLabel
+-------------------------------------------------------------
+
+In this query the reification of band membership (class :Cl_BandMembership) captures the triple association among a person, a band, and a time period. Hence the competency question “What are the members of a certain band at a certain point in time?” is answerable by the ontology.

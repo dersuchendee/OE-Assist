@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question "At least one article is always presented at each seminar" can be answered using the ontology provided. The ontology includes the class `:Seminar` with a restriction that ensures at least one `:Article` is presented at each seminar. This is represented by the `owl:minQualifiedCardinality "1"` restriction on the `:hasPresentedArticle` property.
+
+Here is a SPARQL query to extract seminars and their presented articles:
+
+```sparql
+SELECT ?seminar ?article
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasPresentedArticle ?article .
+}
+```
+
+This query retrieves all seminars and the articles presented at each seminar, ensuring that each seminar has at least one article presented, as required by the competency question.

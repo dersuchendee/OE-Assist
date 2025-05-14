@@ -1,0 +1,18 @@
+**Yes**.
+
+Because the ontology models productions that have exactly one premier via the `theatre:ProductionWithOnePremier` class, which is defined as productions having exactly one premier (using a cardinality restriction on the `theatre:hasPremier` property). Therefore, we can query for productions of this class to answer the competency question.
+
+Here is a SPARQL query to retrieve such productions:
+
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel
+WHERE {
+  ?production a theatre:ProductionWithOnePremier .
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+}
+```
+
+This query selects all instances of `theatre:ProductionWithOnePremier`, effectively retrieving productions that have exactly one premier as defined in the ontology.

@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under the closed‐world assumption, retrieves the articles (via the reified class :Cl_Content) contained in a specific book or CD. (Replace <SPECIFIC_URI> with the URI of the book or CD of interest.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  # ?collection must be either a Book or a CD
+  ?collection a ?type .
+  FILTER(?type IN (:Cl_Book, :Cl_CD)) .
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  
+  # Select the articles (as Cl_Content reification) contained in the collection
+  ?collection :containsArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+
+  # Filter for the specific book or CD (adjust the URI accordingly)
+  FILTER(?collection = <SPECIFIC_URI>)
+}
+  
+ORDER BY ?article

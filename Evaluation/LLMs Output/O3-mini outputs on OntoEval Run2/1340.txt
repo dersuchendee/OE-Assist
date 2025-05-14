@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+SELECT DISTINCT ?recorder ?time
+WHERE {
+  ?measurement a :Measurement .
+  ?measurement :recordedBy ?recorder .
+  ?measurement :measuresSubstance ?substance .
+  ?substance a :MicrobiologicalSubstance .
+  ?measurement :hasLocation ?water .
+  ?water a :SurfaceWater .
+  ?measurement :hasTime ?time .
+}
+ORDER BY ?recorder ?time
+```

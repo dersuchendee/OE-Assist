@@ -1,0 +1,16 @@
+**Yes**
+
+We can answer the CQ since the ontology explicitly represents seminars and associates them with dates via the property :hasDate. Under the closed‐world assumption, only those seminars that are known to have a date (and thus satisfy the restriction) would be returned. For example, you can extract when a seminar took place using this query:
+
+PREFIX : <http://example.org/seminar#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?date
+WHERE {
+  ?seminar a :Seminar .
+  ?seminar :hasDate ?date .
+}
+ORDER BY ?date
+
+This query retrieves all seminars and their associated dates, thus answering “When did a certain seminar take place?”

@@ -1,0 +1,17 @@
+**Yes**
+
+We can verify the competency question "A record always contains at least one track" by checking that every Album instance has at least one associated Track via the :hasTrack property. For example, under a closed world assumption the following SPARQL query extracts Albums along with a count of their associated tracks, and by filtering we ensure that only those Albums with one or more tracks are returned:
+
+PREFIX : <http://www.example.org/ontology/musicproduction#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?album ?albumLabel (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album a :Album .
+  OPTIONAL { ?album rdfs:label ?albumLabel . }
+  ?album :hasTrack ?track .
+}
+GROUP BY ?album ?albumLabel
+HAVING (COUNT(?track) >= 1)
+
+This query confirms that each album (a record) indeed contains at least one track, satisfying the competency question.

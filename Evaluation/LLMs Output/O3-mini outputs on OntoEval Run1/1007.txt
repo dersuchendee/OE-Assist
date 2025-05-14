@@ -1,0 +1,19 @@
+**Yes**
+
+We can extract the answer to “When was a certain book or CD published?” using the publication datatypes and properties in the ontology. For example, the publication individual “NursePracticesInCancerPatientCare” is of type Cl_Publication, it has a publication date, title, and a publication type (e.g. "Book").
+
+A possible SPARQL query is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?title ?date ?type
+WHERE {
+  ?publication a :Cl_Publication .
+  ?publication :publicationTitle ?title .
+  ?publication :publicationDate ?date .
+  ?publication :publicationType ?type .
+  FILTER(?type = "Book" || ?type = "CD")
+}
+
+This query retrieves all publications whose type is either "Book" or "CD", returning their title and publication date.

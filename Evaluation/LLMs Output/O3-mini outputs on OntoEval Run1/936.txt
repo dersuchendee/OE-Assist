@@ -1,0 +1,31 @@
+**Yes**
+
+Assuming that the intended modelling is that a doctor “givesEvaluation” an evaluation instance—and by a class restriction that every evaluation must relate (via the same property) to an employee—we can extract the evaluation statement for a given doctor and a given employee. Under a closed world assumption (i.e. only explicitly asserted triples are considered), the query below finds the evaluation statement provided by a specified doctor (e.g. <http://www.example.org/test#SomeDoctor>) concerning a specified employee (e.g. <http://www.example.org/test#SomeEmployee>):
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?evaluationStatement
+WHERE {
+  ?doctor a :Cl_Doctor .
+  ?employee a :Cl_Employee .
+
+  # A doctor gives an evaluation
+  ?doctor :givesEvaluation ?evaluation .
+  
+  # By the modeling restriction, the evaluation is linked to an employee via the same property.
+  ?evaluation :givesEvaluation ?employee .
+  
+  # The evaluation contains an evaluation statement.
+  ?evaluation :evaluationStatement ?evaluationStatement .
+
+  # Specify the doctor and employee of interest.
+  FILTER(?doctor = <http://www.example.org/test#SomeDoctor>) .
+  FILTER(?employee = <http://www.example.org/test#SomeEmployee>) .
+}
+-----------------------------------------------------------
+
+This query is answerable based on the ontology provided, so the competency question is modelled by the ontology.

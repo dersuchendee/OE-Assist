@@ -1,0 +1,23 @@
+**No**
+
+The ontology does provide a definition for abstract times (e.g. the class Cl_AbstractTimeMorning with fixed start and end times) and a relation (op_hasAbstractTime) linking a user to an abstract time. However, there is no mechanism or individual assertion in the ontology to indicate what “now” is for a given user. For example, while we can state that “morning” is defined as times between 06:00:00 and 10:00:00, the ontology does not assert a current time for any user or provide a way to compare “now” (e.g. the current system time) with the defined abstract time intervals.
+
+Below is a SPARQL query that partially answers the CQ—retrieving, for a given user and a provided time value (used here as a parameter), which abstract times are associated with that user where the provided time falls between the start and end times. Note that this query requires you to supply a current time value (e.g. “07:00:00”) to perform the comparison:
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?abstractTime ?startTime ?endTime
+WHERE {
+  ?user a :Cl_User .
+  ?user :op_hasAbstractTime ?abstractTime .
+  ?abstractTime :dp_hasStartTime ?startTime .
+  ?abstractTime :dp_hasEndTime ?endTime .
+  # For the purpose of this query, we assume a provided current time.
+  BIND("07:00:00"^^xsd:time AS ?currentTime)
+  FILTER(?currentTime >= ?startTime && ?currentTime <= ?endTime)
+}
+--------------------------------------------------------------
+
+This query returns a partial answer as it relies on an externally provided current time value and assumes that suitable individual assertions (such as a specific user instance and the corresponding abstract time assertions) are present in the data.

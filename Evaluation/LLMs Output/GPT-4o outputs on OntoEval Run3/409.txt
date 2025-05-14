@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "A production has exactly one premier" is supported by the ontology. The ontology includes the class `Cl_Production` and the object property `hasPremier` which connects a production to a `Cl_PremierEvent`. The ontology also specifies that a `Cl_PremierEvent` has a `premierDate`. Therefore, we can write a SPARQL query to extract the production and its premier event.
+
+```sparql
+SELECT ?production ?premier ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier a :Cl_PremierEvent .
+  ?premier :premierDate ?premierDate .
+}
+```

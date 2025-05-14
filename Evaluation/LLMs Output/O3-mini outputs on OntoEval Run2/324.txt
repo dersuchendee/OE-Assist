@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves productions (individuals of class Cl_Production) together with their premier dates:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+}
+------------------------------------------------------------
+
+This query answers the competency question "When was the premier of a certain production?" by extracting the premier date for each production in the ontology.

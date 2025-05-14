@@ -1,0 +1,15 @@
+**Yes**
+
+We can extract the information fully using the ontology’s class for theatre festivals (Cl_TheatreFestival) and its property hasLocation. For example, if we want to find the location of a certain festival (say, with a known label "Roma Loves Shakespeare"), one may write a query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?location
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival rdfs:label "Roma Loves Shakespeare" .
+  ?festival :hasLocation ?location .
+}
+
+If the festival’s name is not given as a label in the data, the query can be adapted by parameterizing the festival identifier. The closed world assumption is applied meaning that if the property :hasLocation is missing the resource is not assumed to have an implicit location.

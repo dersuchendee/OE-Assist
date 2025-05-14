@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?water ?waterLabel ?chemicalMeasurement ?unitOfMeasure ?unitLabel
+WHERE {
+  ?water a :Water .
+  OPTIONAL { ?water rdfs:label ?waterLabel . }
+  
+  ?water :hasChemicalMeasurement ?chemicalMeasurement .
+  ?chemicalMeasurement :hasUnitOfMeasure ?unitOfMeasure .
+  OPTIONAL { ?unitOfMeasure rdfs:label ?unitLabel . }
+}
+ORDER BY ?water ?chemicalMeasurement
+```

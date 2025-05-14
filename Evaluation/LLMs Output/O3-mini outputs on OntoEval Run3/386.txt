@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example of a SPARQL query that—under a closed‐world assumption—retrieves the roles a given actor has in a given production at a specified point in time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?roleName ?atTime ?production
+WHERE {
+  # Locate the actor and its role assignments
+  ?actor a :Cl_Actor .
+  ?actor :hasRole ?roleAssignment .
+  
+  # The role assignment links to a production and carries a role name and time stamp
+  ?roleAssignment :roleInProduction ?production .
+  ?roleAssignment :roleName ?roleName .
+  ?roleAssignment :atTime ?atTime .
+  
+  # Filter by a specific actor, production and point in time.
+  # Replace the placeholders below with the desired IRIs and dateTime literal.
+  FILTER (
+    ?actor = :FabioBianchi &&
+    ?production = :MerchantOfVeniceProduction &&
+    ?atTime = "2009-09-01T00:00:00Z"^^xsd:dateTime
+  )
+}
+--------------------------------------------------
+
+This query shows that the ontology provides direct links between an actor, their role assignment (with its role name and associated time), and the production in which the role is played. Hence, the competency question “What roles does a certain person have within a certain production at a certain point in time?” is fully supported by the ontology.

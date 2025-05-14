@@ -1,0 +1,23 @@
+**Yes**
+
+```sparql
+SELECT ?interaction ?interactionType ?guild1 ?guild1Label ?guild2 ?guild2Label ?aquiferLabel
+WHERE {
+  ?aquifer a :Aquifer .
+  ?aquifer rdfs:label ?aquiferLabel .
+  ?aquifer :hasNutrientLevel "nutrient-poor"^^xsd:string .
+
+  ?interaction a :Interaction .
+  ?interaction :occursIn ?aquifer .
+  
+  OPTIONAL { ?interaction :hasInteractionType ?interactionType . }
+  
+  ?interaction :hasParticipant ?guild1 .
+  ?guild1 rdfs:label ?guild1Label .
+  
+  ?interaction :hasParticipant ?guild2 .
+  ?guild2 rdfs:label ?guild2Label .
+  
+  FILTER (?guild1 != ?guild2) .
+}
+```

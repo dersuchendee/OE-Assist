@@ -1,0 +1,12 @@
+Answer: **Yes**
+
+The CQ is answerable because the ontology includes `:Cl_City` and `:Cl_Region` classes, and properties that connect them via `:cityRegion` and `:regionOfCity`. Thus, it's possible to write a SPARQL query to extract the answer.
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :cityRegion ?cityRegion .
+  ?cityRegion :regionOfCity ?region .
+}
+```

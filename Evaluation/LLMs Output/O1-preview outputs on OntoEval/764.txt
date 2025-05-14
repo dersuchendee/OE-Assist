@@ -1,0 +1,18 @@
+Answer: **No**
+
+The ontology does not enforce that every record must contain at least one track. There is no cardinality constraint specifying that every instance of `:Cl_Record` must have at least one `:hasTrack` relationship to a `:Cl_RecordTrack`. Under the closed world assumption, we cannot confirm that all records always contain at least one track based solely on the ontology.
+
+Here is a SPARQL query to extract the records and their associated tracks (if any):
+
+```sparql
+SELECT ?record ?track
+WHERE {
+  ?record a :Cl_Record .
+  OPTIONAL {
+    ?record :hasTrack ?recordTrack .
+    ?recordTrack :trackOf ?track .
+  }
+}
+```
+
+This query will list all records and their tracks. Records without any associated tracks will appear with a `NULL` value for `?track`. This provides a partial answer by showing which records have tracks and which do not.

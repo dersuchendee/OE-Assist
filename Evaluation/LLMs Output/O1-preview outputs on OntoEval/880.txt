@@ -1,0 +1,21 @@
+**No**
+
+The competency question "Who are the members of a certain union at a certain point in time?" cannot be fully answered with the given ontology because there is no information about the end date of union memberships. The ontology includes a start date (`:hasStartDate`) for each membership but lacks an end date or duration property to determine if the membership is active at a specific point in time. Therefore, we cannot definitively conclude whether a staff member is still a member of a union at a given date.
+
+However, we can provide a partial answer by retrieving union memberships that started before the given date. Below is a SPARQL query that extracts the members, their unions, and start dates. Please replace `"givenDate"^^xsd:date` with the specific date you are interested in.
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?union ?startDate
+WHERE {
+  ?membership a :Cl_UnionMembership .
+  ?membership :hasMember ?member .
+  ?membership :hasUnion ?union .
+  ?membership :hasStartDate ?startDate .
+  FILTER(?startDate <= "givenDate"^^xsd:date)
+}
+```
+
+This query retrieves all union memberships where the start date is on or before the specified date. However, without an end date, we cannot confirm if the membership is still valid at that point in time.

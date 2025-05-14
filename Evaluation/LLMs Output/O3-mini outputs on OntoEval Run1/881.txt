@@ -1,0 +1,21 @@
+**No**  
+The ontology does not explicitly model the temporal validity (e.g. membership start and end dates) for union memberships. In other words, while we can retrieve employees linked to a union—via the available properties (e.g. using :hasUnionMembership or :representsUnion)—the “at a certain point in time” aspect is not fully supported. Therefore, we can only provide a partial answer. For example, one might write a query that retrieves employees representing a given union and uses the available property, :unionRepresentativeSince, for a rough time filter (assuming that union representation is used as a proxy for membership):
+
+---------------------------
+PREFIX : <http://www.hospitalontology.org/ontologies/hospital.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?employee ?employeeLabel ?union ?unionLabel ?since
+WHERE {
+  ?employee a :Employee .
+  ?employee :representsUnion ?union .
+  OPTIONAL { ?employee rdfs:label ?employeeLabel. }
+  OPTIONAL { ?union rdfs:label ?unionLabel. }
+  ?employee :unionRepresentativeSince ?since .
+  # Partial time filter: adjust the date constant as needed.
+  FILTER(xsd:date(?since) <= "2002-12-31"^^xsd:date)
+}
+---------------------------
+
+This query retrieves employees representing a given union (thus related to union membership) and filters by the available date property. However, note that the ontology does not fully capture union membership time intervals (e.g. when an employee joined or possibly left the union), so the “at a certain point in time” constraint is only partially addressed.

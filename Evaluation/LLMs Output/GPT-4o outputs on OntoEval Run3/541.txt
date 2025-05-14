@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question "When was a certain album released?" can be answered using the provided ontology. The ontology includes the class `Album` with a data property `releaseDate`, which allows us to query the release date of an album.
+
+Here is a SPARQL query to extract the release date of an album:
+
+```sparql
+SELECT ?album ?albumTitle ?releaseDate
+WHERE {
+  ?album a :Album ;
+         :albumTitle ?albumTitle ;
+         :releaseDate ?releaseDate .
+}
+```

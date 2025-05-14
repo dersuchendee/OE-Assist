@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that productions are linked to their premier (or premier event) via the property :hasPremier and that the premier (or premier event) carries a :premierDate, a SPARQL query answerable under a closed world assumption would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?premierDate .
+}
+
+This query retrieves, for each production, the associated premier’s date as required by the competency question.

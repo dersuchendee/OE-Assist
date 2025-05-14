@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?album ?albumTitle (COUNT(?track) AS ?numberOfTracks)
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  OPTIONAL { ?album :hasTitle ?albumTitle . }
+  ?album :hasTrack ?track .
+}
+GROUP BY ?album ?albumTitle
+```

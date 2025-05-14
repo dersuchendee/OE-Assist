@@ -1,0 +1,11 @@
+Answer: **Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?production ?play ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?play .
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+```

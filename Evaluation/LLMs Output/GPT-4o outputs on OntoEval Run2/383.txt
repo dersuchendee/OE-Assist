@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not have a direct way to associate a person with a specific role within a production at a specific point in time. The ontology includes classes and properties for actors, roles, and productions, but it lacks a mechanism to link these elements together in a way that answers the competency question. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?production ?role
+WHERE {
+  ?person a :Cl_Actor .
+  ?production a :Cl_Production .
+  ?role a :Cl_ActorRole .
+  ?role :hasRole ?production .
+}
+```
+
+This query attempts to find actors and their roles in productions, but it does not include the temporal aspect required by the competency question.

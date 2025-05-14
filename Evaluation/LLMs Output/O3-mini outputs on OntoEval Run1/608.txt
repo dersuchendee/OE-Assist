@@ -1,0 +1,20 @@
+**Yes**
+A SPARQL query to extract the opinion provided by a specified critic on a specified record is shown below:
+
+--------------------------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?record ?recordLabel ?critic ?criticLabel ?opinion
+WHERE {
+  ?review a :Review ;
+          :hasRecord ?record ;
+          :hasCritic ?critic ;
+          :opinion ?opinion .
+  FILTER(?critic = :CrianHiatt && ?record = :StadiumArcadium)
+  OPTIONAL { ?record rdfs:label ?recordLabel . }
+  OPTIONAL { ?critic rdfs:label ?criticLabel . }
+}
+--------------------------------------------------
+
+Under the closed world assumption, since the ontology explicitly contains the facts linking the critic, record, and review (the opinion), the CQ is fully answerable.

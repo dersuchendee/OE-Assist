@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology includes a reified class for play structure (i.e. :Cl_PlayStructure, a subclass of :Cl_Play) and associates it with the data property :numberOfActs. Therefore, given a play’s title (using its :playTitle), one can retrieve the recorded number of acts for that play. Here is an example SPARQL query that answers the CQ for a particular play (e.g. “The Merchant of Venice”):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?playTitle ?numberOfActs
+WHERE {
+  ?play a :Cl_PlayStructure ;
+        :playTitle ?playTitle ;
+        :numberOfActs ?numberOfActs .
+  FILTER(?playTitle = "The Merchant of Venice")
+}
+--------------------------------------------------
+
+This query extracts the play title and the number of acts recorded in the ontology for the specified play, thus showing that the CQ is completely modelled by the ontology under the closed world assumption.

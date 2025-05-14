@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it includes the necessary classes and properties to identify different forms of carbon fixation in forest soils. The ontology defines the class `CarbonFixationForm` and its relationship with `ForestSoil` and `CarbonCycling`, which allows us to query for the different forms of carbon fixation occurring in forest soils.
+
+```sparql
+SELECT ?carbonFixationForm
+WHERE {
+  ?carbonFixationForm a :CarbonFixationForm .
+  ?carbonFixationForm :occursIn :ForestSoil .
+  ?carbonFixationForm :partOfProcess :CarbonCycling .
+}
+```

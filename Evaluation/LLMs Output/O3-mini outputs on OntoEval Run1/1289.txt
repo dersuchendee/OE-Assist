@@ -1,0 +1,19 @@
+**No**
+
+The ontology does not include any concepts or properties related to travel or movement (for example, no classes or properties indicating transportation, travel events, routes, or locations where a person had to travel to reach an event). Therefore, we cannot fully answer the competency question "Did they travel to reach the place?" Given the closed world assumption, only the explicitly modeled information can be queried.
+
+A partial answer can be extracted by listing the persons participating in events (which we might then assume could be indirectly associated with some notion of "reaching the place," even though travel is not modelled). For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel ?event ?eventLabel
+WHERE {
+  ?participation a :Participation ;
+                 :involvesPerson ?person ;
+                 :involvesEvent ?event .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+
+This query retrieves persons and events linked by a Participation relation, which provides a partial view related to the context. However, it does not address travel since no such modelling exists in the ontology.

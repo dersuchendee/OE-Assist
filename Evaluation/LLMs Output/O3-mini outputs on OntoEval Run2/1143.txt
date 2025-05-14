@@ -1,0 +1,28 @@
+**Yes**
+Below is a SPARQL query that, under a closed‐world assumption, extracts the user’s preferences (i.e. the activities, genres, and weather conditions the user prefers) from the ontology:
+
+------------------------------------------------
+PREFIX : <http://example.org/onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?prefActivity ?activityLabel ?prefGenre ?genreLabel ?prefWeather ?weatherLabel
+WHERE {
+  ?user a :User ;
+        :hasPreference ?pref .
+  OPTIONAL { 
+    ?pref :prefersActivity ?prefActivity .
+    ?prefActivity rdfs:label ?activityLabel .
+  }
+  OPTIONAL { 
+    ?pref :prefersGenre ?prefGenre .
+    ?prefGenre rdfs:label ?genreLabel .
+  }
+  OPTIONAL { 
+    ?pref :prefersWeather ?prefWeather .
+    ?prefWeather rdfs:label ?weatherLabel .
+  }
+  FILTER (?user = :user123)
+}
+------------------------------------------------
+
+This query returns the user (in this case :user123) along with the preferred activity (e.g., “Going to the Movies”), the preferred movie genre (e.g., “Action Movie”), and the weather condition under which the activity is preferred (e.g., “Rainy Weather”). Thus, the CQ is fully supported by the ontology.

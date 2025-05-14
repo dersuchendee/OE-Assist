@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that individuals of the class Person are linked to their degree(s) via the property :hasDegree and that medical degrees are those individuals explicitly classified as :MedicalDegree, the following SPARQL query can be used (under a closed‐world assumption) to retrieve the medical degrees (with their name and date) of a given person:
+
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?degree ?degreeName ?degreeDate
+WHERE {
+  # Replace <personIRI> with the IRI of the person of interest.
+  <personIRI> a :Person ;
+               :hasDegree ?degree .
+               
+  ?degree a :MedicalDegree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+  OPTIONAL { ?degree :degreeDate ?degreeDate . }
+}

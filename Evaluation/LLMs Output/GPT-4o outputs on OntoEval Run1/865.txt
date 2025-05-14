@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct connection between a city and a country. The ontology includes classes and properties related to locations, cities, and countries, but it lacks a direct property that connects a city to a country. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying the city and its location.
+
+```sparql
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedInCountry ?countryLocation .
+  ?countryLocation :inCountry ?country .
+}
+```

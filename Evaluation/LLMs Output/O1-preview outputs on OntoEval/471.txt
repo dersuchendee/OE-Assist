@@ -1,0 +1,18 @@
+**Yes**
+
+```sparql
+SELECT ?person ?band ?role
+WHERE {
+    ?membership a :Cl_BandMembership .
+    ?membership :hasPerson ?person .
+    ?membership :hasBand ?band .
+    ?membership :hasRole ?role .
+    ?membership :hasTimePeriod ?timePeriod .
+    ?timePeriod :startDate ?startDate .
+    ?timePeriod :endDate ?endDate .
+    # Assuming ?inputDate is bound to the point in time we're interested in
+    FILTER (?inputDate >= ?startDate && ?inputDate <= ?endDate)
+}
+```
+
+This query retrieves the role that a certain person has in a certain band at a certain point in time by leveraging the `:Cl_BandMembership` class, which connects persons, bands, roles, and time periods within the ontology. The `FILTER` condition ensures that only memberships active at the specified `?inputDate` are returned.

@@ -1,0 +1,11 @@
+**Yes**
+```sparql
+SELECT ?energyData ?timestamp ?detailedBreakdown
+WHERE {
+  ?energyData a :EnergyData .
+  ?energyData :hasChange ?change .
+  ?change :hasTimestamp ?timestamp .
+  ?energyData :hasDetailedBreakdown ?detailedBreakdown .
+}
+ORDER BY ?energyData ?timestamp
+```

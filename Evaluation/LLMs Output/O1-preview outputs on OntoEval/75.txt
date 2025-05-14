@@ -1,0 +1,11 @@
+**No**
+
+Although the ontology includes festival occurrences with dates (`:Cl_FestivalOccurrence` with `:hasDate`), there is no property linking these occurrences back to the specific theatre festivals (e.g., to get the festival's name). Therefore, we cannot fully answer the CQ "When did a certain theatre festival take place?" as we cannot associate the dates with the names of the festivals. Here is a SPARQL query that extracts a partial answer by retrieving the dates of festival occurrences:
+
+```sparql
+SELECT ?festival ?date
+WHERE {
+  ?festival rdf:type :Cl_FestivalOccurrence .
+  ?festival :hasDate ?date .
+}
+```

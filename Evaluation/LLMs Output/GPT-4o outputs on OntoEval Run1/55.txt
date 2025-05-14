@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not directly support querying which materials a product consists of, as there is no direct relationship between `Cl_Product` and `Cl_Material`. The relationship is mediated through `Cl_ProductComposition`, but the competency question asks for a direct relationship. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?product ?material
+WHERE {
+  ?product a :Cl_Product .
+  ?product :consistsOf ?composition .
+  ?composition :hasMaterial ?material .
+}
+```

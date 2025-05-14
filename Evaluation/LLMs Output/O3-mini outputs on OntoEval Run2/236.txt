@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves all plays written by a given author (here assumed to be “William Shakespeare”, but you can parameterize it):
+
+────────────────────────────────────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?title
+WHERE {
+  ?play a :Cl_Play ;
+        :op_writtenBy ?author ;
+        :dp_title ?title .
+  ?author a :Cl_Author ;
+          :dp_authorName "William Shakespeare" .
+}
+────────────────────────────────────────────────────────────
+
+This query is possible because the ontology connects plays (:Cl_Play) to their authors (:Cl_Author) via the property :op_writtenBy and includes the data property for play title (:dp_title) and author name (:dp_authorName).

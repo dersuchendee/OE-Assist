@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not provide specific properties or instances that would allow us to determine whether an event was a celebration, festival, or private event. The classes are defined, but without instances or properties to distinguish them, we cannot answer the CQ fully. However, we can extract a partial answer by listing all events.
+
+```sparql
+SELECT ?event ?eventType
+WHERE {
+  ?event a :Event .
+  OPTIONAL {
+    ?event a ?eventType .
+    FILTER(?eventType IN (:Celebration, :Festival, :PrivateEvent))
+  }
+}
+```

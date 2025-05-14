@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one possible SPARQL query that “extracts” the way Energy Metabolism is linked to CO2 Fixation Pathways in aquatic ecosystems via its TBox axioms:
+
+-----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?contributionProperty ?CO2FixationPathway ?occurrenceProperty ?AquaticEcosystem
+WHERE {
+  # Retrieve the restriction that specifies the contribution of Energy Metabolism
+  :EnergyMetabolism rdfs:subClassOf ?restriction1 .
+  ?restriction1 owl:onProperty ?contributionProperty ;
+                owl:someValuesFrom ?CO2FixationPathway .
+  FILTER(?contributionProperty = :contributesTo)
+  ?CO2FixationPathway a :CO2FixationPathway .
+  
+  # Retrieve the restriction that specifies that Energy Metabolism occurs in an aquatic ecosystem
+  :EnergyMetabolism rdfs:subClassOf ?restriction2 .
+  ?restriction2 owl:onProperty ?occurrenceProperty ;
+                owl:someValuesFrom ?AquaticEcosystem .
+  FILTER(?occurrenceProperty = :occursIn)
+  ?AquaticEcosystem a :AquaticEcosystem .
+}
+-----------------------------------------
+
+Explanation:
+• This query uses the TBox axioms to “extract” that EnergyMetabolism (a subclass of MetabolicProcess) is constrained by two restrictions:
+  – It “contributes to” (via property :contributesTo) some CO₂ Fixation Pathway (of type :CO2FixationPathway), and
+  – It “occurs in” (via property :occursIn) an Aquatic Ecosystem (of type :AquaticEcosystem).
+
+Thus, under the closed world assumption the ontology models the competency question.

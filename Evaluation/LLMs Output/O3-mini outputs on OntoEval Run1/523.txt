@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming the ontology’s music production model represents an album’s track count via either an asserted data property (e.g. :numberOfTracks) or via the reified relationship (∶containsTrack linking the album to its tracks), you can write a SPARQL query that extracts, for a given album, the number of tracks it contains. For example, if the ontology uses the data property, the query may be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?numTracks
+WHERE {
+  ?album a :Cl_Album .
+  ?album :numberOfTracks ?numTracks .
+}
+
+If instead you want to compute the count from the membership of tracks via the object property, you could use:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?album a :Cl_Album .
+  ?album :containsTrack ?track .
+}
+GROUP BY ?album
+
+Both queries show that the CQ “How many tracks does a particular album contain?” is answerable from the ontology under a closed world assumption.

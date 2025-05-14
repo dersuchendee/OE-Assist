@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any information about the number of bells in a church or bell tower. It only defines classes for Bell, BellTower, and SetOfBells, and their relationships. There is no property or data that specifies the count of bells within a bell tower or church.
+
+Partial SPARQL query to extract information about bells and bell towers:
+
+```sparql
+SELECT ?bellTower ?setOfBells ?bell
+WHERE {
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+  ?setOfBells a <https://w3id.org/polifonia/ontology/bell/SetOfBells> .
+  ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+  ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+}
+```

@@ -1,0 +1,13 @@
+**Yes**
+
+We can answer the CQ using the ontology because it provides a modelling of theatres (instances of :Cl_Theatre) linked to their locations (instances of :Cl_TheatreLocation) via the property :isLocatedIn, and the location’s city is given by the data property :cityName. Under the closed world assumption, we assume that only the stated relationships and facts hold. Accordingly, the following SPARQL query can be used:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?theatre ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :isLocatedIn ?location .
+  ?location :cityName ?cityName .
+}

@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that individual cities are defined with a data property (cityName) and that their region is connected via the object property locatedIn, here is one example SPARQL query under the closed‐world assumption that returns a given city’s region:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?city ?cityName ?region ?regionName
+WHERE {
+  ?city a :Cl_City ;
+        :cityName ?cityName ;
+        :locatedIn ?region .
+  OPTIONAL { ?region :regionName ?regionName . }
+  FILTER(?cityName = "TARGET_CITY_NAME")
+}
+--------------------------------------------------
+
+Replace "TARGET_CITY_NAME" with the name of the city of interest. This query retrieves the region (with optional region label) in which the given city is located, showing that the competency question is modelled by the ontology.

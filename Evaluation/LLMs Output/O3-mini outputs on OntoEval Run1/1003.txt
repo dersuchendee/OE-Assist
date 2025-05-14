@@ -1,0 +1,19 @@
+**No**
+
+The ontology does include publication information for media (e.g. books) via the properties :published (with domain :Cl_Media) and :publicationDate (with domain :Cl_Publication), but it does not “reify” the publication event (e.g. there isn’t a reified class connecting a book or CD directly with its publication process). Moreover, while a book is modelled as a subclass of :Cl_Media (e.g. :Cl_Book), there is no explicit class for “CD.” Therefore, it is not fully answered by a reification pattern, and we can only extract a partial answer (e.g. for media items that are known books).
+
+A partial SPARQL query to extract what publication dates are available for media is:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?media ?publicationDate
+WHERE {
+  ?media a :Cl_Media .
+  ?media :published ?pub .
+  ?pub :publicationDate ?publicationDate .
+}
+---------------------------------------------------------------
+
+This query returns the publication date for any media (including books); however, because the ontology does not separately model CDs or reify the publication event, the CQ “When was a certain book or CD published?” is only partially answerable based on the given ontology.

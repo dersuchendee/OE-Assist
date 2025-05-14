@@ -1,0 +1,22 @@
+**Yes**
+
+Below is a SPARQL query that retrieves the seminar(s) along with their scheduled dates. Under the closed world assumption, we assume that all seminars (i.e. individuals of class Cl_Seminar) have their date recorded with the property :seminarDate.
+
+-------------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?seminarLabel ?seminarDate
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  ?seminar :seminarDate ?seminarDate .
+}
+ORDER BY ?seminarDate
+
+-------------------------------------------------------
+
+This query extracts the seminar(s) and the date when the seminar took place as required by the CQ "When did a certain seminar take place?"

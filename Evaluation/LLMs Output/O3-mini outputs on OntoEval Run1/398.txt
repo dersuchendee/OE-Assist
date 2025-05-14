@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves each production along with its (unique) premier event date by verifying that exactly one premier event is attached:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate (COUNT(?premierEvent) AS ?numPremiers)
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremierEvent ?premierEvent .
+  ?premierEvent :premierDate ?premierDate .
+}
+GROUP BY ?production ?premierDate
+HAVING (COUNT(?premierEvent) = 1)
+----------------------------------------------------------------
+
+This query uses the closed world assumption to only return productions that have exactly one premier event, which directly reflects the competency question “A production has exactly one premier.”

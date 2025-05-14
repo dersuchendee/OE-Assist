@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+SELECT ?play ?actCount
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :hasActCount ?actCount . }
+  OPTIONAL {
+    ?play :hasActInformation ?actInfo .
+    ?actInfo :actCount ?actCount .
+  }
+}
+```
+
+This SPARQL query retrieves all instances of plays (`?play`) and their corresponding number of acts (`?actCount`). It accounts for both modeling approaches present in the ontology:
+
+1. **Direct Property**: Some plays may have the `:hasActCount` data property directly associated with them.
+2. **Reified Information**: Other plays might have an associated `:Cl_PlayActInformation` instance through the `:hasActInformation` object property, which then has the `:actCount` data property.
+
+By using OPTIONAL clauses, the query ensures that it captures the act count regardless of how it's modeled in the ontology. The `?actCount` variable will be bound if either of the properties exists for a play.

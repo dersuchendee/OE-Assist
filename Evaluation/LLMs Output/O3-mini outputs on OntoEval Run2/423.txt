@@ -1,0 +1,18 @@
+**Yes**
+Below is one SPARQL query that, under a closed‐world assumption, returns for a given musician (or for all musicians) the instruments they play:
+
+–––––––––––––––––––––––––––––––––––––––––––––––
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?musician ?musicianLabel ?instrument ?instrumentLabel
+WHERE {
+  # Retrieve musicians that have an associated "plays" property
+  ?musician a :Musician ;
+            :plays ?instrument .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+}
+–––––––––––––––––––––––––––––––––––––––––––––––
+
+This query answers the competency question “What instruments does a certain person play?” by extracting, for each musician, the instruments registered via the :plays property.

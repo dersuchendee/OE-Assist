@@ -1,0 +1,19 @@
+**Yes**
+
+The competency question "Who are the members of a certain ensemble at a certain point in time?" can be answered using the ontology provided. The ontology includes classes and properties that allow us to identify members of an ensemble and associate them with a specific production and time. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?ensemble ?member ?role ?roleName ?date
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasEnsemble ?ensemble .
+  ?ensemble :hasMember ?member .
+  ?member :hasRole ?role .
+  ?role :roleInProduction ?production .
+  ?role :roleAtTime ?date .
+  OPTIONAL { ?role :roleName ?roleName . }
+}
+ORDER BY ?ensemble ?date
+```
+
+This query retrieves the ensemble, its members, their roles, and the time at which they performed in a specific production.

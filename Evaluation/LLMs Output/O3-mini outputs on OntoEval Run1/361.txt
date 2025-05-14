@@ -1,0 +1,20 @@
+**Yes**
+
+Below is a SPARQL query that uses the employment relationship and its start date to answer the CQ. This query retrieves, for any actor and theatre pairing, the starting date of the actor’s employment with that theatre:
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?theatre ?startDate
+WHERE {
+  ?employment a :Cl_Employment ;
+              :dp_startDate ?startDate .
+  ?actor :op_employmentOf ?employment .
+  ?theatre :op_employs ?employment .
+}
+------------------------------------------------------
+
+Under the closed world assumption, only those employment relationships explicitly stated (such as FabioBianchi’s employment at GrandTheatre) will be returned by the query.

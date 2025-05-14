@@ -1,0 +1,17 @@
+**Yes**
+
+We can extract the “star rating” by joining a theatre production to its review, then “reviewedBy” to the newspaper, and finally returning its dp_starRating. For example, if you want the star rating that newspaper :IlGazzettino gave to production :MerchantOfVeniceProduction, you can use a query such as:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?newspaper ?starRating
+WHERE {
+  ?production a :Cl_TheatreProduction .
+  ?production :op_hasReview ?review .
+  ?review :dp_starRating ?starRating .
+  ?review :op_reviewedBy ?newspaper .
+  FILTER(?production = :MerchantOfVeniceProduction && ?newspaper = :IlGazzettino)
+}
+
+This query answers the CQ under a closed‐world assumption, as all relevant individuals (production, review, and newspaper) are explicitly asserted in the ontology.

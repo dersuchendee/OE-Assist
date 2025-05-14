@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?production (COUNT(?premiere) AS ?premiereCount)
+WHERE {
+  ?production a :Production .
+  ?production :hasPremiere ?premiere .
+}
+GROUP BY ?production
+HAVING(COUNT(?premiere) = 1)
+```

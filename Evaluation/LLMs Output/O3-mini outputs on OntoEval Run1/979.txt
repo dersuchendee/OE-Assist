@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for each book instance (of type :Cl_Book), the page count (using the :hasPageCount property):
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?pages
+WHERE {
+  ?book a :Cl_Book .
+  ?book :hasPageCount ?pages .
+}
+---------------------------------------------------------
+
+This query returns each book along with the number of pages it contains, thus fully answering the CQ under a closed‐world assumption.

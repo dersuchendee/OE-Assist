@@ -1,0 +1,14 @@
+**No**
+
+The ontology does not contain any information about the employment of a person at a hospital, specifically the date of employment. The ontology primarily focuses on medical degrees, union memberships, evaluations, and articles. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?person ?hospital
+WHERE {
+  ?employment a :Cl_Employment ;
+              :employee ?person ;
+              :employedAt ?hospital .
+}
+```

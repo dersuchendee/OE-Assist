@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the publication date of resources that are either books or CDs:
+
+—————————————————————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?publicationDate
+WHERE {
+  { ?item a :Cl_Book } UNION { ?item a :Cl_CD } .
+  ?item :publicationDate ?publicationDate .
+}
+ORDER BY ?item
+—————————————————————————————————————————————
+
+Under the closed world assumption, this query uses the explicit assertions in the ontology (i.e. that books and CDs have a publicationDate property) to answer the competency question.

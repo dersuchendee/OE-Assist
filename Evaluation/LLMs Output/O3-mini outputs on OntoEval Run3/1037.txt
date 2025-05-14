@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that a “certain seminar” is represented as an instance of the class Cl_Seminar and its occurrence is captured by the data property seminarDate, here is a SPARQL query that returns the seminar and the date it took place:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :seminarDate ?seminarDate .
+} 
+
+This query shows that the ontology supports the competency question “When did a certain seminar take place?” under a closed world assumption.

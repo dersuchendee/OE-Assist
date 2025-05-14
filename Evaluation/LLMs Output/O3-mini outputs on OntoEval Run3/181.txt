@@ -1,0 +1,30 @@
+**Yes**
+
+This query shows how one can ask for specific information from the ontology—for example, retrieving the production’s name, its premier date, and the star rating (given by a known newspaper) for “The Merchant of Venice at The Grand Theatre” (details included in the story). Under the closed‐world assumption, all information needed is assumed to be completely specified in the ontology.
+
+Below is an example SPARQL query extracting the answer:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?productionName ?premierDate ?starRating ?newspaperName
+WHERE {
+  ?production a :Cl_Production ;
+              :productionName ?productionName ;
+              :hasPremier ?premier .
+  ?premier a :Cl_ProductionPremier ;
+           :hasPremierDate ?premierDate .
+  ?review a :Cl_Review ;
+          :hasProduction ?production ;
+          :hasStarRating ?starRating ;
+          :hasNewspaper ?newspaper .
+  ?newspaper :newspaperName ?newspaperName .
+  FILTER(?productionName = "The Merchant of Venice at The Grand Theatre")
+}
+ORDER BY ?premierDate 
+-------------------------------------------------
+
+This query demonstrates that the competency question—by asking for key details (production name, premier date, review star rating along with the newspaper’s name)—can indeed be answered by the ontology.

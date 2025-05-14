@@ -1,0 +1,22 @@
+**Yes**
+
+The competency question "Which tracks are contained in the album 'Stadium Arcadium'?" is supported by the ontology, as the property `:containsTrack` links albums to tracks.
+
+Here is the SPARQL query:
+
+```sparql
+SELECT ?track
+WHERE {
+  :StadiumArcadium :containsTrack ?track .
+}
+```
+
+If you also want to retrieve the songs that each track is a recording of, you can use the following query:
+
+```sparql
+SELECT ?track ?song
+WHERE {
+  :StadiumArcadium :containsTrack ?track .
+  OPTIONAL { ?track :isRecordingOf ?song . }
+}
+```

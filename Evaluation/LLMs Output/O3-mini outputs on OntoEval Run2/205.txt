@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming that instances of production are connected via the property basedOnPlay to their underlying play, you could write a query like:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?play ?playName 
+WHERE {
+  ?production a :Cl_Production ;
+              :basedOnPlay ?play .
+  OPTIONAL { ?play :playName ?playName . }
+}
+
+This query retrieves each production along with the play (and its name, if available) on which it is based, which answers the competency question “What play is the basis of this production?” under the closed world assumption.

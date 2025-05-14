@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain explicit information about the number of bells in a church or bell tower. However, it does have a class for `Bell` and `SetOfBells`, which could potentially be used to infer the number of bells if instances of these classes were available. Here's a SPARQL query to extract a partial answer, which would list the sets of bells associated with bell towers:
+
+```sparql
+SELECT ?bellTower ?setOfBells
+WHERE {
+  ?setOfBells a <https://w3id.org/polifonia/ontology/bell/SetOfBells> .
+  ?bell a <https://w3id.org/polifonia/ontology/bell/Bell> .
+  ?bell <https://w3id.org/arco/ontology/core/isComponentOf> ?setOfBells .
+  ?bellTower a <https://w3id.org/polifonia/ontology/bell/BellTower> .
+  ?setOfBells <https://w3id.org/arco/ontology/core/hasComponent> ?bell .
+}
+```
+
+This query will return the sets of bells and their associated bell towers, but it will not provide the count of bells in each set.

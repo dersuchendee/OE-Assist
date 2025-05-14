@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer the CQ using the reified participation information in the ontology. In this ontology actors involved in a CVN appear via participation relations (class actor:CVNParticipation) where the participation relates a CVN (through actorODP:participationIn) with an actor (through actorODP:participatingActor).
+
+Assuming a closed world, the following SPARQL query retrieves each CVN along with its corresponding actors:
+
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+
+SELECT ?cvn ?cvnLabel ?actor ?actorLabel
+WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participationIn ?cvn .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+
+This query extracts the actors that are involved in each CVN, fully supporting the competency question.

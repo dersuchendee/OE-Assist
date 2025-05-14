@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the count of distinct individuals that are asserted as belonging to the class DiseaseCategory.
+
+------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT (COUNT(DISTINCT ?dc) AS ?numDistinctDiseaseCategories)
+WHERE {
+  ?dc rdf:type :DiseaseCategory .
+}
+------------------------------------------------------
+
+This query works because if the data (i.e. the ABox) contains individuals explicitly typed as :DiseaseCategory, the result will reflect the distinct count.

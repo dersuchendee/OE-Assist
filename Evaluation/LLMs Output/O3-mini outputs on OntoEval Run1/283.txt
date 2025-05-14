@@ -1,0 +1,13 @@
+**Yes**
+Below is a SPARQL query that, under the closed world assumption, retrieves the number of acts for a specified play (here exemplified as "The Merchant of Venice"):
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?label ?numberOfActs
+WHERE {
+  ?play a ns1:Play ;
+        rdfs:label ?label ;
+        ns1:numberOfActs ?numberOfActs .
+  FILTER(?label = "The Merchant of Venice"@en)
+}

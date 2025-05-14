@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question "What are the roles of this actor in this network?" is answerable using the provided ontology. The ontology includes the class `actor:CVNParticipation`, which represents the participation of an actor in a circular value network (CVN) with a specific role.
+
+Here's how the ontology allows us to answer the CQ:
+
+- **Actors** are represented as instances of `actorODP:Actor`.
+- **Networks** are represented as instances of `cvn:CVN`.
+- **Roles** are represented as instances of `actor:ActorCVNRole`.
+- The class `actor:CVNParticipation` connects actors, roles, and networks through properties:
+  - `actorODP:participatingActor` relates a participation to an actor.
+  - `actorODP:participantRole` relates a participation to a role.
+  - `actorODP:participationIn` relates a participation to a network.
+
+Using these classes and properties, we can construct a SPARQL query to retrieve the roles an actor has within a network:
+
+```sparql
+SELECT ?actor ?network ?role WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole ?role .
+  ?participation actorODP:participationIn ?network .
+}
+```
+
+This query selects all actors, the networks they participate in, and the roles they have in those networks by querying instances of `actor:CVNParticipation`.

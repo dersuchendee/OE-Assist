@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example SPARQL query that, under the closed‐world assumption, retrieves the review text provided by a critic (e.g. CrianHiatt) for a given record (e.g. StadiumArcadium):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?reviewText
+WHERE {
+  ?review a :Cl_Review ;
+          :reviewedBy :CrianHiatt ;
+          :reviewedRecord :StadiumArcadium ;
+          :reviewText ?reviewText .
+}
+—————————————————————————————
+
+This query shows that the ontology models the competency question “What does a certain critic say about a certain record?” because it allows us to extract the review text (the critic’s comment) for the specified record.

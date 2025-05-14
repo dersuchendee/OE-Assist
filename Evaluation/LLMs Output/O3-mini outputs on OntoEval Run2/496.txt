@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, retrieves the recording period for each album by linking an album (of type Cl_MusicAlbum) to its recording event (an instance of Cl_Recording or its subclass) via the property :hasRecording and then extracting the value from the property :recordingPeriod:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingPeriod
+WHERE {
+  ?album a :Cl_MusicAlbum .
+  ?album :hasRecording ?recording .
+  ?recording :recordingPeriod ?recordingPeriod .
+}
+-------------------------------------------------
+
+This query answers the CQ: “During what time period was a certain album recorded?” by directly extracting the recording period information for each album.

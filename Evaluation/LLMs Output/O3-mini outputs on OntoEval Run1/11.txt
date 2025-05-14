@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.semanticweb.org/sophia-music-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?instrument ?instrumentLabel ?physicalRealization ?physicalLabel
+WHERE {
+  ?instrument a :MusicalInstrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel . }
+  
+  ?instrument :hasPhysicalRealization ?physicalRealization .
+  OPTIONAL { ?physicalRealization rdfs:label ?physicalLabel . }
+}
+```

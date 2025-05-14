@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer this CQ using the ontology since a theatre festival (instance of :Cl_TheatreFestival) is linked to plays (instances of :Cl_Play) by means of the property :features. In a closed world setting, if a festival is not linked via :features to a play, we assume it has no such play.
+
+A possible SPARQL query is:
+
+-----------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel. }
+  ?festival :features ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+ORDER BY ?festival ?play
+-----------------
+
+This query retrieves each theatre festival together with the plays featured in it, thereby fully answering the competency question.

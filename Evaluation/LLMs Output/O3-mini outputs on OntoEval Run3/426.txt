@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming the ontology models persons and instruments as reified classes interconnected via the property :plays (with :Cl_Person as domain and :Cl_Instrument as range), we can answer the CQ by directly querying for the instruments played by a given person. Under the closed world assumption, only individuals explicitly linked by the :plays property will be returned. For example, if we parameterize the query with a given person (e.g., :JohnFrusciante), one SPARQL query would be:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?instrument ?instrumentName
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person :name ?personName . }
+  
+  ?person :plays ?instrument .
+  OPTIONAL { ?instrument :instrumentName ?instrumentName . }
+
+  FILTER(?person = :JohnFrusciante)
+}
+
+This query extracts the instruments that the specified person plays along with optional labels, thus fully supporting the competency question.

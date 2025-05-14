@@ -1,0 +1,20 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?organ ?person ?role
+WHERE {
+  { ?organ a :Organ ;
+          :builtBy ?person .
+    BIND("builtBy" AS ?role)
+  }
+  UNION
+  { ?organ a :Organ ;
+          :renovatedBy ?person .
+    BIND("renovatedBy" AS ?role)
+  }
+}
+ORDER BY ?organ ?role
+```

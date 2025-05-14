@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+The ontology provides the necessary classes and properties to retrieve the roles of an actor in a network through the `:Cl_ActorRole` class and its associated properties. By querying instances of `:Cl_ActorRole`, we can determine the roles that a specific actor holds within a specific material flow (network).
+
+```sparql
+SELECT ?role
+WHERE {
+  ?actorRole a :Cl_ActorRole .
+  ?actorRole :actorInNetwork :GivenActor .
+  ?actorRole :roleInNetwork ?role .
+  ?actorRole :materialFlowOfNetwork :GivenNetwork .
+}
+```
+
+Replace `:GivenActor` with the URI of the specific actor and `:GivenNetwork` with the URI of the specific network (material flow) you are interested in.

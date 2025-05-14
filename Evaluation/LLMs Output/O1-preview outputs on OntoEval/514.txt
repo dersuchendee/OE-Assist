@@ -1,0 +1,27 @@
+Answer: **No**
+
+The ontology does not provide sufficient information to answer the competency question "How many tracks does a particular album contain?" Under the closed-world assumption, we cannot determine the total number of tracks in an album because:
+
+- The ontology does not include a data property that specifies the number of tracks in an album (e.g., `:hasTrackCount`).
+- The ontology only includes one track `:HumpDeBump` associated with the album `:StadiumArcadium` via the `:hasTrack` property.
+
+Therefore, we cannot accurately determine that the album contains 28 tracks as mentioned in the story.
+
+However, we can extract a partial answer by counting the tracks that are linked in the ontology. Here's a SPARQL query to retrieve the number of tracks per album based on the available data:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?albumTitle (COUNT(?track) AS ?numTracks)
+WHERE {
+  ?album rdf:type :Cl_MusicAlbum .
+  ?album :hasTitle ?albumTitle .
+  OPTIONAL {
+    ?album :hasTrack ?track .
+  }
+}
+GROUP BY ?albumTitle
+```
+
+This query will return the title of each album and the count of tracks associated with it in the ontology. Due to the limited data, it will only reflect the tracks explicitly linked, which may not represent the actual number of tracks in the album.

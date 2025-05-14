@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that performance events are modelled via the reified class (e.g., Cl_PerformanceEvent) with a date property (e.g., performanceDate), you could answer the CQ “When did a certain performance take place?” with a query such as:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performanceEvent ?performanceDate
+WHERE {
+  ?performanceEvent a :Cl_PerformanceEvent .
+  ?performanceEvent :performanceDate ?performanceDate .
+}
+------------------------------------------------
+
+This query retrieves each performance event and its associated date, thus fully addressing the competency question under a closed-world assumption.

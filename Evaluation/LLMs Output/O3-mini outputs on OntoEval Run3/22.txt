@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example of a SPARQL query that, given a specific water basin URI, uses the reified relation (Cl_WaterBodyInBasin) to extract the water bodies that are part of that basin:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?waterBody ?waterBodyLabel
+WHERE {
+  ?membership a :Cl_WaterBodyInBasin .
+  ?membership :op_isPartOfBasin <SPECIFIC_BASIN_URI> .
+  ?membership :op_isWaterBodyOf ?waterBody .
+  OPTIONAL { ?waterBody rdfs:label ?waterBodyLabel. }
+}
+------------------------------------------------
+
+Replace <SPECIFIC_BASIN_URI> with the URI of the water basin of interest. This query is answerable under the closed world assumption and leverages the reified class (Cl_WaterBodyInBasin) that connects water bodies to their basins.

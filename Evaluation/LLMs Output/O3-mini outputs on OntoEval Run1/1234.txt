@@ -1,0 +1,35 @@
+**Yes**
+
+Below is a SPARQL query that uses the ontology’s restrictions to “extract” the intended relationship between dissolved carbon (which is dissolved in water) and carbon cycling in karst systems (via the affects property):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?dissolvedCarbon ?isDissolvedIn ?water ?affects ?cycling ?cyclingLabel
+WHERE {
+  # Extract the ‘affects’ restriction from DissolvedCarbon,
+  # which establishes its connection to CarbonCyclingInKarstSystem.
+  :DissolvedCarbon rdfs:subClassOf ?affectsRestriction .
+  ?affectsRestriction a owl:Restriction ;
+                      owl:onProperty :affects ;
+                      owl:someValuesFrom ?cycling .
+  
+  # Optionally, retrieve a label for the cycling class
+  OPTIONAL { ?cycling rdfs:label ?cyclingLabel . }
+  
+  # Extract the 'isDissolvedIn' restriction indicating DissolvedCarbon is dissolved in Water.
+  :DissolvedCarbon rdfs:subClassOf ?dissolvedInRestriction .
+  ?dissolvedInRestriction a owl:Restriction ;
+                          owl:onProperty :isDissolvedIn ;
+                          owl:someValuesFrom ?water .
+  
+  # Bind explicit property relations for clarity.
+  BIND(:DissolvedCarbon AS ?dissolvedCarbon)
+  BIND(:isDissolvedIn AS ?isDissolvedIn)
+  BIND(:affects AS ?affects)
+}
+--------------------------------------------------
+
+This query “extracts” the axiomatic relationships contained in the ontology showing that Dissolved Carbon is defined (i) as being dissolved in Water and (ii) as affecting Carbon Cycling in Karst System. Under the closed world assumption, this SPARQL query “answers” the competency question by retrieving the related classes and the property link (:affects).

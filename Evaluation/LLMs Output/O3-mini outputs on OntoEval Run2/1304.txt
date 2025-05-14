@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that retrieves all compositions that are members of a given tune family (here represented by the individual :X):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?composition ?compositionLabel
+WHERE {
+  ?composition a :Composition .
+  ?composition :memberOf :X .
+  OPTIONAL { ?composition rdfs:label ?compositionLabel . }
+}
+
+This query works under the closed world assumption by extracting only those compositions explicitly linked via the :memberOf property to the specific tune family :X.

@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer this CQ using the provided ontology. In the ontology a book or CD is modeled as an instance of either Cl_Book or Cl_CD (both sub‐classes of Cl_Publication) and the articles that compose a publication are linked via the property containsArticle (whose domain is Cl_Publication and range is Cl_Article). Under the closed world assumption, only those assertions explicitly stated in the KB are considered true. The following SPARQL query extracts, for a given publication (book or CD), the articles it is composed of:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?pub ?pubTitle ?article ?articleTitle
+WHERE {
+  ?pub a ?pubType .
+  FILTER(?pubType IN (:Cl_Book, :Cl_CD))
+  OPTIONAL { ?pub :title ?pubTitle . }
+  ?pub :containsArticle ?article .
+  OPTIONAL { ?article :title ?articleTitle . }
+}
+----------------------------------------------------
+
+This query retrieves each publication of type Cl_Book or Cl_CD along with its title (if available) and all the articles (and their titles) associated with it via the containsArticle property.

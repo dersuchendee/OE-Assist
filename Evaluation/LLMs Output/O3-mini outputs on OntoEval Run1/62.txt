@@ -1,0 +1,14 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/circular_value_network#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?process ?processLabel ?actor ?actorLabel
+WHERE {
+  ?process a :Process ;
+           :involvesActor ?actor .
+  OPTIONAL { ?process rdfs:label ?processLabel . }
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+}
+```

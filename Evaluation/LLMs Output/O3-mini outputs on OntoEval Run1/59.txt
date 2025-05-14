@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that instances of :Cl_Material exist in the ontology with their chemical compositions reified via instances of :Cl_ChemicalComposition, you can answer the CQ with the following SPARQL query:
+
+---------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?material ?element ?atomicPercentage
+WHERE {
+  ?material a :Cl_Material ;
+            :hasChemicalComposition ?comp .
+  ?comp :hasElement ?element ;
+        :hasAtomicPercentage ?atomicPercentage .
+}
+---------------------------------------------
+
+Under the closed world assumption, this query retrieves each material's chemical composition elements and their corresponding atomic percentages.

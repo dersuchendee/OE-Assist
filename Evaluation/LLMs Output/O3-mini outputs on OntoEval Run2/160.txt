@@ -1,0 +1,16 @@
+**Yes**
+
+We can retrieve the city of a given theatre using the property :locatedIn defined for instances of :Cl_Theatre. For example, the following query finds theatres along with the city they are located in (and optionally the city name):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?theatre ?city ?cityName
+WHERE {
+  ?theatre a :Cl_Theatre .
+  ?theatre :locatedIn ?city .
+  OPTIONAL { ?city :cityName ?cityName. }
+} 
+
+Under the closed world assumption, if a theatre is not linked to any city then it does not exist in the dataset. This query therefore answers the competency question: "In what city is a certain theatre located?"

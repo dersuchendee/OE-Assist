@@ -1,0 +1,23 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world view of the ontology, returns the songs that were performed at the live performance that took place on August 11, 2006 in Portland (presuming that the performance date and location are captured in the relevant data):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songLabel
+WHERE {
+  ?performance a :Cl_Performance ;
+               :performanceDate "2006-08-11"^^xsd:date ;
+               :performanceLocation :Portland .
+  ?ps a :Cl_PerformanceSong ;
+      :performedAt ?performance ;
+      :performedSong ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+--------------------------------------------------
+
+This query extracts the song(s) that were performed during the performance in Portland on August 11, 2006, which is modeled in the ontology via the performance and performance-song reification.

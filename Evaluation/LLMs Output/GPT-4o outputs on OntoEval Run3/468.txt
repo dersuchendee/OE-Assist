@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not have a direct way to represent the role of a person in a band at a specific point in time. The ontology includes classes and properties for bands, musicians, albums, tracks, and performances, but it lacks a mechanism to capture the temporal aspect of a person's role within a band. The ontology would need a reification or a specific class to represent the membership of a person in a band with associated roles and time periods.
+
+Here's a SPARQL query to extract a partial answer, focusing on the members of a band:
+
+```sparql
+SELECT ?person ?band ?role
+WHERE {
+  ?band a :Cl_Band .
+  ?person a :Cl_Person .
+  ?person :memberOf ?band .
+  OPTIONAL { ?person :hasRole ?role . }
+}
+```

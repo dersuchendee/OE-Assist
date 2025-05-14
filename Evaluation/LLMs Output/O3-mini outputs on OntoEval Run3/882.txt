@@ -1,0 +1,24 @@
+**Yes**
+Below is an example SPARQL query that, using the closed‐world assumption, retrieves members of a given union (here, for example, “UnionOfMaleNurses”) whose membership started on or before a specified date (e.g. 2003‑01‑01):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberName ?membershipStartDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion :UnionOfMaleNurses ;
+              :hasMember ?member ;
+              :hasStartDate ?membershipStartDate .
+  FILTER ( xsd:date("2003-01-01") >= ?membershipStartDate )
+  OPTIONAL { ?member :hasName ?memberName . }
+}
+--------------------------------------------------
+
+Explanation:
+• The query looks for individuals (?membership) of class :Cl_UnionMembership that link a union (here fixed as :UnionOfMaleNurses) to a member (?member) and record the membership start date.
+• Under the closed‐world assumption we assume that if no “end date” is provided then the membership continues. The FILTER ensures we consider only those memberships that began on or before the given date (here January 1, 2003).
+• An OPTIONAL clause is included to retrieve the member’s name if available.
+
+This query shows that the ontology models the CQ “Who are the members of a certain union at a certain point in time?” (by retrieving union membership information with a reification pattern) and, therefore, the CQ is answerable.

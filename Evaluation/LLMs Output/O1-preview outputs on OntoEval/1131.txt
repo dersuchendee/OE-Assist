@@ -1,0 +1,17 @@
+**Yes**
+
+The competency question asks for the attribute values to derive personalized weather information for a user. The ontology provides the `:UserPreference` class with properties `:preferredService`, `:preferredLocation`, and `:preferredTimePeriod`, which are associated with the user's preferences. Thus, we can write a SPARQL query to extract these attribute values from the ontology.
+
+```sparql
+PREFIX : <http://example.org/ontology/weather#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?preferredService ?preferredLocation ?preferredTimePeriod
+WHERE {
+  :userPrefBerlin3Day rdf:type :UserPreference ;
+                      :preferredService ?preferredService ;
+                      :preferredLocation ?preferredLocation ;
+                      :preferredTimePeriod ?preferredTimePeriod .
+}
+```

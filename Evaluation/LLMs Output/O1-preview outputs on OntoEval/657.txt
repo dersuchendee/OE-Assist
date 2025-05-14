@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+SELECT ?song ?songName
+WHERE {
+  ?performance a :Cl_PlayedSong .
+  ?performance :hasSong ?song .
+  ?song :songName ?songName .
+  # Specify the performance you are interested in
+  ?performance :performanceDate ?date .
+  ?performance :performanceLocation ?location .
+  FILTER ( ?date = "2006-08-11T00:00:00Z"^^xsd:dateTime && ?location = "Portland, Oregon" )
+}
+```

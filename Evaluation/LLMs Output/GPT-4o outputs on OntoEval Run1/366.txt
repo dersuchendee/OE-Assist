@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to link an actor to a specific theatre and the start date of their employment. The ontology includes classes and properties related to actors, theatres, and dates, but it lacks a direct connection between an actor and a specific theatre employment start date.
+
+Partial SPARQL query to extract some related information:
+
+```sparql
+SELECT ?actor ?actorName ?theatre ?employmentStartDate
+WHERE {
+  ?actor a :Cl_Actor .
+  OPTIONAL { ?actor :actorName ?actorName . }
+  ?actor :employedAt ?employment .
+  ?employment a :Cl_ActorEmployment .
+  OPTIONAL { ?employment :employmentStartDate ?employmentStartDate . }
+}
+```

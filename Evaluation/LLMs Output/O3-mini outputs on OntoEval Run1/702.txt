@@ -1,0 +1,16 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves for a given city (here “Portland”) the region in which it is located:
+
+PREFIX : <http://example.org/geo#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityName ?region ?regionName
+WHERE {
+  ?city a :City .
+  ?city :placeName ?cityName .
+  FILTER(?cityName = "Portland") .
+  ?city :isPartOf ?region .
+  ?region :placeName ?regionName .
+}

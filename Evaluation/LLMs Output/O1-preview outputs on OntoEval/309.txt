@@ -1,0 +1,28 @@
+**Yes**
+
+We can answer the competency question "When was the premiere of a certain production?" using the given ontology. The ontology includes classes and properties that represent theatre productions and their premiere dates.
+
+Here's a SPARQL query that retrieves the premiere date of theatre productions:
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?productionName ?playTitle ?premiereDate
+WHERE {
+  ?production a :TheatreProduction .
+  
+  OPTIONAL { ?production :hasName ?productionName . }
+  
+  OPTIONAL {
+    ?production :productionOf ?play .
+    ?play :hasTitle ?playTitle .
+  }
+  
+  OPTIONAL { ?production :hasPremiereDate ?premiereDate . }
+}
+```
+
+This query retrieves all instances of `:TheatreProduction`, optionally fetching their names (`:hasName`), the titles of the plays they're productions of (`:productionOf` and `:hasTitle`), and their premiere dates (`:hasPremiereDate`). 
+
+By executing this query, you can find out when the premiere of a specific production occurred, provided that the production information is available in the data adhering to the given ontology.

@@ -1,0 +1,16 @@
+**Yes**
+Below is a SPARQL query that, under a closed‐world assumption, retrieves the composition date of a specific song (in this case “Hump de Bump”) using the reified structure in the ontology:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?song ?songName ?compositionDate
+WHERE {
+  ?song a :Cl_Song .
+  ?song :songName ?songName . 
+  ?song :hasComposition ?composition .
+  ?composition :composedOn ?compositionDate .
+  FILTER(?songName = "Hump de Bump")
+}
+
+This query shows that using the provided ontology—with the classes Cl_Song, Cl_SongComposition (a subclass of Cl_Composition), and the property composedOn—we can extract the answer to “When was a certain song composed?”

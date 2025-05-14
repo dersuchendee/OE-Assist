@@ -1,0 +1,40 @@
+**Yes**
+Below is an example SPARQL query that, under the closed‐world assumption, returns the role that a given person has in a given band at a specified point in time. In this example the ontology uses reification (via a member role with an associated time period) so that each person’s role (recorded through the property :hasRole) is linked to a time period (via :atTime whose properties :startDate and :endDate indicate validity). You can adjust the URIs for the person and band, and the time value used in the FILTER as needed.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personName ?band ?bandName ?role ?roleName ?startDate ?endDate
+WHERE {
+  # Identify the person and the band of interest
+  ?person a :Cl_Person.
+  ?band a :Cl_Band.
+  ?person :memberOf ?band.
+  
+  # Optionally get human‐readable names
+  OPTIONAL { ?person :name ?personName. }
+  OPTIONAL { ?band :bandName ?bandName. }
+  
+  # Get the reified role (pivot class :Cl_MemberRole) held by the person.
+  ?person :hasRole ?role.
+  ?role a :Cl_MemberRole.
+  OPTIONAL { ?role :roleName ?roleName. }
+  
+  # The role is valid during a certain time period.
+  ?role :atTime ?timePeriod.
+  ?timePeriod :startDate ?startDate.
+  ?timePeriod :endDate ?endDate.
+  
+  # Apply closed-world constraints:
+  # Only return the role valid at the given point in time.
+  # (Replace the following URIs with those of the specific person and band and the date with the time of interest.)
+  FILTER( ?person = <http://www.example.org/test#SpecificPersonURI> )
+  FILTER( ?band = <http://www.example.org/test#SpecificBandURI> )
+  FILTER( "2020-06-01"^^xsd:date >= ?startDate && "2020-06-01"^^xsd:date <= ?endDate )
+}
+ORDER BY ?startDate
+--------------------------------------------------
+
+This query finds, for a specified person and band, the role (its name and the validity period) that is active at the given date (“2020‑06‑01” in this example).

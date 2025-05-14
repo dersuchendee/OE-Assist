@@ -1,0 +1,25 @@
+**Yes**
+
+Below is one SPARQL query that—under a closed‐world assumption—retrieves the persons that are members of a specified union (here we use the example union “Union for Male Nurses”, represented by :Union_Male_Nurses) at a given point in time (provided as a literal, e.g. "2005-01-01"):
+
+-------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?membership a :Cl_UnionMembership .
+  ?membership :memberOfUnion :Union_Male_Nurses .
+  ?membership :unionMember ?person .
+  ?membership :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # Filter for memberships active at the given point ("2005-01-01")
+  FILTER(
+      xsd:date("2005-01-01") >= ?membershipStartDate &&
+      ( !bound(?membershipEndDate) || xsd:date("2005-01-01") < ?membershipEndDate )
+  )
+}
+-------------------------------------------
+
+In this query the union membership is considered “active” at the given date if the membership started on or before that date and (either its membershipEndDate is not defined or its end date is later than the given date). This fully answers the competency question “Who are the members of a certain union at a certain point in time?” under the given ontology.

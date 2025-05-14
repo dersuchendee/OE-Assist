@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, retrieves for a given person and hospital the earliest (first) employment start date:
+
+PREFIX : <http://www.ontologydesignpatterns.org/cp/owl/hospitalemployment.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?hospital ?hospitalLabel (MIN(?date) AS ?firstEmployment)
+WHERE {
+  ?person a :Person ;
+          rdfs:label ?personLabel ;
+          :hasEmploymentRecord ?employment .
+  ?employment :employmentStartDate ?date ;
+              :employedAt ?hospital .
+  ?hospital rdfs:label ?hospitalLabel .
+  # Optionally, apply FILTERs if you want to restrict to a certain person or hospital, e.g.,
+  # FILTER(?person = :PasqualeDiGennaro) 
+  # FILTER(?hospital = :OspedaleRiunitoDelleTreValli)
+}
+GROUP BY ?person ?personLabel ?hospital ?hospitalLabel
+ORDER BY ?firstEmployment

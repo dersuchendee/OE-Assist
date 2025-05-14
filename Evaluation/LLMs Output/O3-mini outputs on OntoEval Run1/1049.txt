@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves, for a given seminar, the articles that were presented by following the reified presentation class connections:
+
+-------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleTitle
+WHERE {
+  ?presentation a :Cl_SeminarPresentation ;
+                :presentationInSeminar ?seminar ;
+                :presentationOfArticle ?article .
+  
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  OPTIONAL { ?article :articleTitle ?articleTitle . }
+  
+  # Replace <#Seminar1> with the URI of the seminar of interest
+  FILTER (?seminar = <http://www.example.org/test#Seminar1>)
+}
+ORDER BY ?article
+-------------------------------------------------------
+
+This query answers the CQ by extracting, for a specified seminar, the articles presented.

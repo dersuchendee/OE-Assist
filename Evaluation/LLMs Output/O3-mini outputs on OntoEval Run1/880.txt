@@ -1,0 +1,25 @@
+**Yes**
+
+Below is an example SPARQL query that, given a union URI and a date parameter, retrieves the union members whose memberships started on or before that date (using a closed‐world interpretation, i.e. assuming that a membership, once started, remains valid):
+
+----------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?memberLabel ?union ?unionLabel ?startDate
+WHERE {
+  ?membership a :Cl_UnionMembership ;
+              :hasUnion ?union ;
+              :hasMember ?member ;
+              :hasStartDate ?startDate .
+  # Replace <givenUnion> with the union of interest and "YYYY-MM-DD" with the point in time:
+  FILTER(?union = <http://www.example.org/test#UnionOfMaleNurses> 
+         && ?startDate <= "2002-12-31"^^xsd:date)
+  
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+  OPTIONAL { ?union rdfs:label ?unionLabel . }
+}
+----------------------------------------
+
+This query models the competency question “Who are the members of a certain union at a certain point in time?” using the ontology's union membership class and its associated properties.

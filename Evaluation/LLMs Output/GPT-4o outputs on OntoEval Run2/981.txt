@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to query the number of pages a particular book contains. The ontology includes classes and properties related to books and their details, but it does not explicitly connect a book to its number of pages. Here's a SPARQL query to extract a partial answer, which retrieves books and their details, but it won't provide the number of pages:
+
+```sparql
+SELECT ?book ?details
+WHERE {
+  ?book a :Cl_Book .
+  OPTIONAL { ?book :hasDetails ?details . }
+}
+```

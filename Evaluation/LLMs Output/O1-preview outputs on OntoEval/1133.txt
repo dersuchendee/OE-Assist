@@ -1,0 +1,19 @@
+**Answer: Yes**
+
+The competency question "What devices are available in this indoor location?" is answerable using the given ontology. The ontology defines the classes `:Device` and `:IndoorLocation`, and the object property `:hasDevice` which connects `:IndoorLocation` to `:Device`. The ontology includes an instance `:Berlin` of `:IndoorLocation`, and two devices `:WeatherStation` and `:Thermostat`, with the assertion that `:Berlin` has both devices. Therefore, we can write the following SPARQL query to retrieve the devices available in each indoor location:
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?indoorLocation ?indoorLocationLabel ?device ?deviceLabel
+WHERE {
+  ?indoorLocation a :IndoorLocation .
+  OPTIONAL { ?indoorLocation rdfs:label ?indoorLocationLabel . }
+
+  ?indoorLocation :hasDevice ?device .
+  OPTIONAL { ?device rdfs:label ?deviceLabel . }
+}
+```
+
+This query selects all indoor locations and their associated devices, along with any available labels for readability. It leverages the `:hasDevice` property to find devices available in each indoor location, satisfying the competency question derived from the ontology and the story provided.

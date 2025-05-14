@@ -1,0 +1,22 @@
+**Yes**
+
+Below is one possible SPARQL query that retrieves the critique text made by a given critic about a given record:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?critiqueText
+WHERE {
+  ?critique a :Cl_Critique ;
+            :madeBy ?critic ;
+            :aboutRecord ?record ;
+            :critiqueText ?critiqueText .
+  
+  # Replace the IRI values below with the specific critic and record identifiers
+  FILTER(?critic = <http://www.example.org/test#SomeCriticIRI> &&
+         ?record = <http://www.example.org/test#SomeRecordIRI>)
+}
+--------------------------------------------------
+
+In this query, we assume that instances of the reification class :Cl_Critique (which is defined as a subclass of both :Cl_Critic and :Cl_Record) connect a critic (via :madeBy) and a record (via :aboutRecord) with an associated critique text (via :critiqueText). Under the closed world assumption, this structure supports the competency question "What does a certain critic say about a certain record?" as we can extract the complete answer using the query above.

@@ -1,0 +1,22 @@
+**Yes**
+Below is a SPARQL query that retrieves the articles composing a specific book or CD (in this example, using the individual :Book_NursePracticesInCancerPatientCare):
+
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?collection ?collectionLabel ?article ?articleLabel
+WHERE {
+  VALUES ?collection { :Book_NursePracticesInCancerPatientCare } .
+  ?collection a ?type .
+  FILTER(?type IN (:Book, :CD))
+  {
+    ?collection :hasArticle ?article .
+  }
+  UNION
+  {
+    ?collection ce:hasMember ?article .
+  }
+  OPTIONAL { ?collection rdfs:label ?collectionLabel . }
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}

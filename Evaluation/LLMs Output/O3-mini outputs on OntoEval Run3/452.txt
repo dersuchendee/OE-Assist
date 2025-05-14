@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world reading of the ontology, retrieves the members of a given band at a given point in time. (In this example the band is identified by the IRI “:SomeBand” and the query “time” is 2005–01–01. In practice you would replace these with the band and date of interest.) 
+
+——————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipPeriod
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :hasMember :SomeBand ;
+              :memberOf ?person ;
+              :membershipPeriod ?period .
+  ?period :start ?start ;
+          :end ?end .
+  FILTER("2005-01-01"^^xsd:date >= ?start && "2005-01-01"^^xsd:date <= ?end)
+}
+ORDER BY ?person
+——————————————————————
+
+Explanation:
+• The query assumes that band membership is reified as an instance of the class Cl_BandMembership.
+• The property :hasMember links the membership instance to a specific band (here “:SomeBand”).
+• The property :memberOf links the membership instance to the person (membership – i.e. band member).
+• The temporal information is attached via a reified time period (an instance of Cl_TimePeriod) that provides a start date (:start) and an end date (:end).
+• The FILTER ensures that the chosen point in time (here 2005–01–01) falls within the membership period.
+
+This query shows that the ontology models band membership together with temporal qualifications – so the CQ “What are the members of a certain band at a certain point in time?” is indeed answerable.

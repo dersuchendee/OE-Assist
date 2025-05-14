@@ -1,0 +1,15 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed‐world assumption, retrieves seminars and the dates on which they took place:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarDate
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :seminarDate ?seminarDate .
+  # Optionally, if you want to restrict to a certain seminar by label or identifier, add a FILTER here:
+  # ?seminar rdfs:label "Desired Seminar Label" .
+}
+

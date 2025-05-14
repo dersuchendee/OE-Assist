@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that individuals of CarbonFixationForm are asserted in the ABox, the following SPARQL query retrieves all instances of CarbonFixationForm that take place in a forest soil and participate in carbon cycling:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?fixationForm ?forestSoil
+WHERE {
+  ?fixationForm a :CarbonFixationForm .
+  ?fixationForm :occursIn ?forestSoil .
+  ?forestSoil a :ForestSoil .
+  ?fixationForm :partOfProcess :CarbonCycling .
+}
+
+In a closed world assumption, only explicitly stated instances are available for retrieval.

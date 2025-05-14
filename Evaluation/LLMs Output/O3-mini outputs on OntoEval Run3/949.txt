@@ -1,0 +1,22 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# Assume the specific book or CD is provided via its IRI as ?collection.
+# This query retrieves the articles composing the given collection along with their titles.
+SELECT ?collection ?article ?articleTitle
+WHERE {
+  # The collection must be either a Book or a CD
+  ?collection a ?collectionType .
+  FILTER(?collectionType = :Cl_Book || ?collectionType = :Cl_CD) .
+
+  # Retrieve the article(s) the collection is composed of.
+  ?collection :op_composedOf ?article .
+  
+  # Get the title of the article.
+  ?article :dp_hasTitle ?articleTitle .
+}
+```

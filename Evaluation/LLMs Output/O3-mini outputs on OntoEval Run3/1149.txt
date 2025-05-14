@@ -1,0 +1,18 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?event ?startTime ?endTime
+WHERE {
+  ?event rdf:type :Movie .
+  ?event :isAvailableDuring ?timePeriod .
+  ?timePeriod :hasStartTime ?startTime ;
+              :hasEndTime ?endTime .
+  # Optionally, add a FILTER to restrict results to a particular time period.
+  # For example, if you want movies available during the evening period (:Evening):
+  # FILTER(?timePeriod = :Evening)
+}
+ORDER BY ?startTime
+```

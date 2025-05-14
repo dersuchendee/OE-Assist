@@ -1,0 +1,20 @@
+**Yes**
+
+The competency question "Was the (material, information) exchange successful?" is answerable using the provided ontology. The ontology defines `:Exchange`, `:MaterialExchange`, and `:InformationExchange` classes, where each exchange has a `:hasSuccessStatus` property indicating its success as a boolean value. 
+
+Here is a SPARQL query that retrieves each material or information exchange and its success status:
+
+```sparql
+SELECT ?exchange ?exchangeTypeLabel ?successStatus
+WHERE {
+  ?exchange a ?exchangeType .
+  FILTER (?exchangeType IN (:MaterialExchange, :InformationExchange)) .
+
+  OPTIONAL { ?exchange rdfs:label ?exchangeLabel . }
+  ?exchange :hasSuccessStatus ?successStatus .
+
+  OPTIONAL { ?exchangeType rdfs:label ?exchangeTypeLabel . }
+}
+```
+
+This query selects all instances of `:MaterialExchange` and `:InformationExchange`, retrieves their success status through the `:hasSuccessStatus` property, and optionally includes labels for better readability. The query effectively answers whether each material or information exchange was successful according to the ontology.

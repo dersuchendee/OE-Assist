@@ -1,0 +1,20 @@
+**Yes**
+
+We can answer the CQ “What are the actors involved in this circular value network (CVN)?” by linking the CVN with its participation relations. In the ontology, the class actor:CVNParticipation (a subclass of actorODP:CollaborationParticipation) represents the participation of actors in a CVN (via the restriction that actorODP:participationIn some cvn:CVN). Using the property actorODP:participatingActor we can retrieve the involved actors.
+
+Here is a SPARQL query that retrieves each CVN along with its participating actors:
+
+PREFIX cvn: <http://w3id.org/CEON/ontology/cvn/>
+PREFIX actor: <http://w3id.org/CEON/ontology/actor/>
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?cvn ?cvnLabel ?actor ?actorLabel
+WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participationIn ?cvn .
+  ?participation actorODP:participatingActor ?actor .
+  OPTIONAL { ?cvn rdfs:label ?cvnLabel. }
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+}
+ORDER BY ?cvn ?actor

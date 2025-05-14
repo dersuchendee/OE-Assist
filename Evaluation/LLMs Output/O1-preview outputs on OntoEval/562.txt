@@ -1,0 +1,15 @@
+**Yes**
+
+The competency question is answerable because the ontology defines the relationships between `MusicTrack`, `Recording`, and `Song` through the properties `:isMusicTrackOf` and `:isRecordingOf`. This allows us to retrieve, for a specific music track, the song it is a recording of.
+
+```sparql
+SELECT ?track ?trackLabel ?song ?songLabel
+WHERE {
+  ?track a :MusicTrack .
+  OPTIONAL { ?track rdfs:label ?trackLabel . }
+  
+  ?track :isMusicTrackOf ?recording .
+  ?recording :isRecordingOf ?song .
+  OPTIONAL { ?song rdfs:label ?songLabel . }
+}
+```

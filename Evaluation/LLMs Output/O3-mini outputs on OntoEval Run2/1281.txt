@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that “she” is an individual with a label (e.g., "Sophia") in the ontology, we can retrieve her residence locations by querying for her ResidenceEvents. Under the closed‐world assumption we expect that only those events explicitly connected to “Sophia” are considered. For example, the following SPARQL query answers “Where did she live?”:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?location ?locationLabel
+WHERE {
+  ?person a :Person ;
+          rdfs:label "Sophia" ;
+          :hasEvent ?event .
+  ?event a :ResidenceEvent ;
+         :atLocation ?location .
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+
+This query finds the person labeled "Sophia", then retrieves any ResidenceEvents that have an associated location.

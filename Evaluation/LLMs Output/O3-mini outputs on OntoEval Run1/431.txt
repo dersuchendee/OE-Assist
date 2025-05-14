@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one example SPARQL query that, under the closed‐world assumption (i.e. assuming the ontology contains complete information about which instruments each person plays), retrieves the instruments a specified person plays. (In this example, we filter for a person—for instance, “:Anthony_Kiedis”—but you can replace that with any individual of :Cl_Person.)
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?instrument
+WHERE {
+  :Anthony_Kiedis a :Cl_Person .
+  :Anthony_Kiedis :playsInstrument ?instrument .
+}
+---------------------------------
+
+This query returns all instruments associated with the given person via the :playsInstrument property, showing that the competency question is fully supported by the ontology.

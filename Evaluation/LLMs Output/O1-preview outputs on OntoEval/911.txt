@@ -1,0 +1,21 @@
+**Yes**
+
+```sparql
+SELECT ?roleName
+WHERE {
+  # Assume ?person, ?union, and ?time are input variables.
+  ?person a :Cl_Person .
+  ?person :hasRole ?unionRole .
+  ?unionRole a :Cl_UnionRole .
+  ?unionRole :roleInUnion ?union .
+  ?unionRole :roleName ?roleName .
+  ?unionRole :roleStartDate ?startDate .
+  OPTIONAL { ?unionRole :roleEndDate ?endDate . }
+  
+  # Filter roles active at the given time
+  FILTER (
+    xsd:date(?startDate) <= xsd:date(?time) &&
+    ( !bound(?endDate) || xsd:date(?endDate) >= xsd:date(?time) )
+  )
+}
+```

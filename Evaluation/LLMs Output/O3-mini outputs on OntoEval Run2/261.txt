@@ -1,0 +1,21 @@
+**Yes**
+
+We can answer the CQ “During what time period was a certain play written?” using the ontology’s modelling of plays and their associated time periods. In the ontology, a play (e.g. theatre:MerchantOfVenice) is linked via the property theatre:hasTimePeriod to a time period instance (e.g. theatre:TimePeriod1596-1598) that provides the start and end dates (using theatre:hasStartDate and theatre:hasEndDate). Under a closed world assumption the absence of other time period information means we can extract the complete answer.
+
+Below is an example SPARQL query that retrieves the time period (start and end dates) during which a given play was written:
+
+------------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?startDate ?endDate
+WHERE {
+  ?play theatre:hasTimePeriod ?tp .
+  ?tp theatre:hasStartDate ?startDate .
+  ?tp theatre:hasEndDate ?endDate .
+  # Optionally restrict to a specific play, for example:
+  FILTER( ?play = theatre:MerchantOfVenice )
+}
+------------------------------------------------------
+
+This query confirms that the ontology provides the necessary structure to answer the CQ.

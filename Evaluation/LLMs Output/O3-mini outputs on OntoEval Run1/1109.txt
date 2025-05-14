@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology supports this competency question. Because seminars are defined (via an equivalent class restriction) so that each one must have at least one article linked with the property presentedIn, we can extract for every seminar the articles that are presented. (Under a closed‐world assumption, if a seminar does not explicitly have any presented article the query would return no result for that seminar.) 
+
+The following SPARQL query retrieves each seminar with its associated articles:
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar ?article
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?article  a :Cl_Article .
+  ?article :presentedIn ?seminar .
+}
+ORDER BY ?seminar
+—————————————————————————————
+
+This query shows that for each seminar (instance of Cl_Seminar) there is (at least) one article (instance of Cl_Article) that is presented there, fulfilling the CQ.

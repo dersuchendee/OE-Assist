@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one possible SPARQL query that returns the publication date for instances of books or CDs (here represented as members of the class Cl_ArticleCollection):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?bookOrCD ?publicationDate
+WHERE {
+  ?bookOrCD a :Cl_ArticleCollection .
+  ?bookOrCD :publicationDate ?publicationDate .
+}
+----------------------------------------------------------------
+
+This query shows that the ontology explicitly provides a publication date for article collections (which are modelled as books and CDs). Under the closed-world assumption, all relevant publication dates are expected to be asserted in the ontology.

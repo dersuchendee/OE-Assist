@@ -1,0 +1,26 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the role (with its name and valid start/end dates) for a given person and union at a given time point. (Here, the query uses parameter placeholders – replace ?givenPerson, ?givenUnion, and ?givenTime with your desired values.) 
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?roleName ?roleStartDate ?roleEndDate
+WHERE {
+  ?person a :Cl_Person ;
+          :hasRole ?role .
+  ?role :roleInUnion ?union ;
+        :roleName ?roleName ;
+        :roleStartDate ?roleStartDate ;
+        :roleEndDate ?roleEndDate .
+  FILTER (
+         ?person = ?givenPerson &&
+         ?union = ?givenUnion &&
+         xsd:date(?givenTime) >= xsd:date(?roleStartDate) &&
+         xsd:date(?givenTime) <= xsd:date(?roleEndDate)
+         )
+}
+—————————————————————————————
+
+This query uses the information in the ontology (properties :hasRole, :roleInUnion, :roleName, :roleStartDate, and :roleEndDate) to return the role held by a person within a given union at a specified point in time under the closed world assumption.

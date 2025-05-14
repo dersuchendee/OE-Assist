@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to query the employment start date of a person at a specific hospital. The ontology includes the `employmentStartDate` property, but it is associated with the `Employment` class, and there is no direct connection between a person and the employment start date through the `Employment` class in the provided ontology. Therefore, a partial answer can be extracted by querying the employment details of a person, but it will not directly provide the employment start date.
+
+```sparql
+SELECT ?person ?hospital
+WHERE {
+  ?person a ns1:Person .
+  ?person ns1:hasEmployment ?employment .
+  ?employment ns1:employedAt ?hospital .
+}
+```

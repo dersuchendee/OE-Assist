@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one example SPARQL query that retrieves a person’s union role (with its name and valid period) for a given union and for a target date (here, for example, “2002-01-01”) using the reification classes that integrate a person’s membership and role:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?union ?unionLabel ?roleName ?roleStart ?roleEnd
+WHERE {
+  # Get the reified union membership information
+  ?membership a :Cl_PersonUnionMembership ;
+              :personMemberOfUnion ?person ;
+              :unionHasMember ?union .
+              
+  # Get the union role information (note that Cl_PersonUnionRole is a subclass of both Cl_PersonUnionMembership and Cl_UnionRole)
+  ?unionRole a :Cl_PersonUnionRole ;
+             :roleOfPerson ?membership ;
+             :roleDuring ?roleInstance .
+             
+  # Retrieve the role details
+  ?roleInstance :roleName ?roleName ;
+                :roleStart ?roleStart ;
+                :roleEnd ?roleEnd .
+
+  # Apply closed‐world filtering: select roles valid at a given target time.
+  FILTER("2002-01-01"^^xsd:date >= ?roleStart && "2002-01-01"^^xsd:date <= ?roleEnd)
+  
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  OPTIONAL { ?union rdfs:label ?unionLabel. }
+}
+ORDER BY ?person ?union
+
+This query shows how the ontology’s reification of union membership and role (together with the time‐bound properties :roleStart and :roleEnd) makes it possible to answer the competency question “What role does a certain person have within a certain union group at a certain point in time?” under a closed world assumption.

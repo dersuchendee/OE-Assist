@@ -1,0 +1,12 @@
+**No**
+
+The ontology provided does not explicitly define a relationship between actors and the information they hold. However, we can extract partial information about actors and their roles, which might indirectly relate to the information they hold.
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?participation a actorODP:Participation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole ?role .
+}
+```

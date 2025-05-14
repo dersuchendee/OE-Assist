@@ -1,0 +1,19 @@
+**Yes**
+
+We can answer “What play is the basis of this production?” by taking advantage of the property isBasisOf (with its inverse hasPlay). Under the closed‐world assumption we assume that every production that “has a play” is appropriately linked via this property. For example, the following SPARQL query retrieves all productions together with the play that serves as their basis, including any label (playName) if available:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?play ?playName
+WHERE {
+  ?play a :Cl_Play .
+  ?production a :Cl_Production .
+  ?play :isBasisOf ?production .
+  OPTIONAL { ?play :playName ?playName. }
+}
+ORDER BY ?production
+-------------------------------------------------
+
+This query extracts the production and the associated play (along with its name, if provided).

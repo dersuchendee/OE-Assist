@@ -1,0 +1,16 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the plays written by an author (using a “closed world” that only returns what is explicitly asserted):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?author ?authorName ?play ?playTitle
+WHERE {
+  ?author a :Cl_Author .
+  ?author :hasName ?authorName .
+  ?author :wrotePlay ?play .
+  ?play :hasTitle ?playTitle .
+}
+ORDER BY ?authorName ?playTitle

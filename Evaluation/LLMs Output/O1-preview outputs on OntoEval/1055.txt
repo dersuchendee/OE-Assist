@@ -1,0 +1,26 @@
+**Yes**
+
+The ontology provides the necessary information to answer the competency question: "What articles were presented in a certain seminar?". The class `:Cl_Seminar` is connected to `:Cl_Article` through the property `:presentedArticle`. Therefore, we can retrieve the articles presented at seminars using the following SPARQL query:
+
+```sparql
+SELECT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel . }
+  
+  ?seminar :presentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+If you're interested in a specific seminar (e.g., `:Seminar_2008`), you can modify the query as follows:
+
+```sparql
+SELECT ?article ?articleLabel
+WHERE {
+  :Seminar_2008 :presentedArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+```
+
+This query will return all articles that were presented at the specified seminar.

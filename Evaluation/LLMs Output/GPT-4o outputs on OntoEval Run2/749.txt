@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "A record always contains at least one track" is supported by the ontology. The ontology includes a restriction on the `Cl_Record` class that ensures it has at least one `Cl_Track` through the `containsTrack` property. This is represented by the `hasAtLeastOneTrack` restriction, which specifies a minimum cardinality of 1 for the `containsTrack` property.
+
+Here is a SPARQL query to verify that each record contains at least one track:
+
+```sparql
+SELECT ?record
+WHERE {
+  ?record a :Cl_Record .
+  ?record :containsTrack ?track .
+}
+```

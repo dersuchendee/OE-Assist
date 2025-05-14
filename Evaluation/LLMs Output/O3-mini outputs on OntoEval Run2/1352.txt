@@ -1,0 +1,17 @@
+**No**
+
+The ontology defines ChemicalMeasurement and its associated unit via the property :hasUnit; however, it does not capture the context “in water” (e.g. no water sample, water source, or water quality indicator is modelled). In a closed world assumption, we can only extract units for chemical measurements without filtering by “water.”
+
+A partial answer can be obtained with the following SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?chemicalMeasurement ?unit ?unitLabel
+WHERE {
+  ?chemicalMeasurement a :ChemicalMeasurement .
+  ?chemicalMeasurement :hasUnit ?unit .
+  OPTIONAL { ?unit rdfs:label ?unitLabel. }
+}
+
+This query returns the units associated with instances of ChemicalMeasurement.

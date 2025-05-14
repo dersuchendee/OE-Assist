@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct connection between a user and sensor data. The ontology is focused on user brushing activity and sensor data related to location and objects, but it does not explicitly connect these to a user's context. Here's a SPARQL query to extract partial information related to sensor data:
+
+```sparql
+SELECT ?sensorData ?location ?object ?timestamp
+WHERE {
+  ?activity a :Cl_UserBrushingActivity .
+  ?activity :hasSensorData ?sensorData .
+
+  OPTIONAL { ?sensorData :hasLocation ?location . }
+  OPTIONAL { ?sensorData :hasObject ?object . }
+  OPTIONAL { ?sensorData :hasTimestamp ?timestamp . }
+}
+```

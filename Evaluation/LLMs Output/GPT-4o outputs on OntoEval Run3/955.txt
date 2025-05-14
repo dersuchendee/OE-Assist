@@ -1,0 +1,14 @@
+**No**
+
+The ontology provided does not have a direct way to relate a specific book or CD to the articles it is composed of. The ontology defines classes for `Book`, `CD`, `Article`, and `ArticleCollection`, but it does not provide a direct property to link a specific book or CD to the articles it contains. The `hasMember` property relates a collection to its members, but it is not specific to books or CDs.
+
+Here is a SPARQL query to extract a partial answer, which lists the articles that are members of any article collection:
+
+```sparql
+SELECT ?collection ?article
+WHERE {
+  ?collection a :ArticleCollection .
+  ?collection :hasMember ?article .
+  ?article a :Article .
+}
+```

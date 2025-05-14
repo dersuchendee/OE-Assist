@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide a direct way to determine the current time or compare it with the abstract time definitions. It only defines abstract time concepts and associates them with users. A partial answer can be extracted by listing the abstract time definitions for a user.
+
+```sparql
+SELECT ?abstractTime ?startTime ?endTime
+WHERE {
+  :User1234 :hasAbstractTimeDefinition ?abstractTime .
+  ?abstractTime :hasStartTime ?startTime .
+  ?abstractTime :hasEndTime ?endTime .
+}
+```

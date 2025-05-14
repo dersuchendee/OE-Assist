@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that a “premier” event is represented using the class Cl_ProductionPremier – which connects a production (via the property premierOf) with the date of the premier (via the property premierDate) – we can answer the CQ “When was the premier of a certain production?” by writing a SPARQL query that retrieves the premiere date for a given production. (Here we assume the closed world: all relevant production premier information is completely captured in the ontology.)
+
+For example, to extract the premier date for a production of interest (replace :YourProductionIRI with the IRI of the production), you can use the following query:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?prodPremier a :Cl_ProductionPremier ;
+                 :premierOf ?production ;
+                 :premierDate ?premierDate .
+  FILTER(?production = :YourProductionIRI)
+}
+------------------------------------------------------------
+
+This query retrieves the production and its unique premier date, thus demonstrating that the CQ is fully supported by the ontology.

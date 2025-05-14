@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/music#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?opinion
+WHERE {
+  ?review a :Review ;
+          :hasCritic ?critic ;
+          :hasRecord ?record ;
+          :opinion ?opinion .
+  FILTER(?critic = :CrianHiatt && ?record = :StadiumArcadium)
+}
+```

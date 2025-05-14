@@ -1,0 +1,20 @@
+**No**
+
+While the ontology provides a class (SpeciesAquiferCharacteristic) linking species, aquifers, and various characteristics (conservation status, habitat type, population trend), it lacks an explicit model to distinguish “rare species.” Under the closed world assumption, we cannot infer rarity from the available information. Therefore, we can only extract observations for species in a given aquifer without filtering specifically for “rare” ones.
+
+Below is a SPARQL query that extracts the available characteristics for species observed in a specific aquifer (replace <specificAquiferURI> with the actual URI):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?observation ?species ?aquifer ?conservationStatus ?habitatType ?populationTrend
+WHERE {
+  ?observation a :SpeciesAquiferCharacteristic .
+  ?observation :hasSpecies ?species .
+  ?observation :locatedInAquifer ?aquifer .
+  FILTER(?aquifer = <specificAquiferURI>)
+  
+  OPTIONAL { ?observation :hasConservationStatus ?conservationStatus . }
+  OPTIONAL { ?observation :hasHabitatType ?habitatType . }
+  OPTIONAL { ?observation :hasPopulationTrend ?populationTrend . }
+}

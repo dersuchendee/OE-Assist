@@ -1,0 +1,15 @@
+**Yes**
+
+We can answer this competency question using the reified connection between a production and the play it is based on. In the ontology, a production (instance of Cl_Production) is linked to an instance of Cl_ProductionBasedOnPlay via the object property hasBasis, and that reified instance relates to a play (instance of Cl_Play) via the property basedOn. Under a closed world assumption, this query reflects the available information.
+
+Example SPARQL query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?play
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasBasis ?prodBasedOn .
+  ?prodBasedOn :basedOn ?play .
+}

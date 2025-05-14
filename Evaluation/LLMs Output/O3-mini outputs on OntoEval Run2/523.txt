@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming a closed‐world view and that albums include a direct data property recording the number of tracks, for example with an individual album like Stadium Arcadium, you can write a SPARQL query such as:
+
+  PREFIX : <http://www.example.org/test#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+  SELECT ?album ?numberOfTracks
+  WHERE {
+   ?album a :Cl_Album .
+   ?album :numberOfTracks ?numberOfTracks .
+  }
+  ORDER BY ?album
+
+This query retrieves every album and its recorded number of tracks, thereby answering the CQ “How many tracks does a particular album contain?”

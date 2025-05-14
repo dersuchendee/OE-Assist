@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one example SPARQL query that returns the location (e.g. city name) for a festival—assuming that the festival’s location information is captured via the reified class Cl_FestivalLocation (a subclass of both Cl_TheatreFestival and Cl_City) and that the location’s name is recorded with the data property locationName. In this example we filter by a festival label (e.g. “Roma Loves Shakespeare”) to “pick” the certain festival mentioned in the story:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?label ?locationName
+WHERE {
+  ?festival a :Cl_FestivalLocation .
+  OPTIONAL { ?festival rdfs:label ?label . }
+  ?festival :locationName ?locationName .
+  FILTER(regex(lcase(str(?label)), "roma loves shakespeare"))
+}
+---------------------------------
+
+Under a closed‐world view (i.e. with the assumption that only those individuals and assertions explicitly provided hold), this query fully answers the competency question “Where did a certain festival take place?” by retrieving the festival instance(s) (and its label) together with its associated location name.

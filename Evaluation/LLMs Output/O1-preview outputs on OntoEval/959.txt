@@ -1,0 +1,14 @@
+**No**
+
+The competency question "What articles is a specific book or CD composed of?" cannot be fully answered by the given ontology. The ontology lacks the necessary property to link `:Cl_Composition` to `:Cl_Article` directly. The `:composedOf` property only connects `:Cl_BookOrCD` to `:Cl_Composition`, but there is no property established to retrieve the articles from `:Cl_Composition`.
+
+Here's a SPARQL query that extracts a partial answer, retrieving the compositions associated with each book or CD, but not the articles:
+
+```sparql
+SELECT ?bookOrCD ?composition
+WHERE {
+  ?bookOrCD a :Cl_BookOrCD .
+  ?bookOrCD :composedOf ?composition .
+  ?composition a :Cl_Composition .
+}
+```

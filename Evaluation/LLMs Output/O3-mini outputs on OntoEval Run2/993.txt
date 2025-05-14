@@ -1,0 +1,15 @@
+**Yes**
+
+We can answer this CQ completely by querying for books (instances of Cl_Book) that have a page count value (given by the data property :hasPageCount). For example, using a SPARQL query under the closed world assumption we would have:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?book ?pageCount
+WHERE {
+  ?book a :Cl_Book .
+  ?book :hasPageCount ?pageCount .
+}
+
+This query retrieves each book and its page count, thereby directly answering the CQ "How many pages does a particular book contain?"

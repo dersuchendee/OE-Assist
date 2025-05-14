@@ -1,0 +1,21 @@
+**No**  
+The ontology does not enforce that every seminar must have at least one associated article (for example via a minimum cardinality restriction). Under the closed‐world assumption you can only extract the seminars that do have presented articles (or those missing one), which is only a partial answer to the CQ. For instance, the following query lists, per seminar, the number of articles presented. If any seminar has a count of zero, then the CQ “at least one article is always presented at each seminar” is not fully satisfied by the ontology.
+
+--------------------------------------------------
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar (COUNT(?article) AS ?numArticles)
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { 
+    ?article :presentedAt ?seminar .
+  }
+}
+GROUP BY ?seminar
+HAVING(?numArticles = 0)
+
+--------------------------------------------------
+
+If the query returns any seminars, those seminars lack a presented article according to the ontology, indicating that the CQ is only partially answered.

@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that, under a closed world assumption, retrieves each mounting system and the execution techniques possible for it:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?mountingSystem ?mountingLabel ?executionTechnique ?techniqueLabel
+WHERE {
+  ?mountingSystem a :MountingSystem .
+  OPTIONAL { ?mountingSystem rdfs:label ?mountingLabel . }
+  ?mountingSystem :hasPossibleExecutionTechnique ?executionTechnique .
+  OPTIONAL { ?executionTechnique rdfs:label ?techniqueLabel . }
+}
+--------------------------------------------------
+
+This query extracts the execution techniques (from class ExecutionTechnique) that are linked to each mounting system (from class MountingSystem) via the property :hasPossibleExecutionTechnique.

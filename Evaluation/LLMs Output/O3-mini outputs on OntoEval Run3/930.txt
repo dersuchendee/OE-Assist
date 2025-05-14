@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming that individual evaluations are represented as instances of the Evaluation class having properties that link them to the doctor who gave the statement (via :givenBy) and to the employee for whom the statement was given (via :givenFor), we can write a query that—under a closed‐world assumption—retrieves the evaluation statement for a specific doctor and employee. For example, if we assume that the doctor and employee are identified by specific URIs (here using placeholders <http://example.org/hospital#Doctor123> and <http://example.org/hospital#Employee456>), the query would be as follows:
+
+---------------------------------------------------------------
+PREFIX : <http://example.org/hospital#>
+
+SELECT ?evaluation
+WHERE {
+  ?evaluation a :Evaluation ;
+              :givenBy <http://example.org/hospital#Doctor123> ;
+              :givenFor <http://example.org/hospital#Employee456> .
+}
+---------------------------------------------------------------
+
+This SPARQL query shows that the ontology models the competency question because it allows us to extract the evaluation statement (i.e. the Evaluation instance) given by a particular doctor for a particular employee.

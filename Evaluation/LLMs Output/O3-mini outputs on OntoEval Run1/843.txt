@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the city for a given hospital (using the hospital’s identifier or label):
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?hospitalLabel ?city ?cityLabel
+WHERE {
+  ?hospital a :Cl_Hospital .
+  OPTIONAL { ?hospital rdfs:label ?hospitalLabel . }
+  
+  ?hospital :locatedIn ?location .
+  ?location :city ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+  
+  # Filter for the hospital of interest. 
+  # For example, if the hospital is known by its label:
+  FILTER(STR(?hospitalLabel) = "Ospedale Riunito delle Tre Valli")
+}
+----------------------------------------------------------------
+
+Using closed world assumptions, this query assumes that the only available data about a hospital’s location comes from the explicit statements linking an instance of :Cl_Hospital to a :Cl_Location via :locatedIn and then to a :Cl_City via :city.

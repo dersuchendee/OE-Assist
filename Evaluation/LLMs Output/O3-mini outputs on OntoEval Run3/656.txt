@@ -1,0 +1,16 @@
+**Yes**
+
+We can retrieve the songs played in a given performance (for example, the performance with the label “Red Hot Chili Peppers Live Performance in Portland, Oregon on August 11, 2006”) by querying the performedSong property. Assuming the performance individual is available (e.g. :Performance_RHCP_Portland_2006), the following SPARQL query extracts the songs and their titles:
+
+---------------------------------
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?song ?songTitle
+WHERE {
+  :Performance_RHCP_Portland_2006 :performedSong ?song .
+  OPTIONAL { ?song :songTitle ?songTitle . }
+}
+---------------------------------
+
+Under the closed world assumption, only the songs explicitly linked via the :performedSong property will be returned, hence fully answering the CQ.

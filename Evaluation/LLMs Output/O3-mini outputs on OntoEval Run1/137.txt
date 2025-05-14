@@ -1,0 +1,14 @@
+**Yes**
+Below is one SPARQL query that can retrieve, for a given theatre festival, the plays associated with it (using the modeled reification via Cl_TheatreFestival and Cl_FestivalPlays):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival :hasPlay ?play .
+  ?play :playName ?playName .
+}
+ORDER BY ?festival ?playName

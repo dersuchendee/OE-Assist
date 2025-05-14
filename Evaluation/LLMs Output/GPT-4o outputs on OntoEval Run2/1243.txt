@@ -1,0 +1,12 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the registration date of hospitalisation rates related to a disease, which is directly represented in the ontology through the `HospitalisationRateObservation` class and its properties.
+
+```sparql
+SELECT ?observation ?disease ?registrationDate
+WHERE {
+  ?observation a :HospitalisationRateObservation .
+  ?observation :isRelatedToDisease ?disease .
+  ?observation :hasRegistrationDate ?registrationDate .
+}
+```

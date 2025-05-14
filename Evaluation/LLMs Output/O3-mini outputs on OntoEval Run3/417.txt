@@ -1,0 +1,20 @@
+**Yes**
+Below is one suitable SPARQL query that, under a closed‐world assumption, returns only those productions that have one (and only one) premier date:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premierDate
+WHERE {
+  ?production a :Cl_Production .
+  ?production :premierDate ?premierDate .
+  
+  # Ensure that there is no other premierDate value for the same production.
+  FILTER NOT EXISTS {
+    ?production :premierDate ?otherDate .
+    FILTER(?otherDate != ?premierDate)
+  }
+}
+
+This query extracts each production along with its unique premier date, verifying that every production indeed has exactly one premier as stated in the CQ.

@@ -1,0 +1,13 @@
+**Yes**
+
+```sparql
+SELECT ?degree ?degreeName ?degreeDate
+WHERE {
+  ?person a :Person ;
+          :hasDegree ?degree .
+  ?degree a :MedicalDegree .
+  OPTIONAL { ?degree :degreeName ?degreeName . }
+  OPTIONAL { ?degree :degreeDate ?degreeDate . }
+  FILTER (?person = :CertainPerson)
+}
+```

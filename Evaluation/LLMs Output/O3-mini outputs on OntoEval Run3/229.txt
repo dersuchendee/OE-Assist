@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that a “certain ensemble” is an instance of the reified class :Cl_Ensemble (with its membership reified as instances of :Cl_EnsembleMembership), and that the membership record carries a date via the data property :membershipDate, we can answer the competency question “Who are the members of a certain ensemble at a certain point in time?” by writing a SPARQL query such as:
+
+-------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?member ?memberName ?membershipDate 
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  ?ensemble :hasMember ?membership .
+  ?membership a :Cl_EnsembleMembership .
+  ?membership :memberName ?memberName .
+  ?membership :membershipDate ?membershipDate .
+  
+  # Filter for a specific ensemble and a specific point in time.
+  FILTER (?ensemble = <http://www.example.org/test#MyEnsemble> &&
+          ?membershipDate = "2009-09-15"^^xsd:date)
+}
+-------------------------
+
+This query lists, for the ensemble (here given as <http://www.example.org/test#MyEnsemble> – replace with the desired URI) and for the membership date exactly equal to the given point in time (e.g. 2009-09-15), all members along with their name and the date of membership. 
+
+Under a closed world assumption on the ontology, this SPARQL query extracts the complete answer to the competency question.

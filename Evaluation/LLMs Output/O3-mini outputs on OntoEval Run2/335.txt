@@ -1,0 +1,20 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world assumption, extracts the star rating provided by a certain newspaper for a certain production. (Replace the placeholder IRIs :Newspaper1 and :Production1 with the actual entities as needed.)
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?starRating
+WHERE {
+  ?review a :Cl_Review .
+  ?review :givenBy :Newspaper1 .
+  ?review :forProduction :Production1 .
+  ?review :starRating ?starRating .
+}
+--------------------------------------------------
+
+This query retrieves the star rating associated with the review provided by the specified newspaper for the specified production, thereby satisfying the competency question.

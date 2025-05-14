@@ -1,0 +1,19 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the articles presented in a given seminar, along with optional labels for both the seminar and the articles:
+
+————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seminar ?seminarLabel ?article ?articleLabel
+WHERE {
+  ?seminar a :Cl_Seminar .
+  OPTIONAL { ?seminar rdfs:label ?seminarLabel. }
+  
+  ?seminar :hasArticle ?article .
+  OPTIONAL { ?article rdfs:label ?articleLabel. }
+}
+————————————————————
+
+This query demonstrates that the ontology models the competency question since it uses the property :hasArticle (whose domain is :Cl_Seminar and range is :Cl_Article) to link a seminar with the articles presented in it.

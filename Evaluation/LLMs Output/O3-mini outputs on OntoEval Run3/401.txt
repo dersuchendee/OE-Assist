@@ -1,0 +1,11 @@
+**Yes**
+Below is a SPARQL query that returns each production together with its single premier (using the closed‐world assumption to rely on the cardinality restriction):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?production ?premier
+WHERE {
+  ?production rdf:type :Cl_Production .
+  ?production :hasPremier ?premier .
+}

@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a way to represent free time periods directly. It only models calendar events and their time periods. Therefore, we cannot directly query for free time periods using the given ontology. However, we can extract the time periods of scheduled events, which could be used to infer free time periods with additional logic outside the ontology.
+
+Partial answer:
+```sparql
+SELECT ?event ?startTime ?endTime
+WHERE {
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasEvent ?event .
+  ?event :eventTime ?timePeriod .
+  ?timePeriod :startTime ?startTime .
+  ?timePeriod :endTime ?endTime .
+}
+```

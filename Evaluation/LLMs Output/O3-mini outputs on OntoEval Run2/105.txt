@@ -1,0 +1,15 @@
+**Yes**
+Below is one valid SPARQL query that returns each theatre festival along with the city where it was held (using the :heldIn property):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?festivalLabel ?city ?cityLabel
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  OPTIONAL { ?festival rdfs:label ?festivalLabel . }
+  ?festival :heldIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+} 
+
+This query answers the competency question “Where did a certain festival take place?” by extracting, for each festival, the associated location, assuming a closed world (i.e. that the necessary assertions about festivals, their labels, and the cities they were held in are explicitly provided in the ontology).

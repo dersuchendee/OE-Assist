@@ -1,0 +1,25 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed world assumption, returns the role for a given person in a given band at a specified point in time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?roleLabel
+WHERE {
+  ?membership a :Cl_BandMembership ;
+              :membershipOfPerson ?person ;
+              :membershipInBand ?band ;
+              :playsRole ?role ;
+              :atTime ?membershipTime .
+  # Replace the IRIs and dateTime literal with the specific person, band, and time of interest:
+  FILTER (?person = <http://www.example.org/test#SomePerson>
+         && ?band = <http://www.example.org/test#SomeBand>
+         && ?membershipTime = "2006-08-11T00:00:00"^^xsd:dateTime)
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+}
+--------------------------------------------------
+
+In this query we retrieve the role (and optionally its label) by matching a band membership that connects the specified person to the specified band at the given time.

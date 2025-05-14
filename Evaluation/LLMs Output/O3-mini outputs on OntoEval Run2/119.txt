@@ -1,0 +1,24 @@
+**Yes**
+
+Below is one SPARQL query that extracts the plays featured in a given theatre festival (here illustrated for the festival "Roma Loves Shakespeare"):
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?play ?playName
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasName ?festivalName ;
+            :hasProduction ?appearance .
+  ?appearance :featuresPlay ?play .
+  ?play :hasName ?playName .
+  FILTER(?festival = :RomaLovesShakespeare)
+}
+------------------------------------------------
+
+Explanation:
+• The ontology models theatre festivals using the reified association class (:Cl_FestivalPlayAppearance) via the property :hasProduction.
+• From a given festival (e.g., :RomaLovesShakespeare), the query traverses to the associated production appearance and then gets the play via the property :featuresPlay.
+• Under the closed world assumption, only those triples explicitly asserted in the ontology are used, making the CQ answerable.

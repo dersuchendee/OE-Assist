@@ -1,0 +1,15 @@
+Answer: **Yes**
+
+The CQ is answerable because the ontology provides the necessary classes and properties to retrieve contaminated sites located in a geographical area with recorded observation times. All the classes and properties mentioned in the CQ (:ContaminatedSite, :GeographicalArea, :hasObservation, :hasRecordedTime, and :locatedIn) are defined in the ontology, allowing us to construct a SPARQL query to extract the required information.
+
+```sparql
+SELECT ?site ?siteLabel ?area ?areaLabel ?date
+WHERE {
+    ?site a :ContaminatedSite .
+    OPTIONAL { ?site rdfs:label ?siteLabel . }
+    ?site :locatedIn ?area .
+    OPTIONAL { ?area rdfs:label ?areaLabel . }
+    ?site :hasObservation ?observation .
+    ?observation :hasRecordedTime ?date .
+}
+```

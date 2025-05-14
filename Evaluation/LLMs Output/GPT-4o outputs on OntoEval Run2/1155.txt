@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to extract the attributes of a film event category, such as a set of actors, because there are no instances of actors linked to the film event. However, we can extract partial information about the film event, such as its title, genre, start time, and location.
+
+```sparql
+SELECT ?title ?genre ?startTime ?locationLabel
+WHERE {
+  :XMenPreview a :FilmEvent ;
+               :hasTitle ?title ;
+               :hasGenre ?genre ;
+               :hasStartTime ?startTime ;
+               :hasLocation ?location .
+  ?location rdfs:label ?locationLabel .
+}
+```

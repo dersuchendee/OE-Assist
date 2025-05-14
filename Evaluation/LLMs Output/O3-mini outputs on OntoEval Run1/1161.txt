@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that “this option,” “this user,” and “this context” are respectively represented in the ontology by an individual ticket option, a User, and the matching UserPreference (which “appliesTo” a given TicketOption and carries its default value via “hasDefaultValue”), we can write a SPARQL query to extract the default value as follows:
+
+---------------------------------------------------------------
+PREFIX : <http://www.example.org/ontology/ticketing#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?user ?ticketOption ?defaultValue
+WHERE {
+  ?user a :User .
+  ?user :hasUserPreference ?userPref .
+  ?userPref :hasDefaultValue ?defaultValue .
+  ?userPref :appliesTo ?ticketOption .
+  # Optionally, add FILTER clauses here to specify “this user” and “this option”
+}
+---------------------------------------------------------------
+
+Under the closed world assumption (i.e. we assume the available facts are complete), this query will return the default value stored for the specific ticket option (in context) for each user.

@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?article ?articleTitle
+WHERE {
+   # Specify the specific book or CD you're interested in
+   :ArticleCollection_NursePractices :op_composedOf ?article .
+   
+   # Get the title of each article
+   ?article :dp_hasTitle ?articleTitle .
+}
+```
+
+This SPARQL query retrieves the articles that a specific book or CD (in this case, `:ArticleCollection_NursePractices`) is composed of, along with their titles. The ontology models the relationship between books/CDs and articles using the `:op_composedOf` object property, making it possible to answer the competency question.

@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the specific individuals representing “musician X” and “performer Y” are named (for example) :Musician_X and :Performer_Y in the ontology, the following SPARQL query uses the ontology’s MeetingEvent class and associated properties to determine if these two individuals ever met – and if so, when, where, and why:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?time ?place ?reason
+WHERE {
+  ?event a :MeetingEvent ;
+         :hasParticipant :Musician_X ;
+         :hasParticipant :Performer_Y ;
+         :atTime ?time ;
+         :atPlace ?place .
+  OPTIONAL { ?event :hasReason ?reason . }
+}
+
+This query will return any meeting event where both musician X and performer Y participated along with the corresponding time, place, and (if provided) the reason for the meeting. Under the closed world assumption, if no such event exists in the ontology then the answer will be negative.

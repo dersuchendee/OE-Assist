@@ -1,0 +1,18 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, retrieves all articles that were presented at a given seminar. (In this query you can replace the value in the FILTER condition with the identifier or label of the seminar of interest.)
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?article ?articleLabel
+WHERE {
+  ?article a :Cl_Article .
+  ?article :presentedIn ?presentation .
+  ?presentation :seminar ?seminar .
+  FILTER(?seminar = <http://www.example.org/test#Seminar1>) .
+  OPTIONAL { ?article rdfs:label ?articleLabel . }
+}
+
+This query works because the ontology models a presentation of an article via the property “presentedIn” whose range is the reified seminar presentation (a subclass of Cl_Seminar). Thus, given a specific seminar, we can extract the articles that were presented there.

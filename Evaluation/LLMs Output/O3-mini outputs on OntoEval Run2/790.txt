@@ -1,0 +1,24 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each person and degree, the study period (start and end dates) during which the person studied for that degree. (You can add FILTER clauses to restrict the query to a “certain person” and a “specific degree” when needed.)
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?startDate ?endDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :op_studiedDuring ?studyPeriod .
+  ?studyPeriod :dp_studyStartDate ?startDate .
+  ?studyPeriod :dp_studyEndDate ?endDate .
+  ?studyPeriod :op_forDegree ?degree .
+  
+  # Optionally, filter for a specific person and degree, e.g.:
+  # FILTER(?person = :SpecificPerson)
+  # FILTER(?degree = :SpecificDegree)
+}
+ORDER BY ?person ?degree ?startDate
+------------------------------------------------
+
+Because the ontology models study periods (via the class Cl_StudyPeriod and the properties dp_studyStartDate, dp_studyEndDate, and op_forDegree) and links them to persons (with op_studiedDuring), the competency question “During what time period did a certain person study for a specific degree?” is answerable given a closed world assumption.

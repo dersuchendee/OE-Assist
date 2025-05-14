@@ -1,0 +1,39 @@
+**Yes**
+
+The production ontology models roles through the use of a reification class for actor roles (e.g. Cl_ActorRole) and properties that link an actor, a role, a production, and a time period. For instance, an actor role instance connects an actor (Cl_Actor) via :hasRole to a role (Cl_Role), indicates in which production the role is played via :roleInProduction, and the associated time period via :roleTimePeriod. Based on this modeling, we can write a SPARQL query to extract the roles that a given person has within a particular production at a specific time. For example, to retrieve the roles for “Fabio Bianchi” in “The Merchant of Venice at The Grand Theatre” during “September 2009”, the query would be as follows:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actorName ?productionName ?roleName ?timePeriodValue
+WHERE {
+  ?actor a :Cl_Actor ;
+         :actorName ?actorName .
+         
+  ?actorRole a :Cl_ActorRole ;
+             :roleInProduction ?production ;
+             :hasRole ?role ;
+             :roleTimePeriod ?timePeriod ;
+             ?rel ?actor .  # Alternatively, if the actor is linked to the role explicitly via the role reification  
+
+  ?role a :Cl_Role ;
+        :roleName ?roleName .
+
+  ?production a :Cl_Production ;
+              :productionName ?productionName .
+              
+  ?timePeriod a :Cl_TimePeriod ;
+              :timePeriod ?timePeriodValue .
+              
+  # Filtering for the specified parameters:
+  FILTER(?actorName = "Fabio Bianchi")
+  FILTER(?productionName = "The Merchant of Venice at The Grand Theatre")
+  FILTER(?timePeriodValue = "September 2009")
+}
+ORDER BY ?actorName ?productionName ?timePeriodValue ?roleName
+------------------------------------------------------------
+
+This query shows that the ontology fully supports the competency question "What roles does a certain person have within a certain production at a certain point in time?" under the closed world assumption.

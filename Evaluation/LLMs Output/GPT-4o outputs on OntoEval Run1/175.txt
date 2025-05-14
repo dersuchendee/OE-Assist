@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine the country in which a city is located. The ontology includes classes for cities and countries, and a property `isLocatedInCountry` that connects cities to countries, but it does not provide instances or data that would allow us to answer the competency question directly.
+
+Partial answer SPARQL query:
+
+```sparql
+SELECT ?city ?country
+WHERE {
+  ?city a :Cl_City .
+  ?city :isLocatedInCountry ?country .
+}
+```
+
+This query would retrieve cities and their associated countries if instances of cities and countries were present in the ontology data. However, without specific instances, the query cannot provide a complete answer.

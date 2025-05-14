@@ -1,0 +1,16 @@
+**Yes**
+
+The competency question can be answered using the ontology as it contains the necessary classes and properties to relate a person to their medical degrees via the class `:Cl_PersonMedicalDegree` and the properties `:hasPerson` and `:hasMedicalDegree`.
+
+Here's a SPARQL query to extract the medical degrees held by a certain person:
+
+```sparql
+SELECT ?medicalDegree
+WHERE {
+  ?personMedicalDegree a :Cl_PersonMedicalDegree .
+  ?personMedicalDegree :hasPerson :PersonOfInterest .
+  ?personMedicalDegree :hasMedicalDegree ?medicalDegree .
+}
+```
+
+Replace `:PersonOfInterest` with the specific person you're inquiring about.

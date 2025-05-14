@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not capture concepts (or properties) related to mounting systems or execution techniques. Under the closed‐world assumption, we know that if these properties or classes are not explicitly modelled (e.g., a property like bells:hasMountingSystem or bells:hasExecutionTechnique), then the query can at best extract partial information about bells (or bell towers) even if instances exist. For example, the following SPARQL query attempts to extract any available information on mounting systems and execution techniques from bells, but will only return partial results (or none) because these properties are not defined in the ontology.
+
+--------------------------------------------------
+PREFIX bells: <https://w3id.org/polifonia/ontology/bell/>
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+
+SELECT ?bell ?mountingSystem ?executionTechnique
+WHERE {
+  ?bell a bells:Bell .
+  OPTIONAL { ?bell bells:hasMountingSystem ?mountingSystem . }
+  OPTIONAL { ?bell bells:hasExecutionTechnique ?executionTechnique . }
+}
+--------------------------------------------------
+
+Since no explicit properties or classes related to "mounting system" or "execution techniques" are provided, the CQ is not fully answerable by the ontology.

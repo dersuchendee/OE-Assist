@@ -1,0 +1,27 @@
+**Yes**
+Below is one example SPARQL query that, given a band (here assumed to be the “Red Hot Chili Peppers”) and a specific time point (which you can adjust), retrieves the persons whose band membership (recorded in the reified class :Cl_BandMembership) is valid at that point in time:
+
+─────────────────────────────
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?member ?name ?membershipStart ?membershipEnd
+WHERE {
+  ?member :memberOf ?membership .
+  ?membership :hasMembership :RedHotChiliPeppers .
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  OPTIONAL { ?member :hasName ?name . }
+  
+  # Replace "2005-01-01"^^xsd:date with the time point of interest
+  FILTER (
+    "2005-01-01"^^xsd:date >= ?membershipStart &&
+    ( !BOUND(?membershipEnd) || "2005-01-01"^^xsd:date <= ?membershipEnd )
+  )
+}
+ORDER BY ?membershipStart
+
+─────────────────────────────
+
+This query is answerable under the closed world assumption because the ontology provides a reification pattern—using :Cl_BandMembership—to record when a person became (and optionally ceased to be) a member of a band. Adjust the band IRI and the time point as needed.

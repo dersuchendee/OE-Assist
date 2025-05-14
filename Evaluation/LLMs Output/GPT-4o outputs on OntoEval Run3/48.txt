@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not explicitly define a class or property that directly represents the actors involved in a Circular Value Network (CVN). However, it does define a class `actor:CVNParticipation` which represents the participation of an actor in a CVN with a certain role. We can extract partial information about actors involved in a CVN by querying for instances of `actor:CVNParticipation` and their associated actors.
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?participation a actor:CVNParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole ?role .
+}
+```

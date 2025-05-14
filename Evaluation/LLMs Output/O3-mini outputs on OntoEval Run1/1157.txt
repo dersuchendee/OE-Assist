@@ -1,0 +1,20 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?filmTitle ?cinemaName ?startTime
+WHERE {
+  ?event a event:Event ;
+         event:product ?film ;
+         event:place ?cinema ;
+         event:time ?instant .
+  ?film :hasTitle ?filmTitle .
+  ?cinema :hasLocationName ?cinemaName .
+  ?instant :hasStartTime ?startTime .
+  # Optional: If you want to focus on the specific known event:
+  # FILTER (?event = :XMenPreview)
+}
+```

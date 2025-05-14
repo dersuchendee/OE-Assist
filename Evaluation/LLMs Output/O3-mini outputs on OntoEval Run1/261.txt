@@ -1,0 +1,21 @@
+**Yes**
+Below is an example SPARQL query that retrieves, for a given play, the corresponding time period in which it was written:
+
+---------------------------------------------------------
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playLabel ?timePeriod ?startDate ?endDate
+WHERE {
+  ?play a theatre:Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play theatre:hasTimePeriod ?timePeriod .
+  ?timePeriod theatre:hasStartDate ?startDate .
+  ?timePeriod theatre:hasEndDate ?endDate .
+  # To focus on a specific play, e.g., "The Merchant of Venice", add:
+  # FILTER(?play = theatre:MerchantOfVenice)
+}
+---------------------------------------------------------
+
+This query retrieves the play along with its label and the start and end dates of its associated writing time period. Under the closed world assumption (ignoring any unknown information), the CQ “During what time period was a certain play written?” is fully supported by the ontology.

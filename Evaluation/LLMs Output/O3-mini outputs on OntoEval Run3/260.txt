@@ -1,0 +1,16 @@
+**Yes**
+
+```sparql
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?startTime ?endTime
+WHERE {
+  ?play a ns1:Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play ns1:wasWrittenDuring ?timePeriod .
+  ?timePeriod ns1:hasStartTime ?startTime .
+  ?timePeriod ns1:hasEndTime ?endTime .
+}
+ORDER BY ?play
+```

@@ -1,0 +1,26 @@
+**Yes**
+
+The competency question is supported by the ontology because all the required concepts and relationships are modeled. Specifically, the ontology includes:
+
+- **Nitrogen Leaching** (`:NitrogenLeaching`), which is a subclass of **Nitrogen Cycle**.
+- The relationship between nitrogen leaching and **Soil Type** through the property `:hasSoilType`.
+- The relationship between nitrogen leaching and **Forest Ecosystem** through the property `:occursIn`.
+- The leaching rates are represented using the property `:hasLeachingRate`.
+
+Here's a SPARQL query that retrieves how nitrogen leaching varies across different soil types in forest ecosystems:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?soilType ?leachingRate
+WHERE {
+    ?leaching rdf:type :NitrogenLeaching ;
+              :hasLeachingRate ?leachingRate ;
+              :hasSoilType ?soilType ;
+              :occursIn ?ecosystem .
+    ?ecosystem rdf:type :ForestEcosystem .
+}
+```
+
+This query selects the soil types and corresponding leaching rates for nitrogen leaching events that occur in forest ecosystems. It utilizes the classes and properties defined in the ontology to answer the competency question.

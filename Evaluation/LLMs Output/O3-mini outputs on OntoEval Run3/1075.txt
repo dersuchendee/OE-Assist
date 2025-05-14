@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer this CQ using the ontology since there is a class for seminars (Cl_Seminar) and an object property (:heldAt) linking a seminar to a location. For example:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?seminar ?location ?cityName
+WHERE {
+  ?seminar a :Cl_Seminar ;
+           :heldAt ?location .
+  OPTIONAL { ?location :cityName ?cityName. }
+}
+
+This query retrieves all seminars along with the location (and optionally its city name) where the seminar took place.

@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question "What play is the basis of this production?" can be answered using the ontology provided. The ontology includes the necessary classes and properties to connect a production to its play basis. Here's a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?production ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPlayBasis ?playBasis .
+  ?playBasis :playBasis ?play .
+  ?play rdfs:label ?playLabel .
+}
+```

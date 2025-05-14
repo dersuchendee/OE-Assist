@@ -1,0 +1,12 @@
+**Yes**
+```sparql
+PREFIX : <http://example.org/onto/smartmirror#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?function ?label ?comment
+WHERE {
+  :SmartMirror :hasFunction ?function .
+  OPTIONAL { ?function rdfs:label ?label. }
+  OPTIONAL { ?function rdfs:comment ?comment. }
+}
+```

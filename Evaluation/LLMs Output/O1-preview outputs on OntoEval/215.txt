@@ -1,0 +1,20 @@
+**No**
+
+The ontology lacks time data about ensemble membership. While it defines the concept of an ensemble and its members, and even includes the `atTime` property, there are no instance data connecting ensemble memberships to specific points in time. Therefore, we cannot fully answer the competency question "Who are the members of a certain ensemble at a certain point in time?" using this ontology.
+
+However, we can extract a partial answer by retrieving the members of ensembles without the time aspect:
+
+```sparql
+PREFIX theatre: <http://www.semanticweb.org/ontologies/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ensemble ?ensembleLabel ?member ?memberLabel
+WHERE {
+  ?ensemble a theatre:Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel . }
+  ?ensemble theatre:hasMember ?member .
+  OPTIONAL { ?member rdfs:label ?memberLabel . }
+}
+```
+
+This query retrieves ensembles and their members, but does not include time information since it's not available in the ontology.

@@ -1,0 +1,12 @@
+**No**  
+The ontology directly supports retrieving the location of a user (via the :hasLocation property) but does not model a direct connection between a :System and a :Location (even though its comment implies that the system operates at a geographical location). Under the closed world assumption, we cannot extract the location for the system, so we provide a partial answer that returns the user's location.
+
+```sparql
+SELECT ?user ?userLabel ?location ?locationLabel
+WHERE {
+  ?user a :User ;
+        :hasLocation ?location .
+  OPTIONAL { ?user rdfs:label ?userLabel. }
+  OPTIONAL { ?location rdfs:label ?locationLabel. }
+}
+```

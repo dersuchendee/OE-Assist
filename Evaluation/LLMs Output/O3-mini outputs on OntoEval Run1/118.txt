@@ -1,0 +1,20 @@
+**Yes**
+
+The ontology models festivals (as instances of Cl_TheatreFestival) and links them via the object property “locatedIn” to a reified location (Cl_FestivalLocation) which provides the location details (via the datatype property “locationCity”). Under the closed world assumption, you can directly query for a festival’s location.
+
+For example, the following SPARQL query extracts the location for each festival:
+
+----------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?locationCity
+WHERE {
+  ?festival a :Cl_TheatreFestival .
+  ?festival :locatedIn ?loc .
+  ?loc :locationCity ?locationCity .
+}
+----------------------------------------------------------------
+
+This query answers the competency question “Where did a certain festival take place?” by returning each festival’s city (or location) as modeled in the ontology.

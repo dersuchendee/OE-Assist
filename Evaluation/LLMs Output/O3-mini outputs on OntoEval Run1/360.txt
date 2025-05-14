@@ -1,0 +1,22 @@
+**Yes**
+
+Assuming a closed‐world interpretation, the ontology supports a query using the employment information to retrieve the employment start date of an actor with a given name at a specific theatre. For example, to know when Fabio Bianchi started working for The Grand Theatre, you could write a query like this:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName ?theatre ?startDate
+WHERE {
+  ?actor a :Cl_Individual ;
+         :hasName ?actorName ;
+         :employedBy ?theatre ;
+         :hasEmployment ?employment .
+  ?employment :employmentStartDate ?startDate .
+  
+  FILTER(?actorName = "Fabio Bianchi")
+  FILTER(?theatre = :TheGrandTheatre)
+}
+---------------------------------
+
+This query retrieves the actor’s employment start date from the associated employment record, thus fully modeling the CQ.

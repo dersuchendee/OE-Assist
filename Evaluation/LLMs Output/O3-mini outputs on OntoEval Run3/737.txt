@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer this competency question with the following SPARQL query. This query retrieves all regions (or a specific region if you bind it) together with the country in which the region is located. For a specific region, you could add a FILTER or bind the region IRI.
+
+  SPARQL Query:
+
+  PREFIX : <http://www.example.org/test#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+  SELECT ?region ?country
+  WHERE {
+     ?region rdf:type :Cl_Region .
+     ?region :regionInCountry ?country .
+  }
+  ORDER BY ?region
+
+This query leverages the fact that the ontology explicitly defines the object property :regionInCountry with domain :Cl_Region and range :Cl_Country, so it fully supports the competency question under a closed world assumption.

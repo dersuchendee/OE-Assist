@@ -1,0 +1,21 @@
+**Yes**
+
+Assuming a “certain union” is identified via its URI (for example, :UnionOfMaleNurses) and that a membership is considered active if its membership start date is on or before the queried point in time (with a closed‐world view since no end date is recorded), you can answer the CQ with a SPARQL query like this:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personLabel ?membershipStartDate
+WHERE {
+  ?person a :Cl_Person .
+  ?person :isMemberOf ?membership .
+  ?membership :memberOf :UnionOfMaleNurses .  # Replace with the union of interest
+  ?membership :membershipStartDate ?membershipStartDate .
+  FILTER(?membershipStartDate <= "2005-01-01"^^xsd:date)  # Use the desired time point here
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+--------------------------------------------------
+
+This query retrieves all persons that are members of the specified union (here, :UnionOfMaleNurses) and whose membership started on or before the given point in time (e.g. "2005-01-01").

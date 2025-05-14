@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?production ?productionName ?play ?playName
+WHERE {
+  ?production a :TheatreProduction .
+  OPTIONAL { ?production rdfs:label ?productionName . }
+  ?production :productionOf ?play .
+  OPTIONAL { ?play rdfs:label ?playName . }
+}
+```

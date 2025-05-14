@@ -1,0 +1,24 @@
+**Yes**
+Below is an example SPARQL query that retrieves the start date of employment for a given actor at a specific theatre:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?startDate
+WHERE {
+  ?employment a :Cl_Employment .
+  ?employment :hasActor ?actor .
+  ?employment :hasTheatre ?theatre .
+  ?employment :startDate ?startDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  
+  # Replace the following FILTERs with the specific IRIs or labels for the actor and theatre of interest
+  FILTER(?actor = <http://www.example.org/test#FabioBianchi> &&
+         ?theatre = <http://www.example.org/test#TheGrandTheatre>)
+}
+ORDER BY ?startDate
+------------------------------------------------------------
+
+This query fully models the competency question under the closed world assumption by extracting the start date of employment (i.e. when the actor began working for the theatre) using the employment event (the pivot class) that connects an actor and a theatre.

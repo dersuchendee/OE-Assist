@@ -1,0 +1,14 @@
+Answer: **No**
+
+The ontology does not provide a way to specify or identify a particular theatre festival (e.g., by festival name or identifier). Therefore, we cannot extract the plays for a specific theatre festival. However, we can retrieve the plays associated with all theatre festivals.
+
+Partial answer:
+
+```sparql
+SELECT ?festival ?playName
+WHERE {
+  ?festival rdf:type :Cl_TheatreFestival .
+  ?festival :hasPlay ?festivalPlay .
+  ?festivalPlay :playName ?playName .
+}
+```

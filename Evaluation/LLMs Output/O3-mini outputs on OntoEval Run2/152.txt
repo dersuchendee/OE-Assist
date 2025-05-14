@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query that uses the property (isLocatedIn) defined in the ontology to extract the city each theatre is located in:
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel. }
+  ?theatre :isLocatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+}
+------------------------------------------------------------
+
+This query shows that the CQ "In what city is a certain theatre located?" is answerable using the given ontology under the closed world assumption.

@@ -1,0 +1,17 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed‐world assumption, returns every seminar that includes at least one article presentation. In the ontology, a seminar (of type :Cl_Seminar) is linked to its presentation (of type :Cl_SeminarPresentation) via the property :seminarIncludesPresentation, and each presentation is associated with an article (of type :Cl_Article) via the property :presentedInSeminar. This query retrieves only those seminars for which at least one article is presented.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?seminar
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :seminarIncludesPresentation ?presentation .
+  ?presentation :presentedInSeminar ?article .
+}
+-----------------------------------------------------------
+
+In this way the competency question “At least one article is always presented at each seminar” is answerable by the ontology.

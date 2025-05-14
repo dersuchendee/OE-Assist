@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.semanticweb.org/musicontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?instrument ?instrumentLabel
+WHERE {
+  ?person a :Person .
+  ?person :PlaysInstrument ?instrument .
+  OPTIONAL { ?instrument rdfs:label ?instrumentLabel. }
+  # Replace :JohnFrusciante with any specific person of interest
+  FILTER (?person = :JohnFrusciante)
+}
+```

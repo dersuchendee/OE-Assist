@@ -1,0 +1,28 @@
+**Yes**
+
+Below is one possible SPARQL query that, under a closed world assumption, retrieves the earliest employment date for a given person at a given hospital. (In this example the person and hospital are specified by their IRIs; you may replace the IRIs with the individuals of interest.)
+
+---------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?hospital (MIN(?employmentDate) AS ?firstEmployment)
+WHERE {
+  ?person a :Cl_Person .
+  ?person :employedAt ?employmentRecord .
+  ?employmentRecord :employmentDate ?employmentDate .
+  ?employmentRecord :employedAt ?hospital .
+  
+  # Filter for the specific person and hospital (adjust IRIs as needed)
+  FILTER(?person = <http://www.example.org/test#PasqualeDiGennaro> && 
+         ?hospital = <http://www.example.org/test#OspedaleRiunitoDelleTreValli>)
+}
+GROUP BY ?person ?hospital
+---------------------------
+
+Explanation:
+• The ontology reifies the employment event via the class :Cl_PersonHospitalEmployment.
+• A person is connected via the property :employedAt to an employment record.
+• That record carries the employment date (via :employmentDate) and is ensured (by a restriction) to involve a hospital (retrieved via the same property :employedAt).
+• The query groups by person and hospital and uses MIN() to select the earliest employment date, answering the competency question “When was a certain person first employed at a certain hospital?”

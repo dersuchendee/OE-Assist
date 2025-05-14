@@ -1,0 +1,39 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to answer the competency question. Specifically, it includes:
+
+- **Classes**: `Cl_Person`, `Cl_Role`, `Cl_Production`, `Cl_Date`
+- **Object Properties**:
+  - `:hasRole` (domain: `Cl_Person`, range: `Cl_Role`)
+  - `:roleInProduction` (domain: `Cl_Role`, range: `Cl_Production`)
+  - `:roleAtTime` (domain: `Cl_Role`, range: `Cl_Date`)
+- **Data Properties**:
+  - `:roleName` (domain: `Cl_Role`, range: `xsd:string`)
+
+These allow us to connect a person to their roles within a production at a specific time.
+
+Here is the SPARQL query to extract the roles a certain person has within a certain production at a certain point in time:
+
+```sparql
+SELECT ?personName ?productionName ?dateValue ?roleName
+WHERE {
+  ?person a :Cl_Person .
+  ?person rdfs:label ?personName .
+  
+  ?person :hasRole ?role .
+  ?role :roleName ?roleName .
+  
+  ?role :roleInProduction ?production .
+  ?production rdfs:label ?productionName .
+  
+  ?role :roleAtTime ?date .
+  ?date :dateValue ?dateValue .
+  
+  # Optional filters to specify a certain person, production, and date
+  # FILTER (?personName = "Fabio Bianchi")
+  # FILTER (?productionName = "Merchant of Venice Production")
+  # FILTER (?dateValue = "2009-09-07"^^xsd:date)
+}
+```
+
+This query retrieves the names of roles that a person has within a production at a specific date. You can uncomment and modify the `FILTER` clauses to query for a specific person, production, and date.

@@ -1,0 +1,16 @@
+**No**  
+Although the ontology includes classes for regions and countries with a property (partOf) linking a region to a country, this relationship is not reified (i.e. not connected via a pivot class such as Cl_Membership or similar) as required by the reification criterion. Therefore, while we can partially extract the link between a region and its country, the CQ is only partially answerable under a closed world assumption.
+
+A SPARQL query for the partial answer is:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionName ?country ?countryName
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region :regionName ?regionName . }
+  ?region :partOf ?country .
+  OPTIONAL { ?country :regionName ?countryName . }
+}
+ORDER BY ?region

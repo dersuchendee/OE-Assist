@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for each play, the corresponding time period (as recorded in the ontology by linking a play with its reified play-creation entity using the property writtenDuring and extracting the associated timePeriod data):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?play ?playName ?timePeriod
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play :playName ?playName . }
+  ?play :writtenDuring ?playCreation .
+  ?playCreation :timePeriod ?timePeriod .
+}
+
+This query shows that the CQ ("During what time period was a certain play written?") is answerable using the provided ontology under a closed world assumption.

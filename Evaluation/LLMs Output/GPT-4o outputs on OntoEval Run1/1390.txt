@@ -1,0 +1,17 @@
+**No**
+
+The ontology provided does not contain any classes or properties that directly relate to "measure Y" or any specific measures that could be used to compare compositions within a tune family. The ontology primarily focuses on tunes, tune families, lyrics, and sources, without any specific attributes or measures for comparison.
+
+However, a partial answer could be extracted by identifying all compositions within a specific tune family, but without any specific measure for comparison:
+
+```sparql
+SELECT ?composition
+WHERE {
+  ?composition a :Tune .
+  ?composition :isPartOf ?tuneFamily .
+  ?tuneFamily a :TuneFamily .
+  FILTER(?tuneFamily = <specific_tune_family_URI>)
+}
+```
+
+This query retrieves all compositions that are part of a specific tune family, but it does not provide any information on similarities or differences according to a specific measure, as the ontology does not support such a query.

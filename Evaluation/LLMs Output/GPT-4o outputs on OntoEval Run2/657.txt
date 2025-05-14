@@ -1,0 +1,15 @@
+**No**
+
+The ontology provided does not contain any classes or properties that directly relate to performances or the songs played during them. The ontology primarily focuses on musicians, bands, albums, and tracks, but lacks the necessary structure to represent performances and the songs played in those performances.
+
+Here's a SPARQL query to extract a partial answer, focusing on tracks and albums:
+
+```sparql
+SELECT ?track ?trackName ?album ?albumName
+WHERE {
+  ?track a :Cl_Track .
+  ?track :trackName ?trackName .
+  ?track :isTrackOf ?album .
+  ?album :albumName ?albumName .
+}
+```

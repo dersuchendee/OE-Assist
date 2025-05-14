@@ -1,0 +1,13 @@
+**No**  
+The ontology does not capture a specific notion of “original parts” (e.g. marking them as original or non‐original) that would allow us to distinguish parts that have not been replaced from those that have. Under the closed world assumption, since there is no explicit statement about originality, we can only retrieve the parts that are associated with an organ. For example, a partial SPARQL query that returns all parts of an organ is:
+
+PREFIX arco: <https://w3id.org/arco/ontology/core/>
+PREFIX organs: <https://w3id.org/polifonia/ontology/organs/>
+
+SELECT ?organ ?part
+WHERE {
+  ?organ a organs:Organ .
+  ?organ arco:includesPart ?part .
+} 
+
+This query provides a partial answer by listing all parts included in an organ, but does not distinguish which parts are original.

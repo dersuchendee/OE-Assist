@@ -1,0 +1,14 @@
+**Yes**
+
+The competency question is supported by the ontology as it involves querying the relationship between chemical parameters and aquifer fungi, which is explicitly modeled in the ontology through the `hasAssociatedChemicalParameter` property. Here is a SPARQL query to extract the answer:
+
+```sparql
+SELECT ?fungus ?fungusLabel ?chemicalParameter ?chemicalParameterLabel
+WHERE {
+  ?fungus a :AquiferFungus .
+  OPTIONAL { ?fungus rdfs:label ?fungusLabel . }
+
+  ?fungus :hasAssociatedChemicalParameter ?chemicalParameter .
+  OPTIONAL { ?chemicalParameter rdfs:label ?chemicalParameterLabel . }
+}
+```

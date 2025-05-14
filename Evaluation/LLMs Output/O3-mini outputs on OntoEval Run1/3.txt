@@ -1,0 +1,17 @@
+**Yes**
+
+The ontology clearly models the credibility of a source by relating a Source to a Credibility Assessment (including a score and explanation) via the property :hasCredibilityAssessment. Under a closed world assumption, every source that qualifies is assumed to have its credibility assessment recorded in the ontology. The following SPARQL query extracts, for each source, its credibility assessment along with the credibility score and explanation:
+
+PREFIX : <http://www.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?source ?sourceLabel ?score ?explanation
+WHERE {
+  ?source a :Source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+  
+  ?source :hasCredibilityAssessment ?assessment .
+  ?assessment :hasCredibilityScore ?score .
+  ?assessment :hasCredibilityExplanation ?explanation .
+}

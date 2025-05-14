@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that productions are explicitly linked to the (reified) play that forms their basis via the object property basedOnPlay, you can answer the CQ by selecting all productions and retrieving the play names (using the data property playName). Under the closed‐world assumption the following SPARQL query returns all productions along with the names of the plays they are based on:
+
+------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?playName
+WHERE {
+  ?production a :Cl_Production .
+  ?production :basedOnPlay ?productionPlay .
+  ?productionPlay :playName ?playName .
+}
+------------------------------
+
+This query retrieves the answer to the competency question "What play is the basis of this production?"

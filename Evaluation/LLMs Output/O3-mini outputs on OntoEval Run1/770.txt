@@ -1,0 +1,27 @@
+**Yes**
+
+Here a SPARQL query that exploits the reification via the intermediate class (Cl_PersonDegree) linking a person to his/her medical degree (Cl_MedicalDegree) and associated date:
+
+---------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?medicalDegree ?degreeLabel ?degreeDate
+WHERE {
+  # Retrieve the reified person–degree association
+  ?pd a :Cl_PersonDegree ;
+      :hasPerson ?person ;
+      :hasDegree ?medicalDegree ;
+      :degreeDate ?degreeDate .
+
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?medicalDegree rdfs:label ?degreeLabel . }
+
+  # Filter by a specific person if needed (e.g., Pasquale Di Gennaro)
+  # FILTER(?person = <http://www.example.org/test#Pasquale_Di_Gennaro>)
+}
+ORDER BY ?degreeDate
+---------------------------------
+
+This query extracts, for each person, the medical degrees obtained, including any available labels and the date of obtaining the degree.

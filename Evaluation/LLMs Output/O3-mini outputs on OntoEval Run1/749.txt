@@ -1,0 +1,28 @@
+**Yes**
+
+Assuming a closed‐world interpretation, we can verify that every record instance (of type :Cl_Record) has at least one associated track via the property :containsTrack. For example, the following SPARQL query retrieves, for every record, the tracks it contains. Under the closed world assumption, if every record has at least one track then every record will appear with one or more tracks. Also, one can use a “violation” query to check if any record has no track:
+
+-- Query to list each record with its tracks
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record ?track
+WHERE {
+  ?record rdf:type :Cl_Record .
+  ?record :containsTrack ?track .
+}
+
+-- Alternatively, to check for records missing any track (expecting an empty result set):
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?record (COUNT(?track) AS ?trackCount)
+WHERE {
+  ?record rdf:type :Cl_Record .
+  OPTIONAL { ?record :containsTrack ?track . }
+}
+GROUP BY ?record
+HAVING (COUNT(?track) < 1)
+
+If the second query returns no records, then the ontology satisfies the CQ “A record always contains at least one track.”

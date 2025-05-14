@@ -1,0 +1,14 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?article ?title
+WHERE {
+  ?article a :Cl_Article ;
+           :dp_title ?title ;
+           :op_presentedIn ?presentation .
+  ?presentation :op_presents ?seminar .
+  FILTER(?seminar = :Ind_Seminar2008)
+}
+```

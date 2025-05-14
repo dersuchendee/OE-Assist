@@ -1,0 +1,11 @@
+**No**
+
+The ontology does not provide a direct way to determine the location of a seminar. The ontology includes a `heldAt` property that connects a seminar to a hospital, but it does not specify the geographic location of the hospital. Therefore, the competency question cannot be fully answered with the given ontology. However, a partial answer can be extracted by identifying the hospital where the seminar was held.
+
+```sparql
+SELECT ?seminar ?hospital
+WHERE {
+  ?seminar a :Cl_Seminar .
+  ?seminar :heldAt ?hospital .
+}
+```

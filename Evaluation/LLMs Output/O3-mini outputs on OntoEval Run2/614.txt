@@ -1,0 +1,23 @@
+**Yes**
+
+Below is one possible SPARQL query that, given a specific critic and a specific record, retrieves the review text that connects them:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critic ?record ?reviewText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?record a :Cl_Record .
+  ?critic :gaveReview ?review .
+  ?record :hasReview ?review .
+  ?review :reviewText ?reviewText .
+  
+  # Replace the following IRIs with the specific critic and record you are interested in:
+  FILTER(?critic = <http://www.example.org/test#SpecificCritic> && ?record = <http://www.example.org/test#SpecificRecord>)
+}
+------------------------------------------------
+
+This query extracts the review text (what the critic says) by connecting the critic and the record through the reified review instance.

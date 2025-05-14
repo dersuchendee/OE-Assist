@@ -1,0 +1,34 @@
+**Yes**
+
+Below is one example of how you could write a SPARQL query to answer this competency question. In this query the “certain person,” “certain union group,” and “certain point in time” are provided as parameters (using VALUES and a FILTER for the time) so that the query returns the role (via its union role assignment) that the person holds in that union group at that moment in time.
+
+------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?role ?unionGroup ?startDate
+WHERE {
+  # Specify the individual target person and union group.
+  VALUES ?person { <http://www.example.org/test#PasqualeDiGennaro> }
+  VALUES ?unionGroup { <http://www.example.org/test#MaleNursesUnionGroup> }
+  
+  # Get the union role assignment that connects the person to the role and union group.
+  ?person :hasUnionRoleAssignment ?assignment .
+  ?assignment :startDate ?startDate .
+  ?unionGroup :isAssignmentInUnionGroup ?assignment .
+  ?role :isAssignmentOfRole ?assignment .
+  
+  # Ensure that the assignment is valid at the given point in time.
+  # Replace "2003-01-01T00:00:00" with the desired point in time.
+  FILTER ( ?startDate <= xsd:dateTime("2003-01-01T00:00:00") )
+}
+ORDER BY ?person ?startDate
+------------------------------------------------------------
+
+In this query:
+– The individual person and the union group are identified via VALUES.
+– The property :hasUnionRoleAssignment links a Cl_Person to its union role assignment.
+– The properties :isAssignmentOfRole and :isAssignmentInUnionGroup allow retrieval of the role and union group associated with the assignment.
+– The FILTER ensures that the assignment’s start date is before (or at) the given point in time, assuming that once an assignment starts it is valid (closed world assumption is applied here).
+
+This demonstrates that the ontology supports the competency question, as one can indeed extract the answer with the help of this query.

@@ -1,0 +1,28 @@
+**Yes**
+
+Assuming a closed world (only explicitly asserted facts hold), we can answer the CQ because the ontology explicitly distinguishes ChemicalMeasurement and PhysicalMeasurement – both of which have the properties :locatedInArea (and :hasSpatialDistribution) that link them to spatial information (i.e. :Area and :SpatialDistribution, respectively).
+
+Below is a SPARQL query that returns, for each measurement (tagged as chemical or physical), its designated area:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?measurement ?measurementType ?area
+WHERE {
+  {
+    ?measurement a :ChemicalMeasurement ;
+                 :locatedInArea ?area .
+    BIND("ChemicalMeasurement" AS ?measurementType)
+  }
+  UNION
+  {
+    ?measurement a :PhysicalMeasurement ;
+                 :locatedInArea ?area .
+    BIND("PhysicalMeasurement" AS ?measurementType)
+  }
+}
+ORDER BY ?measurementType ?area
+------------------------------------------------
+
+This query retrieves chemical and physical measurements along with the areas in which they are located, thereby answering the competency question.

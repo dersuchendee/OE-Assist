@@ -1,0 +1,29 @@
+**Yes**
+
+Below is one SPARQL query that, under a closed‐world assumption, returns the persons who are members of a given union (here, for example, ns1:MaleNurseUnion) at a specified point in time (here, provided as a fixed date, which you can adjust):
+
+---------------------------------------------------------------
+PREFIX ns1: <http://www.example.org/ontology/hospital#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?name
+WHERE {
+  ?person ns1:memberOf ?membership .
+  ?membership ns1:hasUnion ns1:MaleNurseUnion .
+  ?membership ns1:hasMembershipPeriod ?period .
+  ?period time:hasBeginning ?start .
+  OPTIONAL { ?period time:hasEnd ?end . }
+  
+  # Specify the point in time to check (adjust the value as needed)
+  BIND(xsd:dateTime("2002-06-01T00:00:00Z") AS ?givenTime) .
+  
+  # Return only those memberships active at the given time (if no end date, assume still active)
+  FILTER ( ?givenTime >= ?start && ( !BOUND(?end) || ?givenTime <= ?end ) )
+  
+  OPTIONAL { ?person rdfs:label ?name . }
+}
+---------------------------------------------------------------
+
+This query answers the competency question by using the reified union membership data (with its time interval) to filter members of a specific union at a given point in time.

@@ -1,0 +1,13 @@
+**Yes**
+
+The competency question is supported by the ontology as it contains the necessary classes and properties to determine the writing period of a play. The SPARQL query to extract the answer is as follows:
+
+```sparql
+SELECT ?play ?startYear ?endYear
+WHERE {
+  ?play a :Cl_Play .
+  ?play :op_hasWritingPeriod ?writingPeriod .
+  ?writingPeriod :dp_startYear ?startYear .
+  ?writingPeriod :dp_endYear ?endYear .
+}
+```

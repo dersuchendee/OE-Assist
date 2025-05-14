@@ -1,0 +1,24 @@
+**Yes**
+
+We can answer this CQ with the ontology since the connections between an Organ, its builder, and the renovator (via Restoration) allow us to query for both who built and who renovated an organ. Under the closed world assumption, we assume that what is not modelled is false.
+
+Below is a SPARQL query that returns individuals who are either declared as a builder of an organ or as a renovator (via a restoration of an organ):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?organBuilder ?builderRole
+WHERE {
+  {
+    ?organ a :Organ .
+    ?organ :hasBuilder ?organBuilder .
+    BIND("builder" AS ?builderRole)
+  }
+  UNION
+  {
+    ?organ a :Organ .
+    ?organ :hasRestoration ?restoration .
+    ?restoration :hasRenovator ?organBuilder .
+    BIND("renovator" AS ?builderRole)
+  }
+}

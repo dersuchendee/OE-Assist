@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine if a person was invited to a meeting or if the meeting was accidental. The ontology includes properties like `:isInvitedTo` and `:isAccidental`, but it does not provide a mechanism to directly query if a specific meeting was accidental or if a person was invited to it. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?person ?event ?isAccidental
+WHERE {
+  ?person a :Person .
+  ?person :participatesIn ?event .
+  ?event a :Meeting .
+  OPTIONAL { ?event :isAccidental ?isAccidental . }
+}
+```

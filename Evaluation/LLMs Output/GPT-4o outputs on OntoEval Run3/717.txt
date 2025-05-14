@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the region in which a city is located. The ontology includes classes for `Cl_City` and `Cl_Region`, and an object property `locatedInRegion` that connects a city to a region. However, the competency question requires a specific city to be queried for its region, which is not directly supported by the ontology as it stands.
+
+Here is a SPARQL query to extract a partial answer, which lists cities and their associated regions if such data were available:
+
+```sparql
+SELECT ?city ?region
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedInRegion ?region .
+}
+```

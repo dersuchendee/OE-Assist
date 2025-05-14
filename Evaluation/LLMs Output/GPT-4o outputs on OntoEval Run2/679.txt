@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not provide information about the location of performances. However, we can extract partial information about performances and the agents involved.
+
+```sparql
+SELECT ?performance ?agent ?agentName
+WHERE {
+  ?performance a :Performance .
+  ?performance :performedBy ?agent .
+  ?agent :agentName ?agentName .
+}
+```

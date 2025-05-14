@@ -1,0 +1,16 @@
+**No**
+
+The ontology does not provide a direct way to determine which specific articles a book or CD is composed of. The ontology includes classes and properties related to books, CDs, and articles, but it lacks a direct connection between a specific book or CD and the articles it contains. Here's a SPARQL query to extract a partial answer:
+
+```sparql
+SELECT ?book ?cd ?articleCollection
+WHERE {
+  ?book a :Cl_Book .
+  ?cd a :Cl_CD .
+  ?articleCollection a :Cl_ArticleCollection .
+  ?book :composedOf ?articleCollection .
+  ?cd :composedOf ?articleCollection .
+}
+```
+
+This query retrieves books and CDs that are composed of article collections, but it does not specify the individual articles within those collections.

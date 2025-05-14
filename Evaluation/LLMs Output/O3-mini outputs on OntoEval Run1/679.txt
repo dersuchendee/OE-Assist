@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology captures performances via the :Performance class and models their location through the property :takesPlaceAt (with a domain of :Event and an instance, e.g. :Performance_RHCP_Portland_2006, linked to a :Place). With the closed world assumption, we can assume that if a performance has a :takesPlaceAt relation, then that is the only location where it took place. Thus, we can write the following SPARQL query to extract the performance along with its associated place:
+
+PREFIX : <http://example.org/music#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?performance ?performanceLabel ?place ?placeName
+WHERE {
+  ?performance a :Performance .
+  ?performance :takesPlaceAt ?place .
+  OPTIONAL { ?performance rdfs:label ?performanceLabel . }
+  OPTIONAL { ?place :placeName ?placeName . }
+}
+
+This query lists each performance along with its label (if available) and the place (with its name) where it took place.

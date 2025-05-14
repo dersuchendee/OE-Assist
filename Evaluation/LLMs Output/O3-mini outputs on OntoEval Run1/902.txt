@@ -1,0 +1,31 @@
+**Yes**
+
+Below is one example SPARQL query that, given a specific union (as an IRI or parameter) and a particular time point (supplied via a variable or as a fixed literal), returns the persons (i.e. members) whose union membership is active at that time. Note that under the closed‐world assumption we assume that if a membershipEndDate is not provided then the membership is still active.
+
+For example, if you want to get the members of a union with IRI :SomeUnion as of a given date (e.g. "2003-01-01"^^xsd:date), you could use the query below:
+
+---------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?membership ?membershipStartDate ?membershipEndDate
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  ?person :memberOf ?membership .
+  ?membership :membershipUnion :SomeUnion .
+  ?membership :membershipStartDate ?membershipStartDate .
+  OPTIONAL { ?membership :membershipEndDate ?membershipEndDate . }
+  
+  # Define the time point to check membership (e.g., 2003-01-01)
+  BIND(xsd:date("2003-01-01") AS ?time)
+  
+  # The membership is active at ?time if ?time is on or after the start date and,
+  # if an end date exists, ?time is on or before the end date.
+  FILTER(?time >= ?membershipStartDate && ( !bound(?membershipEndDate) || ?time <= ?membershipEndDate ))
+}
+ORDER BY ?person
+---------------------------------------------------------
+
+This query returns the persons whose membership record (of type :Cl_UnionMembership) links them to the given union via the property :membershipUnion and whose active dates bracket the specified time.

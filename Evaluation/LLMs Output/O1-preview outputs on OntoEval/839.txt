@@ -1,0 +1,12 @@
+**Yes**
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?hospital ?city ?cityName
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedInCity ?city .
+  OPTIONAL { ?city :cityName ?cityName . }
+}
+```

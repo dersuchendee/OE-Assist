@@ -1,0 +1,23 @@
+**Yes**
+
+The ontology supports the competency question since it contains the relevant classes and properties to represent productions, newspapers, reviews, and star ratings. Specifically, the properties `:hasReview`, `:isReviewedIn`, and `:starRating` connect a production and a newspaper through a review that includes the star rating.
+
+Here is the SPARQL query to extract the star rating given by a certain newspaper for a certain production:
+
+```sparql
+SELECT ?production ?productionName ?newspaper ?newspaperName ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?newspaper a :Cl_Newspaper .
+  
+  ?production :isReviewedIn ?review .
+  ?newspaper :hasReview ?review .
+  
+  ?review :starRating ?starRating .
+  
+  OPTIONAL { ?production rdfs:label ?productionName . }
+  OPTIONAL { ?newspaper rdfs:label ?newspaperName . }
+}
+```
+
+This query retrieves all productions and newspapers where the newspaper has reviewed the production and provides the associated star rating from the review.

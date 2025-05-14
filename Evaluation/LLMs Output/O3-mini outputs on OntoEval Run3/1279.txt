@@ -1,0 +1,19 @@
+**Yes**
+
+Assuming that the musician “Z” is identified (for example, by an rdfs:label "Musician Z"), we can write a SPARQL query that uses the ontology’s properties (:participatesIn and :hasLocation) to retrieve the places associated with the events in which the musician participated. Here is one such query:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?place ?placeLabel 
+WHERE {
+  ?musician a :Musician ;
+            rdfs:label ?musLabel .
+  FILTER(?musLabel = "Musician Z") .
+  
+  ?musician :participatesIn ?event .
+  ?event :hasLocation ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+
+This query extracts all distinct places (and optionally their labels) that are associated with the events in which musician Z participated, thereby answering the competency question.

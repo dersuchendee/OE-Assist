@@ -1,0 +1,18 @@
+**Yes**
+
+Assuming that a “certain city” is represented as an instance of Cl_City and that its region is linked via the property :locatedIn to an instance of Cl_Region, under the closed-world assumption we can write a SPARQL query such as:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?city ?cityLabel ?region ?regionLabel
+WHERE {
+  ?city a :Cl_City .
+  ?city :locatedIn ?region .
+  OPTIONAL { ?city rdfs:label ?cityLabel. }
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+}
+--------------------------------------------------
+
+This query retrieves each city (and its label when available) along with the region in which it is located, thereby answering the competency question "In what region is a certain city located?" within the provided ontology.

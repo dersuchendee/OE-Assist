@@ -1,0 +1,21 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/ontology/hospital#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personLabel ?studyPeriod ?studyPeriodLabel ?degree ?degreeLabel ?startDate ?endDate
+WHERE {
+  ?person a :Person ;
+          rdfs:label ?personLabel ;
+          :studiedDuring ?studyPeriod .
+  ?studyPeriod a :StudyPeriod ;
+               :hasStartDate ?startDate ;
+               :hasEndDate ?endDate ;
+               :degreeObtained ?degree ;
+               rdfs:label ?studyPeriodLabel .
+  ?degree rdfs:label ?degreeLabel .
+  
+  # Filter for the specific person and degree as required by the CQ
+  FILTER(?person = :PasqualeDiGennaro && ?degree = :CertifiedNurseDegree)
+}
+```

@@ -1,0 +1,14 @@
+**Yes**
+
+Assuming that instances of regions are explicitly defined and relate to countries through the property regionInCountry under a closed world assumption, the following SPARQL query will return, for each region, its associated country:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?region ?regionLabel ?country ?countryLabel
+WHERE {
+  ?region a :Cl_Region .
+  ?region :regionInCountry ?country .
+  OPTIONAL { ?region rdfs:label ?regionLabel. }
+  OPTIONAL { ?country rdfs:label ?countryLabel. }
+}

@@ -1,0 +1,16 @@
+**No**
+
+The ontology provided does not contain any direct information about the plays that can be seen during a certain theatre festival. The ontology includes classes and properties related to festivals, cities, plays, and their appearances, but it does not explicitly link plays to specific festivals in a way that can be queried directly.
+
+However, we can extract partial information about the plays that are associated with a festival occurrence, but not specifically during a certain theatre festival.
+
+```sparql
+SELECT ?festival ?play ?title
+WHERE {
+  ?festival a :Cl_Festival .
+  ?festival :hasOccurrence ?occurrence .
+  ?occurrence :hasPlayAppearance ?appearance .
+  ?appearance :isPlayOf ?play .
+  ?play :hasTitle ?title .
+}
+```

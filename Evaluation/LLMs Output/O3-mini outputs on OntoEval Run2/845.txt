@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one SPARQL query that retrieves the hospital (e.g. OspedaleRiunitoDelleTreValli) together with its city based on the modeled “locatedIn” relation and the cityName data property:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?hospital ?cityName
+WHERE {
+  ?hospital a :Cl_Hospital ;
+            :locatedIn ?location .
+  ?location :cityName ?cityName .
+  FILTER(?hospital = :OspedaleRiunitoDelleTreValli)
+}
+--------------------------------------------------
+
+This query shows that the ontology fully supports the competency question “In what city is a certain hospital located?” under the closed world assumption.

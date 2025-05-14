@@ -1,0 +1,25 @@
+**Yes**
+
+Assuming that union membership is reified in the ontology (with individuals of type Cl_UnionMembership having a membership date and linking a person to a union through the memberOf property), we can answer “Who are the members of a certain union at a certain point in time?” by selecting persons whose union‐membership record (with a given union) has a membershipDate less than or equal to the queried time. For example, if we treat the input union IRI as ?targetUnion and the point in time as ?pointInTime (an xsd:dateTime literal), then under a closed‐world assumption the following SPARQL query returns the answer:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?membershipDate ?union 
+WHERE {
+  ?person a :Cl_Person .
+  OPTIONAL { ?person rdfs:label ?personLabel. }
+  
+  ?person :memberOf ?membership .
+  ?membership :membershipDate ?membershipDate .
+  ?membership :memberOf ?union .
+  
+  FILTER(?union = <http://www.example.org/test#UnionExample> && 
+         ?membershipDate <= "2002-12-31T23:59:59"^^xsd:dateTime)
+}
+ORDER BY ?membershipDate
+-------------------------------------------------
+
+In this query the IRI <http://www.example.org/test#UnionExample> represents the union of interest and "2002-12-31T23:59:59"^^xsd:dateTime is the specified point in time. Adjust these values as needed.

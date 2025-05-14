@@ -1,0 +1,10 @@
+**Yes**
+```sparql
+SELECT ?person ?personLabel ?location ?locationLabel
+WHERE {
+  ?person a :Person .
+  ?person :isLocatedIn ?location .
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+  OPTIONAL { ?location rdfs:label ?locationLabel . }
+}
+```

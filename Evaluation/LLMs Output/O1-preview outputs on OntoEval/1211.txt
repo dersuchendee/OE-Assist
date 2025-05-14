@@ -1,0 +1,17 @@
+**Yes**
+
+Here's a SPARQL query that answers the competency question:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?targetTuneFamily
+WHERE {
+  ?simRel a :SimilarityRelation ;
+          :hasSourceTuneFamily :X ;
+          :hasTargetTuneFamily ?targetTuneFamily ;
+          :hasSimilarityMeasure :Y .
+}
+```
+
+This query retrieves all the target tune families (`?targetTuneFamily`) that are related to a specific source tune family `:X` using a specific similarity measure `:Y`, as defined in the ontology.

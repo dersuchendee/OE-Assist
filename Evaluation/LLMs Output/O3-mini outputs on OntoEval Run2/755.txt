@@ -1,0 +1,15 @@
+**Yes**
+
+Assuming the closed‐world view (i.e. if no track is recorded it’s false), we can check that every record (album) has at least one track by retrieving the tracks for each album. For example, this SPARQL query returns for each album the tracks it contains. If an album were missing any track, it would not appear in the results, indicating a violation of the “at least one track” constraint:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?album ?track
+WHERE {
+  ?album rdf:type :Cl_Album .
+  ?album :containsTrack ?track .
+}
+ORDER BY ?album ?track
+
+Under a closed‐world assumption, if every album in the ontology must have at least one associated track then every album will have a matching ?track, and the competency question “A record always contains at least one track” is fully supported by the ontology.

@@ -1,0 +1,16 @@
+**Yes**
+
+Assuming the particular theatre is identified by its ontology type (Cl_Theatre) and the property linking it to a city is :locatedIn, the following SPARQL query retrieves for each theatre the city where it is located:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?theatre ?theatreLabel ?city ?cityLabel
+WHERE {
+  ?theatre a :Cl_Theatre .
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+  ?theatre :locatedIn ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel . }
+}
+
+This query shows that the competency question “In what city is a certain theatre located?” is answerable from the given ontology under the closed world assumption.

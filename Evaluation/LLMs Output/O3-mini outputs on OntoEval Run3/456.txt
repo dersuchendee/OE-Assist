@@ -1,0 +1,38 @@
+**Yes**
+
+Below is one example SPARQL query that, under a closed‐world reading of this ontology, retrieves the (reified) membership assertions for a given band – here “RedHotChiliPeppers” – that are valid for a given time (specified as a parameter). (In this example we use “2005-01-01” as a sample date.) Note that the ontology models membership using the reified class Cl_Membership with time properties (e.g. :membershipStart and optionally :membershipEnd), so we can “join” the information about a person’s membership with the band.
+
+Assuming that each membership individual (of type :Cl_Membership) is linked both to the band (via :memberOf) and the band member (via a property such as :hasMember or by its identifier being related to a person already asserted as a member), one possible query is as follows:
+
+--------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?membershipStart ?membershipEnd
+WHERE {
+  # Select the membership assertions for the band
+  ?membership a :Cl_Membership ;
+              :memberOf :RedHotChiliPeppers ;
+              :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Link the membership to the person (assuming a linking property such as :hasMember)
+  ?membership :hasMember ?person .
+  
+  # Restrict to membership in effect at the specified date (e.g., “2005-01-01”)
+  FILTER (
+      xsd:date("2005-01-01") >= ?membershipStart &&
+      ( !bound(?membershipEnd) || xsd:date("2005-01-01") <= ?membershipEnd )
+  )
+}
+ORDER BY ?membershipStart
+--------------------------------------------------------------
+
+In this query we assume the following:
+1. The band “RedHotChiliPeppers” is an individual of type :Cl_Band.
+2. Memberships are represented as individuals of type :Cl_Membership, linking the band to a person by a property (here :hasMember).
+3. Each membership has a start date (and may have an end date), so that the FILTER clause selects only those memberships active at the specified time.
+
+Under a closed‐world assumption, if a membership is not recorded the query will simply not return that person.
+
+This SPARQL query fully “answers” the CQ using the ontology’s reified membership model, so the competency question is modelled by the ontology.

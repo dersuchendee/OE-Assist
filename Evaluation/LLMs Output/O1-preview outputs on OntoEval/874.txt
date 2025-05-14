@@ -1,0 +1,42 @@
+Answer: **Yes**
+
+The ontology contains the necessary classes and properties to determine the country in which a given city is located. Specifically, it includes:
+
+- **Classes**: `:Cl_City`, `:Cl_Country`, and `:Cl_CityLocation`.
+- **Object Properties**: `:cityLocatedIn` (linking `:Cl_CityLocation` to `:Cl_Country`) and `:cityLocationOf` (linking `:Cl_CityLocation` to `:Cl_City`).
+- **Data Properties**: `:cityName`, `:countryName`.
+
+Here's a SPARQL query to retrieve the country in which each city is located:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?cityName ?countryName
+WHERE {
+  ?city rdf:type :Cl_City ;
+        :cityName ?cityName .
+
+  ?cityLocation rdf:type :Cl_CityLocation ;
+                :cityLocationOf ?city ;
+                :cityLocatedIn ?country .
+
+  ?country rdf:type :Cl_Country ;
+           :countryName ?countryName .
+}
+```
+
+**Explanation:**
+
+- The query selects the names of cities and their corresponding countries.
+- It retrieves all individuals of type `:Cl_City` and gets their `:cityName`.
+- It finds the `:Cl_CityLocation` that links each city to a country via the properties `:cityLocationOf` and `:cityLocatedIn`.
+- It retrieves the `:countryName` of each country.
+
+This query will return the following result based on the ontology data:
+
+| cityName          | countryName |
+|-------------------|-------------|
+| "Nocera Inferiore" | "Italy"     |
+
+This satisfies the competency question, confirming that the ontology models the required information.

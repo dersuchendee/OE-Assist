@@ -1,0 +1,23 @@
+**Yes**
+
+The competency question "What are the attribute values for this event?" is fully answerable using the provided ontology. The event `:XMenPreview` is explicitly modeled and linked to its attributes such as the film, location, and time through the properties `event:product`, `event:place`, and `event:time`. The ontology includes data properties like `:hasTitle`, `:hasLocationName`, and `:hasStartTime` to retrieve the titles and names associated with the film and location, as well as the start time of the event. Therefore, we can write a SPARQL query to extract all the attribute values for this event.
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?filmTitle ?locationName ?startTime
+WHERE {
+  :XMenPreview a event:Event .
+  
+  :XMenPreview event:product ?film .
+  OPTIONAL { ?film :hasTitle ?filmTitle . }
+  
+  :XMenPreview event:place ?location .
+  OPTIONAL { ?location :hasLocationName ?locationName . }
+  
+  :XMenPreview event:time ?timeNode .
+  OPTIONAL { ?timeNode :hasStartTime ?startTime . }
+}
+```

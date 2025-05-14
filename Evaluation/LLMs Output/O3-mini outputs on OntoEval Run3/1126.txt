@@ -1,0 +1,17 @@
+**Yes**
+
+Assuming that the only weather-related information is provided via the property :providesService linking individuals of type :Cl_WeatherService to individuals of type :Cl_PersonalizedWeatherInformation, we can answer the competency question in the closed-world by querying for those pairs. For example:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?weatherService ?info
+WHERE {
+  ?weatherService a :Cl_WeatherService .
+  ?weatherService :providesService ?info .
+}
+--------------------------------------------------
+
+This query extracts the weather service and the personalized weather information it provides, directly addressing the CQ.

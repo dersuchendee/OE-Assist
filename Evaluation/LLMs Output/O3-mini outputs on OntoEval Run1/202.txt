@@ -1,0 +1,20 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves, for every production in the ontology, the play that is used as the play basis. In this example the association is modeled through the property “hasPlayBasis” linking a production to a play basis, from which the “playBasis” property then provides the actual play.
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?production ?productionLabel ?play ?playLabel
+WHERE {
+  ?production a :Cl_Production .
+  OPTIONAL { ?production rdfs:label ?productionLabel. }
+  
+  ?production :hasPlayBasis ?playBasis .
+  ?playBasis :playBasis ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel. }
+}
+---------------------------------------------------
+
+This query demonstrates that the CQ "What play is the basis of this production?" is fully supported by the ontology.

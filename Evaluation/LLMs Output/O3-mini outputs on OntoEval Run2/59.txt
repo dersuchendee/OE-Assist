@@ -1,0 +1,11 @@
+**Yes**
+
+```sparql
+SELECT ?material ?element ?atomicPercentage
+WHERE {
+  ?material a :Cl_Material .
+  ?material :hasChemicalComposition ?composition .
+  ?composition :hasElement ?element .
+  OPTIONAL { ?composition :hasAtomicPercentage ?atomicPercentage . }
+}
+```

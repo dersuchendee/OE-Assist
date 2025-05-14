@@ -1,0 +1,31 @@
+**Yes**
+
+```sparql
+SELECT ?role ?roleLabel
+WHERE {
+  # Find role assignments involving the specific person and production
+  ?roleAssignment a :RoleAssignment ;
+                  :assignedPerson ?person ;
+                  :assignedRole ?role ;
+                  :inProduction ?production ;
+                  :during ?timeInterval .
+  
+  # Get labels for roles (optional)
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # Get the start and end dates of the time interval
+  ?timeInterval :hasStartDate ?startDate ;
+                :hasEndDate ?endDate .
+                
+  # Filter to include only the role assignments valid at the specified time point
+  FILTER (?timePoint >= ?startDate && ?timePoint <= ?endDate) .
+}
+```
+
+This query retrieves the roles (`?role`) that a specific person (`?person`) has within a specific production (`?production`) at a specific point in time (`?timePoint`). It does so by:
+
+- Finding role assignments (`:RoleAssignment`) that involve the person and production of interest.
+- Ensuring the time interval during which the role assignment is valid includes the specified time point.
+- Optionally retrieving labels for the roles for readability.
+
+This utilizes the ontology's modeling of `RoleAssignment`, which relates a person, role, production, and time interval, allowing us to answer the competency question.

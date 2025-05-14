@@ -1,0 +1,17 @@
+**No**
+
+The ontology does not provide a direct way to query for both builders and renovators of an organ. The ontology has separate properties for builders (`:hasBuilder`) and renovators (`:hasRenovator`), but there is no direct connection between these two roles for a single organ. Therefore, the competency question cannot be fully answered with the given ontology.
+
+Partial SPARQL query to extract either builders or renovators:
+
+```sparql
+SELECT ?organ ?builder ?renovator
+WHERE {
+  ?organ a :Organ .
+  OPTIONAL { ?organ :hasBuilder ?builder . }
+  OPTIONAL {
+    ?organ :hasRestoration ?restoration .
+    ?restoration :hasRenovator ?renovator .
+  }
+}
+```

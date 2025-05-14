@@ -1,0 +1,29 @@
+**Yes**
+
+Assuming that by “a certain union” the query has a fixed union identifier (e.g. :SomeUnion) and that the “point in time” is provided as a date literal (here exemplified as "2002-01-01"^^xsd:date), the ontology supports this competency question. Under a closed‐world assumption, we require that the membership’s start date is on-or-before the queried time and its end date (if provided) is on-or-after that time.
+
+A sample SPARQL query is:
+
+----------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?person ?personLabel
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOf ?membership .
+  ?membership :union :SomeUnion .
+  ?membership :membershipStartDate ?start .
+  OPTIONAL { ?membership :membershipEndDate ?end . }
+  
+  # Define the point in time to check membership; change the date as needed.
+  BIND("2002-01-01"^^xsd:date AS ?time)
+  
+  FILTER(?start <= ?time && (!bound(?end) || ?time <= ?end))
+  
+  OPTIONAL { ?person rdfs:label ?personLabel . }
+}
+----------------------------------
+
+This query retrieves all persons who are members of the specified union at the given point in time.

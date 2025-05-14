@@ -1,0 +1,17 @@
+**Yes**
+
+We can verify that every seminar is required to have at least one article presentation by querying for seminars that have associated article presentations. Under the closed world assumption, if no article presentation is found for a seminar then the ontology would be incomplete. The following SPARQL query extracts each seminar along with its presented article:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?seminar ?articlePresentation
+WHERE {
+  ?seminar rdf:type :Cl_Seminar .
+  ?seminar :containsPresentationOf ?articlePresentation .
+  ?articlePresentation rdf:type :Cl_Article .
+}
+--------------------------------
+
+This query confirms that each seminar (i.e. instance of :Cl_Seminar) is linked via the property :containsPresentationOf to at least one entity that is an article (i.e. an instance of :Cl_Article).

@@ -1,0 +1,13 @@
+**No**
+
+Because the ontology does not provide a way to link an actual actor instance (of class `:Cl_Actor`) to the `:Cl_ActorEmployment` instances representing their employment events. Therefore, we cannot retrieve the starting employment dates of specific actors at particular theatres.
+
+Partial SPARQL query:
+
+```sparql
+SELECT ?actorEmployment ?theatre ?employmentDate WHERE {
+  ?actorEmployment rdf:type :Cl_ActorEmployment .
+  ?actorEmployment :worksForTheatre ?theatre .
+  ?actorEmployment :hasEmploymentDate ?employmentDate .
+}
+```

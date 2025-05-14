@@ -1,0 +1,12 @@
+**No**
+
+The ontology does not explicitly define a relationship between actors and competencies. However, we can extract partial information about actors and their roles, which might imply certain competencies.
+
+```sparql
+SELECT ?actor ?role
+WHERE {
+  ?participation a actorODP:CollaborationParticipation .
+  ?participation actorODP:participatingActor ?actor .
+  ?participation actorODP:participantRole ?role .
+}
+```

@@ -1,0 +1,19 @@
+**Yes**
+
+Below is one SPARQL query that retrieves each production’s unique premier along with its premier date value. (Note that under the closed‐world assumption the query also indirectly confirms that every production has exactly one premier.) 
+
+–––––––––––––––––––––––––––––––––––––––––––
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?production ?premier ?premierDateValue
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasPremier ?premier .
+  ?premier :premierDate ?pd .
+  ?pd :premierDateValue ?premierDateValue .
+}
+ORDER BY ?production
+–––––––––––––––––––––––––––––––––––––––––––
+
+This query extracts, for each production in the ontology, its premier through the object property :hasPremier (which is restricted by the ontology to have exactly one value) and the corresponding premier date from the reified premier date node.

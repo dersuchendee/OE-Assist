@@ -1,0 +1,16 @@
+**Yes**
+
+Here, the CQ is answerable because the ontology includes the necessary classes and properties to represent productions, reviews, newspapers, and star ratings. The SPARQL query to extract the answer is:
+
+```sparql
+SELECT ?production ?playTitle ?newspaperName ?starRating
+WHERE {
+  ?production a :Cl_Production .
+  ?production :hasReview ?review .
+  ?review :starRating ?starRating .
+  ?review :reviewedBy ?newspaper .
+  ?newspaper :hasName ?newspaperName .
+  ?production :isBasedOn ?play .
+  ?play :hasTitle ?playTitle .
+}
+```

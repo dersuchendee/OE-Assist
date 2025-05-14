@@ -1,0 +1,13 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?musician ?musicianLabel ?place ?placeLabel
+WHERE {
+  ?musician a :Musician .
+  OPTIONAL { ?musician rdfs:label ?musicianLabel . }
+  ?musician :comesFrom ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+```

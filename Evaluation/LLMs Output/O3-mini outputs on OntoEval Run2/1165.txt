@@ -1,0 +1,18 @@
+**Yes**
+
+Below is a SPARQL query which, under the closed world assumption, retrieves each instance of :Data along with the corresponding :Source from which it originates:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?data ?dataLabel ?source ?sourceLabel
+WHERE {
+  ?data a :Data .
+  OPTIONAL { ?data rdfs:label ?dataLabel . }
+  ?data :originatesFrom ?source .
+  OPTIONAL { ?source rdfs:label ?sourceLabel . }
+}
+--------------------------------------------------
+
+This query shows that the ontology models the competency question "From what source does this data originate?" since all required classes and properties are present in the ontology.

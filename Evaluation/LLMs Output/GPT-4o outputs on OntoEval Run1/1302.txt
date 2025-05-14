@@ -1,0 +1,15 @@
+**No**
+
+The ontology does not provide a direct way to determine when an organ is moved to another location. The ontology includes classes and properties related to organs, movement events, and locations, but it does not specify a direct relationship or event that indicates the movement of an organ to another location. The competency question cannot be fully answered with the given ontology.
+
+Partial answer:
+```sparql
+SELECT ?organ ?movementEvent ?movementDate ?movedFrom ?movedTo
+WHERE {
+  ?organ a :Organ .
+  ?organ :hasMovementEvent ?movementEvent .
+  ?movementEvent :movementDate ?movementDate .
+  ?movementEvent :movedFrom ?movedFrom .
+  ?movementEvent :movedTo ?movedTo .
+}
+```

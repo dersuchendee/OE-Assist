@@ -1,0 +1,16 @@
+**Yes**
+
+The ontology provides the necessary classes and properties to model the competency question. The `:hasEvaluation` property connects an employee (`:Cl_Person`) to an evaluation statement (`:Cl_EvaluationStatement`), and the `:evaluationByDoctor` property connects the evaluation statement to the doctor (`:Cl_Person`). Additionally, the `:evaluationText` property captures the content of the evaluation.
+
+Here is the SPARQL query to extract the evaluation statements given by doctors for employees:
+
+```sparql
+SELECT ?employee ?doctor ?evaluationText
+WHERE {
+  ?employee rdf:type :Cl_Person .
+  ?employee :hasEvaluation ?evaluationStatement .
+  ?evaluationStatement :evaluationText ?evaluationText .
+  ?evaluationStatement :evaluationByDoctor ?doctor .
+  ?doctor rdf:type :Cl_Person .
+}
+```

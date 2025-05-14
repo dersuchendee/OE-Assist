@@ -1,0 +1,21 @@
+**No**
+
+The ontology does not provide a direct way to determine the time relationship between different musicians, such as identifying who was working at the same time. The ontology includes classes and properties related to musicians, events, and time periods, but it lacks explicit connections or properties that would allow for querying overlapping time periods between musicians.
+
+Partial answer:
+```sparql
+SELECT ?musician1 ?musician2 ?startYear1 ?endYear1 ?startYear2 ?endYear2
+WHERE {
+  ?musician1 a :Musician .
+  ?musician1 :hasTimePeriod ?timePeriod1 .
+  ?timePeriod1 :startYear ?startYear1 .
+  ?timePeriod1 :endYear ?endYear1 .
+
+  ?musician2 a :Musician .
+  ?musician2 :hasTimePeriod ?timePeriod2 .
+  ?timePeriod2 :startYear ?startYear2 .
+  ?timePeriod2 :endYear ?endYear2 .
+
+  FILTER(?musician1 != ?musician2)
+}
+```

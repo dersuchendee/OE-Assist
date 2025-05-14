@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves a performance (of type Cl_Performance) together with its performance date:
+
+--------------------------------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performance ?performanceDate
+WHERE {
+  ?performance rdf:type :Cl_Performance .
+  ?performance :performanceDate ?performanceDate .
+}
+--------------------------------------------------------------------------------
+
+This query reflects the closed world assumption by only returning performances for which a performance date is explicitly stated in the ontology.

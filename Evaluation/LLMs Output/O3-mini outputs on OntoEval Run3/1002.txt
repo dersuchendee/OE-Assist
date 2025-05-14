@@ -1,0 +1,25 @@
+**Yes**
+Below is one possible SPARQL query that, under the closed‐world assumption, retrieves the publication date of any publication instance whose publication (reified via Cl_PublicationInstance) is a book or CD:
+
+----------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?publication ?publicationTitle ?publicationDate
+WHERE {
+  ?pubInstance a :Cl_PublicationInstance ;
+               :publicationDate ?publicationDate ;
+               :hasPublication ?publication .
+  {
+    ?publication a :Cl_Book .
+  }
+  UNION
+  {
+    ?publication a :Cl_CD .
+  }
+  OPTIONAL { ?publication :publicationTitle ?publicationTitle . }
+}
+----------------------------------------------------
+
+In this query the closure is assumed (only the facts available in the ontology are considered). 
+The query finds each publication instance with its publication date and checks that the underlying publication is either a book or a CD.

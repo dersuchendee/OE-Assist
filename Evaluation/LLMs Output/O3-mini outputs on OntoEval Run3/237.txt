@@ -1,0 +1,14 @@
+**Yes**
+
+We can answer the CQ “What plays did a certain author write?” using the ns1:wrotePlay property. For example, if we want the list of plays written by a given author (e.g., William Shakespeare), a SPARQL query under the closed world assumption would be:
+
+PREFIX ns1: <http://example.org/ontology/theatre#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel
+WHERE {
+  ns1:WilliamShakespeare ns1:wrotePlay ?play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+} 
+
+This query retrieves all plays that the specified author wrote.

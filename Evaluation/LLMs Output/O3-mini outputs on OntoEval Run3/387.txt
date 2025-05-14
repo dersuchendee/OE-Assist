@@ -1,0 +1,37 @@
+**Yes**
+
+Below is one example of a SPARQL query that, under a closed‐world interpretation, extracts the roles assigned to a given actor in a specific production at a given time.
+
+For instance, assume you want to know which roles actor :Actor_FabioBianchi has in production :Production_GrandTheatre_MerchantOfVenice on the date "2009-09-10". The query checks that the given date falls within the role assignment’s start and (if available) end dates.
+
+-----------------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?production ?productionLabel ?role ?roleLabel ?roleStartDate ?roleEndDate
+WHERE {
+  ?production a :Cl_Production ;
+              :hasRoleAssignment ?assignment .
+              
+  ?assignment :roleActor ?actor ;
+              :role ?role ;
+              :roleStartDate ?roleStartDate .
+  OPTIONAL { ?assignment :roleEndDate ?roleEndDate . }
+  
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?production rdfs:label ?productionLabel . }
+  OPTIONAL { ?role rdfs:label ?roleLabel . }
+  
+  # Closed-world filter: restrict to a given actor, production, and time.
+  FILTER(
+    ?actor = :Actor_FabioBianchi &&
+    ?production = :Production_GrandTheatre_MerchantOfVenice &&
+    ("2009-09-10"^^xsd:date >= ?roleStartDate) &&
+    ( !BOUND(?roleEndDate) || "2009-09-10"^^xsd:date <= ?roleEndDate )
+  )
+}
+ORDER BY ?roleStartDate
+-----------------------------------------------------------
+
+This query will return the roles (with their labels) that :Actor_FabioBianchi holds in :Production_GrandTheatre_MerchantOfVenice as of 2009-09-10.

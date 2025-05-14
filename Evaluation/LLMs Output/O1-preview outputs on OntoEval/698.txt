@@ -1,0 +1,13 @@
+**No**
+
+```sparql
+SELECT ?region ?country
+WHERE {
+  ?region a :Cl_Region .
+  OPTIONAL { ?region rdfs:label ?regionLabel . }
+  ?region :op_isLocatedIn ?country .
+  OPTIONAL { ?country rdfs:label ?countryLabel . }
+}
+```
+
+Since there are no instances of `:Cl_City` in the ontology, we cannot retrieve any cities and their corresponding regions. Under the closed world assumption, the CQ cannot be answered fully. The SPARQL query above extracts partial information by retrieving regions and the countries they are located in.

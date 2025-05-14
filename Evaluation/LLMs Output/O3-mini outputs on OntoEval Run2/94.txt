@@ -1,0 +1,26 @@
+**Yes**
+
+Assuming that instances of theatre festivals are available in the ontology (i.e. individuals of type :Cl_TheatreFestival with an associated :hasDate property), the following SPARQL query will extract the date for a given festival. For example, if you are interested in the festival “Roma Loves Shakespeare” (assuming it is annotated via rdfs:label), you can run:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasDate ?date ;
+            rdfs:label "Roma Loves Shakespeare" .
+}
+
+If you simply want to list the dates for all theatre festivals (and then select the one you need), you can use:
+
+PREFIX : <http://www.example.org/test#>
+
+SELECT ?festival ?date
+WHERE {
+  ?festival a :Cl_TheatreFestival ;
+            :hasDate ?date .
+}
+ORDER BY ?date
+
+Under the closed-world assumption (only the explicitly asserted facts are true), this query fully answers the CQ.

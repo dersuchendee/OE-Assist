@@ -1,0 +1,30 @@
+**Yes**
+
+Below is an example SPARQL query that uses the reified “band membership” information (with its associated role and membership dates) to answer the CQ “What role does a certain person have in a certain band at a certain point in time?” under a closed‐world assumption. In this query the user supplies a given person, a band, and a date, and the query returns the role held by that person in that band if the point in time falls between the membership start and (if available) membership end dates.
+
+For example, suppose we want to know the role of JohnFrusciante in RedHotChiliPeppers as of “2005-05-05”. The query can be written as follows:
+
+------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?band ?role ?membershipStart ?membershipEnd
+WHERE {
+  ?person a :Cl_Person .
+  ?person :bandMembership ?membership .
+  ?membership :memberOf ?band .
+  ?membership :hasRole ?role .
+  ?membership :membershipStart ?membershipStart .
+  OPTIONAL { ?membership :membershipEnd ?membershipEnd . }
+  
+  # Filter for a specific person, band, and time point:
+  FILTER(
+      ?person = :JohnFrusciante &&
+      ?band = :RedHotChiliPeppers &&
+      xsd:date("2005-05-05") >= ?membershipStart &&
+      ( !bound(?membershipEnd) || xsd:date("2005-05-05") <= ?membershipEnd )
+  )
+}
+------------------------------------------------
+
+This query checks that the given date lies within the membership period (if the end date is not given it is assumed to still be in effect), yielding the role held by that person in the band at the specified point in time.

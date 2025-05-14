@@ -1,0 +1,31 @@
+**Yes**
+
+Assuming the ontology provides time‐bound information about a band membership via a reified class (here :Cl_BandMembership whose membership period is modeled using a time period resource with start and end properties), one may write a SPARQL query to extract the band members at a given point in time. For example, if we assume that a membership’s time period is modelled with properties (for instance, :startTime and :endTime) on the time period instance, one might write:
+
+--------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?person ?personName ?membership ?start ?end
+WHERE {
+  ?person a :Cl_Person .
+  ?person :memberOfBand ?membership .
+  ?membership :bandMember ?band .
+  ?membership :membershipPeriod ?period .
+  ?period :startTime ?start .
+  ?period :endTime ?end .
+  
+  # Filter by the given band URI and the desired time point (e.g., "2004-09-01T00:00:00")
+  FILTER (?band = <http://www.example.org/test#RedHotChiliPeppers>) .
+  FILTER ( "2004-09-01T00:00:00"^^xsd:dateTime >= ?start &&
+           "2004-09-01T00:00:00"^^xsd:dateTime <= ?end ) .
+
+  OPTIONAL { ?person rdfs:label ?personName }
+}
+ORDER BY ?start
+--------------------------------
+
+This query extracts all persons (members) who belong to a specific band (here assumed to be represented by <http://www.example.org/test#RedHotChiliPeppers>) and whose band membership period (with start and end times) covers the point in time "2004-09-01T00:00:00". 
+
+Under the closed world assumption the absence of alternative membership information implies that these are the complete set of members at that date.

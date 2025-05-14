@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide direct information about resources, such as their types, compositions, or usage in process steps, without additional context or instances. However, a partial answer can be extracted by querying the available classes and properties related to resources.
+
+```sparql
+SELECT ?resource ?type ?composition ?processStep
+WHERE {
+  ?resource a :Cl_Resource .
+  OPTIONAL { ?resource :isTypeOf ?type . }
+  OPTIONAL { ?resource :hasComposition ?composition . }
+  OPTIONAL { ?resource :usedIn ?processStep . }
+}
+```

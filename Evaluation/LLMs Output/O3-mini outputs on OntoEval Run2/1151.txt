@@ -1,0 +1,33 @@
+**Yes**
+
+Below is a SPARQL query that, under the closed‐world assumption, retrieves for a given user (and time period) the event(s) that occur during the user’s free-time slot, match the prevailing weather condition, and are marked as suitable (via the :isSuitableFor relation):
+
+------------------------------------------------
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?user ?timePeriod ?weather ?event ?eventLabel
+WHERE {
+  # Assume we are interested in a particular user, e.g., "John Doe"
+  ?user a :User ;
+        rdfs:label "John Doe" .
+  
+  # Get the user's calendar and free time slot (TimePeriod)
+  ?user :hasCalendar ?calendar .
+  ?calendar :hasFreeTimeSlot ?timePeriod .
+  
+  # Retrieve the weather condition of that free time period
+  ?timePeriod :hasWeatherCondition ?weather .
+  
+  # Select events that occur during that time period
+  ?event a :Event ;
+         :occursDuring ?timePeriod ;
+         :isSuitableFor ?user .
+  
+  # Optionally, retrieve event label
+  OPTIONAL { ?event rdfs:label ?eventLabel . }
+}
+ORDER BY ?event
+------------------------------------------------
+
+This query harnesses the ontology's reified relations (e.g., a User’s calendar with free time slots, the associated weather conditions, and events that occur during those slots being marked as suitable for the user) to answer the competency question.

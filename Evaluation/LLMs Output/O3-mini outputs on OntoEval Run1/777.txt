@@ -1,0 +1,18 @@
+**Yes**
+
+Below is an example SPARQL query that, under a closed‐world assumption, retrieves the medical degrees (including properties such as title and obtained date when available) for a given person (for example, PasqualeDiGennaro):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?degree ?degreeTitle ?obtainedDate
+WHERE {
+  ?person rdf:type :Cl_Person ;
+          :hasMedicalDegree ?degree .
+  ?degree :degreeTitle ?degreeTitle .
+  OPTIONAL { ?degree :degreeObtainedDate ?obtainedDate. }
+  FILTER(?person = :PasqualeDiGennaro)
+}
+
+This query shows that the ontology models the competency question “What medical degrees does a certain person have?” by directly linking a person to their medical degrees along with associated data properties.

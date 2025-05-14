@@ -1,0 +1,24 @@
+**Yes**
+
+Below is a SPARQL query that retrieves each RareSpecies along with the ecological function(s) it performs — while ensuring the species is a member of a MicrobialCommunity under the closed‐world assumption:
+
+-------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?rareSpecies ?rareSpeciesLabel ?ecologicalFunction ?functionLabel ?community ?communityLabel
+WHERE {
+  ?rareSpecies a :RareSpecies .
+  OPTIONAL { ?rareSpecies rdfs:label ?rareSpeciesLabel . }
+  
+  ?rareSpecies :performsFunction ?ecologicalFunction .
+  OPTIONAL { ?ecologicalFunction rdfs:label ?functionLabel . }
+  
+  ?rareSpecies :isMemberOfCommunity ?community .
+  ?community a :MicrobialCommunity .
+  OPTIONAL { ?community rdfs:label ?communityLabel . }
+}
+ORDER BY ?rareSpecies ?ecologicalFunction
+-------------------------------------------------
+
+This query extracts the answer to the competency question: “What ecological functions do rare species perform in microbial communities?”

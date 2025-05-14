@@ -1,0 +1,19 @@
+**No**
+
+The given ontology models historical meetups with properties that link meetups (mtps:Meetup) to participants (mtps:hasParticipant) and to locations (mtps:hasPlace), but there is no explicit notion of “musician” nor a direct connection that distinguishes a “musician Z” from a generic participant. Without a specific individual or a defined property marking someone as “musician Z” (e.g., via a label or a dedicated class), we cannot fully answer the competency question. However, we can provide a partial SPARQL query that retrieves locations of meetups where a participant’s label contains “Z” (assuming that might correspond to musician Z under a closed world assumption):
+
+PREFIX mtps: <http://w3id.org/polifonia/ontology/meetups-ontology#>
+PREFIX core: <http://w3id.org/polifonia/ontology/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?place ?placeLabel
+WHERE {
+  ?meetup a mtps:Meetup .
+  ?meetup mtps:hasParticipant ?participant .
+  ?participant rdfs:label ?participantLabel .
+  FILTER(CONTAINS(LCASE(?participantLabel), "z"))
+  ?meetup mtps:hasPlace ?place .
+  OPTIONAL { ?place rdfs:label ?placeLabel . }
+}
+
+This query attempts to extract the meetups that involve a participant whose label contains “z” and then retrieves the associated places, but due to the lack of explicit modelling for the term “musician” it only provides a partial answer.

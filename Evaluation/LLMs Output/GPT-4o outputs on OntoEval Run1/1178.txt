@@ -1,0 +1,11 @@
+**Yes**
+
+The competency question "What kind of execution techniques are possible to perform according to a specific mounting system?" can be answered using the given ontology. The ontology defines a relationship between `MountingSystem` and `ExecutionTechnique` through the property `hasPossibleExecutionTechnique`. Therefore, we can write a SPARQL query to extract the possible execution techniques for each mounting system.
+
+```sparql
+SELECT ?mountingSystem ?executionTechnique
+WHERE {
+  ?mountingSystem a :MountingSystem .
+  ?mountingSystem :hasPossibleExecutionTechnique ?executionTechnique .
+}
+```

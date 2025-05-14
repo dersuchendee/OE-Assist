@@ -1,0 +1,18 @@
+Answer: **Yes**
+
+The given ontology defines the class `:Cl_PerformanceEvent` and the data property `:hasPerformanceDate`, which associates a performance event with its date. Therefore, we can retrieve the date of any performance event defined in the ontology. 
+
+Here is the SPARQL query to find out when a certain performance took place:
+
+```sparql
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?performanceEvent ?performanceDate
+WHERE {
+  ?performanceEvent a :Cl_PerformanceEvent .
+  ?performanceEvent :hasPerformanceDate ?performanceDate .
+}
+```
+
+This query selects all performance events and their corresponding dates, effectively answering the competency question "When did a certain performance take place?".

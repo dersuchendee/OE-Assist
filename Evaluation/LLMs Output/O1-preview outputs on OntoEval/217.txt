@@ -1,0 +1,28 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/theatreontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorName
+WHERE {
+  # Replace ?ensemble and ?givenTime with desired values
+  # For example, to query for members of ensemble :Ensemble123 at time "2009-09-15T00:00:00"^^xsd:dateTime
+  # BIND (:Ensemble123 AS ?ensemble)
+  # BIND ("2009-09-15T00:00:00"^^xsd:dateTime AS ?givenTime)
+  
+  ?membership a :EnsembleMembership ;
+              :ensemble ?ensemble ;
+              :member ?actor ;
+              :during ?timeInterval .
+              
+  ?timeInterval :hasStartDate ?startDate ;
+                :hasEndDate ?endDate .
+                
+  FILTER (?givenTime >= ?startDate && ?givenTime <= ?endDate)
+  
+  OPTIONAL { ?actor :hasName ?actorName }
+}
+```
+
+This SPARQL query retrieves the actors who are members of a specific ensemble at a given point in time. It works by finding `EnsembleMembership` instances where the `:ensemble` matches the desired ensemble and the `:member` is an actor whose membership period (`:during`) includes the specified `?givenTime`. The `FILTER` ensures that only memberships valid at `?givenTime` are considered.

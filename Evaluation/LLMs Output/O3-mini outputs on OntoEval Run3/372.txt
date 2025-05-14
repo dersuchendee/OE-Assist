@@ -1,0 +1,35 @@
+**Yes**
+Below is one possible SPARQL query that, using the reified role instances, extracts the roles that a given person has in a given production at a specific time:
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?person ?personName ?production ?productionTitle ?role ?roleLabel ?time
+WHERE {
+  # Bind the person of interest (replace "John Doe" with the target name)
+  ?person a :Cl_Person ;
+          :hasName "John Doe" ;
+          :hasPersonRoleInProduction ?pivot .
+  
+  # From the pivot, get the role, production and time data
+  ?pivot :withRole ?role ;
+         :inProduction ?production ;
+         :atTime ?time .
+         
+  # Optionally get labels/titles for clarity  
+  OPTIONAL { ?role rdfs:label ?roleLabel. }
+  OPTIONAL { ?production :hasTitle ?productionTitle. }
+  
+  # Filter for a specific production (replace production title with the target title)
+  FILTER (?productionTitle = "The Merchant of Venice")
+  
+  # Filter for a specific point in time, if needed.
+  # Uncomment and adjust the following line to enforce a particular dateTime:
+  # FILTER(?time = "2009-09-07T00:00:00"^^xsd:dateTime)
+}
+ORDER BY ?time
+--------------------------------------------------
+
+This query yields the roles (and optionally their labels) that the specified person has in the specified production at the given time, fully answering the competency question as modelled by the ontology under a closed world assumption.

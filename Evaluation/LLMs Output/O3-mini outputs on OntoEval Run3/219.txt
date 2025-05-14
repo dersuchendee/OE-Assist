@@ -1,0 +1,26 @@
+**Yes**
+Below is one example SPARQL query that, under a closed‐world interpretation, retrieves for a given ensemble (which you can restrict by its URI or label) all actors (members) whose membership record includes the specified point in time. (In this example the point in time is given as “2009-09-15”. You can replace or parameterize it as needed.) 
+
+---------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?ensemble ?ensembleLabel ?actor ?actorLabel ?membershipDate
+WHERE {
+  ?ensemble a :Cl_Ensemble .
+  OPTIONAL { ?ensemble rdfs:label ?ensembleLabel. }
+  
+  ?ensemble :hasMember ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+  
+  ?actor :hasMembership ?membership .
+  ?membership :hasMembershipDate ?membershipDate .
+  
+  # Restrict to a certain point in time (for example “2009-09-15”)
+  FILTER(?membershipDate = "2009-09-15"^^xsd:date)
+}
+ORDER BY ?ensemble ?membershipDate
+---------------------------------------------------
+
+In this query the ontology’s reified membership is used to connect each ensemble (:Cl_Ensemble) with an actor (:Cl_Actor) along with the associated membership date. This shows that the competency question “Who are the members of a certain ensemble at a certain point in time?” is answerable from the provided ontology.

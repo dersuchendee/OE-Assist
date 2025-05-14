@@ -1,0 +1,16 @@
+**No**
+
+The ontology only enables a partial answer since it directly relates a Material to its Origin but does not contain explicit reification to capture a recursive “complete trace” (for example, tracking chains of processes and material flows).
+
+Here is a SPARQL query that retrieves the material and its origin as a partial answer:
+
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?material ?materialLabel ?origin ?originLabel
+WHERE {
+  ?material a :Material .
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+  ?material :hasOrigin ?origin .
+  OPTIONAL { ?origin rdfs:label ?originLabel . }
+}

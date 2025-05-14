@@ -1,0 +1,15 @@
+**Yes**
+
+```sparql
+PREFIX : <http://example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?product ?productLabel ?material ?materialLabel
+WHERE {
+  ?product a :Product .
+  OPTIONAL { ?product rdfs:label ?productLabel . }
+  ?product :consistsOf ?material .
+  OPTIONAL { ?material rdfs:label ?materialLabel . }
+}
+ORDER BY ?product
+```

@@ -1,0 +1,13 @@
+**No**
+
+The ontology does not provide a direct way to determine the city in which a hospital is located. The ontology includes classes and properties related to hospitals, locations, and cities, but there is no explicit connection between a hospital and a city. The closest connection is between a hospital and a location, and a location and a country, but not directly to a city.
+
+Partial SPARQL query to extract available information:
+
+```sparql
+SELECT ?hospital ?location
+WHERE {
+  ?hospital a :Cl_Hospital .
+  ?hospital :locatedIn ?location .
+}
+```

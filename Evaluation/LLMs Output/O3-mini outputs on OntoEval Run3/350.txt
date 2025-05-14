@@ -1,0 +1,16 @@
+**Yes**
+```sparql
+PREFIX : <http://www.example.org/theatre_ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?actor ?actorLabel ?theatre ?theatreLabel ?employmentStartDate
+WHERE {
+  ?employment a :Employment ;
+              :hasActor ?actor ;
+              :employedAt ?theatre ;
+              :employmentStartDate ?employmentStartDate .
+  OPTIONAL { ?actor rdfs:label ?actorLabel . }
+  OPTIONAL { ?theatre rdfs:label ?theatreLabel . }
+}
+```

@@ -1,0 +1,17 @@
+**Yes**
+
+We can answer the CQ “During what time period was a certain play written?” because the ontology provides a property (hasWritingPeriod) with domain Cl_Play that captures exactly that information. Assuming a closed world where only plays with an explicitly defined writing period are considered, the following SPARQL query extracts (optionally along with a play label) the writing period of each play.
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?play ?playLabel ?writingPeriod
+WHERE {
+  ?play a :Cl_Play .
+  OPTIONAL { ?play rdfs:label ?playLabel . }
+  ?play :hasWritingPeriod ?writingPeriod .
+}
+--------------------------------------------------
+
+This query returns each play along with its associated writing period, thus fully supporting the competency question.

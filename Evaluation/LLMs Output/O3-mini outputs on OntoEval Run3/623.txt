@@ -1,0 +1,27 @@
+**Yes**
+Below is an example SPARQL query that, given a specific critic and a specific record, returns the text of the critique (i.e. what the critic says about the record):
+
+--------------------------------------------------
+PREFIX : <http://www.example.org/test#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?critiqueText
+WHERE {
+  ?critic a :Cl_Critic .
+  ?record a :Cl_Record .
+  
+  ?critic :criticizes ?critique .
+  ?critique :critiqueOf ?record .
+  ?critique :critiqueText ?critiqueText .
+  
+  # In a closed-world setting, we assume that if a given individual exists then
+  # its type and associated properties are fully known.
+  # Replace the IRIs below with the actual critic and record individuals.
+  FILTER(?critic = <http://www.example.org/test#CrianHiatt> &&
+         ?record = <http://www.example.org/test#StadiumArcadium>)
+}
+--------------------------------------------------
+
+This query uses the relationships in the ontology—namely that a critic (instance of Cl_Critic) is linked via the property :criticizes to a critique (instance of Cl_Critique), which in turn is linked via :critiqueOf to a record (instance of Cl_Record) and carries its text as :critiqueText—to answer the competency question.

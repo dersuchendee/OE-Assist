@@ -1,0 +1,17 @@
+**Yes**
+
+Below is an example SPARQL query that retrieves the album along with its recording date (using the :hasRecording and :recordedDuring properties):
+
+—————————————————————————————
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?album ?recordingTime
+WHERE {
+  ?album a :Cl_Album ;
+         :hasRecording ?recording .
+  ?recording :recordedDuring ?recordingTime .
+}
+—————————————————————————————
+
+This query returns the “time period” during which each album (e.g., “StadiumArcadium”) was recorded as modelled in the ontology.

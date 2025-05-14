@@ -1,0 +1,19 @@
+**Yes**  
+Below is one possible SPARQL query that, under the closed world assumption, returns the articles composing a specific book or CD (here selected by its title):
+
+PREFIX : <http://www.example.org/test#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?pub ?pubTitle ?article ?articleTitle
+WHERE {
+  ?pub a ?pubType .
+  FILTER(?pubType IN (:Cl_Book, :Cl_CD))
+  
+  ?pub :title ?pubTitle .
+  FILTER(?pubTitle = "Nurse practices in cancer patient care – longitudinal studies at Italian hospitals")
+  
+  ?pub :containsArticle ?article .
+  OPTIONAL {
+    ?article :title ?articleTitle .
+  }
+}

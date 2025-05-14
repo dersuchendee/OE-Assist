@@ -1,0 +1,13 @@
+**Yes**
+
+The ontology models competency‐related aspects through the class actorODP:Capability and the property actorODP:capabilityOf (which links a capability to the actor holding it). Under a closed world assumption, we assume that any actor not explicitly linked via actorODP:capabilityOf does not hold the competency. Thus this CQ is answerable via the following SPARQL query:
+
+PREFIX actorODP: <http://w3id.org/CEON/ontology/actorODP/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?actor ?actorLabel ?capability
+WHERE {
+  ?capability a actorODP:Capability .
+  ?capability actorODP:capabilityOf ?actor .
+  OPTIONAL { ?actor rdfs:label ?actorLabel. }
+}

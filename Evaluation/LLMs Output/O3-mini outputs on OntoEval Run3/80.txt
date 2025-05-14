@@ -1,0 +1,20 @@
+**Yes**
+
+Assuming that a theatre festival occurrence is modelled as an instance of the reified class (for example, Cl_FestivalEvent which is a subclass of Cl_TheatreFestival) that carries date properties, you can extract the start and end dates (or simply the relevant time information) for a given festival. For instance, if “Roma Loves Shakespeare” is recorded as having a festival name (using the property :festivalName) along with :startDate and :endDate, the following SPARQL query shows how the answer can be extracted under a closed‐world assumption:
+
+────────────────────────────
+PREFIX : <http://www.example.org/test#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?festival ?festivalName ?startDate ?endDate
+WHERE {
+  ?festival a :Cl_FestivalEvent . 
+  OPTIONAL { ?festival :festivalName ?festivalName . }
+  ?festival :startDate ?startDate .
+  ?festival :endDate ?endDate .
+  FILTER (lcase(str(?festivalName)) = "roma loves shakespeare")
+}
+────────────────────────────
+
+This query returns the individual representing the festival together with its name, start date, and end date. Hence, the competency question “When did a certain theatre festival take place?” is fully answerable by the ontology.
